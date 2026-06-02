@@ -1,0 +1,53 @@
+table CogsRollingHelper
+	isHidden
+	lineageTag: 568b47d3-8271-4cf7-94b1-2457ffd14827
+
+	column ItemSku
+		dataType: string
+		lineageTag: 9a6f78be-98f9-4c9f-a8d6-6fdb50743919
+		summarizeBy: none
+		sourceColumn: ItemSku
+
+	column WarehouseCode
+		dataType: string
+		lineageTag: f98d4762-1630-4454-a165-5b6f572120f4
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+	column FiscalMonthYear
+		dataType: int64
+		lineageTag: 859d997b-844f-409e-8142-f0e8917e549a
+		summarizeBy: none
+		sourceColumn: FiscalMonthYear
+
+	column PeriodCogs
+		dataType: decimal
+		lineageTag: 97144326-69a0-437f-9177-766bfbef19ea
+		summarizeBy: none
+		sourceColumn: PeriodCogs
+
+	column PeriodShippedQty
+		dataType: decimal
+		lineageTag: 84c07860-12c5-47c2-87de-1cb5b288f8aa
+		summarizeBy: none
+		sourceColumn: PeriodShippedQty
+
+	column Cogs12M
+		dataType: decimal
+		lineageTag: 4702293f-96ae-4dc0-a9aa-ab933167c1d6
+		summarizeBy: none
+		sourceColumn: Cogs12M
+
+	column Cogs52M
+		dataType: decimal
+		lineageTag: eaec2fb8-848d-4c04-8d7b-6dfd9671dc07
+		summarizeBy: none
+		sourceColumn: Cogs52M
+
+	partition CogsRollingHelper-3270a7b5-4eef-45b2-be52-1510bb34754f = entity
+		mode: directLake
+		source
+			entityName: CogsRollingHelper
+			schemaName: InventoryHealth_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

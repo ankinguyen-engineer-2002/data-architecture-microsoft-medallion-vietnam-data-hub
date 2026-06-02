@@ -1,6 +1,6 @@
 # 10 — Bronze Layer
 
-> **Status (updated 2026-05-19):** 30/32 sources ready on Enterprise_Lakehouse. 2 sources (ItemBalance, PurchaseOrderSnapshot) remain Enterprise-missing but **covered by workaround dataflows on SupplyChain_Lakehouse**. Dhivya (DE US) confirmed Logility ItemStatus + PoDetail + PoMaster loads on 2026-05-18; verified by Aric 2026-05-19 via pyodbc probe.
+> **Status (updated 2026-06-01):** live source paths verified after DA-first refactor and shared dimension consolidation. `SalesShipment` is no longer active; helper/COGS logic reads `SalesHistory_Enh.v_InvoiceDetailLineLevel`. `ItemBalance` remains the active SC_LH workaround; `PurchaseOrderSnapshot` remains inactive Phase 2. Shared `DimProduct` now uses EL `DimItemMaster` plus `VendorMaster` and `ITBEXT`.
 
 ## Source pattern
 
@@ -26,7 +26,7 @@ Inventory Health views read Bronze sources via **OneLake shortcuts** mounted in 
 | `Wholesale_Codis_AFI` | `AshleyWarehouseMaster` | 55 | v_WarehouseExt | pre-existing |
 | `Wholesale_DemandPlanning_AFI` | `SupplyPlanDetail` | TBD | v_SupplyPlan | pre-existing |
 | `Wholesale_DemandPlanning_AFI` | `DemandForecast` | 12.27M | v_ForecastCurrent (B2 fix) | pre-existing |
-| `SalesHistory_AFI` | `InvoiceDetail` | TBD | v_SalesShipment (incremental) | pre-existing |
+| `SalesHistory_AFI` | `InvoiceDetail` | via Mart A Silver: `SalesHistory_Enh.v_InvoiceDetailLineLevel` has 127,418,735 rows | Helpers + COGS read Mart A invoice silver directly; no Mart B `SalesShipment` | pre-existing |
 | `Manufacturing_ProductionPlanning_AFI` | `MOMAST` | TBD | v_ManufacturingOrder | pre-existing |
 | `Manufacturing_Inventory_AFI` | `IMHIST` | TBD | v_MovementHistory (incremental) | pre-existing |
 | `Manufacturing_Inventory_AFI` | `TFRDTL` | TBD | v_HoldingTransfer | pre-existing |
@@ -38,9 +38,9 @@ Inventory Health views read Bronze sources via **OneLake shortcuts** mounted in 
 | **`Wholesale_ProductSourcing_AFI`** | **`PoMaster`** | **5,688,132** | v_PurchaseOrder (LEFT JOIN h) — switch from SC_LH | **🆕 Dhivya 2026-05-18 (new table)** |
 | `Wholesale_ProductSourcing_AFI` | `Container` | TBD | Phase 2 | pre-existing |
 | `Purchasing_AFI` | `VendorMaster` | 86.6K | v_Vendor (NEW) + v_ItemMasterExt | pre-existing |
-| `SupplyChain_Enh_1` | `DemandInventorySnapshotWeekly` | TBD | v_InventorySnapshotWeekly | pre-existing (stale 10w — B2 issue) |
-| `SupplyChain_Enh_1` | `DemandForecastSnapshotWeekly` | TBD | v_ForecastSnapshotWeekly | pre-existing (stale 2.1y — B1 issue) |
-| `SupplyChain_DW` | `DimAFIWarehouses` | TBD | (used by ReferenceMaster_Enh.Warehouse already) | pre-existing |
+| `SupplyChain_Enh_1` | `DemandInventorySnapshotDaily` | live via Saturday-derived paths | `InventorySnapshotWeekly`, AWD source mapping (`dinMakeBuyCode`, `dinSource1`) | DA-first active path |
+| `Staging_Wrk` | `DemandForecastSnapshotDaily` | live Saturday-derived path | `ForecastSnapshotWeekly` | DA-first active path; replaces stale weekly source |
+| `CustomerOrders_AFI` | `WarehouseMaster` | 53 active warehouse codes | (used by ReferenceMaster_Enh.Warehouse already) | pre-existing |
 | **`SupplyChain_Enh`** | **`DemandFulfillmentCommonContainer_Logility`** | **38,356,303** | v_LogilityItemStatus + Snapshot — switch from SC_LH | **🆕 Dhivya 2026-05-18 (new table, 53 cols match SC_LH workaround)** |
 
 ### Tier 1 — SupplyChain_Lakehouse workaround (2 tables ACTIVE, EL still missing)
@@ -89,8 +89,8 @@ Recent commits addressing these:
 - `533fb1c6` — fix: route ITBEXT/ITEMBL dataflows via Lakehouse not EDW
 - `b38d4e81` — fix: route 3 dataflows to real EDW schemas (iteration #2)
 
-**Cleanup actions queued** (after deploy verify):
-- DELETE `df_brz_ITBEXT_Reloaded` + `df_brz_ITEMBL_PHYOH_Reloaded` (column-level deprecation, reload không cứu)
+**Cleanup actions queued** (after deploy verify; destructive actions require explicit approval in the active conversation):
+- Candidate cleanup: `df_brz_ITBEXT_Reloaded` + `df_brz_ITEMBL_PHYOH_Reloaded` (column-level deprecation, reload không cứu)
 - KEEP `df_brz_ItemBalance` + `df_brz_PurchaseOrderSnapshot` (still primary path)
 - Switch `v_PurchaseOrder` source path từ `SupplyChain_Lakehouse.dbo.pomaster` → `Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.PoMaster`
 - Switch `v_LogilityItemStatus` source path từ `SC_LH.dbo.logility_demandfulfillment` → `Enterprise_LH.SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility`
@@ -140,14 +140,14 @@ Dhivya rows 3+4 confirmed "Source and EDW also having zero for those columns" �
 | `ATPQT` | `ItemMaster_AFI.ITBEXT` | 0 / 3,389,222 | ✅ Confirmed deprecated |
 | `PHYOH` | `ItemMaster_AFI.ITEMBL` | 0 / 3,412,490 | ✅ Confirmed deprecated |
 
-**Action**: thêm DQ rule type `expected_zero` (không alert) trong [etl/dq_rules_inserts.sql](etl/dq_rules_inserts.sql); **DELETE** dataflows `df_brz_ITBEXT_Reloaded` + `df_brz_ITEMBL_PHYOH_Reloaded` (reload không cứu được column-level deprecation).
+**Action**: thêm DQ rule type `expected_zero` (không alert) trong [etl/dq_rules_inserts.sql](etl/dq_rules_inserts.sql). Candidate cleanup for `df_brz_ITBEXT_Reloaded` + `df_brz_ITEMBL_PHYOH_Reloaded` requires explicit approval before any delete operation.
 
 ### §B. Stale data (cần refresh pipeline)
 
 | # | Bronze table | Stale duration | Fix đã apply trong v10 | Còn lại |
 |---|---|---|---|---|
-| B1 | `SupplyChain_Enh_1.DemandForecastSnapshotWeekly` (LastSnap 2024-03-25) | **2.1 năm** 🚨 | **B2 fix**: `v_ForecastCurrent` đã switch sang `Wholesale_DemandPlanning_AFI.DemandForecast` (fresh, 12.27M rows, 36 months forward) | `v_ForecastSnapshotWeekly` vẫn đọc bảng stale này cho historical — chấp nhận Phase 1 |
-| B2 | `SupplyChain_Enh_1.DemandInventorySnapshotWeekly` | **stale 10 tuần** | Chưa fix code — view vẫn đọc bảng này | DE US re-trigger pipeline + confirm freshness |
+| B1 | `SupplyChain_Enh_1.DemandForecastSnapshotWeekly` (LastSnap 2024-03-25) | **2.1 năm** | Active flow bypasses it with DA `ForecastSnapshotWeekly` from `Staging_Wrk.DemandForecastSnapshotDaily` Saturday rows | Do not use stale weekly source |
+| B2 | `SupplyChain_Enh_1.DemandInventorySnapshotWeekly` | stale legacy source | DA `InventorySnapshotWeekly` uses `DemandInventorySnapshotDaily` Saturday-derived path | Do not use stale weekly source or ItemBalance backup/backfill |
 
 ### §C. Logic / Column corrections (đã apply trong views — Track A markers preserved)
 
@@ -160,12 +160,12 @@ Dhivya rows 3+4 confirmed "Source and EDW also having zero for those columns" �
 | C5 | `MOMAST` | OSTAT firm list `('10','40','45')` chỉ là placeholder | Placeholder giữ nguyên — Robert confirm | L3 | `v_ManufacturingOrder` |
 | C6 | `DimItemMaster` | KHÔNG có cột `Category` / `Series` như Plan v3 giả định | Rename: `Category → RetailCategoryName`, `Series → SeriesNumber+SeriesName+SeriesDescription` | (data shape) | `v_ItemMasterExt` |
 | C7 | `AshleyWarehouseMaster` | KHÔNG có cột `wmaWarehouseName` (29 cols, no name col) | Dùng `wmaWarehouse` làm cả code + name | (data shape) | `v_WarehouseExt` |
-| C8 | `InvoiceDetail` | Cột thực tế là `Warehouse` (không phải `WarehouseCode`); `ItemSequence` (không phải `InvoiceLine`); PK = `(InvoiceNumber, ItemSequence)` | Rename + recompose PK trong view | (data shape) | `v_SalesShipment` |
+| C8 | `InvoiceDetail` | Mart B no longer owns invoice materialization | Reuse Mart A `SalesHistory_Enh.v_InvoiceDetailLineLevel` directly | DA Silver_Check | `AwdHelper`, `LastInvoiceHelper`, `MovementFlagHelper`, `CogsRollingHelper` |
 | C9 | `podetail_v2` | Cột `poditem` thực ra là `poditemnum`; `podstatuscode` là VARCHAR (không phải INT) | Rename + TRY_CAST | (data shape) | `v_PurchaseOrder` |
 | C10 | `SupplyForecast` (7-col thin: FCST_1_ID/FCST_2_ID/FCST_YR_PRD/FCST_RSLT_QTY/PROMO_LIFT_QTY) | Plan v3 giả định cột chuẩn nhưng schema khác hẳn; semantic của FCST_1_ID/FCST_2_ID không xác nhận business | **B2**: drop entirely, switch sang `DemandForecast` 23-col (fresh, channel-split present) | **B2** | `v_ForecastCurrent` |
-| C11 | `DemandInventorySnapshotWeekly` | KHÔNG có channel split (không có dinCustomerGroups/dinFCSTTypeCode/dinMgmtCode) | Drop channel SUM logic — direct map | (data shape) | `v_InventorySnapshotWeekly` |
-| C12 | `DemandForecastSnapshotWeekly` | CÓ 3-way channel split (DfcCustomerGroups + dfcFCSTTypeCode + dfcMgmtCode) | SUM across 3 channels | (data shape) | `v_ForecastSnapshotWeekly`, `v_ForecastCurrent` |
-| C13 | `DemandForecastSnapshotWeekly` | KHÔNG có `dfcWeekEnding` riêng — `dfcSnapshot` chính là week-end Saturday | Dùng `dfcSnapshot` cho cả snapshot + week-end | (data shape) | `v_ForecastSnapshotWeekly` |
+| C11 | `DemandInventorySnapshotDaily` | DA requested `dinMakeBuyCode` / `dinSource1` mapping for dependent demand | Active AWD logic maps make/buy + source warehouse from daily snapshot rows | DA Silver_Check | `v_AwdHelper` |
+| C12 | `DemandForecastSnapshotDaily` | DA requested Saturday history and channel-collapsed forecast grain | `ForecastSnapshotWeekly` filters Saturday snapshots and SUMs forecast quantities | DA Silver_Check | `v_ForecastSnapshotWeekly` |
+| C13 | `DemandForecastSnapshotDaily` | `dfcSnapshot` is the Saturday snapshot date for active path | Use `dfcSnapshot` as `SnapshotDate`; old weekly source not used | DA Silver_Check | `v_ForecastSnapshotWeekly` |
 
 ### §D. Dedupe patterns — RECLASSIFIED 2026-05-19 (full-row dup vs grain-conflict)
 
@@ -175,7 +175,7 @@ Dhivya rows 3+4 confirmed "Source and EDW also having zero for those columns" �
 
 | # | Bronze table | Grain | Dup count | Type | Evidence | Current view fix | View |
 |---|---|---|---:|---|---|---|---|
-| D1 | `DemandFulfillmentCommonContainer_Logility` | (Item, Whse, WeekEnding) | **9,128 groups × 2 rows** | ❌ **GRAIN CONFLICT** | 47/53 cols identical; **6 metrics differ** (FirmDemand, Netfcst, ShippableInvQty, ShippableInvAmt, MosofSupply, OnHandAmt). Pattern: 1 data-row + 1 zero-placeholder row. StatusChngDate identical → current `ORDER BY StatusChngDate DESC` is **non-deterministic** (randomly picks zero row sometimes) | **NEEDS FIX**: change ORDER BY to `CASE WHEN ShippableInvQty=0 AND FirmDemand=0 THEN 1 ELSE 0 END ASC, StatusChngDate DESC` — pushes all-zero placeholder rows last | `v_LogilityItemStatus` (line 359-362) |
+| D1 | `DemandFulfillmentCommonContainer_Logility` | (Item, Whse, WeekEnding) | **9,128 groups × 2 rows** | ❌ **GRAIN CONFLICT** | 47/53 cols identical; **6 metrics differ** (FirmDemand, Netfcst, ShippableInvQty, ShippableInvAmt, MosofSupply, OnHandAmt). Pattern: 1 data-row + 1 zero-placeholder row. | **FIXED**: `ORDER BY CASE WHEN ShippableInvQty=0 AND FirmDemand=0 THEN 1 ELSE 0 END ASC, StatusChngDate DESC, OnHandAmt DESC, FileDate DESC` | `v_LogilityItemStatus` |
 | D2 | `ITMRVA` (Enterprise) | (STID, ITNBR) | 0 at STID='000'; 2 at STID='042' (filtered out) | ✅ True dup (filtered out) | n/a | Keep as-is (defensive) | `v_CostCurrent` |
 | D3 | `PoDetail` (Enterprise) | (podordernum, podvendornum, poditemsequence) | **1 group × 2 rows** | ✅ **TRUE 100% DUP** | 53/53 cols identical (verified key `('P0SM242', '612908', 1)`) | Current dedupe OK — `ORDER BY podduedate DESC` deterministic | `v_PurchaseOrder` (line 275-276) |
 | D4 | `OpenOrderDetail` | OrderNumber | (unknown — Phase 1 OK) | (no obvious line col) | n/a | `ROW_NUMBER() ORDER BY LoadDate DESC, PromiseDate DESC` (synthetic OrderLine) | `v_AllocatedDemandCandidate` |

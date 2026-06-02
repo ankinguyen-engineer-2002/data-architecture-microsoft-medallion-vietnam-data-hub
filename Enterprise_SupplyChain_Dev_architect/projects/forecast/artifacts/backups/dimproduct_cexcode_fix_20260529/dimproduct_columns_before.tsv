@@ -1,0 +1,415 @@
+schema_name	object_name	type_desc	column_id	column_name	data_type	max_length	precision	scale	is_nullable	collation_name
+ForecastAccuracy_DW	DimProduct	USER_TABLE	1	ItemSKU	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	2	Item	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	3	SeriesName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	4	ItemClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	5	ItemClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	6	ItemCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	7	ItemStyleCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	8	RetailCategoryCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	9	RetailCategoryName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	10	AssociationCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	11	SalesClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	12	AFISalesCategoryCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	13	AFISalesDivisionCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	14	DiscountClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	15	CommissionClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	16	FreightClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	17	ImportDomesticCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	18	ItemDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	19	QtyInBoxNum	decimal	5	4	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	20	UOMCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	21	SeriesColorName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	22	SeriesDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	23	ShSeriesDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	24	ItemClassFullName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	25	ItemGroupingName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	26	ItemStyleGroupName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	27	ItemStyleName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	28	ProductLineName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	29	MerchandisingCategoryName	smallint	2	5	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	30	PricePointName	int	4	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	31	SalesClassDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	32	SalesClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	33	AFISalesCategoryName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	34	AFISalesDivisionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	35	AFIFinanceDivisionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	36	DiscountClassDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	37	DiscountClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	38	CommissionClassDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	39	CommissionClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	40	FreightClassDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	41	FreightClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	42	CollectiveClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	43	CollectiveClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	44	ResponsibleOfficeCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	45	CountryOfOriginName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	46	AFIItemStatusCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	47	ManufacturingStatusCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	48	MarketingItemStatusCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	49	ManufacturingStatusChange	date	3	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	50	CommodityItemNum	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	51	IsBenchcraftProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	52	IsNewMillenniumProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	53	IsShanghaiStore	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	54	DefaultGroupNum	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	55	MarketIntroducedAtName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	56	PrimaryVendorCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	57	PrimaryVendorName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	58	InitialInvoicePeriodCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	59	ItemForecastPlanner	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	60	SKProduct	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	61	SCPItem	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	62	ColorName	varchar	100	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	63	SeriesCode	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	64	ExtSeriesCode	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	65	ItemExtSeriesCode	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	66	ItemDescSeriesName	varchar	200	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	67	ShItemDescSeriesName	varchar	200	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	68	ItemDescSeriesColorName	varchar	200	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	69	ChildStyleName	varchar	100	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	70	ParentStyleName	varchar	100	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	71	CexCode	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	72	CurrentSCPManufacturingStatusCode	varchar	20	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	73	MarketingStatusName	varchar	100	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	74	CurrentStatusCode	varchar	20	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	75	IsMainPiece	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	76	SellableItemCode	varchar	20	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	77	IsF123Product	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	78	IsHsCoreProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	79	IsHsProprietaryProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	80	IsHsExclusive	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	81	IsBerklineProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	82	IsBardiniProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	83	MarketBegin	date	3	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	84	MarketEnd	date	3	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	85	AmtFobPrice	decimal	9	18	4	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	86	GoodBetterBestCode	varchar	20	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	87	GbbSortNum	int	4	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	88	QtyInitialInvoice	decimal	9	18	4	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	89	MainPieceCode	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	90	AFIFinanceDivisionCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	91	BardiniProductFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	92	BerklineProductFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	93	CEXCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	94	CartonDepthInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	95	CartonDepthMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	96	CartonHeightInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	97	CartonHeightMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	98	CartonWidthInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	99	CartonWidthMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	100	ChildStyleDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	101	Colors	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	102	CommonCarrierFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	103	ConsumerChoiceFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	104	Cubes	decimal	5	5	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	105	CurrentUnitCost	decimal	9	19	8	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	106	DiningSeriesFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	107	DiscontinuedDate	date	3	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	108	DiscontinuedFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	109	DiscontinuedYearPeriod	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	110	Division	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	111	DivisionRanking	int	4	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	112	ERetailChannelSku	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	113	ERetailSeriesName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	114	ERetailSeriesNumber	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	115	EligibleForProtectionPlan	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	116	ExclusiveComment	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	117	ExpressShipFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	118	ExtSeriesNumber	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	119	F123ProductFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	120	FOBArcPrice	decimal	5	8	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	121	FluffAFI	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	122	FrameNumber	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	123	FriendlyDimensions	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	124	GBBSortId	int	4	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	125	GoodBetterBestForPricePoint	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	126	GroupPriceIncr	decimal	5	5	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	127	GroupPricePointType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	128	HSCoreProductFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	129	HSExclusiveFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	130	HSProprietaryProductFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	131	InitialInvoiceQty	decimal	17	38	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	132	IsProtectionPlan	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	133	ItemAmazonBrandOwner	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	134	ItemBedSizeType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	135	ItemBedStyleType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	136	ItemClass	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	137	ItemConsumerDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	138	ItemDescriptionSeries	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	139	ItemDescriptionSeriesItemColor	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	140	ItemEcomMerchantNotes	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	141	ItemGeneralColor	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	142	ItemHomeStoreProductLine	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	143	ItemImage	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	144	ItemIsRTA	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	145	ItemKey	varchar	8000	0	0	False	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	146	ItemMerchGridOverridePhoto	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	147	ItemName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	148	ItemPricePointRating	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	149	ItemSupplierDirectShipOnly	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	150	ItemTableShapeType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	151	ItemThirdPartyItem	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	152	ItemType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	153	KeyItem	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	154	Knockout	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	155	Lifestyle	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	156	LoadDT	datetime2	8	26	6	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	157	MainPieceItem	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	158	MarketBeginDate	date	3	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	159	MarketEndDate	date	3	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	160	MarketingStatusDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	161	MasterGroupCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	162	Material	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	163	MfgWarranty	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	164	NewItemFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	165	ParentStyleDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	166	PowerMotionSeriesFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	167	PreviousStatusCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	168	PrimaryChannelSku	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	169	PrimarySeriesName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	170	PrimarySeriesNumber	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	171	ProductDepthInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	172	ProductDepthMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	173	ProductHeightInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	174	ProductHeightMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	175	ProductWidthInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	176	ProductWidthMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	177	ReclinerSeriesFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	178	ResponsibleOfficeName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	179	RetailBrandName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	180	RetailCategoryChargeType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	181	RetailCategoryDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	182	RetailCategoryGroup	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	183	RetailDepartmentName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	184	RetailTypeDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	185	RowID	bigint	8	19	0	False	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	186	SHItemDescriptionSeries	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	187	Scene7ImageSet	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	188	Seats	decimal	5	5	2	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	189	SellableItemFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	190	SeriesDateArchived	date	3	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	191	SeriesDiscontinuedFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	192	SeriesFeatures	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	193	SeriesGrouping	smallint	2	5	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	194	SeriesImage	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	195	SeriesMainImage	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	196	SeriesNumber	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	197	SeriesPrimary	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	198	SeriesThirdParty	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	199	Showroom	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	200	SofaTableSeriesFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	201	StandAloneFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	202	StatusCodeChangeDate	date	3	10	0	True	
+ForecastAccuracy_DW	DimProduct	USER_TABLE	203	SuppWeightNetWeightLbs	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	204	TrendArrow	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	205	UPC	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	206	UnitWeightLbs	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	DimProduct	USER_TABLE	207	WedgeSeriesFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	1	ItemSKU	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	2	Item	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	3	SeriesName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	4	ItemClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	5	ItemClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	6	ItemCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	7	ItemStyleCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	8	RetailCategoryCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	9	RetailCategoryName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	10	AssociationCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	11	SalesClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	12	AFISalesCategoryCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	13	AFISalesDivisionCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	14	DiscountClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	15	CommissionClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	16	FreightClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	17	ImportDomesticCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	18	ItemDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	19	QtyInBoxNum	decimal	5	4	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	20	UOMCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	21	SeriesColorName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	22	SeriesDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	23	ShSeriesDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	24	ItemClassFullName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	25	ItemGroupingName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	26	ItemStyleGroupName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	27	ItemStyleName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	28	ProductLineName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	29	MerchandisingCategoryName	smallint	2	5	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	30	PricePointName	int	4	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	31	SalesClassDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	32	SalesClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	33	AFISalesCategoryName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	34	AFISalesDivisionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	35	AFIFinanceDivisionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	36	DiscountClassDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	37	DiscountClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	38	CommissionClassDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	39	CommissionClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	40	FreightClassDescriptionName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	41	FreightClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	42	CollectiveClassCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	43	CollectiveClassName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	44	ResponsibleOfficeCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	45	CountryOfOriginName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	46	AFIItemStatusCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	47	ManufacturingStatusCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	48	MarketingItemStatusCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	49	ManufacturingStatusChange	date	3	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	50	CommodityItemNum	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	51	IsBenchcraftProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	52	IsNewMillenniumProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	53	IsShanghaiStore	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	54	DefaultGroupNum	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	55	MarketIntroducedAtName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	56	PrimaryVendorCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	57	PrimaryVendorName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	58	InitialInvoicePeriodCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	59	ItemForecastPlanner	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	60	SKProduct	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	61	SCPItem	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	62	ColorName	varchar	100	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	63	SeriesCode	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	64	ExtSeriesCode	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	65	ItemExtSeriesCode	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	66	ItemDescSeriesName	varchar	200	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	67	ShItemDescSeriesName	varchar	200	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	68	ItemDescSeriesColorName	varchar	200	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	69	ChildStyleName	varchar	100	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	70	ParentStyleName	varchar	100	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	71	CexCode	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	72	CurrentSCPManufacturingStatusCode	varchar	20	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	73	MarketingStatusName	varchar	100	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	74	CurrentStatusCode	varchar	20	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	75	IsMainPiece	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	76	SellableItemCode	varchar	20	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	77	IsF123Product	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	78	IsHsCoreProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	79	IsHsProprietaryProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	80	IsHsExclusive	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	81	IsBerklineProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	82	IsBardiniProduct	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	83	MarketBegin	date	3	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	84	MarketEnd	date	3	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	85	AmtFobPrice	decimal	9	18	4	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	86	GoodBetterBestCode	varchar	20	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	87	GbbSortNum	int	4	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	88	QtyInitialInvoice	decimal	9	18	4	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	89	MainPieceCode	varchar	50	0	0	True	Latin1_General_100_BIN2_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	90	AFIFinanceDivisionCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	91	BardiniProductFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	92	BerklineProductFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	93	CEXCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	94	CartonDepthInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	95	CartonDepthMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	96	CartonHeightInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	97	CartonHeightMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	98	CartonWidthInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	99	CartonWidthMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	100	ChildStyleDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	101	Colors	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	102	CommonCarrierFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	103	ConsumerChoiceFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	104	Cubes	decimal	5	5	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	105	CurrentUnitCost	decimal	9	19	8	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	106	DiningSeriesFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	107	DiscontinuedDate	date	3	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	108	DiscontinuedFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	109	DiscontinuedYearPeriod	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	110	Division	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	111	DivisionRanking	int	4	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	112	ERetailChannelSku	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	113	ERetailSeriesName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	114	ERetailSeriesNumber	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	115	EligibleForProtectionPlan	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	116	ExclusiveComment	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	117	ExpressShipFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	118	ExtSeriesNumber	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	119	F123ProductFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	120	FOBArcPrice	decimal	5	8	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	121	FluffAFI	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	122	FrameNumber	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	123	FriendlyDimensions	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	124	GBBSortId	int	4	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	125	GoodBetterBestForPricePoint	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	126	GroupPriceIncr	decimal	5	5	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	127	GroupPricePointType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	128	HSCoreProductFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	129	HSExclusiveFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	130	HSProprietaryProductFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	131	InitialInvoiceQty	decimal	17	38	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	132	IsProtectionPlan	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	133	ItemAmazonBrandOwner	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	134	ItemBedSizeType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	135	ItemBedStyleType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	136	ItemClass	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	137	ItemConsumerDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	138	ItemDescriptionSeries	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	139	ItemDescriptionSeriesItemColor	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	140	ItemEcomMerchantNotes	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	141	ItemGeneralColor	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	142	ItemHomeStoreProductLine	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	143	ItemImage	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	144	ItemIsRTA	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	145	ItemKey	varchar	8000	0	0	False	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	146	ItemMerchGridOverridePhoto	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	147	ItemName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	148	ItemPricePointRating	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	149	ItemSupplierDirectShipOnly	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	150	ItemTableShapeType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	151	ItemThirdPartyItem	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	152	ItemType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	153	KeyItem	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	154	Knockout	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	155	Lifestyle	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	156	LoadDT	datetime2	8	26	6	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	157	MainPieceItem	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	158	MarketBeginDate	date	3	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	159	MarketEndDate	date	3	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	160	MarketingStatusDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	161	MasterGroupCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	162	Material	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	163	MfgWarranty	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	164	NewItemFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	165	ParentStyleDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	166	PowerMotionSeriesFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	167	PreviousStatusCode	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	168	PrimaryChannelSku	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	169	PrimarySeriesName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	170	PrimarySeriesNumber	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	171	ProductDepthInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	172	ProductDepthMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	173	ProductHeightInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	174	ProductHeightMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	175	ProductWidthInches	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	176	ProductWidthMeters	decimal	5	7	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	177	ReclinerSeriesFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	178	ResponsibleOfficeName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	179	RetailBrandName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	180	RetailCategoryChargeType	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	181	RetailCategoryDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	182	RetailCategoryGroup	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	183	RetailDepartmentName	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	184	RetailTypeDescription	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	185	RowID	bigint	8	19	0	False	
+ForecastAccuracy_DW	v_DimProduct	VIEW	186	SHItemDescriptionSeries	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	187	Scene7ImageSet	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	188	Seats	decimal	5	5	2	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	189	SellableItemFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	190	SeriesDateArchived	date	3	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	191	SeriesDiscontinuedFlag	bit	1	1	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	192	SeriesFeatures	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	193	SeriesGrouping	smallint	2	5	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	194	SeriesImage	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	195	SeriesMainImage	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	196	SeriesNumber	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	197	SeriesPrimary	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	198	SeriesThirdParty	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	199	Showroom	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	200	SofaTableSeriesFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	201	StandAloneFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	202	StatusCodeChangeDate	date	3	10	0	True	
+ForecastAccuracy_DW	v_DimProduct	VIEW	203	SuppWeightNetWeightLbs	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	204	TrendArrow	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	205	UPC	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	206	UnitWeightLbs	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8
+ForecastAccuracy_DW	v_DimProduct	VIEW	207	WedgeSeriesFlag	varchar	8000	0	0	True	Latin1_General_100_CI_AS_KS_WS_SC_UTF8

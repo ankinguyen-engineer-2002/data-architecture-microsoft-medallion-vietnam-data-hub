@@ -4,19 +4,21 @@
 ///
 /// Workspace: SupplyChain Dev (c8d9fc83-18b6-4e1d-8264-0b49eed36fe0)
 /// Warehouse: SupplyChain_Gold_Warehouse (98e2a911-...)
-/// Schema:    InventoryHealth_DW
+/// Schema:    InventoryHealth_DW + Shared_DW shared dimensions
 ///
 /// 5 conformed dims + 2 fact tables (snapshot health + risk forward) + 30 measures.
-/// All 7 tables live in InventoryHealth_DW schema (DirectLake-bound to physical tables
-/// produced by pl_sc_gold pipeline via Meta.usp_GenericLoad CTAS from corresponding v_*).
+/// Fact/vendor tables live in InventoryHealth_DW. Shared conformed dimensions bind
+/// directly to Shared_DW so Forecast Accuracy and Inventory Health use one physical
+/// product/date/warehouse contract where the grain is shared.
 ///
 /// To deploy:
 ///   1. Open Power BI Desktop → "New report" → "Direct Lake on OneLake"
 ///   2. Point to workspace > SupplyChain_Gold_Warehouse
 ///   3. Select 6 tables: DimCalendar (consolidated 2026-05-22, was DimDate),
-///      DimItem, DimWarehouse, DimVendor, CogsRollingHelper (hidden),
+///      DimProduct (consolidated 2026-05-29, was DimItem), DimWarehouse,
+///      DimVendor, CogsRollingHelper (hidden),
 ///      FactInventoryHealthSnapshot, FactInventoryRiskForward
-///   NOTE 2026-05-22: DimCalendar binds to ForecastAccuracy_DW.DimCalendar
+///   NOTE 2026-05-22: DimCalendar binds to the shared Gold DimCalendar
 ///   (single shared physical date dim across both marts — was duplicated as
 ///   InventoryHealth_DW.DimDate, now consolidated to 1).
 ///   NOTE 2026-05-22: DimRuleVersion removed (over-engineering). When BRD updates,
@@ -33,8 +35,8 @@ model InventoryHealth
 /// TABLE: DimCalendar (consolidated 2026-05-22 — was DimDate)
 /// ═══════════════════════════════════════════════════════
 /// 2026-05-22 CONSOLIDATION: Rebind from InventoryHealth_DW.DimDate (subset 10 cols)
-/// to ForecastAccuracy_DW.DimCalendar (75 cols) — single shared date dim used by
-/// both marts. Eliminates physical duplication; mart B "borrows" mart A's DimCalendar
+/// to Shared_DW.DimCalendar (75 cols) — single shared date dim used by
+/// both marts. Eliminates physical duplication; mart B uses the conformed DimCalendar
 /// via cross-schema DirectLake bind. Column display names preserved using sourceColumn
 /// aliases so existing inv_health DAX measures + reports keep working unchanged.
 /// IsCurrentDate / IsCurrentWeek / IsMonthEnd flag columns NOT re-added — compute in
@@ -80,16 +82,21 @@ table DimCalendar
         mode: directLake
         source = entity
             entityName: DimCalendar
-            schemaName: ForecastAccuracy_DW
+            schemaName: Shared_DW
 
 
 /// ═══════════════════════════════════════════════════════
-/// TABLE: DimItem
+/// TABLE: DimProduct (consolidated 2026-05-29 — was DimItem)
 /// ═══════════════════════════════════════════════════════
-table DimItem
-    lineageTag: dim-item
+/// Shared_DW.DimProduct is sourced from Enterprise_Lakehouse.MasterData_DW.DimItemMaster
+/// and augmented with vendor display name + unavailable flag. Inventory keeps its
+/// semantic display columns, but the physical key uses the canonical ItemSKU spelling
+/// to avoid Fabric case-duplicate metadata issues.
+table DimProduct
+    lineageTag: dim-product
 
-    column ItemSku
+    column ItemSKU
+        sourceColumn: ItemSKU
         dataType: string
         isKey
         summarizeBy: none
@@ -104,6 +111,9 @@ table DimItem
         dataType: string
 
     column CategoryName
+        dataType: string
+
+    column CategoryCode
         dataType: string
 
     column CollectiveClass
@@ -125,6 +135,7 @@ table DimItem
         dataType: string
 
     column PrimaryVendorName
+        sourceColumn: PrimaryVendorDisplayName
         dataType: string
 
     column Cubes
@@ -132,7 +143,8 @@ table DimItem
         formatString: 0.0000
         summarizeBy: none
 
-    column FobArcPrice
+    column FOBArcPrice
+        sourceColumn: FOBArcPrice
         dataType: decimal
         formatString: $#,##0.00
         summarizeBy: none
@@ -153,11 +165,16 @@ table DimItem
         dataType: int64
         summarizeBy: none
 
-    partition DimItem-prt = entity
+    column StatusCodeChangeDate
+        dataType: dateTime
+        formatString: yyyy-mm-dd
+        summarizeBy: none
+
+    partition DimProduct-prt = entity
         mode: directLake
         source = entity
-            entityName: DimItem
-            schemaName: InventoryHealth_DW
+            entityName: DimProduct
+            schemaName: Shared_DW
 
 
 /// ═══════════════════════════════════════════════════════
@@ -201,7 +218,7 @@ table DimWarehouse
         mode: directLake
         source = entity
             entityName: DimWarehouse
-            schemaName: InventoryHealth_DW
+            schemaName: Shared_DW
 
 
 /// ═══════════════════════════════════════════════════════
@@ -222,6 +239,55 @@ table DimVendor
         mode: directLake
         source = entity
             entityName: DimVendor
+            schemaName: InventoryHealth_DW
+
+
+/// ═══════════════════════════════════════════════════════
+/// TABLE: CogsRollingHelper (hidden monthly helper)
+/// ═══════════════════════════════════════════════════════
+/// Hidden helper used by Inventory Health measures for period COGS and rolling
+/// COGS windows. Live semantic model includes this table; source control now
+/// mirrors the deployed DirectLake contract.
+table CogsRollingHelper
+    isHidden
+    lineageTag: cogs-rolling-helper
+
+    column ItemSku
+        dataType: string
+        summarizeBy: none
+
+    column WarehouseCode
+        dataType: string
+        summarizeBy: none
+
+    column FiscalMonthYear
+        dataType: int64
+        summarizeBy: none
+
+    column PeriodCogs
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: none
+
+    column PeriodShippedQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: none
+
+    column Cogs12M
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: none
+
+    column Cogs52M
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: none
+
+    partition CogsRollingHelper-prt = entity
+        mode: directLake
+        source = entity
+            entityName: CogsRollingHelper
             schemaName: InventoryHealth_DW
 
 
@@ -496,15 +562,6 @@ table FactInventoryRiskForward
         formatString: 0.0000
         summarizeBy: sum
 
-    column ATPQty
-        dataType: decimal
-        formatString: 0.0000
-        summarizeBy: sum
-
-    column ATPInStockFlag
-        dataType: int64
-        summarizeBy: none
-
     column ShippableInStockFlag
         dataType: int64
         summarizeBy: none
@@ -551,14 +608,14 @@ relationship DimCalendar_to_FactRisk
     toColumn:   DimCalendar.DateKey
     crossFilteringBehavior: oneDirection
 
-relationship DimItem_to_FactHealth
+relationship DimProduct_to_FactHealth
     fromColumn: FactInventoryHealthSnapshot.ItemSku
-    toColumn:   DimItem.ItemSku
+    toColumn:   DimProduct.ItemSKU
     crossFilteringBehavior: oneDirection
 
-relationship DimItem_to_FactRisk
+relationship DimProduct_to_FactRisk
     fromColumn: FactInventoryRiskForward.ItemSku
-    toColumn:   DimItem.ItemSku
+    toColumn:   DimProduct.ItemSKU
     crossFilteringBehavior: oneDirection
 
 relationship DimWarehouse_to_FactHealth
@@ -571,8 +628,8 @@ relationship DimWarehouse_to_FactRisk
     toColumn:   DimWarehouse.WarehouseCode
     crossFilteringBehavior: oneDirection
 
-relationship DimVendor_to_DimItem
-    fromColumn: DimItem.PrimaryVendorNumber
+relationship DimVendor_to_DimProduct
+    fromColumn: DimProduct.PrimaryVendorNumber
     toColumn:   DimVendor.VendorNumber
     crossFilteringBehavior: oneDirection
 

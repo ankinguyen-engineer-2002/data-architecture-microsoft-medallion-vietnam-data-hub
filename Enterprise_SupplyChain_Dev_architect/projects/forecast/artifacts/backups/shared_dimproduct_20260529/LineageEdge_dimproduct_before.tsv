@@ -1,0 +1,16 @@
+edge_id	source_asset	target_asset	edge_type	transform_type	is_synthetic	created_at_utc	notes
+lineage::4	ReferenceMaster_Enh.ItemMaster	ForecastAccuracy_DW.DimProduct	direct	overwrite	False	2026-05-28 13:47:58.656296	
+lineage::19	InventoryHistory_Enh.ItemMasterExt	InventoryHealth_DW.DimItem	direct	overwrite	False	2026-05-28 13:47:58.656296	
+lineage::31	InventoryHistory_Enh.ItemMasterExt	InventoryHealth_DW.FactInventoryRiskForward	direct	overwrite	False	2026-05-28 13:47:58.656296	
+lineage::57	ReferenceMaster_Enh.ItemMaster	OpenOrderHistory_Enh.OpenOrderLineLevel	direct	overwrite	False	2026-05-28 13:47:58.656296	
+lineage::69	Enterprise_Lakehouse.MasterData_DW.DimItemMaster	ReferenceMaster_Enh.ItemMaster	direct	overwrite	False	2026-05-28 13:47:58.656296	
+lineage::71	Enterprise_Lakehouse.Purchasing_AFI.VendorMaster	ReferenceMaster_Enh.Vendor	direct	overwrite	False	2026-05-28 13:47:58.656296	
+semantic::sc_forecast_control_tower::DimCustomerGrouping	ForecastAccuracy_DW.DimCustomerGrouping	SemanticModel.sc_forecast_control_tower	semantic	directLake	False	2026-05-05 08:31:32.561879	Auto-discovered via Fabric API getDefinition — model_id=f06a2361-15fd-4f91-9d37-941fefe62aaf
+semantic::sc_forecast_control_tower::DimForecastHorizon	ForecastAccuracy_DW.DimForecastHorizon	SemanticModel.sc_forecast_control_tower	semantic	directLake	False	2026-05-05 08:31:39.677939	Auto-discovered via Fabric API getDefinition — model_id=f06a2361-15fd-4f91-9d37-941fefe62aaf
+semantic::sc_forecast_control_tower::DimProduct	ForecastAccuracy_DW.DimProduct	SemanticModel.sc_forecast_control_tower	semantic	directLake	False	2026-05-05 08:31:37.874484	Auto-discovered via Fabric API getDefinition — model_id=f06a2361-15fd-4f91-9d37-941fefe62aaf
+semantic::sc_forecast_control_tower::FactForecastActual	ForecastAccuracy_DW.FactForecastActual	SemanticModel.sc_forecast_control_tower	semantic	directLake	False	2026-05-05 08:31:41.221063	Auto-discovered via Fabric API getDefinition — model_id=f06a2361-15fd-4f91-9d37-941fefe62aaf
+semantic::sc_forecast_control_tower::FactForecastKpi	ForecastAccuracy_DW.FactForecastKpi	SemanticModel.sc_forecast_control_tower	semantic	directLake	False	2026-05-05 08:31:43.110440	Auto-discovered via Fabric API getDefinition — model_id=f06a2361-15fd-4f91-9d37-941fefe62aaf
+semantic::sc_forecast_control_tower::DimCalendar	Shared_DW.DimCalendar	SemanticModel.sc_forecast_control_tower	semantic	directLake	False	2026-05-05 08:31:34.484386	Auto-discovered via Fabric API getDefinition — model_id=f06a2361-15fd-4f91-9d37-941fefe62aaf
+semantic::sc_forecast_control_tower::DimWarehouse	Shared_DW.DimWarehouse	SemanticModel.sc_forecast_control_tower	semantic	directLake	False	2026-05-05 08:31:36.313155	Auto-discovered via Fabric API getDefinition — model_id=f06a2361-15fd-4f91-9d37-941fefe62aaf
+semantic::sc_inventory_health_control_tower::DimCalendar	Shared_DW.DimCalendar	SemanticModel.sc_inventory_health_control_tower	semantic	directLake	False	2026-05-29 04:32:29.285755	Manual update after Shared_DW DimCalendar cutover — model_id=88c3fccd-698d-4175-b7b9-ea377e0f5afc
+semantic::sc_inventory_health_control_tower::DimWarehouse	Shared_DW.DimWarehouse	SemanticModel.sc_inventory_health_control_tower	semantic	directLake	False	2026-05-29 05:34:35.978143	Manual update after Shared_DW DimWarehouse cutover — model_id=88c3fccd-698d-4175-b7b9-ea377e0f5afc

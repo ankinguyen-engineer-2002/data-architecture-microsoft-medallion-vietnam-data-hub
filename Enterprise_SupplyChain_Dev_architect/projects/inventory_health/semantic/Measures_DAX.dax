@@ -138,7 +138,7 @@ Weighted Standard Cost =
     )
 
 Standard Selling Price Avg =
-    AVERAGE(DimItem[FobArcPrice])
+    AVERAGE(DimProduct[FOBArcPrice])
 
 Total COGS =
     SUM(FactInventoryHealthSnapshot[PeriodCogs])
@@ -187,24 +187,6 @@ Active SKU-WH Count =
         ),
         FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
         FactInventoryHealthSnapshot[InactiveFlag] = 0
-    )
-
-ATP In Stock Count =
-    CALCULATE(
-        COUNTROWS(
-            SUMMARIZE(
-                FactInventoryRiskForward,
-                FactInventoryRiskForward[ItemSku],
-                FactInventoryRiskForward[WarehouseCode]
-            )
-        ),
-        FactInventoryRiskForward[ATPInStockFlag] = 1
-    )
-
-ATP In Stock Rate =
-    DIVIDE(
-        [ATP In Stock Count],
-        [Active SKU-WH Count]
     )
 
 Shippable In Stock Count =

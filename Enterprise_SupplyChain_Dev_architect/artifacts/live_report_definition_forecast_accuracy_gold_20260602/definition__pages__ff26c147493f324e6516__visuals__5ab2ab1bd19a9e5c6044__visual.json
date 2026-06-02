@@ -1,0 +1,98 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "5ab2ab1bd19a9e5c6044",
+  "position": {
+    "x": 97.5,
+    "y": 12.5,
+    "z": 2000,
+    "height": 367.5,
+    "width": 1182.5,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_forecast_horizon"
+                    }
+                  },
+                  "Property": "code_horizon"
+                }
+              },
+              "queryRef": "dim_forecast_horizon.code_horizon",
+              "nativeQueryRef": "code_horizon1",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_calendar"
+                    }
+                  },
+                  "Property": "dt_fsc_month_last"
+                }
+              },
+              "queryRef": "dim_calendar.dt_fsc_month_last",
+              "nativeQueryRef": "dt_fsc_month_last",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_flat_forecast_actual"
+                        }
+                      },
+                      "Property": "qty"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(fact_flat_forecast_actual.qty)",
+              "nativeQueryRef": "Sum of qty"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_calendar"
+                  }
+                },
+                "Property": "dt_fsc_month_last"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

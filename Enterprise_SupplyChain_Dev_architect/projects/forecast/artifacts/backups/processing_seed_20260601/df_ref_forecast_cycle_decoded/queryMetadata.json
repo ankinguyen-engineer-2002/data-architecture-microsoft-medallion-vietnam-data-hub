@@ -1,0 +1,34 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "df_brz_FcstConsensusCycleDates",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "df_brz_FcstConsensusCycleDates": {
+      "queryId": "8435e25a-e4e5-4339-8c83-4a4feef47398",
+      "queryName": "df_brz_FcstConsensusCycleDates",
+      "loadEnabled": false
+    },
+    "df_brz_FcstConsensusCycleDates_DataDestination": {
+      "queryId": "98418f48-d9c7-4d1b-9601-1612d2581771",
+      "queryName": "df_brz_FcstConsensusCycleDates_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"e6436dba-643f-44c3-ad6f-51a8cbc45b81\",\"DatasourceId\":\"1a64c7b8-2c7a-445a-bd7f-ca0fc0b98e9b\"}"
+    },
+    {
+      "path": "https://masterashley.sharepoint.com/sites/SCPGlobalTeam",
+      "kind": "SharePoint",
+      "connectionId": "{\"ClusterId\":\"e6436dba-643f-44c3-ad6f-51a8cbc45b81\",\"DatasourceId\":\"8d54e0d4-85e9-43af-a756-731bb8c9b21e\"}"
+    }
+  ]
+}

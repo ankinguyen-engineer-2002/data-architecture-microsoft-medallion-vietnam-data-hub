@@ -141,11 +141,15 @@ Dhivya (DE US) confirmed 5-row table in Slack 2026-05-18 4:45 PM. Aric verified 
 
 ### Q4 — Cross-mart Dim reuse: DimCalendar / DimProduct / DimWarehouse
 
-V10 forecast project published `ForecastAccuracy_DW.DimCalendar/DimProduct/DimWarehouse`. Inventory Health design intent was to potentially REUSE these dims via DirectLake cross-mart relationship.
+V10 forecast project originally published mart-specific `ForecastAccuracy_DW.DimCalendar/DimProduct/DimWarehouse`. **2026-06-01 update:** all three shared dimensions have now been promoted to `Shared_DW` and both Forecast Accuracy + Inventory Health semantic models bind to:
 
-**Decision made (this folder)**: KEEP inventory_health Gold dims self-contained in `InventoryHealth_DW`. Reason: deliverable v1 designed DAX measures against inventory-specific column schemas that differ from forecast's DimProduct.
+- `Shared_DW.DimCalendar`
+- `Shared_DW.DimProduct`
+- `Shared_DW.DimWarehouse`
 
-**Question for Bob**: is duplicated physical Gold dim acceptable for now, or should we promote forecast's dims to a shared schema (e.g., `SharedDims_DW`) that both marts read? Tradeoff: simplicity (current) vs DRY (shared schema).
+**Decision made (this folder)**: use shared physical dims in `Shared_DW`, but preserve Inventory semantic table names/aliases (`DimProduct`, `DimWarehouse`, `DimCalendar`) so report/DAX contracts remain stable.
+
+**Question for Bob**: confirm whether `Shared_DW` is the preferred naming/location for reusable Gold dimensions, or whether enterprise convention should use a different shared schema name later.
 
 ---
 

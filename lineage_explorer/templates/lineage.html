@@ -78,6 +78,11 @@ const TYPE_CONFIG = {
   slv3:  { color: "#1d4ed8", label: "SLV-W3", icon: "◆" },
   slv4:  { color: "#1e40af", label: "SLV-W4", icon: "◆" },
   gld:   { color: "#f59e0b", label: "GLD",   icon: "★" },
+  gld0:  { color: "#fbbf24", label: "GLD-W0", icon: "★" },
+  gld1:  { color: "#f59e0b", label: "GLD-W1", icon: "★" },
+  gld2:  { color: "#d97706", label: "GLD-W2", icon: "★" },
+  gld3:  { color: "#b45309", label: "GLD-W3", icon: "★" },
+  gld4:  { color: "#92400e", label: "GLD-W4", icon: "★" },
   sem:   { color: "#ec4899", label: "SemanticModel", icon: "✦" },
   dq:    { color: "#ef4444", label: "DQ",    icon: "●" },
   other: { color: "#94a3b8", label: "Bronze (Source)", icon: "○" },
@@ -100,22 +105,32 @@ function lineageToGraph(nbMap) {
 /* ─── Convert /api/lineage JSON → graph format ─── */
 function apiJsonToGraph(data) {
   const nodes = new Map(), edges = [];
-  const ensure = (id, layer) => {
+  const ensure = (id, layer, label) => {
     const clean = id.replace(/^dbo\./, '');
-    if (!nodes.has(clean)) nodes.set(clean, { id: clean, name: clean, type: getNodeType(clean) });
+    if (!nodes.has(clean)) nodes.set(clean, { id: clean, name: label || clean, type: getNodeType(clean) });
     return clean;
   };
   for (const n of data.nodes) {
     const id = n.id.replace(/^dbo\./, '');
-    const validLayers = ['stg','brz','ref','slv','slv0','slv1','slv2','slv3','slv4','gld','dq','other','sem'];
+    const validLayers = ['stg','brz','ref','slv','slv0','slv1','slv2','slv3','slv4','gld','gld0','gld1','gld2','gld3','gld4','dq','other','sem'];
     const type = n.layer && validLayers.includes(n.layer) ? n.layer : (n.layer === 'external' ? 'other' : getNodeType(id));
-    nodes.set(id, { id, name: id, type, status: n.status, load_type: n.load_type, last_load_date: n.last_load_date, rows_loaded: n.rows_loaded });
+    nodes.set(id, {
+      id,
+      name: n.name || id,
+      schema: n.schema || '',
+      project: n.project || '',
+      type,
+      status: n.status,
+      load_type: n.load_type,
+      last_load_date: n.last_load_date,
+      rows_loaded: n.rows_loaded
+    });
   }
   for (const e of data.edges) {
     const from = e.source.replace(/^dbo\./, '');
     const to = e.target.replace(/^dbo\./, '');
     ensure(from); ensure(to);
-    if (from !== to) edges.push({ from, to });
+    if (from !== to) edges.push({ from, to, relationship_type: e.relationship_type || '' });
   }
   const s = new Set();
   return { nodes: Array.from(nodes.values()), edges: edges.filter(e => { const k = e.from+"→"+e.to; if (s.has(k)) return false; s.add(k); return true; }) };
@@ -140,11 +155,15 @@ function getLayerLabels() {
     5:'Silver W2 — Aggregates',
     6:'Silver W3',
     7:'Silver W4',
-    8: goldLabel,
-    9: semLabel,
+    8: `${goldLabel} W0 — Dims / Shared`,
+    9: `${goldLabel} W1 — Helpers / Facts`,
+    10:`${goldLabel} W2 — Dependent Facts`,
+    11:`${goldLabel} W3`,
+    12:`${goldLabel} W4`,
+    13: semLabel,
   };
 }
-const LAYER_COLORS = {0:'#94a3b8',1:'#a78bfa',2:'#22c55e',3:'#60a5fa',4:'#3b82f6',5:'#2563eb',6:'#1d4ed8',7:'#1e40af',8:'#f59e0b',9:'#ec4899'};
+const LAYER_COLORS = {0:'#94a3b8',1:'#a78bfa',2:'#22c55e',3:'#60a5fa',4:'#3b82f6',5:'#2563eb',6:'#1d4ed8',7:'#1e40af',8:'#fbbf24',9:'#f59e0b',10:'#d97706',11:'#b45309',12:'#92400e',13:'#ec4899'};
 
 function layoutDAG(nodes, edges, collapsed) {
   const vis = nodes.filter(n => !collapsed.has(n.type));
@@ -159,7 +178,7 @@ function layoutDAG(nodes, edges, collapsed) {
 
   const layers = new Map(), done = new Set();
   const nodeById = new Map(); vis.forEach(n => nodeById.set(n.id, n));
-  const FIXED_LAYERS = {other: 0, orphan: 0, stg: 1, brz: 2, ref: 2, slv: 3, slv0: 3, slv1: 4, slv2: 5, slv3: 6, slv4: 7, gld: 8, sem: 9};
+  const FIXED_LAYERS = {other: 0, orphan: 0, stg: 1, brz: 2, ref: 2, slv: 3, slv0: 3, slv1: 4, slv2: 5, slv3: 6, slv4: 7, gld: 8, gld0: 8, gld1: 9, gld2: 10, gld3: 11, gld4: 12, sem: 13};
   function assign(id) {
     if (done.has(id)) return layers.get(id) || 0;
     done.add(id);
@@ -195,7 +214,7 @@ function layoutDAG(nodes, edges, collapsed) {
   /* Initial sort: group by sub-type, then alphabetical */
   sorted.forEach(l => {
     groups.get(l).sort((a,b) => {
-      const o = {other:0,orphan:0,brz:1,ref:2,slv:3,slv0:3,slv1:3,slv2:3,slv3:3,slv4:3,gld:4,sem:5,dq:6};
+      const o = {other:0,orphan:0,brz:1,ref:2,slv:3,slv0:3,slv1:3,slv2:3,slv3:3,slv4:3,gld:4,gld0:4,gld1:5,gld2:6,gld3:7,gld4:8,sem:9,dq:10};
       const d = (o[a.type]||9)-(o[b.type]||9);
       return d!==0 ? d : a.name.localeCompare(b.name);
     });
@@ -340,6 +359,7 @@ function DiagramCanvas({graph,collapsed,searchTerm,activeFilter}) {
 
     {sel&&np.has(sel)&&<div style={{position:"absolute",bottom:16,left:16,background:"#111827ee",border:"1px solid #1e293b",borderRadius:8,padding:"10px 14px",fontSize:11,color:"#94a3b8",zIndex:10,maxWidth:300}}>
       <div style={{color:TYPE_CONFIG[np.get(sel).node.type]?.color,fontWeight:700,marginBottom:4}}>{np.get(sel).node.name}</div>
+      <div style={{marginBottom:4,wordBreak:"break-word"}}>{np.get(sel).node.id}</div>
       <div>Type: {np.get(sel).node.type} · Up: {ve.filter(e=>e.to===sel).length} · Down: {ve.filter(e=>e.from===sel).length}</div>
     </div>}
 
@@ -351,8 +371,8 @@ function DiagramCanvas({graph,collapsed,searchTerm,activeFilter}) {
           const MEDALLION = [
             { label: "BRONZE", color: "#94a3b8", origLayers: [0], desc: "Enterprise_Lakehouse + SupplyChain_Lakehouse" },
             { label: "SILVER", color: "#3b82f6", origLayers: [1,2,3,4,5,6,7], desc: "Processing Warehouse" },
-            { label: "GOLD",   color: "#f59e0b", origLayers: [8], desc: "Gold Warehouse" },
-            { label: "SEMANTIC", color: "#ec4899", origLayers: [9], desc: "Power BI Semantic Models" },
+            { label: "GOLD",   color: "#f59e0b", origLayers: [8,9,10,11,12], desc: "Gold Warehouse" },
+            { label: "SEMANTIC", color: "#ec4899", origLayers: [13], desc: "Power BI Semantic Models" },
           ];
           const borders = [];
           MEDALLION.forEach(m => {

@@ -1,6 +1,6 @@
 # 10 — Bronze Layer (Logical Access)
 
-> Scanned: 2026-05-06.
+> Scanned: 2026-05-06 · Updated 2026-06-01 after `df_ref_forecast_cycle` ProcessingSeed migration.
 > **Bronze is logical, not physical** — no dedicated warehouse. Source data accessed via OneLake shortcuts + Lakehouse dataflows.
 
 ## Source Lakehouses
@@ -16,7 +16,7 @@ Schemas accessed by `forecast`:
 | `Wholesale_Codis_AFI` | `codatan`, `COMAST`, `EXTORD`, `EXTORIT` | CODIS open-order source |
 | `MasterData_DW` | `DimDate`, `DimItemMaster` | Calendar + Item master |
 | `Customers` | `AccountMaster`, `ShippingLocations` | Customer dimensions |
-| `SupplyChain_DW` | `DimAFIWarehouses` | Warehouse dimensions |
+| `CustomerOrders_AFI` | `WarehouseMaster` | Warehouse dimensions |
 | `Wholesale_ProductSourcing_AFI` | `CustomerGrouping` | Customer group mapping |
 
 ### `SupplyChain_Lakehouse` — EDW Supplement (4 dataflow feeds)
@@ -30,7 +30,7 @@ When `Enterprise_Lakehouse` is incomplete or unstable, dataflows write `_edw` ta
 | `df_brz_SupplyChain_Enh_1_DemandForecastSnapshotDaily_copy1` | `brz_supplychain_enh_1__demandforecastsnapshotdaily_edw` | Forecast snapshot feed (Enhancement schema) |
 | `df_ref_product` | `ref_product_edw` | Product master supplement |
 
-> Note: Reference tables `df_ref_forecast_cycle` and others provide static reference data via dataflow as well, but they are loaded directly into `ReferenceMaster_Enh` Silver schema, not staged.
+> Note: `df_ref_forecast_cycle` lands SharePoint cycle reference data into `ProcessingSeed.ForecastCycle` in the Processing Warehouse. `ReferenceMaster_Enh.ForecastCycle` materializes from that Processing-owned seed table, so forecast Silver no longer reads `SupplyChain_Lakehouse.dbo.ref_forecast_cycle` directly.
 
 ## Bronze Access Pattern
 

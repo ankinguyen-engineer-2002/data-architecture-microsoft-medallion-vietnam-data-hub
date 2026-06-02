@@ -1,6 +1,6 @@
 # 50 — Semantic Model
 
-> Scanned: 2026-05-06.
+> Scanned: 2026-05-06 · Updated 2026-06-02 after shared `Shared_DW` dimension cutover, live DAX smoke, and legacy v8 semantic recovery check.
 > **Model:** `sc_forecast_control_tower`
 
 ## Identity
@@ -15,6 +15,20 @@
 | Source | `SupplyChain_Gold_Warehouse` (`98e2a911-5af9-442e-9cc8-5d8dadb8b762`) |
 | Source schema | `ForecastAccuracy_DW` |
 | Deployed | 2026-05-05 |
+
+## Live Smoke Test (2026-06-01)
+
+Power BI `executeQueries` against `sc_forecast_control_tower` returned:
+
+```text
+DimProductRows   = 383,883
+DimWarehouseRows = 53
+DimCalendarRows  = 21,551
+FactKpiRows      = 115,757,696
+FactActualRows   = 138,509,914
+```
+
+[Verified] The model currently binds `DimCalendar`, `DimProduct`, and `DimWarehouse` to `Shared_DW`, while facts remain in `ForecastAccuracy_DW`.
 
 ## Provenance
 
@@ -32,11 +46,11 @@ See [`30_runbook/17_v8_to_v10_etl_parity.md`](../../30_runbook/17_v8_to_v10_etl_
 
 | Table | Source | Mode |
 |-------|--------|------|
-| `DimCalendar` | `ForecastAccuracy_DW.DimCalendar` | directLake |
+| `DimCalendar` | `Shared_DW.DimCalendar` | directLake |
 | `DimCustomerGrouping` | `ForecastAccuracy_DW.DimCustomerGrouping` | directLake |
 | `DimForecastHorizon` | `ForecastAccuracy_DW.DimForecastHorizon` | directLake |
-| `DimProduct` | `ForecastAccuracy_DW.DimProduct` | directLake |
-| `DimWarehouse` | `ForecastAccuracy_DW.DimWarehouse` | directLake |
+| `DimProduct` | `Shared_DW.DimProduct` | directLake |
+| `DimWarehouse` | `Shared_DW.DimWarehouse` | directLake |
 | `FactForecastActual` | `ForecastAccuracy_DW.FactForecastActual` | directLake |
 | `FactForecastKpi` | `ForecastAccuracy_DW.FactForecastKpi` | directLake |
 | `_Measure` | (calculated table) | local |
@@ -83,11 +97,11 @@ Hosted in `_Measure` calculated table. Categories:
 7 directLake edges automatically tracked:
 
 ```
-ForecastAccuracy_DW.DimCalendar         → SemanticModel.sc_forecast_control_tower (directLake)
+Shared_DW.DimCalendar                   → SemanticModel.sc_forecast_control_tower (directLake)
 ForecastAccuracy_DW.DimCustomerGrouping → SemanticModel.sc_forecast_control_tower (directLake)
 ForecastAccuracy_DW.DimForecastHorizon  → SemanticModel.sc_forecast_control_tower (directLake)
-ForecastAccuracy_DW.DimProduct          → SemanticModel.sc_forecast_control_tower (directLake)
-ForecastAccuracy_DW.DimWarehouse        → SemanticModel.sc_forecast_control_tower (directLake)
+Shared_DW.DimProduct                    → SemanticModel.sc_forecast_control_tower (directLake)
+Shared_DW.DimWarehouse                  → SemanticModel.sc_forecast_control_tower (directLake)
 ForecastAccuracy_DW.FactForecastActual  → SemanticModel.sc_forecast_control_tower (directLake)
 ForecastAccuracy_DW.FactForecastKpi     → SemanticModel.sc_forecast_control_tower (directLake)
 ```
@@ -113,6 +127,6 @@ The Action's CSV export step (which feeds Streamlit lineage explorer) works rega
 
 | Model | Status |
 |-------|--------|
-| `Supply Chain Control Tower` | Cherry's v8 model (Lakehouse mode) — separate ownership |
+| `Supply Chain Control Tower` | Cherry's v8 model (Lakehouse mode) — separate ownership. Recovered and scheduled daily on 2026-06-02; latest semantic refresh completed and DAX smoke passed. See [../../30_runbook/19_legacy_v8_daily_refresh_recovery.md](../../30_runbook/19_legacy_v8_daily_refresh_recovery.md). |
 | `SupplyChain_Gold` | Auto-generated default by Gold WH |
 | `temp_SCPModel` | Temp / experimental |

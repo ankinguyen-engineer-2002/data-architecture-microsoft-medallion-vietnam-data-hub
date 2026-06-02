@@ -1,0 +1,217 @@
+/// Primary KPI fact table for forecast accuracy. Stores forecast, actual, naive forecast, signed error, absolute error, squared error, and validation flags at item-warehouse-horizon-fiscal month grain.
+table FactForecastKpi
+	lineageTag: fdf1fc38-8ba5-450e-be33-10c82fa6fd4f
+	sourceLineageTag: [ForecastAccuracy_DW].[FactForecastKpi]
+
+	/// Item SKU identifier for joining to the product dimension and evaluating KPI performance at item level.
+	column ItemSKU
+		dataType: string
+		lineageTag: 99157bbf-243c-4b61-939a-21e03c69016a
+		sourceLineageTag: ItemSKU
+		summarizeBy: none
+		sourceColumn: ItemSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Warehouse code for joining to the warehouse dimension and evaluating KPI performance by location.
+	column WarehouseCode
+		dataType: string
+		lineageTag: 93d65e2a-a6fd-4be4-a6e7-8237e4e32719
+		sourceLineageTag: WarehouseCode
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// First date of the fiscal month measured by this KPI row.
+	column FSCMonthFirst
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e99b3572-9f9f-430b-98e8-39e99775d560
+		sourceLineageTag: FSCMonthFirst
+		summarizeBy: none
+		sourceColumn: FSCMonthFirst
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal month-end date measured by this KPI row. Joins to DimCalendar[Date].
+	column FSCMonthLast
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d95f6c23-8e88-493c-8ede-1daafa4366a7
+		sourceLineageTag: FSCMonthLast
+		summarizeBy: none
+		sourceColumn: FSCMonthLast
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Forecast lag/horizon associated with this KPI row, such as Lag-0 through Lag-4.
+	column HorizonCode
+		dataType: string
+		lineageTag: bb8c1fec-15fd-4518-b135-f11e8e7c21a3
+		sourceLineageTag: HorizonCode
+		summarizeBy: none
+		sourceColumn: HorizonCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Forecast snapshot date used for the KPI row.
+	column Snapshot
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7bbabebb-927a-46d3-9ed9-e58a4b11871e
+		sourceLineageTag: Snapshot
+		summarizeBy: none
+		sourceColumn: Snapshot
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Consensus forecast quantity for the item, warehouse, horizon, and fiscal month grain.
+	column QtyForecast
+		dataType: double
+		lineageTag: fda14669-e083-42da-a32c-a915cbae390a
+		sourceLineageTag: QtyForecast
+		summarizeBy: sum
+		sourceColumn: QtyForecast
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Actual demand quantity for the item, warehouse, horizon, and fiscal month grain.
+	column QtyActual
+		dataType: double
+		lineageTag: 312b21ae-f66b-465e-9fc2-bbbe2ee9314d
+		sourceLineageTag: QtyActual
+		summarizeBy: sum
+		sourceColumn: QtyActual
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Naive forecast quantity used as a baseline comparison for process value add.
+	column QtyNaiveForecast
+		dataType: double
+		lineageTag: 0e9814c4-125e-4475-80d3-31a54cac1ba3
+		sourceLineageTag: QtyNaiveForecast
+		summarizeBy: sum
+		sourceColumn: QtyNaiveForecast
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Signed forecast error stored as Forecast minus Actual. Positive values indicate over-forecast.
+	column QtyFcstError
+		dataType: double
+		lineageTag: 76c8a891-84f3-47e1-b80d-fb4396138009
+		sourceLineageTag: QtyFcstError
+		summarizeBy: sum
+		sourceColumn: QtyFcstError
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Absolute forecast error used for wMAPE, MAPE, and accuracy calculations.
+	column QtyAbsFcstError
+		dataType: double
+		lineageTag: e140b05c-5b6c-4834-9cbd-e95dfc0b478f
+		sourceLineageTag: QtyAbsFcstError
+		summarizeBy: sum
+		sourceColumn: QtyAbsFcstError
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Signed naive forecast error used to evaluate baseline forecast performance.
+	column QtyNaiveFcstError
+		dataType: double
+		lineageTag: 6ad7b888-f54e-4d14-8b0a-07ab3ab2517e
+		sourceLineageTag: QtyNaiveFcstError
+		summarizeBy: sum
+		sourceColumn: QtyNaiveFcstError
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Absolute naive forecast error used for naive wMAPE and process value add calculations.
+	column QtyAbsNaiveFcstError
+		dataType: double
+		lineageTag: a25fe343-f0c7-4324-a889-e381f35eec79
+		sourceLineageTag: QtyAbsNaiveFcstError
+		summarizeBy: sum
+		sourceColumn: QtyAbsNaiveFcstError
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Squared forecast error used for RMSE calculations.
+	column QtySquaredFcstError
+		dataType: double
+		lineageTag: a29b7d82-013f-401e-8ad7-18c8e5c9dcd8
+		sourceLineageTag: QtySquaredFcstError
+		summarizeBy: sum
+		sourceColumn: QtySquaredFcstError
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Squared naive forecast error used for naive RMSE calculations.
+	column QtySquaredNaiveFcstError
+		dataType: double
+		lineageTag: 17d1d71e-f518-4e15-a4da-46aa7aaa2184
+		sourceLineageTag: QtySquaredNaiveFcstError
+		summarizeBy: sum
+		sourceColumn: QtySquaredNaiveFcstError
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Validation flag indicating whether the row is eligible for observation-based KPI calculations such as RMSE.
+	column ValidObsFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 24981819-b653-46d7-b764-ff160dc24da6
+		sourceLineageTag: ValidObsFlag
+		summarizeBy: sum
+		sourceColumn: ValidObsFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Validation flag indicating whether actual demand is nonzero and eligible for percentage-error calculations.
+	column ValidActualNonzeroFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 169bbf09-5101-4265-985c-bf2592223d26
+		sourceLineageTag: ValidActualNonzeroFlag
+		summarizeBy: sum
+		sourceColumn: ValidActualNonzeroFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Row-level absolute percentage error used for MAPE-style analysis.
+	column AbsPctError
+		dataType: double
+		lineageTag: c2788e7e-ebd5-462c-871b-f54921937149
+		sourceLineageTag: AbsPctError
+		summarizeBy: sum
+		sourceColumn: AbsPctError
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactForecastKpi = entity
+		mode: directLake
+		source
+			entityName: FactForecastKpi
+			schemaName: ForecastAccuracy_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

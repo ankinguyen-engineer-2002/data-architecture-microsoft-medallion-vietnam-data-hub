@@ -54,6 +54,7 @@ _external_refs/
 # === Archive ===
 docs/archive/
 .claude.md
+_local_archive/
 
 # === Build run artifacts (keep scripts, ignore outputs) ===
 Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/items_*.json

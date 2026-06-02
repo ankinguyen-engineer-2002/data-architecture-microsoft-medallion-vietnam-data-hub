@@ -1,0 +1,54 @@
+/// Parameter table used by report visuals to switch or display selected forecast accuracy metrics. Supports metric-driven layouts and narrative visuals.
+table para_metric_table
+	lineageTag: 8d993d3b-dac0-4b8a-b4d7-e7d01bbe6d32
+
+	/// Display name of the selectable metric used by report visuals.
+	column para_metric_table
+		lineageTag: de53a66c-80b2-466b-89fe-156f4749cc88
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'para_metric_table Order'
+
+		relatedColumnDetails
+			groupByColumn: 'para_metric_table Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Field parameter reference to the selected Control Tower metric measure.
+	column 'para_metric_table Fields'
+		lineageTag: 7963518f-3d68-4b7e-bf77-b21cb53e9001
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'para_metric_table Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sort order for metric options in report visuals.
+	column 'para_metric_table Order'
+		formatString: 0
+		lineageTag: 3edacdc1-e84f-41e3-80df-39c92000c1d8
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition para_metric_table = calculated
+		mode: import
+		source =
+				{
+				    ("Pct_wMAPE", NAMEOF('_Measure'[Pct_wMAPE]), 0),
+				    ("Pct_MAPE", NAMEOF('_Measure'[Pct_MAPE]), 1),
+				    ("Pct_MPE", NAMEOF('_Measure'[Pct_MPE]), 2),
+				    ("Pct_RMSE", NAMEOF('_Measure'[RMSE]), 3),
+				    ("Qty_Bias", NAMEOF('_Measure'[Qty_Bias]), 4),
+				    ("ProcessValueAdd", NAMEOF('_Measure'[ProcessValueAdd]), 5)
+				}
+
+	annotation PBI_Id = af26469853714265867517c153e6faa3
+

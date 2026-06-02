@@ -1,6 +1,6 @@
 # 20 — Silver Layer
 
-> Scanned: 2026-05-06 · Updated 2026-05-10 post Bob alignment (schema casing `_Enh`/`_Wrk`, view prefix `v_*`).
+> Scanned: 2026-05-06 · Updated 2026-06-01 after ProcessingSeed cleanup and live run-log audit.
 > **Warehouse:** `SupplyChain_Processing_Warehouse` (`c0262cef-b8a7-495f-bccc-53b098c7948c`)
 > **Schemas:** `Staging_Wrk`, `ReferenceMaster_Enh`, `SalesHistory_Enh`, `ForecastHistory_Enh`, `OpenOrderHistory_Enh`, `Meta`
 
@@ -16,6 +16,22 @@
 | `Meta` | 23 | 4 | (control plane — added `TableDictionary`, `TableDictionary_UpdateLog`, `AuditLog` per Bob alignment 2026-05-10) |
 
 > ETL DDL for all views: see [`etl/staging_ddl.sql`](etl/staging_ddl.sql) and [`etl/silver_views.sql`](etl/silver_views.sql).
+
+## 2026-06-01 Live Run-Log Override
+
+The historical summary below is retained for baseline context. Current live `Meta.RunLog` / SQL audit shows these key row counts:
+
+| Table | Rows loaded | Latest successful load |
+|---|---:|---|
+| `ReferenceMaster_Enh.ForecastCycle` | 43 | 2026-06-01 |
+| `ReferenceMaster_Enh.ForecastHorizon` | 8 | 2026-06-01 |
+| `ReferenceMaster_Enh.Warehouse` | 53 | 2026-05-29 |
+| `SalesHistory_Enh.InvoiceDetailLineLevel` | 128,572,413 | 2026-05-29 |
+| `SalesHistory_Enh.ActualDemandMonthly` | 297,257 | 2026-05-29 |
+| `SalesHistory_Enh.ActualDemandWeekly` | 616,274 | 2026-05-29 |
+| `SalesHistory_Enh.InvoiceWeekly` | 15,644,636 | 2026-05-29 |
+| `ForecastHistory_Enh.ForecastDemandMonthly` | 138,004,165 | 2026-05-29 |
+| `ForecastHistory_Enh.NaiveForecastMonthly` | 208,492 | 2026-05-29 |
 
 ---
 
@@ -52,13 +68,17 @@
 | `CustomerAccountGroup` | 35,617 | `Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping` | overwrite | monthly |
 | `CustomerGrouping` | 35,617 | `Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping` | overwrite | monthly |
 | `CustomerShippingLocation` | 127,660 | `Enterprise_Lakehouse.Customers.ShippingLocations` | overwrite | monthly |
-| `ForecastCycle` | 43 | `SupplyChain_Lakehouse.dbo.ref_forecast_cycle_ver2` | overwrite | monthly |
-| `ForecastHorizon` | 8 | seeded (HorizonCode, HorizonMonths, Rank) | overwrite | monthly |
+| `ForecastCycle` | 43 | `ProcessingSeed.ForecastCycle` | overwrite | monthly |
+| `ForecastHorizon` | 8 | `ProcessingSeed.ForecastHorizon` | overwrite | monthly |
 | `ItemMaster` | 381,163 | `Enterprise_Lakehouse.MasterData_DW.DimItemMaster` | overwrite | monthly |
 | `OrderType` | 29 | seeded reference | overwrite | monthly |
-| `Warehouse` | 55 | `Enterprise_Lakehouse.SupplyChain_DW.DimAFIWarehouses` | overwrite | daily |
+| `Warehouse` | 53 | `Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster` | overwrite | daily |
 
 **11 paired views** in same schema map raw sources → PascalCase business columns.
+
+> **2026-06-01 reference cleanup:** the former passthrough `SELECT *` views for `CustomerAccount`, `CustomerShippingLocation`, `ForecastCycle`, `ItemMaster`, and `OrderType` were replaced with explicit, contract-preserving projections. Text columns are `TRIM` + `CAST`; numeric/date/bit columns are cast back to the live view contract. `LoadDT` remains a materialization column appended by `Meta.usp_GenericLoad`, not part of the source views.
+
+> **2026-06-01 ProcessingSeed cleanup:** `ForecastCycle` and `ForecastHorizon` now source from Processing Warehouse seed tables under `ProcessingSeed`. `ForecastCycle` remains fed by the existing SharePoint Dataflow Gen2, but the destination is Processing-owned instead of the SupplyChain Lakehouse staging table. The Silver view aliases raw ProcessingSeed column names back to the existing business contract (`ForecastSnapshot`, etc.) so downstream forecast joins remain stable.
 
 > **Smart skip:** Most ReferenceMaster_Enh assets are `freq=monthly` — pipeline `Lookup` step filters by `next_run_time`, skipping these on daily runs.
 

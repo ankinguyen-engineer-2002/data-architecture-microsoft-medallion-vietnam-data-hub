@@ -28,144 +28,15 @@ jobs:
           sudo apt-get update
           sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
 
-      - name: Get Azure Token & Export CSVs
+      - name: Export live lineage CSVs
         env:
           AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           FABRIC_SERVER: ${{ secrets.FABRIC_SERVER }}
+          FABRIC_WORKSPACE_ID: ${{ secrets.FABRIC_WORKSPACE_ID }}
         run: |
-          python << 'EOF'
-          import pyodbc, struct, csv, os, json, sys
-          from urllib.request import Request, urlopen
-
-          tenant = os.environ["AZURE_TENANT_ID"]
-          client_id = os.environ["AZURE_CLIENT_ID"]
-          client_secret = os.environ["AZURE_CLIENT_SECRET"]
-          server = os.environ["FABRIC_SERVER"]
-
-          # v10 architecture: 2 warehouses in workspace Enterprise_SupplyChain-Dev
-          #   Silver = SupplyChain_Processing_Warehouse (id c0262cef-...)
-          #   Gold   = SupplyChain_Gold_Warehouse        (id 98e2a911-...)
-          # Both share the same SQL endpoint (FABRIC_SERVER); only DATABASE= differs.
-          SILVER_WH = "SupplyChain_Processing_Warehouse"
-          GOLD_WH   = "SupplyChain_Gold_Warehouse"
-
-          token_url = f"https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token"
-          data = f"grant_type=client_credentials&client_id={client_id}&client_secret={client_secret}&scope=https://database.windows.net/.default"
-          req = Request(token_url, data=data.encode(), method="POST",
-                        headers={"Content-Type": "application/x-www-form-urlencoded"})
-          token = json.loads(urlopen(req).read().decode())["access_token"]
-          token_bytes = token.encode("UTF-16-LE")
-          token_struct = struct.pack(f"<I{len(token_bytes)}s", len(token_bytes), token_bytes)
-
-          def connect(database):
-              return pyodbc.connect(
-                  f"DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};"
-                  f"DATABASE={database};Encrypt=yes;TrustServerCertificate=no;",
-                  attrs_before={1256: token_struct})
-
-          conn_silver = connect(SILVER_WH)
-          cursor = conn_silver.cursor()
-
-          data_dir = "lineage_explorer/data"
-
-          # Export lineage — edges already use physical names (no mapping needed)
-          def split_name(name):
-              if '.' in name:
-                  parts = name.split('.', 1)
-                  return parts[0], parts[1]
-              return name, name
-
-          cursor.execute("SELECT source_asset, target_asset, edge_type FROM Meta.LineageEdge ORDER BY target_asset, source_asset")
-          rows = cursor.fetchall()
-          with open(f"{data_dir}/lineage.csv", "w", newline="") as f:
-              w = csv.writer(f)
-              w.writerow(["lineage_id","source_schema","source_table","target_schema","target_table","relationship_type","sp_name"])
-              for i, r in enumerate(rows, 1):
-                  ss, st = split_name(r[0])
-                  ts, tt = split_name(r[1])
-                  w.writerow([i, ss, st, ts, tt, r[2], r[1]])
-
-          # Export registry with physical names + authoritative wave_number from SilverDagWaveRuntime
-          cursor.execute("""
-              SELECT ar.physical_schema + '.' + ar.physical_object AS sp_name,
-                  ar.legacy_view_name AS view_name,
-                  ar.physical_schema AS target_schema,
-                  ar.physical_object AS target_table,
-                  ar.canonical_layer AS layer,
-                  ar.load_type, ar.frequency,
-                  CASE WHEN ar.source_objects IS NOT NULL THEN 1 ELSE 0 END AS execution_order,
-                  ar.depends_on, ar.source_objects, ar.is_active,
-                  sdw.wave_number AS wave
-              FROM Meta.AssetRegistry ar
-              LEFT JOIN Meta.SilverDagWaveRuntime sdw ON sdw.asset_id = ar.asset_id
-              WHERE ar.is_active = 1
-              ORDER BY ar.canonical_layer, ar.physical_schema, ar.physical_object
-          """)
-          cols = [d[0] for d in cursor.description]
-          rows = cursor.fetchall()
-          with open(f"{data_dir}/registry.csv", "w", newline="") as f:
-              w = csv.writer(f)
-              w.writerow(cols)
-              for r in rows:
-                  row = list(r)
-                  w.writerow(row)
-
-          # Export views from BOTH warehouses (full definition, no truncation).
-          # Requires VIEW DEFINITION on each WH for the SP — otherwise sys.sql_modules.definition
-          # returns NULL silently. We detect that case and KEEP the existing views.csv instead
-          # of overwriting it with empty rows.
-          views_sql = """
-              SELECT s.name AS [schema], v.name AS view_name, m.definition
-              FROM sys.views v
-              JOIN sys.schemas s ON v.schema_id = s.schema_id
-              JOIN sys.sql_modules m ON v.object_id = m.object_id
-              WHERE s.name NOT IN ('sys','queryinsights','INFORMATION_SCHEMA')
-              ORDER BY s.name, v.name
-          """
-          all_view_rows = []
-          for wh_name, conn in [(SILVER_WH, conn_silver), (GOLD_WH, connect(GOLD_WH))]:
-              cur = conn.cursor()
-              cur.execute(views_sql)
-              fetched = cur.fetchall()
-              non_empty = [r for r in fetched if r[2] and str(r[2]).strip()]
-              print(f"[views] {wh_name}: fetched={len(fetched)}, non_empty_def={len(non_empty)}")
-              for r in fetched:
-                  all_view_rows.append((wh_name, r[0], r[1], r[2] or ""))
-
-          total_non_empty = sum(1 for r in all_view_rows if r[3].strip())
-          if total_non_empty == 0 and all_view_rows:
-              print("[views] WARNING: all definitions empty — SP likely missing VIEW DEFINITION grant.")
-              print("[views] Keeping existing views.csv to avoid clobbering good data.")
-              print("[views] To fix: connect as warehouse admin and run:")
-              print(f"[views]   GRANT VIEW DEFINITION ON DATABASE::{SILVER_WH} TO [<SP-name>];")
-              print(f"[views]   GRANT VIEW DEFINITION ON DATABASE::{GOLD_WH}   TO [<SP-name>];")
-          else:
-              with open(f"{data_dir}/views.csv", "w", newline="") as f:
-                  w = csv.writer(f)
-                  w.writerow(["warehouse","schema","view_name","definition"])
-                  w.writerows(all_view_rows)
-              print(f"[views] wrote {len(all_view_rows)} rows to views.csv")
-
-          # Export run history (v10: Meta.RunLog)
-          cursor.execute("""
-              SELECT TOP 50 asset_id AS sp_name, status, rows_loaded AS rows_affected,
-                  DATEDIFF(SECOND, start_time_utc, COALESCE(end_time_utc, start_time_utc)) AS duration_seconds,
-                  start_time_utc AS start_time, load_type
-              FROM Meta.RunLog WHERE status = 'success'
-              ORDER BY start_time_utc DESC
-          """)
-          cols = [d[0] for d in cursor.description]
-          rows = cursor.fetchall()
-          with open(f"{data_dir}/run_history.csv", "w", newline="") as f:
-              w = csv.writer(f)
-              w.writerow(cols)
-              w.writerows(rows)
-
-          conn_silver.close()
-          print("CSVs exported successfully")
-          EOF
+          python lineage_explorer/export_lineage_data.py
 
       - name: Commit & Push
         run: |

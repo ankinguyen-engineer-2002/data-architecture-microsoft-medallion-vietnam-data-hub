@@ -1,10 +1,10 @@
 # 30 — Gold Layer
 
-> **Status (updated 2026-05-22):** LIVE post-cleanup. **6 active assets** in `InventoryHealth_DW` (Gold WH) + 1 shared dim cross-mart (DimCalendar in ForecastAccuracy_DW).
+> **Status (updated 2026-06-01):** LIVE post-cleanup. Active Inventory Health facts/helpers remain in `InventoryHealth_DW`; shared `DimCalendar`, `DimProduct`, and `DimWarehouse` now live in `Shared_DW`. Gold tables have live data, semantic smoke tests pass, and latest `pl_sc_master` / `pl_sc_gold` job samples include Completed runs.
 >
 > **2026-05-22 changes** (2 cleanup rounds):
 > - Round 1: Dropped `DimRuleVersion` (over-engineering — versioning via new semantic model when BRD changes, not via versioned dim). Removed RuleVersionKey column from both Fact views + 2 TMDL relationships + 1 DAX measure simplified.
-> - Round 2: Dropped `DimDate` (duplicate of `ForecastAccuracy_DW.DimCalendar`). Inv_health TMDL rebinds to mart A's DimCalendar via column-name aliases — single shared date dim across both marts. Eliminates physical Gold dim duplication.
+> - Round 2: Dropped `DimDate` (duplicate of `Shared_DW.DimCalendar`). Inv_health TMDL rebinds to the shared Gold DimCalendar via column-name aliases — single shared date dim across both marts. Eliminates physical Gold dim duplication.
 
 ## Schema
 
@@ -12,56 +12,62 @@
 
 Pattern: cross-DB CTAS via `pl_sc_gold` pipeline (registry-driven). Each Gold view reads Silver physical tables via 3-part name `[SupplyChain_Processing_Warehouse].[<schema>].[<table>]`.
 
+**2026-05-28 DA-first refactor:** `CogsRollingHelper` reads `[SupplyChain_Processing_Warehouse].[SalesHistory_Enh].[v_InvoiceDetailLineLevel]` directly. It no longer depends on Mart B `InventoryHistory_Enh.SalesShipment`.
+
+**2026-06-01 DA-first rebuild:** physical facts/helpers now report `FactInventoryHealthSnapshot=2,739,398`, `FactInventoryRiskForward=3,778,995`, and `CogsRollingHelper=3,092,173` after rebuilding from the latest DA-aligned Gold views. `FactInventoryRiskForward` no longer exposes `ATPQty` or `ATPInStockFlag`; semantic definition was updated accordingly. Pre-rebuild physical backup tables were dropped after approval because this is still a dev rollout; view and semantic definitions remain backed up under `artifacts/backups/`.
+
 ## Star schema (post-cleanup 2026-05-22)
 
 ```
        DimCalendar (shared) ────┐
-                  DimItem ────┤
+               DimProduct ────┤
               DimWarehouse ───┼── FactInventoryHealthSnapshot
                 DimVendor ────┘        │
                                        │
                                        └─→ CogsRollingHelper (hidden, JOIN at view-time)
 
        DimCalendar (shared) ────┐
-                  DimItem ────┼── FactInventoryRiskForward
+               DimProduct ────┼── FactInventoryRiskForward
               DimWarehouse ───┘
 ```
 
 ## Assets (6 inv_health + 1 shared, was 8 pre-cleanup)
 
-### Shared dim cross-mart (1)
+### Shared dims cross-mart (3)
 
 | Asset | TMDL bind | Notes |
 |---|---|---|
-| `DimCalendar` | `ForecastAccuracy_DW.DimCalendar` (75 cols) | Single shared date dim used by both forecast + inv_health marts. Inv_health TMDL aliases display names: DateKey→DateSK, FiscalMonth→FSCMonthNum, FiscalMonthYear→FSCMonthYearNum, etc. |
+| `DimCalendar` | `Shared_DW.DimCalendar` (75 cols) | Single shared date dim used by both forecast + inv_health marts. Inv_health TMDL aliases display names: DateKey→DateSK, FiscalMonth→FSCMonthNum, FiscalMonthYear→FSCMonthYearNum, etc. |
+| `DimProduct` | `Shared_DW.DimProduct` (218 cols) | Canonical shared product/item dim. Replaces Inventory `DimItem`; includes `Cubes`, `FOBArcPrice`, `UnavailableFlag`, vendor attributes, and forecast-compatible fields. |
+| `DimWarehouse` | `Shared_DW.DimWarehouse` (20 cols) | Shared warehouse dim with forecast display contract plus inventory B3 flags. |
 
-### Dims (3 inv_health-only)
+### Dims (inventory-specific)
 
 | Asset | View | Source | Notes |
 |---|---|---|---|
-| ~~`DimDate`~~ | — | **DROPPED 2026-05-22** | Consolidated to `ForecastAccuracy_DW.DimCalendar` — single shared date dim used by both marts. TMDL rebinds cross-schema. |
-| `DimItem` | `v_DimItem` | `InventoryHistory_Enh.ItemMasterExt` + LifecycleStatus computed | LifecycleStatus = Active/Inactive/New/Discontinued |
-| `DimWarehouse` | `v_DimWarehouse` | `InventoryHistory_Enh.WarehouseExt` | Includes B3 fix flags |
-| `DimVendor` | `v_DimVendor` | `ReferenceMaster_Enh.Vendor` (NEW master) | 2-col Phase 1 (VendorNumber, VendorName) |
+| ~~`DimDate`~~ | — | **DROPPED 2026-05-22** | Consolidated to `Shared_DW.DimCalendar` — single shared date dim used by both marts. TMDL rebinds cross-schema. |
+| ~~`DimItem`~~ | `v_DimItem` compatibility only | **LEGACY after 2026-05-29 shared `DimProduct` cutover** | Physical `InventoryHealth_DW.DimItem` still exists with 383,371 rows but semantic now binds table `DimProduct` to `Shared_DW.DimProduct` (383,883 rows / 218 cols). |
+| ~~`DimWarehouse`~~ | — | **MOVED to `Shared_DW.DimWarehouse`** | Inventory semantic binds to shared warehouse dim; no active `InventoryHealth_DW.DimWarehouse` physical table exists. |
+| `DimVendor` | `v_DimVendor` | `ReferenceMaster_Enh.Vendor` (NEW master) | 86,620 rows live |
 | ~~`DimRuleVersion`~~ | ~~`v_DimRuleVersion`~~ | **DROPPED 2026-05-22** — versioning via new semantic model when BRD changes |
 
 ### Helper (1, hidden from semantic model)
 
 | Asset | View | Notes |
 |---|---|---|
-| `CogsRollingHelper` | `v_CogsRollingHelper` | Monthly grain; 12M + 52M rolling sums. **H4 fix** (ORDER BY FiscalMonthYear) + **M3 fix** (Cogs52W → Cogs52M rename). Robert sign-off pending on weekly vs monthly grain. |
+| `CogsRollingHelper` | `v_CogsRollingHelper` | 3,092,173 rows live after DA-first rebuild. Monthly grain from Mart A invoice line + inline cost current; 12M + 52M rolling sums. **H4 fix** (ORDER BY FiscalMonthYear) + **M3 fix** (Cogs52W → Cogs52M rename). Robert sign-off pending on weekly vs monthly grain. |
 
 ### Facts (2)
 
 | Asset | View | Grain | Notes |
 |---|---|---|---|
-| `FactInventoryHealthSnapshot` | `v_FactInventoryHealthSnapshot` | `(ItemSku, WarehouseCode, SnapshotDate, SnapshotType)` where SnapshotType ∈ {Current, Weekly} | Pass 1 (base) + Pass 2 (rolling COGS) collapsed into single CTE-driven view (since `usp_GenericLoad` does CTAS only). **M4 fix** (SLOB NULL guard). |
-| `FactInventoryRiskForward` | `v_FactInventoryRiskForward` | `(ItemSku, WarehouseCode, WeekEndingDate)` | Forward 4-week supply plan view. **H5 fix** (WeekFourFlag exact week). Robert sign-off pending. |
+| `FactInventoryHealthSnapshot` | `v_FactInventoryHealthSnapshot` | `(ItemSku, WarehouseCode, SnapshotDate, SnapshotType)` where SnapshotType ∈ {Current, Weekly} | 2,739,398 rows live after DA-first rebuild. New view collapses weekly history to snapshot/fiscal-month aligned rows and includes 53 output columns. **M4 fix** (SLOB NULL guard). |
+| `FactInventoryRiskForward` | `v_FactInventoryRiskForward` | `(ItemSku, WarehouseCode, WeekEndingDate)` | 3,778,995 rows live after DA-first rebuild. Forward supply-plan risk fact; ATP output columns removed per DA Gold SQL. **H5 fix** (WeekFourFlag exact week). Robert sign-off pending. |
 
 ## Cross-mart reuse decisions
 
 - **Source level**: REUSE `ReferenceMaster_Enh.ItemMaster/Warehouse/Calendar` (extension via `v_*Ext` views in Silver layer).
-- **Semantic level**: DO NOT bind DirectLake to `ForecastAccuracy_DW.Dim*` because deliverable v1 designed DAX measures against inventory-specific column schemas. Keep Gold self-contained.
+- **Semantic level**: DO NOT bind DirectLake to `ForecastAccuracy_DW.Dim*`. Use `Shared_DW.DimCalendar`, `Shared_DW.DimProduct`, and `Shared_DW.DimWarehouse` as the canonical shared dims, with Inventory semantic table names/aliases preserved.
 - Bob Q2 (DimCalendar/DimProduct cross-mart) — flagged in `_open_questions_for_bob.md`.
 
 ## Load orchestration
@@ -73,11 +79,10 @@ Gold tables get populated via `pl_sc_gold` pipeline (existing, registry-driven):
 SELECT physical_schema, physical_object, legacy_view_name
 FROM Meta.AssetRegistry
 WHERE canonical_layer='Gold' AND project=@project AND is_active=1
--- ForEach: DROP TABLE IF EXISTS [Gold].<schema>.<table>
---          CREATE TABLE [Gold].<schema>.<table> AS SELECT * FROM <legacy_view_name>
+    -- ForEach: replace target table then CTAS from <legacy_view_name>
 ```
 
-No code change needed in pipeline. After registry insert, next run picks `inventory_health` rows automatically.
+No code change needed in pipeline. After registry insert, next run picks `inventory_health` rows automatically. Do not manually run destructive Gold table replacement outside the pipeline without explicit approval and a fresh backup/diff plan.
 
 ## Track A fix carry-over (Gold-side)
 

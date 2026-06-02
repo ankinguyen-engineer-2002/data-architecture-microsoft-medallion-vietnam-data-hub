@@ -59,13 +59,13 @@ INSERT INTO Meta.AssetRegistry (
  @ws, @wh_proc, 'InventoryHistory_Enh', 'ItemMasterExt',
  'InventoryHistory_Enh.v_ItemMasterExt', 'overwrite', 'ItemSku',
  '["Enterprise_Lakehouse.MasterData_DW.DimItemMaster","Enterprise_Lakehouse.Purchasing_AFI.VendorMaster","Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT","ReferenceMaster_Enh.ItemMaster"]', NULL,
- 'monthly', '0 3 1 * *', 1, 'WarehouseTransform'),
+ 'monthly', '0 3 1 * *', 0, 'WarehouseTransform'), -- inlined via Shared_DW.DimProduct
 
 ('InventoryHistory_Enh.WarehouseExt', 'inventory_health', 'DomainSilver',
  @ws, @wh_proc, 'InventoryHistory_Enh', 'WarehouseExt',
  'InventoryHistory_Enh.v_WarehouseExt', 'overwrite', 'WarehouseCode',
  '["Enterprise_Lakehouse.Wholesale_Codis_AFI.AshleyWarehouseMaster","ReferenceMaster_Enh.Warehouse"]', NULL,
- 'monthly', '0 3 1 * *', 1, 'WarehouseTransform');
+ 'monthly', '0 3 1 * *', 0, 'WarehouseTransform');
 
 
 -- ── Tier 1 base (12 assets) ──────────────────────────────────
@@ -80,7 +80,7 @@ INSERT INTO Meta.AssetRegistry (
  @ws, @wh_proc, 'InventoryHistory_Enh', 'CostCurrent',
  'InventoryHistory_Enh.v_CostCurrent', 'overwrite', NULL, 'ItemSku', NULL,
  '["Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA"]', NULL,
- 'daily', '0 2 * * *', 1, 'WarehouseTransform'),
+ 'daily', '0 2 * * *', 0, 'WarehouseTransform'), -- inlined in CogsRollingHelper / Gold facts
 
 -- BLOCKED on DE US ITEMBL full load; set is_active=0 initially
 ('InventoryHistory_Enh.InventoryCurrent', 'inventory_health', 'DomainSilver',
@@ -94,14 +94,10 @@ INSERT INTO Meta.AssetRegistry (
  @ws, @wh_proc, 'InventoryHistory_Enh', 'SupplyPlan',
  'InventoryHistory_Enh.v_SupplyPlan', 'overwrite', NULL, 'ItemSku,WarehouseCode,SnapshotDate,WeekEndingDate', NULL,
  '["Enterprise_Lakehouse.Wholesale_DemandPlanning_AFI.SupplyPlanDetail"]', NULL,
- 'daily', '0 2 * * *', 1, 'WarehouseTransform'),
+ 'daily', '0 2 * * *', 0, 'WarehouseTransform'), -- retired 2026-06-01; DA removed ATP forward-looking logic
 
-('InventoryHistory_Enh.SalesShipment', 'inventory_health', 'DomainSilver',
- @ws, @wh_proc, 'InventoryHistory_Enh', 'SalesShipment',
- -- 2026-05-20: load_type swapped incremental → overwrite (fix 99-min hang; full overwrite of 127M src rows takes 44s vs incremental WHERE InvoiceDate>watermark causing plan blow-up).
- 'InventoryHistory_Enh.v_SalesShipment', 'overwrite', NULL, 'InvoiceNumber,ItemSequence', NULL,
- '["Enterprise_Lakehouse.SalesHistory_AFI.InvoiceDetail"]', NULL,
- 'daily', '0 2 * * *', 1, 'WarehouseTransform'),
+-- REMOVED 2026-05-28: DA-first flow reuses SalesHistory_Enh.v_InvoiceDetailLineLevel directly.
+-- Do not register InventoryHistory_Enh.SalesShipment as a Mart B asset.
 
 -- A2 RESOLVED 2026-05-19: Dhivya loaded Enterprise.PoMaster (5.69M); switched LEFT JOIN; is_active=1
 -- D3.2 FIX 2026-05-19: PK includes VendorNumber. Source PoDetail reuses (PoNumber, PoLine) across vendors
@@ -136,7 +132,7 @@ INSERT INTO Meta.AssetRegistry (
  @ws, @wh_proc, 'InventoryHistory_Enh', 'AtpWeekEnding',
  'InventoryHistory_Enh.v_AtpWeekEnding', 'overwrite', NULL, 'ItemSku,WarehouseCode,WeekNumber', NULL,
  '["Enterprise_Lakehouse.Wholesale_Purchasing_AFI.ATPSUM"]', NULL,
- 'daily', '0 2 * * *', 1, 'WarehouseTransform'),
+ 'daily', '0 2 * * *', 0, 'WarehouseTransform'), -- inlined in FactInventoryRiskForward
 
 -- DROPPED 2026-05-22: MovementHistory ── tagged orphan in Option B refactor 2026-05-21,
 -- never wired into Fact (KPI #26 served via LastInvoiceHelper; KPI #30 not in Phase 1)
@@ -145,7 +141,7 @@ INSERT INTO Meta.AssetRegistry (
  @ws, @wh_proc, 'InventoryHistory_Enh', 'AllocatedDemandCandidate',
  'InventoryHistory_Enh.v_AllocatedDemandCandidate', 'overwrite', NULL, 'OrderNumber,OrderLine', NULL,
  '["Enterprise_Lakehouse.CustomerOrders_AFI.OpenOrderDetail","Enterprise_Lakehouse.CustomerOrders_AFI.OpenOrderHeader"]', NULL,
- 'daily', '0 2 * * *', 1, 'WarehouseTransform');
+ 'daily', '0 2 * * *', 0, 'WarehouseTransform'); -- inlined in FactInventoryRiskForward
 
 -- DROPPED 2026-05-22: ForecastCurrent ── tagged orphan in Option B refactor 2026-05-21,
 -- never wired into Fact (KPI #7 served via ForecastSnapshotWeekly history)
@@ -160,28 +156,20 @@ INSERT INTO Meta.AssetRegistry (
     source_objects, depends_on,
     frequency, cron_expression, is_active, access_mode
 ) VALUES
--- 2026-05-19 REFACTOR: UNION ALL primary (DemandInventorySnapshotWeekly) + historical (ItemBalanceHistorical)
+-- 2026-05-28 DA feedback: use DemandInventorySnapshotDaily Saturday captures only.
+-- Do not use ItemBalanceHistorical as InventorySnapshotWeekly backup/backfill.
 ('InventoryHistory_Enh.InventorySnapshotWeekly', 'inventory_health', 'DomainSilver',
  @ws, @wh_proc, 'InventoryHistory_Enh', 'InventorySnapshotWeekly',
- 'InventoryHistory_Enh.v_InventorySnapshotWeekly', 'incremental', 'SnapshotDate', 'SnapshotDate,ItemSku,WarehouseCode',
- '["Enterprise_Lakehouse.SupplyChain_Enh_1.DemandInventorySnapshotWeekly","InventoryHistory_Enh.ItemBalanceHistorical"]', 'InventoryHistory_Enh.ItemBalanceHistorical',
+ 'InventoryHistory_Enh.v_InventorySnapshotWeekly', 'overwrite', NULL, 'ItemSku,WarehouseCode,SnapshotWeekEndingDate,FiscalMonth',
+ '["Enterprise_Lakehouse.SupplyChain_Enh_1.DemandInventorySnapshotDaily"]', NULL,
  'weekly', '0 6 * * 6', 1, 'WarehouseTransform'),
 
--- DEPRECATED 2026-05-22: ForecastSnapshotWeekly (Monday-source, upstream DEAD since 2024-03-25 ~14mo stale).
---   Set is_active=0 via UPDATE in WH. Replaced by ForecastSnapshotWeeklySat (Saturday from Daily).
+-- 2026-05-28 DA feedback: ForecastSnapshotWeekly now reads Staging_Wrk.DemandForecastSnapshotDaily Saturday captures.
 ('InventoryHistory_Enh.ForecastSnapshotWeekly', 'inventory_health', 'DomainSilver',
  @ws, @wh_proc, 'InventoryHistory_Enh', 'ForecastSnapshotWeekly',
- 'InventoryHistory_Enh.v_ForecastSnapshotWeekly', 'overwrite', NULL, 'WeekEndingDate,ItemSku,WarehouseCode',
- '["Enterprise_Lakehouse.SupplyChain_Enh_1.DemandForecastSnapshotWeekly"]', NULL,
- 'weekly', '0 6 * * 6', 0, 'WarehouseTransform'),
-
--- NEW 2026-05-22: ForecastSnapshotWeeklySat — Saturday from Daily via Staging_Wrk dedupe.
-('InventoryHistory_Enh.ForecastSnapshotWeeklySat', 'inventory_health', 'DomainSilver',
- @ws, @wh_proc, 'InventoryHistory_Enh', 'ForecastSnapshotWeeklySat',
- 'InventoryHistory_Enh.v_ForecastSnapshotWeeklySat', 'incremental', 'SnapshotDate', 'ItemSku,WarehouseCode,SnapshotDate,FiscalMonth',
+ 'InventoryHistory_Enh.v_ForecastSnapshotWeekly', 'overwrite', NULL, 'ItemSku,WarehouseCode,SnapshotDate,FiscalMonth',
  '["Staging_Wrk.DemandForecastSnapshotDaily"]', NULL,
- 'weekly', '0 6 * * 0', 1, 'WarehouseTransform');
-
+ 'weekly', '0 6 * * 6', 1, 'WarehouseTransform');
 
 -- ── Tier 3 helpers (4 assets, depend on Tier 1 + Tier 2) ─────
 INSERT INTO Meta.AssetRegistry (
@@ -194,29 +182,28 @@ INSERT INTO Meta.AssetRegistry (
 ('InventoryHistory_Enh.AwdHelper', 'inventory_health', 'DomainSilver',
  @ws, @wh_proc, 'InventoryHistory_Enh', 'AwdHelper',
  'InventoryHistory_Enh.v_AwdHelper', 'overwrite', 'AsOfDate,ItemSku,WarehouseCode',
- -- 2026-05-22 SOURCE SWAP: ForecastSnapshotWeekly → ForecastSnapshotWeeklySat
- '["InventoryHistory_Enh.InventoryCurrent","InventoryHistory_Enh.InventorySnapshotWeekly","InventoryHistory_Enh.ForecastSnapshotWeeklySat","InventoryHistory_Enh.SalesShipment"]',
- 'InventoryHistory_Enh.ForecastSnapshotWeeklySat,InventoryHistory_Enh.SalesShipment',
+ '["Enterprise_Lakehouse.ItemMaster_AFI.ITEMBL","InventoryHistory_Enh.InventorySnapshotWeekly","InventoryHistory_Enh.ForecastSnapshotWeekly","SalesHistory_Enh.v_InvoiceDetailLineLevel"]',
+ 'InventoryHistory_Enh.InventorySnapshotWeekly,InventoryHistory_Enh.ForecastSnapshotWeekly,SalesHistory_Enh.v_InvoiceDetailLineLevel',
  'daily', '0 3 * * *', 1, 'WarehouseTransform'),
 
 ('InventoryHistory_Enh.LastInvoiceHelper', 'inventory_health', 'DomainSilver',
  @ws, @wh_proc, 'InventoryHistory_Enh', 'LastInvoiceHelper',
  'InventoryHistory_Enh.v_LastInvoiceHelper', 'overwrite', 'AsOfDate,ItemSku,WarehouseCode',
- '["InventoryHistory_Enh.InventoryCurrent","InventoryHistory_Enh.InventorySnapshotWeekly","InventoryHistory_Enh.SalesShipment"]',
- 'InventoryHistory_Enh.SalesShipment',
+ '["InventoryHistory_Enh.InventorySnapshotWeekly","SalesHistory_Enh.v_InvoiceDetailLineLevel"]',
+ 'InventoryHistory_Enh.InventorySnapshotWeekly,SalesHistory_Enh.v_InvoiceDetailLineLevel',
  'daily', '0 3 * * *', 1, 'WarehouseTransform'),
 
 ('InventoryHistory_Enh.MovementFlagHelper', 'inventory_health', 'DomainSilver',
  @ws, @wh_proc, 'InventoryHistory_Enh', 'MovementFlagHelper',
  'InventoryHistory_Enh.v_MovementFlagHelper', 'overwrite', 'AsOfDate,ItemSku,WarehouseCode',
- '["InventoryHistory_Enh.InventoryCurrent","InventoryHistory_Enh.InventorySnapshotWeekly","InventoryHistory_Enh.SalesShipment"]',
- 'InventoryHistory_Enh.SalesShipment',
+ '["InventoryHistory_Enh.InventorySnapshotWeekly","SalesHistory_Enh.v_InvoiceDetailLineLevel"]',
+ 'InventoryHistory_Enh.InventorySnapshotWeekly,SalesHistory_Enh.v_InvoiceDetailLineLevel',
  'daily', '0 3 * * *', 1, 'WarehouseTransform'),
 
 ('InventoryHistory_Enh.SafetyStockHelper', 'inventory_health', 'DomainSilver',
  @ws, @wh_proc, 'InventoryHistory_Enh', 'SafetyStockHelper',
  'InventoryHistory_Enh.v_SafetyStockHelper', 'overwrite', 'AsOfDate,ItemSku,WarehouseCode',
- '["InventoryHistory_Enh.InventoryCurrent","InventoryHistory_Enh.InventorySnapshotWeekly"]',
+ '["InventoryHistory_Enh.InventorySnapshotWeekly"]',
  'InventoryHistory_Enh.InventorySnapshotWeekly',
  'daily', '0 3 * * *', 1, 'WarehouseTransform');
 
@@ -266,7 +253,7 @@ INSERT INTO Meta.AssetRegistry (
 -- 2026-05-22 cleanup:
 --   - DROPPED DimRuleVersion (over-engineering — versioning via new semantic model
 --     when BRD changes, not via versioned dim)
---   - DROPPED DimDate (duplicate — consolidated to ForecastAccuracy_DW.DimCalendar
+--   - DROPPED DimDate (duplicate — consolidated to Shared_DW.DimCalendar
 --     as single shared date dim; cross-schema TMDL bind from inv_health)
 -- ============================================================
 
@@ -277,7 +264,7 @@ INSERT INTO Meta.AssetRegistry (
     source_objects, depends_on,
     frequency, cron_expression, is_active, access_mode
 ) VALUES
--- DROPPED 2026-05-22: DimDate ── consolidated to ForecastAccuracy_DW.DimCalendar
+-- DROPPED 2026-05-22: DimDate ── consolidated to Shared_DW.DimCalendar
 -- (single shared date dim across both marts; inv_health TMDL rebinds via cross-schema)
 
 ('InventoryHealth_DW.DimItem', 'inventory_health', 'Gold',
@@ -286,11 +273,8 @@ INSERT INTO Meta.AssetRegistry (
  '["InventoryHistory_Enh.ItemMasterExt"]', 'InventoryHistory_Enh.ItemMasterExt',
  'monthly', '0 3 1 * *', 1, 'GoldPublish'),
 
-('InventoryHealth_DW.DimWarehouse', 'inventory_health', 'Gold',
- @ws, @wh_gold, 'InventoryHealth_DW', 'DimWarehouse',
- 'InventoryHealth_DW.v_DimWarehouse', 'overwrite', 'WarehouseCode',
- '["InventoryHistory_Enh.WarehouseExt"]', 'InventoryHistory_Enh.WarehouseExt',
- 'monthly', '0 3 1 * *', 1, 'GoldPublish'),
+-- DROPPED 2026-05-29: InventoryHealth_DW.DimWarehouse
+-- Consolidated to Shared_DW.DimWarehouse with forecast + inventory warehouse attrs.
 
 ('InventoryHealth_DW.DimVendor', 'inventory_health', 'Gold',
  @ws, @wh_gold, 'InventoryHealth_DW', 'DimVendor',
@@ -303,22 +287,22 @@ INSERT INTO Meta.AssetRegistry (
 ('InventoryHealth_DW.CogsRollingHelper', 'inventory_health', 'Gold',
  @ws, @wh_gold, 'InventoryHealth_DW', 'CogsRollingHelper',
  'InventoryHealth_DW.v_CogsRollingHelper', 'overwrite', 'ItemSku,WarehouseCode,FiscalMonthYear',
- '["InventoryHistory_Enh.SalesShipment","InventoryHistory_Enh.CostCurrent","ForecastAccuracy_DW.DimCalendar"]',
- 'InventoryHistory_Enh.SalesShipment,InventoryHistory_Enh.CostCurrent',
+ '["SalesHistory_Enh.v_InvoiceDetailLineLevel","Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA","Shared_DW.DimCalendar"]',
+ 'SalesHistory_Enh.v_InvoiceDetailLineLevel,Shared_DW.DimCalendar',
  'daily', '0 5 * * *', 1, 'GoldPublish'),
 
 ('InventoryHealth_DW.FactInventoryHealthSnapshot', 'inventory_health', 'Gold',
  @ws, @wh_gold, 'InventoryHealth_DW', 'FactInventoryHealthSnapshot',
  'InventoryHealth_DW.v_FactInventoryHealthSnapshot', 'overwrite', 'ItemSku,WarehouseCode,SnapshotDate,SnapshotType',
- '["InventoryHistory_Enh.InventoryCurrent","InventoryHistory_Enh.InventorySnapshotWeekly","InventoryHistory_Enh.PurchaseOrder","InventoryHistory_Enh.PurchaseOrderSnapshotDaily","InventoryHistory_Enh.ManufacturingOrder","InventoryHistory_Enh.ManufacturingOrderSnapshotDaily","InventoryHistory_Enh.HoldingTransfer","InventoryHistory_Enh.HoldingTransferSnapshotDaily","InventoryHistory_Enh.AwdHelper","InventoryHistory_Enh.LastInvoiceHelper","InventoryHistory_Enh.MovementFlagHelper","InventoryHistory_Enh.SafetyStockHelper","InventoryHistory_Enh.ItemMasterExt","InventoryHistory_Enh.CostCurrent","InventoryHealth_DW.CogsRollingHelper","ForecastAccuracy_DW.DimCalendar"]',
- 'InventoryHealth_DW.CogsRollingHelper,InventoryHistory_Enh.AwdHelper,InventoryHistory_Enh.LastInvoiceHelper,InventoryHistory_Enh.MovementFlagHelper,InventoryHistory_Enh.SafetyStockHelper',
- 'daily', '0 5 * * *', 0, 'GoldPublish'),   -- is_active=0 until ITEMBL + helpers ready
+ '["Enterprise_Lakehouse.ItemMaster_AFI.ITEMBL","Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA","InventoryHistory_Enh.InventorySnapshotWeekly","InventoryHistory_Enh.PurchaseOrderSnapshotDaily","InventoryHistory_Enh.ManufacturingOrderSnapshotDaily","InventoryHistory_Enh.HoldingTransferSnapshotDaily","InventoryHistory_Enh.AwdHelper","InventoryHistory_Enh.LastInvoiceHelper","InventoryHistory_Enh.MovementFlagHelper","InventoryHistory_Enh.SafetyStockHelper","InventoryHealth_DW.CogsRollingHelper","Shared_DW.DimCalendar","Shared_DW.DimProduct","Shared_DW.DimWarehouse"]',
+ 'InventoryHistory_Enh.InventorySnapshotWeekly,InventoryHistory_Enh.PurchaseOrderSnapshotDaily,InventoryHistory_Enh.ManufacturingOrderSnapshotDaily,InventoryHistory_Enh.HoldingTransferSnapshotDaily,InventoryHistory_Enh.AwdHelper,InventoryHistory_Enh.LastInvoiceHelper,InventoryHistory_Enh.MovementFlagHelper,InventoryHistory_Enh.SafetyStockHelper,InventoryHealth_DW.CogsRollingHelper,Shared_DW.DimCalendar,Shared_DW.DimProduct,Shared_DW.DimWarehouse',
+ 'daily', '0 5 * * *', 1, 'GoldPublish'),
 
 ('InventoryHealth_DW.FactInventoryRiskForward', 'inventory_health', 'Gold',
  @ws, @wh_gold, 'InventoryHealth_DW', 'FactInventoryRiskForward',
  'InventoryHealth_DW.v_FactInventoryRiskForward', 'overwrite', 'ItemSku,WarehouseCode,WeekEndingDate',
- '["InventoryHistory_Enh.SupplyPlan","InventoryHistory_Enh.AtpWeekEnding","InventoryHistory_Enh.AllocatedDemandCandidate","InventoryHistory_Enh.ItemMasterExt","ForecastAccuracy_DW.DimCalendar"]',
- 'InventoryHistory_Enh.SupplyPlan,InventoryHistory_Enh.AtpWeekEnding,InventoryHistory_Enh.AllocatedDemandCandidate',
+ '["Enterprise_Lakehouse.Wholesale_DemandPlanning_AFI.SupplyPlanDetail","Enterprise_Lakehouse.CustomerOrders_AFI.OpenOrderDetail","Shared_DW.DimProduct","Shared_DW.DimCalendar"]',
+ 'Shared_DW.DimProduct,Shared_DW.DimCalendar',
  'daily', '0 5 * * *', 1, 'GoldPublish');
 
 

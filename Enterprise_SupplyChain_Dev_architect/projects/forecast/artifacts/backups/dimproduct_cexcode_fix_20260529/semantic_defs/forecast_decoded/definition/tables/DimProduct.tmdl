@@ -1,0 +1,1026 @@
+/// Product/item dimension used across Control Tower reporting. Contains SKU and product attributes for filtering, grouping, drilldown, and cross-domain analysis.
+table DimProduct
+	lineageTag: 07582346-6acb-414c-9608-06aa8a6fc958
+	sourceLineageTag: [ForecastAccuracy_DW].[DimProduct]
+
+	/// Product surrogate key from the product dimension source.
+	column SKProduct
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e946bbc-c3d6-4ad4-b48b-9e189356d024
+		sourceLineageTag: SKProduct
+		summarizeBy: sum
+		sourceColumn: SKProduct
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Item SKU identifier used to join product-related facts and analyze metrics at SKU level.
+	column ItemSKU
+		dataType: string
+		lineageTag: 62d70f06-0bb2-4b35-a3a9-f47b2aaf4a61
+		sourceLineageTag: ItemSKU
+		summarizeBy: none
+		sourceColumn: ItemSKU
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Source item identifier used for item-level reference and integration.
+	column Item
+		dataType: string
+		lineageTag: e3661440-4ff7-4f0c-8ffd-c013ec5849a8
+		sourceLineageTag: Item
+		summarizeBy: none
+		sourceColumn: Item
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Supply Chain Planning item identifier used for planning-aligned product analysis.
+	column SCPItem
+		dataType: string
+		lineageTag: 05540e7e-098c-402b-bab8-99751f2606ac
+		sourceLineageTag: SCPItem
+		summarizeBy: none
+		sourceColumn: SCPItem
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Item description used for report display, search, and drilldown.
+	column ItemDescriptionName
+		dataType: string
+		lineageTag: 3b0b18e9-4e88-4521-9bba-bf5367726378
+		sourceLineageTag: ItemDescriptionName
+		summarizeBy: none
+		sourceColumn: ItemDescriptionName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ColorName
+		dataType: string
+		lineageTag: ead69bdb-3d84-4d9a-a5d5-ea26b45f1663
+		sourceLineageTag: ColorName
+		summarizeBy: none
+		sourceColumn: ColorName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column QtyInBoxNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 8db61ad2-06d3-463d-b4a1-05eec5ee64ab
+		sourceLineageTag: QtyInBoxNum
+		summarizeBy: sum
+		sourceColumn: QtyInBoxNum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UOMCode
+		dataType: string
+		lineageTag: 6fd10a05-e34b-4dae-a662-169773273288
+		sourceLineageTag: UOMCode
+		summarizeBy: none
+		sourceColumn: UOMCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SeriesCode
+		dataType: string
+		lineageTag: 46204282-9e40-4a87-bb6a-4e64b98dd8f6
+		sourceLineageTag: SeriesCode
+		summarizeBy: none
+		sourceColumn: SeriesCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExtSeriesCode
+		dataType: string
+		lineageTag: 8b5e455a-665a-4ca6-8cf1-1da4e89c7b6f
+		sourceLineageTag: ExtSeriesCode
+		summarizeBy: none
+		sourceColumn: ExtSeriesCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemExtSeriesCode
+		dataType: string
+		lineageTag: fbf6fb9b-897e-4ddd-acd7-26a0d329380b
+		sourceLineageTag: ItemExtSeriesCode
+		summarizeBy: none
+		sourceColumn: ItemExtSeriesCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Product series name used for product grouping and analysis.
+	column SeriesName
+		dataType: string
+		lineageTag: 23024e38-3b7e-46c8-8127-2956b055d7ac
+		sourceLineageTag: SeriesName
+		summarizeBy: none
+		sourceColumn: SeriesName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SeriesColorName
+		dataType: string
+		lineageTag: 129227e4-228b-4973-b0a2-5bc6f029af52
+		sourceLineageTag: SeriesColorName
+		summarizeBy: none
+		sourceColumn: SeriesColorName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SeriesDescriptionName
+		dataType: string
+		lineageTag: b71bf513-3f72-4ca0-82d0-8a664a294ad2
+		sourceLineageTag: SeriesDescriptionName
+		summarizeBy: none
+		sourceColumn: SeriesDescriptionName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemDescSeriesName
+		dataType: string
+		lineageTag: 2fbc16eb-670a-4462-9758-319560ee5965
+		sourceLineageTag: ItemDescSeriesName
+		summarizeBy: none
+		sourceColumn: ItemDescSeriesName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShItemDescSeriesName
+		dataType: string
+		lineageTag: 9a77c779-165a-43c3-9c5e-5cd330407c89
+		sourceLineageTag: ShItemDescSeriesName
+		summarizeBy: none
+		sourceColumn: ShItemDescSeriesName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShSeriesDescriptionName
+		dataType: string
+		lineageTag: 25b4e300-38cc-4d18-9f7d-cfe502d5d1e9
+		sourceLineageTag: ShSeriesDescriptionName
+		summarizeBy: none
+		sourceColumn: ShSeriesDescriptionName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemDescSeriesColorName
+		dataType: string
+		lineageTag: 285b8e9b-2127-4904-b2f2-45012abf0aed
+		sourceLineageTag: ItemDescSeriesColorName
+		summarizeBy: none
+		sourceColumn: ItemDescSeriesColorName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemClassCode
+		dataType: string
+		lineageTag: e815771e-7209-49b3-af9f-3cda37c4e1bd
+		sourceLineageTag: ItemClassCode
+		summarizeBy: none
+		sourceColumn: ItemClassCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemClassName
+		dataType: string
+		lineageTag: ea4eaf41-d0f7-4845-bf92-dc9476993c56
+		sourceLineageTag: ItemClassName
+		summarizeBy: none
+		sourceColumn: ItemClassName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemClassFullName
+		dataType: string
+		lineageTag: 9c88bcbc-d545-4f0d-9eaf-2b036fe4c748
+		sourceLineageTag: ItemClassFullName
+		summarizeBy: none
+		sourceColumn: ItemClassFullName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemCode
+		dataType: string
+		lineageTag: 05238b56-570e-4a94-8b29-461345d4156e
+		sourceLineageTag: ItemCode
+		summarizeBy: none
+		sourceColumn: ItemCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemGroupingName
+		dataType: string
+		lineageTag: 33620b8d-186c-473f-baeb-6aaba43902de
+		sourceLineageTag: ItemGroupingName
+		summarizeBy: none
+		sourceColumn: ItemGroupingName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemStyleCode
+		dataType: string
+		lineageTag: 6c75cb87-17d9-48af-9279-bc8632e6c1c4
+		sourceLineageTag: ItemStyleCode
+		summarizeBy: none
+		sourceColumn: ItemStyleCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemStyleGroupName
+		dataType: string
+		lineageTag: a0dc865c-fc8e-44e4-a2bb-e94a2dbb6ac0
+		sourceLineageTag: ItemStyleGroupName
+		summarizeBy: none
+		sourceColumn: ItemStyleGroupName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemStyleName
+		dataType: string
+		lineageTag: 90ddcca0-4d4f-4aa4-907a-0af0421adce0
+		sourceLineageTag: ItemStyleName
+		summarizeBy: none
+		sourceColumn: ItemStyleName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Product line used to group and filter product performance across Control Tower reporting.
+	column ProductLineName
+		dataType: string
+		lineageTag: 2e9c72bb-b39b-400f-af55-7d1af6ef7ed2
+		sourceLineageTag: ProductLineName
+		summarizeBy: none
+		sourceColumn: ProductLineName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column RetailCategoryCode
+		dataType: string
+		lineageTag: c7fdb920-cc8c-49fd-901e-9850979332f5
+		sourceLineageTag: RetailCategoryCode
+		summarizeBy: none
+		sourceColumn: RetailCategoryCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Retail category used for product hierarchy analysis.
+	column RetailCategoryName
+		dataType: string
+		lineageTag: 80fcd8a5-6fa3-4cf6-b51b-273de1a30cb1
+		sourceLineageTag: RetailCategoryName
+		summarizeBy: none
+		sourceColumn: RetailCategoryName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Merchandising category used for commercial product grouping and analysis.
+	column MerchandisingCategoryName
+		dataType: string
+		lineageTag: fb8cf98f-a01c-4ddf-8485-bc1d4e2b1e0c
+		sourceLineageTag: MerchandisingCategoryName
+		summarizeBy: none
+		sourceColumn: MerchandisingCategoryName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChildStyleName
+		dataType: string
+		lineageTag: 197dae86-4c66-4218-b793-05133a39b5c1
+		sourceLineageTag: ChildStyleName
+		summarizeBy: none
+		sourceColumn: ChildStyleName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentStyleName
+		dataType: string
+		lineageTag: e9977299-0746-4ee6-af5d-a17a18724688
+		sourceLineageTag: ParentStyleName
+		summarizeBy: none
+		sourceColumn: ParentStyleName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PricePointName
+		dataType: string
+		lineageTag: 8507f0d8-27c9-4ee2-8d5c-82142222490e
+		sourceLineageTag: PricePointName
+		summarizeBy: none
+		sourceColumn: PricePointName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AssociationCode
+		dataType: string
+		lineageTag: 1db29ba2-6a3d-49a2-96d1-e6b7a25408d6
+		sourceLineageTag: AssociationCode
+		summarizeBy: none
+		sourceColumn: AssociationCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesClassCode
+		dataType: string
+		lineageTag: 111a9e5b-1eb4-4fe1-b0b0-31d3e5488732
+		sourceLineageTag: SalesClassCode
+		summarizeBy: none
+		sourceColumn: SalesClassCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesClassDescriptionName
+		dataType: string
+		lineageTag: 729ef894-a45c-4b44-8953-ee0608149504
+		sourceLineageTag: SalesClassDescriptionName
+		summarizeBy: none
+		sourceColumn: SalesClassDescriptionName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesClassName
+		dataType: string
+		lineageTag: a69028ee-c229-446e-8d56-a16dd9539385
+		sourceLineageTag: SalesClassName
+		summarizeBy: none
+		sourceColumn: SalesClassName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AFISalesCategoryCode
+		dataType: string
+		lineageTag: a346ce5a-98ff-4f1d-8a20-cdc66e932bff
+		sourceLineageTag: AFISalesCategoryCode
+		summarizeBy: none
+		sourceColumn: AFISalesCategoryCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AFISalesCategoryName
+		dataType: string
+		lineageTag: 0a8eb0d0-22ed-4c9e-88a4-f28316568f27
+		sourceLineageTag: AFISalesCategoryName
+		summarizeBy: none
+		sourceColumn: AFISalesCategoryName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AFISalesDivisionCode
+		dataType: string
+		lineageTag: 13760494-7f25-4a18-b8be-5d4a40ee5664
+		sourceLineageTag: AFISalesDivisionCode
+		summarizeBy: none
+		sourceColumn: AFISalesDivisionCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AFISalesDivisionName
+		dataType: string
+		lineageTag: d2402f9e-bcad-4154-bbd9-42a5916118c4
+		sourceLineageTag: AFISalesDivisionName
+		summarizeBy: none
+		sourceColumn: AFISalesDivisionName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AFIFinanceDivisionName
+		dataType: string
+		lineageTag: 6337f89f-350c-4ece-aa22-df8ff0b90021
+		sourceLineageTag: AFIFinanceDivisionName
+		summarizeBy: none
+		sourceColumn: AFIFinanceDivisionName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiscountClassCode
+		dataType: string
+		lineageTag: 68b45e30-5a3b-452a-bc41-1edf3547f87c
+		sourceLineageTag: DiscountClassCode
+		summarizeBy: none
+		sourceColumn: DiscountClassCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiscountClassDescriptionName
+		dataType: string
+		lineageTag: ffc907b2-766f-4805-8282-7280213ec567
+		sourceLineageTag: DiscountClassDescriptionName
+		summarizeBy: none
+		sourceColumn: DiscountClassDescriptionName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiscountClassName
+		dataType: string
+		lineageTag: f1468c45-d2c1-4e81-af46-ac7f85448ea2
+		sourceLineageTag: DiscountClassName
+		summarizeBy: none
+		sourceColumn: DiscountClassName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CommissionClassCode
+		dataType: string
+		lineageTag: 1814c62f-fdc8-4e25-814e-5aca3aabfa51
+		sourceLineageTag: CommissionClassCode
+		summarizeBy: none
+		sourceColumn: CommissionClassCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CommissionClassDescriptionName
+		dataType: string
+		lineageTag: 2c918d25-5b06-44ba-a772-353753bf30a4
+		sourceLineageTag: CommissionClassDescriptionName
+		summarizeBy: none
+		sourceColumn: CommissionClassDescriptionName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CommissionClassName
+		dataType: string
+		lineageTag: 40165f48-6ca3-41df-b1c8-3fec457a01fe
+		sourceLineageTag: CommissionClassName
+		summarizeBy: none
+		sourceColumn: CommissionClassName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column FreightClassCode
+		dataType: string
+		lineageTag: aebe68ea-c34d-4468-8b0c-93e560c14f40
+		sourceLineageTag: FreightClassCode
+		summarizeBy: none
+		sourceColumn: FreightClassCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column FreightClassDescriptionName
+		dataType: string
+		lineageTag: 8ed18843-986b-4fd0-8dbf-c72f63719f63
+		sourceLineageTag: FreightClassDescriptionName
+		summarizeBy: none
+		sourceColumn: FreightClassDescriptionName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column FreightClassName
+		dataType: string
+		lineageTag: 5688c9a5-a3cd-43f5-9b54-b9e93efea059
+		sourceLineageTag: FreightClassName
+		summarizeBy: none
+		sourceColumn: FreightClassName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CollectiveClassCode
+		dataType: string
+		lineageTag: 0a0b37b2-d290-497c-ada0-cc005ff152f8
+		sourceLineageTag: CollectiveClassCode
+		summarizeBy: none
+		sourceColumn: CollectiveClassCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CollectiveClassName
+		dataType: string
+		lineageTag: 53e44c3f-4b74-407f-b76a-4c446e6f49de
+		sourceLineageTag: CollectiveClassName
+		summarizeBy: none
+		sourceColumn: CollectiveClassName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResponsibleOfficeCode
+		dataType: string
+		lineageTag: de5d2591-7015-4d26-a6ce-6bcc1c1af849
+		sourceLineageTag: ResponsibleOfficeCode
+		summarizeBy: none
+		sourceColumn: ResponsibleOfficeCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ImportDomesticCode
+		dataType: string
+		lineageTag: 2f9878a3-fdf5-4c28-b577-ed393241d6a2
+		sourceLineageTag: ImportDomesticCode
+		summarizeBy: none
+		sourceColumn: ImportDomesticCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryOfOriginName
+		dataType: string
+		lineageTag: 04c481d7-edb5-416a-b7f5-7cb554815225
+		sourceLineageTag: CountryOfOriginName
+		summarizeBy: none
+		sourceColumn: CountryOfOriginName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CexCode
+		dataType: string
+		lineageTag: aea7b872-91be-4d32-9b38-e50629d07e7d
+		sourceLineageTag: CexCode
+		summarizeBy: none
+		sourceColumn: CexCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AFIItemStatusCode
+		dataType: string
+		lineageTag: e3756223-39ac-4c57-b714-73ba67bfae5e
+		sourceLineageTag: AFIItemStatusCode
+		summarizeBy: none
+		sourceColumn: AFIItemStatusCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ManufacturingStatusCode
+		dataType: string
+		lineageTag: 71e1a077-817b-4748-b0ef-6793beae22c3
+		sourceLineageTag: ManufacturingStatusCode
+		summarizeBy: none
+		sourceColumn: ManufacturingStatusCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrentSCPManufacturingStatusCode
+		dataType: string
+		lineageTag: 15232f95-002e-4c7f-991c-8e84d6228941
+		sourceLineageTag: CurrentSCPManufacturingStatusCode
+		summarizeBy: none
+		sourceColumn: CurrentSCPManufacturingStatusCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MarketingItemStatusCode
+		dataType: string
+		lineageTag: ac1b8d73-9750-4c6b-9d0a-08b78b3a1dd1
+		sourceLineageTag: MarketingItemStatusCode
+		summarizeBy: none
+		sourceColumn: MarketingItemStatusCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MarketingStatusName
+		dataType: string
+		lineageTag: 4748f83d-9f40-4f9d-a4a3-8fc3d3f63ebf
+		sourceLineageTag: MarketingStatusName
+		summarizeBy: none
+		sourceColumn: MarketingStatusName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Current product status code used to filter active or relevant items in reporting.
+	column CurrentStatusCode
+		dataType: string
+		lineageTag: cc175c0d-0ca8-4654-8a65-a420b8436379
+		sourceLineageTag: CurrentStatusCode
+		summarizeBy: none
+		sourceColumn: CurrentStatusCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ManufacturingStatusChange
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3342f660-39a5-4a02-9f0f-0c4b51defa8d
+		sourceLineageTag: ManufacturingStatusChange
+		summarizeBy: none
+		sourceColumn: ManufacturingStatusChange
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsMainPiece
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 46d9fb7d-d6b7-4daf-ad31-3b33688ae92a
+		sourceLineageTag: IsMainPiece
+		summarizeBy: none
+		sourceColumn: IsMainPiece
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CommodityItemNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 97f16027-04ca-49bb-8df9-a7b11bacaa3c
+		sourceLineageTag: CommodityItemNum
+		summarizeBy: sum
+		sourceColumn: CommodityItemNum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SellableItemCode
+		dataType: string
+		lineageTag: 4bb8471b-6693-49c7-8e6c-f26af3b2547c
+		sourceLineageTag: SellableItemCode
+		summarizeBy: none
+		sourceColumn: SellableItemCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsF123Product
+		dataType: int64
+		formatString: 0
+		lineageTag: 36eec6a5-6ed9-447a-8302-ee7f2e547747
+		sourceLineageTag: IsF123Product
+		summarizeBy: sum
+		sourceColumn: IsF123Product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsHsCoreProduct
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f2b1c0a-81c0-42b1-986d-a0898e148de4
+		sourceLineageTag: IsHsCoreProduct
+		summarizeBy: sum
+		sourceColumn: IsHsCoreProduct
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsHsProprietaryProduct
+		dataType: int64
+		formatString: 0
+		lineageTag: d2002c54-955a-411c-845a-747e3bbbb43f
+		sourceLineageTag: IsHsProprietaryProduct
+		summarizeBy: sum
+		sourceColumn: IsHsProprietaryProduct
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsHsExclusive
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a30ad0d-bd40-4cfb-bc22-6bfac00d91b4
+		sourceLineageTag: IsHsExclusive
+		summarizeBy: sum
+		sourceColumn: IsHsExclusive
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsBerklineProduct
+		dataType: int64
+		formatString: 0
+		lineageTag: f8fdc50b-c4a0-4646-afe3-6e30efa86185
+		sourceLineageTag: IsBerklineProduct
+		summarizeBy: sum
+		sourceColumn: IsBerklineProduct
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsBenchcraftProduct
+		dataType: int64
+		formatString: 0
+		lineageTag: 675099f1-1b6c-4b5b-91ec-2b0cc41b9d58
+		sourceLineageTag: IsBenchcraftProduct
+		summarizeBy: sum
+		sourceColumn: IsBenchcraftProduct
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsNewMillenniumProduct
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a7ef7f3-8e14-44d5-bb01-f9087fbccdb2
+		sourceLineageTag: IsNewMillenniumProduct
+		summarizeBy: sum
+		sourceColumn: IsNewMillenniumProduct
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsBardiniProduct
+		dataType: int64
+		formatString: 0
+		lineageTag: f0671dfd-ce6a-4e99-99a9-59ac983cf5d1
+		sourceLineageTag: IsBardiniProduct
+		summarizeBy: sum
+		sourceColumn: IsBardiniProduct
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsShanghaiStore
+		dataType: int64
+		formatString: 0
+		lineageTag: 44dbb554-51e7-4df2-9143-f70af10764ff
+		sourceLineageTag: IsShanghaiStore
+		summarizeBy: sum
+		sourceColumn: IsShanghaiStore
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column DefaultGroupNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 25513f34-428a-4acf-90c4-0efb8c00f2a5
+		sourceLineageTag: DefaultGroupNum
+		summarizeBy: sum
+		sourceColumn: DefaultGroupNum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MarketIntroducedAtName
+		dataType: string
+		lineageTag: fe319e06-41fd-423f-9014-6881d3c0569a
+		sourceLineageTag: MarketIntroducedAtName
+		summarizeBy: none
+		sourceColumn: MarketIntroducedAtName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MarketBegin
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7e15488b-ad9b-44ef-a455-179762770f4b
+		sourceLineageTag: MarketBegin
+		summarizeBy: none
+		sourceColumn: MarketBegin
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MarketEnd
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: dd09faae-775f-4504-9442-350b68d7757c
+		sourceLineageTag: MarketEnd
+		summarizeBy: none
+		sourceColumn: MarketEnd
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AmtFobPrice
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 44632e33-6b5d-4545-bbfe-98e5c460893f
+		sourceLineageTag: AmtFobPrice
+		summarizeBy: sum
+		sourceColumn: AmtFobPrice
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column GoodBetterBestCode
+		dataType: string
+		lineageTag: de744fd2-dbba-4b02-82cf-a4b9f29d5d6d
+		sourceLineageTag: GoodBetterBestCode
+		summarizeBy: none
+		sourceColumn: GoodBetterBestCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column GbbSortNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 156d7205-ae60-447d-80e7-9dd038809281
+		sourceLineageTag: GbbSortNum
+		summarizeBy: sum
+		sourceColumn: GbbSortNum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrimaryVendorCode
+		dataType: string
+		lineageTag: 2b919454-5d1e-4507-9a36-d8f9615611cc
+		sourceLineageTag: PrimaryVendorCode
+		summarizeBy: none
+		sourceColumn: PrimaryVendorCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrimaryVendorName
+		dataType: string
+		lineageTag: 6d6c677a-8b4a-4e21-bc38-851318d4643a
+		sourceLineageTag: PrimaryVendorName
+		summarizeBy: none
+		sourceColumn: PrimaryVendorName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column InitialInvoicePeriodCode
+		dataType: string
+		lineageTag: 43974abb-1fb1-4b82-b68f-4cff412c7ee5
+		sourceLineageTag: InitialInvoicePeriodCode
+		summarizeBy: none
+		sourceColumn: InitialInvoicePeriodCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column QtyInitialInvoice
+		dataType: int64
+		formatString: 0
+		lineageTag: e2b53d52-fe0f-4e9b-a71c-96199473b76c
+		sourceLineageTag: QtyInitialInvoice
+		summarizeBy: sum
+		sourceColumn: QtyInitialInvoice
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Forecast planner assignment for the item. Used for planner-level filtering and accountability views.
+	column ItemForecastPlanner
+		dataType: string
+		lineageTag: b9e525c8-f12a-45b2-8622-81c4f583dc8f
+		sourceLineageTag: ItemForecastPlanner
+		summarizeBy: none
+		sourceColumn: ItemForecastPlanner
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MainPieceCode
+		dataType: string
+		lineageTag: e4f68182-c14a-47cb-99fe-98014ae74600
+		sourceLineageTag: MainPieceCode
+		summarizeBy: none
+		sourceColumn: MainPieceCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimProduct = entity
+		mode: directLake
+		source
+			entityName: DimProduct
+			schemaName: ForecastAccuracy_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+
+	changedProperty = IsHidden
+

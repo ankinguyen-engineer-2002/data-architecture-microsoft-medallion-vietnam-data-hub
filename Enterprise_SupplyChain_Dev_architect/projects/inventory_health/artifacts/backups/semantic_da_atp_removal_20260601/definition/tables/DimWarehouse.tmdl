@@ -1,0 +1,88 @@
+table DimWarehouse
+	lineageTag: 8637e42e-abb0-4490-8f82-aac434a78698
+
+	column WarehouseCode
+		dataType: string
+		lineageTag: e56e0c2d-a577-4f2b-9fd2-9b5d6e252a70
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+	column WarehouseName
+		dataType: string
+		lineageTag: e94a8cd0-857b-4764-a432-828fe3d44986
+		summarizeBy: none
+		sourceColumn: WarehouseName
+
+	column WarehouseType
+		dataType: string
+		lineageTag: c4ee75ab-30e0-4f06-af65-0132cf75bcd2
+		summarizeBy: none
+		sourceColumn: WarehouseType
+
+	column WarehouseOrderGroup
+		dataType: string
+		lineageTag: 995cf5d6-b0ab-43d4-9cdf-3f237d4d297b
+		summarizeBy: none
+		sourceColumn: WarehouseOrderGroup
+
+	column WarehouseSourceId
+		dataType: string
+		lineageTag: 903934c9-0eaf-44e6-9c0b-fd9628524963
+		summarizeBy: none
+		sourceColumn: WarehouseSourceId
+
+	column SellableWarehouseFlag
+		dataType: boolean
+		lineageTag: ed83d51e-14e1-436f-90a2-da02dd7eebf4
+		summarizeBy: none
+		sourceColumn: SellableWarehouseFlag
+
+	column ControlledFlag
+		dataType: boolean
+		lineageTag: 77d64278-ef0e-4d7d-b627-dfa414b816d3
+		summarizeBy: none
+		sourceColumn: ControlledFlag
+
+	column WhereMadeCode
+		dataType: string
+		lineageTag: 076cf986-27f3-4de0-8db5-1b8f776b3f5a
+		summarizeBy: none
+		sourceColumn: WhereMadeCode
+
+	column ManufacturingSite
+		dataType: string
+		lineageTag: 33ba1e3b-ea9a-4438-84fc-ac4cd6e0c80f
+		summarizeBy: none
+		sourceColumn: ManufacturingSite
+
+	column IntransitWarehouseCode
+		dataType: string
+		lineageTag: a817c8d1-11e8-4f94-abf2-9dad208dea48
+		summarizeBy: none
+		sourceColumn: IntransitWarehouseCode
+
+	column IsFinishedGoodsWarehouse
+		dataType: boolean
+		lineageTag: 2e24c05f-8d3d-4f2e-bf95-b80d9112a311
+		summarizeBy: none
+		sourceColumn: IsFinishedGoodsWarehouse
+
+	column IsManufacturingWarehouse
+		dataType: boolean
+		lineageTag: 87751b37-5b96-4ad7-b949-cd995caf7fa7
+		summarizeBy: none
+		sourceColumn: IsManufacturingWarehouse
+
+	column TotalAvailableWarehouseCube
+		dataType: decimal
+		lineageTag: 0c640a59-074e-4ff7-a0e4-24d3dc4d806d
+		summarizeBy: none
+		sourceColumn: TotalAvailableWarehouseCube
+
+	partition DimWarehouse-eba633ff-4476-432d-b8c7-444c48267ff6 = entity
+		mode: directLake
+		source
+			entityName: DimWarehouse
+			schemaName: Shared_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

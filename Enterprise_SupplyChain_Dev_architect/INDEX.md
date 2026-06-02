@@ -37,13 +37,15 @@ Single entry point cho 16 docs theo 4 nhom chuc nang. Restructure per ADR-006.
 | 14 | [14_v10_step_by_step_implementation_runbook.md](30_runbook/14_v10_step_by_step_implementation_runbook.md) | v10 Bob/Rakesh-Aligned Step-by-Step Implementation Runbook |
 | 15 | [15_v10_edw_supplement_exit_strategy.md](30_runbook/15_v10_edw_supplement_exit_strategy.md) | v10 EDW Supplement Exit Strategy |
 | 16 | [16_v10_readiness_scorecard_and_v9_cleanup.md](30_runbook/16_v10_readiness_scorecard_and_v9_cleanup.md) | v10 Readiness Scorecard And v9 Cleanup Candidate List |
+| 18 | [18_v10_da_table_onboarding.md](30_runbook/18_v10_da_table_onboarding.md) | v10 DA Table Onboarding Runbook |
+| 19 | [19_legacy_v8_daily_refresh_recovery.md](30_runbook/19_legacy_v8_daily_refresh_recovery.md) | Legacy v8 Daily Refresh Recovery |
 
 ## projects/ — Project-specific mart implementations
 
 | Project | Status | Gold schema | Tables (Silver+Gold) | Notes |
 |---|---|---|---:|---|
 | [forecast](projects/forecast/) | LIVE (2026-05-12) | `ForecastAccuracy_DW` | 8 + 7 | 463M Silver rows + 254M Gold rows; sc_forecast_control_tower semantic model deployed |
-| [inventory_health](projects/inventory_health/) | **LIVE (2026-05-19)** | `InventoryHealth_DW` | 13 + 8 | **1.04B Silver rows + 607M Gold rows** (FactInventoryHealthSnapshot 603M / 415 daily snapshots since 2021-03); sc_inventory_health_control_tower semantic model deployed; Bronze DQ rules `expected_zero` + `expected_dup_ratio_max` active |
+| [inventory_health](projects/inventory_health/) | **LIVE (QC 2026-05-28)** | `InventoryHealth_DW` | 12 active Silver + 6 active Gold | DA-first Mart B refactor applied; `SalesShipment` removed from active flow; semantic relationships fixed; lineage explorer refreshed (97 edges). Full `pl_sc_master` rerun and schedule enablement still pending before calling ops fully stable. |
 
 ## artifacts/ — Outputs khong phai docs
 

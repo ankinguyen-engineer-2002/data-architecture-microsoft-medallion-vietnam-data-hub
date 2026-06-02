@@ -70,7 +70,7 @@ GO
 -- Idempotent: if DE US fixes upstream dup, this dedupe becomes no-op (no harm).
 -- Consumers:
 --   • forecast: ForecastHistory_Enh.v_ForecastDemandMonthly (was reading EL.Daily directly)
---   • inventory_health: InventoryHistory_Enh.v_ForecastSnapshotWeeklySat (NEW)
+--   • inventory_health: InventoryHistory_Enh.v_ForecastSnapshotWeekly (DA-first Saturday path)
 
 -- ---- Staging_Wrk.v_DemandForecastSnapshotDaily (dedupe view) ----
 CREATE VIEW Staging_Wrk.v_DemandForecastSnapshotDaily AS

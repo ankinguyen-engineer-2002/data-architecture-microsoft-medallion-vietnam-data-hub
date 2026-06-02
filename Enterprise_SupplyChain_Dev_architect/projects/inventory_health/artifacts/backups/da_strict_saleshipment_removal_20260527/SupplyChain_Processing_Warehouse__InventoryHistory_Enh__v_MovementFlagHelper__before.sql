@@ -1,0 +1,35 @@
+-- ---------------------------------------------------------------------
+-- Movement flag candidate: DA as-of behavior + Mart A invoice source.
+-- ---------------------------------------------------------------------
+CREATE   VIEW InventoryHistory_Enh.v_MovementFlagHelper AS
+WITH asof AS (
+    SELECT CAST(SYSUTCDATETIME() AS DATE) AS AsOfDate
+    UNION
+    SELECT DISTINCT SnapshotDate
+    FROM InventoryHistory_Enh.InventorySnapshotWeeklyFactBase
+    WHERE SnapshotDate >= DATEADD(week, -104, CAST(SYSUTCDATETIME() AS DATE))
+),
+moves AS (
+    SELECT
+        s.ItemSku,
+        s.WarehouseCode,
+        a.AsOfDate,
+        MAX(CASE
+            WHEN s.InvoiceDate > DATEADD(week, -17, a.AsOfDate)
+             AND s.InvoiceDate <= a.AsOfDate THEN 1
+            ELSE 0
+        END) AS HasMovementLast17W,
+        COUNT(*) AS MovementCountLast17W
+    FROM InventoryHistory_Enh.v_SalesShipment s
+    JOIN asof a
+      ON s.InvoiceDate > DATEADD(week, -17, a.AsOfDate)
+     AND s.InvoiceDate <= a.AsOfDate
+    GROUP BY s.ItemSku, s.WarehouseCode, a.AsOfDate
+)
+SELECT
+    CAST(ItemSku AS VARCHAR(50)) AS ItemSku,
+    CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,
+    CAST(AsOfDate AS DATE) AS AsOfDate,
+    CAST(HasMovementLast17W AS BIT) AS HasMovementLast17W,
+    CAST(MovementCountLast17W AS INT) AS MovementCountLast17W
+FROM moves;

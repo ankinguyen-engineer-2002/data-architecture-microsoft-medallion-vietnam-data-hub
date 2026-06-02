@@ -138,20 +138,48 @@ CREATE PROCEDURE Meta.usp_CheckDq
     @layer VARCHAR(80), @pipeline_run_id VARCHAR(128) = NULL
 AS
 BEGIN
-    DECLARE @rule_id INT, @has_critical INT = 0;
-    SELECT @rule_id = MIN(rule_id) FROM Meta.DQRule WHERE layer = @layer AND is_active = 1;
+    SET NOCOUNT ON;
 
-    WHILE @rule_id IS NOT NULL
+    -- Fabric DW distributed mode can fail when this proc uses temp tables or
+    -- direct variable predicates over DQRule. Build the rule list with a
+    -- literalized dynamic SELECT, then iterate the CSV in scalar variables.
+    DECLARE @safe_layer VARCHAR(80) = REPLACE(@layer, '''', '''''');
+    DECLARE @rule_csv VARCHAR(8000) = '';
+    DECLARE @find_sql NVARCHAR(1000) =
+        N'SELECT @out = STRING_AGG(CAST(rule_id AS VARCHAR(20)), '','') WITHIN GROUP (ORDER BY rule_id) '
+      + N'FROM Meta.DQRule WHERE layer = ''' + @safe_layer + N''' AND is_active = 1';
+
+    EXEC sp_executesql @find_sql, N'@out VARCHAR(8000) OUTPUT', @out=@rule_csv OUTPUT;
+
+    DECLARE @has_critical INT = 0;
+    DECLARE @token VARCHAR(20);
+    DECLARE @comma INT;
+    DECLARE @rule_id INT;
+
+    WHILE @rule_csv IS NOT NULL AND LEN(@rule_csv) > 0
     BEGIN
-        BEGIN TRY
-            EXEC Meta.usp_CheckDqSingle @rule_id = @rule_id, @pipeline_run_id = @pipeline_run_id;
-        END TRY
-        BEGIN CATCH
-            SET @has_critical = @has_critical + 1;
-        END CATCH
+        SET @comma = CHARINDEX(',', @rule_csv);
+        IF @comma = 0
+        BEGIN
+            SET @token = @rule_csv;
+            SET @rule_csv = '';
+        END
+        ELSE
+        BEGIN
+            SET @token = LEFT(@rule_csv, @comma - 1);
+            SET @rule_csv = SUBSTRING(@rule_csv, @comma + 1, LEN(@rule_csv));
+        END
 
-        SELECT @rule_id = MIN(rule_id) FROM Meta.DQRule
-        WHERE rule_id > @rule_id AND layer = @layer AND is_active = 1;
+        SET @rule_id = TRY_CAST(@token AS INT);
+        IF @rule_id IS NOT NULL
+        BEGIN
+            BEGIN TRY
+                EXEC Meta.usp_CheckDqSingle @rule_id = @rule_id, @pipeline_run_id = @pipeline_run_id;
+            END TRY
+            BEGIN CATCH
+                SET @has_critical = @has_critical + 1;
+            END CATCH
+        END
     END
 
     IF @has_critical > 0
@@ -176,7 +204,7 @@ BEGIN
 
     SELECT @rule_name=rule_name, @target_schema=target_schema, @target_table=target_table,
            @check_type=check_type, @column_name=column_name, @severity=severity,
-           @threshold=threshold, @params=params, @layer=layer
+           @threshold=TRY_CAST(NULLIF(threshold, '') AS DECIMAL(18,2)), @params=params, @layer=layer
     FROM Meta.DQRule WHERE rule_id=@rule_id AND is_active=1;
     IF @rule_name IS NULL RETURN;
 

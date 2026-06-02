@@ -1,0 +1,1576 @@
+{
+  "continuationToken": "eyJRdWVyeUVuZFRpbWVVdGMiOiIyMDI2LTA1LTE3VDIxOjQ3OjAwLjc0MDQ0MzIifQ==",
+  "continuationUri": "https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1/workspaces/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/items/4214332e-392f-4d2e-ac11-99094ac33aa7/jobs/instances?continuationToken=eyJRdWVyeUVuZFRpbWVVdGMiOiIyMDI2LTA1LTE3VDIxOjQ3OjAwLjc0MDQ0MzIifQ%3d%3d",
+  "value": [
+    {
+      "endTimeUtc": null,
+      "failureReason": null,
+      "id": "255c243b-2260-4a44-93a5-a30ea0c3ab0b",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "8deb69de-7ead-4144-bdbe-18a71c5b2e8c",
+      "startTimeUtc": "2026-06-02T08:49:26.54",
+      "status": "NotStarted"
+    },
+    {
+      "endTimeUtc": "2026-06-02T08:36:46.960119",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target ForEach_RunNotebooks failed: Activity failed because an inner activity failed; Inner activity name: nb_etl, Error: Notebook execution failed at Notebook service with http status code - '200', please check the Run logs on Notebook, additional details - '{\"errorCode\":\"200\",\"errorName\":\"Py4JJavaError\",\"errorValue\":\"An error occurred while calling o5276.throwExceptionIfHave.\\n: com.microsoft.spark.notebook.msutils.NotebookExecutionException: ❌ Không đọc được source: abfss://c8d9fc83-18b6-4e1d-8264-0b49eed36fe0@onelake.dfs.fabric.microsoft.com/584e7d2c-46ca-49dc-bb6c-68df6ef4f424/Tables/SupplyChain_DW/DimCurrentProductDetails\\n[PATH_NOT_FOUND] Path does not exist: abfss://c8d9fc83-18b6-4e1d-8264-0b49eed36fe0@onelake.dfs.fabric.microsoft.com/584e7d2c-46ca-49dc-bb6c-68df6ef4f424/Tables/SupplyChain_DW/DimCurrentProductDetails.\\n-------------------------------------------------",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "40e0719d-1906-4b05-9cc4-3f184252e154",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "85dbeb41-0cd7-4224-b443-d72f07182953",
+      "startTimeUtc": "2026-06-02T08:30:30.1953645",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-06-02T08:15:30.421151",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target ForEach_RunNotebooks failed: Activity failed because an inner activity failed; Inner activity name: nb_etl, Error: Notebook execution failed at Notebook service with http status code - '200', please check the Run logs on Notebook, additional details - '{\"errorCode\":\"200\",\"errorName\":\"Py4JJavaError\",\"errorValue\":\"An error occurred while calling o5276.throwExceptionIfHave.\\n: com.microsoft.spark.notebook.msutils.NotebookExecutionException: ❌ Không đọc được source: abfss://c8d9fc83-18b6-4e1d-8264-0b49eed36fe0@onelake.dfs.fabric.microsoft.com/584e7d2c-46ca-49dc-bb6c-68df6ef4f424/Tables/SupplyChain_DW/DimAFIWarehouses\\n[PATH_NOT_FOUND] Path does not exist: abfss://c8d9fc83-18b6-4e1d-8264-0b49eed36fe0@onelake.dfs.fabric.microsoft.com/584e7d2c-46ca-49dc-bb6c-68df6ef4f424/Tables/SupplyChain_DW/DimAFIWarehouses.\\n-----------------------------------------------------------------",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "8d0c4849-dbed-4966-83a6-2ca1527c32e5",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "d8eaa92b-9218-465d-b472-3ebedbbed2fc",
+      "startTimeUtc": "2026-06-02T07:53:50.7809313",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-22T03:12:06.884614",
+      "failureReason": null,
+      "id": "8baca66e-61d9-4fa2-8575-8bbc436a1213",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "5a7d292e-743c-4df8-8d09-d069c48d4dde",
+      "startTimeUtc": "2026-05-22T02:38:45.838705",
+      "status": "Completed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T14:11:18.3002971",
+      "failureReason": null,
+      "id": "c1acf017-df94-464e-ae3e-fef993cc3fb0",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "7e14059b-7dfc-4cc0-a4c8-d296cef4d4e0",
+      "startTimeUtc": "2026-05-21T14:00:20.3433636",
+      "status": "Completed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T14:00:27.7579371",
+      "failureReason": null,
+      "id": "b380b2ca-e7fe-45ca-b755-86607367b576",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "6c60a860-05a9-49ea-9e6d-a541397b736f",
+      "startTimeUtc": "2026-05-21T13:57:08.2688303",
+      "status": "Cancelled"
+    },
+    {
+      "endTimeUtc": "2026-05-21T13:54:39.2053923",
+      "failureReason": null,
+      "id": "0e3eb33a-8deb-4b40-9ebb-6e6923d1589b",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "2821e867-6ba4-4046-a3e0-149ad62969e4",
+      "startTimeUtc": "2026-05-21T13:51:13.1856722",
+      "status": "Cancelled"
+    },
+    {
+      "endTimeUtc": "2026-05-21T13:52:53.0146373",
+      "failureReason": null,
+      "id": "359e4aef-4072-41c4-ad3a-8d995637fd03",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "3be6073f-f22d-4bf2-b40a-08a69ed93a78",
+      "startTimeUtc": "2026-05-21T13:47:01.4529241",
+      "status": "Cancelled"
+    },
+    {
+      "endTimeUtc": "2026-05-21T13:29:32.4576151",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_sp_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target usp_Load_Dim_Calendar failed: Failed to get User Auth access token. The error message is: Failed to get User Auth access token. The error message is: AADSTS135011: Device used during the authentication is disabled. Trace ID: 665e9f96-65f5-4bd3-b07f-8aa1c4ea3200 Correlation ID: 99d58398-c1f4-48e1-be96-9c4f993e703c Timestamp: 2026-05-21 13:27:49Z.. Failed to get User Auth access token. The error message is: AADSTS135011: Device used during the authentication is disabled. Trace ID: 665e9f96-65f5-4bd3-b07f-8aa1c4ea3200 Correlation ID: 99d58398-c1f4-48e1-be96-9c4f993e703c Timestamp: 2026-05-21 13:27:49Z. Operation returned an invalid status code 'BadRequest' ' ",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "e980a774-10bb-4d7e-9fd9-edc776f4bb56",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "28668d5f-2b5b-42d8-9c0b-a5f8c862477a",
+      "startTimeUtc": "2026-05-21T13:12:30.2913892",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T12:52:26.6123635",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target ForEach_RunNotebooks failed: Activity failed because an inner activity failed; Inner activity name: nb_etl, Error: Notebook execution failed at Notebook service with http status code - '200', please check the Run logs on Notebook, additional details - 'Error name - Exception, Error value - NBS request failed: 400 - ChildNotebook compute type SparkCompute does not match to main notebook compute type JupyterCompute.' : ' ",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "43bc4207-1335-46c3-8ce4-3ab3787998dc",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "03f7a0e8-a99e-4757-b624-5fabed7ec9b4",
+      "startTimeUtc": "2026-05-21T12:47:01.1500406",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T12:42:35.3784699",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target ForEach_RunNotebooks failed: Activity failed because an inner activity failed; Inner activity name: nb_etl, Error: Notebook execution failed at Notebook service with http status code - '200', please check the Run logs on Notebook, additional details - 'Error name - Exception, Error value - NBS request failed: 400 - ChildNotebook compute type SparkCompute does not match to main notebook compute type JupyterCompute.' : ' ",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "f38392b7-7ed6-4f8c-b24e-4770d1e73e10",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "9ac83ae6-3332-47f6-851f-06c07a2dc6da",
+      "startTimeUtc": "2026-05-21T12:38:12.3497834",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T12:31:40.6943185",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target ForEach_RunNotebooks failed: Activity failed because an inner activity failed; Inner activity name: nb_etl, Error: Notebook execution failed at Notebook service with http status code - '200', please check the Run logs on Notebook, additional details - 'Error name - Exception, Error value - NBS request failed: 400 - ChildNotebook compute type SparkCompute does not match to main notebook compute type JupyterCompute.' : ' ",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "d84831c8-c01e-4dc2-be0b-bde710b964e7",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "d4306030-2fbf-42b7-bb3f-67727e8784f7",
+      "startTimeUtc": "2026-05-21T12:25:24.0967307",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T11:52:37.0304477",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target ForEach_RunNotebooks failed: Activity failed because an inner activity failed; Inner activity name: nb_etl, Error: Notebook execution failed at Notebook service with http status code - '200', please check the Run logs on Notebook, additional details - 'Error name - Exception, Error value - NBS request failed: 400 - ChildNotebook compute type SparkCompute does not match to main notebook compute type JupyterCompute.' : ' ",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "aa9af249-5d85-42dc-85be-aaeee9b6e894",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "c3d9941c-0bd6-46f5-a7a5-068cf39241e3",
+      "startTimeUtc": "2026-05-21T11:47:00.5785224",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T10:52:24.5078852",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target ForEach_RunNotebooks failed: Activity failed because an inner activity failed; Inner activity name: nb_etl, Error: Notebook execution failed at Notebook service with http status code - '200', please check the Run logs on Notebook, additional details - 'Error name - Exception, Error value - NBS request failed: 400 - ChildNotebook compute type SparkCompute does not match to main notebook compute type JupyterCompute.' : ' ",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "9696c2cc-a62b-436d-9476-0570d9082bb9",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "e97c522b-ab65-4224-971d-82c243978d84",
+      "startTimeUtc": "2026-05-21T10:47:01.4814745",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T09:52:31.3317631",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target ForEach_RunNotebooks failed: Activity failed because an inner activity failed; Inner activity name: nb_etl, Error: Notebook execution failed at Notebook service with http status code - '200', please check the Run logs on Notebook, additional details - 'Error name - Exception, Error value - NBS request failed: 400 - ChildNotebook compute type SparkCompute does not match to main notebook compute type JupyterCompute.' : ' ",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "d488d86c-9f37-4714-ac30-4110fcd752f5",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "c10d7ab0-ffa6-4e89-b0c7-fd7b41382e72",
+      "startTimeUtc": "2026-05-21T09:47:00.7461369",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T09:10:33.1301671",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target ForEach_RunNotebooks failed: Activity failed because an inner activity failed; Inner activity name: nb_etl, Error: Notebook execution failed at Notebook service with http status code - '200', please check the Run logs on Notebook, additional details - 'Error name - Exception, Error value - NBS request failed: 400 - ChildNotebook compute type SparkCompute does not match to main notebook compute type JupyterCompute.' : ' ",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "cc8ff0b0-8874-465c-b06f-653bee948bf5",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "36836c35-9edf-44d0-a0a7-c0fe51ce5389",
+      "startTimeUtc": "2026-05-21T08:47:10.1903019",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T09:04:51.6101579",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target ForEach_RunNotebooks failed: Activity failed because an inner activity failed; Inner activity name: nb_etl, Error: Notebook execution failed at Notebook service with http status code - '200', please check the Run logs on Notebook, additional details - 'Error name - Exception, Error value - NBS request failed: 400 - ChildNotebook compute type SparkCompute does not match to main notebook compute type JupyterCompute.' : ' ",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "df0b1d19-acf6-49c0-a0d2-91ed091c9863",
+      "invokeType": "Manual",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "0c7a66cd-a24b-4168-bf14-d52df2c519dd",
+      "startTimeUtc": "2026-05-21T08:43:07.8715315",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T07:47:08.6111599",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'b1921282-d657-4e30-9f4c-e2fac43fd895'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 52961cf8-c4a7-4435-8216-568cf3583000 Correlation ID: 1e0212ba-bb0e-4aeb-bc4c-33a7d9972276 Timestamp: 2026-05-21 07:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "f4ed6848-9a9c-4a27-a9b4-81db7b0c83c2",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "50d4c58e-877f-419c-929f-30c883491a39",
+      "startTimeUtc": "2026-05-21T07:47:00.9890655",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T06:47:08.4864715",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '0d8ff795-e5fc-41a5-a4d3-59254bbef7d9'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: e0df3da7-f208-47fd-9a27-427c09262300 Correlation ID: 68f7b69b-e8a3-4b33-9127-511ed3f5a1ab Timestamp: 2026-05-21 06:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "d74b9920-2d90-44ee-85db-4fe42548dd11",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "73500e0b-d1fb-4f3f-9281-14a114e7ca51",
+      "startTimeUtc": "2026-05-21T06:47:01.0750017",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T05:47:10.7567134",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '54d48593-861a-47e1-9180-de313b2fb254'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: b233aaec-e78a-42bd-9123-fb66c73e2000 Correlation ID: a704950a-bcaf-4e77-886e-e9a8e676e15e Timestamp: 2026-05-21 05:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "99702b5b-8a83-4b70-bbcf-1ffbc079afbe",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "612592c1-076f-4ee6-8747-f31dfb2f5e3f",
+      "startTimeUtc": "2026-05-21T05:47:00.7156986",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T04:47:09.3953933",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '6dc098ac-088d-4ba7-bfc0-c2ef49edd00c'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 347b936c-5783-4a8c-9679-74261a222a00 Correlation ID: c6159d74-67d3-4960-a4e4-315fd61eb136 Timestamp: 2026-05-21 04:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "da257dbb-ed81-4617-845d-4baddde37236",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "fd798615-0eb8-4d44-a28f-ad6b8cbed27c",
+      "startTimeUtc": "2026-05-21T04:47:01.407444",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T03:47:09.0960388",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '2708bf31-9336-4b64-8ec4-d6855e19c0e0'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 0c537f83-992d-48a2-9596-9d19f2593000 Correlation ID: b5fcad52-9257-4520-9945-ec41d5e0b70a Timestamp: 2026-05-21 03:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "55248fee-fdab-4958-87f0-1973e564f7af",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "4e6c741e-2ca7-4dc1-9ac6-fac4194811b9",
+      "startTimeUtc": "2026-05-21T03:47:01.0710671",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T02:47:09.7770577",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '3b6882a5-d158-42fd-8eb6-617af4ff841f'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 27c71997-f475-4677-b800-2e39c45e2800 Correlation ID: 363d20a5-a1c3-4b52-8def-e7822157af5c Timestamp: 2026-05-21 02:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "a9602163-58fd-4989-853c-104b0a52e2f1",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "85f09f8a-db48-48e2-984f-1ca06c72d95d",
+      "startTimeUtc": "2026-05-21T02:47:00.8337136",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T01:47:09.3837729",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '15bfa901-b564-43e0-9277-c70de9a1a02c'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 678c44a1-7afa-4517-944f-3cf227ad2500 Correlation ID: 223f3376-7b2d-4678-8230-faa7a9b76ef7 Timestamp: 2026-05-21 01:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "d981c615-e47e-4eb6-8e11-ceb392aba1c1",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "cfae455a-7066-4b44-be84-7bceda20255c",
+      "startTimeUtc": "2026-05-21T01:47:00.9765824",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T00:47:08.579103",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '9b15e1e4-12b4-464a-ac61-029891294d4b'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 4b6c233f-cfef-46c7-ba9b-ad84f7442200 Correlation ID: 3188c09d-5c6f-43bf-8070-6f4d3770ae65 Timestamp: 2026-05-21 00:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "61346998-ef24-4aa5-ac70-784589e0830a",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "e758afcb-e471-417a-b284-71ddb67ae919",
+      "startTimeUtc": "2026-05-21T00:47:01.1431412",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T23:47:09.8098799",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '093f6c7d-bdbb-487c-ae87-13427297623f'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 4666fd9e-80e3-4dad-af50-fa27454f2400 Correlation ID: 731beea0-543f-4e0a-8815-a1ad186a57bb Timestamp: 2026-05-20 23:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "aa54eddd-329c-4df7-a8dc-3611c7112203",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "585a873d-6666-457c-b849-c7facfcc9439",
+      "startTimeUtc": "2026-05-20T23:47:00.8870103",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T22:47:10.4775986",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '7bb631a8-69d7-4bb4-a0e0-2fa198b6d1c5'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 14240499-8f7c-48e2-b0cb-7696a1ac2200 Correlation ID: 63f744e1-9d58-48d1-94a3-3bdc062ebd32 Timestamp: 2026-05-20 22:47:05Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "263ca01d-0071-4af9-b894-63ad979af21e",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "069e4f58-c7bf-4ed5-9be4-99900289a148",
+      "startTimeUtc": "2026-05-20T22:47:00.6367003",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T21:47:11.5781932",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'e89fb886-5383-4198-88b9-563a6c84d8e5'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: b5890cc7-477f-47fc-a44c-f673ac0d1a00 Correlation ID: be5ceb6e-cbe2-46c7-a4da-44087f0a5475 Timestamp: 2026-05-20 21:47:06Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "f4a59770-33ae-468b-883f-832d3d7a8ab2",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "62466b10-5607-4681-a489-19a45732b868",
+      "startTimeUtc": "2026-05-20T21:47:03.3345646",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T20:47:09.1673492",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'bfbd1ccf-395d-485c-8f6c-00578f9840fd'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 7cd9a935-0372-4254-ae9d-b555c3751d00 Correlation ID: 00f39800-d104-43ca-8ecd-c6b89265aebb Timestamp: 2026-05-20 20:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "c870ac32-4060-4f40-969d-cab18f47847c",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "b0890036-e702-4c91-a1ec-c270fe861355",
+      "startTimeUtc": "2026-05-20T20:47:01.1429421",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T19:47:08.8206107",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '6ebac6d8-b245-41d1-ac9d-dfbd3eca60e8'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: aa97c0cd-4cb2-4ce1-a067-55f0137e1700 Correlation ID: 0c93a2eb-7086-49ef-bc3b-6743a8beecee Timestamp: 2026-05-20 19:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "3dba9d0e-4e62-4899-82d2-708dc02cad3d",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "292a4611-4241-4e71-abc9-971f1772e217",
+      "startTimeUtc": "2026-05-20T19:47:00.7461444",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T18:47:07.8447712",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'ccaa75b9-738f-4666-bca8-0ee4a2c9a1af'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 8935654e-139e-437d-97d5-50979ada1a00 Correlation ID: 3a67e773-c7ab-4d84-94c6-ea47c7e79f8a Timestamp: 2026-05-20 18:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "9c5708b1-098c-438c-a14b-132eb8278186",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "5182facc-ed1f-47dc-8b09-103bfba61d3f",
+      "startTimeUtc": "2026-05-20T18:47:00.7917993",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T17:47:10.2454495",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '02e6f076-7ce4-42a4-b497-a2da3cc46f90'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: f2e06347-467e-490a-b000-e28731241700 Correlation ID: 4083b02f-4f45-4a9b-971e-31c27880e5ae Timestamp: 2026-05-20 17:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "44a3a542-fd81-403d-964b-48053d8ba051",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "6bb98652-a0ed-44b9-a2be-beaf5ce582f1",
+      "startTimeUtc": "2026-05-20T17:47:01.3443356",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T16:47:09.2308162",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '979fcedc-a748-44bf-a275-b97f44fa4ce3'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 03703b44-1126-4eed-98a9-be5bd6a01600 Correlation ID: e9d72a00-7537-4d08-9cc1-2c036af83992 Timestamp: 2026-05-20 16:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "71a46b5a-6acf-4e6f-8e54-86945f5da69e",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "fd8cf744-b1c9-4186-9cff-d957eec4d4b3",
+      "startTimeUtc": "2026-05-20T16:47:00.9777207",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T15:47:10.3041752",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '32038c0f-93be-4c63-a74a-16ac4baa3c3d'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 3a31e4e0-3e69-457a-8f41-e88dfec01300 Correlation ID: e476c714-ab76-4b3d-9bec-93ff831fc2a7 Timestamp: 2026-05-20 15:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "793d3086-45d5-400c-b61d-16b4ba481a6f",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "c86846c4-98f7-447b-af20-0f210186c2c3",
+      "startTimeUtc": "2026-05-20T15:47:01.6184943",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T14:47:09.5860786",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '64be7ba8-b35a-4090-8817-16dd0c00aa02'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 74609095-7bba-45b2-85a8-b78590ba1200 Correlation ID: fd57f3f6-e0df-4523-9a98-7617678e13a9 Timestamp: 2026-05-20 14:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "d1624228-cdd1-4175-99e8-e12bac13541f",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "143b717b-4772-41be-8a96-9033543abce4",
+      "startTimeUtc": "2026-05-20T14:47:00.7437098",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T13:47:08.7264948",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '068b36c8-52db-4758-a650-915c8f88b968'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: f10d85d7-e6af-461a-bc97-6b616e890c00 Correlation ID: a6605a2e-f149-4842-8eb2-e82d470ddbcb Timestamp: 2026-05-20 13:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "60fd3c15-95d1-449c-9855-70de65e6abd0",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "7997b1a9-29d7-4f61-aec5-d66f276a40fd",
+      "startTimeUtc": "2026-05-20T13:47:00.903259",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T12:47:11.7208339",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '21a9635b-ec11-4aee-a3c7-0e5a3be4c5bd'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 09c97589-9cc0-4aae-b459-68d17c2a0b00 Correlation ID: 64ae3855-c59b-4761-b92a-0a285cc827ff Timestamp: 2026-05-20 12:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "3e34733d-939f-4023-8535-f522b2b18ce9",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "e2c3290a-60c1-4bf6-b819-f194fc4e246a",
+      "startTimeUtc": "2026-05-20T12:47:01.2506189",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T11:47:11.590386",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '53f8b076-bc6f-4bbd-b126-a3a56c43f978'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 14827dfb-9cee-4548-ac0e-d5f3a68f1c00 Correlation ID: a3949fbb-396c-4df3-bbcc-da140709c8b3 Timestamp: 2026-05-20 11:47:06Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "b5ae47c4-a91d-45d3-abdc-8e65ca8962dc",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "60cdbd47-e07e-470f-897c-3f8c076a3e13",
+      "startTimeUtc": "2026-05-20T11:47:01.0671788",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T10:47:10.0588343",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '17888f82-e901-49d8-a29b-35034067edb5'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: e66f123a-5c59-483a-bf24-e4a9848b0600 Correlation ID: d08432d6-8c69-40f2-a218-edb5d748478b Timestamp: 2026-05-20 10:47:05Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "2adcb14c-19b6-4e75-9335-eac681a6ea4a",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "c4309e03-25b3-428b-8e04-2dcb31ce13e1",
+      "startTimeUtc": "2026-05-20T10:47:01.4649369",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T09:47:09.4060354",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'a409dff2-74ef-4bf3-94a2-5f2f06741f9a'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: f46ebf38-fc99-4885-86fa-aa1674db0500 Correlation ID: 7a1cb141-4e97-43c5-99a0-5105385fbfb6 Timestamp: 2026-05-20 09:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "6a6428f7-5b43-4992-aae6-9f6f7a0ac53a",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "7595db54-64fd-4b38-bd9c-b0d12d09c41d",
+      "startTimeUtc": "2026-05-20T09:47:00.9095503",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T08:47:10.4370427",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '027c45d7-2e88-42b0-8eca-9e4f50a81f10'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: eb845b52-d1d7-4574-8abe-7904e92f0600 Correlation ID: 7a0cf504-05f0-45cf-bc10-fb13f256318b Timestamp: 2026-05-20 08:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "c373e8b6-0c4c-4e43-9c41-f6269f9e4e36",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "6b1ae5cf-1bbc-4fea-851c-ca0fae4b6e08",
+      "startTimeUtc": "2026-05-20T08:47:00.7859331",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T07:47:08.8185256",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '8ab1fa35-6df8-4b16-ba4a-cb2c8636e4ca'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 5322b48d-709b-4478-ae79-69dc72110700 Correlation ID: f82d3af9-31b0-495d-8c9c-ce17afe0c687 Timestamp: 2026-05-20 07:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "09e49e77-d586-4142-bb4a-3da9a95fdf3d",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "6a94ede8-61d9-4c59-ae1d-a18793621028",
+      "startTimeUtc": "2026-05-20T07:47:00.576175",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T06:47:09.3607842",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'b816724d-4fe4-4937-b043-fd226d2c2b27'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: ccc04434-4efb-4d66-8ed0-a66b4ea70300 Correlation ID: b86e18bc-eb0a-42b8-882e-96edde287f72 Timestamp: 2026-05-20 06:47:05Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "bc79fced-1f4e-4e45-9179-16bf9567eabc",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "0c85a1fd-dd02-4614-bcb0-6e4ecbe0ed66",
+      "startTimeUtc": "2026-05-20T06:47:00.6245627",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T05:47:08.0446102",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '371799fb-0785-4fbf-9cb3-9bf93d5814b9'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: a5690671-e44a-4454-971d-0641987d0300 Correlation ID: 061c3ebb-eba2-4998-8f20-23068491c838 Timestamp: 2026-05-20 05:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "05703be2-1191-4f8c-9997-3a2ca6813431",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "e171ecec-f98e-47ce-8044-6f381a1cb2ba",
+      "startTimeUtc": "2026-05-20T05:47:00.8378266",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T04:47:10.3403466",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '6282f5cc-a974-4ae0-949e-9cda8fe4a671'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 758660ef-fcac-4951-b5ab-81db6c620200 Correlation ID: 527931cf-bb8d-4dc0-b17f-6cb100cc717b Timestamp: 2026-05-20 04:47:05Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "12ff7f68-17ad-4229-8b3b-150724970ae9",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "806155fb-0fc1-4d5e-a016-a67ca971ea9d",
+      "startTimeUtc": "2026-05-20T04:47:01.2196932",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T03:47:09.2977632",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '64e65d78-c7c9-4801-aeb7-23e2cbd4d9d2'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 860b7179-abc2-4098-b634-07de62142000 Correlation ID: 25a34e51-2adb-4c5c-8b88-198974727470 Timestamp: 2026-05-20 03:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "88cee6e7-d59b-4cbc-ad9b-dc6f0a4da5fe",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "1fbc0e9a-0533-4a1b-9107-e43e78b6bddd",
+      "startTimeUtc": "2026-05-20T03:47:00.7178458",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T02:47:09.5223506",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '82edd727-19d7-450a-bd59-8e627cb17476'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 1b5f206e-cf50-43b6-8730-635aa8950100 Correlation ID: e479d9c2-88d0-4809-bc5a-636e0090f4b1 Timestamp: 2026-05-20 02:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "0999ef0a-e5e6-4bd1-a2d1-db03ba2c695c",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "04811962-46e1-4430-aed3-b3cd50fd5853",
+      "startTimeUtc": "2026-05-20T02:47:00.7734237",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T01:47:12.558971",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '35b7117b-7d21-4adb-aaac-9505c499fadc'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 620b4347-e72b-4f1e-83a2-f1dfd69c8100 Correlation ID: 26285170-a8fd-4073-87e6-8626d74d64cc Timestamp: 2026-05-20 01:47:08Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "5e5200ed-312f-46f1-a94a-ee738da09811",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "4f72c5b3-a84b-4786-9bc6-d9311eba1f26",
+      "startTimeUtc": "2026-05-20T01:47:00.6744057",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-20T00:47:08.6243077",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '70528f94-efb6-4d9d-bb98-db75a3e79158'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 54d017d5-4b1c-4745-8eae-f30aa67f7800 Correlation ID: 8b67dd41-f06e-4337-9531-627cccea1906 Timestamp: 2026-05-20 00:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "13e5cee6-7234-4dd4-8656-7330d693c9e8",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "99c21cc1-8844-48a9-837d-15c4cf6195ca",
+      "startTimeUtc": "2026-05-20T00:47:00.5238143",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T23:47:08.9454097",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '1f71f486-c9aa-467d-91f3-99f22741104b'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: cbb40a16-5cae-4bb5-9fe1-e92198822b00 Correlation ID: cf6e95e8-71b6-4703-8b80-c1eb79142f3e Timestamp: 2026-05-19 23:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "4191e47c-7930-423e-938b-afdd1b35db8e",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "63c6451e-48d1-4730-a3e6-e37b3c8bb52d",
+      "startTimeUtc": "2026-05-19T23:47:00.7549981",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T22:47:10.7630117",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '3317067a-abcf-4192-b62a-8d4b06d45727'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 5af63bfd-53b9-4853-ba94-f214cbc38100 Correlation ID: e9ddc4dd-3867-4b78-abfa-21e1f02c1bce Timestamp: 2026-05-19 22:47:05Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "8485d2a8-91ec-4084-9c02-a572c6f6c321",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "822e812b-ca91-4132-bccb-bba60b419d05",
+      "startTimeUtc": "2026-05-19T22:47:00.9973189",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T21:47:08.9291497",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '18f1722f-5496-4ba4-91b2-ab14a877cdc8'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 529889a8-9344-4cd9-8a0e-250002f80c00 Correlation ID: 680c7a42-2e06-45e8-806d-7750d7c1e9a7 Timestamp: 2026-05-19 21:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "84f23db4-b4d4-4049-8a85-f5aa3a58a9eb",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "abb5b81a-a4c6-46e4-89d0-54ab7c06768d",
+      "startTimeUtc": "2026-05-19T21:47:00.9170902",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T20:47:08.5879247",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '8ae1acab-c610-45bf-bc88-3dc21281b923'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: f7949489-a07a-4fd7-b873-0ac8d2bf0700 Correlation ID: 913495cb-30c6-4da8-a89f-95ddf399809b Timestamp: 2026-05-19 20:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "a1813ed9-99c5-4aba-9b6c-86b408bf4a51",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "a2f53503-5815-4cc4-8d89-165359beec42",
+      "startTimeUtc": "2026-05-19T20:47:01.1815286",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T19:47:09.5532144",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '40fa276e-7de2-4914-9975-54e714fed7fd'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 15b4e32a-2736-4061-8555-1e5802b36800 Correlation ID: a6cbed8f-0e9e-42cb-9968-78fc42866392 Timestamp: 2026-05-19 19:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "243be17e-32f6-4855-bfd1-c5b443b37e76",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "1d452219-588c-4df5-aca6-f0a58bbcf8ae",
+      "startTimeUtc": "2026-05-19T19:47:01.1086485",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T18:47:10.006889",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'f142b1ac-eb36-4ba0-a56a-40d0a59537fb'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 3448c569-4da1-40a2-9e6b-861acfbb1900 Correlation ID: dc1981ad-3fa5-4440-b470-ce64564fcaa5 Timestamp: 2026-05-19 18:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "f133bac3-f1f9-41b5-aa57-f88dfa0687a6",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "61e0a8a4-df2e-4202-b9e2-9be7cfcae2e4",
+      "startTimeUtc": "2026-05-19T18:47:00.8015272",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T17:47:10.9065406",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '9ef40c63-8e13-4b6f-8ee4-ad55dcabb268'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: e324de21-3ec2-41ac-9fef-bc0638661400 Correlation ID: c9c021e3-2e0b-464f-a111-1effda125407 Timestamp: 2026-05-19 17:47:05Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "e1109d3b-9a4a-4d29-9ecd-84ca9e6f9cc8",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "d586a2e2-79de-404e-8478-b32d3e6159db",
+      "startTimeUtc": "2026-05-19T17:47:01.1219617",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T16:47:08.841243",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '05e10fe6-5f77-441a-941a-57fa5d62324d'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: c4d62a22-1e2e-4566-a253-3e6c3c018f00 Correlation ID: b279023d-0cfd-4894-a417-d3c9db733abc Timestamp: 2026-05-19 16:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "44f022f0-c1b0-48da-b790-afac7be20ede",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "7ce77e3e-7985-436e-a049-211483051d01",
+      "startTimeUtc": "2026-05-19T16:47:00.812426",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T15:47:09.6747735",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '37016130-73f8-4f00-b868-4294395b8c07'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: ac05857f-dda3-42d2-80db-b08507ee0500 Correlation ID: 59a23085-6d2b-4116-bc17-16d457289a1d Timestamp: 2026-05-19 15:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "7015306b-0441-4b87-b118-ac63133b3191",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "5789377b-915e-4a34-b4e9-a9ff42be95c3",
+      "startTimeUtc": "2026-05-19T15:47:01.2040136",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T14:47:09.0641209",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '8a6eae39-a384-4eb3-9638-a6b33712cc71'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 40817bb5-3078-4601-9a16-079a4d136a00 Correlation ID: 4a0559c6-ec10-47cb-b58e-22d7a84cbd15 Timestamp: 2026-05-19 14:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "0fd0f915-208d-4f41-b866-1c7ec91ce348",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "df2f2b87-2ca9-4ccc-a6ad-c97217f319d3",
+      "startTimeUtc": "2026-05-19T14:47:00.9418936",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T13:47:09.0873677",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'e7c7bec7-b90c-493a-9c93-333fdba5b2df'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 04ba1cb3-ff4c-4d20-bf81-483782310600 Correlation ID: 738d1352-ae72-4697-95e0-cb171168c195 Timestamp: 2026-05-19 13:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "ea792036-4050-4d26-8d1b-20bb536c0980",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "7b26d73e-dd27-4bed-9198-672d5938b5ae",
+      "startTimeUtc": "2026-05-19T13:47:00.7110554",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T12:47:09.1686064",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '290ef785-eaec-4afa-afa2-093bc70afcf0'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: d7f5b7b8-9105-42c5-abf4-047c9d7e0800 Correlation ID: d368723b-d66d-40f7-ba1d-569722e589e5 Timestamp: 2026-05-19 12:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "de9efe6f-a7e5-4469-8979-520cf124af3b",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "5440eb46-3e9d-4cd7-8219-2486501fc7b4",
+      "startTimeUtc": "2026-05-19T12:47:00.7693805",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T11:47:10.7427632",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'fa12861b-ecfd-4501-bf33-2a4f355dd941'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 1a60c674-ee56-406d-aae2-57590aef5f00 Correlation ID: ec0a84a4-2858-496f-a9de-457d023c58b1 Timestamp: 2026-05-19 11:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "39c64a41-6071-4ef0-b57a-1cdb88a7c123",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "c3141708-a146-4951-b0a3-c320eb2c2cfb",
+      "startTimeUtc": "2026-05-19T11:47:01.0244681",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T10:47:09.1514768",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '8f9d6369-8ff7-4aad-a7b2-bd63b70c1a01'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: d97ad21d-c008-4824-97ad-f4219dcc5400 Correlation ID: 7b55b48f-70d8-4d1a-b360-86d59d8cefd4 Timestamp: 2026-05-19 10:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "a0975710-cbe0-4d54-8a44-a3742bbe5756",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "277ca7d3-00ae-4f21-8e75-e8388468d96f",
+      "startTimeUtc": "2026-05-19T10:47:00.6325051",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T09:47:07.5748559",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '29da76fc-ae3d-4cce-9f14-285fee988dc5'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 1b9ec600-f597-46ee-ab14-1307caa34b00 Correlation ID: 6adbd55c-c555-4ad0-bc2e-db264d336312 Timestamp: 2026-05-19 09:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "dbcc1f53-1223-44e1-b9ca-0cd923a5a4a5",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "f99ca1e5-ad93-4cfd-a7dd-34cfd92680ea",
+      "startTimeUtc": "2026-05-19T09:47:00.6466756",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T08:47:08.9119613",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '43dafef2-db78-4770-bbf1-22cae15f9bfc'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 007456f8-6f7f-4c93-8f15-46e4c8945900 Correlation ID: 6db5702a-e551-4abd-b398-b30c23214074 Timestamp: 2026-05-19 08:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "c5d0ff60-8217-4e04-9cb9-655a5a4ebd6c",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "93caec7a-6b3d-4a8e-ba6d-523d05d1b107",
+      "startTimeUtc": "2026-05-19T08:47:00.9374797",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T07:47:09.7780411",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '34980cc4-5225-4c57-b596-e6964430853e'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 37258666-a123-40b2-91a2-c49751080200 Correlation ID: b7d74f11-4e1b-49b1-9958-54782a6ea76a Timestamp: 2026-05-19 07:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "21499c59-742a-4f06-b92b-9f607052c62b",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "01ea80c9-7c9d-4914-8789-d3e63837ad68",
+      "startTimeUtc": "2026-05-19T07:47:00.9060087",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T06:47:46.1535235",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '2691f0de-d1e9-4ad0-9b52-4c3a724bc43f'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 3335d06e-6014-40f0-80dd-56d577408d00 Correlation ID: ad10ab5d-af5a-4390-938e-1d23f769c484 Timestamp: 2026-05-19 06:47:41Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "6e4a840e-abe7-48fb-b4b7-7f1ca31b9909",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "d41ccaa3-db90-4113-a6f5-59e319290f60",
+      "startTimeUtc": "2026-05-19T06:47:00.5367699",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T05:47:07.8303265",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'aaff95e8-e5ad-428c-af20-c50c1c2c86a9'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: cbcd42b8-f586-41c7-a081-d060f70e0000 Correlation ID: 9e647a6f-7662-4dff-9423-c0a8461dd717 Timestamp: 2026-05-19 05:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "f18b58d3-612c-4e9e-91fb-4370e203004f",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "b7ce842c-5ed1-4699-a0be-2e340ec087f7",
+      "startTimeUtc": "2026-05-19T05:47:01.0062108",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T04:47:09.018799",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '2738c796-9441-42c7-b7f2-a280aa29a97c'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: bb3ef80f-0dcb-4550-a902-5e2b1cfd6e00 Correlation ID: 14b82bd2-1632-44c0-be18-583e826d4c08 Timestamp: 2026-05-19 04:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "1496f4d4-6a6c-4dd8-8d9f-dc417e97d6d4",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "2b0f2bba-536b-4316-b2c8-7f7617c4e76c",
+      "startTimeUtc": "2026-05-19T04:47:00.5176639",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T03:47:09.160948",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '41d48924-fb94-45cc-9a32-ad738e618f3d'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 46f0ac38-6717-4d97-a055-331ba8227600 Correlation ID: f8d02dac-724c-4d0b-b27e-8f6d0552f4a8 Timestamp: 2026-05-19 03:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "6422c56d-566b-4b54-828a-1be746afb1a8",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "209623fa-1cc1-4498-9ce0-93f149a14d4e",
+      "startTimeUtc": "2026-05-19T03:47:01.3473465",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T02:47:07.9577159",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '5fef1f3f-94f8-4257-9d3b-98d00bfa91a6'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 9ec7f57e-ff08-42b6-a433-88c863127300 Correlation ID: 42a41249-58fb-4d52-93b8-97be41e35de6 Timestamp: 2026-05-19 02:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "ef8538b5-8760-4fdd-9944-5b71dcd3d623",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "51d8f763-b3c1-459e-96cf-932d3f746f8f",
+      "startTimeUtc": "2026-05-19T02:47:00.7108935",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T01:47:08.4811118",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'ab687650-5c2f-446f-9cdf-41f51c689833'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 3a32f43b-071f-4ccf-bca3-ed853d125400 Correlation ID: 753cc0ad-2092-47d8-b1c2-c331ba2125a2 Timestamp: 2026-05-19 01:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "a01c847a-1ebd-4960-9ec0-097f3833dc46",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "a97cd4a3-eb04-475d-8cb2-68fe2ae5cb13",
+      "startTimeUtc": "2026-05-19T01:47:01.3167943",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-19T00:47:08.2302528",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'c6147152-4682-4f1b-8b7f-514413d186e2'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: c744dfe2-f9e7-4ffc-afe1-e334d6525a00 Correlation ID: 7262d1c3-e135-408d-ad45-64c0d0ab253d Timestamp: 2026-05-19 00:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "5eb47424-4c6a-403e-aebe-192d7fde924a",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "b1cbf412-8c47-4e4e-bac0-86592ee48d15",
+      "startTimeUtc": "2026-05-19T00:47:01.2363608",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T23:47:10.1677841",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'd4d085fa-8edb-434b-8231-7588a1ec072b'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 56343d91-b1b5-4d4c-a511-e8b2351d2000 Correlation ID: 0611e2da-0a6d-4274-a930-45446e1307b7 Timestamp: 2026-05-18 23:47:05Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "f33dafca-dbdf-4770-9487-df6e9b90881f",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "b04c81c3-b8ca-4a15-8f1d-8de71880e801",
+      "startTimeUtc": "2026-05-18T23:47:01.2236944",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T22:47:08.8831362",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '8a7edbc6-5953-4657-9c82-dbd9acdab68c'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 4989211e-f93b-4f50-9b6b-b0052b001300 Correlation ID: 8e2dbc79-f6a4-4318-9ae2-da22f5115ef0 Timestamp: 2026-05-18 22:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "493467bc-6239-4bf2-9bfa-70d9f182dc45",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "b6f27b94-93fe-467a-b112-fea7f1cfe6e7",
+      "startTimeUtc": "2026-05-18T22:47:01.067477",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T21:47:09.707969",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '8f248f7a-f52e-40c6-b8a5-8791efcaca6c'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 6f306656-3c23-45c0-8fda-a0e58b641400 Correlation ID: 5ff522a1-d4e7-4981-b848-4d812c04fbf8 Timestamp: 2026-05-18 21:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "ba68b5c4-0294-4d39-882b-1176a7c33f4f",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "efb9a320-1da9-4ddc-9865-1eb7735a6fa9",
+      "startTimeUtc": "2026-05-18T21:47:01.3973678",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T20:47:08.9325422",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '2830ace0-41d9-4e22-a351-ce3b7048c63d'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 91319299-dab4-4d3d-affd-59851f434f00 Correlation ID: bd76e31e-42e1-41d0-993d-a3ff3ad92395 Timestamp: 2026-05-18 20:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "bd99f4e0-c953-479f-996a-b9ba8e7e980c",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "e118019b-12d0-44f8-b25b-a88d5de41d52",
+      "startTimeUtc": "2026-05-18T20:47:00.9982055",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T19:47:09.5890887",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '2a1d0807-764f-4f3f-822b-a4df0805212d'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 9fffa12d-571e-4ece-a348-bafa75f81100 Correlation ID: e543d1d7-4a1e-4797-ab43-d2dd5e79e6da Timestamp: 2026-05-18 19:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "905dc6b2-607c-47b2-a60b-18d1df0b9b03",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "ad0a43a7-1ad9-4a96-a4c0-3f6651b3baf3",
+      "startTimeUtc": "2026-05-18T19:47:00.9354519",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T18:47:09.4026313",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '8672e6a0-6b47-430f-9b01-141141928cf8'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 0f955a63-3d68-4df7-ba6a-8a2a38ca5600 Correlation ID: d8ec221f-dbe1-44ad-bc73-b471a4c2d8fb Timestamp: 2026-05-18 18:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "fad43496-8fa0-41c1-81d6-da6b7be2e53e",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "953092be-ecec-4ea9-a1e6-765f31c2aaec",
+      "startTimeUtc": "2026-05-18T18:47:00.5980027",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T17:47:09.0143866",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'd2616182-0256-4efd-abb6-626cd56b91be'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 2d26762d-0f82-41ce-be06-baba71095100 Correlation ID: 8aa7b98a-6102-418e-b4c1-fd3d44429af4 Timestamp: 2026-05-18 17:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "8c20b89b-6ae5-4e69-9079-671f89305c56",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "00dcac78-f2f3-4b77-95f2-adaff3a68bad",
+      "startTimeUtc": "2026-05-18T17:47:01.1442064",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T16:47:11.2073995",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '01ed3ab6-820d-429b-92c6-5b097e53c280'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 5eae9300-d5b1-40d4-9997-a3e6052e6300 Correlation ID: 898a7ead-3ac2-4f49-ba50-9f19d4872978 Timestamp: 2026-05-18 16:47:06Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "f2f21673-8e93-4c64-b98f-b4dbdbf85d28",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "e2a91241-5f90-4be6-ba98-6ffaa4461255",
+      "startTimeUtc": "2026-05-18T16:47:00.9899469",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T15:47:12.2383516",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '3523fae0-2cdc-4176-94e9-dc2fa101c770'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 9c797bde-e9e4-426e-b68d-2af271583100 Correlation ID: d26df7bc-6c4c-454f-b676-526ee53829d5 Timestamp: 2026-05-18 15:47:06Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "fbef395d-202f-47a7-b6a7-8e3ce866ee44",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "aa0e6036-d5d6-47b3-acb3-c36a6a15958f",
+      "startTimeUtc": "2026-05-18T15:47:01.238832",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T14:47:09.5470903",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '378f7a7b-9900-4d88-8182-81000a9f4ae5'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 19e9572d-fb58-40bd-8439-82176e950800 Correlation ID: dfa49ebb-7508-4bd0-a405-60ab9049b474 Timestamp: 2026-05-18 14:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "32a45b67-25ea-4c08-bf7a-9029d38fc135",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "49966822-65dc-4ac3-8137-947252409339",
+      "startTimeUtc": "2026-05-18T14:47:01.0848458",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T13:47:09.3968744",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '9abe6db9-c28b-463a-b290-39e741b9920a'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 1de4a60b-5e97-4c11-95b5-20602dcd3400 Correlation ID: 4730c5b0-bb92-4e43-b492-5c55fa932833 Timestamp: 2026-05-18 13:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "66714dad-af05-4abf-bae3-ce93386fd1c2",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "4da200a6-e513-4171-bf61-b33cc386366d",
+      "startTimeUtc": "2026-05-18T13:47:00.6368898",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T12:47:10.1825362",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'ed34070e-074b-4270-8552-5e415a386bf5'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 57c08ac3-d748-4d6f-9d84-63d9c9b30a00 Correlation ID: 2672c8fe-378f-4e6b-973a-a97b9ea4e51b Timestamp: 2026-05-18 12:47:05Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "023dbccf-2a2c-4a3b-b934-ce339acd9ab7",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "925cc7f8-3eb3-4c82-a04f-5ce73677bf17",
+      "startTimeUtc": "2026-05-18T12:47:01.0491012",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T11:47:09.0171591",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '397e7579-1ed9-47cf-b75f-b59edee4df9c'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: d807478e-f94e-4e78-b3b6-53a46f1f3800 Correlation ID: 25953ae2-6137-4928-9d0a-0aea315438c4 Timestamp: 2026-05-18 11:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "a1f08d1b-0cbf-4f49-92b8-5f069b10bdf0",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "77a34342-2e12-4526-93f4-6aee877d2165",
+      "startTimeUtc": "2026-05-18T11:47:00.7173087",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T10:47:08.6682198",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '66acbd92-956e-4b74-a55c-b8c61fac7335'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 579a1a56-812a-47c4-be74-c362d40a5f00 Correlation ID: 775b1cb0-e7e8-40c6-80ef-5531824412bc Timestamp: 2026-05-18 10:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "d9848baf-4467-48ab-a304-29e17b7bd086",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "adb926dd-72e0-4bac-895c-1f0f40638538",
+      "startTimeUtc": "2026-05-18T10:47:00.6044259",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T09:47:08.9374849",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'c7d193ef-f31d-4381-83af-a60e480249a4'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 9ec7f57e-ff08-42b6-a433-88c8d9135600 Correlation ID: 6cd1283c-cbba-4780-b548-858d93be9a2a Timestamp: 2026-05-18 09:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "a0be3b93-673a-4ac2-b2fa-c7d3a7106b79",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "361eccb8-39ff-46d0-9f59-5330ac822d74",
+      "startTimeUtc": "2026-05-18T09:47:00.5768723",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T08:47:08.7109776",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '191b941a-dde8-49f2-a632-da39fdbef34d'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 8e06784f-4bfd-4c44-ac41-935c47e33400 Correlation ID: 47dff0d4-280c-4990-b3ed-e092b3f47587 Timestamp: 2026-05-18 08:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "904c596b-aaae-48e8-816e-630a8e13351b",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "b39d14e3-4cf4-4219-a474-6b398bf3f18b",
+      "startTimeUtc": "2026-05-18T08:47:01.176504",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T07:47:09.8791495",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '3fb7668d-4550-4afb-b174-e67fcc49097b'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 27226368-eab0-4859-944a-350e0b602800 Correlation ID: dd762495-43c1-47d9-aa8c-cd6eef3cf1ae Timestamp: 2026-05-18 07:47:05Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "52d382df-f769-43ab-818a-2f99d57c0f21",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "c86adbb3-ffa5-408d-81ea-f95d1959d239",
+      "startTimeUtc": "2026-05-18T07:47:00.8276929",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T06:47:09.9743243",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'fd617bb0-1090-405c-b897-48eed4a9fca4'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: ea9d537a-5bdd-45c6-a0f8-592788082b00 Correlation ID: f7605bbe-892f-483b-8ebb-19ddba90b0ab Timestamp: 2026-05-18 06:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "59c432d8-5887-4656-8bc8-f47e7fb67ec1",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "de6771b7-cc4a-4a7c-af66-00bcd10bac65",
+      "startTimeUtc": "2026-05-18T06:47:00.7756848",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T05:47:08.8300973",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '993a38bd-f6cc-4580-a342-0a4e99b767b5'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 59d97e49-cb12-4647-abb2-3acd2cab2c00 Correlation ID: e27a2514-90df-4729-8a77-c6a3b4ebdd73 Timestamp: 2026-05-18 05:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "cdc43e3a-ad65-480c-a458-910bce1f2244",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "69fb3e32-dfc0-41ab-8374-e91a9825a7a9",
+      "startTimeUtc": "2026-05-18T05:47:01.0304368",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T04:47:07.6151512",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '82d93d5d-2a2e-4f29-9840-4c8097ed8de5'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: db31dbc6-f7ba-4484-b971-35fc72763e00 Correlation ID: b1e5cedb-cd49-47f1-83c8-74b6d9d9d012 Timestamp: 2026-05-18 04:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "63363308-3624-4c90-adf9-415d6ec97674",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "a98dc80e-2a80-45ab-a882-1bb86fbc8bbf",
+      "startTimeUtc": "2026-05-18T04:47:00.8191547",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T03:47:08.6187894",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '37fae2c3-98b4-4f50-868e-6cc18bc75f46'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: bad5e30a-0987-4ba5-a3cd-b54b27706300 Correlation ID: 491d7894-687a-4de7-bf3d-3249c54676dd Timestamp: 2026-05-18 03:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "0c39de40-aea4-47ab-9887-bf5484572cdd",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "cb13e22d-b4af-4aa5-9aea-710dc6d69d31",
+      "startTimeUtc": "2026-05-18T03:47:01.1785496",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T02:47:08.691926",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '130d0e30-e529-4c8e-9188-9e6819b69406'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: 2cdeb8d5-cbc2-4fed-9aac-7ced6fed2900 Correlation ID: 159c4127-c4c8-4662-88c0-825b3dc04d3e Timestamp: 2026-05-18 02:47:03Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "79b0742d-6079-41f5-bf9e-710b80a62884",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "56b7318b-99eb-48a1-92e3-3978c1df696c",
+      "startTimeUtc": "2026-05-18T02:47:00.8470633",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T01:47:08.943904",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'd6592114-3c73-4377-a711-55f754ccea31'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: cb2a1aa2-a863-4fe9-aabd-29f2fc874400 Correlation ID: 5c967419-a65f-45fa-b157-5914447ee093 Timestamp: 2026-05-18 01:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "09dfafdb-5072-4901-a97a-ed3e98c9f2b0",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "ed29d26a-d0e5-4255-a14e-65f895bc823e",
+      "startTimeUtc": "2026-05-18T01:47:01.2937944",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-18T00:47:08.6736992",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '6b8189d0-0643-4eff-a336-1d2a9c71bfc3'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: d967d10e-fd02-4cc2-9aff-6998a7a02400 Correlation ID: b37e61b1-f813-4630-b3be-f68c34884cda Timestamp: 2026-05-18 00:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "01473fab-1d16-4b17-ae04-5fbcf362a380",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "2b7ac513-c3b1-4ed5-81b8-8a9e89c3583a",
+      "startTimeUtc": "2026-05-18T00:47:00.876893",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-17T23:47:08.942514",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '3c7ee320-0845-41ef-ab27-ee959e1058ea'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: a5320ee4-00cd-4e48-8c6d-de352d3b5100 Correlation ID: a138752b-f3b0-4117-9181-ef3c75070b78 Timestamp: 2026-05-17 23:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "d9c0db5e-b75b-4d39-b21d-9abcc94ac074",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "0377e8d0-c082-49fe-86bd-97fdc9b327b1",
+      "startTimeUtc": "2026-05-17T23:47:01.0519412",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-17T22:47:09.3261137",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run 'fa2a7e97-685d-4ce6-b401-b92627c02fcf'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: d6b8d041-e955-45b5-b2d6-a8e7e69f2300 Correlation ID: d5ab94a6-656a-4ee2-af75-57c7498c85ea Timestamp: 2026-05-17 22:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "2b7de0b0-87e8-4c82-9bba-a7f66ebf841d",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "ec108f6d-6b9e-4b8f-bccd-0a394dbaf9c6",
+      "startTimeUtc": "2026-05-17T22:47:01.1624002",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-17T21:47:09.2881102",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target pl_brz_daily failed: Failed to resolve connection '468fac2e-08b0-4d52-9c97-95d84ef8896f' referenced in activity run '72194944-3de8-4c1e-9a04-78438256274e'. ErrorCode: 'DMTS_OAuthTokenRefreshFailedError'. ErrorMessage: 'Failed to refresh OAuth token. Microsoft.Identity.Client.MsalUiRequiredException: AADSTS135011: Device used during the authentication is disabled. Trace ID: f08dd221-19eb-4549-88bb-350014521800 Correlation ID: 0a8263f7-5020-4a5b-8d47-65103c465eac Timestamp: 2026-05-17 21:47:04Z'.",
+        "requestId": "44105f3a-5160-4bc0-8a9c-4223b2e626a1"
+      },
+      "id": "a8271c4c-771e-46d3-bd1f-78e96877fa22",
+      "invokeType": "Scheduled",
+      "itemId": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "jobType": "Pipeline",
+      "rootActivityId": "0500a416-f3ae-43fd-8f17-50bc60abc1d5",
+      "startTimeUtc": "2026-05-17T21:47:01.3243494",
+      "status": "Failed"
+    }
+  ]
+}

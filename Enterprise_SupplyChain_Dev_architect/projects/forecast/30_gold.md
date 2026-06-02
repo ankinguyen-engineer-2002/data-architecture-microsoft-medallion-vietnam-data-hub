@@ -1,6 +1,6 @@
 # 30 — Gold Layer
 
-> Scanned: 2026-05-06 · Updated 2026-05-10 post Bob alignment (view prefix `vw_*` → `v_*`; schema `_DW` ALL CAPS unchanged).
+> Scanned: 2026-05-06 · Updated 2026-06-01 after shared dimension consolidation and live semantic smoke.
 > **Warehouse:** `SupplyChain_Gold_Warehouse` (`98e2a911-5af9-442e-9cc8-5d8dadb8b762`)
 > **Schema:** `ForecastAccuracy_DW`
 > **Role:** Dedicated serving boundary for Direct Lake semantic model.
@@ -9,8 +9,9 @@
 
 | Type | Count | Total rows |
 |------|------:|-----------:|
-| Fact tables | 2 | 83,506,809 |
-| Dimension tables | 5 | 437,536 |
+| Fact tables | 2 | 254,267,610 |
+| Forecast mart-specific dimension tables | 2 active + 2 inactive legacy physical dims | 35,625 active mart-specific rows |
+| Shared dimension tables | 3 | 405,487 |
 | Views (1-to-1 with tables) | 7 | — |
 
 > ETL DDL for all 7 Gold views: see [`etl/gold_views.sql`](etl/gold_views.sql).
@@ -19,7 +20,7 @@
 
 ## Fact Tables
 
-### `FactForecastActual` — 47,105,693 rows
+### `FactForecastActual` — 138,509,914 rows
 
 UNION ALL of 3 demand sources into a unified fact for forecast accuracy reporting.
 
@@ -57,7 +58,7 @@ SELECT ItemSKU, WarehouseCode, CustomerGroupCode, FSCMonthFirst, FSCMonthLast,
 FROM SupplyChain_Processing_Warehouse.ForecastHistory_Enh.NaiveForecastMonthly;
 ```
 
-### `FactForecastKpi` — 36,401,116 rows
+### `FactForecastKpi` — 115,757,696 rows
 
 Computed KPI fact derived from joining `FactForecastActual` against itself (Forecast vs Actual) with horizon spine + 7 derived error metrics.
 
@@ -78,13 +79,40 @@ Spine joins via CROSS JOIN to `DimForecastHorizon` for monthly horizon expansion
 
 ## Dimension Tables
 
-| Table | Rows | Cols | Source (cross-DB from Processing WH) | Notes |
+| Table | Rows | Cols | Source | Notes |
 |-------|-----:|-----:|--------------------------------------|-------|
-| `DimCalendar` | 21,551 | — | `ReferenceMaster_Enh.Calendar` | 74 cols total (extended +64 vs v8) |
-| `DimCustomerGrouping` | 35,617 | — | `ReferenceMaster_Enh.CustomerGrouping` | Customer group mapping |
-| `DimForecastHorizon` | 8 | — | `ReferenceMaster_Enh.ForecastHorizon` | +`Rank` col for sort order vs v8 |
-| `DimProduct` | 379,305 | — | `Staging_Wrk.ProductEdw` | 32 cols (full Product master) |
-| `DimWarehouse` | 55 | — | `ReferenceMaster_Enh.Warehouse` | Warehouse master |
+| `DimCalendar` | 21,551 | 75 | `Shared_DW.DimCalendar` | Shared calendar used by forecast + inventory semantic models. |
+| `DimCustomerGrouping` | 35,617 | 3 | `ReferenceMaster_Enh.CustomerGrouping` | Mart-specific customer group mapping. |
+| `DimForecastHorizon` | 8 | 3 | `ReferenceMaster_Enh.ForecastHorizon` | +`Rank` col for sort order vs v8. |
+| `DimProduct` | 383,883 | 218 | `Shared_DW.DimProduct` via `ForecastAccuracy_DW.v_DimProduct` | Shared canonical product dim. The old physical `ForecastAccuracy_DW.DimProduct` has 381,163 rows / 207 cols and is inactive/stale. |
+| `DimWarehouse` | 53 | 20 | `Shared_DW.DimWarehouse` | Shared warehouse master; display label contract restored. |
+
+### 2026-06-01 Shared `DimProduct` Contract
+
+`ForecastAccuracy_DW.v_DimProduct` now reads `Shared_DW.DimProduct`, which is built from:
+
+```text
+Enterprise_Lakehouse.MasterData_DW.DimItemMaster
+  + Enterprise_Lakehouse.Purchasing_AFI.VendorMaster
+  + Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT
+```
+
+The shared table has 383,883 rows / 218 columns. It preserves forecast compatibility while also carrying Inventory Health fields such as `Cubes`, `FOBArcPrice`, and `UnavailableFlag`.
+
+### 2026-05-29 Shared `DimWarehouse` Display Contract
+
+`DimWarehouse` is now served from `Shared_DW.DimWarehouse` for Forecast Accuracy
+and Inventory Health. `WarehouseLocation` is the report display label and is
+derived from `WarehouseOrderGroup` with `WarehouseCode` fallback. The D/W source
+type is preserved separately as `WarehouseType`.
+
+Operational fix applied 2026-05-29:
+- Rebuilt `ReferenceMaster_Enh.Warehouse` from `ReferenceMaster_Enh.v_Warehouse`.
+- Rebuilt `Shared_DW.DimWarehouse` from `Shared_DW.v_DimWarehouse`.
+- Refreshed both Forecast and Inventory semantic models successfully.
+- Forecast DAX smoke confirmed `DimWarehouse[WarehouseLocation]` groups by
+  `ARCADIA`, `ECRU`, `LEESPORT`, `ADVANCE`, `REDLANDS`, `SALTILLO`, etc.,
+  instead of collapsing to `D`.
 
 **Pattern (all dims):**
 ```sql

@@ -1,0 +1,28 @@
+relationship DimCalendar_to_FactHealth
+	fromColumn: FactInventoryHealthSnapshot.DateKey
+	toColumn: DimCalendar.DateKey
+
+relationship DimCalendar_to_FactRisk
+	fromColumn: FactInventoryRiskForward.DateKey
+	toColumn: DimCalendar.DateKey
+
+relationship DimItem_to_FactHealth
+	fromColumn: FactInventoryHealthSnapshot.ItemSku
+	toColumn: DimItem.ItemSku
+
+relationship DimItem_to_FactRisk
+	fromColumn: FactInventoryRiskForward.ItemSku
+	toColumn: DimItem.ItemSku
+
+relationship DimWarehouse_to_FactHealth
+	fromColumn: FactInventoryHealthSnapshot.WarehouseCode
+	toColumn: DimWarehouse.WarehouseCode
+
+relationship DimWarehouse_to_FactRisk
+	fromColumn: FactInventoryRiskForward.WarehouseCode
+	toColumn: DimWarehouse.WarehouseCode
+
+relationship DimVendor_to_DimItem
+	fromColumn: DimItem.PrimaryVendorNumber
+	toColumn: DimVendor.VendorNumber
+

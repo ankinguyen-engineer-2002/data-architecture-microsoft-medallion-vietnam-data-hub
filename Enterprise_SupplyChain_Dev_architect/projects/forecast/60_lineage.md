@@ -1,8 +1,23 @@
 # 60 — Lineage
 
-> Scanned: 2026-05-06 · Updated 2026-05-10 post Bob alignment (76 `source_asset`/`target_asset` strings updated for new schema casing `_Enh`/`_Wrk`; edge count unchanged at 60).
+> Scanned: 2026-05-06 · Updated 2026-06-01 after shared dimension consolidation.
 > **Source:** `Meta.LineageEdge` (auto-built by `Meta.usp_BuildLineage` from registry `source_objects` JSON).
-> **Edge count:** 60 (53 `direct` + 7 `semantic`).
+> **Edge count:** see `Meta.LineageEdge` and [../live_audit_2026-06-01.md](../live_audit_2026-06-01.md). The important current semantic contract is that `DimCalendar`, `DimProduct`, and `DimWarehouse` flow from `Shared_DW`, not from duplicated mart-specific physical dims.
+
+## 2026-06-01 Shared Dimension Lineage Override
+
+These edges are the current source-of-truth for forecast shared dims:
+
+| Target | ← Source(s) |
+|--------|-------------|
+| `Shared_DW.DimCalendar` | `ReferenceMaster_Enh.Calendar` |
+| `Shared_DW.DimProduct` | `Enterprise_Lakehouse.MasterData_DW.DimItemMaster`, `Enterprise_Lakehouse.Purchasing_AFI.VendorMaster`, `Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT` |
+| `Shared_DW.DimWarehouse` | `ReferenceMaster_Enh.Warehouse`, `Enterprise_Lakehouse.Wholesale_Codis_AFI.AshleyWarehouseMaster` |
+| `SemanticModel.sc_forecast_control_tower.DimCalendar` | `Shared_DW.DimCalendar` |
+| `SemanticModel.sc_forecast_control_tower.DimProduct` | `Shared_DW.DimProduct` |
+| `SemanticModel.sc_forecast_control_tower.DimWarehouse` | `Shared_DW.DimWarehouse` |
+
+Stale/inactive physical tables such as `ForecastAccuracy_DW.DimProduct` can still exist in the warehouse for rollback/history, but they are not the intended semantic source after the shared-dim cutover.
 
 ## Edge Type Summary
 
@@ -19,14 +34,13 @@
 Enterprise_Lakehouse.Wholesale_Codis_AFI.{codatan, COMAST, EXTORD, EXTORIT, AAORDTYP}
 Enterprise_Lakehouse.MasterData_DW.{DimDate, DimItemMaster}
 Enterprise_Lakehouse.Customers.{AccountMaster, ShippingLocations}
-Enterprise_Lakehouse.SupplyChain_DW.DimAFIWarehouses
+Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster
 Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping
 SupplyChain_Lakehouse.dbo.{brz_saleshistory_afi__invoicedetail_ver2,
                           brz_saleshistory_afi__invoiceheader_ver2,
                           brz_supplychain_enh_1__demandforecastsnapshotdaily_ver2,
-                          ref_product_ver2,
-                          ref_forecast_cycle}
-manual (seeded)
+                          ref_product_ver2}
+ProcessingSeed.{ForecastCycle, ForecastHorizon}
 ```
 
 ### Layer 1: Staging_Wrk ← External Bronze (4 edges)
@@ -47,11 +61,11 @@ manual (seeded)
 | `ReferenceMaster_Enh.CustomerAccountGroup` | `Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping` |
 | `ReferenceMaster_Enh.CustomerGrouping` | `Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping` |
 | `ReferenceMaster_Enh.CustomerShippingLocation` | `Enterprise_Lakehouse.Customers.ShippingLocations` |
-| `ReferenceMaster_Enh.ForecastCycle` | `SupplyChain_Lakehouse.dbo.ref_forecast_cycle` |
-| `ReferenceMaster_Enh.ForecastHorizon` | manual (seeded) |
+| `ReferenceMaster_Enh.ForecastCycle` | `ProcessingSeed.ForecastCycle` |
+| `ReferenceMaster_Enh.ForecastHorizon` | `ProcessingSeed.ForecastHorizon` |
 | `ReferenceMaster_Enh.ItemMaster` | `Enterprise_Lakehouse.MasterData_DW.DimItemMaster` |
 | `ReferenceMaster_Enh.OrderType` | `Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP` |
-| `ReferenceMaster_Enh.Warehouse` | `Enterprise_Lakehouse.SupplyChain_DW.DimAFIWarehouses` |
+| `ReferenceMaster_Enh.Warehouse` | `Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster` |
 
 ### Layer 3: Silver Wave 0 (3 targets, depends on Staging + ReferenceMaster + Lakehouse direct)
 
@@ -80,11 +94,11 @@ manual (seeded)
 
 | Target | ← Source(s) |
 |--------|-------------|
-| `ForecastAccuracy_DW.DimCalendar` | `ReferenceMaster_Enh.Calendar` |
+| `Shared_DW.DimCalendar` | `ReferenceMaster_Enh.Calendar` |
 | `ForecastAccuracy_DW.DimCustomerGrouping` | `ReferenceMaster_Enh.CustomerGrouping` |
 | `ForecastAccuracy_DW.DimForecastHorizon` | `ReferenceMaster_Enh.ForecastHorizon` |
-| `ForecastAccuracy_DW.DimProduct` | `Staging_Wrk.ProductEdw` |
-| `ForecastAccuracy_DW.DimWarehouse` | `ReferenceMaster_Enh.Warehouse` |
+| `Shared_DW.DimProduct` | `Enterprise_Lakehouse.MasterData_DW.DimItemMaster`, `Enterprise_Lakehouse.Purchasing_AFI.VendorMaster`, `Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT` |
+| `Shared_DW.DimWarehouse` | `ReferenceMaster_Enh.Warehouse`, `Enterprise_Lakehouse.Wholesale_Codis_AFI.AshleyWarehouseMaster` |
 | `ForecastAccuracy_DW.FactForecastActual` | `SalesHistory_Enh.ActualDemandMonthly`, `ForecastHistory_Enh.{ForecastDemandMonthly, NaiveForecastMonthly}` |
 | `ForecastAccuracy_DW.FactForecastKpi` | `SalesHistory_Enh.ActualDemandMonthly`, `ForecastHistory_Enh.{ForecastDemandMonthly, NaiveForecastMonthly}`, `ReferenceMaster_Enh.ForecastHorizon` |
 

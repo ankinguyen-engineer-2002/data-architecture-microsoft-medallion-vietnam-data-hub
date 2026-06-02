@@ -105,9 +105,9 @@ def load_augmented_lineage_rows():
 def lineage_node_id(source_schema, source_table):
     schema = (source_schema or "").strip()
     table = (source_table or "").strip()
-    if "Enterprise_Lakehouse" in schema or "SupplyChain_Lakehouse" in schema:
+    if schema and table:
         return f"{schema}.{table}"
-    return table
+    return table or schema
 
 def build_recursive_mini_dag(lineage_rows, selected_schema, selected_table):
     by_target = {}
@@ -152,17 +152,24 @@ def build_recursive_mini_dag(lineage_rows, selected_schema, selected_table):
 @st.cache_data(ttl=60)
 def build_dag_data():
     rows = load_augmented_lineage_rows()
-    registry = {r.get("target_table", ""): r for r in load_csv("registry.csv")}
+    registry_rows = load_csv("registry.csv")
+    registry = {
+        lineage_node_id(r.get("target_schema", ""), r.get("target_table", "")): r
+        for r in registry_rows
+    }
+    registry_by_table = {}
+    for r in registry_rows:
+        registry_by_table.setdefault(r.get("target_table", ""), []).append(r)
     nodes, edges, seen = [], [], set()
 
     # Build layer lookup from registry (v10 uses DomainSilver, ReferenceMaster, etc.)
-    layer_map = {}  # target_table -> layer
-    for tbl, reg in registry.items():
-        layer_map[tbl] = (reg.get("layer", "") or "").strip()
+    layer_map = {}  # fully-qualified asset id -> layer
+    for fqid, reg in registry.items():
+        layer_map[fqid] = (reg.get("layer", "") or "").strip()
 
     # Compute silver waves from depends_on
     slv_waves = {}
-    slv_regs = [r for r in registry.values() if r.get("layer", "").strip() == "DomainSilver"]
+    slv_regs = [r for r in registry_rows if r.get("layer", "").strip() == "DomainSilver"]
     # Build set of Silver table names for dependency matching
     slv_table_set = set(r.get("target_table", "") for r in slv_regs)
 
@@ -182,38 +189,97 @@ def build_dag_data():
     # Fallback (only when wave column missing/empty): topo-sort from depends_on.
     for r in slv_regs:
         wave_raw = (r.get("wave") or "").strip()
+        fqid = lineage_node_id(r.get("target_schema", ""), r.get("target_table", ""))
         if wave_raw and wave_raw not in ("nan", "None"):
             try:
-                slv_waves[r.get("target_table", "")] = int(float(wave_raw))
+                wave_num = int(float(wave_raw))
+                slv_waves[fqid] = wave_num
+                slv_waves[r.get("target_table", "")] = wave_num
             except Exception:
                 pass
 
     # Fallback topo-sort for any unassigned silvers
-    unassigned = [r for r in slv_regs if r.get("target_table", "") not in slv_waves]
+    unassigned = [
+        r for r in slv_regs
+        if lineage_node_id(r.get("target_schema", ""), r.get("target_table", "")) not in slv_waves
+    ]
     if unassigned:
         # Wave 0: no Silver dependencies in depends_on
         for r in unassigned:
             dep_list = parse_deps(r.get("depends_on", "") or "")
             has_slv_dep = any(d.split(".")[-1] in slv_table_set for d in dep_list)
             if not has_slv_dep:
+                fqid = lineage_node_id(r.get("target_schema", ""), r.get("target_table", ""))
+                slv_waves[fqid] = 0
                 slv_waves[r.get("target_table", "")] = 0
         # Wave 1..N: iterative
         for wave in range(1, 30):
             newly_assigned = {}
             for r in unassigned:
                 tbl = r.get("target_table", "")
-                if tbl in slv_waves: continue
+                fqid = lineage_node_id(r.get("target_schema", ""), tbl)
+                if fqid in slv_waves: continue
                 dep_list = parse_deps(r.get("depends_on", "") or "")
                 dep_tables = [d.split(".")[-1] for d in dep_list if d.split(".")[-1] in slv_table_set]
                 if dep_tables and all(dt in slv_waves for dt in dep_tables):
+                    newly_assigned[fqid] = wave
                     newly_assigned[tbl] = wave
             if not newly_assigned: break
             slv_waves.update(newly_assigned)
 
+    # Gold has no runtime wave table today, but the lineage UI still needs a
+    # readable dependency order. Derive visual Gold waves from Gold-to-Gold
+    # dependencies, then render facts after dimensions/helpers.
+    gold_regs = [r for r in registry_rows if r.get("layer", "").strip() == "Gold"]
+    gold_assets = {
+        lineage_node_id(r.get("target_schema", ""), r.get("target_table", ""))
+        for r in gold_regs
+    }
+    gold_table_to_fqid = {
+        r.get("target_table", ""): lineage_node_id(r.get("target_schema", ""), r.get("target_table", ""))
+        for r in gold_regs
+    }
+    gold_waves = {}
+
+    def normalize_gold_dep(dep_name):
+        dep_name = (dep_name or "").strip()
+        if not dep_name:
+            return ""
+        if dep_name in gold_assets:
+            return dep_name
+        return gold_table_to_fqid.get(dep_name.split(".")[-1], "")
+
+    for _ in range(20):
+        changed = False
+        for r in gold_regs:
+            fqid = lineage_node_id(r.get("target_schema", ""), r.get("target_table", ""))
+            tbl = r.get("target_table", "")
+            deps = []
+            for raw_dep in parse_deps(r.get("depends_on", "") or "") + parse_deps(r.get("source_objects", "") or ""):
+                dep_fqid = normalize_gold_dep(raw_dep)
+                if dep_fqid and dep_fqid != fqid:
+                    deps.append(dep_fqid)
+            if deps:
+                unique_deps = sorted(set(deps))
+                resolved = [gold_waves[d] for d in unique_deps if d in gold_waves]
+                if len(resolved) != len(unique_deps):
+                    continue
+                wave = max(resolved) + 1
+            else:
+                wave = 0
+            if tbl.startswith("Fact") and wave < 1:
+                wave = 1
+            if gold_waves.get(fqid) != wave:
+                gold_waves[fqid] = wave
+                gold_waves[tbl] = wave
+                changed = True
+        if not changed:
+            break
+
     # Build reverse lookup: snake_case node ID → PascalCase registry key
     # e.g. slv_actual_demand_monthly → ActualDemandMonthly
     node_to_registry = {}
-    for tbl in registry:
+    for tbl in registry_by_table:
         node_to_registry[tbl] = tbl
         node_to_registry[tbl.lower()] = tbl
         # PascalCase → snake_case: InvoiceDetailLineLevel → invoice_detail_line_level
@@ -224,7 +290,7 @@ def build_dag_data():
 
     # Build schema→tier lookup from registry
     schema_tier = {}
-    for tbl, reg in registry.items():
+    for reg in registry_rows:
         schema = reg.get("target_schema", "")
         layer = (reg.get("layer", "") or "").strip()
         if layer == "DomainSilver": schema_tier[schema] = "slv"
@@ -236,7 +302,8 @@ def build_dag_data():
     # Critical for view-only Silvers (LogilityItemStatus, SupplyPlan, AtpWeekEnding,
     # ItemMasterExt, etc.) that aren't registered but appear as edge endpoints.
     table_to_schema = {}
-    for tbl, reg in registry.items():
+    for reg in registry_rows:
+        tbl = reg.get("target_table", "")
         sch = (reg.get("target_schema") or "").strip()
         if sch and tbl not in table_to_schema:
             table_to_schema[tbl] = sch
@@ -258,20 +325,22 @@ def build_dag_data():
         if name.startswith("SemanticModel.") or "semanticmodel" in n:
             return "sem"
 
-        # Extract table name (after last dot)
-        tbl = name.split(".")[-1] if "." in name else name
-        schema = name.split(".")[0] if "." in name else ""
+        # Extract schema/table. External sources intentionally keep full source
+        # table path in the table portion, e.g. Enterprise_Lakehouse.ItemMaster_AFI.ITEMBL.
+        parts = name.split(".")
+        schema = parts[0] if len(parts) > 1 else ""
+        tbl = parts[-1] if len(parts) > 1 else name
 
         # Direct registry match
-        layer = layer_map.get(tbl, "")
+        layer = layer_map.get(name, "")
         if layer == "DomainSilver":
-            return f"slv{slv_waves.get(tbl, 0)}"
+            return f"slv{slv_waves.get(name, slv_waves.get(tbl, 0))}"
         if layer == "Staging":
             return "stg"
         if layer == "ReferenceMaster":
             return "brz"
         if layer == "Gold":
-            return "gld"
+            return f"gld{gold_waves.get(name, gold_waves.get(tbl, 0))}"
 
         # Schema recovery for bare names (view-only Silvers etc.)
         if not schema and tbl in table_to_schema:
@@ -280,14 +349,18 @@ def build_dag_data():
         # Schema-based fallback
         if schema in schema_tier:
             tier = schema_tier[schema]
-            return f"slv{slv_waves.get(tbl, 0)}" if tier == "slv" else tier
+            if tier == "slv":
+                return f"slv{slv_waves.get(name, slv_waves.get(tbl, 0))}"
+            if tier == "gld":
+                return f"gld{gold_waves.get(name, gold_waves.get(tbl, 0))}"
+            return tier
 
         # Name-based fallback (case-insensitive — handles both legacy _ENH/_WRK and Bob-aligned _Enh/_Wrk)
         if "Edw" in name: return "stg"
         schema_lower = schema.lower()
-        if schema_lower.endswith("_enh"): return f"slv{slv_waves.get(tbl, 0)}"
+        if schema_lower.endswith("_enh"): return f"slv{slv_waves.get(name, slv_waves.get(tbl, 0))}"
         if schema_lower.endswith("_wrk"): return "stg"
-        if schema_lower.endswith("_dw"): return "gld"
+        if schema_lower.endswith("_dw"): return f"gld{gold_waves.get(name, gold_waves.get(tbl, 0))}"
         return "other"
 
     for row in rows:
@@ -296,34 +369,58 @@ def build_dag_data():
         tgt_schema = row.get("target_schema", "").strip()
         tgt_table = row.get("target_table", "").strip()
 
-        # Source node ID: full path for external/semantic, table name for internal
-        if "Enterprise_Lakehouse" in src_schema or "SupplyChain_Lakehouse" in src_schema:
-            src_id = f"{src_schema}.{src_table}"
-        elif src_schema == "SemanticModel":
-            src_id = f"{src_schema}.{src_table}"
-        else:
-            src_id = src_table
-
-        # Target node ID: full path for SemanticModel target, table name for internal
-        if tgt_schema == "SemanticModel":
-            tgt_id = f"{tgt_schema}.{tgt_table}"
-        else:
-            tgt_id = tgt_table
+        src_id = lineage_node_id(src_schema, src_table)
+        tgt_id = lineage_node_id(tgt_schema, tgt_table)
         if src_id not in seen:
             seen.add(src_id)
-            nodes.append({"id": src_id, "layer": get_tier(src_id), "load_type": "", "status": "", "last_load_date": "", "rows_loaded": 0})
+            src_reg = registry.get(src_id, {})
+            nodes.append({
+                "id": src_id,
+                "name": src_table,
+                "schema": src_schema,
+                "project": src_reg.get("project", ""),
+                "layer": get_tier(src_id),
+                "load_type": src_reg.get("load_type", ""),
+                "status": "",
+                "last_load_date": "",
+                "rows_loaded": 0,
+            })
         if tgt_id not in seen:
             seen.add(tgt_id)
-            reg = registry.get(tgt_table, {})
-            nodes.append({"id": tgt_id, "layer": get_tier(tgt_id), "load_type": reg.get("load_type", ""), "status": "", "last_load_date": "", "rows_loaded": 0})
-        edges.append({"source": src_id, "target": tgt_id})
-    return {"nodes": nodes, "edges": edges}
+            reg = registry.get(tgt_id, {})
+            nodes.append({
+                "id": tgt_id,
+                "name": tgt_table,
+                "schema": tgt_schema,
+                "project": reg.get("project", ""),
+                "layer": get_tier(tgt_id),
+                "load_type": reg.get("load_type", ""),
+                "status": "",
+                "last_load_date": "",
+                "rows_loaded": 0,
+            })
+        edges.append({
+            "source": src_id,
+            "target": tgt_id,
+            "relationship_type": (row.get("relationship_type", "") or "").strip(),
+        })
+
+    # For visual layout, collapse duplicate direct+derived pairs to the more
+    # structural relationship. The CSV export still keeps both rows.
+    best_edges = {}
+    edge_rank = {"semantic": 3, "derived": 2, "direct": 1}
+    for edge in edges:
+        key = (edge["source"], edge["target"])
+        current = best_edges.get(key)
+        if current is None or edge_rank.get(edge.get("relationship_type", ""), 0) > edge_rank.get(current.get("relationship_type", ""), 0):
+            best_edges[key] = edge
+    return {"nodes": nodes, "edges": list(best_edges.values())}
 
 html_path = Path(__file__).parent / "templates" / "lineage.html"
 
 @st.cache_data(ttl=60)
 def build_node_mart_lookup() -> dict:
-    """Build {bare_table_name: schema} from both lineage and registry.
+    """Build {node_id or bare_table_name: schema} from both lineage and registry.
     Indexes BOTH source_table AND target_table from every lineage edge — critical
     for view-only Silvers (ItemMasterExt, SupplyPlan, AtpWeekEnding, etc.) that
     appear only as edge sources and are NEVER edge targets (they're unregistered
@@ -337,19 +434,22 @@ def build_node_mart_lookup() -> dict:
         # Index TARGET (every edge has a target — primary registered asset)
         tbl = (e.get("target_table") or "").strip()
         schema = (e.get("target_schema") or "").strip()
-        if tbl and schema and tbl not in lookup:
-            lookup[tbl] = schema
+        if tbl and schema:
+            lookup.setdefault(tbl, schema)
+            lookup.setdefault(lineage_node_id(schema, tbl), schema)
         # Index SOURCE (catches view-only Silvers that appear only as sources)
         src_tbl = (e.get("source_table") or "").strip()
         src_schema = (e.get("source_schema") or "").strip()
-        if src_tbl and src_schema and src_tbl not in lookup:
-            lookup[src_tbl] = src_schema
+        if src_tbl and src_schema:
+            lookup.setdefault(src_tbl, src_schema)
+            lookup.setdefault(lineage_node_id(src_schema, src_tbl), src_schema)
     # Secondary: registry.csv (catches assets with no edges at all)
     for r in load_csv("registry.csv"):
         tbl = (r.get("target_table") or "").strip()
         schema = (r.get("target_schema") or "").strip()
-        if tbl and schema and tbl not in lookup:
-            lookup[tbl] = schema
+        if tbl and schema:
+            lookup.setdefault(tbl, schema)
+            lookup.setdefault(lineage_node_id(schema, tbl), schema)
     return lookup
 
 
@@ -362,10 +462,11 @@ def _classify_by_schema(schema_or_nid: str) -> str:
         "ReferenceMaster_Enh",
     ]):
         return "shared"
-    # Staging_Wrk wrapper views — only consumed by forecast.v_OpenOrderLineLevel
-    # → classify as forecast (not shared) so inventory mart filter doesn't show them
+    # Staging_Wrk wrapper views can be consumed by either mart. Do not assign
+    # them to one mart globally; the mart filter includes them only when an
+    # upstream edge connects them to a selected mart asset.
     if "Staging_Wrk" in s:
-        return "forecast"
+        return "shared"
     # Forecast project schemas
     if any(k in s for k in [
         "SalesHistory_Enh", "ForecastHistory_Enh", "OpenOrderHistory_Enh",
@@ -377,6 +478,8 @@ def _classify_by_schema(schema_or_nid: str) -> str:
         "InventoryHistory_Enh", "InventoryHealth_DW", "sc_inventory_health_control_tower",
     ]):
         return "inventory_health"
+    if "Shared_DW" in s:
+        return "shared"
     return "other"
 
 
@@ -392,9 +495,12 @@ def classify_mart(node_id: str) -> str:
     primary = _classify_by_schema(nid)
     if primary != "other":
         return primary
+    lookup = build_node_mart_lookup()
+    schema = lookup.get(nid, "")
+    if schema:
+        return _classify_by_schema(schema)
     # Bare name fallback — look up its schema in registry
     bare = nid.split(".")[-1] if "." in nid else nid
-    lookup = build_node_mart_lookup()
     schema = lookup.get(bare, "")
     if schema:
         return _classify_by_schema(schema)
@@ -404,14 +510,18 @@ def classify_mart(node_id: str) -> str:
 # Explicit shared assets — Gold dims/facts intentionally reused across marts.
 # These don't get caught by auto-detection because intra-warehouse lineage edges
 # (same-schema CTAS dependency) are NOT recorded in source_objects/LineageEdge.
-# Example: ForecastAccuracy_DW Facts reference ForecastAccuracy_DW.DimCalendar
-# implicitly (same Gold WH), so no edge is generated for forecast's own usage —
-# only the cross-schema usage by InventoryHealth_DW shows up.
+# Example: ForecastAccuracy_DW facts reference Shared_DW.DimCalendar
+# implicitly through the semantic model, while InventoryHealth_DW has explicit
+# Gold view joins to the same shared calendar.
 # Update this list when new shared assets are added (re-evaluate per Q4 in
 # _open_questions_for_bob.md when architecture changes to a SharedDims_DW schema).
 EXPLICIT_SHARED_NODES = {
-    "ForecastAccuracy_DW.DimCalendar",  # cross-mart date dim
+    "Shared_DW.DimCalendar",            # cross-mart date dim
+    "Shared_DW.DimProduct",             # cross-mart product dim
+    "Shared_DW.DimWarehouse",           # cross-mart warehouse dim
     "DimCalendar",                      # bare-name variant (when source_schema-qualified ID isn't used)
+    "DimProduct",
+    "DimWarehouse",
 }
 
 
@@ -436,9 +546,10 @@ def compute_cross_mart_nodes(edges: list) -> set:
 
 def filter_dag_by_mart(dag_data: dict, mart: str) -> dict:
     """Filter DAG nodes and edges to only those belonging to the given mart.
-    'all' = no filter. Shared assets: (a) external sources (Enterprise_Lakehouse,
-    SupplyChain_Lakehouse, ReferenceMaster_Enh), (b) auto-detected cross-mart nodes
-    whose downstream spans multiple marts (e.g. DimCalendar reused by both marts).
+    'all' = no filter. For a mart-specific view, start from the mart's own
+    assets, then walk upstream through lineage edges. This avoids showing every
+    global Bronze/RefMaster source in both marts, while still preserving real
+    cross-mart and shared dependencies such as Staging_Wrk and Shared_DW dims.
     """
     if mart == "all":
         return dag_data
@@ -451,17 +562,44 @@ def filter_dag_by_mart(dag_data: dict, mart: str) -> dict:
             return "shared"
         return classify_mart(nid)
 
-    keep_ids = set()
+    node_ids = {n.get("id", "") for n in nodes}
+    keep_ids = {
+        n.get("id", "")
+        for n in nodes
+        if effective_mart(n.get("id", "")) == mart
+    }
+
+    # Walk upstream recursively from selected mart assets. This pulls only
+    # actually connected shared/bronze/staging/cross-mart sources.
+    changed = True
+    while changed:
+        changed = False
+        for e in edges:
+            src = e.get("source")
+            tgt = e.get("target")
+            if tgt in keep_ids and src in node_ids and src not in keep_ids:
+                keep_ids.add(src)
+                changed = True
+
+    # Keep downstream semantic model nodes when present in lineage exports.
+    for e in edges:
+        src = e.get("source")
+        tgt = e.get("target")
+        if src in keep_ids and effective_mart(tgt) == mart:
+            keep_ids.add(tgt)
+
+    # Drop isolated sources that are not connected to the selected mart closure.
+    connected_ids = set()
+    for e in edges:
+        if e.get("source") in keep_ids and e.get("target") in keep_ids:
+            connected_ids.add(e.get("source"))
+            connected_ids.add(e.get("target"))
     for n in nodes:
         nid = n.get("id", "")
-        node_mart = effective_mart(nid)
-        if node_mart == mart or node_mart == "shared":
-            keep_ids.add(nid)
-    # Also keep shared sources that connect to selected mart targets via edges
-    for e in edges:
-        if e.get("target") in keep_ids and e.get("source") not in keep_ids:
-            if effective_mart(e.get("source", "")) == "shared":
-                keep_ids.add(e.get("source"))
+        if effective_mart(nid) == mart:
+            connected_ids.add(nid)
+    keep_ids &= connected_ids
+
     filtered_nodes = [n for n in nodes if n.get("id") in keep_ids]
     filtered_edges = [e for e in edges if e.get("source") in keep_ids and e.get("target") in keep_ids]
     return {"nodes": filtered_nodes, "edges": filtered_edges}

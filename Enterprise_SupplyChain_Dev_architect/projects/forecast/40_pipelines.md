@@ -1,6 +1,6 @@
 # 40 — Pipelines
 
-> Scanned: 2026-05-06 · Updated 2026-05-10 post Bob alignment (2 pipelines patched for new schema names: `pl_sc_staging`, `pl_sc_silver_wave`).
+> Scanned: 2026-05-06 · Updated 2026-06-02 from Fabric REST job history, `Meta.PipelineRunLog`, and legacy v8 schedule verification.
 
 ## Pipeline Inventory (7 v10 pipelines)
 
@@ -109,10 +109,29 @@ pl_dq_check
 | Target | Daily 2:00 AM UTC+7 (SE Asia) |
 | Status | **PENDING** — IT permission required to enable schedule trigger |
 | Current mode | Manual trigger via Fabric portal |
-| Last successful full run | 2026-05-04 (Bob Standards rebuild verification) |
-| Full runtime | ~31 minutes |
+| Last successful full run | 2026-05-29 16:15:29→17:27:22 UTC, run `24942a8b-1750-4f96-9bfc-23fecac90952`, `12 succeeded, 0 failed` |
+| Full runtime | ~72 minutes for the 2026-05-29 cross-mart run |
 
-## Stage Runtimes (last successful run)
+## Legacy v8 Daily Schedule (kept separate from v10)
+
+The legacy v8 `pl_master_daily` chain was recovered on 2026-06-02 and scheduled to keep the old `Supply Chain Control Tower` semantic model/report refreshed while v10 remains separate. See [../../30_runbook/19_legacy_v8_daily_refresh_recovery.md](../../30_runbook/19_legacy_v8_daily_refresh_recovery.md) for full evidence.
+
+| Item | Value |
+|---|---|
+| Master pipeline | `pl_master_daily` (`4214332e-392f-4d2e-ac11-99094ac33aa7`) |
+| Child chain | `pl_brz_daily` → `pl_slv_daily` → `pl_gld_daily` → `pl_sp_daily_v2` |
+| Schedule ID | `8667733d-625c-4b7f-8dca-19816c7b0775` |
+| Schedule state | Enabled |
+| Frequency | Daily at `02:00` |
+| Time zone | `SE Asia Standard Time` |
+| Latest verified full run | `255c243b-2260-4a44-93a5-a30ea0c3ab0b`, `Completed`, 2026-06-02 08:49:26→09:13:06 UTC |
+| Registry gate | `SupplyChain_Lakehouse.dbo.utl_pipeline_metadata`; active BRZ/REF/SLV rows due 02:00, GLD rows due 03:00 |
+
+## Stage Runtimes
+
+Current full-master runtime is dominated by large overwrite/datekey materialization for both Forecast Accuracy and Inventory Health. Latest confirmed master success took about 72 minutes. Older 31-minute estimates were forecast-only/pre-Inventory-Health scale and should not be used as the current SLA.
+
+## Historical Stage Runtimes (forecast-only baseline)
 
 | Stage | Duration | Rows processed |
 |-------|---------:|---------------:|

@@ -10,8 +10,13 @@ Each project folder is a complete inventory: real table names, row counts, IDs, 
 
 | Folder | Mart | Gold Schema | Status | Last scan |
 |--------|------|-------------|--------|-----------|
-| [forecast/](forecast/README.md) | Forecast Accuracy | `ForecastAccuracy_DW` | **LIVE** | 2026-05-12 |
-| [inventory_health/](inventory_health/README.md) | Inventory Health | `InventoryHealth_DW` | **LIVE** (deployed 2026-05-19; ~607M Gold + ~1.04B Silver rows verified 2026-05-22) | 2026-05-22 |
+| [forecast/](forecast/README.md) | Forecast Accuracy | `ForecastAccuracy_DW` + shared `Shared_DW` dims | **LIVE**; semantic smoke green; shared dim cutover documented | 2026-06-01 |
+| [inventory_health/](inventory_health/README.md) | Inventory Health | `InventoryHealth_DW` + shared `Shared_DW` dims | **LIVE**; DA-first refactor and semantic smoke green; residual cleanup candidates documented | 2026-06-01 |
+
+## Latest Live Audit
+
+- [live_audit_2026-06-01.md](live_audit_2026-06-01.md) is the current cross-mart source-of-truth for live Fabric item IDs, row counts, semantic smoke tests, shared dimension contracts, pipeline status, registry state, lineage state, and residual cleanup candidates.
+- This audit supersedes older row-count/status paragraphs that still mention 2026-05-12, 2026-05-22, or 2026-05-28 as the latest verification date.
 
 ## Adding a new project
 

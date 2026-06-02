@@ -1,6 +1,8 @@
 # forecast — Forecast Accuracy Mart
 
-> **Status:** LIVE · **Gold schema:** `ForecastAccuracy_DW` · **Last verified:** 2026-05-12 (live Fabric re-query)
+> **Status:** LIVE · **Gold schema:** `ForecastAccuracy_DW` + shared `Shared_DW` dims · **Last verified:** 2026-06-02 (v10 audit 2026-06-01 + legacy v8 recovery/schedule 2026-06-02)
+
+> Latest cross-mart audit: [../live_audit_2026-06-01.md](../live_audit_2026-06-01.md). That file is the source-of-truth for shared dimension cutover, live row counts, pipeline status, and residual cleanup candidates.
 
 ## What
 
@@ -14,12 +16,12 @@ End-to-end Forecast Accuracy analytics mart on Microsoft Fabric. Combines actual
 | Processing WH | `c0262cef-b8a7-495f-bccc-53b098c7948c` |
 | Gold WH | `98e2a911-5af9-442e-9cc8-5d8dadb8b762` |
 | SQL Endpoint | `7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com` |
-| Schemas | 6 in Processing (Staging_Wrk, ReferenceMaster_Enh, SalesHistory_Enh, ForecastHistory_Enh, OpenOrderHistory_Enh, Meta) + 1 in Gold (ForecastAccuracy_DW) |
+| Schemas | Processing: `Staging_Wrk`, `ProcessingSeed`, `ReferenceMaster_Enh`, `SalesHistory_Enh`, `ForecastHistory_Enh`, `OpenOrderHistory_Enh`, `Meta`; Gold: `ForecastAccuracy_DW`, `Shared_DW` |
 | Total tables | **52** (45 Processing: 22 data + 23 Meta; 7 Gold: 2 Fact + 5 Dim) |
 | Total views | **34** (27 Processing: 23 data + 4 Meta; 7 Gold) |
 | Total SPs / functions | **21** (18 SPs: 17 Meta + 1 Staging_Wrk; 3 Meta functions) |
 | Registry assets (active) | **33** (4 LogicalBronze + 4 Staging + 10 ReferenceMaster + 8 DomainSilver + 7 Gold) |
-| Lineage edges | **60** (53 direct + 7 semantic) |
+| Lineage edges | See [60_lineage.md](60_lineage.md) and [../live_audit_2026-06-01.md](../live_audit_2026-06-01.md); semantic edges now include shared `DimCalendar`, `DimProduct`, `DimWarehouse`. |
 | DQ rules | **30 active** (17 completeness + 13 row_count) / 54 total (12 freshness + 12 uniqueness deactivated) |
 | Source contracts | 674 across 52 source feeds |
 | Reconciliation rules | 6 (scaffolded) |
@@ -29,7 +31,29 @@ End-to-end Forecast Accuracy analytics mart on Microsoft Fabric. Combines actual
 | Naming convention | Bob-aligned per ADR-008: `_Enh`/`_Wrk` (PascalCase casing), `v_*` view prefix, `_DW` ALL CAPS for Gold |
 | Control plane (Bob-pattern) | `Meta.TableDictionary` (table, 33 rows, 69 cols ≈ 60% cell fill) + `Meta.TableDictionary_UpdateLog` (event log) + `Meta.AuditLog` (10-col superset of Bob's 4-col) |
 
-## Live row counts (2026-05-12)
+## Live row counts (2026-06-01 verified)
+
+| Object | Rows | Notes |
+|---|---:|---|
+| `ForecastAccuracy_DW.FactForecastActual` | 138,509,914 | Direct Lake fact. |
+| `ForecastAccuracy_DW.FactForecastKpi` | 115,757,696 | Direct Lake fact. |
+| `ForecastAccuracy_DW.DimCustomerGrouping` | 35,617 | Mart-specific dim. |
+| `ForecastAccuracy_DW.DimForecastHorizon` | 8 | Mart-specific dim. |
+| `Shared_DW.DimCalendar` | 21,551 | Shared dim consumed by forecast semantic. |
+| `Shared_DW.DimProduct` | 383,883 | Shared canonical product dim, 218 columns. |
+| `Shared_DW.DimWarehouse` | 53 | Shared warehouse dim, display label contract restored. |
+
+Semantic DAX smoke on `sc_forecast_control_tower`:
+
+```text
+DimProductRows   = 383,883
+DimWarehouseRows = 53
+DimCalendarRows  = 21,551
+FactKpiRows      = 115,757,696
+FactActualRows   = 138,509,914
+```
+
+## Historical row counts (2026-05-12, retained for comparison)
 
 ### Processing WH (Silver) — 339,034,150 rows
 
@@ -63,18 +87,32 @@ End-to-end Forecast Accuracy analytics mart on Microsoft Fabric. Combines actual
 | Lineage | [60_lineage.md](60_lineage.md) |
 | ETL DDL | [etl/](etl/) |
 
-## Known operational state (live 2026-05-12)
+## Known operational state (live 2026-06-01)
 
 | Item | Status |
 |------|--------|
-| Pipeline schedule | Manual trigger (daily 2AM target — pending IT enable) |
-| Last full successful run | `pl_sc_master` 2026-05-04 12:50 UTC, **2181s (~36m)** |
-| Most recent run | 2026-05-10 09:19 UTC, **1801s (~30m), status = `partial`** (some assets failed — investigation needed) |
-| Pre-Bob-rebuild full pass | 2026-05-02 03:54→04:25 UTC, ~31m (memory baseline) |
+| Pipeline schedule | [Need-verify] Fabric item schedule state is not documented as active; latest proof is manual Fabric job history. |
+| Last full successful run | `pl_sc_master` run `24942a8b-1750-4f96-9bfc-23fecac90952`, 2026-05-29 16:15:29→17:27:22 UTC, `12 succeeded, 0 failed`. |
+| Most recent master job samples | Latest Fabric job instances include `Completed`; older `Failed`/`Cancelled` runs are retained in history and documented in [../live_audit_2026-06-01.md](../live_audit_2026-06-01.md). |
+| Shared dim cutover | [Verified] `DimCalendar`, `DimProduct`, `DimWarehouse` are served from `Shared_DW` in the semantic model. |
+| Legacy physical dims | [Need-verify cleanup] `ForecastAccuracy_DW.DimProduct` remains as stale/inactive physical table; do not drop without explicit approval. |
 | Alerting | BLOCKED — Mail.Send / Teams permissions not granted (Q4 with Bob) |
 | CI/CD | BLOCKED — Azure DevOps access not granted (Q4) |
-| Schedule trigger auto-deploy | BLOCKED — IT permission required |
-| DQ rule deactivation | 24 rules (12 freshness + 12 uniqueness) currently inactive; needs review |
+| Schedule trigger auto-deploy | [Need-verify] enable only after schedule ownership is confirmed. |
+| DQ history | Latest `pl_dq_check` Fabric job instances include `Completed`; older failures remain in Fabric history and are documented. |
+
+## Legacy v8 operational state (verified 2026-06-02)
+
+The old `Forecast Accuracy Gold` report is still backed by Cherry/BCherry's v8 `Supply Chain Control Tower` semantic model, not the v10 `sc_forecast_control_tower` model. Its recovery and schedule are documented separately in [../../30_runbook/19_legacy_v8_daily_refresh_recovery.md](../../30_runbook/19_legacy_v8_daily_refresh_recovery.md).
+
+| Item | Status |
+|---|---|
+| Legacy master pipeline | `pl_master_daily` (`4214332e-392f-4d2e-ac11-99094ac33aa7`) |
+| Latest full v8 run | [Verified] `Completed`, `2026-06-02T08:49:26.8178242`→`2026-06-02T09:13:06.7218901` UTC |
+| Daily schedule | [Verified] enabled, schedule `8667733d-625c-4b7f-8dca-19816c7b0775`, `02:00` `SE Asia Standard Time` |
+| Legacy semantic refresh | [Verified] latest `DataFactory` refresh completed `2026-06-02T09:12:33.257Z`; latest `DirectLakeFraming` completed `2026-06-02T09:09:55.097Z` |
+| DAX smoke | [Verified] `fact_forecast_kpi` = 37,225,012 rows; `fact_flat_forecast_actual` = 51,015,312 rows; max fiscal month = `2027-04-25` |
+| v10 impact | None; no v10 pipeline, warehouse, or semantic model was changed during v8 recovery. |
 
 ## Bob alignment (2026-05-10) — what changed
 

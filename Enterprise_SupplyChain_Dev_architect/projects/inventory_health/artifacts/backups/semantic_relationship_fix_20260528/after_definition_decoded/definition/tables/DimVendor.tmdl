@@ -1,0 +1,22 @@
+table DimVendor
+	lineageTag: 6d31c064-7c04-4be1-abb7-e008bcf0b177
+
+	column VendorNumber
+		dataType: string
+		lineageTag: 51d49aa2-8558-429f-b1cb-72c56df98594
+		summarizeBy: none
+		sourceColumn: VendorNumber
+
+	column VendorName
+		dataType: string
+		lineageTag: 652b31b1-5dde-4e90-a724-c39bd8efdfd0
+		summarizeBy: none
+		sourceColumn: VendorName
+
+	partition DimVendor-c08a2151-b44e-4e83-a4c9-37e6c47ec38a = entity
+		mode: directLake
+		source
+			entityName: DimVendor
+			schemaName: InventoryHealth_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+
