@@ -1,5 +1,14 @@
 # 20 — Silver Layer
 
+> **2026-06-15 live taxonomy note:** current live Silver orchestration no longer splits Mart B across `project='inventory_health'` and `project='inventoryHistory_Enh'`. The physical schema remains `InventoryHistory_Enh`, but all active Silver rows now route under the mart tag `inventory_health`.
+>
+> **Current live active topology (2026-06-15):**
+> - Wave 0: `AFIStatusSnapshotWeekly`, `Cogs52WWeekly`, `ForecastSnapshotWeekly`, `InventorySnapshotWeekly`
+> - Wave 1: `AwdHelper`, `HoldingTransferSnapshotDaily`, `ItemBalanceHistorical_WithInTransit`, `LastInvoiceWeekly`, `ManufacturingOrderSnapshotDaily`, `SafetyStockHelper`, `SupplyPlanDetail`
+> - Active count: **11 DomainSilver** rows, all in physical schema `InventoryHistory_Enh`
+>
+> For the current live wave/runtime truth, prefer [../live_audit_2026-06-15_v10_core_stack.md](../live_audit_2026-06-15_v10_core_stack.md). The broader onboarding narrative below remains useful as design/deploy history.
+
 > **Status (updated 2026-06-01):** LIVE + DA-first Mart B cleanup applied + shared dim cutover audited + latest full master run green. See [../live_audit_2026-06-01.md](../live_audit_2026-06-01.md) for current row counts and residual cleanup candidates.
 >
 > **2026-05-22 cleanup**:
@@ -8,7 +17,7 @@
 >   - `v_ForecastCurrent` (KPI #7 Forecast Demand Qty served via `ForecastSnapshotWeekly` history)
 > - **DEACTIVATED Phase 2** `LogilityItemStatusSnapshotWeekly` (is_active=0) — KPI #17/#18/#20a past-tracking conditional pending Robert sign-off; current item status path via `DimItemMaster.AFIItemStatus`.
 >
-> **2026-05-28 DA-first refactor**: all 12 SQL blocks from `InventoryHistory_Enh_silver_view_sql_export 2.md` were applied to local source and live Fabric views. `InventoryHistory_Enh.SalesShipment` is removed from the active Mart B flow; helpers reuse `SalesHistory_Enh.v_InvoiceDetailLineLevel` directly per DA `Silver_Check` feedback.
+> **2026-05-28 DA-first refactor**: all 12 SQL blocks from [artifacts/source_inputs/inventoryhistory_enh_silver_view_sql_export_2026-06-02.md](artifacts/source_inputs/inventoryhistory_enh_silver_view_sql_export_2026-06-02.md) were applied to local source and live Fabric views. `InventoryHistory_Enh.SalesShipment` is removed from the active Mart B flow; helpers reuse `SalesHistory_Enh.v_InvoiceDetailLineLevel` directly per DA `Silver_Check` feedback.
 >
 > **2026-05-19 source switches preserved**: `v_PurchaseOrder` main/join paths read EL `PoDetail` + `PoMaster`; `v_LogilityItemStatus` reads EL `SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility` with deterministic grain-conflict dedupe.
 >
@@ -19,9 +28,9 @@
 | Schema | Layer | New for inventory_health? | Active count |
 |---|---|---|---:|
 | `ReferenceMaster_Enh` | ReferenceMaster | +1 NEW (Vendor) | 1 |
-| `InventoryHistory_Enh` | DomainSilver | NEW SCHEMA | 22 active (was 24; -2 dropped 2026-05-22) |
+| `InventoryHistory_Enh` | DomainSilver | NEW SCHEMA | **11 currently active in live registry/runtime on 2026-06-15** |
 
-Total: 23 active Silver assets (was 25 pre-cleanup).
+Current live active Silver count: **12** assets including `ReferenceMaster_Enh.Vendor`; the historical sections below document a broader design surface than the live active registry.
 
 ## §A. ReferenceMaster_Enh — 1 NEW
 

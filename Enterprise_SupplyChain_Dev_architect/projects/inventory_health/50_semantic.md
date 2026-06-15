@@ -7,6 +7,13 @@
 > **2026-05-28 semantic fix**: Deployed `definition/relationships.tmdl` to live semantic model after QC found the live model had tables but no active relationships. DAX smoke test now confirms `DimWarehouse` filters both health and risk facts.
 >
 > **2026-06-01 live smoke test after DA-first Gold rebuild**: `FactInventoryHealthSnapshot` = 2,739,398 rows; `FactInventoryRiskForward` = 3,778,995 rows; `CogsRollingHelper` = 3,092,173 rows; `FactInventoryRiskForward` no longer contains `ATPQty` / `ATPInStockFlag`.
+>
+> **2026-06-15 drift note:** this page reflects the earlier dedicated inventory semantic phase. The current live v10 workspace audit shows no separate deployed `sc_inventory_health_control_tower` item in the workspace item list; current semantic/report state is documented in [../live_audit_2026-06-15_v10_core_stack.md](../live_audit_2026-06-15_v10_core_stack.md).
+>
+> **2026-06-15 verified current state (v10):** Inventory semantic is currently embedded in the workspace semantic model **`sc_control_tower`** (DirectLake on `SupplyChain_Gold_Warehouse`) instead of a dedicated `sc_inventory_health_control_tower` item. Live evidence snapshots:
+> - Semantic TMDL export: `Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/20260615_135903_semantic_snapshot/definitions/sc_control_tower/parts/definition/`
+> - Gold warehouse object check: `InventoryHealth_DW` currently has exactly **4** tables: `DimVendor`, `FactInventoryHealthSnapshot`, `InventoryClassificationQtyWeekly`, `InventoryHealthSubStatusWeekly` (no `CogsRollingHelper`, no `FactInventoryRiskForward`).
+> - Legacy semantic model **`Supply Chain Control Tower`** currently fails DirectLake framing because it still references a missing table `InventoryHealth_DW.CogsRollingHelper` (see same snapshot folder + Power BI refresh history exports in `.../20260615_135903_semantic_snapshot/`).
 
 ## Model
 

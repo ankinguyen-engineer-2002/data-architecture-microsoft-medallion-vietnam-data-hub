@@ -1,6 +1,6 @@
 # Dataflow Gen2 setup — pull EDW sources → `SupplyChain_Lakehouse.dbo.*`
 
-> **Status:** Build-ready setup guide · **Created:** 2026-05-12 · **Source artifact:** [`InventoryHealth_Source_KPI_Mapping.xlsx`](InventoryHealth_Source_KPI_Mapping.xlsx) sheet `EDW_vs_Lakehouse`
+> **Status:** Build-ready setup guide · **Created:** 2026-05-12 · **Source artifact:** [`inventory_health_source_kpi_mapping_2026-05-12.xlsx`](../artifacts/source_inputs/inventory_health_source_kpi_mapping_2026-05-12.xlsx) sheet `EDW_vs_Lakehouse`
 
 ## Overview
 
@@ -29,7 +29,7 @@ Của 31 EDW sources cần cho 30 KPIs inventory_health, **24 đã có trên Ent
 
 ## Prereq — EDW + Lakehouse endpoints (CONFIRMED via existing forecast dataflows)
 
-Verified 2026-05-12 by inspecting `df_brz_SalesHistory_AFI_InvoiceDetail` definition (commit `f2b8248f` artifacts trong `_dataflow_templates/`):
+Verified 2026-05-12 by inspecting `df_brz_SalesHistory_AFI_InvoiceDetail` definition (commit `f2b8248f` artifacts in `templates/`):
 
 | Endpoint | Value |
 |----------|-------|
@@ -47,7 +47,7 @@ Verified 2026-05-12 by inspecting `df_brz_SalesHistory_AFI_InvoiceDetail` defini
 
 **Auth reuse**: connectionId của forecast dataflows đã work, không cần setup mới. Khi tạo dataflow inventory_health, chọn "Existing connection" → pick `ashley-edw.database.windows.net;ASHLEY_EDW`.
 
-**Reference templates**: full M code + metadata của `df_brz_SalesHistory_AFI_InvoiceDetail` saved tại `_dataflow_templates/` (mashup.pq, queryMetadata.json, .schedules, .platform). Copy and adapt cho 5 dataflows inventory_health.
+**Reference templates**: full M code + metadata cua `df_brz_SalesHistory_AFI_InvoiceDetail` saved tai `templates/` (mashup.pq, queryMetadata.json, .schedules, .platform). Copy and adapt cho 5 dataflows inventory_health.
 
 ---
 
@@ -258,7 +258,7 @@ Per source:
 
 ## References
 
-- Source artifact: [`InventoryHealth_Source_KPI_Mapping.xlsx`](InventoryHealth_Source_KPI_Mapping.xlsx)
+- Source artifact: [`inventory_health_source_kpi_mapping_2026-05-12.xlsx`](../artifacts/source_inputs/inventory_health_source_kpi_mapping_2026-05-12.xlsx)
 - Bronze design: [10_bronze.md](10_bronze.md)
-- Open questions: [_open_questions_for_bob.md](_open_questions_for_bob.md)
+- Open questions: [../docs/open_questions_for_bob.md](../docs/open_questions_for_bob.md)
 - Existing dataflow patterns (workspace scan): 18 dataflows incl. `df_brz_SalesHistory_AFI_InvoiceDetail`, `df_brz_SupplyChain_Enh_1_DemandForecastSnapshotDaily_copy1` (per memory `project_workspace_topology.md`)

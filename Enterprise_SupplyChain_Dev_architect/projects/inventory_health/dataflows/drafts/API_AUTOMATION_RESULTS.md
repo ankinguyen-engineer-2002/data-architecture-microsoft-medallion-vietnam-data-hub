@@ -156,9 +156,9 @@ Future dataflow operations should prefer DataFactory.MCP tools over raw REST (cl
 
 ## Reference
 
-- Source artifact: [`../InventoryHealth_Source_KPI_Mapping.xlsx`](../InventoryHealth_Source_KPI_Mapping.xlsx)
-- Setup guide: [`../dataflow_setup.md`](../dataflow_setup.md)
-- Forecast template: [`../_dataflow_templates/mashup.pq`](../_dataflow_templates/mashup.pq)
+- Source artifact: [`../../artifacts/source_inputs/inventory_health_source_kpi_mapping_2026-05-12.xlsx`](../../artifacts/source_inputs/inventory_health_source_kpi_mapping_2026-05-12.xlsx)
+- Setup guide: [`../setup.md`](../setup.md)
+- Forecast template: [`../templates/mashup.pq`](../templates/mashup.pq)
 - Microsoft docs:
   - https://learn.microsoft.com/fabric/data-factory/dataflow-gen2-public-apis
   - https://learn.microsoft.com/en-us/rest/api/fabric/core/connections/list-connections

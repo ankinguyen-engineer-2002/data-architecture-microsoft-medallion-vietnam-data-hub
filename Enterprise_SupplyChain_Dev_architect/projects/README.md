@@ -15,8 +15,9 @@ Each project folder is a complete inventory: real table names, row counts, IDs, 
 
 ## Latest Live Audit
 
+- [live_audit_2026-06-15_v10_core_stack.md](live_audit_2026-06-15_v10_core_stack.md) is the current source-of-truth for the **v10 core stack**: `Enterprise_Lakehouse` -> `SupplyChain_Processing_Warehouse` -> `SupplyChain_Gold_Warehouse`, the `pl_sc_*` pipeline chain, current schedule state, the live semantic/report binding drift, and the 2026-06-15 inventory taxonomy/routing cleanup.
 - [live_audit_2026-06-01.md](live_audit_2026-06-01.md) is the current cross-mart source-of-truth for live Fabric item IDs, row counts, semantic smoke tests, shared dimension contracts, pipeline status, registry state, lineage state, and residual cleanup candidates.
-- This audit supersedes older row-count/status paragraphs that still mention 2026-05-12, 2026-05-22, or 2026-05-28 as the latest verification date.
+- The 2026-06-15 audit supersedes older row-count/status paragraphs that still mention 2026-05-12, 2026-05-22, 2026-05-28, or 2026-06-01 as the latest verification date for v10 core-stack status.
 
 ## Adding a new project
 

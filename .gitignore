@@ -24,7 +24,6 @@ venv/
 
 # === Private / Personal ===
 _private/
-AGENTS.md
 
 # Email drafts / personal communications (never push)
 email_to_*.md
@@ -75,7 +74,6 @@ Enterprise_SupplyChain_Dev_architect/artifacts/bob_alignment_*/*_fix_*/
 
 # === Work folder info ===
 Enterprise_SupplyChain_Dev_architect/.work-folder-info
-CLAUDE.md
 lineage_explorer/.streamlit/secrets.toml
 
 # Fabric stubs (VS Code Fabric extension cache — appears in any synced workspace folder)
@@ -83,6 +81,16 @@ lineage_explorer/.streamlit/secrets.toml
 **/.vfsmeta/
 **/.vfscache/
 **/.work-folder-info
+**/.workspace-info
+
+# Azure CLI local state (keep out of repo)
+.azure/
+.azure_user/
+
+# Run artifacts / exports (keep scripts/docs, ignore outputs)
+docs/runbook/artifacts/
+Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/
+Enterprise_SupplyChain_Dev_architect/projects/*/artifacts/backups/semantic_*/
 
 # === Project source bundles archived for reference (not committed) ===
 Enterprise_SupplyChain_Dev_architect/projects/*/_source_v1/

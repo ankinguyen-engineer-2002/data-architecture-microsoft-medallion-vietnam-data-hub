@@ -2,6 +2,8 @@
 
 > Scanned: 2026-05-06 · Updated 2026-06-02 after shared `Shared_DW` dimension cutover, live DAX smoke, and legacy v8 semantic recovery check.
 > **Model:** `sc_forecast_control_tower`
+>
+> **2026-06-15 drift note:** this page reflects the earlier per-mart semantic phase. The current live v10 workspace audit shows `sc_control_tower` as the active v10 semantic item and the lone report still bound to legacy `Supply Chain Control Tower`. See [../live_audit_2026-06-15_v10_core_stack.md](../live_audit_2026-06-15_v10_core_stack.md).
 
 ## Identity
 
@@ -29,6 +31,11 @@ FactActualRows   = 138,509,914
 ```
 
 [Verified] The model currently binds `DimCalendar`, `DimProduct`, and `DimWarehouse` to `Shared_DW`, while facts remain in `ForecastAccuracy_DW`.
+
+## Recent Fixes
+
+- [Verified] 2026-06-11: removed accidental Mart B table reference from `sc_forecast_control_tower`:
+  - Dropped `ref table FactInventoryRiskForward` and removed `definition/tables/FactInventoryRiskForward.tmdl` via Fabric `updateDefinition` (TMDL).
 
 ## Provenance
 

@@ -61,7 +61,7 @@ GO
 -- 2026-05-22 NEW: Staging_Wrk.DemandForecastSnapshotDaily
 -- ============================================================
 -- CROSS-MART cleaned Bronze materialization (shared by forecast + inventory_health marts).
--- Source:    Enterprise_Lakehouse.SupplyChain_Enh_1.DemandForecastSnapshotDaily
+-- Source:    Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily
 --             (5.89B rows, dirty with row-dup x16 from Q1 2025)
 -- Transform: ROW_NUMBER() OVER (full grain) = 1 dedupe.
 -- Result:    5.53B clean rows (-6% via dedup).
@@ -73,6 +73,7 @@ GO
 --   • inventory_health: InventoryHistory_Enh.v_ForecastSnapshotWeekly (DA-first Saturday path)
 
 -- ---- Staging_Wrk.v_DemandForecastSnapshotDaily (dedupe view) ----
+-- NOTE: keep this view free of LoadDT; Meta.usp_GenericLoad appends LoadDT when materializing the physical table.
 CREATE VIEW Staging_Wrk.v_DemandForecastSnapshotDaily AS
 WITH dedupe AS (
   SELECT
@@ -87,7 +88,7 @@ WITH dedupe AS (
                    DfcCustomerGroups, dfcFCSTTypeCode, dfcMgmtCode
       ORDER BY (SELECT NULL)
     ) AS _rn
-  FROM [Enterprise_Lakehouse].[SupplyChain_Enh_1].[DemandForecastSnapshotDaily]
+  FROM [Enterprise_Lakehouse].[SupplyChain_Enh].[DemandForecastSnapshotDaily]
 )
 SELECT
   dfcItem, dfcWarehouse, dfcFiscalMonth, dfcMainPiece, dfcCollectiveClass,
@@ -95,8 +96,7 @@ SELECT
   dfcValidDemandMonths, dfcSnapshot,
   dfcPermComptQty, dfcUsr25Text, dfcUsr32Text,
   dfcFCSTTypeCode, dfcDerivedFCSTID, dfcDerivedFCSTFctr, dfcOrderFutureQty,
-  dfcMgmtCode, usra, dtea, usrc, dtec, DfcCustomerGroups,
-  CAST(GETUTCDATE() AS DATETIME2(6)) AS LoadDT
+  dfcMgmtCode, usra, dtea, usrc, dtec, DfcCustomerGroups
 FROM dedupe
 WHERE _rn = 1
 

@@ -52,6 +52,12 @@ Downstream Power BI table/measure:
 Rollback expectation:
 ```
 
+Naming rule (do not mix these up):
+
+- `project` = mart/control-plane tag, for example `forecast_accuracy`, `inventory_health`, `shared`
+- `physical_schema` = actual warehouse schema, for example `ForecastHistory_Enh`, `InventoryHistory_Enh`, `Shared_DW`
+- [Verified] 2026-06-15 live cleanup normalized Mart B so no active row should use a schema-like value such as `inventoryHistory_Enh` in the `project` column
+
 Do not proceed to `is_active=1` if any of these are unknown:
 
 - Grain is not defined.

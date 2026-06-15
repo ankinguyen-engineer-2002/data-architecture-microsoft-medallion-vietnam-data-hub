@@ -56,6 +56,6 @@ Báo lại tôi (paste row count + sample 5 rows) → tôi generate 4 file còn 
 
 ## References
 
-- Setup guide: [../dataflow_setup.md](../dataflow_setup.md)
-- Reference template (forecast example, working): [../_dataflow_templates/mashup.pq](../_dataflow_templates/mashup.pq)
-- Source mapping: [../InventoryHealth_Source_KPI_Mapping.xlsx](../InventoryHealth_Source_KPI_Mapping.xlsx)
+- Setup guide: [../setup.md](../setup.md)
+- Reference template (forecast example, working): [../templates/mashup.pq](../templates/mashup.pq)
+- Source mapping: [../../artifacts/source_inputs/inventory_health_source_kpi_mapping_2026-05-12.xlsx](../../artifacts/source_inputs/inventory_health_source_kpi_mapping_2026-05-12.xlsx)

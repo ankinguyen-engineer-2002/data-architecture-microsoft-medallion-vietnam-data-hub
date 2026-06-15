@@ -2,6 +2,8 @@
 
 > **Status (updated 2026-06-01):** LIVE post-cleanup. Active Inventory Health facts/helpers remain in `InventoryHealth_DW`; shared `DimCalendar`, `DimProduct`, and `DimWarehouse` now live in `Shared_DW`. Gold tables have live data, semantic smoke tests pass, and latest `pl_sc_master` / `pl_sc_gold` job samples include Completed runs.
 >
+> **2026-06-15 routing note:** live Gold publish is still pipeline CTAS, not the Silver generic-SP path. `pl_sc_gold` is project-filtered again, so the active Gold control plane should be read as `4 inventory_health rows + 3 shared rows`, not as one unscoped combined publish set.
+>
 > **2026-05-22 changes** (2 cleanup rounds):
 > - Round 1: Dropped `DimRuleVersion` (over-engineering — versioning via new semantic model when BRD changes, not via versioned dim). Removed RuleVersionKey column from both Fact views + 2 TMDL relationships + 1 DAX measure simplified.
 > - Round 2: Dropped `DimDate` (duplicate of `Shared_DW.DimCalendar`). Inv_health TMDL rebinds to the shared Gold DimCalendar via column-name aliases — single shared date dim across both marts. Eliminates physical Gold dim duplication.
@@ -68,7 +70,7 @@ Pattern: cross-DB CTAS via `pl_sc_gold` pipeline (registry-driven). Each Gold vi
 
 - **Source level**: REUSE `ReferenceMaster_Enh.ItemMaster/Warehouse/Calendar` (extension via `v_*Ext` views in Silver layer).
 - **Semantic level**: DO NOT bind DirectLake to `ForecastAccuracy_DW.Dim*`. Use `Shared_DW.DimCalendar`, `Shared_DW.DimProduct`, and `Shared_DW.DimWarehouse` as the canonical shared dims, with Inventory semantic table names/aliases preserved.
-- Bob Q2 (DimCalendar/DimProduct cross-mart) — flagged in `_open_questions_for_bob.md`.
+- Bob Q2 (DimCalendar/DimProduct cross-mart) — flagged in `docs/open_questions_for_bob.md`.
 
 ## Load orchestration
 
@@ -82,7 +84,7 @@ WHERE canonical_layer='Gold' AND project=@project AND is_active=1
     -- ForEach: replace target table then CTAS from <legacy_view_name>
 ```
 
-No code change needed in pipeline. After registry insert, next run picks `inventory_health` rows automatically. Do not manually run destructive Gold table replacement outside the pipeline without explicit approval and a fresh backup/diff plan.
+[Verified] On 2026-06-15 the live `pl_sc_gold` definition was re-aligned to this project-filtered pattern. Do not manually run destructive Gold table replacement outside the pipeline without explicit approval and a fresh backup/diff plan.
 
 ## Track A fix carry-over (Gold-side)
 

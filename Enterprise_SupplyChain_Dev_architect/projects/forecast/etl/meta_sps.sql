@@ -566,7 +566,7 @@ BEGIN
         ELSE BEGIN RAISERROR('Unsupported load_type: %s',16,1,@load_type); RETURN; END
 
         -- COUNT + LOG
-        SET @sql = N'SELECT @out=COUNT(*) FROM ' + @full_target;
+        SET @sql = N'SELECT @out=COUNT_BIG(*) FROM ' + @full_target;
         EXEC sp_executesql @sql, N'@out BIGINT OUT', @out=@rows OUT;
         EXEC Meta.usp_LogRun @run_id, @asset_id, 'success', @rows_loaded=@rows, @load_type=@load_type;
     END TRY

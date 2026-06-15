@@ -334,8 +334,8 @@ WITH ranked AS (
         TRIM(Item)                            AS ItemSku,
         TRIM(Whse)                            AS WarehouseCode,
         CAST(WeekEnding AS DATE)              AS WeekEndingDate,
-        TRIM(ItemStatus)                      AS ItemStatus,
-        TRIM(FutureStatus)                    AS FutureStatus,
+        NULLIF(TRIM(ItemStatus), '')          AS ItemStatus,
+        NULLIF(TRIM(FutureStatus), '')        AS FutureStatus,
         CAST(StatusChngDate AS DATE)          AS StatusChangeDate,
         CAST(OnHandQty AS DECIMAL(18,4))      AS OnHandQty,
         CAST(SafetyStockQty AS DECIMAL(18,4)) AS SafetyStockQty,
@@ -483,7 +483,7 @@ GO
 
 -- ---- InventoryHistory_Enh.v_AllocatedDemandCandidate ----
 -- H1 FIX (2026-05-17): ItemAllocationFlag = 2 (not 1). Probe: {0:16,802; 2:901,411 rows}.
--- Robert sign-off pending — see _open_questions_for_bob.md.
+-- Robert sign-off pending — see docs/open_questions_for_bob.md.
 CREATE VIEW InventoryHistory_Enh.v_AllocatedDemandCandidate AS
 SELECT
     CAST(TRIM(d.OrderNumber)         AS VARCHAR(50))   AS OrderNumber,
@@ -901,6 +901,58 @@ GROUP BY s.ItemSku, s.WarehouseCode, a.AsOfDate
 
 GO
 
+-- ---- InventoryHistory_Enh.v_LastInvoiceDateSnapshotWeekly ----
+-- Weekly grain output for Gold fact join:
+--   ItemSku + WarehouseCode + WeekEndingDate
+-- Purpose:
+--   Same as-of logic as v_LastInvoiceHelper, but does NOT depend on it.
+--   This supports future retirement of v_LastInvoiceHelper without breaking KPI joins.
+CREATE OR ALTER VIEW InventoryHistory_Enh.v_LastInvoiceDateSnapshotWeekly AS
+WITH
+_BaseFact AS (
+    SELECT DISTINCT
+        CAST(SnapshotDate AS DATE)               AS WeekEndingDate,
+        CAST(TRIM(ItemSku) AS VARCHAR(50))       AS ItemSku,
+        CAST(TRIM(WarehouseCode) AS VARCHAR(50)) AS WarehouseCode
+    FROM InventoryHistory_Enh.v_InventorySnapshotWeeklyFactBase
+    WHERE SnapshotDate IS NOT NULL
+      AND ItemSku IS NOT NULL AND TRIM(ItemSku) <> ''
+      AND WarehouseCode IS NOT NULL AND TRIM(WarehouseCode) <> ''
+),
+_InvoiceDetail AS (
+    SELECT
+        CAST(TRIM(ItemSKU)       AS VARCHAR(50)) AS ItemSku,
+        CAST(TRIM(WarehouseCode) AS VARCHAR(50)) AS WarehouseCode,
+        CAST(InvoiceDate         AS DATE)        AS InvoiceDate
+    FROM SalesHistory_Enh.v_InvoiceDetailLineLevel
+    WHERE ItemSKU IS NOT NULL AND WarehouseCode IS NOT NULL
+      AND TRIM(ItemSKU) <> '' AND TRIM(WarehouseCode) <> ''
+      AND InvoiceDate IS NOT NULL
+)
+SELECT
+    b.ItemSku,
+    b.WarehouseCode,
+    b.WeekEndingDate,
+    CAST(MAX(i.InvoiceDate) AS DATE) AS LastInvoiceDate,
+    CAST(
+        CASE
+            WHEN MAX(i.InvoiceDate) IS NULL THEN NULL
+            ELSE DATEDIFF(week, MAX(i.InvoiceDate), b.WeekEndingDate)
+        END
+        AS INT
+    ) AS WeeksSinceLastInvoice
+FROM _BaseFact AS b
+LEFT JOIN _InvoiceDetail AS i
+    ON i.ItemSku = b.ItemSku
+   AND i.WarehouseCode = b.WarehouseCode
+   AND i.InvoiceDate <= b.WeekEndingDate
+GROUP BY
+    b.ItemSku,
+    b.WarehouseCode,
+    b.WeekEndingDate
+
+GO
+
 -- ---------------------------------------------------------------------
 -- Movement flag: DA as-of behavior + direct Mart A invoice source.
 -- ---------------------------------------------------------------------
@@ -1238,7 +1290,7 @@ GO
 
 -- ---- InventoryHistory_Enh.v_LogilityItemStatusSnapshotWeekly ----
 -- WEEKLY — Saturday only (cron '0 6 * * 6' in registry).
--- Captures latest WeekEndingDate snapshot per (ItemSku, WarehouseCode).
+-- Full history output (one row per ItemSku + WarehouseCode + WeekEndingDate, after dedupe).
 CREATE OR ALTER VIEW InventoryHistory_Enh.v_LogilityItemStatusSnapshotWeekly AS
 WITH _LogilityItemStatus AS (
     -- INLINED 2026-05-21 (Option B): was InventoryHistory_Enh.LogilityItemStatus
@@ -1250,8 +1302,8 @@ WITH _LogilityItemStatus AS (
             TRIM(Item)                            AS ItemSku,
             TRIM(Whse)                            AS WarehouseCode,
             CAST(WeekEnding AS DATE)              AS WeekEndingDate,
-            TRIM(ItemStatus)                      AS ItemStatus,
-            TRIM(FutureStatus)                    AS FutureStatus,
+            NULLIF(TRIM(ItemStatus), '')          AS ItemStatus,
+            NULLIF(TRIM(FutureStatus), '')        AS FutureStatus,
             CAST(StatusChngDate AS DATE)          AS StatusChangeDate,
             CAST(OnHandQty AS DECIMAL(18,4))      AS OnHandQty,
             CAST(SafetyStockQty AS DECIMAL(18,4)) AS SafetyStockQty,
@@ -1278,8 +1330,7 @@ WITH _LogilityItemStatus AS (
     WHERE ranked.rn = 1
 )
 SELECT
-    CAST(DATEADD(day, (7 - DATEPART(weekday, SYSUTCDATETIME())) % 7,
-                 CAST(SYSUTCDATETIME() AS DATE))  AS DATE)         AS WeekEndingDate,
+    CAST(WeekEndingDate                             AS DATE)         AS WeekEndingDate,
     CAST(ItemSku                                  AS VARCHAR(50))  AS ItemSku,
     CAST(WarehouseCode                            AS VARCHAR(50))  AS WarehouseCode,
     CAST(ItemStatus                               AS VARCHAR(20))  AS ItemStatus,
@@ -1289,9 +1340,129 @@ SELECT
     CAST('Enterprise_Lakehouse'                   AS VARCHAR(64))  AS SourceSystem,
     CAST('SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility' AS VARCHAR(128)) AS SourceTable
 FROM _LogilityItemStatus
-WHERE WeekEndingDate = (
-    SELECT MAX(WeekEndingDate) FROM _LogilityItemStatus
+
+GO
+
+
+-- ---- InventoryHistory_Enh.v_AFIStatusSnapshotWeekly ----
+-- Purpose:
+--   Provide 1-column AFI status at Gold fact grain: ItemSku + WarehouseCode + WeekEndingDate.
+-- Rule (per DA guidance):
+--   - Past weeks (<= max WeekEndingDate available in Logility weekly table): use Logility ItemStatus.
+--   - Current / future weeks ( > max Logility WeekEndingDate): use ItemMaster AFIItemStatus (current attribute).
+-- Notes:
+--   - ItemMaster has no historical by-week status; it is a current attribute source.
+--   - This view intentionally outputs ONLY keys + 1 status column (no extra KPI/helper fields).
+CREATE OR ALTER VIEW InventoryHistory_Enh.v_AFIStatusSnapshotWeekly AS
+WITH
+_BaseFact AS (
+    SELECT DISTINCT
+        CAST(SnapshotDate AS DATE)               AS WeekEndingDate,
+        CAST(TRIM(ItemSku) AS VARCHAR(50))       AS ItemSku,
+        CAST(TRIM(WarehouseCode) AS VARCHAR(50)) AS WarehouseCode
+    FROM InventoryHistory_Enh.v_InventorySnapshotWeeklyFactBase
+    WHERE SnapshotDate IS NOT NULL
+      AND ItemSku IS NOT NULL AND TRIM(ItemSku) <> ''
+      AND WarehouseCode IS NOT NULL AND TRIM(WarehouseCode) <> ''
+),
+_LogilityItemStatus AS (
+    -- Inline raw Logility status from Enterprise source with deterministic dedupe.
+    SELECT
+        ItemSku,
+        WarehouseCode,
+        WeekEndingDate,
+        ItemStatus
+    FROM (
+        SELECT
+            TRIM(Item)               AS ItemSku,
+            TRIM(Whse)               AS WarehouseCode,
+            CAST(WeekEnding AS DATE) AS WeekEndingDate,
+            NULLIF(TRIM(ItemStatus), '') AS ItemStatus,
+            ROW_NUMBER() OVER (
+                PARTITION BY TRIM(Item), TRIM(Whse), CAST(WeekEnding AS DATE)
+                ORDER BY
+                    CASE WHEN COALESCE(ShippableInvQty,0) = 0
+                          AND COALESCE(FirmDemand,0) = 0 THEN 1 ELSE 0 END ASC,
+                    StatusChngDate DESC,
+                    COALESCE(OnHandAmt,0) DESC,
+                    CAST(FileDate AS DATETIME2) DESC
+            ) AS rn
+        FROM [Enterprise_Lakehouse].[SupplyChain_Enh].[DemandFulfillmentCommonContainer_Logility]
+        WHERE WeekEnding IS NOT NULL
+          AND Item IS NOT NULL AND TRIM(Item) <> ''
+          AND Whse IS NOT NULL AND TRIM(Whse) <> ''
+    ) ranked
+    WHERE ranked.rn = 1
+),
+_LogilityMax AS (
+    SELECT
+        MAX(CAST(WeekEndingDate AS DATE)) AS LogilityMaxWeekEndingDate
+    FROM _LogilityItemStatus
+    WHERE WeekEndingDate IS NOT NULL
+),
+_LogilityWeekly AS (
+    SELECT
+        CAST(WeekEndingDate AS DATE)               AS WeekEndingDate,
+        CAST(TRIM(ItemSku) AS VARCHAR(50))         AS ItemSku,
+        CAST(TRIM(WarehouseCode) AS VARCHAR(50))   AS WarehouseCode,
+        NULLIF(TRIM(CAST(ItemStatus AS VARCHAR(20))), '') AS StatusFromLogility
+    FROM _LogilityItemStatus
+    WHERE WeekEndingDate IS NOT NULL
+      AND ItemSku IS NOT NULL AND TRIM(ItemSku) <> ''
+      AND WarehouseCode IS NOT NULL AND TRIM(WarehouseCode) <> ''
+),
+_LogilityLatestByWh AS (
+    SELECT
+        ItemSku,
+        WarehouseCode,
+        NULLIF(TRIM(CAST(ItemStatus AS VARCHAR(20))), '') AS StatusFromLogilityLatestWH
+    FROM (
+        SELECT
+            CAST(TRIM(ItemSku) AS VARCHAR(50))         AS ItemSku,
+            CAST(TRIM(WarehouseCode) AS VARCHAR(50))   AS WarehouseCode,
+            ItemStatus,
+            ROW_NUMBER() OVER (
+                PARTITION BY TRIM(ItemSku), TRIM(WarehouseCode)
+                ORDER BY CAST(WeekEndingDate AS DATE) DESC
+            ) AS rn
+        FROM _LogilityItemStatus
+        WHERE WeekEndingDate IS NOT NULL
+          AND ItemSku IS NOT NULL AND TRIM(ItemSku) <> ''
+          AND WarehouseCode IS NOT NULL AND TRIM(WarehouseCode) <> ''
+    ) ranked
+    WHERE ranked.rn = 1
+),
+_ItemMaster AS (
+    SELECT
+        CAST(TRIM(ItemSKU) AS VARCHAR(50)) AS ItemSku,
+        NULLIF(TRIM(CAST(AFIItemStatus AS VARCHAR(20))), '') AS StatusFromItemMaster
+    FROM ReferenceMaster_Enh.ItemMaster
+    WHERE ItemSKU IS NOT NULL AND TRIM(ItemSKU) <> ''
 )
+SELECT
+    b.WeekEndingDate,
+    b.ItemSku,
+    b.WarehouseCode,
+    CAST(
+        CASE
+            WHEN lm.LogilityMaxWeekEndingDate IS NOT NULL
+             AND b.WeekEndingDate <= lm.LogilityMaxWeekEndingDate
+                THEN COALESCE(lw.StatusFromLogility, ll.StatusFromLogilityLatestWH)
+            ELSE COALESCE(im.StatusFromItemMaster, ll.StatusFromLogilityLatestWH)
+        END
+        AS VARCHAR(20)
+    ) AS AFIStatus
+FROM _BaseFact AS b
+CROSS JOIN _LogilityMax AS lm
+LEFT JOIN _LogilityWeekly AS lw
+    ON lw.WeekEndingDate = b.WeekEndingDate
+   AND lw.ItemSku = b.ItemSku
+   AND lw.WarehouseCode = b.WarehouseCode
+LEFT JOIN _LogilityLatestByWh AS ll
+    ON ll.ItemSku = b.ItemSku
+   AND ll.WarehouseCode = b.WarehouseCode
+LEFT JOIN _ItemMaster AS im
+    ON im.ItemSku = b.ItemSku
 
 GO
 

@@ -126,7 +126,7 @@ Each source is referenced from `Meta.AssetRegistry.source_objects` (JSON array).
 - Dhivya (DE US) confirmed table-level loads cho A1+A2+A3 via Slack 2026-05-18 4:45 PM
 - Aric verified row counts via pyodbc 2026-05-19
 - Aric workaround dataflows (A4 + A5) verified to have loaded (49M + 2B rows respectively)
-- See [_dataflow_drafts/README.md](_dataflow_drafts/README.md)
+- See [dataflows/drafts/README.md](dataflows/drafts/README.md)
 
 ### §A.1. Column-deprecation finding (NEW 2026-05-19)
 

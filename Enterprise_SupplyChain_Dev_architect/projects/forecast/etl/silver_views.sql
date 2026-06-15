@@ -9,7 +9,7 @@
 -- ---- ForecastHistory_Enh.v_ForecastDemandMonthly ----
 -- 2026-05-19 SWAP: was Staging_Wrk.DemandForecastSnapshotDailyEdw (SC_LH ver2 → DF2, dropped post-EDW-Exit)
 -- 2026-05-22 SWAP: now reads Staging_Wrk.DemandForecastSnapshotDaily (cross-mart cleaned, deduped via ROW_NUMBER=1)
---                   — replaces direct EL.SupplyChain_Enh_1.DemandForecastSnapshotDaily (dirty with row-dup x16 from Q1 2025)
+--                   — replaces direct EL.SupplyChain_Enh.DemandForecastSnapshotDaily (dirty with row-dup x16 from Q1 2025)
 -- Logic unchanged: ForecastCycle JOIN, Lag-N HorizonCode, GROUP BY summed forecast.
 -- See staging_ddl.sql for Staging_Wrk.DemandForecastSnapshotDaily definition.
 CREATE VIEW ForecastHistory_Enh.v_ForecastDemandMonthly AS

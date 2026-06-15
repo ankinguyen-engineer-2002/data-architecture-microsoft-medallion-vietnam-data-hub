@@ -143,9 +143,8 @@ Standard Selling Price Avg =
 Total COGS =
     SUM(FactInventoryHealthSnapshot[PeriodCogs])
 
-// M3 FIX (2026-05-17): renamed Cogs52W → Cogs52M (helper grain is monthly: 52 PRECEDING rows = 52 months, ~4.3 yrs)
-COGS 52M Trailing =
-    SUM(FactInventoryHealthSnapshot[Cogs52M])
+COGS 52W Trailing =
+    SUM(FactInventoryHealthSnapshot[Cogs52W])
 
 Average Inventory Value at Cost =
     AVERAGE(FactInventoryHealthSnapshot[AverageInventoryValueAtCost])

@@ -7,8 +7,8 @@
 --   replacing production tables/views.
 --
 -- Source of truth:
---   1. Inventory Health Project_Resources.xlsx, sheet Silver_Check
---   2. InventoryHistory_Enh_silver_view_sql_export 2.md
+--   1. artifacts/source_inputs/inventory_health_project_resources_2026-06-02.xlsx, sheet Silver_Check
+--   2. artifacts/source_inputs/inventoryhistory_enh_silver_view_sql_export_2026-06-02.md
 --   3. Live 2026-05-26 post-fix architecture:
 --      InventorySnapshotWeeklyFactBase remains the helper/fact base.
 --

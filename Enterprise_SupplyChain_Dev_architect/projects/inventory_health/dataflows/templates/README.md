@@ -57,7 +57,7 @@ in
 
 1. **Copy** the `df_brz_SalesHistory_AFI_InvoiceDetail` dataflow in Fabric UI (Save As)
 2. **Rename** to `df_brz_<Schema>__<Table>` matching new pattern
-3. **Replace** the SELECT body in `mashup.pq` with the inventory_health query (see [../dataflow_setup.md](../dataflow_setup.md))
+3. **Replace** the SELECT body in `mashup.pq` with the inventory_health query (see [../setup.md](../setup.md))
 4. **Re-point destination** TableNavigation `Id = "<target>"` to target Lakehouse table name (lowercase, e.g. `podetail`, `pomaster`, `itbext_reloaded`)
 5. **Adjust schedule** if needed (forecast uses 05:00; inventory_health may use 01:00 to finish before `pl_sc_master` at 02:00)
 

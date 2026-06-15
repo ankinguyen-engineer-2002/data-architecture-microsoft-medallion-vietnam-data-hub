@@ -131,8 +131,8 @@ flowchart LR
 |------|--------|--------|
 | Naming alignment | ✅ Done | Schema casing + view prefix + control plane match Bob's pattern (ADR-008) |
 | Control plane (TableDictionary + UpdateLog + AuditLog + procs) | ✅ Done | Cloned 65-col schema, ported procs, `usp_LogRun v2` chains |
-| Pipeline orchestration (7 pipelines, DAG waves) | ✅ Done | 30m34s end-to-end run verified 2026-05-10 |
-| Gold + semantic model | ✅ Live | `sc_forecast_control_tower` + `sc_inventory_health_control_tower` (2026-05-19) — Direct Lake on Gold WH |
+| Pipeline orchestration (7 pipelines, DAG waves) | ✅ Done | Core chain is live; see the 2026-06-15 audit for current run state, schedule status, and project routing details |
+| Gold + semantic model | ✅ Live | Gold serving is live on `SupplyChain_Gold_Warehouse`; current semantic reality is documented in [Enterprise_SupplyChain_Dev_architect/projects/live_audit_2026-06-15_v10_core_stack.md](Enterprise_SupplyChain_Dev_architect/projects/live_audit_2026-06-15_v10_core_stack.md) because workspace naming/binding drifted after the earlier per-mart semantic phase |
 | **2nd mart: inventory_health** | ✅ Live (2026-05-19) | InventoryHealth_DW: FactInventoryHealthSnapshot (**603M rows / 415 daily snapshots since 2021-03**) + FactInventoryRiskForward (3.88M) + 5 Dim + 1 Helper |
 | Cross-DB sync to hub `ETL_Framework` | ⏳ Pending | Need Bob Q1 — write permission + AuditLog DDL |
 | `SupplyChain_Warehouse` creation in hub | ⏳ Pending | Need Bob Q3 — see [proposal](Enterprise_Data_architect/20_proposals/02_supply_chain_warehouse_proposal.md) |
@@ -144,7 +144,7 @@ flowchart LR
 
 Open questions:
 - Forecast: [`Enterprise_SupplyChain_Dev_architect/projects/forecast/_open_questions_for_bob.md`](Enterprise_SupplyChain_Dev_architect/projects/forecast/_open_questions_for_bob.md)
-- Inventory Health: [`Enterprise_SupplyChain_Dev_architect/projects/inventory_health/_open_questions_for_bob.md`](Enterprise_SupplyChain_Dev_architect/projects/inventory_health/_open_questions_for_bob.md) (3 Robert sign-offs H1/H5/M3)
+- Inventory Health: [`Enterprise_SupplyChain_Dev_architect/projects/inventory_health/docs/open_questions_for_bob.md`](Enterprise_SupplyChain_Dev_architect/projects/inventory_health/docs/open_questions_for_bob.md) (3 Robert sign-offs H1/H5/M3)
 
 ---
 
@@ -182,9 +182,9 @@ Open questions:
 
 ---
 
-## Live infrastructure snapshot — VN team
+## Historical infrastructure snapshot — VN team
 
-> Numbers re-queried from live Fabric workspace 2026-05-22 (post-inventory_health deploy, post-concurrency fixes). Source: `python3 /tmp/wh_query.py` pattern with `az account get-access-token --resource https://database.windows.net/`.
+> This table is a 2026-05-22 snapshot retained for historical context. It is **not** the current source-of-truth anymore. For current live v10 state, use [Enterprise_SupplyChain_Dev_architect/projects/live_audit_2026-06-15_v10_core_stack.md](Enterprise_SupplyChain_Dev_architect/projects/live_audit_2026-06-15_v10_core_stack.md).
 
 | Item | Value |
 |------|-------|
@@ -195,7 +195,7 @@ Open questions:
 | v10 Silver materialized | **~1.50B** rows last successful run (463M forecast Silver + 1.04B inventory_health Silver) |
 | Forecast last run | `pl_sc_master` 2026-05-21 05:07 UTC, 48 min, 43/43 success |
 | Inventory Health last run | `pl_sc_master` 2026-05-21 09:32 UTC, 50 min, 20/21 success (1 transient race auto-resolved on retry) |
-| Semantic models | 2 — `sc_forecast_control_tower` (`f06a2361-...`) + **`sc_inventory_health_control_tower`** Direct Lake on Gold WH |
+| Semantic models | **Current v10 focus:** `sc_control_tower` (`f06a2361-...`) on Gold WH; legacy `Supply Chain Control Tower` (`3eecf594-...`) still exists and still backs the lone report. See [Enterprise_SupplyChain_Dev_architect/projects/live_audit_2026-06-15_v10_core_stack.md](Enterprise_SupplyChain_Dev_architect/projects/live_audit_2026-06-15_v10_core_stack.md). |
 | Registry assets (active) | **50** (29 forecast: 4 LogicalBronze + 10 RefMaster + 8 DomainSilver + 7 Gold; 21 inventory_health: 1 RefMaster + 12 DomainSilver + 8 Gold) |
 | Lineage edges | **105** (98 direct + 7 semantic) |
 | DQ rules (active) | **66 total** across both marts (incl. 6 Bronze observability `expected_zero` + `expected_dup_ratio_max`) — 36 DQ gate runs, all PASS |
@@ -213,4 +213,4 @@ Open questions:
 - **All ADRs**: [`docs/decisions/`](docs/decisions/)
 - **Live lineage UI**: https://sc-lineage.streamlit.app/
 
-_Last verified: 2026-05-12 (live Fabric re-query — object counts, row counts, DQ rule status)_
+_Latest core-stack verification: 2026-06-15. See `Enterprise_SupplyChain_Dev_architect/projects/live_audit_2026-06-15_v10_core_stack.md` for the current live state._

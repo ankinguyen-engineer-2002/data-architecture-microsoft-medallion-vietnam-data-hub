@@ -125,7 +125,7 @@ All 4 Enterprise Lakehouse tables **exist** with **exact column count match**:
 | `InvoiceDetailEdw` | `Enterprise_Lakehouse.SalesHistory_AFI.InvoiceDetail` | 80 = 80 | **EXISTS** — pending data completeness |
 | `InvoiceHeaderEdw` | `Enterprise_Lakehouse.SalesHistory_AFI.InvoiceHeader` | 40 = 40 | **EXISTS** — pending data completeness |
 | `ProductEdw` | `Enterprise_Lakehouse.SupplyChain_DW.DimCurrentProductDetails` | 89 = 89 | **EXISTS** — pending data completeness |
-| `DemandForecastSnapshotDailyEdw` | `Enterprise_Lakehouse.SupplyChain_Enh_1.DemandForecastSnapshotDaily` | 23 = 23 | **EXISTS** — pending data completeness |
+| `DemandForecastSnapshotDailyEdw` | `Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily` | 23 = 23 | **EXISTS** — pending data completeness |
 
 ### Current Path (đường vòng — temporary)
 

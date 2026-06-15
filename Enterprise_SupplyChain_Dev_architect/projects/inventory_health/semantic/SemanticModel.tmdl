@@ -243,11 +243,10 @@ table DimVendor
 
 
 /// ═══════════════════════════════════════════════════════
-/// TABLE: CogsRollingHelper (hidden monthly helper)
+/// TABLE: CogsRollingHelper (hidden weekly helper)
 /// ═══════════════════════════════════════════════════════
 /// Hidden helper used by Inventory Health measures for period COGS and rolling
-/// COGS windows. Live semantic model includes this table; source control now
-/// mirrors the deployed DirectLake contract.
+/// COGS windows. The live DA Gold contract uses WeekEndingDate and Cogs52W.
 table CogsRollingHelper
     isHidden
     lineageTag: cogs-rolling-helper
@@ -260,8 +259,8 @@ table CogsRollingHelper
         dataType: string
         summarizeBy: none
 
-    column FiscalMonthYear
-        dataType: int64
+    column WeekEndingDate
+        dataType: dateTime
         summarizeBy: none
 
     column PeriodCogs
@@ -279,7 +278,7 @@ table CogsRollingHelper
         formatString: $#,##0.00
         summarizeBy: none
 
-    column Cogs52M
+    column Cogs52W
         dataType: decimal
         formatString: $#,##0.00
         summarizeBy: none
@@ -427,8 +426,7 @@ table FactInventoryHealthSnapshot
         formatString: $#,##0.00
         summarizeBy: sum
 
-    // M3 FIX (2026-05-17): renamed Cogs52W → Cogs52M (monthly grain — 52 PRECEDING rows = 52 months)
-    column Cogs52M
+    column Cogs52W
         dataType: decimal
         formatString: $#,##0.00
         summarizeBy: sum

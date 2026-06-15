@@ -1,6 +1,8 @@
 # 40 — Pipelines
 
 > Scanned: 2026-05-06 · Updated 2026-06-02 from Fabric REST job history, `Meta.PipelineRunLog`, and legacy v8 schedule verification.
+>
+> **2026-06-15 drift note:** the live v10 core-stack audit is now [../live_audit_2026-06-15_v10_core_stack.md](../live_audit_2026-06-15_v10_core_stack.md). In particular, `pl_sc_gold` and schedule state should be read from that audit before treating the older narrative below as current.
 
 ## Pipeline Inventory (7 v10 pipelines)
 

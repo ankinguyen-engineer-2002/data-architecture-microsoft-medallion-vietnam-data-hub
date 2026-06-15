@@ -3,6 +3,8 @@
 > **Status:** LIVE · **Gold schema:** `ForecastAccuracy_DW` + shared `Shared_DW` dims · **Last verified:** 2026-06-02 (v10 audit 2026-06-01 + legacy v8 recovery/schedule 2026-06-02)
 
 > Latest cross-mart audit: [../live_audit_2026-06-01.md](../live_audit_2026-06-01.md). That file is the source-of-truth for shared dimension cutover, live row counts, pipeline status, and residual cleanup candidates.
+>
+> **2026-06-15 drift note:** the current live v10 core-stack audit is now [../live_audit_2026-06-15_v10_core_stack.md](../live_audit_2026-06-15_v10_core_stack.md). Live workspace naming/report binding has moved beyond the earlier `sc_forecast_control_tower`-only view documented below.
 
 ## What
 

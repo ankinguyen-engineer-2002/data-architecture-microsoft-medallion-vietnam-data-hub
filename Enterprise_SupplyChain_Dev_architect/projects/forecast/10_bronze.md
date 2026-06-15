@@ -27,7 +27,7 @@ When `Enterprise_Lakehouse` is incomplete or unstable, dataflows write `_edw` ta
 |----------|-------------|--------|
 | `df_brz_SalesHistory_AFI_InvoiceDetail` | `brz_saleshistory_afi__invoicedetail_edw` | Supplement Enterprise SalesHistory feed |
 | `df_brz_SalesHistory_AFI_InvoiceHeader` | `brz_saleshistory_afi__invoiceheader_edw` | Supplement Enterprise SalesHistory feed |
-| `df_brz_SupplyChain_Enh_1_DemandForecastSnapshotDaily_copy1` | `brz_supplychain_enh_1__demandforecastsnapshotdaily_edw` | Forecast snapshot feed (Enhancement schema) |
+| `df_brz_SupplyChain_Enh_1_DemandForecastSnapshotDaily_copy1` | `brz_supplychain_enh_1__demandforecastsnapshotdaily_edw` | **Legacy** forecast snapshot supplement (older `SupplyChain_Enh_1` namespace). Current v10 reads forecast snapshots from `Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily` via `Staging_Wrk.DemandForecastSnapshotDaily`. |
 | `df_ref_product` | `ref_product_edw` | Product master supplement |
 
 > Note: `df_ref_forecast_cycle` lands SharePoint cycle reference data into `ProcessingSeed.ForecastCycle` in the Processing Warehouse. `ReferenceMaster_Enh.ForecastCycle` materializes from that Processing-owned seed table, so forecast Silver no longer reads `SupplyChain_Lakehouse.dbo.ref_forecast_cycle` directly.

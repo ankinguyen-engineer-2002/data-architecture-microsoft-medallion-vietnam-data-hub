@@ -12,7 +12,7 @@
 --
 -- STATUS: Staging tables NOT YET REQUIRED — all current views read directly
 -- from Enterprise_Lakehouse shortcuts. The 4 blocking sources below are
--- being addressed via the `_dataflow_drafts/` folder (Fabric Gen2 dataflows),
+-- being addressed via the `dataflows/drafts/` folder (Fabric Gen2 dataflows),
 -- which writes back into Enterprise_Lakehouse, NOT Staging_Wrk.
 -- ============================================================
 -- BLOCKED on DE US team (parallel track, separate from this file):
@@ -21,7 +21,7 @@
 --   3. SupplyChain_Lakehouse.dbo.logility_demandfulfillment           — partial / stale
 --   4. SupplyChain_Enh.PurchaseOrderSnapshot                          — EDW-only currently
 --
--- See `_open_questions_for_bob.md` + `_dataflow_drafts/README.md` + recent
+-- See `docs/open_questions_for_bob.md` + `dataflows/drafts/README.md` + recent
 -- commits (8683eaeb, 533fb1c6, b38d4e81) for dataflow fix progress.
 -- ============================================================
 -- If/when DE US declines to fix one of the 4 at the Bronze layer and we

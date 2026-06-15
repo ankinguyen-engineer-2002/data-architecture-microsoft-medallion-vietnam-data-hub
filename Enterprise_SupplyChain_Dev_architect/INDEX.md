@@ -44,8 +44,8 @@ Single entry point cho 16 docs theo 4 nhom chuc nang. Restructure per ADR-006.
 
 | Project | Status | Gold schema | Tables (Silver+Gold) | Notes |
 |---|---|---|---:|---|
-| [forecast](projects/forecast/) | LIVE (2026-05-12) | `ForecastAccuracy_DW` | 8 + 7 | 463M Silver rows + 254M Gold rows; sc_forecast_control_tower semantic model deployed |
-| [inventory_health](projects/inventory_health/) | **LIVE (QC 2026-05-28)** | `InventoryHealth_DW` | 12 active Silver + 6 active Gold | DA-first Mart B refactor applied; `SalesShipment` removed from active flow; semantic relationships fixed; lineage explorer refreshed (97 edges). Full `pl_sc_master` rerun and schedule enablement still pending before calling ops fully stable. |
+| [forecast](projects/forecast/) | LIVE (doc set last touched 2026-06-02) | `ForecastAccuracy_DW` | 8 + 7 | Forecast mart docs exist, but current v10 semantic/report state should be read from [projects/live_audit_2026-06-15_v10_core_stack.md](projects/live_audit_2026-06-15_v10_core_stack.md). |
+| [inventory_health](projects/inventory_health/) | **LIVE (doc set last touched 2026-06-02)** | `InventoryHealth_DW` | 12 active Silver + 6 active Gold | Inventory mart docs exist, but current live semantic state is mixed into `sc_control_tower`; see [projects/live_audit_2026-06-15_v10_core_stack.md](projects/live_audit_2026-06-15_v10_core_stack.md). |
 
 ## artifacts/ — Outputs khong phai docs
 

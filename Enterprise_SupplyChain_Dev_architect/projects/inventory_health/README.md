@@ -4,12 +4,14 @@
 > Source: deliverable v1 (`_source_v1/`, archived gitignored). Standardized into v10 v_* views following "1 SP + N views" pattern. Current QC: data/semantic/DQ/pipeline evidence is green for manual/on-demand operation; physical backup/probe tables from the DA-first rebuild were cleaned after approval. Remaining stability gap is schedule auto-run confirmation plus explicit cleanup decision for legacy stale objects.
 
 > Latest cross-mart audit: [../live_audit_2026-06-01.md](../live_audit_2026-06-01.md). That file is the source-of-truth for live row counts, shared dim contracts, pipeline run state, and residual cleanup candidates.
+>
+> **2026-06-15 drift note:** the current live v10 core-stack audit is now [../live_audit_2026-06-15_v10_core_stack.md](../live_audit_2026-06-15_v10_core_stack.md). Live workspace semantic state is no longer represented by a separate deployed `sc_inventory_health_control_tower` item, and no active control-plane row now uses `project='inventoryHistory_Enh'`.
 
 ## What
 
 End-to-end Inventory Health analytics mart on Microsoft Fabric. Combines current + weekly inventory snapshots, supply plans, purchase/manufacturing orders, sales movement history, allocated demand, and forward risk into a unified Gold serving layer for Power BI Direct Lake reporting via the `InventoryHealth` semantic model. ATP forward-looking logic was removed from the active DA-first Gold/semantic contract on 2026-06-01.
 
-2026-05-28 DA-first update: Mart B no longer materializes or consumes `InventoryHistory_Enh.SalesShipment`. Sales history consumers read `SalesHistory_Enh.v_InvoiceDetailLineLevel` directly. `InventorySnapshotWeekly` and `ForecastSnapshotWeekly` now follow Giang's SQL export from the DA feedback file, with old `*Sat` candidate paths deactivated in the registry.
+2026-05-28 DA-first update: Mart B no longer materializes or consumes `InventoryHistory_Enh.SalesShipment`. Sales history consumers read `SalesHistory_Enh.v_InvoiceDetailLineLevel` directly. `InventorySnapshotWeekly` and `ForecastSnapshotWeekly` now follow Giang's SQL export from the DA feedback file in [artifacts/source_inputs/](artifacts/source_inputs/), with old `*Sat` candidate paths deactivated in the registry.
 
 Phase 1 scope: 26 of 30 KPIs from BRD v1 (rest are Phase 2 — storage cube physical, warehouse-physical). 14 Track A fixes applied during 2-person QC review (2026-05-17); fixes preserved through view-conversion.
 
@@ -23,12 +25,12 @@ Phase 1 scope: 26 of 30 KPIs from BRD v1 (rest are Phase 2 — storage cube phys
 | SQL Endpoint | `7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com` |
 | New Schemas | Processing: `InventoryHistory_Enh` + `ProcessingSeed` reuse + existing `ReferenceMaster_Enh`; Gold: `InventoryHealth_DW` + shared `Shared_DW` |
 | Views live in explorer export | **55** total warehouse views exported from live Processing + Gold metadata on 2026-06-01 |
-| Active registry rows | **46** workspace-wide active rows; inventory_health has 1 ReferenceMaster + 11 active DomainSilver + 4 active Gold rows |
+| Active registry rows | **46** workspace-wide active rows; `inventory_health` now owns 1 active ReferenceMaster + 11 active DomainSilver + 4 active Gold rows |
 | Lineage edges | **132** active registry-derived edges in `lineage_explorer/data/lineage.csv` (89 direct + 43 derived) |
-| Semantic model | `sc_inventory_health_control_tower` (`88c3fccd-698d-4175-b7b9-ea377e0f5afc`), 6 user-facing tables + 1 hidden helper; ATP columns removed from `FactInventoryRiskForward` on 2026-06-01 |
+| Semantic model | Historical inventory-only semantic docs remain in this folder, but current live workspace semantic state should be read from [../live_audit_2026-06-15_v10_core_stack.md](../live_audit_2026-06-15_v10_core_stack.md) |
 | Naming convention | Bob-aligned per ADR-008: `_Enh` (Silver) / `_DW` (Gold), `v_*` view prefix |
 | Control plane reuse | `Meta.AssetRegistry`, `Meta.DQRule`, `Meta.LineageEdge` (no project-specific procs) |
-| Pipelines reused | 7 v10 pipelines (no new pipeline; multi-mart `pl_sc_master` ForEach auto-picks `project='inventory_health'`) |
+| Pipelines reused | 7 v10 pipelines; after the 2026-06-15 cleanup, `pl_sc_master` runs `shared` -> `forecast_accuracy` -> `inventory_health`, `pl_sc_staging` is project-filtered for ReferenceMaster, and `pl_sc_gold` is project-filtered for Gold publish |
 
 ## Live row counts
 
@@ -60,17 +62,20 @@ Measured 2026-06-01 from live warehouses:
 |---------|-----|
 | Workspace + IDs | [00_workspace.md](00_workspace.md) |
 | Bronze layer (32 sources: 30 Enterprise ready + 2 SC_LH workaround) | [10_bronze.md](10_bronze.md) |
-| Silver layer (1 RefMaster + 24 InventoryHistory_Enh) | [20_silver.md](20_silver.md) |
-| Gold layer (8 InventoryHealth_DW) | [30_gold.md](30_gold.md) |
+| Silver layer (live active topology: 11 DomainSilver rows in physical schema `InventoryHistory_Enh`) | [20_silver.md](20_silver.md) |
+| Gold layer (live active topology: 4 `InventoryHealth_DW` rows + 3 `Shared_DW` rows) | [30_gold.md](30_gold.md) |
 | Pipelines (reuses existing 7) | [40_pipelines.md](40_pipelines.md) |
 | Semantic model + 30 DAX | [50_semantic.md](50_semantic.md) |
 | Lineage | [60_lineage.md](60_lineage.md) |
 | Operational QC snapshot | [70_operational_qc_2026-05-28.md](70_operational_qc_2026-05-28.md) |
+| Supporting docs and notes | [docs/](docs/) |
+| Source status brief | [docs/mart_b_inventory_source_status_for_ai_team_2026-06-03.md](docs/mart_b_inventory_source_status_for_ai_team_2026-06-03.md) |
 | ETL views + registry | [etl/](etl/) |
 | Semantic TMDL/DAX | [semantic/](semantic/) |
-| Open questions (3 Robert + 2 DE US workaround pending + Bob Q) | [_open_questions_for_bob.md](_open_questions_for_bob.md) |
+| DA source input artifacts | [artifacts/source_inputs/](artifacts/source_inputs/) |
+| Open questions (3 Robert + 2 DE US workaround pending + Bob Q) | [docs/open_questions_for_bob.md](docs/open_questions_for_bob.md) |
 | Source deliverable v1 (gitignored) | [_source_v1/](_source_v1/) |
-| Dataflow drafts (7 created; 2 still relevant + 2 deprecation cleanup) | [_dataflow_drafts/](_dataflow_drafts/) |
+| Dataflow setup, drafts, templates | [dataflows/](dataflows/) |
 
 ## Known operational state
 
@@ -85,7 +90,7 @@ Measured 2026-06-01 from live warehouses:
 | Column-deprecation finding (5 cols) | ✅ Verified zero on EDW source: ITBEXT.CRHLD/DLHLD/TOHLD/ATPQT + ITEMBL.PHYOH → planned `expected_zero` DQ rule + delete 2 reload dataflows |
 | Dup classification (Rakeshbalaji Slack 2026-05-09) | ✅ Verified 2026-05-19: PoDetail = TRUE row dup (1 pair, all 53 cols identical) → ROW_NUMBER drops safely; Logility = GRAIN CONFLICT (9,128 pairs, 6 metrics differ) → view ORDER BY rewritten to prefer non-zero metrics row |
 | ETL Silver source-path migration (2026-05-19) | ✅ DONE: `v_PurchaseOrder` LEFT JOIN switched to EL.PoMaster; `v_LogilityItemStatus` switched to EL.DemandFulfillmentCommonContainer_Logility + new grain-conflict ORDER BY |
-| 3 Robert sign-offs (H1/H5/M3) | ⏳ email pending (see `_open_questions_for_bob.md`) |
+| 3 Robert sign-offs (H1/H5/M3) | ⏳ email pending (see `docs/open_questions_for_bob.md`) |
 | PO/MO DimItemMaster coverage | ⏳ pending DE US upstream data coverage update |
 | Pipeline schedule | [Need-verify] latest proof is manual completed job history; do not claim cron auto-run active until Fabric item schedule state is rechecked/enabled. |
 | Alerting / CI / Schedule trigger | BLOCKED/Need-enable — same IT permission pattern as forecast |
