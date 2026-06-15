@@ -1334,3 +1334,20 @@ python3 Enterprise_SupplyChain_Dev_architect/tools/healthcheck_v10_control_plane
 
 - Deleted legacy per-session context files under `docs/runbook/` (content already merged into this file).
 - Deleted repo `CLAUDE.md` per user request (Codex uses `AGENTS.md` for rules in this repo).
+
+## 2026-06-15 16:50:06 (ICT) — Repo cleanup + GitHub push
+
+**User instruction:**
+- “Dọn dẹp sạch sẽ repo, A/B cũng ok. Push GitHub vì quá nhiều thứ thay đổi.”
+
+**Actions executed (repo):**
+- Added single context policy to `AGENTS.md` and ensured `CONTEXT.md` is the only context file at repo root.
+- Merged legacy chat context (2026-06-11 Mart A restore) into `CONTEXT.md`, then deleted the old file.
+- Tightened `.gitignore` to hide local caches + run artifacts (`.azure*`, `docs/runbook/artifacts/`, `Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/`, `**/.workspace-info`, ...).
+
+**Actions executed (git):**
+- Committed and pushed to `origin/main`:
+  - commit `8626503a` — "Unify CONTEXT + v10 control-plane tooling"
+
+**Result:**
+- Working tree clean (`git status` no changes).
