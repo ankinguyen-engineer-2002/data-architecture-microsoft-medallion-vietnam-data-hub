@@ -2224,6 +2224,28 @@ python3 Enterprise_SupplyChain_Dev_architect/tools/healthcheck_v10_control_plane
 **Next step:**
 - Continue refining the DQ placement explanation and (if approved) generate the EN version with the same terminology.
 
+## 2026-06-17 09:41:53 (ICT) — Published shareable guides to GitHub (main)
+
+**User instruction (2026-06-17):**
+- “publish github rồi cho tôi link online của tài liệu”
+
+**Actions executed (repo):**
+- Committed and pushed the shareable guide + assets to `origin/main`:
+  - Commit: `b8674c8a` (Add shareable Enterprise control-plane guides (VI))
+  - Push: `main -> main`
+
+**Files changed in repo:**
+- Added: `docs/runbook/guides/control_plane_intro_vi.md`
+- Added: `docs/runbook/guides/control_plane_email_vi.md`
+- Added: `docs/runbook/guides/assets/cross_workspace_architecture.png`
+- Added: `docs/runbook/guides/assets/02_main_architecture.svg`
+- Added: `docs/runbook/guides/assets/03_control_plane.svg`
+- Added: `docs/runbook/guides/assets/22_control_plane_detail.svg`
+- Updated: `CONTEXT.md` (append this entry)
+
+**Next step:**
+- Replace `<PASTE LINK HERE>` in the email with the GitHub URL, then send email.
+
 ## 2026-06-17 09:35:54 (ICT) — DQ placement clarification (what exists today vs where to wire gates)
 
 **User question (2026-06-17):**
