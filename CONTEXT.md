@@ -2246,6 +2246,24 @@ python3 Enterprise_SupplyChain_Dev_architect/tools/healthcheck_v10_control_plane
 **Next step:**
 - Replace `<PASTE LINK HERE>` in the email with the GitHub URL, then send email.
 
+## 2026-06-17 09:48:46 (ICT) — Added English versions of the shareable docs (1:1 structure)
+
+**User instruction (2026-06-17):**
+- “làm cho tôi 1 phiên bản tiếng anh nữa”
+
+**Actions executed (repo):**
+- Created English versions with matching structure and terminology (“Enterprise”):
+  - Added: `docs/runbook/guides/control_plane_intro_en.md`
+  - Added: `docs/runbook/guides/control_plane_email_en.md`
+
+**Files changed in repo:**
+- Added: `docs/runbook/guides/control_plane_intro_en.md`
+- Added: `docs/runbook/guides/control_plane_email_en.md`
+- Updated: `CONTEXT.md` (append this entry)
+
+**Next step:**
+- Publish (push) and use the EN links for US team; replace `<PASTE LINK HERE>` accordingly.
+
 ## 2026-06-17 09:35:54 (ICT) — DQ placement clarification (what exists today vs where to wire gates)
 
 **User question (2026-06-17):**
