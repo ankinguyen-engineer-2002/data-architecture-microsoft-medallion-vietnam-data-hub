@@ -1069,3 +1069,37 @@
 - Root README and front-door docs now target DA/DE/cross-functional readers first.
 - Deep technical object names remain in English for grep/live Fabric alignment.
 - Detailed numeric evidence remains in context/artifacts, not in the root handbook.
+
+## 2026-06-25 09:46:30 ICT — Pushed operating repo to GitHub and made it private
+
+**Scope lock:**
+- Git/GitHub repository operation only.
+- No live Fabric/SQL/Power BI mutation.
+
+**User instruction:**
+- Push the current repo to GitHub and close the repo as private.
+
+**Actions executed:**
+- Verified GitHub remote:
+  - `origin`: `https://github.com/ankinguyen-engineer-2002/data-architecture-microsoft-medallion-vietnam-data-hub.git`
+- Checked staged payload before commit:
+  - staged existing files: `5450`
+  - files over `100MB`: `0`
+  - largest staged file: about `4.9MB`
+  - common secret pattern scan over staged content returned no hits.
+- Created local commit:
+  - `37da41f2 docs: restructure fabric operating repo`
+- Rebasing against `origin/main` completed without conflicts.
+- Pushed `main` to GitHub:
+  - `1e82342c..37da41f2 main -> main`
+- Changed GitHub repository visibility to private.
+
+**Verification:**
+- `gh repo view` returned:
+  - `visibility`: `PRIVATE`
+  - `isPrivate`: `true`
+  - default branch: `main`
+
+**Current handoff:**
+- Remote GitHub repo is private and contains the current operating-repo restructure commit.
+- Final local clean/sync verification should be checked after this context note is committed and pushed.
