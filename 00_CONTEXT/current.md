@@ -1212,3 +1212,38 @@
 **Current handoff:**
 - Repo docs, active operating files, and archived knowledge paths now use `Enterprise ETL` naming only.
 - Git commit/push is the next step after final status review.
+
+## 2026-06-25 14:29:13 ICT — Tightened DA onboarding for table edits and ETL wave handoff
+
+**Scope lock:**
+- Documentation-only update.
+- No live Fabric/SQL/Power BI mutation.
+- No orchestration manifest/runtime change.
+
+**User question:**
+- Check whether DA onboarding is clear enough for a DA to edit SQL for a table or add a table into the ETL wave/run order.
+
+**Finding:**
+- Existing DA onboarding covered ownership, source contract, grain/key, DQ, semantic impact, and high-level handoff.
+- It did not yet give DA a concrete enough path for:
+  - which SQL file to edit for an existing table;
+  - which file pair to create for a new table;
+  - how to propose `manifest.yaml` wave/step/load_type/purpose;
+  - how wrapper procedures map final tables to `_Wrk.v_<TableName>` views.
+
+**Actions executed:**
+- Updated `01_docs/onboarding/da_onboarding.md` with:
+  - `Step 5A - Sửa Logic Cho Một Bảng Đang Có`;
+  - `Step 5B - Thêm Một Bảng Mới Vào Mart Hiện Có`;
+  - `Cách Đưa Bảng Vào ETL Wave`;
+  - manifest entry examples for Silver and Gold;
+  - wrapper-procedure mapping explanation;
+  - expanded pre-review checklist.
+
+**Verification:**
+- DA onboarding link check passed.
+- Case-insensitive repo content scan for the old external label returned zero hits.
+
+**Current handoff:**
+- DA onboarding now explains the practical table-edit and wave-registration workflow.
+- Next step is commit/push after final doc verification.
