@@ -1,8 +1,8 @@
-# v10 Bob/Rakesh-Aligned Step-by-Step Implementation Runbook
+# v10 Enterprise ETL/Rakesh-Aligned Step-by-Step Implementation Runbook
 
 > **For agentic workers:** REQUIRED SUB-SKILL: use a task-by-task execution flow with review checkpoints. Do not mutate Fabric production assets, delete objects, rename live objects, or cut over reports without explicit approval.
 
-**Goal:** Build v10 as a Bob/Rakesh-aligned Hybrid Medallion implementation while preserving the v9 control plane and avoiding destructive changes.
+**Goal:** Build v10 as a Enterprise ETL/Rakesh-aligned Hybrid Medallion implementation while preserving the v9 control plane and avoiding destructive changes.
 
 **Architecture:** v10 keeps `Enterprise_Access_Lakehouse` / current `Enterprise_Lakehouse` shortcuts as the logical Bronze layer, creates exception-only `Staging`, moves Supply Chain transformations into Pascal Case process schemas, publishes physical Gold tables into a dedicated Gold serving Warehouse, and keeps the v9 metadata-driven framework as the control plane.
 
@@ -14,13 +14,13 @@
 
 - [Verified] Build v10 **side-by-side**, not in-place.
 - [Verified] Do not drop, truncate, delete, force-rename, bulk-overwrite, or recreate v9 objects during implementation.
-- [Verified] Keep v9 live until v10 passes repeated parity checks and receives Bob/Rakesh or assigned technical approval.
+- [Verified] Keep v9 live until v10 passes repeated parity checks and receives Enterprise ETL/Rakesh or assigned technical approval.
 - [Verified] Treat the current Warehouse `bronze` schema as legacy v9 implementation, not canonical v10 Bronze.
 - [Verified] Treat shortcut-backed Enterprise Lakehouse data as logical Bronze when source contract, schema, grain, SLA, and performance are acceptable.
 - [Verified] Keep `Staging` / `BronzeMirror` capability for exception cases: EDW supplement, unstable source, incomplete source, snapshot requirement, replay/debug need, or direct-read performance risk.
 - [Verified] Preserve v9 control-plane features: metadata registry, generic SQL runner, mart routing, schedule gate, smart skip, Silver DAG waves, DQ engine, lineage, logging, finalizer, TableDictionary adapter, semantic refresh discipline.
-- [Need-verify] Do not create or move EnterpriseData Silver physical objects until Bob/Rakesh decide which entities are enterprise reusable.
-- [Need-verify] Do not finalize naming suffixes (`ENH`, `DW`, `WRK`) until Bob/Rakesh choose between pure Pascal Case and DOCX suffix convention.
+- [Need-verify] Do not create or move EnterpriseData Silver physical objects until Enterprise ETL/Rakesh decide which entities are enterprise reusable.
+- [Need-verify] Do not finalize naming suffixes (`ENH`, `DW`, `WRK`) until Enterprise ETL/Rakesh choose between pure Pascal Case and DOCX suffix convention.
 
 ## 2. Source Evidence Used
 
@@ -45,10 +45,10 @@
 
 - [Verified] v10 architecture plan: `Enterprise_SupplyChain_Dev_architect/00_overview/01_super_plan_medallion_refactor.md`
 - [Verified] v9/v10 feature parity: `Enterprise_SupplyChain_Dev_architect/00_overview/03_v9_feature_parity_checklist.md`
-- [Verified] Bob standards Fabric adaptation: `Enterprise_SupplyChain_Dev_architect/20_proposals/04_revised_bob_standards_proposal.md`
+- [Verified] Enterprise ETL standards Fabric adaptation: `Enterprise_SupplyChain_Dev_architect/20_proposals/04_revised_enterprise_etl_standards_proposal.md`
 - [Verified] v9 capability evidence ledger: `Enterprise_SupplyChain_Dev_architect/10_evidence/07_v9_capability_evidence_ledger.md`
 - [Verified] v10 gap matrix: `Enterprise_SupplyChain_Dev_architect/20_proposals/08_v10_gap_matrix.md`
-- [Verified] Bob standards mapping matrix: `Enterprise_SupplyChain_Dev_architect/20_proposals/09_bob_standards_mapping_matrix.md`
+- [Verified] Enterprise ETL standards mapping matrix: `Enterprise_SupplyChain_Dev_architect/20_proposals/09_enterprise_etl_standards_mapping_matrix.md`
 - [Verified] final v10 amendment plan: `Enterprise_SupplyChain_Dev_architect/20_proposals/10_final_v10_amendment_plan.md`
 - [Verified] implementation readiness pack: `Enterprise_SupplyChain_Dev_architect/30_runbook/11_v10_implementation_readiness_pack.md`
 - [Verified] object classification mapping: `Enterprise_SupplyChain_Dev_architect/20_proposals/12_v10_object_classification_mapping.md`
@@ -56,14 +56,14 @@
 - [Verified] EDW supplement decision: `01_docs/decisions/ADR-002-edw-supplement-exit-strategy.md`
 - [Verified] v10 readiness scorecard and v9 cleanup candidate list: `Enterprise_SupplyChain_Dev_architect/30_runbook/16_v10_readiness_scorecard_and_v9_cleanup.md`
 - [Verified] live readiness export: `Enterprise_SupplyChain_Dev_architect/readiness_exports/20260430_230936/` (local-only raw evidence; intentionally ignored from Git)
-- [Verified] Bob standard DOCX: `Enterprise_SupplyChain_Dev_architect/SQL Server Data Warehouse Standards.docx` (local-only evidence; intentionally ignored from Git unless sharing is approved)
+- [Verified] Enterprise ETL standard DOCX: `Enterprise_SupplyChain_Dev_architect/SQL Server Data Warehouse Standards.docx` (local-only evidence; intentionally ignored from Git unless sharing is approved)
 
 ## 3. Target Build Picture
 
 ```text
 Enterprise_Data workspace
   -> upstream source products
-  -> Enterprise reusable/conformed Silver only after Bob/Rakesh approval
+  -> Enterprise reusable/conformed Silver only after Enterprise ETL/Rakesh approval
   -> existing EnterpriseData SupplyChain_Warehouse for approved Silver patterns
 
 SupplyChain Dev / approved Enterprise_SupplyChain workspace
@@ -99,7 +99,7 @@ SupplyChain Dev / approved Enterprise_SupplyChain workspace
 - Create v10 Gold schema: `ForecastAccuracy`.
 - Create v10 copy pipelines instead of editing v9 pipelines directly.
 - Create validation result tables for source contracts, reconciliation, DQ gate results, and Direct Lake validation.
-- Create a Bob/Rakesh approval evidence pack from metadata, object classification, naming, security, DQ mode, and cutover criteria.
+- Create a Enterprise ETL/Rakesh approval evidence pack from metadata, object classification, naming, security, DQ mode, and cutover criteria.
 
 ### 4.2 Change during implementation
 
@@ -123,11 +123,11 @@ SupplyChain Dev / approved Enterprise_SupplyChain workspace
 - Keep semantic model refresh/framing discipline after Gold publish.
 - Keep compatibility views only where they are needed for transition or non-Direct-Lake consumers.
 
-### 4.4 Defer until Bob/Rakesh or assigned approver signs off
+### 4.4 Defer until Enterprise ETL/Rakesh or assigned approver signs off
 
 - Physical move of reusable Silver/reference assets into EnterpriseData.
 - Final schema suffix naming: pure Pascal Case vs `ENH` / `DW` / `WRK`.
-- Physical TableDictionary sync/export into EnterpriseData if Bob requires more than a view adapter.
+- Physical TableDictionary sync/export into EnterpriseData if Enterprise ETL requires more than a view adapter.
 - Security grants/RLS/OLS/SQL endpoint permission changes.
 - Production cutover of semantic model/report dependencies.
 - Deactivation of v9 schedules.
@@ -178,14 +178,14 @@ SupplyChain Dev / approved Enterprise_SupplyChain workspace
 - Baseline manifest exists.
 - No live Fabric objects have been changed.
 
-### Phase 0: Bob/Rakesh Approval Pack Before DDL
+### Phase 0: Enterprise ETL/Rakesh Approval Pack Before DDL
 
 **Purpose:** present enough design detail to get approval before creating physical objects that could conflict with standards.
 
 **Files / artifacts:**
 
 - Create: `Enterprise_SupplyChain_Dev_architect/build_runs/<YYYYMMDD_HHMMSS>/approval_pack.md`
-- Reference: `Enterprise_SupplyChain_Dev_architect/20_proposals/09_bob_standards_mapping_matrix.md`
+- Reference: `Enterprise_SupplyChain_Dev_architect/20_proposals/09_enterprise_etl_standards_mapping_matrix.md`
 - Reference: `Enterprise_SupplyChain_Dev_architect/20_proposals/12_v10_object_classification_mapping.md`
 
 **Steps:**
@@ -205,7 +205,7 @@ SupplyChain Dev / approved Enterprise_SupplyChain workspace
 
 **Exit gate:**
 
-- Bob/Rakesh or assigned approver confirms the target naming and ownership rules.
+- Enterprise ETL/Rakesh or assigned approver confirms the target naming and ownership rules.
 - If approval is delayed, continue only with local drafts and non-destructive v10 side-by-side objects.
 
 ### Phase 1: Create Or Designate v10 Physical Items
@@ -238,7 +238,7 @@ SupplyChain Dev / approved Enterprise_SupplyChain workspace
 
 ### Phase 2: Create v10 Metadata Compatibility Layer
 
-**Purpose:** preserve v9 framework behavior while adding Bob-aligned governance fields.
+**Purpose:** preserve v9 framework behavior while adding Enterprise ETL-aligned governance fields.
 
 **Schemas:**
 
@@ -380,7 +380,7 @@ Else if canonical_layer in DomainSilver, Gold
 - [ ] Step 6: Test all four EDW-backed objects resolve as `EDWSupplement` for initial build.
 - [ ] Step 7: Test `brz_saleshistory_afi__invoicedetail` and `ref_product` expose `edw_exit_status = ExitCandidate` but do not cut over without validation.
 - [ ] Step 8: Test `brz_saleshistory_afi__invoiceheader` and `brz_supplychain_enh_1__demandforecastsnapshotdaily` expose `edw_exit_status = NotReady`.
-- [ ] Step 9: Test `ref_product` also remains owner-decision gated until Bob/Rakesh approval.
+- [ ] Step 9: Test `ref_product` also remains owner-decision gated until Enterprise ETL/Rakesh approval.
 - [ ] Step 10: Test all eight Silver objects resolve as `WarehouseTransform`.
 - [ ] Step 11: Test both Gold objects resolve as `GoldPublish`.
 
@@ -396,7 +396,7 @@ Else if canonical_layer in DomainSilver, Gold
 **Create:**
 
 - Schema: `Staging`
-- Optional schema if Bob suffix standard is selected: `Staging_WRK`
+- Optional schema if Enterprise ETL suffix standard is selected: `Staging_WRK`
 
 **Initial staged objects:**
 
@@ -423,7 +423,7 @@ Else if canonical_layer in DomainSilver, Gold
 
 ### Phase 5: Build Logical Bronze Direct-Read Path
 
-**Purpose:** answer Bob's Bronze duplication concern by using shortcuts directly when governed and stable.
+**Purpose:** answer Enterprise ETL's Bronze duplication concern by using shortcuts directly when governed and stable.
 
 **Direct-read candidates:**
 
@@ -450,9 +450,9 @@ Else if canonical_layer in DomainSilver, Gold
 
 ### Phase 6: Build Domain Silver Schemas
 
-**Purpose:** align with Bob's schema guidance: schemas group related tables/views/procs by business/process/metric area, not generic medallion layer names.
+**Purpose:** align with Enterprise ETL's schema guidance: schemas group related tables/views/procs by business/process/metric area, not generic medallion layer names.
 
-**Default schema names unless Bob/Rakesh select suffixes:**
+**Default schema names unless Enterprise ETL/Rakesh select suffixes:**
 
 - `SalesHistory`
 - `ForecastHistory`
@@ -485,7 +485,7 @@ Else if canonical_layer in DomainSilver, Gold
 **Exit gate:**
 
 - Every v9 Silver output has a v10 Domain Silver equivalent.
-- Naming is Bob/Rakesh-approved or explicitly marked as draft.
+- Naming is Enterprise ETL/Rakesh-approved or explicitly marked as draft.
 
 ### Phase 7: Handle EnterpriseData Silver Candidates
 
@@ -494,14 +494,14 @@ Else if canonical_layer in DomainSilver, Gold
 **Candidate groups:**
 
 - `ReferenceMaster / NeedOwnerDecision`
-- Any Silver object Bob/Rakesh classifies as cross-domain reusable
+- Any Silver object Enterprise ETL/Rakesh classifies as cross-domain reusable
 
 **Steps:**
 
 - [ ] Step 1: Create a candidate list from `12_v10_object_classification_mapping.md`.
 - [ ] Step 2: Separate domain-specific Supply Chain logic from conformed/reusable logic.
 - [ ] Step 3: For each reusable candidate, document owner, consumer domains, grain, keys, refresh SLA, and source contract.
-- [ ] Step 4: Ask Bob/Rakesh whether the object belongs in EnterpriseData `SupplyChain_Warehouse` or remains local.
+- [ ] Step 4: Ask Enterprise ETL/Rakesh whether the object belongs in EnterpriseData `SupplyChain_Warehouse` or remains local.
 - [ ] Step 5: If approved, create EnterpriseData implementation plan for that object.
 - [ ] Step 6: If not approved, keep object in local `ReferenceMaster` or domain Silver schema.
 - [ ] Step 7: Do not create EnterpriseData objects without approval.
@@ -727,22 +727,22 @@ KpiAggregateParity
 
 ### Phase 14: Extend Enterprise Dictionary Adapter
 
-**Purpose:** meet Bob's TableDictionary expectation without rebuilding what v9 already solved.
+**Purpose:** meet Enterprise ETL's TableDictionary expectation without rebuilding what v9 already solved.
 
 **Design rule:**
 
-Do not create a single physical TableDictionary base table with 63 or 69 columns. The v10 base metadata tables should stay normalized and small. `Meta.vw_TableDictionary` is the compatibility adapter that joins, derives, and null-fills fields into the Bob/Enterprise shape.
+Do not create a single physical TableDictionary base table with 63 or 69 columns. The v10 base metadata tables should stay normalized and small. `Meta.vw_TableDictionary` is the compatibility adapter that joins, derives, and null-fills fields into the Enterprise ETL/Enterprise shape.
 
 **Create / extend:**
 
 - `Meta.vw_TableDictionary`
-- Optional physical export: `Meta.TableDictionaryExport` only if Bob/Rakesh require it.
+- Optional physical export: `Meta.TableDictionaryExport` only if Enterprise ETL/Rakesh require it.
 
 **Adapter output target:**
 
 - Preserve the v9 external contract: 63 Enterprise-compatible columns plus v9/v10 extension columns.
 - Current v9 evidence shows `meta.vw_table_dictionary` has 69 columns: 63 Enterprise-compatible columns plus 6 v9 extension columns.
-- v10 can add extension columns only after confirming Bob/Rakesh do not require a strict 63-column physical export.
+- v10 can add extension columns only after confirming Enterprise ETL/Rakesh do not require a strict 63-column physical export.
 
 **Core input fields required somewhere in v10 control-plane tables:**
 
@@ -782,18 +782,18 @@ security_classification
 - [ ] Step 5: Derive workspace/item/access mode fields in the view rather than duplicating them into every base table.
 - [ ] Step 6: Add approval status, owner, DQ status, and source contract status through joins.
 - [ ] Step 7: Validate all managed v10 physical objects appear in the adapter.
-- [ ] Step 8: Ask Bob/Rakesh whether a physical export/sync is required.
+- [ ] Step 8: Ask Enterprise ETL/Rakesh whether a physical export/sync is required.
 
 **Exit gate:**
 
 - Every managed v10 object has dictionary metadata.
-- `Meta.vw_TableDictionary` exposes the Bob/Enterprise-compatible output contract.
+- `Meta.vw_TableDictionary` exposes the Enterprise ETL/Enterprise-compatible output contract.
 - No oversized 63/69-column physical base table is required.
 - Physical sync is not built unless required.
 
 ### Phase 15: Define Security Matrix Before Cutover
 
-**Purpose:** adapt Bob's schema security standard to Fabric's workspace/item/semantic model security model.
+**Purpose:** adapt Enterprise ETL's schema security standard to Fabric's workspace/item/semantic model security model.
 
 **Create:**
 
@@ -881,7 +881,7 @@ Rollback path recorded
 - [ ] Step 1: Create deployment checklist template.
 - [ ] Step 2: Add one checklist row per object.
 - [ ] Step 3: Block deployment if any object lacks owner, PK metadata, source contract, or approval status.
-- [ ] Step 4: Keep full Enterprise `.sqlproj` conversion as a later workstream unless Bob/Rakesh require it now.
+- [ ] Step 4: Keep full Enterprise `.sqlproj` conversion as a later workstream unless Enterprise ETL/Rakesh require it now.
 - [ ] Step 5: Use runtime validation first if Azure DevOps/project access remains blocked.
 
 **Exit gate:**
@@ -916,7 +916,7 @@ Rollback path recorded
 - No critical DQ failure.
 - Reconciliation thresholds accepted.
 - Semantic model validation accepted.
-- Bob/Rakesh approval captured.
+- Enterprise ETL/Rakesh approval captured.
 
 ### Phase 19: Cutover Plan
 
@@ -935,7 +935,7 @@ Rollback path recorded
 - [ ] Step 2: Freeze v9 and v10 run status at cutover time.
 - [ ] Step 3: Refresh/framing semantic model after final Gold publish.
 - [ ] Step 4: Validate report smoke tests.
-- [ ] Step 5: Confirm Bob/Rakesh or assigned approver signs off.
+- [ ] Step 5: Confirm Enterprise ETL/Rakesh or assigned approver signs off.
 - [ ] Step 6: Disable old schedule only after explicit approval.
 - [ ] Step 7: Do not delete old objects during cutover.
 
@@ -1017,7 +1017,7 @@ Detailed exit runbook:
 | `gold.gld_fact_flat_forecast_actual` | `ForecastAccuracy.FactForecastActual` | Publish physical Gold table |
 | `gold.gld_fact_forecast_kpi` | `ForecastAccuracy.FactForecastKpi` | Publish physical Gold table |
 
-## 7. Bob/Rakesh Acceptance Alignment
+## 7. Enterprise ETL/Rakesh Acceptance Alignment
 
 ### Covered directly
 
@@ -1083,5 +1083,5 @@ Stop implementation and ask for decision if any of these occur:
 - DQ critical checks fail after gate mode is enabled.
 - Source-target reconciliation exceeds approved threshold.
 - Semantic model falls back unexpectedly from Direct Lake.
-- Bob/Rakesh reject naming, placement, or Gold serving interpretation.
+- Enterprise ETL/Rakesh reject naming, placement, or Gold serving interpretation.
 - Any operation would delete, drop, truncate, bulk overwrite, rename live production objects, or disable live schedules.

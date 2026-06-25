@@ -3,7 +3,7 @@ CREATE   VIEW Staging_Wrk.v_DemandForecastSnapshotDaily AS
 -- Cross-mart cleaned Bronze source wrapper (canonicalized 2026-06-23).
 -- Source: EL.SupplyChain_Enh.DemandForecastSnapshotDaily.
 -- Transform: ROW_NUMBER() OVER (full grain) = 1 dedupe.
--- BOB contract: include LoadDT so usp_IncrementalTableLoad source columns match target columns.
+-- Enterprise ETL contract: include LoadDT so usp_IncrementalTableLoad source columns match target columns.
 -- ============================================================
 WITH dedupe AS (
   SELECT

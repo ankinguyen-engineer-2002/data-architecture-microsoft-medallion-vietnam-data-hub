@@ -47,7 +47,7 @@ BEGIN
              'Fabric Pipeline', @AssetID, @DateValue, @DateValue, @DateValue);
         END
 
-        -- Always log update event (Bob's pattern: INSERT into UpdateLog, batch-sync later)
+        -- Always log update event (Enterprise ETL's pattern: INSERT into UpdateLog, batch-sync later)
         SET @LogID = CAST(DATEDIFF_BIG(MILLISECOND, '1970-01-01', GETUTCDATE()) AS BIGINT);
         INSERT INTO Meta.TableDictionary_UpdateLog
         (UpdateLogID, DatabaseName, SchemaName, TableName, LastUpdated, UpdateQuery, RowsLoaded, AssetID, RunID)

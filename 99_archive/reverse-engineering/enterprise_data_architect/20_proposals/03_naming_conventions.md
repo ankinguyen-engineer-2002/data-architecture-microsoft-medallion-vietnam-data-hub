@@ -1,6 +1,6 @@
 # Naming Conventions Audit — `EnterpriseData-Dev`
 
-> Evidence-based audit of Bob's actual naming patterns across all Silver WHs. Used to align VN team naming.
+> Evidence-based audit of Enterprise ETL's actual naming patterns across all Silver WHs. Used to align VN team naming.
 
 ## Schema suffixes observed
 
@@ -48,14 +48,14 @@ Example from `Retail_Warehouse.Retail_Sales_Wrk`:
 
 ## Procedure naming
 
-**Mixed casing observed** — Bob's team doesn't enforce strict consistency:
+**Mixed casing observed** — Enterprise ETL's team doesn't enforce strict consistency:
 
 | Casing | Examples | Pattern |
 |--------|----------|---------|
 | `Usp_*` (Pascal) | `Usp_CreateTableFromParquet`, `Usp_CreateTableFromParquet_V2`, `Usp_Refresh_Wholesale_Warehouse`, `Usp_Refresh_EmployeeHistory`, `Usp_Refresh_MasterData_Ent` | Some refresh + parquet loaders |
 | `usp_*` (lowercase prefix) | `usp_RefreshCuratedTableFromView`, `usp_DataWarehouseSLAAlert_Fabric`, `usp_IncrementalTableLoad`, `usp_SCD2_TableLoad` | Most procs |
 
-**Recommendation for VN**: Use `usp_*` (lowercase prefix, PascalCase body) consistently — matches majority of Bob's procs. VN already does this.
+**Recommendation for VN**: Use `usp_*` (lowercase prefix, PascalCase body) consistently — matches majority of Enterprise ETL's procs. VN already does this.
 
 ## Column naming
 
@@ -84,18 +84,18 @@ These cols in `TableDictionary` are intentionally NULL or auto in Fabric:
 
 ## VN team naming (post ADR-008)
 
-| VN object | Old | New (aligned to Bob) |
+| VN object | Old | New (aligned to Enterprise ETL) |
 |-----------|-----|----------------------|
 | Schema casing `_ENH`/`_WRK` | `Staging_WRK`, `*_ENH` | `Staging_Wrk`, `*_Enh` ✅ |
 | View prefix `vw_*` | 35 views | `v_*` ✅ |
-| Schema `_DW` | `ForecastAccuracy_DW` | `ForecastAccuracy_DW` (kept ALL CAPS — matches Bob) ✅ |
+| Schema `_DW` | `ForecastAccuracy_DW` | `ForecastAccuracy_DW` (kept ALL CAPS — matches Enterprise ETL) ✅ |
 | Dim/Fact prefix in Gold (`_DW`) | `DimCalendar`, `FactForecastActual`, `FactForecastKpi` | Kept (correct per `_DW` rule) ✅ |
 | Dim/Fact prefix outside `_DW` | (n/a — VN doesn't have outside _DW) | OK |
 | Proc casing | `usp_*` (lowercase prefix) | OK ✅ |
 
 ## Proposed naming for new SC tables in `EnterpriseData-Dev.SupplyChain_Warehouse`
 
-Two options for Bob's review:
+Two options for Enterprise ETL's review:
 
 ### Option A (recommended — single schema, mirror Retail)
 ```
@@ -123,9 +123,9 @@ MasterData_Warehouse.MasterData_DW (extend existing)
   └─ DimForecastHorizon          (NEW — dictionary dim)
 ```
 
-**VN team defers to Bob's preference.**
+**VN team defers to Enterprise ETL's preference.**
 
 ## Cross-refs
 
 - Raw scan reference: `_external_refs/enterprisedata-dev-01_docs/docs/02-storage/`
-- ADR-008 (VN side, executed): [`../../docs/decisions/ADR-008-bob-alignment-naming-and-integration.md`](../../docs/decisions/ADR-008-bob-alignment-naming-and-integration.md)
+- ADR-008 (VN side, executed): [`../../docs/decisions/ADR-008-enterprise_etl-alignment-naming-and-integration.md`](../../docs/decisions/ADR-008-enterprise_etl-alignment-naming-and-integration.md)

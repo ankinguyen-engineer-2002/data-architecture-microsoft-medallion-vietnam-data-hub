@@ -14,7 +14,7 @@ Single entry point cho 16 docs theo 4 nhom chuc nang. Restructure per ADR-006.
 
 | # | File | Title |
 |---|---|---|
-| 05 | [05_deep_audit_protocol.md](10_evidence/05_deep_audit_protocol.md) | Deep Audit Protocol: v9 To v10 And Bob Standards |
+| 05 | [05_deep_audit_protocol.md](10_evidence/05_deep_audit_protocol.md) | Deep Audit Protocol: v9 To v10 And Enterprise ETL Standards |
 | 06 | [06_v9_source_inventory_and_chronology.md](10_evidence/06_v9_source_inventory_and_chronology.md) | v9 Source Inventory And Chronology |
 | 07 | [07_v9_capability_evidence_ledger.md](10_evidence/07_v9_capability_evidence_ledger.md) | v9 Capability Evidence Ledger |
 
@@ -22,10 +22,10 @@ Single entry point cho 16 docs theo 4 nhom chuc nang. Restructure per ADR-006.
 
 | # | File | Title |
 |---|---|---|
-| 04 | [04_revised_bob_standards_proposal.md](20_proposals/04_revised_bob_standards_proposal.md) | Revised Proposal: Apply Bob SQL DW Standards To Fabric v10 |
+| 04 | [04_revised_enterprise_etl_standards_proposal.md](20_proposals/04_revised_enterprise_etl_standards_proposal.md) | Revised Proposal: Apply Enterprise ETL SQL DW Standards To Fabric v10 |
 | 08 | [08_v10_gap_matrix.md](20_proposals/08_v10_gap_matrix.md) | v10 Gap Matrix |
-| 09 | [09_bob_standards_mapping_matrix.md](20_proposals/09_bob_standards_mapping_matrix.md) | Bob Standards Mapping Matrix |
-| 10 | [10_final_v10_amendment_plan.md](20_proposals/10_final_v10_amendment_plan.md) | Final v10 Amendment Plan After Deep v9/Bob Audit |
+| 09 | [09_enterprise_etl_standards_mapping_matrix.md](20_proposals/09_enterprise_etl_standards_mapping_matrix.md) | Enterprise ETL Standards Mapping Matrix |
+| 10 | [10_final_v10_amendment_plan.md](20_proposals/10_final_v10_amendment_plan.md) | Final v10 Amendment Plan After Deep v9/Enterprise ETL Audit |
 | 12 | [12_v10_object_classification_mapping.md](20_proposals/12_v10_object_classification_mapping.md) | v10 Object Classification Mapping |
 
 ## 30_runbook/ — Implementation, scorecard
@@ -34,7 +34,7 @@ Single entry point cho 16 docs theo 4 nhom chuc nang. Restructure per ADR-006.
 |---|---|---|
 | 11 | [11_v10_implementation_readiness_pack.md](30_runbook/11_v10_implementation_readiness_pack.md) | v10 Implementation Readiness Pack |
 | 13 | [13_v10_build_blueprint_after_readiness.md](30_runbook/13_v10_build_blueprint_after_readiness.md) | v10 Build Blueprint After Readiness Verification |
-| 14 | [14_v10_step_by_step_implementation_runbook.md](30_runbook/14_v10_step_by_step_implementation_runbook.md) | v10 Bob/Rakesh-Aligned Step-by-Step Implementation Runbook |
+| 14 | [14_v10_step_by_step_implementation_runbook.md](30_runbook/14_v10_step_by_step_implementation_runbook.md) | v10 Enterprise ETL/Rakesh-Aligned Step-by-Step Implementation Runbook |
 | 15 | [15_v10_edw_supplement_exit_strategy.md](30_runbook/15_v10_edw_supplement_exit_strategy.md) | v10 EDW Supplement Exit Strategy |
 | 16 | [16_v10_readiness_scorecard_and_v9_cleanup.md](30_runbook/16_v10_readiness_scorecard_and_v9_cleanup.md) | v10 Readiness Scorecard And v9 Cleanup Candidate List |
 | 18 | [18_v10_da_table_onboarding.md](30_runbook/18_v10_da_table_onboarding.md) | v10 DA Table Onboarding Runbook |
@@ -49,7 +49,7 @@ Single entry point cho 16 docs theo 4 nhom chuc nang. Restructure per ADR-006.
 
 ## artifacts/ — Outputs khong phai docs
 
-- `artifacts/bob_standards_rebuild/` — Bob Standards rebuild scripts (`src/`) + outputs (`output/`: column_mapping.csv, ctas_tables.sql, gold_columns.json, processing_columns.json, row_counts.json)
+- `artifacts/enterprise_etl_standards_rebuild/` — Enterprise ETL Standards rebuild scripts (`src/`) + outputs (`output/`: column_mapping.csv, ctas_tables.sql, gold_columns.json, processing_columns.json, row_counts.json)
 - `artifacts/build_runs/` — Fabric build run scripts + JSON outputs (gitignored)
 - `artifacts/detail_clone_v9_forecast/` — v9 detail clones, timestamped (gitignored)
 - `artifacts/readiness_exports/` — v10 readiness baselines, timestamped (gitignored)
@@ -71,7 +71,7 @@ Single entry point cho 16 docs theo 4 nhom chuc nang. Restructure per ADR-006.
 - ADR repo-level: [`../docs/decisions/`](../docs/decisions/)
   - ADR-001 — Hybrid Medallion v10 (accepted, implemented)
   - ADR-002 — EDW Supplement Exit Strategy
-  - ADR-003 — Bob Standards Compliance Audit (resolved)
+  - ADR-003 — Enterprise ETL Standards Compliance Audit (resolved)
   - ADR-004 — Architecture Maturity Assessment (Truc A: 89.3%)
   - ADR-005 — Enterprise Promote Pathway
   - ADR-006 — Repo Restructure for Documentation-Repo Maturity (Truc B target ~85%)

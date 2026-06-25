@@ -60,7 +60,7 @@
                             END
                     WHERE asset_id = @asset_id;
 
-                    -- AuditLog (Bob pattern)
+                    -- AuditLog (Enterprise ETL pattern)
                     INSERT INTO Meta.AuditLog (AuditID, AuditDateTime, UserName, Command,
                                                 Description, ErrorMessage, AssetID, RunID,
                                                 Severity, LoadDT)
@@ -78,7 +78,7 @@
                            @now_cst
                     FROM Meta.AssetRegistry WHERE asset_id = @asset_id;
 
-                    -- NEW (Mức 2): TableDictionary update via Bob's pattern proc
+                    -- NEW (Mức 2): TableDictionary update via Enterprise ETL's pattern proc
                     IF @status IN ('success', 'skipped')
                     BEGIN
                         SELECT @db = physical_item, @schema = physical_schema,

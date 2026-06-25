@@ -260,5 +260,5 @@ Per source:
 
 - Source artifact: [`inventory_health_source_kpi_mapping_2026-05-12.xlsx`](../artifacts/source_inputs/inventory_health_source_kpi_mapping_2026-05-12.xlsx)
 - Bronze design: [10_bronze.md](10_bronze.md)
-- Open questions: [../docs/open_questions_for_bob.md](../docs/open_questions_for_bob.md)
+- Open questions: [../docs/open_questions_for_enterprise_etl.md](../docs/open_questions_for_enterprise_etl.md)
 - Existing dataflow patterns (workspace scan): 18 dataflows incl. `df_brz_SalesHistory_AFI_InvoiceDetail`, `df_brz_SupplyChain_Enh_1_DemandForecastSnapshotDaily_copy1` (per memory `project_workspace_topology.md`)

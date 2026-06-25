@@ -6,7 +6,7 @@
 
 ## 1. Executive Summary
 
-The `Supply Chain Control Tower` semantic model reads from 8 tables in `dbo.SupplyChain_Warehouse` produced by **v8 Lakehouse + Spark notebook ETL** (~26 active notebooks, 3 generic engines). v10 rebuilt the Gold serving layer in pure T-SQL (Warehouse + 28 views + 18 routines) but the schema was slimmed down during the Bob Standards rebuild (2026-05-04), losing logic that the model's DAX measures still reference.
+The `Supply Chain Control Tower` semantic model reads from 8 tables in `dbo.SupplyChain_Warehouse` produced by **v8 Lakehouse + Spark notebook ETL** (~26 active notebooks, 3 generic engines). v10 rebuilt the Gold serving layer in pure T-SQL (Warehouse + 28 views + 18 routines) but the schema was slimmed down during the Enterprise ETL Standards rebuild (2026-05-04), losing logic that the model's DAX measures still reference.
 
 This document maps v8 ETL ↔ v10 ETL component-by-component, identifies parity gaps, and lays out the port plan to make v10 Gold match the model's expected schema.
 
@@ -20,7 +20,7 @@ This document maps v8 ETL ↔ v10 ETL component-by-component, identifies parity 
 
 ## 2. Architecture Comparison
 
-| Aspect | v8 (Cherry/BCherry build) | v10 (Aric rebuild post-Bob) |
+| Aspect | v8 (Cherry/BCherry build) | v10 (Aric rebuild post-Enterprise ETL) |
 |---|---|---|
 | Compute | Spark SQL via PySpark notebooks | T-SQL views + stored procedures |
 | Storage | `SupplyChain_Lakehouse` Delta tables | `SupplyChain_Processing_Warehouse` (Silver) + `SupplyChain_Gold_Warehouse` (Gold) |
@@ -238,7 +238,7 @@ SELECT 'Lag-1', 2 UNION ALL ... SELECT 'Naive forecast', 8
 
 **Severity**: 🟢 Decision: drop.
 
-v10 separates DQ data into Processing WH `Meta` schema. Gold WH doesn't have a DQ table by design (Bob standards: Gold = serving-only).
+v10 separates DQ data into Processing WH `Meta` schema. Gold WH doesn't have a DQ table by design (Enterprise ETL standards: Gold = serving-only).
 
 **Action**: Remove `dq_forecast_accuracy` table + related DAX measures from TMDL clone.
 

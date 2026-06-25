@@ -755,7 +755,7 @@ BEGIN
                     END
                 WHERE asset_id = @asset_id;
 
-                -- AuditLog (Bob pattern)
+                -- AuditLog (Enterprise ETL pattern)
                 INSERT INTO Meta.AuditLog (AuditID, AuditDateTime, UserName, Command,
                                             Description, ErrorMessage, AssetID, RunID,
                                             Severity, LoadDT)
@@ -773,7 +773,7 @@ BEGIN
                        @now_cst
                 FROM Meta.AssetRegistry WHERE asset_id = @asset_id;
 
-                -- NEW (Mức 2): TableDictionary update via Bob's pattern proc
+                -- NEW (Mức 2): TableDictionary update via Enterprise ETL's pattern proc
                 IF @status IN ('success', 'skipped')
                 BEGIN
                     SELECT @db = physical_item, @schema = physical_schema,
@@ -1055,7 +1055,7 @@ BEGIN
              'Fabric Pipeline', @AssetID, @DateValue, @DateValue, @DateValue);
         END
 
-        -- Always log update event (Bob's pattern: INSERT into UpdateLog, batch-sync later)
+        -- Always log update event (Enterprise ETL's pattern: INSERT into UpdateLog, batch-sync later)
         SET @LogID = CAST(DATEDIFF_BIG(MILLISECOND, '1970-01-01', GETUTCDATE()) AS BIGINT);
         INSERT INTO Meta.TableDictionary_UpdateLog
         (UpdateLogID, DatabaseName, SchemaName, TableName, LastUpdated, UpdateQuery, RowsLoaded, AssetID, RunID)

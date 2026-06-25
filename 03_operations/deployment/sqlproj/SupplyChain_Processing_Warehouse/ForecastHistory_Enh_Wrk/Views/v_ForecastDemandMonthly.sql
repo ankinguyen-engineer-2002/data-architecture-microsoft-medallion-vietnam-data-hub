@@ -6,7 +6,7 @@
 CREATE   VIEW [ForecastHistory_Enh_Wrk].[v_ForecastDemandMonthly] AS
 -- 2026-05-19 SWAP: was legacy EDW supplement (SC_LH ver2 to DF2).
 -- 2026-05-22 SWAP: was EL.SupplyChain_Enh_1.DemandForecastSnapshotDaily (dirty, row-dup x16 from Q1 2025)
--- Now reads Staging.DemandForecastSnapshotDaily (canonical BOB target; cleaned/deduped via Staging_Wrk.v_DemandForecastSnapshotDaily).
+-- Now reads Staging.DemandForecastSnapshotDaily (canonical Enterprise ETL target; cleaned/deduped via Staging_Wrk.v_DemandForecastSnapshotDaily).
 -- Schema mapping: ts_snapshot → dfcSnapshot, code_customer_group → DfcCustomerGroups, etc.
 -- Logic unchanged: ForecastCycle JOIN, Lag-N HorizonCode, GROUP BY summed forecast.
 WITH Raw AS (

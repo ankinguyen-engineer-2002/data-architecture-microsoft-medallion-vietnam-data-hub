@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate build-only SQLPROJ packages for the BOB-aligned SupplyChain runtime.
+"""Generate build-only SQLPROJ packages for the Enterprise ETL-aligned SupplyChain runtime.
 
 The generated package is a local source-control/deployment-validation artifact:
 - final table DDL is generated from live Fabric Warehouse metadata
@@ -482,7 +482,7 @@ def write_project_readme(path: Path, project_name: str, generated_at: str) -> No
         path,
         f"""# {project_name}
 
-Build-only SQL Database Project generated from the current BOB-aligned SupplyChain runtime.
+Build-only SQL Database Project generated from the current Enterprise ETL-aligned SupplyChain runtime.
 
 Generated at: `{generated_at}`
 
@@ -495,7 +495,7 @@ dotnet build {project_name}.sqlproj -c Release
 ## Safety
 
 This project is for local validation and deploy-script review only.
-Do not publish this project to Fabric until US/BOB CI-CD ownership, publish profile, service connection, and data-loss policy are approved.
+Do not publish this project to Fabric until US/Enterprise ETL CI-CD ownership, publish profile, service connection, and data-loss policy are approved.
 """,
     )
 
@@ -507,7 +507,7 @@ def write_root_readme(out_root: Path, generated_at: str) -> None:
 
 Generated at: `{generated_at}`
 
-This folder contains local, build-only `.sqlproj` packages for the current Phase 1 BOB-aligned runtime.
+This folder contains local, build-only `.sqlproj` packages for the current Phase 1 Enterprise ETL-aligned runtime.
 
 | Project | Meaning |
 |---|---|
@@ -529,7 +529,7 @@ This folder contains local, build-only `.sqlproj` packages for the current Phase
 - No destructive cleanup.
 - No replacement of SQL Agent runtime.
 
-The runtime handoff remains the four wrapper procedures documented in `01_docs/decisions/ADR-010-bob-wrapper-runtime-handoff.md`.
+The runtime handoff remains the four wrapper procedures documented in `01_docs/decisions/ADR-010-enterprise-etl-wrapper-runtime-handoff.md`.
 """,
     )
     write_text(

@@ -1,6 +1,6 @@
 # overall_architecture_ashley_legend.md — Legend / Glossary for `overall_architecture_ashley.png`
 
-Ngữ cảnh: file này giải thích các khối trong sơ đồ kiến trúc tổng quan Ashley (Azure → Databricks → Fabric → domain workspaces), dựa trên góc nhìn enterprise (US) mà Bob mô tả: **SQL Server Agent Jobs** là *system-of-record orchestrator*; Databricks là *core compute*; Fabric là *analytics/serving*, trong đó `EnterpriseData` (hub) publish ra các domain workspaces như SupplyChain/Retail/Wholesale/Sales/Finance.
+Ngữ cảnh: file này giải thích các khối trong sơ đồ kiến trúc tổng quan Ashley (Azure → Databricks → Fabric → domain workspaces), dựa trên góc nhìn enterprise (US) mà Enterprise ETL mô tả: **SQL Server Agent Jobs** là *system-of-record orchestrator*; Databricks là *core compute*; Fabric là *analytics/serving*, trong đó `EnterpriseData` (hub) publish ra các domain workspaces như SupplyChain/Retail/Wholesale/Sales/Finance.
 
 Sơ đồ liên quan:
 - `overall_architecture_ashley.png`
@@ -9,8 +9,8 @@ Sơ đồ liên quan:
 ## Confidence tags
 
 - **[Verified]**: có trong tài liệu chính thức Microsoft.
-- **[Likely]**: đúng theo mô tả của Bob + pattern enterprise thường gặp, nhưng chưa có inventory Ashley để xác nhận 100%.
-- **[Need-verify]**: cần hỏi Bob/Saravan hoặc scan hệ thống để chốt.
+- **[Likely]**: đúng theo mô tả của Enterprise ETL + pattern enterprise thường gặp, nhưng chưa có inventory Ashley để xác nhận 100%.
+- **[Need-verify]**: cần hỏi Enterprise ETL/Saravan hoặc scan hệ thống để chốt.
 
 ---
 
@@ -41,7 +41,7 @@ Khối này là “tài sản dữ liệu” (data sources) của enterprise:
 
 **SQL Server Agent** là 1 service trong SQL Server dùng để chạy **jobs** (mỗi job gồm nhiều **job steps**) theo lịch / theo event / chạy tay, có cơ chế logging + notification. [Verified] citeturn0search0turn0search4
 
-Điểm “mạnh” trong enterprise ops (tóm đúng ý Bob):
+Điểm “mạnh” trong enterprise ops (tóm đúng ý Enterprise ETL):
 - **One place for schedule + retry + alert + job history**: họ coi đây là “system-of-record” cho vận hành batch. [Likely] citeturn0search0turn0search4
 - **Cross-system steps**: một job có thể có nhiều bước gọi SQL, gọi PowerShell/command, gọi API… để điều phối các hệ thống khác nhau. [Likely] citeturn0search0
 
@@ -53,7 +53,7 @@ Không phải SQL Agent “điều khiển nội tạng” Databricks/Fabric, m�
 - Downstream platform (Databricks/Fabric/…​) tự chạy workload của nó.
 - SQL Agent tiếp tục làm gate/retry/alert theo policy enterprise.
 
-=> Đây là lý do Bob nói “job retail daily có 100+ tasks” (multi-step, cross-environment). [Likely]
+=> Đây là lý do Enterprise ETL nói “job retail daily có 100+ tasks” (multi-step, cross-environment). [Likely]
 
 ---
 
@@ -115,7 +115,7 @@ Trong sơ đồ mình dùng cụm “Fabric jobs entrypoints” để gom nhóm 
 - Về nguyên tắc: **đúng nếu họ chọn như vậy** (SQL Agent là system-of-record, trigger Fabric entrypoints). [Likely]
 - Nhưng: Fabric không tự “bị quản lý” một cách magic. Cần integration (API/CLI/call pattern) để SQL Agent trigger và nhận trạng thái. [Need-verify]
 
-Điểm cần chốt bằng chứng với Bob/Saravan:
+Điểm cần chốt bằng chứng với Enterprise ETL/Saravan:
 - “L0 gọi Fabric bằng gì?” (REST API? PowerShell module? ADF? custom wrapper?) [Need-verify]
 - “Ai là source-of-truth cho retry/alert?” (SQL Agent hay Fabric?) [Need-verify]
 

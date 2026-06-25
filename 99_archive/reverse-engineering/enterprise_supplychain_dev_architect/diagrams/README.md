@@ -15,4 +15,4 @@ Files:
 - `07_pipeline_sequence.mmd`
 - `08_mart_schedule_smart_skip.mmd`
 - `09_v9_feature_parity_control_plane.mmd`
-- `10_bob_standards_overlay.mmd`
+- `10_enterprise_etl_standards_overlay.mmd`

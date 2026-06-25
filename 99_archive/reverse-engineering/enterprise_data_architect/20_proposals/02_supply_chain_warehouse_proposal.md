@@ -1,10 +1,10 @@
 # `SupplyChain_Warehouse` — Proposal to create new domain warehouse in `EnterpriseData-Dev`
 
-> **Author**: Aric Nguyen, VN SC team lead DE · **Date**: 2026-05-10 · **Status**: Pending Bob's review
+> **Author**: Aric Nguyen, VN SC team lead DE · **Date**: 2026-05-10 · **Status**: Pending Enterprise ETL's review
 
 ## Context
 
-Per Bob Horton's email reply 2026-05-09:
+Per Enterprise ETL Horton's email reply 2026-05-09:
 
 > "Tables like Forecasts would likely also be needed across several value streams so I would expect to see some forecast data in a clean state within the **SupplyChain_Warehouse in EnterpriseData (silver layer)**."
 
@@ -18,7 +18,7 @@ Currently `EnterpriseData-Dev` workspace does NOT have a `SupplyChain_Warehouse`
 | `Distribution_Warehouse` | Distribution team (incomplete) |
 | `Quality_Warehouse` | TBD (empty shell) |
 
-Bob's pattern: **each domain Silver WH is owned by the value-stream team that builds data products on it**. SC team currently owns:
+Enterprise ETL's pattern: **each domain Silver WH is owned by the value-stream team that builds data products on it**. SC team currently owns:
 - `Enterprise SupplyChain-Dev` (value-stream workspace) — Gold + Semantic + SC-specific Silver
 - v8 legacy `SupplyChain_Lakehouse` + `SupplyChain_Warehouse` (`e146ffe2-...`, Cherry's Control Tower upstream)
 
@@ -36,17 +36,17 @@ Bob's pattern: **each domain Silver WH is owned by the value-stream team that bu
 
 ### Initial schemas
 
-Following Bob's existing convention (see [naming conventions analysis](03_naming_conventions.md)):
+Following Enterprise ETL's existing convention (see [naming conventions analysis](03_naming_conventions.md)):
 
 | Option A: single schema (mirror `Retail_Sales_Enh`) | Option B: split (mirror Wholesale + MasterData) |
 |------------------------------------------------------|---------------------------------------------------|
 | `SupplyChain_Warehouse.Forecast_Enh` containing:<br>• ForecastDemandMonthly (42M)<br>• NaiveForecastMonthly (2M)<br>• ForecastCycle (43)<br>• ForecastHorizon (8) | `SupplyChain_Warehouse.Forecast_Enh`:<br>• ForecastDemandMonthly<br>• NaiveForecastMonthly<br><br>`MasterData_Warehouse.MasterData_DW` (extend existing):<br>• DimForecastCycle (NEW)<br>• DimForecastHorizon (NEW) |
 
-VN team **defers naming choice to Bob's preference**.
+VN team **defers naming choice to Enterprise ETL's preference**.
 
-### Naming alignment (Bob convention evidence-verified)
+### Naming alignment (Enterprise ETL convention evidence-verified)
 
-| Pattern | Bob's evidence | SC application |
+| Pattern | Enterprise ETL's evidence | SC application |
 |---------|----------------|----------------|
 | Domain canonical | `SalesHistory_AFI`, `Customers`, `Marketing` | `Forecast` (canonical) — likely too plain |
 | Enhanced tier | `Retail_Sales_Enh`, `MasterData_HR_UKG_Enh` | `Forecast_Enh` ✅ |
@@ -87,7 +87,7 @@ VN team **defers naming choice to Bob's preference**.
 
 | Role | 🇺🇸 `EnterpriseData-Dev` | 🇻🇳 `Enterprise SupplyChain-Dev` |
 |------|---------------------------|-----------------------------------|
-| Bob/Rakesh (US Enterprise) | Admin | Viewer (audit) |
+| Enterprise ETL/Rakesh (US Enterprise) | Admin | Viewer (audit) |
 | **Aric, Cherry (VN SC)** | **Scoped Contributor on `SupplyChain_Warehouse.Forecast_Enh` (and `SupplyChain_DW` if Option B)** + Viewer everywhere else | Admin |
 | Wholesale/Retail teams | Admin on respective domain WH | (no access) |
 
@@ -95,13 +95,13 @@ VN team's write scope **deliberately narrow**: only the SC slot. Cannot write to
 
 ## Build process (post-creation)
 
-1. Bob's team creates `SupplyChain_Warehouse` empty WH in hub
-2. Bob's team creates schemas `Forecast_Enh` (+ `Forecast_Enh_Wrk` for views, + `SupplyChain_DW` if Option B)
-3. Bob/Rakesh grants VN team Contributor on those schemas only
+1. Enterprise ETL's team creates `SupplyChain_Warehouse` empty WH in hub
+2. Enterprise ETL's team creates schemas `Forecast_Enh` (+ `Forecast_Enh_Wrk` for views, + `SupplyChain_DW` if Option B)
+3. Enterprise ETL/Rakesh grants VN team Contributor on those schemas only
 4. VN team gets ADO access to `Enterprise Data Services/Fabric-EnterpriseData` repo
 5. VN team writes:
    - View DDLs in repo under `SupplyChain_Warehouse/Forecast_Enh_Wrk/`
-   - INSERT into Bob's `TableDictionary` for new tables
+   - INSERT into Enterprise ETL's `TableDictionary` for new tables
    - Refresh wrapper proc `Usp_Refresh_SupplyChain_Warehouse` (mirror Wholesale/Retail pattern)
 6. VN team raises PR → Rakesh/Ankit review → merge → auto-deploy via Fabric Git sync
 7. VN's pipeline (in VN workspace) cross-DB calls `EXEC EnterpriseData-Dev.ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView 'SupplyChain_Warehouse', 'Forecast_Enh', 'ForecastDemandMonthly'`
@@ -126,24 +126,24 @@ Estimated effort: 1-2 days post-permission unblock.
 
 | Risk | Mitigation |
 |------|-----------|
-| Cross-DB write latency for VN pipeline calling Bob hub SP | Acceptable — pipeline already cross-WH (Processing → Gold); adding hub is incremental |
+| Cross-DB write latency for VN pipeline calling Enterprise ETL hub SP | Acceptable — pipeline already cross-WH (Processing → Gold); adding hub is incremental |
 | Permission scope creep over time | Quarterly review, audit Contributor role assignments |
-| Drift between VN local registry and Bob hub TableDictionary | `usp_LogRun v2` cross-DB sync (per ADR-008) keeps in sync per-load |
-| Schema name disagreement with Bob's team | Defer naming choice to Bob's preference (Option A vs B) |
+| Drift between VN local registry and Enterprise ETL hub TableDictionary | `usp_LogRun v2` cross-DB sync (per ADR-008) keeps in sync per-load |
+| Schema name disagreement with Enterprise ETL's team | Defer naming choice to Enterprise ETL's preference (Option A vs B) |
 | Failed cross-DB call breaks pipeline | Local fallback: log error to Meta.AuditLog, continue rest of pipeline (already implemented retry pattern in `usp_LogRun`) |
 
 ## Acceptance criteria
 
-- [ ] Bob/Rakesh approve the proposal
+- [ ] Enterprise ETL/Rakesh approve the proposal
 - [ ] WH created with named schemas
 - [ ] VN team granted Contributor on designated schemas
 - [ ] ADO access granted (`Enterprise Data Services` project)
 - [ ] First test load: `ForecastDemandMonthly` 1k rows from VN pipeline → hub WH success
-- [ ] Bob's `TableDictionary` shows VN registered table
-- [ ] Bob's team can query data from `Centralized_Lakehouse` shortcut
+- [ ] Enterprise ETL's `TableDictionary` shows VN registered table
+- [ ] Enterprise ETL's team can query data from `Centralized_Lakehouse` shortcut
 
 ## Cross-refs
 
 - ADR-005 v2 (US/VN promote pathway): [`../../docs/decisions/ADR-005-enterprise-promote-pathway.md`](../../docs/decisions/ADR-005-enterprise-promote-pathway.md)
 - Naming conventions analysis: [`03_naming_conventions.md`](03_naming_conventions.md)
-- Open questions tracker: [`../../Enterprise_SupplyChain_Dev_architect/projects/forecast/_open_questions_for_bob.md`](../../Enterprise_SupplyChain_Dev_architect/projects/forecast/_open_questions_for_bob.md)
+- Open questions tracker: [`../../Enterprise_SupplyChain_Dev_architect/projects/forecast/_open_questions_for_enterprise_etl.md`](../../Enterprise_SupplyChain_Dev_architect/projects/forecast/_open_questions_for_enterprise_etl.md)

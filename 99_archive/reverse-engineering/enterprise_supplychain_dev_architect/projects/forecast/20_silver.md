@@ -13,7 +13,7 @@
 | `SalesHistory_Enh` | 4 | 4 | 136,442,343 |
 | `ForecastHistory_Enh` | 2 | 2 | 44,454,578 |
 | `OpenOrderHistory_Enh` | 2 | 2 | 269,015 |
-| `Meta` | 23 | 4 | (control plane — added `TableDictionary`, `TableDictionary_UpdateLog`, `AuditLog` per Bob alignment 2026-05-10) |
+| `Meta` | 23 | 4 | (control plane — added `TableDictionary`, `TableDictionary_UpdateLog`, `AuditLog` per Enterprise ETL alignment 2026-05-10) |
 
 > ETL DDL for all views: see [`etl/staging_ddl.sql`](etl/staging_ddl.sql) and [`etl/silver_views.sql`](etl/silver_views.sql).
 

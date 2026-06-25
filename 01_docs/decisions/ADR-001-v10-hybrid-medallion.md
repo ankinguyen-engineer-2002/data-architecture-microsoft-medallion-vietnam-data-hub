@@ -2,13 +2,13 @@
 
 Date: 2026-04-30
 
-Status: **Accepted — Implemented** (v10 live since 2026-05-02, Bob Standards applied 2026-05-04)
+Status: **Accepted — Implemented** (v10 live since 2026-05-02, Enterprise ETL Standards applied 2026-05-04)
 
 ## Context
 
 The current v9 Supply Chain implementation is Warehouse-native and metadata-driven. It uses a single `SupplyChain_Warehouse` with `bronze`, `silver`, `gold`, and `meta` schemas, plus a strong control plane for registry-driven execution, generic load patterns, DAG/waves, DQ, lineage, logging, scheduling, and semantic model refresh.
 
-Bob/DE team feedback identified that the current physical layout does not align with the standard Fabric medallion pattern:
+Enterprise ETL/DE team feedback identified that the current physical layout does not align with the standard Fabric medallion pattern:
 
 - Bronze should not be duplicated inside the Supply Chain Warehouse when shortcut-backed Enterprise source access can represent logical Bronze.
 - Silver should be grouped by logical process/metric schemas and reusable Silver should live in EnterpriseData ownership.
@@ -63,16 +63,16 @@ Positive:
 - Aligns with Fabric medallion expectations without rewriting the v9 framework.
 - Removes mandatory Bronze duplication over time.
 - Keeps optional staging for unstable sources, snapshot consistency, replay/debug, performance, and EDW supplement cases.
-- Supports Bob's governance direction while adapting old SQL Server/ADW standards to Fabric and Direct Lake.
+- Supports Enterprise ETL's governance direction while adapting old SQL Server/ADW standards to Fabric and Direct Lake.
 - Keeps Supply Chain domain agility while allowing enterprise-reusable Silver entities to move to EnterpriseData ownership.
 
 Costs and risks (status as of 2026-05-04):
 
 - ~~Requires metadata expansion for `access_mode`, `canonical_layer`, physical workspace/item, domain group, staging reason, source contract status, and approval status.~~ **DONE** — AssetRegistry expanded to 33 assets with all fields populated.
-- ~~Requires object classification and naming migration before implementation.~~ **DONE** — Bob Standards rebuild: schema suffix (`_ENH`/`_WRK`/`_DW`), PascalCase columns (~1,800 renamed).
+- ~~Requires object classification and naming migration before implementation.~~ **DONE** — Enterprise ETL Standards rebuild: schema suffix (`_ENH`/`_WRK`/`_DW`), PascalCase columns (~1,800 renamed).
 - Requires Direct Lake fallback validation when any compatibility views are introduced. **PENDING** — semantic model not yet deployed.
 - ~~Requires live verification for smart skip and other partially active v9 features.~~ **DONE** — smart skip verified active in pipeline Lookup SQL with `next_run_time` filter.
-- Requires a security matrix across Fabric workspace roles, item permissions, semantic RLS/OLS, and SQL endpoint grants. **PENDING** — blocked by IT/Bob sign-off (GAP-005 in ADR-003).
+- Requires a security matrix across Fabric workspace roles, item permissions, semantic RLS/OLS, and SQL endpoint grants. **PENDING** — blocked by IT/Enterprise ETL sign-off (GAP-005 in ADR-003).
 
 ## Rejected Alternatives
 
@@ -91,7 +91,7 @@ Rejected as the target state.
 
 Reason:
 
-- It preserves operational stability but conflicts with Bob's medallion feedback and creates avoidable duplication when governed shortcuts are stable.
+- It preserves operational stability but conflicts with Enterprise ETL's medallion feedback and creates avoidable duplication when governed shortcuts are stable.
 
 ### Full Lakehouse/Spark Rewrite
 
@@ -110,9 +110,9 @@ Implementation phases (status as of 2026-05-04):
 1. ~~Freeze v9 evidence and export registry, lineage, views, row counts, DQ state, and semantic dependencies.~~ **DONE** (2026-04-30)
 2. ~~Verify live pipeline Lookup SQL for smart skip.~~ **DONE** — `next_run_time` filter verified active
 3. ~~Classify every object as logical Bronze, staging exception, domain Silver, enterprise-reusable Silver, Gold serving, or control-plane metadata.~~ **DONE** — 33 assets classified in AssetRegistry
-4. ~~Approve naming and ownership with Bob/Rakesh or assigned technical design approver.~~ **DONE** — Bob Standards adopted: `_ENH`/`_WRK`/`_DW` suffix + PascalCase columns
+4. ~~Approve naming and ownership with Enterprise ETL/Rakesh or assigned technical design approver.~~ **DONE** — Enterprise ETL Standards adopted: `_ENH`/`_WRK`/`_DW` suffix + PascalCase columns
 5. ~~Extend metadata and control-plane logic before physical moves.~~ **DONE** — AssetRegistry, DQRule, LineageEdge all expanded
-6. ~~Build v10 side-by-side, then run parallel validation before cutover.~~ **DONE** — v10 built 2026-05-01→02, v9 objects deleted, Bob Standards rebuild 2026-05-04, pipeline verified 31 min full run
+6. ~~Build v10 side-by-side, then run parallel validation before cutover.~~ **DONE** — v10 built 2026-05-01→02, v9 objects deleted, Enterprise ETL Standards rebuild 2026-05-04, pipeline verified 31 min full run
 
 EDW supplement handling is not decided generically in this ADR. It is governed by `ADR-002` because the four `_edw` objects have different readiness states and require object-level validation.
 
@@ -121,7 +121,7 @@ EDW supplement handling is not decided generically in this ADR. It is governed b
 - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/20_proposals/10_final_v10_amendment_plan.md`
 - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/10_evidence/07_v9_capability_evidence_ledger.md`
 - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/20_proposals/08_v10_gap_matrix.md`
-- `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/20_proposals/09_bob_standards_mapping_matrix.md`
+- `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/20_proposals/09_enterprise_etl_standards_mapping_matrix.md`
 - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/30_runbook/15_v10_edw_supplement_exit_strategy.md`
 - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/30_runbook/16_v10_readiness_scorecard_and_v9_cleanup.md`
 - `01_docs/decisions/ADR-002-edw-supplement-exit-strategy.md`

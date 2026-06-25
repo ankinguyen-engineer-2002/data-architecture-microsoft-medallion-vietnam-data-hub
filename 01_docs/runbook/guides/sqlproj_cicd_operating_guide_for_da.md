@@ -1,6 +1,6 @@
 # SQLPROJ CI/CD Operating Guide
 
-> Người đọc: DA, Analytics Engineer, DE, BOB/US reviewer  
+> Người đọc: DA, Analytics Engineer, DE, Enterprise ETL/US reviewer  
 > Phạm vi: cách triển khai SQL object cho Microsoft Fabric Warehouse trong repo SupplyChain  
 > Trạng thái repo: build-only validation package, không live publish mặc định
 
@@ -15,7 +15,7 @@ Luồng 1 - CI/CD:
   kiểm tra và deploy SQL object như schema, table, view, stored procedure
 
 Luồng 2 - ETL runtime:
-  chạy wrapper procedure và BOB loader để nạp dữ liệu vào final table
+  chạy wrapper procedure và Enterprise ETL loader để nạp dữ liệu vào final table
 ```
 
 Nói cách khác:
@@ -38,7 +38,7 @@ SQL files trong Git
   -> reviewer approve
   -> publish SQL objects
   -> scheduler/wrapper chạy ETL
-  -> BOB loader load dữ liệu
+  -> Enterprise ETL loader load dữ liệu
   -> AuditLog + TableDictionary + DQ + semantic smoke
 ```
 
@@ -47,7 +47,7 @@ SQL files trong Git
 ```text
 .dacpac không chứa data rows.
 .dacpac chỉ chứa định nghĩa object.
-Refresh dữ liệu vẫn phải chạy bằng wrapper procedure + BOB loader.
+Refresh dữ liệu vẫn phải chạy bằng wrapper procedure + Enterprise ETL loader.
 ```
 
 ## Glossary Ngắn
@@ -268,7 +268,7 @@ Template:
 EXEC [<Warehouse>].[dbo].[Usp_Refresh_<MartName>_<LayerName>];
 ```
 
-Wrapper sẽ gọi BOB loader, BOB loader đọc:
+Wrapper sẽ gọi Enterprise ETL loader, Enterprise ETL loader đọc:
 
 ```text
 <SchemaName>_Wrk.v_<TableName>
@@ -431,7 +431,7 @@ Không để CI/CD thay SQL Agent runtime:
 
 ```text
 CI/CD deploys objects.
-SQL Agent/BOB executes ETL.
+SQL Agent/Enterprise ETL executes ETL.
 ```
 
 Không bật tùy tiện:
@@ -445,8 +445,8 @@ destructive post-deployment scripts
 
 ## Source References
 
-- Bob guide: `01_docs/bob-framework/source/SQLPROJ_BEST_PRACTICES.md`
-- Bob guide: `01_docs/bob-framework/source/FABRIC_ARCHITECTURE_AND_STANDARDS.md`
+- Enterprise ETL guide: `01_docs/enterprise-etl-framework/source/SQLPROJ_BEST_PRACTICES.md`
+- Enterprise ETL guide: `01_docs/enterprise-etl-framework/source/FABRIC_ARCHITECTURE_AND_STANDARDS.md`
 - Repo research: `01_docs/runbook/guides/sqlproj_cicd_research.md`
 - Microsoft Learn: <https://learn.microsoft.com/fabric/data-warehouse/develop-warehouse-project>
 - Microsoft Learn: <https://learn.microsoft.com/sql/tools/sql-database-projects/sql-projects-automation?view=sql-server-ver17>

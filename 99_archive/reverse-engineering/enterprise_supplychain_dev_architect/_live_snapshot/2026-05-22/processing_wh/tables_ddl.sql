@@ -390,7 +390,7 @@ CREATE TABLE [Meta].[ObjectClassification] (
     [legacy_layer] varchar(40),
     [canonical_layer] varchar(80),
     [classification] varchar(256),
-    [bob_alignment_status] varchar(80),
+    [enterprise_etl_alignment_status] varchar(80),
     [notes] varchar(2000)
 );
 GO

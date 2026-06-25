@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Align the SupplyChain operating repo and live Fabric SQL surface to the verified Enterprise/BOB curated-warehouse contract: final schemas contain physical tables; `_Wrk` schemas contain `v_<TableName>` source/work views used by `ETL_Framework`.
+**Goal:** Align the SupplyChain operating repo and live Fabric SQL surface to the verified Enterprise/Enterprise ETL curated-warehouse contract: final schemas contain physical tables; `_Wrk` schemas contain `v_<TableName>` source/work views used by `ETL_Framework`.
 
 **Architecture:** Preserve the current medallion business surface and table outputs. Treat Bronze/source as source inventory, Silver/Processing and Gold/Serving as curated/domain warehouse layers following the `SCP_Core` pattern. Do not rewrite business SQL or rebuild data unless a verification step proves it is required.
 
@@ -143,7 +143,7 @@ Acceptance:
 Replace the current broad `_Wrk` bullet with:
 
 ```markdown
-- Canonical Enterprise/BOB curated warehouse pattern:
+- Canonical Enterprise/Enterprise ETL curated warehouse pattern:
   - Bronze/source docs list source lakehouse shortcuts and source tables.
   - Silver/Gold final schemas hold physical final tables.
   - Silver/Gold `_Wrk` schemas hold `v_<TableName>` work/source views.

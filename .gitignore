@@ -71,10 +71,10 @@ Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/delete_targets_mani
 Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/protected_items_manifest.json
 Enterprise_SupplyChain_Dev_architect/05_tools/__pycache__/
 
-# === Bob alignment — keep scripts/README/RESULTS, ignore run logs + backup snapshots ===
-Enterprise_SupplyChain_Dev_architect/artifacts/bob_alignment_*/run_logs/
-Enterprise_SupplyChain_Dev_architect/artifacts/bob_alignment_*/backup/
-Enterprise_SupplyChain_Dev_architect/artifacts/bob_alignment_*/*_fix_*/
+# === Enterprise ETL alignment — keep scripts/README/RESULTS, ignore run logs + backup snapshots ===
+Enterprise_SupplyChain_Dev_architect/artifacts/enterprise_etl_alignment_*/run_logs/
+Enterprise_SupplyChain_Dev_architect/artifacts/enterprise_etl_alignment_*/backup/
+Enterprise_SupplyChain_Dev_architect/artifacts/enterprise_etl_alignment_*/*_fix_*/
 
 # === Work folder info ===
 Enterprise_SupplyChain_Dev_architect/.work-folder-info

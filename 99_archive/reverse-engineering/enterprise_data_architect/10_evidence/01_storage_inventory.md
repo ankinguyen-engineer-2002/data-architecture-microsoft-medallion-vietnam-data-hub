@@ -47,7 +47,7 @@ Naming convention in Source_Data: `<Domain>_<SubDomain>[_AFI][_Wrk][_SCD]` — d
 
 ### `Wholesale_Warehouse` (Silver — wholesale value stream)
 Schemas (canonical + `_Wrk` working pairs):
-- `SalesHistory_AFI` + `_Wrk` + `_Archive` — invoice detail/header (shared 4 streams per Bob)
+- `SalesHistory_AFI` + `_Wrk` + `_Archive` — invoice detail/header (shared 4 streams per Enterprise ETL)
 - `CustomerOrders_AFI` + `_Wrk` — open orders, order types, audit
 - `Customers` + `_Wrk` — account master, shipping locations
 - `Marketing` + `_Wrk` (35 _Wrk views — heaviest)
@@ -118,7 +118,7 @@ Only 7 tables — likely incomplete or future domain.
 1. **Each domain WH owned by its value-stream team** (Wholesale, Retail, etc.). VN team should own `SupplyChain_Warehouse` (proposed, doesn't exist yet).
 2. **Naming convention** is consistent: `<Domain>` (canonical) + `<Domain>_Wrk` (working) + optional `_AFI` (source tag) / `_Enh` (enhanced) / `_DW` (dim/fact) / `_Archive`.
 3. **Dim/Fact prefix** ONLY in `_DW` schemas (only `MasterData_DW` observed). Other schemas use plain table names.
-4. **126 `_Wrk` views in Wholesale** — each `_Wrk` schema contains `v_<Table>` views with curated logic. This is the pattern Bob expects VN to use.
+4. **126 `_Wrk` views in Wholesale** — each `_Wrk` schema contains `v_<Table>` views with curated logic. This is the pattern Enterprise ETL expects VN to use.
 5. **Quality_Warehouse empty** — risk that's been there for months. Quality DQ infrastructure not built; VN's DQ approach (54 rules in `Meta.DQRule`) could potentially be reused here.
 
 ## Cross-refs

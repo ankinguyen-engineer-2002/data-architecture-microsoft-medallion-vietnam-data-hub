@@ -1,6 +1,6 @@
-# Deep Audit Protocol: v9 To v10 And Bob Standards
+# Deep Audit Protocol: v9 To v10 And Enterprise ETL Standards
 
-Purpose: re-read the v9 architecture from source evidence, compare it against the current v10 proposal and Bob's SQL Data Warehouse Standards, then produce a defensible gap matrix before making more architecture claims.
+Purpose: re-read the v9 architecture from source evidence, compare it against the current v10 proposal and Enterprise ETL's SQL Data Warehouse Standards, then produce a defensible gap matrix before making more architecture claims.
 
 This protocol exists because the previous v10 review was directionally useful but not deep enough to claim complete v9 feature coverage.
 
@@ -9,15 +9,15 @@ This protocol exists because the previous v10 review was directionally useful bu
 - Do not claim a v9 capability exists unless it is backed by a file, export, script, diagram, git history entry, or live Fabric verification.
 - Do not claim a v10 capability covers v9 unless there is a matching v10 requirement, diagram, or proposed object/control-plane component.
 - Tag every important finding as:
-  - `[Verified]`: directly supported by local 01_docs/exports/source code or official Microsoft/Bob docs.
+  - `[Verified]`: directly supported by local 01_docs/exports/source code or official Microsoft/Enterprise ETL docs.
   - `[Likely]`: supported by evidence but still needs implementation/live validation.
   - `[Need-verify]`: plausible but requires live Fabric/GitHub/Fabric REST/SQL check.
   - `[Speculation]`: architecture hypothesis only; must not become a decision.
 - Separate three things:
   - What v9 currently has.
   - What v10 currently proposes.
-  - What Bob standards require or imply.
-- Treat Bob's DOCX as an enterprise governance standard, but adapt platform-specific SQL Server / ADW rules when they conflict with Fabric Direct Lake, OneLake, Warehouse, or v9's existing control plane.
+  - What Enterprise ETL standards require or imply.
+- Treat Enterprise ETL's DOCX as an enterprise governance standard, but adapt platform-specific SQL Server / ADW rules when they conflict with Fabric Direct Lake, OneLake, Warehouse, or v9's existing control plane.
 
 ## 2. Source Inventory
 
@@ -44,10 +44,10 @@ Read all files under `Enterprise_SupplyChain_Dev_architect`:
 | Core proposal | `01_super_plan_medallion_refactor.md` | Current target v10 Medallion plan |
 | Architecture diagrams | `02_architecture_blueprint_mermaid.md`, `../diagrams/*.mmd` | Physical/logical architecture, control plane, staging/direct decision |
 | Feature parity | `03_v9_feature_parity_checklist.md` | Claimed v9 capabilities preserved in v10 |
-| Bob alignment | `04_revised_bob_standards_proposal.md` | Current interpretation of Bob standards and Direct Lake/TableDictionary corrections |
+| Enterprise ETL alignment | `04_revised_enterprise_etl_standards_proposal.md` | Current interpretation of Enterprise ETL standards and Direct Lake/TableDictionary corrections |
 | EDW fallback | `15_v10_edw_supplement_exit_strategy.md`, `01_docs/decisions/ADR-002-edw-supplement-exit-strategy.md` | Object-level `_edw` fallback lifecycle, validation, and retirement |
 | Readiness/cleanup | `16_v10_readiness_scorecard_and_v9_cleanup.md` | Readiness score and non-destructive v9 cleanup candidate list |
-| Bob standards | `SQL Server Data Warehouse Standards.docx` | Enterprise standards to map against v10; local-only evidence unless sharing is approved |
+| Enterprise ETL standards | `SQL Server Data Warehouse Standards.docx` | Enterprise standards to map against v10; local-only evidence unless sharing is approved |
 
 ### 2.3 Version-Control Evidence
 
@@ -88,7 +88,7 @@ Output: `06_v9_source_inventory_and_chronology.md`
 
 Steps:
 
-1. List every v9/v10/Bob source file.
+1. List every v9/v10/Enterprise ETL source file.
 2. Mark whether the file was read fully, sampled, or not yet read.
 3. Map git commits that changed architecture docs or lineage exports.
 4. Identify stale docs vs current docs by comparing overlapping content.
@@ -126,7 +126,7 @@ Extract v9 capabilities into an evidence ledger:
 
 Ledger row format:
 
-| ID | v9 capability | Evidence | Current implementation | v10 coverage | Bob alignment | Gap | Action |
+| ID | v9 capability | Evidence | Current implementation | v10 coverage | Enterprise ETL alignment | Gap | Action |
 |---|---|---|---|---|---|---|---|
 | V9-001 | capability name | file:line | concise summary | covered/partial/missing | align/adapt/conflict | issue | proposed fix |
 
@@ -134,7 +134,7 @@ Exit criteria:
 
 - Every major v9 feature has at least one evidence row.
 - Rows with no v10 mapping are explicitly marked `Missing`.
-- Rows with Bob conflict are explicitly marked `Conflict` or `Adapt`.
+- Rows with Enterprise ETL conflict are explicitly marked `Conflict` or `Adapt`.
 
 ### Phase C - v10 Coverage Review
 
@@ -156,20 +156,20 @@ Exit criteria:
 - v10 coverage score exists for every v9 capability.
 - No v9 feature disappears silently.
 
-### Phase D - Bob Standards Mapping
+### Phase D - Enterprise ETL Standards Mapping
 
-Output: `09_bob_standards_mapping_matrix.md`
+Output: `09_enterprise_etl_standards_mapping_matrix.md`
 
-Map Bob DOCX standards to v10:
+Map Enterprise ETL DOCX standards to v10:
 
-| Bob standard | Apply Directly | Adapt For Fabric | Defer/POC | Not Applicable | v10 action |
+| Enterprise ETL standard | Apply Directly | Adapt For Fabric | Defer/POC | Not Applicable | v10 action |
 |---|---|---|---|---|---|
 
 Required challenge points:
 
 - Power BI views vs Direct Lake physical tables.
 - TableDictionary existing v9 adapter vs new build.
-- WRK/ENH/DW suffixes vs Bob email Pascal Case instruction.
+- WRK/ENH/DW suffixes vs Enterprise ETL email Pascal Case instruction.
 - Source data not maintained in DW vs optional BronzeMirror/Staging exception.
 - Primary key duplicate tests vs Fabric constraints not enforced.
 - ADW HASH/REPLICATE/CCIX/CIX/PolyBase vs Fabric Warehouse/OneLake behavior.
@@ -177,7 +177,7 @@ Required challenge points:
 
 Exit criteria:
 
-- Every Bob DOCX section has an apply/adapt/defer/not-applicable classification.
+- Every Enterprise ETL DOCX section has an apply/adapt/defer/not-applicable classification.
 - Every conflict has a Fabric-specific rationale.
 
 ### Phase E - Final Architecture Corrections
@@ -189,7 +189,7 @@ Allowed changes:
 - Update v10 diagrams to add missing control-plane components.
 - Update v10 plan to reflect actual v9 behavior.
 - Add migration phases only where backed by evidence.
-- Add Bob standards overlay only where platform-compatible.
+- Add Enterprise ETL standards overlay only where platform-compatible.
 
 Not allowed:
 
@@ -213,7 +213,7 @@ Suggested checkpoints:
 - Checkpoint 2: operations docs + enterprise docs.
 - Checkpoint 3: scripts + lineage explorer + CSV exports.
 - Checkpoint 4: git history deltas.
-- Checkpoint 5: Bob DOCX mapping.
+- Checkpoint 5: Enterprise ETL DOCX mapping.
 - Checkpoint 6: final v10 correction list.
 
 ## 5. Completion Criteria
@@ -222,7 +222,7 @@ Audit is not complete until:
 
 - All v9 files are read or explicitly marked not relevant with reason.
 - Git history has been sampled for architecture-impact commits.
-- Bob DOCX is mapped section by section.
+- Enterprise ETL DOCX is mapped section by section.
 - Every v9 capability is mapped to v10 coverage.
 - Every gap has an action: update v10, defer with validation, or reject with rationale.
 - Mermaid diagrams render after any updates.
@@ -236,7 +236,7 @@ Enterprise_SupplyChain_Dev_architect/
 ├── 06_v9_source_inventory_and_chronology.md
 ├── 07_v9_capability_evidence_ledger.md
 ├── 08_v10_gap_matrix.md
-├── 09_bob_standards_mapping_matrix.md
+├── 09_enterprise_etl_standards_mapping_matrix.md
 └── 10_final_v10_amendment_plan.md
 ```
 

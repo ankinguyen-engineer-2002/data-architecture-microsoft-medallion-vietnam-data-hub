@@ -16,7 +16,7 @@ flowchart TB
 
     SRC[(EDW + Synapse + UKG +<br/>AFI + Maximo + GA + ServiceNow)]:::ext
 
-    subgraph HUB ["🇺🇸 EnterpriseData-Dev (HUB · Bob's team owns)"]
+    subgraph HUB ["🇺🇸 EnterpriseData-Dev (HUB · Enterprise ETL's team owns)"]
         direction TB
         SRC_DATA[Source_Data WH<br/>BRONZE 64 sch / 636 tbl]:::bronze
         ETL[ETL_Framework WH<br/>CONTROL PLANE<br/>35 procs · TableDictionary 65 cols<br/>AuditLog · UpdateLog]:::hub
@@ -75,10 +75,10 @@ sequenceDiagram
     participant Reg as Meta.AssetRegistry<br/>(🇻🇳 VN)
     participant W as DAG Wave Engine<br/>(🇻🇳 VN)
     participant GL as Meta.usp_GenericLoad<br/>(🇻🇳 VN)
-    participant HUB as 🇺🇸 SupplyChain_Warehouse<br/>(after Bob unblock Q3)
+    participant HUB as 🇺🇸 SupplyChain_Warehouse<br/>(after Enterprise ETL unblock Q3)
     participant SC as 🇻🇳 SupplyChain_Processing_Warehouse
     participant Log as Meta.usp_LogRun v2
-    participant ETL as 🇺🇸 ETL_Framework<br/>TableDictionary + AuditLog<br/>(after Bob unblock Q1)
+    participant ETL as 🇺🇸 ETL_Framework<br/>TableDictionary + AuditLog<br/>(after Enterprise ETL unblock Q1)
 
     T->>M: Trigger daily
     M->>Reg: SELECT DISTINCT project<br/>WHERE is_active=1
@@ -155,7 +155,7 @@ flowchart LR
     classDef vs fill:#dbeafe,stroke:#2563eb
 
     subgraph TEAMS [Domain teams]
-        BOB[Bob/Rakesh team<br/>US Enterprise]
+        Enterprise ETL[Enterprise ETL/Rakesh team<br/>US Enterprise]
         WS[Wholesale team]
         RT[Retail team]
         DI[Distribution team]
@@ -179,10 +179,10 @@ flowchart LR
         SCGWH[SupplyChain_Gold_Warehouse]:::vs
     end
 
-    BOB -.owns.-> ETLF
-    BOB -.owns.-> SD
-    BOB -.owns.-> MDWH
-    BOB -.owns.-> CWH
+    Enterprise ETL -.owns.-> ETLF
+    Enterprise ETL -.owns.-> SD
+    Enterprise ETL -.owns.-> MDWH
+    Enterprise ETL -.owns.-> CWH
     WS -.owns.-> WHWH
     RT -.owns.-> RTWH
     DI -.owns.-> DSWH

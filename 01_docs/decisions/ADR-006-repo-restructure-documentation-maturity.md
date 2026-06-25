@@ -47,9 +47,9 @@ Target:
 |   |-- 06_v9_source_inventory_and_chronology.md
 |   `-- 07_v9_capability_evidence_ledger.md
 |-- 20_proposals/
-|   |-- 04_revised_bob_standards_proposal.md
+|   |-- 04_revised_enterprise_etl_standards_proposal.md
 |   |-- 08_v10_gap_matrix.md
-|   |-- 09_bob_standards_mapping_matrix.md
+|   |-- 09_enterprise_etl_standards_mapping_matrix.md
 |   |-- 10_final_v10_amendment_plan.md
 |   `-- 12_v10_object_classification_mapping.md
 |-- 30_runbook/
@@ -59,7 +59,7 @@ Target:
 |   |-- 15_v10_edw_supplement_exit_strategy.md
 |   `-- 16_v10_readiness_scorecard_and_v9_cleanup.md
 |-- artifacts/
-|   |-- bob_standards_rebuild/   (xem section 2)
+|   |-- enterprise_etl_standards_rebuild/   (xem section 2)
 |   |-- build_runs/
 |   |-- detail_clone_v9_forecast/
 |   `-- readiness_exports/
@@ -75,14 +75,14 @@ Nguyen tac:
 - Gom theo **chuc nang tai lieu** (overview / evidence / proposal / runbook),
   khong gom theo timeline.
 
-### 2. Tach src vs generated trong bob_standards_rebuild
+### 2. Tach src vs generated trong enterprise_etl_standards_rebuild
 
 Hien trang: `gen_views.py` (source) cung cho voi output (CSV/JSON/SQL).
 
 Target:
 
 ```text
-artifacts/bob_standards_rebuild/
+artifacts/enterprise_etl_standards_rebuild/
 |-- src/
 |   `-- gen_views.py
 `-- output/
@@ -124,7 +124,7 @@ Positive:
 
 - Truc B tu ~60% len ~85% (Senior documentation repo).
 - Onboard nguoi moi nhanh hon: nhin 4 folder hieu structure thay vi scan 16 file.
-- Evidence vs proposal vs runbook tach bach — handover Bob/Rakesh de hon.
+- Evidence vs proposal vs runbook tach bach — handover Enterprise ETL/Rakesh de hon.
 - Source vs generated tach bach — review code change de hon.
 
 Negative / Risks:
@@ -146,7 +146,7 @@ Mot session, ~1-2 hour, chia 5 commit doc lap rollback duoc:
 2. **Commit 2**: `git mv` 16 docs vao folder tuong ung. Khong doi noi dung.
 3. **Commit 3**: `git mv mermaid/ diagrams/` + move artifact folders vao
    `artifacts/`. Update relative paths trong cac .md.
-4. **Commit 4**: Tach `bob_standards_rebuild/` thanh `src/` + `output/`.
+4. **Commit 4**: Tach `enterprise_etl_standards_rebuild/` thanh `src/` + `output/`.
 5. **Commit 5**: Update ADR-001..005 + `.gitignore` (.vfscache) + INDEX.md
    noi dung day du.
 

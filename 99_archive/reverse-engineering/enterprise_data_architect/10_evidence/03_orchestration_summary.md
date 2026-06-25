@@ -61,7 +61,7 @@ EXEC ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView 'Wholesale_Wareh
 
 ## Comparison with VN team's pattern
 
-| Aspect | Bob hub (`EnterpriseData-Dev`) | VN team (`Enterprise SupplyChain-Dev`) |
+| Aspect | Enterprise ETL hub (`EnterpriseData-Dev`) | VN team (`Enterprise SupplyChain-Dev`) |
 |--------|----------------------------------|------------------------------------------|
 | Pipelines | 22 (3 active) | **7 active** (pl_sc_master orchestrates all) |
 | Orchestration | Mix of pipeline ForEach + SP wrappers (sequential) | Pipeline ForEach + DAG waves (3-wave parallel batch=8) |

@@ -206,7 +206,7 @@
   - `01_docs/plans/2026-06-23-lineage-workbench-compiler.md`
 
 **Plan highlights:**
-- Compiler uses path-first layer classification, SQL-ref extraction, canonical asset keys, implicit BOB `_Wrk.v_<TableName> -> final table` edges, DAG cycle detection, and deterministic generation/wave inference.
+- Compiler uses path-first layer classification, SQL-ref extraction, canonical asset keys, implicit Enterprise ETL `_Wrk.v_<TableName> -> final table` edges, DAG cycle detection, and deterministic generation/wave inference.
 - Extension is a VS Code Webview viewer; compiler remains source-of-truth.
 
 **Next step:**
@@ -224,7 +224,7 @@
 
 **Actions executed:**
 - Added repo-native compiler under `05_tools/lineage_workbench/compiler/lineage_compiler/`.
-- Added Python tests and fixtures for discovery, classification, SQL refs, BOB `_Wrk` implicit edges, DQ loader, graph waves, and CLI output.
+- Added Python tests and fixtures for discovery, classification, SQL refs, Enterprise ETL `_Wrk` implicit edges, DQ loader, graph waves, and CLI output.
 - Added optional Azure OpenAI enrichment hook using environment variables only:
   - `AZURE_OPENAI_ENDPOINT`
   - `AZURE_OPENAI_API_KEY`
@@ -419,7 +419,7 @@
 - Target warehouse/schema: `SupplyChain_Warehouse`, `SCP_Core`, `SCP_Core_Wrk`
 
 **User instruction:**
-- Read the US-created `SupplyChain_Warehouse` schemas `SCP_Core` and `SCP_Core_Wrk` to verify the real BOB/Enterprise pattern.
+- Read the US-created `SupplyChain_Warehouse` schemas `SCP_Core` and `SCP_Core_Wrk` to verify the real Enterprise ETL/Enterprise pattern.
 - Confirm whether `_Wrk` should have only source/work views and non-`_Wrk` should have physical tables only, or whether the current duplicated-view assumption is wrong.
 - Scan `EnterpriseData-Dev` carefully for lakehouses/warehouses/medallion evidence before making framework recommendations.
 
@@ -474,7 +474,7 @@
 ## 2026-06-23 21:34:27 (ICT) — Detailed plan created for Enterprise `_Wrk` contract migration
 
 **User instruction:**
-- Chốt một chuẩn duy nhất theo Enterprise/BOB live evidence and create a detailed plan covering repo docs, 3-layer ETL flow, dependency risks, and safe cleanup.
+- Chốt một chuẩn duy nhất theo Enterprise/Enterprise ETL live evidence and create a detailed plan covering repo docs, 3-layer ETL flow, dependency risks, and safe cleanup.
 
 **Plan created:**
 - `01_docs/plans/2026-06-23-enterprise-wrk-view-contract-migration.md`
@@ -623,7 +623,7 @@
 **Scope lock:**
 - Workspace 1: `Enterprise SupplyChain-Dev` (`c8d9fc83-18b6-4e1d-8264-0b49eed36fe0`)
 - Workspace 2: `EnterpriseData-Dev` (`5360a935-1984-4775-895f-f4c90bafa19d`)
-- Goal: create `/docs/Enterprise_Framework_Migration_Master_Plan.md` in Vietnamese, evidence-backed, for framework transformation from current VN control plane toward Bob/BOB ETL Framework without redesigning business logic.
+- Goal: create `/docs/Enterprise_Framework_Migration_Master_Plan.md` in Vietnamese, evidence-backed, for framework transformation from current VN control plane toward Enterprise ETL/Enterprise ETL Framework without redesigning business logic.
 
 **User instructions received:**
 - Read `AGENTS.md`, `CONTEXT.md`, architecture docs, governance/engineering standards, ADRs, platform strategy docs before recommendations.
@@ -690,7 +690,7 @@
 - None for the doc deliverables; link placeholder still needs the real shareable URL when ready.
 
 **Next step:**
-- Send the email using `01_docs/runbook/guides/control_plane_email_vi.md` (paste shareable link), then wait for Bob’s reply or do a quick Teams sync if he requests clarification.
+- Send the email using `01_docs/runbook/guides/control_plane_email_vi.md` (paste shareable link), then wait for Enterprise ETL’s reply or do a quick Teams sync if he requests clarification.
 
 ## 2026-06-17 08:54:57 (ICT) — Re-audit the detailed guide for clarity/flow + verify hub capability claims from repo evidence
 
@@ -1224,17 +1224,17 @@
 **Next step:**
 - Trigger a fresh `pl_sc_master` run (after the current one ends) to measure the new full runtime with both marts daily.
 
-## 2026-06-17 17:10:00 (ICT) — Interpreted Bob’s orchestration reply + prepared next-step plan (email/meeting)
+## 2026-06-17 17:10:00 (ICT) — Interpreted Enterprise ETL’s orchestration reply + prepared next-step plan (email/meeting)
 
 **User instruction (2026-06-17):**
-- Read `CONTEXT.md` + `01_docs/runbook/guides/control_plane_intro_vi.md`, then interpret Bob’s reply to Cherry’s email and propose what to do next.
+- Read `CONTEXT.md` + `01_docs/runbook/guides/control_plane_intro_vi.md`, then interpret Enterprise ETL’s reply to Cherry’s email and propose what to do next.
 
 **Actions executed (repo):**
 - Re-read:
   - `CONTEXT.md`
   - `01_docs/runbook/guides/control_plane_intro_vi.md`
   - `01_docs/runbook/guides/control_plane_email_vi.md`
-- Prepared interpretation of Bob’s response focusing on orchestration expectations (SQL Server Agent job-based orchestration, cross-environment steps) vs VN Control Plane scope (Fabric-native, metadata-driven).
+- Prepared interpretation of Enterprise ETL’s response focusing on orchestration expectations (SQL Server Agent job-based orchestration, cross-environment steps) vs VN Control Plane scope (Fabric-native, metadata-driven).
 
 **External docs checked (for factual grounding):**
 - SQL Server Agent operator notifications + job monitoring (Microsoft Learn).
@@ -1242,12 +1242,12 @@
 - Microsoft Fabric Data Factory pipeline runs: schedule + event-based triggers (Microsoft Learn).
 
 **Current blocker/risk:**
-- Bob may be expecting a cross-platform scheduler replacement for SQL Server Agent; need to set expectations clearly (VN Control Plane can integrate under an existing scheduler, not necessarily replace it immediately).
+- Enterprise ETL may be expecting a cross-platform scheduler replacement for SQL Server Agent; need to set expectations clearly (VN Control Plane can integrate under an existing scheduler, not necessarily replace it immediately).
 
 **Next step:**
-- Reply to Bob: propose a 45–60m walkthrough, confirm Saravan attendance, and ask for their current job DAG surface + required integrations (SSAS/AtScale/Power BI refresh, ADLS drop detection, retries/alerts) so the demo maps to their real job.
+- Reply to Enterprise ETL: propose a 45–60m walkthrough, confirm Saravan attendance, and ask for their current job DAG surface + required integrations (SSAS/AtScale/Power BI refresh, ADLS drop detection, retries/alerts) so the demo maps to their real job.
 
-## 2026-06-17 21:11:58 (ICT) — Reframed “orchestration” vs “control plane” to reduce misunderstanding (Bob thread)
+## 2026-06-17 21:11:58 (ICT) — Reframed “orchestration” vs “control plane” to reduce misunderstanding (Enterprise ETL thread)
 
 **User instruction (2026-06-17):**
 - User asked whether their understanding is correct: US team likely views SQL Server Agent jobs as the enterprise scheduler/orchestrator; VN Fabric pipelines are business ETL executors; VN strength is Control Plane (waves/due gate/run logs), not replacing SQL Agent.
@@ -1277,7 +1277,7 @@
 - Updated: `CONTEXT.md` (append this entry)
 
 **Next step:**
-- Use the “Suggested email positioning” paragraph in `overall_architecture_ashley.md` to reply Bob/Saravan, and ask them to confirm the [Need-verify] items (their exact ingest + orchestration + publish surfaces).
+- Use the “Suggested email positioning” paragraph in `overall_architecture_ashley.md` to reply Enterprise ETL/Saravan, and ask them to confirm the [Need-verify] items (their exact ingest + orchestration + publish surfaces).
 
 ## 2026-06-17 21:33:22 (ICT) — Rendered nested architecture diagrams (Mermaid → SVG) for clarity
 
@@ -1375,7 +1375,7 @@
 
 **Evidence referenced (repo):**
 - `01_docs/runbook/guides/control_plane_intro_vi.md` sections 6.1–6.2 (TableDictionary: adapter/export vs physical sync; working/swap scope/policy).
-- `99_archive/reverse-engineering/enterprise_data_architect/20_proposals/01_etl_framework_alignment.md` (TableDictionary compat mapping + required permissions pending Bob).
+- `99_archive/reverse-engineering/enterprise_data_architect/20_proposals/01_etl_framework_alignment.md` (TableDictionary compat mapping + required permissions pending Enterprise ETL).
 
 **Conclusion recorded:**
 - Solution A addresses scheduler ownership; TableDictionary + working/swap parity is a separate integration contract and requires explicit agreement (schema strictness, write grants, swap policy).
@@ -1753,7 +1753,7 @@
 - Live mutations: none. Read-only Fabric/Power BI/Azure/SQL discovery only.
 
 **User request:**
-- Produce `/docs/Enterprise_Framework_Migration_Master_Plan.md` in Vietnamese as the master implementation plan for framework migration from current Enterprise/VN control plane toward BOB ETL Framework.
+- Produce `/docs/Enterprise_Framework_Migration_Master_Plan.md` in Vietnamese as the master implementation plan for framework migration from current Enterprise/VN control plane toward Enterprise ETL Framework.
 - Non-negotiables: preserve SQL ETL business logic, existing Medallion architecture, semantic models/reports/KPIs, and especially `sc_control_tower` compatibility.
 
 **Actions completed:**
@@ -1765,36 +1765,36 @@
 - `EnterpriseData-Dev.SupplyChain_Warehouse` exists but is empty: migration landing zone, not implemented target.
 - `sc_control_tower` refresh is green, but `Forecast Accuracy Gold` report still binds to failing legacy `Supply Chain Control Tower`.
 - `pl_sc_master` schedules are disabled; Fabric job history and `Meta.PipelineRunLog` disagree for recent failed runs.
-- BOB `ETL_Framework` has enterprise-visible metadata/audit tables; VN `Meta` has stronger runtime features such as waves, due-gate, DQ, lineage, and asset-level logs.
+- Enterprise ETL `ETL_Framework` has enterprise-visible metadata/audit tables; VN `Meta` has stronger runtime features such as waves, due-gate, DQ, lineage, and asset-level logs.
 
 **Next concrete step:**
-- Review the master plan with Bob/Rakesh for the remaining architecture decisions: hub `SupplyChain_Warehouse` target scope, BOB/VN runtime boundary, official schedule owner, canonical semantic model, and first DQ gate mode.
+- Review the master plan with Enterprise ETL/Rakesh for the remaining architecture decisions: hub `SupplyChain_Warehouse` target scope, Enterprise ETL/VN runtime boundary, official schedule owner, canonical semantic model, and first DQ gate mode.
 
-## 2026-06-21 21:12:42 (ICT) — Direction challenge: 100% BOB ETL Framework for Medallion layers
+## 2026-06-21 21:12:42 (ICT) — Direction challenge: 100% Enterprise ETL Framework for Medallion layers
 
 **Scope lock:**
 - Repo: `/Users/MAC/Documents/20260413_Fabric_Refactor_Architect`
 - No file changes to master plan yet; this is architecture direction review only.
 
 **User clarification:**
-- Aric thinks the main direction should be applying BOB ETL Framework 100% to all 3 Medallion layers in `Enterprise SupplyChain-Dev`.
-- Drop/stop using the single `sp_generic` runner so the implementation matches Bob's framework.
+- Aric thinks the main direction should be applying Enterprise ETL Framework 100% to all 3 Medallion layers in `Enterprise SupplyChain-Dev`.
+- Drop/stop using the single `sp_generic` runner so the implementation matches Enterprise ETL's framework.
 - Carry over only selected VN control-plane capabilities: DQ, Data Lineage, and Wave.
 
 **Evidence checked:**
 - `AGENTS.md`
-- `01_docs/decisions/ADR-008-bob-alignment-naming-and-integration.md`
+- `01_docs/decisions/ADR-008-enterprise_etl-alignment-naming-and-integration.md`
 - `01_docs/runbook/artifacts/20260616_compare_ws/20260616_ws_compare_analysis.md`
 - `99_archive/reverse-engineering/enterprise_data_architect/10_evidence/02_etl_framework_summary.md`
 - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/00_overview/03_v9_feature_parity_checklist.md`
 - Microsoft Learn Fabric Medallion and governance baseline docs.
 
 **Interpretation to carry forward:**
-- Proposed direction is likely better aligned with enterprise/BOB standard if "100% BOB" means BOB owns metadata/load execution/wrapper pattern across Bronze/Silver/Gold.
-- Guardrail: do not lose VN DQ, lineage, wave/dependency semantics; implement them as BOB extension tables/procs/hooks, not as the old VN generic loader.
+- Proposed direction is likely better aligned with enterprise/Enterprise ETL standard if "100% Enterprise ETL" means Enterprise ETL owns metadata/load execution/wrapper pattern across Bronze/Silver/Gold.
+- Guardrail: do not lose VN DQ, lineage, wave/dependency semantics; implement them as Enterprise ETL extension tables/procs/hooks, not as the old VN generic loader.
 - `usp_GenericLoad` becomes a legacy fallback/rollback artifact during transition, not the target runtime.
 
-## 2026-06-22 08:51:10 (ICT) — Master plan updated to BOB-first phasing
+## 2026-06-22 08:51:10 (ICT) — Master plan updated to Enterprise ETL-first phasing
 
 **Scope lock:**
 - Repo: `/Users/MAC/Documents/20260413_Fabric_Refactor_Architect`
@@ -1802,29 +1802,29 @@
 - Live Fabric/cloud mutations: none.
 
 **User instruction:**
-- Update the master plan so the first migration phase applies BOB ETL Framework 100% to the 3 Medallion layers in `Enterprise SupplyChain-Dev`.
+- Update the master plan so the first migration phase applies Enterprise ETL Framework 100% to the 3 Medallion layers in `Enterprise SupplyChain-Dev`.
 - Phase 2 should then port only selected VN control-plane features: DQ, Data Lineage, and Wave.
 
 **Actions completed:**
-- Updated executive stance: BOB ETL Framework is now the primary runtime/load framework for Bronze/Silver/Gold.
+- Updated executive stance: Enterprise ETL Framework is now the primary runtime/load framework for Bronze/Silver/Gold.
 - Demoted `Meta.usp_GenericLoad` to fallback/rollback only, not target runtime.
-- Rewrote target architecture, control-plane replacement mapping, BOB adoption plan, migration phases, risk mitigation, recommendations, and final position.
+- Rewrote target architecture, control-plane replacement mapping, Enterprise ETL adoption plan, migration phases, risk mitigation, recommendations, and final position.
 - New roadmap:
-  - Phase 1: apply BOB ETL Framework 100% for Bronze/Silver/Gold.
-  - Phase 2: port DQ / Data Lineage / Wave as BOB-compatible extensions.
+  - Phase 1: apply Enterprise ETL Framework 100% for Bronze/Silver/Gold.
+  - Phase 2: port DQ / Data Lineage / Wave as Enterprise ETL-compatible extensions.
   - Phase 3: cutover, semantic hardening, and decommission old target path.
 
 **Next concrete step:**
-- Review with Bob/Rakesh the target placement for Bronze/Silver/Gold objects and decide whether Wave Planner is implemented as BOB extension tables or encoded inside BOB wrapper procs.
+- Review with Enterprise ETL/Rakesh the target placement for Bronze/Silver/Gold objects and decide whether Wave Planner is implemented as Enterprise ETL extension tables or encoded inside Enterprise ETL wrapper procs.
 
-## 2026-06-22 08:53:55 (ICT) — Clarify what "100% BOB" means
+## 2026-06-22 08:53:55 (ICT) — Clarify what "100% Enterprise ETL" means
 
 **Scope lock:**
 - Repo: `/Users/MAC/Documents/20260413_Fabric_Refactor_Architect`
 - No plan edits in this checkpoint; answering architecture clarification.
 
 **User clarification:**
-- Aric asks whether "100% BOB" means matching exactly how `EnterpriseData-Dev` applies its ETL Framework.
+- Aric asks whether "100% Enterprise ETL" means matching exactly how `EnterpriseData-Dev` applies its ETL Framework.
 - Aric notes their ETL Framework is stored in a dedicated `ETL_Framework` warehouse/lakehouse surface with many views, stored procedures, tables, and table operations, and says SupplyChain should apply the full framework.
 
 **Evidence checked:**
@@ -1834,7 +1834,7 @@
 - `99_archive/reverse-engineering/enterprise_data_architect/projects/etl_framework/SYNTHESIS.md` references through grep
 
 **Interpretation to carry forward:**
-- "100% BOB" should mean applying the full BOB operating model: dedicated `ETL_Framework`, `DW_Developer.TableDictionary`, `AuditLog`, `TableDictionary_UpdateLog`, `FabricLoad`/mapping metadata, `_Wrk` views, BOB loader proc families, wrapper procs, and BOB-style audit/update lifecycle.
+- "100% Enterprise ETL" should mean applying the full Enterprise ETL operating model: dedicated `ETL_Framework`, `DW_Developer.TableDictionary`, `AuditLog`, `TableDictionary_UpdateLog`, `FabricLoad`/mapping metadata, `_Wrk` views, Enterprise ETL loader proc families, wrapper procs, and Enterprise ETL-style audit/update lifecycle.
 - Caveat: copy the full core framework contract, but identify experimental/duplicate proc variants as standardization candidates rather than blindly multiplying tech debt.
 
 ## 2026-06-22 09:03:16 (ICT) — Confirm local ETL_Framework in Enterprise SupplyChain-Dev
@@ -1845,7 +1845,7 @@
 - Live mutations: none.
 
 **User question:**
-- Before read-only baseline pack, confirm whether `Enterprise SupplyChain-Dev` already has an `ETL_Framework` warehouse that Bob may have synced/provisioned earlier, but VN did not use because VN created its own control plane.
+- Before read-only baseline pack, confirm whether `Enterprise SupplyChain-Dev` already has an `ETL_Framework` warehouse that Enterprise ETL may have synced/provisioned earlier, but VN did not use because VN created its own control plane.
 
 **Live evidence:**
 - Fabric item list confirms `Warehouse ETL_Framework` exists in `Enterprise SupplyChain-Dev`.
@@ -1861,26 +1861,26 @@
   - recent `AuditLog` entries show `RoPerez@ashleyfurniture.com` running `usp_RefreshCuratedTableFromView` against `SupplyChain_Warehouse.SCP_Core.*` and `Temp_SCPWarehouse.SCP_Core.*`, mostly 2025-11 through 2026-02.
 
 **Interpretation:**
-- Yes, `Enterprise SupplyChain-Dev` already has a local BOB-style `ETL_Framework` warehouse.
-- It appears to be a partial/local BOB framework instance for old/legacy SupplyChain objects, not the active v10 runtime.
+- Yes, `Enterprise SupplyChain-Dev` already has a local Enterprise ETL-style `ETL_Framework` warehouse.
+- It appears to be a partial/local Enterprise ETL framework instance for old/legacy SupplyChain objects, not the active v10 runtime.
 - VN v10 currently uses `SupplyChain_Processing_Warehouse.Meta` control plane instead; Phase 1 can evaluate whether to reactivate/extend this local `ETL_Framework` or align directly to `EnterpriseData-Dev.ETL_Framework`.
 
-## 2026-06-22 09:10:11 (ICT) — Decision framing: reuse local ETL_Framework as BOB bootstrap
+## 2026-06-22 09:10:11 (ICT) — Decision framing: reuse local ETL_Framework as Enterprise ETL bootstrap
 
 **Scope lock:**
 - Repo: `/Users/MAC/Documents/20260413_Fabric_Refactor_Architect`
 - Live Fabric mutations: none.
 
 **User question:**
-- Aric asks whether the existing `Enterprise SupplyChain-Dev.ETL_Framework` can be reused to apply 100% BOB ETL Framework instead of creating the framework from scratch.
+- Aric asks whether the existing `Enterprise SupplyChain-Dev.ETL_Framework` can be reused to apply 100% Enterprise ETL Framework instead of creating the framework from scratch.
 
 **Actions executed:**
 - Re-read `AGENTS.md`.
-- Reviewed latest `CONTEXT.md` checkpoints for BOB-first migration and local `ETL_Framework` discovery.
+- Reviewed latest `CONTEXT.md` checkpoints for Enterprise ETL-first migration and local `ETL_Framework` discovery.
 - Reviewed memory summary for hard migration constraints: preserve SQL ETL business logic, Bronze/Silver/Gold, 04_semantic/report outputs.
 
 **Interpretation to carry forward:**
-- Recommended direction: reuse the local `ETL_Framework` as a bootstrap/seed for Phase 1, but do not treat it as already full BOB.
+- Recommended direction: reuse the local `ETL_Framework` as a bootstrap/seed for Phase 1, but do not treat it as already full Enterprise ETL.
 - Evidence: local SupplyChain `ETL_Framework` exists but currently has only 6 tables, 1 view, 8 stored procedures, 1 function, and 13 `TableDictionary` rows for legacy `SCP_Core` objects.
 - Required next step before any mutation: read-only object/definition diff against `EnterpriseData-Dev.ETL_Framework`, then explicitly approve any framework sync/backfill.
 
@@ -1893,12 +1893,12 @@
 - Live Fabric mutations: none.
 
 **User clarification:**
-- Aric confirms the intended approach: apply the existing local `ETL_Framework`, update it to become full BOB, and shift its metadata/registration away from legacy `SupplyChain_Warehouse.SCP_Core` objects toward the current 3 Medallion layers.
+- Aric confirms the intended approach: apply the existing local `ETL_Framework`, update it to become full Enterprise ETL, and shift its metadata/registration away from legacy `SupplyChain_Warehouse.SCP_Core` objects toward the current 3 Medallion layers.
 
 **Interpretation to carry forward:**
 - Yes: current local `ETL_Framework` points mainly to old/legacy SupplyChain objects such as `SupplyChain_Warehouse.SCP_Core.*` and `Temp_SCPWarehouse.SCP_Core.*`.
-- Phase 1 target is to add/register the current v10 Bronze/Silver/Gold assets into the BOB framework metadata and wrappers, not to rewrite those assets.
-- Existing business SQL views/tables remain the source of transformation behavior; BOB becomes the framework/orchestration/metadata/audit execution layer around them.
+- Phase 1 target is to add/register the current v10 Bronze/Silver/Gold assets into the Enterprise ETL framework metadata and wrappers, not to rewrite those assets.
+- Existing business SQL views/tables remain the source of transformation behavior; Enterprise ETL becomes the framework/orchestration/metadata/audit execution layer around them.
 
 ## 2026-06-22 09:23:47 (ICT) — Master plan expanded for local ETL_Framework Phase 1 execution
 
@@ -1908,27 +1908,27 @@
 - Live Fabric/cloud mutations: none.
 
 **User instruction:**
-- Update the master plan so Phase 1 explicitly uses the existing local `Enterprise SupplyChain-Dev.ETL_Framework`, upgrades/syncs it until it reaches full BOB contract, then registers/repoints the current 3 Medallion layers to that local BOB path.
+- Update the master plan so Phase 1 explicitly uses the existing local `Enterprise SupplyChain-Dev.ETL_Framework`, upgrades/syncs it until it reaches full Enterprise ETL contract, then registers/repoints the current 3 Medallion layers to that local Enterprise ETL path.
 - Phase 1 must be step-by-step and detailed with estimated time per step.
 - Phase 2 should be deferred; Aric expects to handle it about 5 days later.
 
 **Actions completed:**
 - Updated executive summary and target architecture to local-first:
   - local `ETL_Framework` is the Phase 1 framework shell.
-  - `EnterpriseData-Dev.ETL_Framework` is the full BOB reference for diff/sync.
+  - `EnterpriseData-Dev.ETL_Framework` is the full Enterprise ETL reference for diff/sync.
   - `EnterpriseData-Dev.SupplyChain_Warehouse` is future landing zone only, not Phase 1 prerequisite.
 - Added local live evidence:
   - local `ETL_Framework` exists with `DW_Developer`, 6 tables, 1 view, 8 stored procedures, 1 function.
   - local `TableDictionary=13`, mainly legacy `SCP_Core` objects.
-- Rewrote Section 7 as local-first BOB adoption.
+- Rewrote Section 7 as local-first Enterprise ETL adoption.
 - Expanded Section 10 Phase 1 into detailed WBS:
   - Phase 1A baseline/safety freeze.
-  - Phase 1B diff local framework vs full BOB reference.
-  - Phase 1C upgrade local framework to full BOB contract.
+  - Phase 1B diff local framework vs full Enterprise ETL reference.
+  - Phase 1C upgrade local framework to full Enterprise ETL contract.
   - Phase 1D build metadata mapping.
   - Phase 1E register/repoint Bronze/Silver/Gold.
   - Phase 1F wrap business SQL without rewrite.
-  - Phase 1G build BOB wrapper execution.
+  - Phase 1G build Enterprise ETL wrapper execution.
   - Phase 1H parity and semantic smoke.
   - Phase 1I cutover readiness and 5-day Phase 2 defer window.
 - Added explicit guardrails:
@@ -1962,7 +1962,7 @@
 - `ETL_Framework` is a separate framework warehouse; Phase 1 should add/register current 3-layer objects into it instead of deleting old metadata.
 - Need to verify whether any old SCP wrappers/schedules still call those legacy rows before cutover, but that is a read-only baseline step.
 
-## 2026-06-22 09:33:34 (ICT) — Manual full refresh path after BOB framework adoption
+## 2026-06-22 09:33:34 (ICT) — Manual full refresh path after Enterprise ETL framework adoption
 
 **Scope lock:**
 - Workspace: `Enterprise SupplyChain-Dev`
@@ -1976,15 +1976,15 @@
 **Evidence checked:**
 - Microsoft Fabric docs for pipeline schedules / run-on-demand item jobs.
 - Microsoft Fabric Data Warehouse docs for stored procedure execution and SQL query editor.
-- Repo evidence that BOB pattern refreshes curated tables by calling stored procedures such as `usp_RefreshCuratedTableFromView`.
+- Repo evidence that Enterprise ETL pattern refreshes curated tables by calling stored procedures such as `usp_RefreshCuratedTableFromView`.
 
 **Answer framing:**
 - In Fabric, the operational scheduler should be treated as Fabric pipeline/job scheduler or framework wrapper schedule, not classic SQL Server Agent.
 - Manual full refresh is valid and should be designed into Phase 1:
-  - run BOB wrapper pipeline on-demand, or
-  - execute BOB wrapper stored procedures manually through Warehouse SQL endpoint/query editor, or
+  - run Enterprise ETL wrapper pipeline on-demand, or
+  - execute Enterprise ETL wrapper stored procedures manually through Warehouse SQL endpoint/query editor, or
   - run a dedicated manual full-refresh pipeline that calls wrapper procs.
-- Manual execution must still write BOB `AuditLog`/`TableDictionary_UpdateLog`, run parity checks, and avoid destructive full reload unless explicitly approved.
+- Manual execution must still write Enterprise ETL `AuditLog`/`TableDictionary_UpdateLog`, run parity checks, and avoid destructive full reload unless explicitly approved.
 
 ## 2026-06-22 09:36:32 (ICT) — No-new-pipeline constraint for manual refresh
 
@@ -1994,16 +1994,16 @@
 - Live Fabric/cloud mutations: none.
 
 **User constraint:**
-- Bob likely will not allow creating another Fabric pipeline in the workspace.
+- Enterprise ETL likely will not allow creating another Fabric pipeline in the workspace.
 
 **Decision framing:**
 - Do not propose a new Fabric pipeline as the primary manual-refresh solution under this constraint.
-- Preferred solution: SQL-only BOB wrapper stored procedures or generated manual `EXEC` run scripts inside/against local `ETL_Framework`.
+- Preferred solution: SQL-only Enterprise ETL wrapper stored procedures or generated manual `EXEC` run scripts inside/against local `ETL_Framework`.
 - Best Phase 1 design becomes:
-  - create/use BOB layer wrappers such as `usp_Refresh_SupplyChain_Bronze`, `usp_Refresh_SupplyChain_Silver`, `usp_Refresh_SupplyChain_Gold`, or one `usp_Refresh_SupplyChain_All`;
+  - create/use Enterprise ETL layer wrappers such as `usp_Refresh_SupplyChain_Bronze`, `usp_Refresh_SupplyChain_Silver`, `usp_Refresh_SupplyChain_Gold`, or one `usp_Refresh_SupplyChain_All`;
   - execute them manually from Warehouse SQL query editor / SQL endpoint / pyodbc;
-  - keep BOB `AuditLog` and `TableDictionary_UpdateLog` writes;
-  - optionally use an existing approved pipeline later only if Bob allows modifying it.
+  - keep Enterprise ETL `AuditLog` and `TableDictionary_UpdateLog` writes;
+  - optionally use an existing approved pipeline later only if Enterprise ETL allows modifying it.
 
 ## 2026-06-22 09:42:20 (ICT) — Preserve Silver wave order in Phase 1 manual execution
 
@@ -2023,13 +2023,13 @@
 **Decision framing:**
 - Yes: Phase 1 must preserve current dependency-safe order even if the runner becomes SQL-only/manual.
 - Phase 1 should freeze/export an execution manifest from current control plane:
-  - layer, project, wave_number, object, depends_on, source_objects, BOB wrapper command.
+  - layer, project, wave_number, object, depends_on, source_objects, Enterprise ETL wrapper command.
 - Manual SQL wrapper/script must execute:
   - Bronze/reference prerequisites first;
   - Silver by ascending `wave_number`;
   - objects inside a wave sequentially unless explicitly approved for parallel sessions;
   - Gold only after required Silver waves complete.
-- Phase 2 can later implement a dynamic BOB Wave extension; Phase 1 only preserves the existing wave order as a static/controlled execution contract.
+- Phase 2 can later implement a dynamic Enterprise ETL Wave extension; Phase 1 only preserves the existing wave order as a static/controlled execution contract.
 
 ## 2026-06-22 09:49:04 (ICT) — Master plan updated for Phase 1 manifest-based manual execution
 
@@ -2881,7 +2881,7 @@
 - [Verified] Local `ETL_Framework` object inventory:
   - total objects = `24`
   - `USER_TABLE=6`, `VIEW=6`, `SQL_STORED_PROCEDURE=8`, `SQL_INLINE_TABLE_VALUED_FUNCTION=1`
-- [Verified] Local BOB-core row counts:
+- [Verified] Local Enterprise ETL-core row counts:
   - `DW_Developer.TableDictionary=13`
   - `DW_Developer.AuditLog=244`
   - `DW_Developer.TableDictionary_UpdateLog=106`
@@ -3017,7 +3017,7 @@
 
 **User instruction (this turn):**
 - Approve `Option A` first.
-- But note it clearly in the plan so that when Phase 1 finishes it still covers `100% BOB`.
+- But note it clearly in the plan so that when Phase 1 finishes it still covers `100% Enterprise ETL`.
 
 **Actions executed (repo-only, no live mutation):**
 - Updated master plan:
@@ -3025,7 +3025,7 @@
 - Added an execution note under Phase 1C clarifying:
   - `Option A` = staged additive sync strategy
   - this does **not** reduce final Phase 1 scope
-  - Phase 1 exit still requires `100% approved BOB runtime/load contract` for current SupplyChain Medallion scope
+  - Phase 1 exit still requires `100% approved Enterprise ETL runtime/load contract` for current SupplyChain Medallion scope
   - hub-only gaps must be classified as `required-before-phase1-exit` vs `standardized-out/deferred/non-supplychain`
 - Added curated backlog:
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1c_optionA_sync_backlog.md`
@@ -3036,8 +3036,8 @@
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1c_optionA_deploy/99_rollback_notes.md`
 
 **Key technical choices locked by this checkpoint:**
-- [Verified] `100% BOB` for Phase 1 is now explicitly interpreted as:
-  - `100% approved BOB runtime/load contract for current SupplyChain scope`
+- [Verified] `100% Enterprise ETL` for Phase 1 is now explicitly interpreted as:
+  - `100% approved Enterprise ETL runtime/load contract for current SupplyChain scope`
   - **not** `100% clone of every hub object/variant`
 - [Verified] Current active `load_type` mix from live baseline remains:
   - `overwrite=44`
@@ -3195,7 +3195,7 @@
 
 **Interpretation:**
 - [Verified] First-wave Phase 1C additive sync succeeded.
-- [Likely] Local framework is now materially closer to the approved BOB core contract without importing hub variant sprawl.
+- [Likely] Local framework is now materially closer to the approved Enterprise ETL core contract without importing hub variant sprawl.
 - [Need-verify] Phase 1C is not fully complete yet, because the remaining curated backlog still needs classification/implementation decisions for later execution coverage steps, but the initial core-gap closure has been applied successfully.
 
 **Files changed in repo this checkpoint:**
@@ -3206,11 +3206,11 @@
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1c_optionA_deploy/apply_results_rerun/`
 
 **Current blockers / risks:**
-- [Need-verify] Remaining Phase 1C work is now less about raw framework shell gaps and more about the runtime coverage path for Bronze/Reference/Silver/Gold through BOB wrappers/metadata registration.
+- [Need-verify] Remaining Phase 1C work is now less about raw framework shell gaps and more about the runtime coverage path for Bronze/Reference/Silver/Gold through Enterprise ETL wrappers/metadata registration.
 - [Need-verify] `TableDictionary_UpdateLog_RadarSync` has not yet been exercised on a real mapped `ReplicatedSource` row because local shell currently has no populated `ReplicatedSource` candidates in the first-wave sample.
 
 **Next concrete steps:**
-1. Move into Phase 1D mapping: translate current `Meta.AssetRegistry` scope into local BOB `TableDictionary` registration plan.
+1. Move into Phase 1D mapping: translate current `Meta.AssetRegistry` scope into local Enterprise ETL `TableDictionary` registration plan.
 2. Build manifest-backed registration script for Bronze / Reference / Silver / Gold.
 3. After registration plan is frozen, continue toward wrapper/manual execution coverage in Phases 1E-1G.
 
@@ -3230,7 +3230,7 @@
 
 **Mapping results:**
 - [Verified] Active assets from current scope = `47`
-- [Verified] Joined successfully to current `Meta.TableDictionary` / local-BOB column shape = `46`
+- [Verified] Joined successfully to current `Meta.TableDictionary` / local-Enterprise ETL column shape = `46`
 - [Verified] Unmatched asset count = `1`
   - current unmatched row:
     - `InventoryHistory_Enh.AtpWeekEnding`
@@ -3279,7 +3279,7 @@
 - [Verified] Local `DW_Developer.TableDictionary` total rows now = `60`
   - legacy `SCP_Core` rows still = `13`
   - current non-legacy/v10 rows now = `47`
-- [Verified] Current registered v10 scope in local BOB registry now covers all currently matched active assets:
+- [Verified] Current registered v10 scope in local Enterprise ETL registry now covers all currently matched active assets:
   - `Enterprise_Lakehouse` rows = `4`
   - `SupplyChain_Processing_Warehouse` rows = `32`
   - `SupplyChain_Gold_Warehouse` rows = `11`
@@ -3306,10 +3306,10 @@
 
 **Current blockers / risks:**
 - [Need-verify] Registration scope is now complete for current 47 active assets, but execution coverage is not complete until wrapper/manual run path is reconciled for the `5` remaining manifest dependency gaps.
-- [Need-verify] `bob_exec_command` for staging/incremental path is still placeholder (`PENDING_BOB_INCREMENTAL_PATH`) and must be resolved in the next execution-focused phase.
+- [Need-verify] `enterprise_etl_exec_command` for staging/incremental path is still placeholder (`PENDING_Enterprise ETL_INCREMENTAL_PATH`) and must be resolved in the next execution-focused phase.
 
 **Next concrete steps:**
-1. Freeze the registered 47-asset scope as current local BOB baseline.
+1. Freeze the registered 47-asset scope as current local Enterprise ETL baseline.
 2. Triage the 5 remaining manifest dependency gaps into:
    - external/source dependency
    - missing active asset registration
@@ -3319,13 +3319,13 @@
 ## 2026-06-22 20:55:39 (ICT) — Phase 1E live-contract correction + wrapper surface applied
 
 **Scope lock / user intent carried forward:**
-- Continue Phase 1 to completion under `Option A`, but final Phase 1 still must cover `100% approved BOB runtime/load contract` for current SupplyChain scope.
+- Continue Phase 1 to completion under `Option A`, but final Phase 1 still must cover `100% approved Enterprise ETL runtime/load contract` for current SupplyChain scope.
 - Keep Medallion `Bronze / Silver / Gold` unchanged at business/output level.
 - Keep current Gold serving tables + current `sc_control_tower` semantic contract unchanged; only replace the operating framework underneath.
 
 **Actions executed (repo artifacts + live additive changes):**
 - Built generator script:
-  - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/build_phase1_bob_execution_pack.py`
+  - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/build_phase1_enterprise_etl_execution_pack.py`
 - Generated Phase 1E artifacts under:
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1e/`
     - `phase1e_contract_drift_summary.md`
@@ -3337,9 +3337,9 @@
 - Applied live additive wrapper surface:
   - `SupplyChain_Processing_Warehouse`: created `_Wrk` schemas/views for current Processing targets
   - `SupplyChain_Gold_Warehouse`: created `_Wrk` schemas/views for current Gold targets
-- Applied live additive local BOB metadata backfill in `ETL_Framework.DW_Developer.TableDictionary`
+- Applied live additive local Enterprise ETL metadata backfill in `ETL_Framework.DW_Developer.TableDictionary`
   - backfilled execution metadata for current active rows
-  - inserted source-wrapper rows for BOB execution binding
+  - inserted source-wrapper rows for Enterprise ETL execution binding
   - inserted missing current Gold rows from live contract
 
 **Key evidence / findings:**
@@ -3417,10 +3417,10 @@
 - [Verified] current rowcount for physical staging table:
   - `Staging_Wrk.DemandForecastSnapshotDaily = 6,869,202,992` rows (`COUNT_BIG`)
 - [Verified] many current Processing business views lack `LoadDT` while physical tables include `LoadDT`
-  - wrapper generation added `LoadDT = CAST(SYSUTCDATETIME() AS datetime2(6))` where needed so BOB proc surface matches destination table shape
+  - wrapper generation added `LoadDT = CAST(SYSUTCDATETIME() AS datetime2(6))` where needed so Enterprise ETL proc surface matches destination table shape
 
 **Smoke execution results:**
-- [Verified] BOB overwrite path succeeded:
+- [Verified] Enterprise ETL overwrite path succeeded:
   - executed `DW_Developer.usp_RefreshCuratedTableFromView 'SupplyChain_Gold_Warehouse', 'ForecastAccuracy_DW', 'DimForecastHorizon', 0`
   - `AuditLog` shows `Process Start` and `Process Complete`
   - live table still queryable: `ForecastAccuracy_DW.DimForecastHorizon = 8` rows
@@ -3430,7 +3430,7 @@
     - `The current transaction cannot be committed and cannot support operations that write to the log file. Roll back the transaction. (3930)`
   - only `Process Start` rows were written to `AuditLog`; no `Process Complete`, no `TableDictionary_UpdateLog`
   - this indicates local `usp_IncrementalTableLoad` DateKey path is not yet reliable for current Phase 1 run surface
-- [Verified] BOB date-window fallback path succeeded for the same table:
+- [Verified] Enterprise ETL date-window fallback path succeeded for the same table:
   - executed `DW_Developer.usp_UpdateCuratedTableFromView_DateRange 'SupplyChain_Processing_Warehouse', 'InventoryHistory_Enh', 'HoldingTransferSnapshotDaily', 'SnapshotDate', 'SnapshotDate', -30`
   - `AuditLog` shows `Process Start` + `Process Complete`
   - `TableDictionary_UpdateLog` has new row:
@@ -3441,21 +3441,21 @@
 
 **Files changed in repo this checkpoint:**
 - `CONTEXT.md`
-- `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/build_phase1_bob_execution_pack.py`
+- `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/build_phase1_enterprise_etl_execution_pack.py`
 - new Phase 1E artifacts under:
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1e/`
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1e/apply_results/`
 
 **Current blockers / risks:**
 - [Need-verify] local `DW_Developer.usp_IncrementalTableLoad` is still not trustworthy for current `DateKey` / likely `DateRange` execution path because transaction handling is broken in local shell for the tested object.
-- [Need-verify] staging recovery path for `Staging_Wrk.DemandForecastSnapshotDaily` is now wired with BOB metadata/wrapper surface, but the actual catch-up execution over `6.869B` rows / `17`-day lag has not yet been run in this checkpoint.
-- [Need-verify] manifest/runtime strategy should probably route current daily/incremental catch-up through proven BOB date-window execution (`usp_UpdateCuratedTableFromView_DateRange`) unless/local until `usp_IncrementalTableLoad` transaction bug is fixed or bypassed.
+- [Need-verify] staging recovery path for `Staging_Wrk.DemandForecastSnapshotDaily` is now wired with Enterprise ETL metadata/wrapper surface, but the actual catch-up execution over `6.869B` rows / `17`-day lag has not yet been run in this checkpoint.
+- [Need-verify] manifest/runtime strategy should probably route current daily/incremental catch-up through proven Enterprise ETL date-window execution (`usp_UpdateCuratedTableFromView_DateRange`) unless/local until `usp_IncrementalTableLoad` transaction bug is fixed or bypassed.
 
 **Next concrete steps:**
-1. Update Phase 1E/1G runtime contract to use proven BOB execution path for daily/incremental catch-up where local `usp_IncrementalTableLoad` is unstable.
+1. Update Phase 1E/1G runtime contract to use proven Enterprise ETL execution path for daily/incremental catch-up where local `usp_IncrementalTableLoad` is unstable.
 2. Generate manual run blocks from `phase1e_manifest_v2_live_contract.csv` using:
-   - BOB overwrite wrapper proc for standard overwrite objects
-   - BOB date-window proc for current daily/incremental recovery objects
+   - Enterprise ETL overwrite wrapper proc for standard overwrite objects
+   - Enterprise ETL date-window proc for current daily/incremental recovery objects
 3. Decide and execute staged catch-up for `Staging_Wrk.DemandForecastSnapshotDaily` with evidence capture before claiming Phase 1 complete.
 
 ## 2026-06-22 21:24:08 ICT — Phase 1 handoff note before session rollover
@@ -3470,7 +3470,7 @@
 **User instruction / discussion cần carry sang session mới**
 - User hỏi: tại sao chưa fix `DW_Developer.usp_IncrementalTableLoad`, mà lại dùng `DW_Developer.usp_UpdateCuratedTableFromView_DateRange`?
 - Trả lời đã chốt trong session này:
-  - `DateRange` được dùng như **proven BOB bridge** để giữ Phase 1 tiến tiếp, vì smoke test trên local `usp_IncrementalTableLoad` đang văng `3930` và hiện tại error đó có thể đang **mask root cause thật** trong transaction/CATCH path.
+  - `DateRange` được dùng như **proven Enterprise ETL bridge** để giữ Phase 1 tiến tiếp, vì smoke test trên local `usp_IncrementalTableLoad` đang văng `3930` và hiện tại error đó có thể đang **mask root cause thật** trong transaction/CATCH path.
   - Không nên xem `DateRange` là đích cuối; hướng xử lý đúng cho checkpoint kế tiếp là **fix local `usp_IncrementalTableLoad`** rồi rerun các object DateKey/incremental còn lại.
 
 **Execution evidence to remember**
@@ -3487,9 +3487,9 @@
 **Plan status at session rollover**
 - Done:
   - Phase 1A baseline/evidence pack
-  - Phase 1B local-vs-BOB diff
+  - Phase 1B local-vs-Enterprise ETL diff
   - Phase 1C Option A additive framework uplift
-  - Phase 1D `47/47` current assets registered into local BOB registry
+  - Phase 1D `47/47` current assets registered into local Enterprise ETL registry
   - large part of Phase 1E live-contract correction, wrapper surface apply, metadata backfill
 - Not done yet:
   - root-cause fix for `usp_IncrementalTableLoad`
@@ -3641,21 +3641,21 @@
   - Option B (parameterized): run `DW_Developer.usp_UpdateCuratedTableFromView_DateRange` with smaller windows (e.g., `-3`, `-7`, `-17`) using view `Staging_Wrk_Wrk.v_DemandForecastSnapshotDaily` — safer for staged execution.
   - Need explicit approval before executing heavy DML for this table.
 
-## 2026-06-23 08:40:04 ICT — Phase 1 repo/BOB re-audit started before continuing execution
+## 2026-06-23 08:40:04 ICT — Phase 1 repo/Enterprise ETL re-audit started before continuing execution
 
 **Scope lock**
 - Workspace focus: `Enterprise SupplyChain-Dev`, `EnterpriseData-Dev`
-- Framework focus: local `Enterprise SupplyChain-Dev.ETL_Framework` vs reference `01_docs/bob-framework/source/*`
+- Framework focus: local `Enterprise SupplyChain-Dev.ETL_Framework` vs reference `01_docs/enterprise-etl-framework/source/*`
 
 **User instructions received**
-- Read `01_docs/bob-framework/source/` fully, scan repo, re-read `CONTEXT.md`, `AGENTS.md`, and `01_docs/Enterprise_Framework_Migration_Master_Plan.md`
-- Compare Bob guidance with the reverse-engineered ETL framework already captured in repo
+- Read `01_docs/enterprise-etl-framework/source/` fully, scan repo, re-read `CONTEXT.md`, `AGENTS.md`, and `01_docs/Enterprise_Framework_Migration_Master_Plan.md`
+- Compare Enterprise ETL guidance with the reverse-engineered ETL framework already captured in repo
 - If mismatch exists, research and correct the plan, then continue Phase 1
-- Extra email anchors from Bob: `AuditLog`, `TableDictionary`, `PerformanceLog`, `usp_LogAuditEntry`, `usp_UpdateTableMetadata`, `usp_CurateData_*`, SLA alerts, restart-from-failure behavior, email-based DQ alerts
+- Extra email anchors from Enterprise ETL: `AuditLog`, `TableDictionary`, `PerformanceLog`, `usp_LogAuditEntry`, `usp_UpdateTableMetadata`, `usp_CurateData_*`, SLA alerts, restart-from-failure behavior, email-based DQ alerts
 
 **Actions executed**
 - Re-read `AGENTS.md`, tailed `CONTEXT.md`, and opened the migration master plan
-- Located `01_docs/bob-framework/source/ETL_FRAMEWORK_GUIDE.md`, `01_docs/bob-framework/source/FABRIC_ARCHITECTURE_AND_STANDARDS.md`, `01_docs/bob-framework/source/SQLPROJ_BEST_PRACTICES.md`
+- Located `01_docs/enterprise-etl-framework/source/ETL_FRAMEWORK_GUIDE.md`, `01_docs/enterprise-etl-framework/source/FABRIC_ARCHITECTURE_AND_STANDARDS.md`, `01_docs/enterprise-etl-framework/source/SQLPROJ_BEST_PRACTICES.md`
 - Re-opened prior repo evidence/proposals:
   - `99_archive/reverse-engineering/enterprise_data_architect/10_evidence/02_etl_framework_summary.md`
   - `99_archive/reverse-engineering/enterprise_data_architect/20_proposals/01_etl_framework_alignment.md`
@@ -3666,11 +3666,11 @@
 - Updated `CONTEXT.md` only (this note)
 
 **Current blockers / risks**
-- Prior reverse-engineered docs may overstate equivalence between VN generic runtime and Bob's documented specialized-proc framework
-- Need to verify whether Bob's new written guide changes the phase objective, especially around `PerformanceLog`, SLA/email alerting, and restart semantics
+- Prior reverse-engineered docs may overstate equivalence between VN generic runtime and Enterprise ETL's documented specialized-proc framework
+- Need to verify whether Enterprise ETL's new written guide changes the phase objective, especially around `PerformanceLog`, SLA/email alerting, and restart semantics
 
 **Next concrete step**
-1. Finish reading `01_docs/bob-framework/source` in full and extract explicit framework contracts.
+1. Finish reading `01_docs/enterprise-etl-framework/source` in full and extract explicit framework contracts.
 2. Diff those contracts against repo evidence + current plan assumptions.
 3. Only then decide whether `01_docs/Enterprise_Framework_Migration_Master_Plan.md` needs correction before Phase 1 execution continues.
 
@@ -3678,11 +3678,11 @@
 
 **Scope lock**
 - Workspace focus: `Enterprise SupplyChain-Dev`, `EnterpriseData-Dev`
-- Artifact focus: `01_docs/bob-framework/source/*`, `01_docs/Enterprise_Framework_Migration_Master_Plan.md`, `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1e`, `phase1g`
+- Artifact focus: `01_docs/enterprise-etl-framework/source/*`, `01_docs/Enterprise_Framework_Migration_Master_Plan.md`, `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1e`, `phase1g`
 
 **Actions executed**
-- Read full `01_docs/bob-framework/source/ETL_FRAMEWORK_GUIDE.md`, `01_docs/bob-framework/source/FABRIC_ARCHITECTURE_AND_STANDARDS.md`, `01_docs/bob-framework/source/SQLPROJ_BEST_PRACTICES.md`
-- Re-verified Bob intent vs repo evidence:
+- Read full `01_docs/enterprise-etl-framework/source/ETL_FRAMEWORK_GUIDE.md`, `01_docs/enterprise-etl-framework/source/FABRIC_ARCHITECTURE_AND_STANDARDS.md`, `01_docs/enterprise-etl-framework/source/SQLPROJ_BEST_PRACTICES.md`
+- Re-verified Enterprise ETL intent vs repo evidence:
   - guide = canonical design/reference
   - live implementation target for Phase 1 still anchored to reverse-engineered hub evidence (`AuditLog` 4-col, `FabricMapping`, specialized proc families, `Performance_Logs` support surface)
 - Re-ran live smoke tests:
@@ -3690,9 +3690,9 @@
   - `python3 99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/repro_usp_incremental_table_load.py --database SupplyChain_Processing_Warehouse --schema InventoryHistory_Enh --table ManufacturingOrderSnapshotDaily --operation-name NULL`
   - both returned `exec_ok=True` and fresh `Process Complete` rows in local `DW_Developer.AuditLog`
 - Added repo test coverage for execution-pack generator:
-  - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/test_build_phase1_bob_execution_pack.py`
-  - verified GREEN with `python3 -m unittest 99_archive/reverse-engineering/enterprise_supplychain_dev_architect.tools.test_build_phase1_bob_execution_pack`
-- Extended `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/build_phase1_bob_execution_pack.py` to:
+  - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/test_build_phase1_enterprise_etl_execution_pack.py`
+  - verified GREEN with `python3 -m unittest 99_archive/reverse-engineering/enterprise_supplychain_dev_architect.tools.test_build_phase1_enterprise_etl_execution_pack`
+- Extended `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/build_phase1_enterprise_etl_execution_pack.py` to:
   - canonicalize incremental/datekey commands for `Staging_Wrk.DemandForecastSnapshotDaily`, `HoldingTransferSnapshotDaily`, `ManufacturingOrderSnapshotDaily`
   - normalize alias drift (`SalesHistory_Enh.v_InvoiceDetailLineLevel` -> `SalesHistory_Enh.InvoiceDetailLineLevel`)
   - add live-contract row `InventoryHistory_Enh.PurchaseOrderSnapshotHistorical`
@@ -3702,14 +3702,14 @@
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1g/*`
 - Updated `01_docs/Enterprise_Framework_Migration_Master_Plan.md` to reflect:
   - `usp_IncrementalTableLoad` blocker resolved
-  - `01_docs/bob-framework/source` classified as intent/reference, not 1:1 live object source-of-truth
+  - `01_docs/enterprise-etl-framework/source` classified as intent/reference, not 1:1 live object source-of-truth
   - `Phase 1G` manual pack now exists with dependency validation `PASS`
 
 **Files changed in repo**
 - Updated `CONTEXT.md`
 - Updated `01_docs/Enterprise_Framework_Migration_Master_Plan.md`
-- Updated `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/build_phase1_bob_execution_pack.py`
-- Added `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/test_build_phase1_bob_execution_pack.py`
+- Updated `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/build_phase1_enterprise_etl_execution_pack.py`
+- Added `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/test_build_phase1_enterprise_etl_execution_pack.py`
 - Regenerated:
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1e/phase1e_manifest_v2_live_contract.csv`
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1e/phase1e_contract_drift_summary.md`
@@ -3728,23 +3728,23 @@
 2. Pilot the `phase1g` pack in approved order after Aric selects/approves the heavy staging approach.
 3. Only after pilot success move to `Phase 1H` parity + semantic smoke.
 
-## 2026-06-23 08:57:00 ICT — Saved user-curated Bob overview into repo and packaged catch-up decision artifact
+## 2026-06-23 08:57:00 ICT — Saved user-curated Enterprise ETL overview into repo and packaged catch-up decision artifact
 
 **Scope lock**
 - Keep `Bronze / Silver / Gold`, current views, current business tables, and 04_semantic/report contract unchanged
 - Continue changing only runtime/control-plane/framework operation path
 
 **User instructions received**
-- Save the attached Bob overview image into the repo under BOB guide context
+- Save the attached Enterprise ETL overview image into the repo under Enterprise ETL guide context
 - Reconfirm the migration rule: only the operating system/framework changes; medallion layers, views, tables, semantics stay as-is
 - Continue with what is best, but do not violate that scope
 
 **Actions executed**
 - Inspected attached image summary and copied it into repo:
-  - `01_docs/bob-framework/source/assets/20260623_bob_architecture_summary_from_email.png`
-- Added repo-local BOB guide entrypoints:
-  - `01_docs/bob-framework/source/README.md`
-  - `01_docs/bob-framework/source/2026-06-23_bob_architecture_summary_from_email.md`
+  - `01_docs/enterprise-etl-framework/source/assets/20260623_enterprise_etl_architecture_summary_from_email.png`
+- Added repo-local Enterprise ETL guide entrypoints:
+  - `01_docs/enterprise-etl-framework/source/README.md`
+  - `01_docs/enterprise-etl-framework/source/2026-06-23_enterprise_etl_architecture_summary_from_email.md`
 - Added Phase 1 decision artifact for the remaining heavy staging object:
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1g/phase1g_demandforecast_catchup_options.md`
 - The new note records:
@@ -3755,9 +3755,9 @@
 
 **Files changed in repo**
 - Updated `CONTEXT.md`
-- Added `01_docs/bob-framework/source/README.md`
-- Added `01_docs/bob-framework/source/2026-06-23_bob_architecture_summary_from_email.md`
-- Added `01_docs/bob-framework/source/assets/20260623_bob_architecture_summary_from_email.png`
+- Added `01_docs/enterprise-etl-framework/source/README.md`
+- Added `01_docs/enterprise-etl-framework/source/2026-06-23_enterprise_etl_architecture_summary_from_email.md`
+- Added `01_docs/enterprise-etl-framework/source/assets/20260623_enterprise_etl_architecture_summary_from_email.png`
 - Added `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1g/phase1g_demandforecast_catchup_options.md`
 
 **Current blockers / risks**
@@ -3810,22 +3810,22 @@
 2. Re-query target/source max snapshot and recent `AuditLog`.
 3. Decide whether to continue with wider windows immediately.
 
-## 2026-06-23 09:12:13 ICT — New BOB alert email analyzed; Phase 1 plan adjusted lightly
+## 2026-06-23 09:12:13 ICT — New Enterprise ETL alert email analyzed; Phase 1 plan adjusted lightly
 
 **Scope lock**
-- User redirected from live catch-up to the newly added BOB Guide file
+- User redirected from live catch-up to the newly added Enterprise ETL Guide file
 - No live DML executed after the failed/wrong-signature attempt recorded earlier
 - Keep Bronze/Silver/Gold, views, tables, 04_semantic/report contract unchanged
 
 **User instructions received**
-- "tôi mới tải thêm 1 file tài liệu của BOB về bỏ bên trong BOB guide, EnterpriseData etl framework... bro đọc cái đó xem có giúp ích được gì có plan của chúng ta vs những gì đã học hiểu ban nãy ko"
+- "tôi mới tải thêm 1 file tài liệu của Enterprise ETL về bỏ bên trong Enterprise ETL guide, EnterpriseData etl framework... bro đọc cái đó xem có giúp ích được gì có plan của chúng ta vs những gì đã học hiểu ban nãy ko"
 - "tiếp tục đi"
 
 **Actions executed**
 - Re-read `AGENTS.md`
 - Stopped two lingering read-only pyodbc probe sessions from the prior live catch-up prep (`18589`, `39053`)
 - Located and read:
-  - `01_docs/bob-framework/source/EnterpriseData - ETL_Framework DataWarehouse Data Feed Alert_ 0.2857% behind (1 of 350).msg`
+  - `01_docs/enterprise-etl-framework/source/EnterpriseData - ETL_Framework DataWarehouse Data Feed Alert_ 0.2857% behind (1 of 350).msg`
 - Extracted evidence:
   - sender `Datawarehouse Alerts <DatawarehouseAlerts@Ashleyfurniture.com>`
   - timestamp `2026-06-22 16:43:16`
@@ -3833,13 +3833,13 @@
   - sample row fields: `Hours Late`, `Last Updated (UTC)`, `Refresh Rate`, `Schema Name`, `Table Name`, `Job Server`, `Job Name`
 
 **Files changed in repo**
-- Added `01_docs/bob-framework/source/2026-06-23_enterprisedata_data_feed_alert_email_analysis.md`
-- Updated `01_docs/bob-framework/source/README.md`
+- Added `01_docs/enterprise-etl-framework/source/2026-06-23_enterprisedata_data_feed_alert_email_analysis.md`
+- Updated `01_docs/enterprise-etl-framework/source/README.md`
 - Updated `01_docs/Enterprise_Framework_Migration_Master_Plan.md`
 - Updated `CONTEXT.md`
 
 **Current conclusion**
-- [Verified] New email strengthens BOB SLA/data-feed alert evidence.
+- [Verified] New email strengthens Enterprise ETL SLA/data-feed alert evidence.
 - [Verified] It does not reveal orchestration engine, dependency graph, retry policy, checkpoint restart mechanics, or ad-hoc refresh workflow.
 - [Verified] It should not change core Phase 1 direction or become a runtime blocker.
 - [Verified] Phase 1I now includes alert-readiness mapping for `Modified`, `RefreshRate`, `JobServer`, `JobName`, `SchemaName`, `TableName`.
@@ -3850,7 +3850,7 @@
 
 **Next concrete step**
 1. Verify doc changes.
-2. Report whether the new BOB file changes the plan.
+2. Report whether the new Enterprise ETL file changes the plan.
 3. Then resume Phase 1G/1H execution only when Aric confirms returning from document review to live execution.
 
 ## 2026-06-23 09:14:59 ICT — Phase 1 closeout next-step assessment
@@ -3878,7 +3878,7 @@
 
 **Current blockers / risks**
 - `DemandForecastSnapshotDaily` is still the main heavy DML risk: ~6.869B target rows and source about 17 days ahead in prior evidence.
-- Need explicit confirmation before running the staged live catch-up or full direct BOB incremental path.
+- Need explicit confirmation before running the staged live catch-up or full direct Enterprise ETL incremental path.
 
 **Next concrete step**
 1. Ask Aric to choose whether to resume live execution now.
@@ -3904,15 +3904,15 @@
 **Next concrete step**
 1. Resume Phase 1G with corrected staged catch-up commands only after explicit live-DML approval.
 
-## 2026-06-23 09:21:17 ICT — Direct BOB path approved for DemandForecast blocker
+## 2026-06-23 09:21:17 ICT — Direct Enterprise ETL path approved for DemandForecast blocker
 
 **Scope lock**
 - User explicitly requested direct execution, not staged workaround:
   - "chạy thì chạy thẳng luôn, cái gì cũng danhchisnh ngôn thuận không lòng vòng, nếu nó hỏng thì fix"
 - Scope remains:
-  - 100% BOB runtime path for Phase 1 proof
+  - 100% Enterprise ETL runtime path for Phase 1 proof
   - preserve business views/tables/04_semantic/report contract
-  - audit and fix failures on BOB path if they occur
+  - audit and fix failures on Enterprise ETL path if they occur
 
 **Actions executed**
 - Re-read `AGENTS.md`
@@ -3935,11 +3935,11 @@ EXEC DW_Developer.usp_IncrementalTableLoad
 ```
 
 **Next concrete step**
-1. Execute the approved direct BOB incremental path.
-2. If it fails, follow systematic debugging: capture exact error + AuditLog, identify root cause, patch/fix only the BOB path.
+1. Execute the approved direct Enterprise ETL incremental path.
+2. If it fails, follow systematic debugging: capture exact error + AuditLog, identify root cause, patch/fix only the Enterprise ETL path.
 3. If it succeeds, run post-load audit: AuditLog, TableDictionary/UpdateLog, max snapshot/date coverage, and then continue Phase 1G manual pack.
 
-## 2026-06-23 09:23:50 ICT — Direct DemandForecast BOB proc in progress
+## 2026-06-23 09:23:50 ICT — Direct DemandForecast Enterprise ETL proc in progress
 
 **Live execution in progress**
 - Session id: `61262`
@@ -3962,7 +3962,7 @@ EXEC DW_Developer.usp_IncrementalTableLoad
 1. Continue polling session `61262`.
 2. On completion/failure, immediately capture AuditLog and freshness evidence.
 
-## 2026-06-23 09:25:40 ICT — Direct DemandForecast BOB proc succeeded
+## 2026-06-23 09:25:40 ICT — Direct DemandForecast Enterprise ETL proc succeeded
 
 **Live execution completed**
 - Session id: `61262`
@@ -3976,13 +3976,13 @@ EXEC DW_Developer.usp_IncrementalTableLoad
   - `2026-06-22 21:25:02.533333` UTC-ish: `Process Complete`
 
 **Impact**
-- [Verified] The remaining approval-gated Phase 1G blocker `Staging_Wrk.DemandForecastSnapshotDaily` now runs through direct BOB `DW_Developer.usp_IncrementalTableLoad`.
+- [Verified] The remaining approval-gated Phase 1G blocker `Staging_Wrk.DemandForecastSnapshotDaily` now runs through direct Enterprise ETL `DW_Developer.usp_IncrementalTableLoad`.
 
 **Next concrete step**
 1. Capture post-load TableDictionary/UpdateLog/freshness evidence.
 2. Then continue Phase 1G pack execution/audit and Phase 1H parity.
 
-## 2026-06-23 09:34:20 ICT — Starting Phase 1G full manual BOB pack
+## 2026-06-23 09:34:20 ICT — Starting Phase 1G full manual Enterprise ETL pack
 
 **Post-demandforecast audit evidence**
 - `AuditLog` showed `Process Start` and `Process Complete` for `SupplyChain_Processing_Warehouse.Staging_Wrk.DemandForecastSnapshotDaily`
@@ -4000,14 +4000,14 @@ EXEC DW_Developer.usp_IncrementalTableLoad
 **Actions executed**
 - Added `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/run_phase1g_manual_pack.py`
 - Parser check on `phase1g_manual_refresh_all.sql`:
-  - `33` executable BOB commands
+  - `33` executable Enterprise ETL commands
   - `16` skipped/register/approval comments
   - first executable object: `SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly`
   - last executable object: `SupplyChain_Gold_Warehouse.Shared_DW.DimWarehouse`
 
 **Next concrete step**
-1. Run the full Phase 1G BOB manual pack sequentially.
-2. Stop on first failure and debug the BOB path if needed.
+1. Run the full Phase 1G Enterprise ETL manual pack sequentially.
+2. Stop on first failure and debug the Enterprise ETL path if needed.
 
 ## 2026-06-23 09:38:10 ICT — Recovered from interrupted Phase 1G runner attempt
 
@@ -4032,7 +4032,7 @@ EXEC DW_Developer.usp_IncrementalTableLoad
 - [Likely] The pack itself did not start executing because the original failure happened at Python import time, before any command loop.
 
 **Next concrete step**
-1. Re-run the full Phase 1G BOB manual pack now with the fixed runner.
+1. Re-run the full Phase 1G Enterprise ETL manual pack now with the fixed runner.
 2. Stop on first failure and capture exact object/error if any.
 
 ## 2026-06-23 09:41:23 ICT — Phase 1G full pack running (retry with fixed runner)
@@ -4050,7 +4050,7 @@ EXEC DW_Developer.usp_IncrementalTableLoad
 
 **Next concrete step**
 1. Continue polling session `48902`.
-2. If object 1 or any later object fails, capture exact object + error and debug on BOB path immediately.
+2. If object 1 or any later object fails, capture exact object + error and debug on Enterprise ETL path immediately.
 
 ## 2026-06-23 09:59:12 ICT — Phase 1G pack progress through wave 1
 
@@ -4083,7 +4083,7 @@ EXEC DW_Developer.usp_IncrementalTableLoad
 
 **Clarification answered to user**
 - The runner is not using Fabric REST pipeline orchestration.
-- It uses local pyodbc/TDS auth to submit BOB `EXEC` commands into Fabric Warehouse `ETL_Framework`; the actual DML runs inside Fabric SQL engine.
+- It uses local pyodbc/TDS auth to submit Enterprise ETL `EXEC` commands into Fabric Warehouse `ETL_Framework`; the actual DML runs inside Fabric SQL engine.
 
 **Next concrete step**
 1. Continue polling session `48902`.
@@ -4112,16 +4112,16 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 
 **Current interpretation**
 - The runner behaved correctly: stop-on-failure preserved wave/order discipline.
-- Need root-cause debug before resuming. Most likely BOB `RefreshCuratedTableFromView` expects a `_Wrk.v_<table>` source view that has not been implemented for this late-added live-contract row.
+- Need root-cause debug before resuming. Most likely Enterprise ETL `RefreshCuratedTableFromView` expects a `_Wrk.v_<table>` source view that has not been implemented for this late-added live-contract row.
 
 **Next concrete step**
 1. Inspect repo manifest and live objects for `PurchaseOrderSnapshotHistorical`.
-2. Decide whether the correct BOB fix is: create/wire the missing wrapper view, remap the row to an existing view/table, or reclassify as register-only if it is not part of active runtime.
+2. Decide whether the correct Enterprise ETL fix is: create/wire the missing wrapper view, remap the row to an existing view/table, or reclassify as register-only if it is not part of active runtime.
 
-## 2026-06-23 10:03:29 ICT — Fixed missing BOB `_Wrk` wrapper for PurchaseOrderSnapshotHistorical
+## 2026-06-23 10:03:29 ICT — Fixed missing Enterprise ETL `_Wrk` wrapper for PurchaseOrderSnapshotHistorical
 
 **Root cause**
-- BOB `DW_Developer.usp_RefreshCuratedTableFromView` derives the source view as:
+- Enterprise ETL `DW_Developer.usp_RefreshCuratedTableFromView` derives the source view as:
   - `<DestinationDatabase>.<DestinationSchema>_Wrk.v_<DestinationTable>`
 - For `PurchaseOrderSnapshotHistorical`, live business objects existed:
   - `InventoryHistory_Enh.PurchaseOrderSnapshotHistorical`
@@ -4135,7 +4135,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1g/phase1g_fix_purchase_order_snapshot_historical_wrk_view.sql`
 - Applied live Fabric DDL:
   - `CREATE OR ALTER VIEW [InventoryHistory_Enh_Wrk].[v_PurchaseOrderSnapshotHistorical]`
-- Wrapper follows existing BOB `_Wrk` pattern:
+- Wrapper follows existing Enterprise ETL `_Wrk` pattern:
   - selects business columns from `InventoryHistory_Enh.v_PurchaseOrderSnapshotHistorical`
   - appends `LoadDT = CAST(SYSUTCDATETIME() AS datetime2(6))`
   - preserves target table column order
@@ -4171,15 +4171,15 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 
 **Next concrete step**
 1. Continue polling session `84056`.
-2. On completion, continue through remaining Gold objects; on failure, capture exact error and fix BOB path.
+2. On completion, continue through remaining Gold objects; on failure, capture exact error and fix Enterprise ETL path.
 
-## 2026-06-23 10:14:06 ICT — PurchaseOrderSnapshotHistorical BOB refresh still running
+## 2026-06-23 10:14:06 ICT — PurchaseOrderSnapshotHistorical Enterprise ETL refresh still running
 
 **Live execution in progress**
 - Session id remains `84056`
 - Object:
   - `SupplyChain_Processing_Warehouse.InventoryHistory_Enh.PurchaseOrderSnapshotHistorical`
-- BOB proc:
+- Enterprise ETL proc:
   - `DW_Developer.usp_RefreshCuratedTableFromView`
 
 **Evidence checked**
@@ -4190,14 +4190,14 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - `InventoryHistory_Enh.PurchaseOrderSnapshotHistorical_LOAD`
 
 **Interpretation**
-- [Likely] The proc is in the Bob work-table load/swap pattern after successfully finding the `_Wrk` view.
+- [Likely] The proc is in the Enterprise ETL work-table load/swap pattern after successfully finding the `_Wrk` view.
 - Do not interrupt unless user explicitly asks, because this is a live DML/table-swap operation.
 
 **Next concrete step**
 1. Continue polling session `84056`.
 2. After completion, verify `AuditLog`, target table, and continue remaining commands.
 
-## 2026-06-23 10:25:14 ICT — Phase 1G full BOB pack completed after `_Wrk` fix
+## 2026-06-23 10:25:14 ICT — Phase 1G full Enterprise ETL pack completed after `_Wrk` fix
 
 **Live execution completed**
 - Resume session id: `84056`
@@ -4211,7 +4211,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - Initial run: `1/33` through `17/33` OK; `18/33` failed on missing `_Wrk` wrapper.
   - Fix applied: `InventoryHistory_Enh_Wrk.v_PurchaseOrderSnapshotHistorical`.
   - Resume run: index `34` through `49` OK.
-  - Therefore all executable Phase 1G BOB commands are now complete.
+  - Therefore all executable Phase 1G Enterprise ETL commands are now complete.
 
 **Key durations**
 - `PurchaseOrderSnapshotHistorical`: `642.947s`
@@ -4227,13 +4227,13 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - `CONTEXT.md`
 
 **Next concrete step**
-1. Capture Phase 1G audit summary from run JSON + BOB `AuditLog`.
+1. Capture Phase 1G audit summary from run JSON + Enterprise ETL `AuditLog`.
 2. Start Phase 1H parity/semantic smoke.
 
-## 2026-06-23 10:30:13 ICT — BOB `_Wrk` convention clarified and live-verified
+## 2026-06-23 10:30:13 ICT — Enterprise ETL `_Wrk` convention clarified and live-verified
 
 - Scope lock: `Enterprise SupplyChain-Dev` Fabric SQL endpoint; read-only inventory against `SupplyChain_Processing_Warehouse` and `SupplyChain_Gold_Warehouse`.
-- User question: asked whether BOB's `_wrk` tables/views/SP convention exists in our framework and whether Phase 1 is applying BOB correctly.
+- User question: asked whether Enterprise ETL's `_wrk` tables/views/SP convention exists in our framework and whether Phase 1 is applying Enterprise ETL correctly.
 - Actions:
   - Re-read `AGENTS.md`.
   - Searched repo/docs for `_Wrk`, `usp_RefreshCuratedTableFromView`, and `usp_IncrementalTableLoad`.
@@ -4243,40 +4243,40 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - `SupplyChain_Gold_Warehouse` has `_Wrk` wrapper surface: `ForecastAccuracy_DW_Wrk` 4 views, `InventoryHealth_DW_Wrk` 6 views, `Shared_DW_Wrk` 3 views.
   - Phase 1 wrapper checks found `InventoryHistory_Enh_Wrk.v_HoldingTransferSnapshotDaily`, `InventoryHistory_Enh_Wrk.v_ManufacturingOrderSnapshotDaily`, `InventoryHistory_Enh_Wrk.v_PurchaseOrderSnapshotHistorical`, `Staging_Wrk.v_DemandForecastSnapshotDaily`, and `Staging_Wrk_Wrk.v_DemandForecastSnapshotDaily`.
 - Interpretation:
-  - BOB `_Wrk` is not a new business layer; it is the loader/source-wrapper surface used by BOB generic procs before writing `_LOAD`/final target tables.
+  - Enterprise ETL `_Wrk` is not a new business layer; it is the loader/source-wrapper surface used by Enterprise ETL generic procs before writing `_LOAD`/final target tables.
   - `Staging_Wrk_Wrk` is expected for the generic proc path when the destination schema itself is `Staging_Wrk`.
 - Next:
   - Continue Phase 1H audit/smoke; validate object coverage, AuditLog completeness, TableDictionary readiness, and grain-specific duplicate checks before marking Phase 1 complete.
 
-## 2026-06-23 10:32:50 ICT — BOB naming convention live audit
+## 2026-06-23 10:32:50 ICT — Enterprise ETL naming convention live audit
 
 - Scope lock: read-only naming audit against `SupplyChain_Processing_Warehouse`, `SupplyChain_Gold_Warehouse`, and `ETL_Framework`.
-- User question: asked whether current names are actually BOB-compliant, not only functionally compatible.
+- User question: asked whether current names are actually Enterprise ETL-compliant, not only functionally compatible.
 - Source-of-truth checked:
-  - `01_docs/bob-framework/source/FABRIC_ARCHITECTURE_AND_STANDARDS.md` naming table: tables PascalCase, views `v_` + PascalCase, stored procedures `usp_` + PascalCase, working schemas `_Wrk`.
-  - `99_archive/reverse-engineering/enterprise_data_architect/10_evidence/*` and `20_proposals/03_naming_conventions.md`: Bob live/reverse-engineered convention uses canonical schema + `<Schema>_Wrk`, views `v_<Table>`, and historical correction from `_WRK/_ENH` to `_Wrk/_Enh`.
+  - `01_docs/enterprise-etl-framework/source/FABRIC_ARCHITECTURE_AND_STANDARDS.md` naming table: tables PascalCase, views `v_` + PascalCase, stored procedures `usp_` + PascalCase, working schemas `_Wrk`.
+  - `99_archive/reverse-engineering/enterprise_data_architect/10_evidence/*` and `20_proposals/03_naming_conventions.md`: Enterprise ETL live/reverse-engineered convention uses canonical schema + `<Schema>_Wrk`, views `v_<Table>`, and historical correction from `_WRK/_ENH` to `_Wrk/_Enh`.
 - Live checks:
   - `SupplyChain_Processing_Warehouse`: 0 schemas with legacy `_WRK/_ENH`; 0 `_Wrk` schemas with wrong suffix casing; 0 `_Wrk` views missing `v_`; 0 procedures outside accepted `usp_`/`Usp_` prefix.
   - `SupplyChain_Gold_Warehouse`: same 0/0/0/0 result.
   - `ETL_Framework`: same 0/0/0/0 result.
 - Interpretation:
-  - Current live naming is BOB-compliant for the naming surfaces checked.
-  - `Staging_Wrk_Wrk` is a BOB-generic edge case caused by destination schema `Staging_Wrk` + proc source lookup `<DestinationSchema>_Wrk`; ugly but conventionally valid because it still follows suffix `_Wrk` and enables the generic loader path.
+  - Current live naming is Enterprise ETL-compliant for the naming surfaces checked.
+  - `Staging_Wrk_Wrk` is a Enterprise ETL-generic edge case caused by destination schema `Staging_Wrk` + proc source lookup `<DestinationSchema>_Wrk`; ugly but conventionally valid because it still follows suffix `_Wrk` and enables the generic loader path.
 - Next:
   - Continue Phase 1H runtime/data audit; naming is not the remaining blocker.
 
 ## 2026-06-23 10:38:52 ICT — `_Wrk_Wrk` canonicalization decision point
 
 - Scope lock: repo artifact planning + live read-only dependency scan; no live DDL/DML mutation executed.
-- User instruction: asked to rename/fix naming so it matches Bob/EnterpriseData style perfectly, and asked whether all view code must be changed too.
+- User instruction: asked to rename/fix naming so it matches Enterprise ETL/EnterpriseData style perfectly, and asked whether all view code must be changed too.
 - Skills/checks:
   - Used `sqldw-authoring-cli` guidance for Fabric Warehouse authoring caution.
   - Used `systematic-debugging` root-cause framing.
-  - Checked Bob 01_docs/runbooks: canonical Bob pattern is final schema/table plus `<Schema>_Wrk.v_<Table>` source view.
+  - Checked Enterprise ETL 01_docs/runbooks: canonical Enterprise ETL pattern is final schema/table plus `<Schema>_Wrk.v_<Table>` source view.
   - Checked Microsoft/Fabric 01_docs/search evidence: schema transfer/ALTER-style operations in Fabric Warehouse should be handled carefully; do not blindly move a 6.8B-row table with `ALTER SCHEMA`.
 - Root cause:
   - Current target is `Staging_Wrk.DemandForecastSnapshotDaily`.
-  - BOB lookup/pattern derives source as `<DestinationSchema>_Wrk.v_<DestinationTable>`.
+  - Enterprise ETL lookup/pattern derives source as `<DestinationSchema>_Wrk.v_<DestinationTable>`.
   - Therefore current source wrapper became `Staging_Wrk_Wrk.v_DemandForecastSnapshotDaily`.
   - The real naming smell is the final/materialized target living in a `_Wrk` schema.
 - Live dependency scan:
@@ -4286,11 +4286,11 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - `Staging_Wrk.v_DemandForecastSnapshotDaily` is the cleaned source view over `Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily`.
   - `ETL_Framework.DW_Developer.TableDictionary` target row currently uses `SchemaName=Staging_Wrk`, `ReplicatedSource=Staging_Wrk_Wrk.v_DemandForecastSnapshotDaily`, `UpdateMethod=DateRange`, `UpdateQuery=[DW_Developer].[usp_IncrementalTableLoad]`.
 - Created artifacts:
-  - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1h/phase1h_bob_naming_canonicalization_plan.md`
-  - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1h/phase1h_bob_naming_canonicalization_precheck.sql`
+  - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1h/phase1h_enterprise_etl_naming_canonicalization_plan.md`
+  - `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1h/phase1h_enterprise_etl_naming_canonicalization_precheck.sql`
 - Recommended canonical target:
   - Final table: `Staging.DemandForecastSnapshotDaily`
-  - BOB source view: `Staging_Wrk.v_DemandForecastSnapshotDaily`
+  - Enterprise ETL source view: `Staging_Wrk.v_DemandForecastSnapshotDaily`
   - Deprecated compatibility wrapper: `Staging_Wrk_Wrk.v_DemandForecastSnapshotDaily` retained until explicit cleanup approval.
 - Next:
   - Get exact approval for guarded live migration/cutover before any high-blast-radius action.
@@ -4306,16 +4306,16 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - Confirmed `usp_IncrementalTableLoad` reads destination metadata row from `TableDictionary`, gets source from `ReplicatedSource`, and performs DML against `@DestinationDatabase.@DestinationSchema.@DestinationTable`.
   - Current `DemandForecastSnapshotDaily` row is `UpdateMethod=DateRange`, `DateKey=dfcSnapshot`, `DateRangeDays=30`.
 - Clarification:
-  - User is correct that, once the canonical physical target exists and metadata points to it, BOB incremental/date-range path should not require a full overwrite.
-  - However, text replacement alone is insufficient because `Staging.DemandForecastSnapshotDaily` must exist as a writable physical target for BOB DML. Updating views/metadata without moving/creating the physical target would break the proc.
+  - User is correct that, once the canonical physical target exists and metadata points to it, Enterprise ETL incremental/date-range path should not require a full overwrite.
+  - However, text replacement alone is insufficient because `Staging.DemandForecastSnapshotDaily` must exist as a writable physical target for Enterprise ETL DML. Updating views/metadata without moving/creating the physical target would break the proc.
   - Safest cutover should avoid full reload but still needs a physical object move/copy/clone or a verified Fabric-supported schema transfer strategy.
 - Next:
   - Present concise options: metadata-only/text-only is not enough; guarded no-full-reload cutover is viable if physical table movement is handled safely.
 
-## 2026-06-23 13:05:05 ICT — Live BOB naming canonicalization applied
+## 2026-06-23 13:05:05 ICT — Live Enterprise ETL naming canonicalization applied
 
 - Scope lock: live Fabric Warehouse mutation in `SupplyChain_Processing_Warehouse` + `ETL_Framework`; repo artifacts under `01_docs/runbook/artifacts/20260622_phase1a_baseline`.
-- User instruction: proceed so Phase 1 is complete, clean, and BOB naming is canonical.
+- User instruction: proceed so Phase 1 is complete, clean, and Enterprise ETL naming is canonical.
 - Live actions executed:
   - Created schema `Staging`.
   - Ran metadata-level schema transfer: `ALTER SCHEMA Staging TRANSFER Staging_Wrk.DemandForecastSnapshotDaily`; completed OK without full reload.
@@ -4323,13 +4323,13 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - Updated live views:
     - `ForecastHistory_Enh.v_ForecastDemandMonthly` now reads `Staging.DemandForecastSnapshotDaily`.
     - `InventoryHistory_Enh.v_ForecastSnapshotWeekly` now reads `Staging.DemandForecastSnapshotDaily`.
-    - `Staging_Wrk.v_DemandForecastSnapshotDaily` now includes `LoadDT` for BOB incremental source/target column contract.
+    - `Staging_Wrk.v_DemandForecastSnapshotDaily` now includes `LoadDT` for Enterprise ETL incremental source/target column contract.
   - Updated `ETL_Framework.DW_Developer.TableDictionary`:
     - target row is now `SupplyChain_Processing_Warehouse.Staging.DemandForecastSnapshotDaily`
     - `ReplicatedSource=Staging_Wrk.v_DemandForecastSnapshotDaily`
     - `UpdateMethod=DateRange`, `DateKey=dfcSnapshot`, `DateRangeDays=30`, `UpdateQuery=[DW_Developer].[usp_IncrementalTableLoad]`
     - inserted/updated source metadata row for `Staging_Wrk.v_DemandForecastSnapshotDaily`.
-  - Ran BOB canonical smoke:
+  - Ran Enterprise ETL canonical smoke:
     - first run failed with `Invalid column name 'LoadDT'` because the canonical source wrapper lacked `LoadDT`.
     - fixed source view and reran successfully.
     - successful audit: `Process Start` `2026-06-23 00:53:36.793333`, `Process Complete` `2026-06-23 00:56:33.686667` for `SupplyChain_Processing_Warehouse.Staging.DemandForecastSnapshotDaily`.
@@ -4341,8 +4341,8 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - latest snapshot grain duplicate groups = `0` for key `dfcItem,dfcWarehouse,dfcFiscalMonth,dfcSnapshot,DfcCustomerGroups,dfcFCSTTypeCode,dfcMgmtCode`.
   - downstream module refs: `ForecastDemandMonthly` and `ForecastSnapshotWeekly` now canonical; no old table refs in live module definitions except deprecated `Staging_Wrk_Wrk.v_DemandForecastSnapshotDaily`.
 - Repo changes:
-  - Updated `build_phase1_bob_execution_pack.py`, tests, active staging/silver docs, lineage current data, master plan, and Phase 1H artifacts.
-  - Unit test `python3 -m unittest 99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/test_build_phase1_bob_execution_pack.py` passed.
+  - Updated `build_phase1_enterprise_etl_execution_pack.py`, tests, active staging/silver docs, lineage current data, master plan, and Phase 1H artifacts.
+  - Unit test `python3 -m unittest 99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/test_build_phase1_enterprise_etl_execution_pack.py` passed.
   - Rebuilt Phase 1E/1G artifacts from generator.
 - Remaining policy-gated cleanup:
   - Deprecated live object/metadata still exists: `Staging_Wrk_Wrk.v_DemandForecastSnapshotDaily` and matching `TableDictionary` source row.
@@ -4374,7 +4374,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 
 ## 2026-06-23 13:19:29 ICT — Phase 1 done / final cleanup complete
 
-- Scope lock: final cleanup + audit for Phase 1 BOB framework migration in live Fabric warehouses and local repo artifacts.
+- Scope lock: final cleanup + audit for Phase 1 Enterprise ETL framework migration in live Fabric warehouses and local repo artifacts.
 - User instruction: clean all four remaining items completely and hand off Phase 1 done.
 - Destructive cleanup executed after user approval:
   - `DROP TABLE ForecastHistory_Enh.ForecastDemandMonthly_LOAD`
@@ -4397,7 +4397,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
     - `MAX(dfcSnapshot)=2026-06-19`
     - `COUNT_BIG=7054627940`
     - latest snapshot grain duplicate groups = `0`
-  - BOB metadata:
+  - Enterprise ETL metadata:
     - target row is `SupplyChain_Processing_Warehouse.Staging.DemandForecastSnapshotDaily`
     - `ReplicatedSource=Staging_Wrk.v_DemandForecastSnapshotDaily`
     - `UpdateMethod=DateRange`
@@ -4413,7 +4413,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - Updated `01_docs/Enterprise_Framework_Migration_Master_Plan.md` Phase 1 progress to complete.
   - Updated builder/test/docs/current lineage to canonical naming.
 - Verification:
-  - `python3 -m unittest 99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/test_build_phase1_bob_execution_pack.py` -> OK.
+  - `python3 -m unittest 99_archive/reverse-engineering/enterprise_supplychain_dev_architect/05_tools/test_build_phase1_enterprise_etl_execution_pack.py` -> OK.
 - Current status:
   - Phase 1 framework/runtime/naming/audit cleanup is complete.
   - No full curated refresh pack was rerun after the user stopped it.
@@ -4423,13 +4423,13 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 
 - Scope lock: local repo only; no Fabric live mutation.
 - User instruction: pause Phase 2 and start the "tong don dep va tai cau truc" plan:
-  - Convert repo into a clean documentation + operations repository for the final BOB-aligned architecture.
+  - Convert repo into a clean documentation + operations repository for the final Enterprise ETL-aligned architecture.
   - Archive old architecture knowledge v8-v10 without deleting it.
   - Add clear current architecture docs, Mermaid `.mmd` and generated SVG diagrams.
   - Add mart/project operation hubs with SQL definitions, lineage/run order, history, and orchestration docs.
   - Add manual/ad-hoc orchestration tools per main/all-mart and per mart so the agent can refresh in correct dependency order when requested.
   - Split root `CONTEXT.md` into a `00_CONTEXT/` folder with max 4-day context chunks and update `AGENTS.md`/project rules accordingly.
-  - Rewrite `AGENTS.md` to be lean/current: Fabric IDs, auth/tooling, context rules, destructive safety, and current BOB runtime contract.
+  - Rewrite `AGENTS.md` to be lean/current: Fabric IDs, auth/tooling, context rules, destructive safety, and current Enterprise ETL runtime contract.
 - Actions executed:
   - Re-read `AGENTS.md`; confirmed it still describes v9-era project state and single root `CONTEXT.md` rule.
   - Re-read tail of `CONTEXT.md`; confirmed Phase 1 is marked complete with final cleanup/audit evidence.
@@ -4446,7 +4446,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 ## 2026-06-23 14:02:10 ICT — Context split executed
 
 - Scope lock: local repo only; no Fabric live mutation.
-- User approved repo cleanup/restructure and requested highly detailed docs based on reverse engineering + BOB Guide.
+- User approved repo cleanup/restructure and requested highly detailed docs based on reverse engineering + Enterprise ETL Guide.
 - Actions executed:
   - Added `05_tools/split_context.py`.
   - Ran `python3 05_tools/split_context.py --root . --max-days 4 --execute`.
@@ -4461,24 +4461,24 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - `AGENTS.md` still needs to be rewritten to point to the new context rule.
   - Existing docs still have legacy path references that must be normalized during the repo cleanup.
 - Next:
-  - Rewrite `AGENTS.md`/`README.md` for the final BOB-aligned operating repo.
+  - Rewrite `AGENTS.md`/`README.md` for the final Enterprise ETL-aligned operating repo.
   - Build current architecture docs, mart hubs, and orchestration tools.
 
 ## 2026-06-23 14:25:00 ICT — Repo restructure batch complete
 
 - Scope lock: local repo only; no Fabric live mutation.
-- User instruction: make docs highly detailed/visual/easy to understand based on reverse engineering plus BOB Guide; pause Phase 2.
+- User instruction: make docs highly detailed/visual/easy to understand based on reverse engineering plus Enterprise ETL Guide; pause Phase 2.
 - Actions executed:
-  - Rewrote `AGENTS.md` to current BOB runtime rules, Fabric IDs, context split rule, and manual refresh safety.
+  - Rewrote `AGENTS.md` to current Enterprise ETL runtime rules, Fabric IDs, context split rule, and manual refresh safety.
   - Rewrote root `README.md` as the new documentation + operations repo entrypoint.
   - Moved old architecture folders:
     - `99_archive/architectures/v9_april`
-    - `99_archive/architectures/v10_may_pre_bob`
-  - Moved Bob source guide to `01_docs/bob-framework/source` and added `01_docs/bob-framework/README.md`.
+    - `99_archive/architectures/v10_may_pre_enterprise_etl`
+  - Moved Enterprise ETL source guide to `01_docs/enterprise-etl-framework/source` and added `01_docs/enterprise-etl-framework/README.md`.
   - Added current architecture docs:
-    - `01_docs/architecture/current/final_bob_runtime_architecture.md`
-    - `01_docs/architecture/current/final_bob_runtime_architecture.mmd`
-    - `01_docs/architecture/current/final_bob_runtime_architecture.svg`
+    - `01_docs/architecture/current/final_enterprise_etl_runtime_architecture.md`
+    - `01_docs/architecture/current/final_enterprise_etl_runtime_architecture.mmd`
+    - `01_docs/architecture/current/final_enterprise_etl_runtime_architecture.svg`
   - Added mart hubs:
     - `02_marts/forecast_accuracy`
     - `02_marts/inventory_health`
@@ -4493,13 +4493,13 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
     - `03_operations/05_tools/run_refresh.py`
   - Updated `01_docs/Enterprise_Framework_Migration_Master_Plan.md` to say Phase 1 complete, Phase 2 deferred, and repo restructure active.
   - Updated `01_docs/architecture/README.md` to point to current final architecture first.
-  - Normalized moved path references from `BOB_Guide`, `01_Architect_v9_April`, and `02_Architect_v10_May`.
+  - Normalized moved path references from `enterprise_etl_Guide`, `01_Architect_v9_April`, and `02_Architect_v10_May`.
 - Verification executed:
   - `python3 -m py_compile 03_operations/05_tools/run_refresh.py 05_tools/split_context.py`
   - `python3 -m json.tool` for all orchestration manifests
   - `mmdc` generated non-empty SVG (`56814` bytes)
   - dry-run for main, forecast_accuracy, and inventory_health manifests
-  - `rg` confirmed no stale `BOB_Guide` / old v9/v10 root path refs outside excluded 99_archive/source context.
+  - `rg` confirmed no stale `enterprise_etl_Guide` / old v9/v10 root path refs outside excluded 99_archive/source context.
 - Current risk:
   - Mart-level REST parameter execution through `pl_sc_mart(project_name)` is documented as `[Need-verify]`; dry-run works, live parameterized API smoke has not been executed.
   - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/` is still retained as pre-restructure evidence; future cleanup can archive it after link audit/approval.
@@ -4543,7 +4543,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - Added `01_docs/README.md`.
 - Verification:
   - top-level folders now match the operating repo shape.
-  - no stale old root handles outside context/archive for `Enterprise_Data_architect`, `Enterprise_SupplyChain_Dev_architect`, `BOB_Guide`, `01_Architect_v9_April`, `02_Architect_v10_May`.
+  - no stale old root handles outside context/archive for `Enterprise_Data_architect`, `Enterprise_SupplyChain_Dev_architect`, `enterprise_etl_Guide`, `01_Architect_v9_April`, `02_Architect_v10_May`.
   - Python compile and JSON manifest validation passed.
 - Next:
   - final handoff to user.
@@ -4558,7 +4558,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - Added detailed sections for:
     - executive architecture summary
     - workspace/item map
-    - BOB runtime contract
+    - Enterprise ETL runtime contract
     - Bronze/Silver/Gold layer responsibilities
     - mart map
     - execution/orchestration order
@@ -4590,20 +4590,20 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
     - `ReferenceMaster_Enh.v_ForecastHorizon` reads `ProcessingSeed.ForecastHorizon`
     - `SalesHistory_Enh.v_InvoiceDetailLineLevel` reads `Enterprise_Lakehouse.SalesHistory_AFI.InvoiceDetail` + `InvoiceHeader`
     - `Staging_Wrk.v_DemandForecastSnapshotDaily` reads `Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily`
-  - Local BOB `ETL_Framework.DW_Developer.TableDictionary` still has one stale metadata row:
+  - Local Enterprise ETL `ETL_Framework.DW_Developer.TableDictionary` still has one stale metadata row:
     - `SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ForecastCycle`
     - `SourceObject=["SupplyChain_Lakehouse.dbo.ref_forecast_cycle"]`
     - live view now reads `ProcessingSeed.ForecastCycle`
 - Files changed:
   - Added `01_docs/runbook/artifacts/20260623_forecast_source_live_check.md`
   - Updated `README.md`
-  - Updated `01_docs/architecture/current/final_bob_runtime_architecture.md`
+  - Updated `01_docs/architecture/current/final_enterprise_etl_runtime_architecture.md`
   - Updated `02_marts/forecast_accuracy/README.md`
 - Conclusion:
   - Forecast Accuracy live runtime is off `SupplyChain_Lakehouse`.
-  - Remaining signal is stale BOB metadata + archived 01_docs/history, not active Forecast view logic.
+  - Remaining signal is stale Enterprise ETL metadata + archived 01_docs/history, not active Forecast view logic.
 - Next:
-  - Ask Aric whether to update live BOB `TableDictionary` metadata row for `ReferenceMaster_Enh.ForecastCycle` to `ProcessingSeed.ForecastCycle`.
+  - Ask Aric whether to update live Enterprise ETL `TableDictionary` metadata row for `ReferenceMaster_Enh.ForecastCycle` to `ProcessingSeed.ForecastCycle`.
 
 ## 2026-06-23 14:59:33 ICT — Numbered root and mart folder ordering started
 
@@ -4631,7 +4631,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 
 ## 2026-06-23 15:24:00 ICT — Numbered mart layout completed and verified
 
-- Scope lock: local repo structure/docs plus approved live BOB metadata correction; no pipeline refresh and no business table/view mutation.
+- Scope lock: local repo structure/docs plus approved live Enterprise ETL metadata correction; no pipeline refresh and no business table/view mutation.
 - Live metadata cleanup already executed:
   - Updated `ETL_Framework.DW_Developer.TableDictionary` for `SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ForecastCycle`.
   - Corrected stale `SourceObject=["SupplyChain_Lakehouse.dbo.ref_forecast_cycle"]` to `["ProcessingSeed.ForecastCycle"]`.
@@ -4792,11 +4792,11 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 - Next:
   - Handoff to Aric. Do not refresh data unless requested; source/view/metadata are ready for next scheduled or manual mart refresh.
 
-## 2026-06-23 16:18:14 ICT — BOB hygiene cleanup pass
+## 2026-06-23 16:18:14 ICT — Enterprise ETL hygiene cleanup pass
 
-- Scope lock: live BOB runtime metadata + `_Wrk` wrapper coverage; no data refresh, no table reload, no lineage rebuild.
+- Scope lock: live Enterprise ETL runtime metadata + `_Wrk` wrapper coverage; no data refresh, no table reload, no lineage rebuild.
 - User instruction:
-  - “làm đi cho sạch luôn” after confirming current architecture follows BOB pattern.
+  - “làm đi cho sạch luôn” after confirming current architecture follows Enterprise ETL pattern.
 - Live checks:
   - `DW_Developer.usp_RefreshCuratedTableFromView` builds source view as `<DestinationSchema>_Wrk.v_<DestinationTable>` and final table as `<DestinationSchema>.<DestinationTable>`.
   - Physical target tables checked: `46`.
@@ -4818,28 +4818,28 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
     - `InventoryHealth_DW.FactInventoryRiskForward`
 - Verification:
   - `SELECT TOP 0 * FROM InventoryHistory_Enh_Wrk.v_AtpWeekEnding` passed.
-  - Final BOB hygiene audit status: `PASS`.
+  - Final Enterprise ETL hygiene audit status: `PASS`.
   - Missing non-Staging `_Wrk` views: `0`.
   - Missing TableDictionary rows: `0`.
   - Existing physical rows with missing `UpdateMethod`, `UpdateQuery`, or `OperationKey`: `0`.
   - Unmarked stale rows without physical table: `0`.
   - `Staging.DemandForecastSnapshotDaily` remains deliberate exception using `Staging_Wrk.v_DemandForecastSnapshotDaily`; no double `_Wrk_Wrk`.
 - Artifacts:
-  - `01_docs/runbook/artifacts/20260623_live_scan/bob_hygiene_cleanup/README.md`
-  - `01_docs/runbook/artifacts/20260623_live_scan/bob_hygiene_cleanup/bob_hygiene_apply_verify.json`
-  - `01_docs/runbook/artifacts/20260623_live_scan/bob_hygiene_cleanup/bob_hygiene_final_audit.json`
-  - `01_docs/runbook/artifacts/20260623_live_scan/bob_hygiene_cleanup/InventoryHistory_Enh_Wrk.v_AtpWeekEnding.create.sql`
-  - `01_docs/runbook/artifacts/20260623_live_scan/bob_hygiene_cleanup/stale_tabledictionary_rows_marked_history_only.json`
+  - `01_docs/runbook/artifacts/20260623_live_scan/enterprise_etl_hygiene_cleanup/README.md`
+  - `01_docs/runbook/artifacts/20260623_live_scan/enterprise_etl_hygiene_cleanup/enterprise_etl_hygiene_apply_verify.json`
+  - `01_docs/runbook/artifacts/20260623_live_scan/enterprise_etl_hygiene_cleanup/enterprise_etl_hygiene_final_audit.json`
+  - `01_docs/runbook/artifacts/20260623_live_scan/enterprise_etl_hygiene_cleanup/InventoryHistory_Enh_Wrk.v_AtpWeekEnding.create.sql`
+  - `01_docs/runbook/artifacts/20260623_live_scan/enterprise_etl_hygiene_cleanup/stale_tabledictionary_rows_marked_history_only.json`
 - Next:
   - Handoff to Aric. Phase remains no-refresh unless explicitly requested.
 
-## 2026-06-23 16:30:12 ICT — BOB hygiene final live verification
+## 2026-06-23 16:30:12 ICT — Enterprise ETL hygiene final live verification
 
 - Scope lock: read-only verification against live SQL endpoint; no data refresh, no table reload, no Fabric item mutation.
 - Actions executed:
   - Re-read `AGENTS.md` and `00_CONTEXT/current.md`.
-  - Verified `bob_hygiene_final_audit.json`:
-    - `bob_hygiene_status = PASS`
+  - Verified `enterprise_etl_hygiene_final_audit.json`:
+    - `enterprise_etl_hygiene_status = PASS`
     - `physical_tables_checked = 46`
     - `missing_wrk_count = 0`
     - `missing_tabledictionary_count = 0`
@@ -5141,7 +5141,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - Current semantic `DimProduct.tmdl` expects `218` source columns; `185` are missing from live `Shared_DW.DimProduct`.
   - Current `Shared_DW_Wrk.v_DimProduct` metadata still shows `218` columns, but `SELECT COUNT_BIG(*) FROM Shared_DW_Wrk.v_DimProduct` fails with `Invalid column name 'Item'` because it selects from the now-narrow `Shared_DW.v_DimProduct`.
   - `InventoryAgeWeeks` is not currently a Direct Lake source-column mismatch; instead, current `_Measure_InventoryHealth.tmdl` still references `'FactInventoryHealthSnapshot'[InventoryAgeWeeks]` while that semantic column is no longer declared.
-  - BOB `usp_RefreshCuratedTableFromView` creates `_LOAD` as `SELECT TOP 0 * FROM live table` then inserts `SELECT * FROM <schema>_Wrk.v_<table>` and drops/swaps live table. Therefore, rerunning this proc alone cannot widen `Shared_DW.DimProduct` from 39 to 218 columns; it will either keep the narrow shape or fail on `SELECT *` mismatch.
+  - Enterprise ETL `usp_RefreshCuratedTableFromView` creates `_LOAD` as `SELECT TOP 0 * FROM live table` then inserts `SELECT * FROM <schema>_Wrk.v_<table>` and drops/swaps live table. Therefore, rerunning this proc alone cannot widen `Shared_DW.DimProduct` from 39 to 218 columns; it will either keep the narrow shape or fail on `SELECT *` mismatch.
 - Current conclusion:
   - Best recovery path is likely contract restoration, not semantic shrink: restore wide `Shared_DW.v_DimProduct`/`Shared_DW_Wrk.v_DimProduct`/physical `Shared_DW.DimProduct` contract, then restore 5 relationships in semantic and address the stale `InventoryAgeWeeks` measures/column contract.
   - Any live recovery requires explicit approval because it involves Fabric/Power BI overwrite or Gold table rebuild/drop-swap risk.
@@ -5205,7 +5205,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - Live SQL mutation limited to `ETL_Framework.DW_Developer.TableDictionary`.
   - No mart data tables, no mart views, no Fabric items, and no semantic models were changed in this step.
 - User instruction:
-  - Continue with the clean Enterprise/BOB `_Wrk` contract migration and do the safest correct next step.
+  - Continue with the clean Enterprise/Enterprise ETL `_Wrk` contract migration and do the safest correct next step.
 - Actions executed:
   - Re-read `AGENTS.md` and `00_CONTEXT/current.md`.
   - Used Fabric SQL authoring workflow with `pyodbc` + Entra token against `ETL_Framework`.
@@ -5263,14 +5263,14 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 - Next concrete step:
   - If Aric approves exact Gold package, apply `candidate_alter_wrk_views_gold_identical_contract.sql`, rerun dependency audit, then apply `candidate_drop_base_views_gold_after_identical_wrk_rewrite.sql` only if zero refs are verified.
 
-## 2026-06-23 22:45:00 ICT — Enterprise/BOB `_Wrk` contract live cleanup completed
+## 2026-06-23 22:45:00 ICT — Enterprise/Enterprise ETL `_Wrk` contract live cleanup completed
 
 - Scope lock:
   - Live DDL in `SupplyChain_Processing_Warehouse` and `SupplyChain_Gold_Warehouse`.
   - No physical mart tables were dropped/rebuilt/refreshed in this step.
   - No semantic model/report mutation in this step.
 - User instruction:
-  - "làm gì thì làm cho xong" and final state must be concretely BOB-standard, with system operation applied smoothly.
+  - "làm gì thì làm cho xong" and final state must be concretely Enterprise ETL-standard, with system operation applied smoothly.
 - Actions executed:
   - Detected live runtime bug: `ReferenceMaster_Enh_Wrk.v_ItemMaster` failed with `Invalid column name 'RowID'` because `_Wrk` had 174 columns while final `ReferenceMaster_Enh.ItemMaster` has 36 columns.
   - Enhanced `scan_wrk_contract.py` to capture live table/view columns.
@@ -5312,17 +5312,17 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - Active mart SQL legacy base-view ref scan: `0` refs.
 - Final architecture contract:
   - `<BaseSchema>.<TableName>` = physical final table.
-  - `<BaseSchema>_Wrk.v_<TableName>` = direct source/work view used by BOB ETL Framework.
+  - `<BaseSchema>_Wrk.v_<TableName>` = direct source/work view used by Enterprise ETL Framework.
   - Base-schema `v_*` views are removed from Processing/Silver and Gold/Serving.
 
-## 2026-06-24 09:57:36 ICT — Researched US/BOB stored-procedure orchestration pattern
+## 2026-06-24 09:57:36 ICT — Researched US/Enterprise ETL stored-procedure orchestration pattern
 
 **Scope lock:**
 - Read-only live Fabric/SQL scan plus repo/context review.
 - No live SQL DDL/DML, Fabric mutation, or repo architecture change beyond this context note.
 
 **User question:**
-- How does US/BOB orchestration likely run when SQL Server Agent is the scheduler?
+- How does US/Enterprise ETL orchestration likely run when SQL Server Agent is the scheduler?
 - Does the flow use final-schema stored procedures that call ETL framework operations against `_Wrk.v_<TableName>` views in ordered groups/waves?
 
 **Evidence checked:**
@@ -5355,10 +5355,10 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 - [Verified] Current new Phase 1 warehouses do not yet have equivalent mart/domain wrapper procs:
   - `SupplyChain_Processing_Warehouse`: procs only in `Meta` plus old `Staging_Wrk`; no active domain `usp_Update_*` wrapper found.
   - `SupplyChain_Gold_Warehouse`: no stored procedures found.
-  - `ETL_Framework`: generic BOB loader procs exist.
+  - `ETL_Framework`: generic Enterprise ETL loader procs exist.
 
 **Interpretation:**
-- US/BOB runtime pattern is not strictly "one stored procedure per table".
+- US/Enterprise ETL runtime pattern is not strictly "one stored procedure per table".
 - It is usually a layered pattern:
   1. final schema physical table;
   2. `_Wrk.v_<TableName>` source/work view;
@@ -5374,14 +5374,14 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - optional top-level `dbo.Usp_Refresh_<Mart>` wrapper calling domain wrappers.
 - Do not apply live `CREATE/ALTER PROCEDURE` until Aric explicitly approves exact generated DDL.
 
-## 2026-06-24 10:18:29 ICT — Verified BOB wrapper flow against EnterpriseData and SCP_Core
+## 2026-06-24 10:18:29 ICT — Verified Enterprise ETL wrapper flow against EnterpriseData and SCP_Core
 
 **Scope lock:**
 - Read-only Fabric Warehouse metadata/procedure scan.
 - No live SQL DDL/DML or Fabric mutation.
 
 **User instruction:**
-- Scan `EnterpriseData` and `Enterprise SupplyChain-Dev.SupplyChain_Warehouse` to confirm whether the inferred flow is actually the standard BOB/US pattern.
+- Scan `EnterpriseData` and `Enterprise SupplyChain-Dev.SupplyChain_Warehouse` to confirm whether the inferred flow is actually the standard Enterprise ETL/US pattern.
 
 **Live evidence:**
 - `Enterprise SupplyChain-Dev.SupplyChain_Warehouse`:
@@ -5425,7 +5425,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - Treat prod proc absence as visibility/environment evidence only; do not use it to disprove the dev/US wrapper pattern.
 
 **Confirmed interpretation:**
-- [Verified] The BOB/US curated pattern is:
+- [Verified] The Enterprise ETL/US curated pattern is:
   1. final schema physical tables;
   2. `_Wrk.v_<TableName>` views for source/business SQL;
   3. wrapper stored procedures as ordered orchestration entrypoints;
@@ -5444,7 +5444,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 **Current repo state checked:**
 - `03_operations/orchestration/main/manifest.yaml` has project-level order:
   - shared -> forecast_accuracy -> inventory_health -> smoke.
-- Mart-level `manifest.yaml` files currently declare pipeline/project metadata and BOB `_Wrk` contract, but do not carry the full table-level sequence.
+- Mart-level `manifest.yaml` files currently declare pipeline/project metadata and Enterprise ETL `_Wrk` contract, but do not carry the full table-level sequence.
 - Generated operating packages currently hold table-level order:
   - `02_marts/forecast_accuracy/05_catalog/run_order.json`
   - `02_marts/inventory_health/05_catalog/run_order.json`
@@ -5466,7 +5466,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - generated schema/wave wrapper procs;
   - generated mart wrapper proc;
   - optional all-mart wrapper proc.
-- This preserves BOB compatibility while keeping dependency order machine-checkable.
+- This preserves Enterprise ETL compatibility while keeping dependency order machine-checkable.
 
 ## 2026-06-24 10:36:41 ICT — Forecast Accuracy wrapper-flow example researched
 
@@ -5475,7 +5475,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 - No live SQL DDL/DML or Fabric mutation.
 
 **User question:**
-- What would the Forecast Accuracy flow look like top-down if converted to BOB/US wrapper stored procedures, and would each step call the framework loader and update `TableDictionary`/audit?
+- What would the Forecast Accuracy flow look like top-down if converted to Enterprise ETL/US wrapper stored procedures, and would each step call the framework loader and update `TableDictionary`/audit?
 
 **Evidence checked:**
 - `02_marts/forecast_accuracy/05_catalog/run_order.json` has `13` ordered steps:
@@ -5503,7 +5503,7 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
 - No live SQL DDL/DML or Fabric mutation.
 
 **User concern:**
-- Whether adding an `Orchestration` schema inside `ETL_Framework` is already a US/BOB pattern, or would be an unsupported custom addition.
+- Whether adding an `Orchestration` schema inside `ETL_Framework` is already a US/Enterprise ETL pattern, or would be an unsupported custom addition.
 
 **Evidence checked:**
 - `Enterprise SupplyChain-Dev.ETL_Framework`:
@@ -5520,15 +5520,15 @@ EXEC DW_Developer.usp_RefreshCuratedTableFromView
   - no `Orchestration` schema found.
 
 **Decision implication:**
-- Do not add `ETL_Framework.Orchestration` as the default BOB-aligned design without explicit approval.
+- Do not add `ETL_Framework.Orchestration` as the default Enterprise ETL-aligned design without explicit approval.
 - Safer parity pattern is to keep `ETL_Framework.DW_Developer` as pure generic loader framework, and place wrapper/orchestration procedures in the target/domain warehouses (`dbo` and/or relevant business schema), matching `SCP_Core`, Retail, and Wholesale evidence.
 
-## 2026-06-23 22:58:00 ICT — Repo docs wording synced to final BOB contract
+## 2026-06-23 22:58:00 ICT — Repo docs wording synced to final Enterprise ETL contract
 
 - Scope lock:
   - Repo documentation cleanup only; no live Fabric SQL changes.
 - User instruction:
-  - Confirm whether docs and repo references were updated after BOB contract cleanup.
+  - Confirm whether docs and repo references were updated after Enterprise ETL contract cleanup.
 - Actions executed:
   - Checked current docs and active mart SQL for stale base-schema `v_*` references.
   - Updated final wording in:

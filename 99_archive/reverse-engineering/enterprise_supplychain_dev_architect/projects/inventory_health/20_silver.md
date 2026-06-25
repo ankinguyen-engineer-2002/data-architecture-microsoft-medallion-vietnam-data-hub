@@ -21,7 +21,7 @@
 >
 > **2026-05-19 source switches preserved**: `v_PurchaseOrder` main/join paths read EL `PoDetail` + `PoMaster`; `v_LogilityItemStatus` reads EL `SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility` with deterministic grain-conflict dedupe.
 >
-> **DA residual cleanup 2026-05-28 / BOB canonicalization 2026-06-23:** live snapshot views remove `HCANCL='N'`, remove PO direct/RP warehouse exclusion, and remove `PoMaster` vendor join condition. `InventorySnapshotWeekly` now uses `DemandInventorySnapshotDaily` Saturday rows with `SnapshotWeekEndingDate`, `MakeBuyCode`, and `SourceWarehouseCode`; `ForecastSnapshotWeekly` now uses canonical BOB target `Staging.DemandForecastSnapshotDaily` Saturday rows. Active Silver tables were manually materialized after the view replacement.
+> **DA residual cleanup 2026-05-28 / Enterprise ETL canonicalization 2026-06-23:** live snapshot views remove `HCANCL='N'`, remove PO direct/RP warehouse exclusion, and remove `PoMaster` vendor join condition. `InventorySnapshotWeekly` now uses `DemandInventorySnapshotDaily` Saturday rows with `SnapshotWeekEndingDate`, `MakeBuyCode`, and `SourceWarehouseCode`; `ForecastSnapshotWeekly` now uses canonical Enterprise ETL target `Staging.DemandForecastSnapshotDaily` Saturday rows. Active Silver tables were manually materialized after the view replacement.
 
 ## Schemas
 

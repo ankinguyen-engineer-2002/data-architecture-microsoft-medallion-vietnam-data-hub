@@ -34,7 +34,7 @@
 | C3 | VN team's Gold WH has actual data, not empty. ✅ Safe |
 | C25 | VN's `Enterprise_Lakehouse` is shortcut from hub Bronze — read-only from VN side. Write-back risk minimal but should not happen via VN pipelines. ⚠️ Audit |
 | C28 | Not applicable — VN team doesn't mount ADLS broadly |
-| Parquet loader variants | VN has **1 generic** `usp_GenericLoad` covering 8 patterns. Better than Bob's 12 variants. ✅ Already aligned |
+| Parquet loader variants | VN has **1 generic** `usp_GenericLoad` covering 8 patterns. Better than Enterprise ETL's 12 variants. ✅ Already aligned |
 | AuditLog retention | VN's AuditLog will also grow — should plan archival |
 
 ## Cross-refs

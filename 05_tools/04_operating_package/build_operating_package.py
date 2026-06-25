@@ -428,7 +428,7 @@ def build_lineage_edges(repo_root: Path, mart_dir: Path, assets: list[dict[str, 
         final_object = obj.removeprefix("v_")
         final = by_short.get(f"{final_schema}.{final_object}".lower())
         if final:
-            add_edge(asset["display"], final["display"], "bob_wrk_view_materializes_final_table", asset.get("file_path"))
+            add_edge(asset["display"], final["display"], "enterprise_etl_wrk_view_materializes_final_table", asset.get("file_path"))
 
     return sorted(edges.values(), key=lambda row: (row["target"], row["source"], row["edge_type"]))
 
@@ -490,7 +490,7 @@ def write_catalog_readme(path: Path, mart: str) -> None:
         "| File | Purpose |\n"
         "|---|---|\n"
         "| `assets.json` | All repo-known mart assets by layer and file path. |\n"
-        "| `lineage_edges.json` | Table/view/source edges inferred from SQL references plus BOB `_Wrk` materialization edges. |\n"
+        "| `lineage_edges.json` | Table/view/source edges inferred from SQL references plus Enterprise ETL `_Wrk` materialization edges. |\n"
         "| `run_order.json` | Manifest-backed refresh order and post-run check contract. |\n"
         "| `semantic_bindings.json` | Gold-to-semantic references inferred from local semantic artifacts. |\n",
         encoding="utf-8",

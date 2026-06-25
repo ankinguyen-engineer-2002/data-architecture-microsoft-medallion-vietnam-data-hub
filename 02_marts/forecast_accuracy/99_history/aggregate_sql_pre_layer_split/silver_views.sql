@@ -8,7 +8,7 @@
 
 -- ---- ForecastHistory_Enh.v_ForecastDemandMonthly ----
 -- 2026-05-19 SWAP: was legacy EDW supplement (SC_LH ver2 to DF2, dropped post-EDW-Exit)
--- 2026-06-23 CANONICAL: now reads Staging.DemandForecastSnapshotDaily (BOB target; source wrapper Staging_Wrk.v_DemandForecastSnapshotDaily)
+-- 2026-06-23 CANONICAL: now reads Staging.DemandForecastSnapshotDaily (Enterprise ETL target; source wrapper Staging_Wrk.v_DemandForecastSnapshotDaily)
 --                   — replaces direct EL.SupplyChain_Enh.DemandForecastSnapshotDaily (dirty with row-dup x16 from Q1 2025)
 -- Logic unchanged: ForecastCycle JOIN, Lag-N HorizonCode, GROUP BY summed forecast.
 -- See staging_ddl.sql for Staging.DemandForecastSnapshotDaily definition.

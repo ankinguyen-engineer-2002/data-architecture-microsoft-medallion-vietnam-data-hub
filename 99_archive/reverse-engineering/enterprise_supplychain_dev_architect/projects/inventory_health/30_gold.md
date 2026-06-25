@@ -70,7 +70,7 @@ Pattern: cross-DB CTAS via `pl_sc_gold` pipeline (registry-driven). Each Gold vi
 
 - **Source level**: REUSE `ReferenceMaster_Enh.ItemMaster/Warehouse/Calendar` (extension via `v_*Ext` views in Silver layer).
 - **Semantic level**: DO NOT bind DirectLake to `ForecastAccuracy_DW.Dim*`. Use `Shared_DW.DimCalendar`, `Shared_DW.DimProduct`, and `Shared_DW.DimWarehouse` as the canonical shared dims, with Inventory semantic table names/aliases preserved.
-- Bob Q2 (DimCalendar/DimProduct cross-mart) — flagged in `01_docs/open_questions_for_bob.md`.
+- Enterprise ETL Q2 (DimCalendar/DimProduct cross-mart) — flagged in `01_docs/open_questions_for_enterprise_etl.md`.
 
 ## Load orchestration
 

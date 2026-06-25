@@ -1,6 +1,6 @@
 # SQLPROJ Build-Only Package Implementation Plan
 
-**Goal:** Package the current BOB-aligned SupplyChain runtime into local `.sqlproj` projects for build validation and US/BOB CI-CD handoff, without publishing to Fabric.
+**Goal:** Package the current Enterprise ETL-aligned SupplyChain runtime into local `.sqlproj` projects for build validation and US/Enterprise ETL CI-CD handoff, without publishing to Fabric.
 
 **Scope Lock:** Repo/local files only. Read-only live metadata queries are allowed. No `SqlPackage /Action:Publish`, no CI/CD workflow, no live Fabric mutation, no destructive cleanup.
 

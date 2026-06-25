@@ -164,7 +164,7 @@ INSERT INTO Meta.AssetRegistry (
  '["Enterprise_Lakehouse.SupplyChain_Enh_1.DemandInventorySnapshotDaily"]', NULL,
  'weekly', '0 6 * * 6', 1, 'WarehouseTransform'),
 
--- 2026-05-28 DA feedback / 2026-06-23 BOB canonicalization: ForecastSnapshotWeekly now reads Staging.DemandForecastSnapshotDaily Saturday captures.
+-- 2026-05-28 DA feedback / 2026-06-23 Enterprise ETL canonicalization: ForecastSnapshotWeekly now reads Staging.DemandForecastSnapshotDaily Saturday captures.
 ('InventoryHistory_Enh.ForecastSnapshotWeekly', 'inventory_health', 'DomainSilver',
  @ws, @wh_proc, 'InventoryHistory_Enh', 'ForecastSnapshotWeekly',
  'InventoryHistory_Enh.v_ForecastSnapshotWeekly', 'overwrite', NULL, 'ItemSku,WarehouseCode,SnapshotDate,FiscalMonth',

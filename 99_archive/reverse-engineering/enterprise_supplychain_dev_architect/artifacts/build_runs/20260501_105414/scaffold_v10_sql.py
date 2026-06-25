@@ -301,7 +301,7 @@ def create_meta_tables(cur: pyodbc.Cursor) -> list[str]:
             legacy_layer VARCHAR(40) NULL,
             canonical_layer VARCHAR(80) NULL,
             classification VARCHAR(256) NULL,
-            bob_alignment_status VARCHAR(80) NULL,
+            enterprise_etl_alignment_status VARCHAR(80) NULL,
             notes VARCHAR(2000) NULL
         """,
         "SourceContract": """
@@ -548,7 +548,7 @@ def infer_asset(row: dict[str, str]) -> dict[str, Any]:
         physical_item = PROCESSING_DB
         source_feed_type = "LegacyDataflowBridge"
         edw_exit_status = EDW_EXIT_STATUS.get(table)
-        staging_reason = "Temporary EDW/Dataflow supplement retained until Enterprise_Lakehouse coverage, grain, SLA, performance, dual-read validation, and Bob/Rakesh approval pass."
+        staging_reason = "Temporary EDW/Dataflow supplement retained until Enterprise_Lakehouse coverage, grain, SLA, performance, dual-read validation, and Enterprise ETL/Rakesh approval pass."
         approval_status = "NeedsExitApproval"
     elif layer == "REF":
         canonical_layer = "ReferenceMaster"
@@ -641,7 +641,7 @@ def seed_registry(cur: pyodbc.Cursor) -> dict[str, int]:
                 "legacy_layer": asset["legacy_layer"],
                 "canonical_layer": asset["canonical_layer"],
                 "classification": f"{asset['canonical_layer']} / {asset['access_mode']}",
-                "bob_alignment_status": "AlignedWithHybridMedallion",
+                "enterprise_etl_alignment_status": "AlignedWithHybridMedallion",
                 "notes": "Seeded from v9 clone and v10 object classification.",
             }
             if insert_if_missing(cur, "Meta.ObjectClassification", "asset_id", asset["asset_id"], classification):
@@ -987,7 +987,7 @@ SELECT
     approval_status,
     edw_exit_status,
     CASE
-        WHEN access_mode = 'EDWSupplement' THEN 'Use Staging until exit validation and Bob/Rakesh approval pass'
+        WHEN access_mode = 'EDWSupplement' THEN 'Use Staging until exit validation and Enterprise ETL/Rakesh approval pass'
         WHEN access_mode = 'DirectShortcut' THEN 'Read Enterprise_Lakehouse shortcut directly after source contract validation'
         WHEN access_mode = 'WarehouseTransform' THEN 'Run Warehouse-native Domain Silver transform'
         WHEN access_mode = 'GoldPublish' THEN 'Publish physical Gold table for Direct Lake serving'

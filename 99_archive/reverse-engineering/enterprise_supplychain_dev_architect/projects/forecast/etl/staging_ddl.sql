@@ -72,8 +72,8 @@ GO
 --   • forecast: ForecastHistory_Enh.v_ForecastDemandMonthly (was reading EL.Daily directly)
 --   • inventory_health: InventoryHistory_Enh.v_ForecastSnapshotWeekly (DA-first Saturday path)
 
--- ---- Staging_Wrk.v_DemandForecastSnapshotDaily (BOB source wrapper) ----
--- BOB contract: include LoadDT so usp_IncrementalTableLoad source columns match target columns.
+-- ---- Staging_Wrk.v_DemandForecastSnapshotDaily (_Wrk source view) ----
+-- Enterprise ETL contract: include LoadDT so usp_IncrementalTableLoad source columns match target columns.
 CREATE VIEW Staging_Wrk.v_DemandForecastSnapshotDaily AS
 WITH dedupe AS (
   SELECT
@@ -103,8 +103,8 @@ WHERE _rn = 1
 
 GO
 
--- ---- Staging.DemandForecastSnapshotDaily (canonical BOB target table) ----
+-- ---- Staging.DemandForecastSnapshotDaily (canonical Enterprise ETL target table) ----
 -- CREATE TABLE Staging.DemandForecastSnapshotDaily AS SELECT * FROM Staging_Wrk.v_DemandForecastSnapshotDaily;
 -- Initial backfill 2026-05-22: 5,530,726,784 rows materialized in ~12 min.
--- Future runs: BOB DateRange incremental by dfcSnapshot via DW_Developer.usp_IncrementalTableLoad.
+-- Future runs: Enterprise ETL DateRange incremental by dfcSnapshot via DW_Developer.usp_IncrementalTableLoad.
 GO

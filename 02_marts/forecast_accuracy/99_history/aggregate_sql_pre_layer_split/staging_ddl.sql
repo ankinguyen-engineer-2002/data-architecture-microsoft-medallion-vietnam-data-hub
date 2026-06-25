@@ -103,8 +103,8 @@ WHERE _rn = 1
 
 GO
 
--- ---- Staging.DemandForecastSnapshotDaily (canonical BOB target table) ----
+-- ---- Staging.DemandForecastSnapshotDaily (canonical Enterprise ETL target table) ----
 -- CREATE TABLE Staging.DemandForecastSnapshotDaily AS SELECT * FROM Staging_Wrk.v_DemandForecastSnapshotDaily;
 -- Initial backfill 2026-05-22: 5,530,726,784 rows materialized in ~12 min.
--- Future runs: BOB DateRange incremental by dfcSnapshot via DW_Developer.usp_IncrementalTableLoad.
+-- Future runs: Enterprise ETL DateRange incremental by dfcSnapshot via DW_Developer.usp_IncrementalTableLoad.
 GO

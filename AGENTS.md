@@ -1,5 +1,5 @@
 # AGENTS.md — Fabric SupplyChain Operating Repo
-> Current target: BOB-aligned Microsoft Fabric ETL operating repository  
+> Current target: Enterprise ETL-aligned Microsoft Fabric ETL operating repository  
 > Last updated: 2026-06-23 ICT
 
 ## Startup Acknowledgment
@@ -11,7 +11,7 @@ On loading this rule, reply exactly once before processing the first request:
 ## Operating Principles
 
 - Primary language with Aric: Vietnamese. Keep object names, paths, API names, SQL, DAX, errors, and technical terms in English.
-- No hallucination. For technical claims, prefer verified repo artifacts, live Fabric/Power BI/SQL evidence, Microsoft docs, BOB guide docs, and exported definitions.
+- No hallucination. For technical claims, prefer verified repo artifacts, live Fabric/Power BI/SQL evidence, Microsoft docs, Enterprise ETL guide docs, and exported definitions.
 - Challenge-mode is mandatory for architecture, ETL, schema, semantic, operational, or cloud decisions. Do not rubber-stamp proposed changes.
 - Preserve the business product surface unless Aric explicitly changes scope:
   - keep Bronze/Silver/Gold layers
@@ -29,10 +29,10 @@ On loading this rule, reply exactly once before processing the first request:
 Use these first, in order:
 
 1. `00_CONTEXT/current.md` — current working state and latest actions.
-2. `01_docs/Enterprise_Framework_Migration_Master_Plan.md` — Phase 1 BOB migration plan and status.
+2. `01_docs/Enterprise_Framework_Migration_Master_Plan.md` — Phase 1 Enterprise ETL migration plan and status.
 3. `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1h/phase1_done_handoff_20260623.md` — Phase 1 completion handoff.
 4. `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1h/phase1h_final_cleanup_audit_20260623.txt` — final Phase 1 cleanup/audit evidence.
-5. `01_docs/bob-framework/source/` — BOB guide docs and email-derived architecture summary.
+5. `01_docs/enterprise-etl-framework/source/` — Enterprise ETL guide docs and email-derived architecture summary.
 6. `02_marts/` and `03_operations/orchestration/` — current mart definitions and ad-hoc run manifests.
 7. `99_archive/architectures/` — old v8/v9/v10 knowledge archive; useful history, not current source of truth.
 
@@ -81,13 +81,13 @@ Every assistant run must be resumable.
   - `Enterprise SupplyChain-Dev.ETL_Framework`
   - schema `DW_Developer`
   - `TableDictionary`, `AuditLog`, `TableDictionary_UpdateLog`
-  - BOB loader/wrapper procedures including `usp_IncrementalTableLoad`
+  - Enterprise ETL loader/wrapper procedures including `usp_IncrementalTableLoad`
 - Medallion layers remain:
   - Bronze/source: `Enterprise_Lakehouse`
   - Silver/processing: `SupplyChain_Processing_Warehouse`
   - Gold/serving: `SupplyChain_Gold_Warehouse`
   - Analytics: shared 04_semantic/report layer
-- Canonical Enterprise/BOB curated warehouse pattern:
+- Canonical Enterprise/Enterprise ETL curated warehouse pattern:
   - Bronze/source docs list source lakehouse shortcuts and source tables.
   - Silver/Gold final schemas hold physical final tables.
   - Silver/Gold `_Wrk` schemas hold `v_<TableName>` work/source views.

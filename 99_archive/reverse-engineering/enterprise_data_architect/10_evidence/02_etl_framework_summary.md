@@ -77,7 +77,7 @@ End of batch (deferred):
 
 VN team built equivalent control plane in `Enterprise SupplyChain-Dev` workspace:
 
-| Bob's pattern | VN's parallel |
+| Enterprise ETL's pattern | VN's parallel |
 |---------------|---------------|
 | `ETL_Framework.DW_Developer.TableDictionary` | `Meta.TableDictionary` (cloned 65-col schema 2026-05-10 per ADR-008) |
 | `ETL_Framework.DW_Developer.TableDictionary_UpdateLog` | `Meta.TableDictionary_UpdateLog` |
@@ -88,24 +88,24 @@ VN team built equivalent control plane in `Enterprise SupplyChain-Dev` workspace
 | 35 procs (`Usp_CreateTableFromParquet`×12 + `usp_RefreshCuratedTableFromView`×6 + ...) | **1 generic** `Meta.usp_GenericLoad` (registry-driven, supports 8 load patterns) |
 | Per-table `EXEC` from pipeline | ForEach asset_id from `Meta.AssetRegistry`, parallel batch=8 |
 
-**Key VN advantage**: registry-driven 1-generic-proc collapses Bob's 35 procs into 1 dispatcher. Less code to maintain.
+**Key VN advantage**: registry-driven 1-generic-proc collapses Enterprise ETL's 35 procs into 1 dispatcher. Less code to maintain.
 
-**Key Bob advantage**: per-domain refresh wrappers (`Usp_Refresh_Wholesale_Warehouse` chains 100+ EXEC calls) provide tight coupling for domain SLA tracking.
+**Key Enterprise ETL advantage**: per-domain refresh wrappers (`Usp_Refresh_Wholesale_Warehouse` chains 100+ EXEC calls) provide tight coupling for domain SLA tracking.
 
 ## VN team alignment options
 
 See full proposals: [`../20_proposals/01_etl_framework_alignment.md`](../20_proposals/01_etl_framework_alignment.md)
 
 Top 5 actionable insights from synthesis:
-1. **Metadata registry is non-negotiable** — VN already has TableDictionary clone (per ADR-008). Cross-DB sync to Bob's hub via `usp_LogRun v2` once permission unblocked.
+1. **Metadata registry is non-negotiable** — VN already has TableDictionary clone (per ADR-008). Cross-DB sync to Enterprise ETL's hub via `usp_LogRun v2` once permission unblocked.
 2. **Domain WH isolation is by design** — VN's `SupplyChain_Warehouse` (pending) should have its own refresh wrapper proc, not share Retail/Wholesale's.
-3. **Standardize ONE parquet loader** — Bob has 12 variants (tech debt). VN should pick `Usp_CreateTableFromParquet_V2` style for new VN tables in hub.
-4. **Audit trail is linear, not hierarchical** — Bob's AuditLog doesn't track call stack. VN's AuditLog already extended with `AssetID`/`RunID`/`Severity` (10 cols vs Bob's 4) — superior, no regression.
+3. **Standardize ONE parquet loader** — Enterprise ETL has 12 variants (tech debt). VN should pick `Usp_CreateTableFromParquet_V2` style for new VN tables in hub.
+4. **Audit trail is linear, not hierarchical** — Enterprise ETL's AuditLog doesn't track call stack. VN's AuditLog already extended with `AssetID`/`RunID`/`Severity` (10 cols vs Enterprise ETL's 4) — superior, no regression.
 5. **TableDictionary needs governance early** — no INSERT validation, no retention policy. VN should add validation rules before scaling.
 
 ## Cross-refs
 
 - [Full deep-dive synthesis](../projects/etl_framework/SYNTHESIS.md) — 1,210 lines, ~46KB
 - [ETL framework alignment proposal](../20_proposals/01_etl_framework_alignment.md)
-- VN side ADR-008: [`../../docs/decisions/ADR-008-bob-alignment-naming-and-integration.md`](../../docs/decisions/ADR-008-bob-alignment-naming-and-integration.md)
-- VN side execution: [`../../Enterprise_SupplyChain_Dev_architect/artifacts/bob_alignment_2026-05-10/`](../../Enterprise_SupplyChain_Dev_architect/artifacts/bob_alignment_2026-05-10/)
+- VN side ADR-008: [`../../docs/decisions/ADR-008-enterprise_etl-alignment-naming-and-integration.md`](../../docs/decisions/ADR-008-enterprise_etl-alignment-naming-and-integration.md)
+- VN side execution: [`../../Enterprise_SupplyChain_Dev_architect/artifacts/enterprise_etl_alignment_2026-05-10/`](../../Enterprise_SupplyChain_Dev_architect/artifacts/enterprise_etl_alignment_2026-05-10/)

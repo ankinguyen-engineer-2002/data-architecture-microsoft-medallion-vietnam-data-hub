@@ -21,8 +21,8 @@ Khi cần current truth, đọc:
 | Folder | Ý nghĩa |
 |---|---|
 | `architectures/v9_april/` | Snapshot kiến trúc v9 và scripts cũ. |
-| `architectures/v10_may_pre_bob/` | Snapshot v10 trước khi chốt BOB runtime. |
-| `reverse-engineering/enterprise_data_architect/` | Evidence reverse-engineering từ Bob/EnterpriseData hub. |
+| `architectures/v10_may_pre_enterprise_etl/` | Snapshot v10 trước khi chốt Enterprise ETL runtime. |
+| `reverse-engineering/enterprise_data_architect/` | Evidence reverse-engineering từ Enterprise ETL/EnterpriseData hub. |
 | `reverse-engineering/enterprise_supplychain_dev_architect/` | Working set và evidence cũ của SupplyChain trước restructure. |
 | `external_refs/_external_refs/` | External cloned/reference material dùng trong research. |
 | `local-state/` | Local tool/cache state đã được đưa ra khỏi root. |

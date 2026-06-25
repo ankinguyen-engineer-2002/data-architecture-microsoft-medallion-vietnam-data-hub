@@ -87,7 +87,7 @@ These are the 25 Enterprise-side or shortcut-backed source paths currently track
 | 18 | `Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.Container` | Container / Phase 2 purchasing context | Phase 2 tracked source |
 | 19 | `Enterprise_Lakehouse.Purchasing_AFI.VendorMaster` | Vendor reference and product primary vendor enrichment | Enterprise source path |
 | 20 | `Enterprise_Lakehouse.SupplyChain_Enh_1.DemandInventorySnapshotDaily` | Active inventory weekly snapshot path via Saturday daily rows | Active DA-first path |
-| 21 | `Staging.DemandForecastSnapshotDaily` | Active forecast weekly snapshot path via Saturday daily rows | Active DA-first path; canonical BOB target fed by staging wrapper view |
+| 21 | `Staging.DemandForecastSnapshotDaily` | Active forecast weekly snapshot path via Saturday daily rows | Active DA-first path; canonical Enterprise ETL target fed by staging wrapper view |
 | 22 | `Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster` | Warehouse master reference | Enterprise source path |
 | 23 | `Enterprise_Lakehouse.SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility` | Logility item status / supply-demand status | Loaded by DE US; upstream grain conflict still pending confirmation |
 | 24 | `Enterprise_Lakehouse.SupplyChain_Enh_1.DemandForecastSnapshotWeekly` | Legacy weekly forecast snapshot | Stale; bypassed by active daily Saturday-derived path |

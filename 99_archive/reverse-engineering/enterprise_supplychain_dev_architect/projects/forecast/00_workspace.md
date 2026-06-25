@@ -1,6 +1,6 @@
 # 00 — Workspace, Warehouses, Auth
 
-> Scanned: 2026-05-06 via Fabric REST API + pyodbc · Updated 2026-05-10 post Bob alignment (ADR-008).
+> Scanned: 2026-05-06 via Fabric REST API + pyodbc · Updated 2026-05-10 post Enterprise ETL alignment (ADR-008).
 
 ## Fabric Workspace
 

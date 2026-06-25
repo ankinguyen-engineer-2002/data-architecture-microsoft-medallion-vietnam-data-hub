@@ -4,7 +4,7 @@
 
 ## Source pattern
 
-Inventory Health views read Bronze sources via **OneLake shortcuts** mounted in `SupplyChain_Processing_Warehouse` pointing to `Enterprise_Lakehouse` (Bob hub). No physical Staging_Wrk table is required for the 22 sources that land cleanly.
+Inventory Health views read Bronze sources via **OneLake shortcuts** mounted in `SupplyChain_Processing_Warehouse` pointing to `Enterprise_Lakehouse` (Enterprise ETL hub). No physical Staging_Wrk table is required for the 22 sources that land cleanly.
 
 **Source-path state (verified pyodbc 2026-05-19):**
 - 25 EL-ready (22 always-ready + 3 newly loaded by Dhivya 2026-05-18: PoDetail, PoMaster, Logility)

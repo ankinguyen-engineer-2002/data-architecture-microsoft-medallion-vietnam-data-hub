@@ -38,7 +38,7 @@ Rules:
 
 - No bulk switch from `_edw` to direct shortcut.
 - No object moves from `EDWSupplement` to `DirectShortcut` without dual-read validation.
-- No object cuts over without Bob/Rakesh or assigned technical approver sign-off.
+- No object cuts over without Enterprise ETL/Rakesh or assigned technical approver sign-off.
 - `_edw` fallback remains as `RetainedFallback` after cutover until the rollback window closes.
 - `bronze.usp_refresh_edw_tables` is removed only after all four objects reach `RetiredFallback` and explicit destructive-operation approval is granted.
 
@@ -49,7 +49,7 @@ Positive:
 - Preserves v9 operational correctness while v10 moves toward cleaner medallion alignment.
 - Avoids treating all four `_edw` objects as equally ready.
 - Keeps a rollback path for high-risk source swaps.
-- Gives Bob/Rakesh an object-level approval model instead of a vague architecture claim.
+- Gives Enterprise ETL/Rakesh an object-level approval model instead of a vague architecture claim.
 
 Costs and risks:
 
@@ -112,7 +112,7 @@ Each object must pass these gates before cutover:
 | DQ parity | Existing v9 DQ rules remain green or approved as warning |
 | Performance | Direct shortcut read is stable enough for pipeline SLA |
 | Lineage | Direct logical source and fallback source remain traceable |
-| Approval | Bob/Rakesh or assigned approver signs off object-by-object |
+| Approval | Enterprise ETL/Rakesh or assigned approver signs off object-by-object |
 
 ## Live Audit (2026-05-04)
 
@@ -130,7 +130,7 @@ All 4 Enterprise Lakehouse tables **exist** with **exact column count match**:
 ### Current Path (đường vòng — temporary)
 
 ```
-Enterprise EDW → Bob team Dataflow → SupplyChain_Lakehouse._ver2 → usp_RefreshEdwTables → Staging_WRK tables
+Enterprise EDW → Enterprise ETL team Dataflow → SupplyChain_Lakehouse._ver2 → usp_RefreshEdwTables → Staging_WRK tables
 ```
 
 ### Target Path (khi Enterprise Lakehouse đủ data)
@@ -141,7 +141,7 @@ Enterprise_Lakehouse.{schema}.{table} → view trực tiếp → usp_GenericLoad
 
 ### Exit Action Plan
 
-Khi Bob team confirm data completeness cho từng bảng:
+Khi Enterprise ETL team confirm data completeness cho từng bảng:
 
 1. Tạo view mới đọc trực tiếp từ Enterprise_Lakehouse (giống 12 views hiện tại đã làm)
 2. Update `AssetRegistry`: `access_mode` từ `EDWSupplement` → `DirectShortcut`

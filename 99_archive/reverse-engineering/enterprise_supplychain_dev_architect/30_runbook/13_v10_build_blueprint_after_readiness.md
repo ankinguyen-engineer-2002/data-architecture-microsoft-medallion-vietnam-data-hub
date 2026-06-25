@@ -90,7 +90,7 @@ Build the control plane first:
 | Source-target Reconciliation | Build new reconciliation for critical facts and staged exceptions |
 | Lineage Builder | Add logical vs physical edge types and EDW supplement bridge |
 | Finalizer | Cover Staging, DirectRead, Silver, Gold publish, monitors, and semantic refresh |
-| Enterprise Dictionary Adapter | Extend existing `vw_table_dictionary`; physical sync only if Bob/Rakesh require it |
+| Enterprise Dictionary Adapter | Extend existing `vw_table_dictionary`; physical sync only if Enterprise ETL/Rakesh require it |
 
 ## 4. Data Layer Build
 
@@ -175,7 +175,7 @@ Before cutover:
 - EDW supplement exit strategy applied object-by-object; no bulk cutover.
 - Gold metrics reconciled.
 - Direct Lake semantic mode validated.
-- Bob/Rakesh naming and ownership sign-off captured.
+- Enterprise ETL/Rakesh naming and ownership sign-off captured.
 
 ## 7. What Not To Build Yet
 

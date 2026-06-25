@@ -94,11 +94,11 @@ Status legend:
 | Pending | `Enterprise_SupplyChain_Dev_architect/00_overview/01_super_plan_medallion_refactor.md` | Current v10 target plan |
 | Pending | `Enterprise_SupplyChain_Dev_architect/00_overview/02_architecture_blueprint_mermaid.md` | v10 architecture narrative and diagrams |
 | Pending | `Enterprise_SupplyChain_Dev_architect/00_overview/03_v9_feature_parity_checklist.md` | Claimed v9-to-v10 parity |
-| Pending | `Enterprise_SupplyChain_Dev_architect/20_proposals/04_revised_bob_standards_proposal.md` | Revised Bob standards interpretation |
+| Pending | `Enterprise_SupplyChain_Dev_architect/20_proposals/04_revised_enterprise_etl_standards_proposal.md` | Revised Enterprise ETL standards interpretation |
 | Pending | `Enterprise_SupplyChain_Dev_architect/10_evidence/05_deep_audit_protocol.md` | Audit process |
 | Pending | `Enterprise_SupplyChain_Dev_architect/diagrams/*.mmd` | Current architecture visuals |
 | Superseded | `Enterprise_SupplyChain_Dev_architect/diagrams/render_check/*.svg` | Rendered outputs; use for visual check only |
-| Pending | `Enterprise_SupplyChain_Dev_architect/SQL Server Data Warehouse Standards.docx` | Bob/DE team standards; local-only evidence unless sharing is approved |
+| Pending | `Enterprise_SupplyChain_Dev_architect/SQL Server Data Warehouse Standards.docx` | Enterprise ETL/DE team standards; local-only evidence unless sharing is approved |
 
 ## 3. Git Chronology To Inspect
 
@@ -136,7 +136,7 @@ Recommended order for the deep read:
 5. Scripts and lineage explorer exports.
 6. v9 diagrams.
 7. v10 proposal and diagrams.
-8. Bob DOCX.
+8. Enterprise ETL DOCX.
 9. Git history deltas for architecture-impact commits.
 
 ## 6. Output Linkage
@@ -145,7 +145,7 @@ Findings from this inventory must flow into:
 
 - `07_v9_capability_evidence_ledger.md`
 - `08_v10_gap_matrix.md`
-- `09_bob_standards_mapping_matrix.md`
+- `09_enterprise_etl_standards_mapping_matrix.md`
 - `10_final_v10_amendment_plan.md`
 - `01_docs/decisions/ADR-002-edw-supplement-exit-strategy.md`
 - `16_v10_readiness_scorecard_and_v9_cleanup.md`

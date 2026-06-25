@@ -28,7 +28,7 @@ Phase 1 scope: 26 of 30 KPIs from BRD v1 (rest are Phase 2 — storage cube phys
 | Active registry rows | **46** workspace-wide active rows; `inventory_health` now owns 1 active ReferenceMaster + 11 active DomainSilver + 4 active Gold rows |
 | Lineage edges | **132** active registry-derived edges in `lineage_explorer/data/lineage.csv` (89 direct + 43 derived) |
 | Semantic model | Historical inventory-only semantic docs remain in this folder, but current live workspace semantic state should be read from [../live_audit_2026-06-15_v10_core_stack.md](../live_audit_2026-06-15_v10_core_stack.md) |
-| Naming convention | Bob-aligned per ADR-008: `_Enh` (Silver) / `_DW` (Gold), `v_*` view prefix |
+| Naming convention | Enterprise ETL-aligned per ADR-008: `_Enh` (Silver) / `_DW` (Gold), `v_*` view prefix |
 | Control plane reuse | `Meta.AssetRegistry`, `Meta.DQRule`, `Meta.LineageEdge` (no project-specific procs) |
 | Pipelines reused | 7 v10 pipelines; after the 2026-06-15 cleanup, `pl_sc_master` runs `shared` -> `forecast_accuracy` -> `inventory_health`, `pl_sc_staging` is project-filtered for ReferenceMaster, and `pl_sc_gold` is project-filtered for Gold publish |
 
@@ -73,7 +73,7 @@ Measured 2026-06-01 from live warehouses:
 | ETL views + registry | [etl/](etl/) |
 | Semantic TMDL/DAX | [04_semantic/](04_semantic/) |
 | DA source input artifacts | [artifacts/source_inputs/](artifacts/source_inputs/) |
-| Open questions (3 Robert + 2 DE US workaround pending + Bob Q) | [01_docs/open_questions_for_bob.md](01_docs/open_questions_for_bob.md) |
+| Open questions (3 Robert + 2 DE US workaround pending + Enterprise ETL Q) | [01_docs/open_questions_for_enterprise_etl.md](01_docs/open_questions_for_enterprise_etl.md) |
 | Source deliverable v1 (gitignored) | [_source_v1/](_source_v1/) |
 | Dataflow setup, drafts, templates | [dataflows/](dataflows/) |
 
@@ -90,7 +90,7 @@ Measured 2026-06-01 from live warehouses:
 | Column-deprecation finding (5 cols) | ✅ Verified zero on EDW source: ITBEXT.CRHLD/DLHLD/TOHLD/ATPQT + ITEMBL.PHYOH → planned `expected_zero` DQ rule + delete 2 reload dataflows |
 | Dup classification (Rakeshbalaji Slack 2026-05-09) | ✅ Verified 2026-05-19: PoDetail = TRUE row dup (1 pair, all 53 cols identical) → ROW_NUMBER drops safely; Logility = GRAIN CONFLICT (9,128 pairs, 6 metrics differ) → view ORDER BY rewritten to prefer non-zero metrics row |
 | ETL Silver source-path migration (2026-05-19) | ✅ DONE: `v_PurchaseOrder` LEFT JOIN switched to EL.PoMaster; `v_LogilityItemStatus` switched to EL.DemandFulfillmentCommonContainer_Logility + new grain-conflict ORDER BY |
-| 3 Robert sign-offs (H1/H5/M3) | ⏳ email pending (see `01_docs/open_questions_for_bob.md`) |
+| 3 Robert sign-offs (H1/H5/M3) | ⏳ email pending (see `01_docs/open_questions_for_enterprise_etl.md`) |
 | PO/MO DimItemMaster coverage | ⏳ pending DE US upstream data coverage update |
 | Pipeline schedule | [Need-verify] latest proof is manual completed job history; do not claim cron auto-run active until Fabric item schedule state is rechecked/enabled. |
 | Alerting / CI / Schedule trigger | BLOCKED/Need-enable — same IT permission pattern as forecast |

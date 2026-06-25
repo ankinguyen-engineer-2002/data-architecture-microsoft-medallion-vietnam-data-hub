@@ -8,4 +8,4 @@
 
 -- ---- InventoryHistory_Enh.v_AllocatedDemandCandidate ----
 -- H1 FIX (2026-05-17): ItemAllocationFlag = 2 (not 1). Probe: {0:16,802; 2:901,411 rows}.
--- Robert sign-off pending — see 01_docs/open_questions_for_bob.md.
+-- Robert sign-off pending — see 01_docs/open_questions_for_enterprise_etl.md.

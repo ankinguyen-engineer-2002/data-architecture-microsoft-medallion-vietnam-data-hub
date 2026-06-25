@@ -1,4 +1,4 @@
-# Domain team workflow — How Bob expects each value-stream team to add Silver tables
+# Domain team workflow — How Enterprise ETL expects each value-stream team to add Silver tables
 
 > Synthesized from observation of Wholesale + Retail patterns in `EnterpriseData-Dev`.
 
@@ -55,7 +55,7 @@ END;
 
 ### Step 4: PR review + merge
 - Push PR to ADO `Enterprise Data Services/Fabric-EnterpriseData`
-- Senior reviewer (per Bob's email — Rakesh/Ankit at his org) reviews
+- Senior reviewer (per Enterprise ETL's email — Rakesh/Ankit at his org) reviews
 - Merge → auto-deploy via Fabric Git sync
 
 ### Step 5: Verify
@@ -110,7 +110,7 @@ AS
 BEGIN
     -- Read VN's AssetRegistry for assets with physical_workspace = hub WS ID
     -- Iterate via cross-DB call back to VN's pipeline orchestrator
-    -- Or simpler: chain EXEC calls (Bob style) for hub-side execution
+    -- Or simpler: chain EXEC calls (Enterprise ETL style) for hub-side execution
 
     EXEC ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView
          'SupplyChain_Warehouse', 'Forecast_Enh', 'ForecastDemandMonthly';
@@ -137,14 +137,14 @@ END;
 
 ## Code review process
 
-Bob's email 2026-05-09 confirms:
+Enterprise ETL's email 2026-05-09 confirms:
 
 > "When checking in code to the repo, there will be a code review and approval process by a senior person before the pull request can be merged into the main branch. And there should be a design signed off by Rakesh before it gets built."
 
 Translation:
 1. **Design phase**: Rakesh approves design (e.g., "we're adding ForecastDemandMonthly as Silver shared cross-team")
 2. **Build phase**: Engineer writes code in feature branch
-3. **PR review**: Rakesh or Ankit (senior at Bob's org) reviews PR
+3. **PR review**: Rakesh or Ankit (senior at Enterprise ETL's org) reviews PR
 4. **Merge**: After approval, merge to `main` → Fabric Git sync auto-deploys
 
 VN team needs:

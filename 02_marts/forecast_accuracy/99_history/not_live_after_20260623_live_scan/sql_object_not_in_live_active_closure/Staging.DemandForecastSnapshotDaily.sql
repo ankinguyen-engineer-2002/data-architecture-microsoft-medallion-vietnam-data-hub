@@ -1,4 +1,4 @@
 -- Staging.DemandForecastSnapshotDaily
--- Canonical BOB target table materialized from Staging_Wrk.v_DemandForecastSnapshotDaily.
+-- Canonical Enterprise ETL target table materialized from Staging_Wrk.v_DemandForecastSnapshotDaily.
 -- Loader: ETL_Framework.DW_Developer.usp_IncrementalTableLoad.
 -- UpdateMethod: DateRange. DateKey: dfcSnapshot. Window: 30 days.

@@ -1,14 +1,14 @@
-# Final v10 Amendment Plan After Deep v9/Bob Audit
+# Final v10 Amendment Plan After Deep v9/Enterprise ETL Audit
 
 Date: 2026-04-30
 
-Purpose: convert the v9 audit, Bob feedback, and Bob SQL Server Data Warehouse Standards review into concrete amendments before any v10 implementation.
+Purpose: convert the v9 audit, Enterprise ETL feedback, and Enterprise ETL SQL Server Data Warehouse Standards review into concrete amendments before any v10 implementation.
 
 ## 1. Executive Position
 
 - [Verified] The v10 direction remains valid: Hybrid Medallion, logical Bronze through shortcut-backed access, domain-owned Silver, dedicated Gold serving, and v9 control-plane preservation.
 - [Verified] v10 must not be sold as a clean rewrite. It is a large architecture refactor that keeps the v9 operating model and changes physical placement, naming, governance, and source-access policy.
-- [Verified] Bob's core objection is covered: the shortcut-backed Enterprise Lakehouse should be treated as the logical Bronze layer; local Warehouse `bronze` should not be the canonical Bronze layer.
+- [Verified] Enterprise ETL's core objection is covered: the shortcut-backed Enterprise Lakehouse should be treated as the logical Bronze layer; local Warehouse `bronze` should not be the canonical Bronze layer.
 - [Verified] Smart skip was live-verified for Bronze/REF and Gold Lookup queries in the 2026-04-30 readiness export.
 - [Need-verify] A few v9 features still need implementation or sign-off before claiming "preserved 100%": master-level DQ gates, source-target reconciliation, project-aware Silver DAG, alerting, CI/CD, and security.
 
@@ -148,9 +148,9 @@ Mandatory metadata extensions:
 | `is_enterprise_reusable` | Whether Silver should move to EnterpriseData ownership |
 | `staging_reason` | Why persisted staging is needed |
 | `source_contract_status` | Stable, Pending, Exception |
-| `approval_status` | Draft, BobReviewed, RakeshApproved |
+| `approval_status` | Draft, enterprise_etlReviewed, RakeshApproved |
 
-## 5. Bob Standards Application
+## 5. Enterprise ETL Standards Application
 
 Apply directly:
 
@@ -169,9 +169,9 @@ Adapt for Fabric:
 - PolyBase external tables -> OneLake shortcuts/source contracts.
 - SQL Agent alerts -> Fabric Pipeline/Power Automate/Teams/Graph/Data Activator pattern.
 - Schema security -> workspace/item/04_semantic/SQL endpoint security matrix.
-- TableDictionary -> existing `vw_table_dictionary` adapter plus optional physical sync if Bob/Rakesh require it.
+- TableDictionary -> existing `vw_table_dictionary` adapter plus optional physical sync if Enterprise ETL/Rakesh require it.
 
-Need Bob/Rakesh clarification:
+Need Enterprise ETL/Rakesh clarification:
 
 - Exact Silver/Gold schema naming: `ForecastHistory_ENH` / `ForecastAccuracy_DW` vs pure Pascal Case `ForecastHistory` / `ForecastAccuracy`.
 - Whether `vw_table_dictionary` is enough or a physical EnterpriseData sync/export is required.
@@ -207,7 +207,7 @@ Exit gate:
 
 - Classify every current object: LogicalBronze, StagingException, DomainSilver, EnterpriseReusableSilver, GoldServing, Meta/Audit.
 - Produce naming map from v9 names to v10 Pascal Case/process schemas.
-- Confirm Bob/Rakesh approval path.
+- Confirm Enterprise ETL/Rakesh approval path.
 
 Exit gate:
 
@@ -309,7 +309,7 @@ Local project evidence:
 
 - `Enterprise_SupplyChain_Dev_architect/10_evidence/07_v9_capability_evidence_ledger.md`
 - `Enterprise_SupplyChain_Dev_architect/20_proposals/08_v10_gap_matrix.md`
-- `Enterprise_SupplyChain_Dev_architect/20_proposals/09_bob_standards_mapping_matrix.md`
+- `Enterprise_SupplyChain_Dev_architect/20_proposals/09_enterprise_etl_standards_mapping_matrix.md`
 - `99_archive/architectures/v9_april/docs/01_03_operations/03_scheduling.md`
 - `99_archive/architectures/v9_april/docs/01_03_operations/07_sqlproj_validation.md`
 - `99_archive/architectures/v9_april/01_sc_forecast/enterprise/01_roadmap.md`

@@ -4,7 +4,7 @@ Use this when Aric asks to run the full SupplyChain path.
 
 ## Current Status
 
-[Verified] Final BOB runtime rerun passed on 2026-06-24.
+[Verified] Final Enterprise ETL runtime rerun passed on 2026-06-24.
 
 | Check | Result |
 |---|---|

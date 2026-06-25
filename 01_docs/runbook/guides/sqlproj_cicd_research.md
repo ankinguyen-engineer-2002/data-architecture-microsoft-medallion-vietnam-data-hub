@@ -1,17 +1,17 @@
-# SQLPROJ And CI/CD Research For BOB-Aligned Fabric Warehouses
+# SQLPROJ And CI/CD Research For Enterprise ETL-Aligned Fabric Warehouses
 
 ## Scope
 
-This note captures Bob's `.sqlproj` guidance, the likely CI/CD model for the SupplyChain operating repo, and the repo-local build-only implementation now available for US/BOB handoff.
+This note captures Enterprise ETL's `.sqlproj` guidance, the likely CI/CD model for the SupplyChain operating repo, and the repo-local build-only implementation now available for US/Enterprise ETL handoff.
 
-It is **not** a publish workflow. Publishing `.dacpac` files can alter live Fabric Warehouse objects, so this repo intentionally stops at local build validation unless US/BOB explicitly approves deployment ownership, publish profiles, service connection, and destructive-change gates.
+It is **not** a publish workflow. Publishing `.dacpac` files can alter live Fabric Warehouse objects, so this repo intentionally stops at local build validation unless US/Enterprise ETL explicitly approves deployment ownership, publish profiles, service connection, and destructive-change gates.
 
 ## Sources Reviewed
 
 | Source | Type | Finding |
 |---|---|---|
-| `01_docs/bob-framework/source/SQLPROJ_BEST_PRACTICES.md` | Bob guide | Defines Fabric Warehouse `.sqlproj` conventions: `SqlDwUnifiedDatabaseSchemaProvider`, `ModelCollation=1033, CI`, `SqlCmdVariable`, `ProjectReference`, `BeforeBuild`, package refs, validation checklist. |
-| `01_docs/bob-framework/source/FABRIC_ARCHITECTURE_AND_STANDARDS.md` | Bob guide | Describes project structure, Dev/Prod publish profiles, Azure Pipelines path, build/deploy/test/approval flow, and PR checklist. |
+| `01_docs/enterprise-etl-framework/source/SQLPROJ_BEST_PRACTICES.md` | Enterprise ETL guide | Defines Fabric Warehouse `.sqlproj` conventions: `SqlDwUnifiedDatabaseSchemaProvider`, `ModelCollation=1033, CI`, `SqlCmdVariable`, `ProjectReference`, `BeforeBuild`, package refs, validation checklist. |
+| `01_docs/enterprise-etl-framework/source/FABRIC_ARCHITECTURE_AND_STANDARDS.md` | Enterprise ETL guide | Describes project structure, Dev/Prod publish profiles, Azure Pipelines path, build/deploy/test/approval flow, and PR checklist. |
 | `99_archive/reverse-engineering/enterprise_data_architect/30_runbook/02_domain_team_workflow.md` | Reverse-engineered EnterpriseData observation | Observed value-stream workflow: write `_Wrk` view, register `TableDictionary`, add wrapper `EXEC`, PR review by senior reviewer, merge, then Fabric Git sync auto-deploy. |
 | Microsoft Learn: Develop warehouse projects in VS Code | Official docs | Fabric Warehouse supports SDK-style SQL Database Projects; build produces `.dacpac`; publish can generate script or apply to warehouse; docs warn to review script/settings first. |
 | Microsoft Learn: SQL projects automation | Official docs | CI/CD pattern is build `.sqlproj` to `.dacpac`, publish artifact, then deploy with `SqlPackage`, GitHub `azure/sql-action`, or Azure DevOps `SqlAzureDacpacDeployment`. |
@@ -19,7 +19,7 @@ It is **not** a publish workflow. Publishing `.dacpac` files can alter live Fabr
 
 ## Current Finding
 
-[Verified] Bob's intended operating model is code-first warehouse development:
+[Verified] Enterprise ETL's intended operating model is code-first warehouse development:
 
 ```text
 Feature branch
@@ -34,7 +34,7 @@ Feature branch
 
 [Verified] `.sqlproj` owns schema/object deployment, not daily data refresh. Daily refresh remains SQL Agent or another scheduler calling wrapper procedures.
 
-[Verified] BOB runtime and SQL project deployment are complementary:
+[Verified] Enterprise ETL runtime and SQL project deployment are complementary:
 
 | Concern | Owner |
 |---|---|
@@ -86,20 +86,20 @@ For DA/DE-facing definitions, examples, and step-by-step operating flow, see:
 
 ## Version Drift Resolved For Local Build
 
-[Verified] Bob guide says `Microsoft.Build.Sql` version `0.1.12-preview`, but current package validation uses newer SDK packages:
+[Verified] Enterprise ETL guide says `Microsoft.Build.Sql` version `0.1.12-preview`, but current package validation uses newer SDK packages:
 
 ```xml
 <Sdk Name="Microsoft.Build.Sql" Version="2.2.0" />
 <PackageReference Include="Microsoft.SqlServer.Dacpacs.FabricDw" Version="170.0.4" />
 ```
 
-This is documentation/version drift, not an architecture conflict. The local package builds successfully with the newer versions. US/BOB should still confirm the package versions used in the official EnterpriseData CI/CD repo before accepting this package as deployment source.
+This is documentation/version drift, not an architecture conflict. The local package builds successfully with the newer versions. US/Enterprise ETL should still confirm the package versions used in the official EnterpriseData CI/CD repo before accepting this package as deployment source.
 
 ## Recommended Repo Adoption Model
 
 ### Option A — Documentation-only handoff for US-owned CI/CD
 
-Keep this repo as architecture + operation handoff. Document how SupplyChain should be represented in Bob/US `.sqlproj`, but let US own the deploy repo and Azure DevOps pipeline.
+Keep this repo as architecture + operation handoff. Document how SupplyChain should be represented in Enterprise ETL/US `.sqlproj`, but let US own the deploy repo and Azure DevOps pipeline.
 
 Pros:
 - Lowest risk.
@@ -141,7 +141,7 @@ Pros:
 Cons:
 - Highest blast radius.
 - Requires secrets/service connection, branch policy, approvals, target environment mapping, and destructive-change controls.
-- Should not be enabled until ownership with US/BOB is explicit.
+- Should not be enabled until ownership with US/Enterprise ETL is explicit.
 
 ## Recommendation For This Repo
 
@@ -150,7 +150,7 @@ Cons:
 1. Generate local `.sqlproj` projects from current live/local SQL definitions.
 2. Build locally only.
 3. Do not publish from automation.
-4. Hand over generated artifacts and this guide to US/BOB for official CI/CD alignment.
+4. Hand over generated artifacts and this guide to US/Enterprise ETL for official CI/CD alignment.
 
 This keeps the repo useful for review and drift detection while respecting that SQL Agent + enterprise CI/CD ownership sits with the US team.
 

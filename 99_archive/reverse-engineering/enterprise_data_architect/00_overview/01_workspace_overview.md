@@ -54,8 +54,8 @@ Ashley is **mid-migration EDW (legacy SQL Server) → Fabric**. Visible signs:
 ## VN team's relationship to this workspace
 
 - **VN team workspace** `Enterprise SupplyChain-Dev` (`c8d9fc83-...`) is a **value-stream workspace** (not a hub). Owns Gold + Silver SC-specific + semantic model + reports.
-- VN's `Enterprise_Lakehouse` is a **shortcut aggregator** with 5 schemas pointing to Bob's hub: `MasterData_DW`, `Customers`, `Wholesale_Codis_AFI`, `Wholesale_ProductSourcing_AFI`, `SupplyChain_DW` (via `Source_Data` Bronze).
-- **Pending**: Bob to create `SupplyChain_Warehouse` in this hub for SC-team-owned shared Silver (forecast, naive baseline, etc.)
+- VN's `Enterprise_Lakehouse` is a **shortcut aggregator** with 5 schemas pointing to Enterprise ETL's hub: `MasterData_DW`, `Customers`, `Wholesale_Codis_AFI`, `Wholesale_ProductSourcing_AFI`, `SupplyChain_DW` (via `Source_Data` Bronze).
+- **Pending**: Enterprise ETL to create `SupplyChain_Warehouse` in this hub for SC-team-owned shared Silver (forecast, naive baseline, etc.)
 - **Permissions today**: VN team has read access via shortcuts; no write access to any WH in this hub
 
 ## Cross-refs

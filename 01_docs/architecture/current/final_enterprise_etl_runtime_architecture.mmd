@@ -1,0 +1,70 @@
+flowchart LR
+    classDef source fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef bronze fill:#ffedd5,stroke:#f97316,color:#7c2d12
+    classDef silver fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+    classDef gold fill:#fef9c3,stroke:#ca8a04,color:#713f12
+    classDef sem fill:#f3e8ff,stroke:#7e22ce,color:#3b0764
+    classDef fw fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef ops fill:#f1f5f9,stroke:#475569,color:#0f172a
+
+    SRC["Enterprise source domains<br/>EDW / Databricks / Source_Data"]:::source
+    EL["Enterprise_Lakehouse<br/>Bronze + source shortcut hub"]:::bronze
+
+    subgraph ETL["ETL_Framework - Enterprise ETL Runtime"]
+        TD["DW_Developer.TableDictionary<br/>metadata / SLA / source-target contract"]:::fw
+        AL["DW_Developer.AuditLog<br/>log start / complete / error"]:::fw
+        UL["TableDictionary_UpdateLog<br/>lịch sử update metadata"]:::fw
+        PROC["Enterprise ETL loader procedures<br/>Incremental / Curated / SCD / Date-range"]:::fw
+    end
+
+    subgraph SILVER["SupplyChain_Processing_Warehouse - Silver"]
+        SW["Staging_Wrk<br/>source wrapper views"]:::silver
+        ST["Staging<br/>canonical staging targets"]:::silver
+        REF["ReferenceMaster_Enh<br/>reference/shared processing"]:::silver
+        SALES["SalesHistory_Enh<br/>sales history processing"]:::silver
+        FCST["ForecastHistory_Enh<br/>forecast history processing"]:::silver
+        INV["InventoryHistory_Enh<br/>inventory history processing"]:::silver
+        META["Meta<br/>fallback / evidence / Phase 2 extension"]:::ops
+    end
+
+    subgraph GOLD["SupplyChain_Gold_Warehouse - Gold"]
+        SH["Shared_DW<br/>shared dimensions"]:::gold
+        FA["ForecastAccuracy_DW<br/>forecast serving tables"]:::gold
+        IH["InventoryHealth_DW<br/>inventory serving tables"]:::gold
+    end
+
+    SEM["sc_control_tower<br/>shared semantic direction"]:::sem
+    PBI["Power BI reports / analysis"]:::sem
+
+    ORCH["03_operations/orchestration<br/>manifest + approved ad-hoc tools"]:::ops
+
+    SRC --> EL
+    EL --> SW
+    SW --> ST
+    EL --> REF
+    ST --> FCST
+    REF --> SALES
+    REF --> INV
+    SALES --> FA
+    FCST --> FA
+    INV --> IH
+    REF --> SH
+    SH --> FA
+    SH --> IH
+    FA --> SEM
+    IH --> SEM
+    SH --> SEM
+    SEM --> PBI
+
+    TD -.drives.-> PROC
+    PROC -.loads.-> ST
+    PROC -.loads.-> REF
+    PROC -.loads.-> SALES
+    PROC -.loads.-> FCST
+    PROC -.loads.-> INV
+    PROC -.loads.-> FA
+    PROC -.loads.-> IH
+    PROC -.updates.-> AL
+    PROC -.updates.-> UL
+    ORCH -.reads manifests.-> TD
+    ORCH -.approved trigger.-> PROC

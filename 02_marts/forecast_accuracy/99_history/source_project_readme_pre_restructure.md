@@ -30,8 +30,8 @@ End-to-end Forecast Accuracy analytics mart on Microsoft Fabric. Combines actual
 | DAG waves | 3 (Wave 0 / Wave 1 / Wave 2 — 8 entries in SilverDagWaveRuntime) |
 | Pipelines | 7 v10 pipelines (pl_sc_master, pl_sc_mart, pl_sc_staging, pl_sc_silver, pl_sc_silver_wave, pl_sc_gold, pl_dq_check) |
 | Semantic model | `sc_forecast_control_tower` (`f06a2361-15fd-4f91-9d37-941fefe62aaf`) |
-| Naming convention | Bob-aligned per ADR-008: `_Enh`/`_Wrk` (PascalCase casing), `v_*` view prefix, `_DW` ALL CAPS for Gold |
-| Control plane (Bob-pattern) | `Meta.TableDictionary` (table, 33 rows, 69 cols ≈ 60% cell fill) + `Meta.TableDictionary_UpdateLog` (event log) + `Meta.AuditLog` (10-col superset of Bob's 4-col) |
+| Naming convention | Enterprise ETL-aligned per ADR-008: `_Enh`/`_Wrk` (PascalCase casing), `v_*` view prefix, `_DW` ALL CAPS for Gold |
+| Control plane (Enterprise ETL-pattern) | `Meta.TableDictionary` (table, 33 rows, 69 cols ≈ 60% cell fill) + `Meta.TableDictionary_UpdateLog` (event log) + `Meta.AuditLog` (10-col superset of Enterprise ETL's 4-col) |
 
 ## Live row counts (2026-06-01 verified)
 
@@ -98,7 +98,7 @@ FactActualRows   = 138,509,914
 | Most recent master job samples | Latest Fabric job instances include `Completed`; older `Failed`/`Cancelled` runs are retained in history and documented in [../live_audit_2026-06-01.md](../live_audit_2026-06-01.md). |
 | Shared dim cutover | [Verified] `DimCalendar`, `DimProduct`, `DimWarehouse` are served from `Shared_DW` in the semantic model. |
 | Legacy physical dims | [Need-verify cleanup] `ForecastAccuracy_DW.DimProduct` remains as stale/inactive physical table; do not drop without explicit approval. |
-| Alerting | BLOCKED — Mail.Send / Teams permissions not granted (Q4 with Bob) |
+| Alerting | BLOCKED — Mail.Send / Teams permissions not granted (Q4 with Enterprise ETL) |
 | CI/CD | BLOCKED — Azure DevOps access not granted (Q4) |
 | Schedule trigger auto-deploy | [Need-verify] enable only after schedule ownership is confirmed. |
 | DQ history | Latest `pl_dq_check` Fabric job instances include `Completed`; older failures remain in Fabric history and are documented. |
@@ -116,20 +116,20 @@ The old `Forecast Accuracy Gold` report is still backed by Cherry/BCherry's v8 `
 | DAX smoke | [Verified] `fact_forecast_kpi` = 37,225,012 rows; `fact_flat_forecast_actual` = 51,015,312 rows; max fiscal month = `2027-04-25` |
 | v10 impact | None; no v10 pipeline, warehouse, or semantic model was changed during v8 recovery. |
 
-## Bob alignment (2026-05-10) — what changed
+## Enterprise ETL alignment (2026-05-10) — what changed
 
-Per Bob's reply email 2026-05-09 + scan of `EnterpriseData-Dev` workspace (see `99_archive/external_refs/_external_refs/enterprisedata-dev-01_docs/`), the following changes were made unilaterally (no Bob block needed) — see [ADR-008](../../../docs/decisions/ADR-008-bob-alignment-naming-and-integration.md):
+Per Enterprise ETL's reply email 2026-05-09 + scan of `EnterpriseData-Dev` workspace (see `99_archive/external_refs/_external_refs/enterprisedata-dev-01_docs/`), the following changes were made unilaterally (no Enterprise ETL block needed) — see [ADR-008](../../../docs/decisions/ADR-008-enterprise_etl-alignment-naming-and-integration.md):
 
 ### Naming alignment
 - Schema casing `_ENH` → `_Enh`, `_WRK` → `_Wrk` (5 schemas renamed via `ALTER SCHEMA TRANSFER`, data preserved)
 - View prefix `vw_*` → `v_*` (35 views recreated)
-- `_DW` Gold suffix kept ALL CAPS (matches Bob's `MasterData_DW`/`SupplyChain_DW` precedent)
+- `_DW` Gold suffix kept ALL CAPS (matches Enterprise ETL's `MasterData_DW`/`SupplyChain_DW` precedent)
 
 ### Control plane port (Mức B per ADR-008)
-- `Meta.vw_TableDictionary` (view) → `Meta.TableDictionary` (real table, 69 cols = 63 Bob-compatible + 6 VN extensions, 60.3% cell fill)
-- New `Meta.TableDictionary_UpdateLog` table (mirror Bob's append-only event log)
-- New `Meta.AuditLog` table (10 cols — superset of Bob's 4-col schema)
-- 3 new SPs ported from Bob's pattern:
+- `Meta.vw_TableDictionary` (view) → `Meta.TableDictionary` (real table, 69 cols = 63 Enterprise ETL-compatible + 6 VN extensions, 60.3% cell fill)
+- New `Meta.TableDictionary_UpdateLog` table (mirror Enterprise ETL's append-only event log)
+- New `Meta.AuditLog` table (10 cols — superset of Enterprise ETL's 4-col schema)
+- 3 new SPs ported from Enterprise ETL's pattern:
   - `Meta.usp_UpdateTableDictionary_ModifiedDate` — per-load INSERT/UPDATE
   - `Meta.usp_UpdateTableDictionaryModified` — batch sync `Modified` from UpdateLog
   - `Meta.usp_RefreshTableStats` — probe `INFORMATION_SCHEMA` for ColumnCount/Fabric defaults
@@ -138,11 +138,11 @@ Per Bob's reply email 2026-05-09 + scan of `EnterpriseData-Dev` workspace (see `
 ### Pipelines patched
 - 2 of 7 pipelines had hardcoded refs to old schema/view names (`pl_sc_staging`, `pl_sc_silver_wave`) — patched via Fabric REST API.
 
-### Pending Bob (4 questions in `_open_questions_for_bob.md`)
+### Pending Enterprise ETL (4 questions in `_open_questions_for_enterprise_etl.md`)
 - Cross-DB write to `EnterpriseData-Dev.ETL_Framework.DW_Developer.TableDictionary` (Q1)
 - `MasterData_DW.DimDate/DimItemMaster` MERGE plan (Q2)
 - `SupplyChain_Warehouse` in EnterpriseData hub creation (Q3)
 - IT unblock: Mail.Send + Azure DevOps + read access (Q4)
 
 ### Artifacts
-- `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/artifacts/bob_alignment_2026-05-10/` — execution scripts, generator, run logs, backup snapshot
+- `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/artifacts/enterprise_etl_alignment_2026-05-10/` — execution scripts, generator, run logs, backup snapshot

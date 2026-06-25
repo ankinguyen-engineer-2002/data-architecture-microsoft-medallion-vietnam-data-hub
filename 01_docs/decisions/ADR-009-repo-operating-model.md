@@ -5,7 +5,7 @@ Status: Accepted
 
 ## Context
 
-After Phase 1 of the BOB ETL Framework migration completed, the repository still looked like a reverse-engineering workspace: old architecture versions, live evidence folders, local tool caches, Bob guide docs, context logs, mart definitions, and operational scripts all sat near the root.
+After Phase 1 of the Enterprise ETL Framework migration completed, the repository still looked like a reverse-engineering workspace: old architecture versions, live evidence folders, local tool caches, Enterprise ETL guide docs, context logs, mart definitions, and operational scripts all sat near the root.
 
 That shape was useful during discovery, but it was not a clean operating repository.
 
@@ -15,8 +15,8 @@ The repo is now organized as a documentation + operations repository.
 
 Current source of truth:
 
-- `01_docs/architecture/current/` — final BOB-aligned architecture and generated diagrams.
-- `01_docs/bob-framework/` — Bob guide source and local interpretation.
+- `01_docs/architecture/current/` — final Enterprise ETL-aligned architecture and generated diagrams.
+- `01_docs/enterprise-etl-framework/` — Enterprise ETL guide source and local interpretation.
 - `02_marts/` — mart-level SQL definitions, lineage, run order, and history.
 - `03_operations/` — ad-hoc/manual orchestration manifests, tools, and operational apps.
 - `04_semantic/` — shared semantic model notes and artifacts.
@@ -35,5 +35,5 @@ Current source of truth:
 
 - Keep the old top-level reverse-engineering folders: rejected because it made the repo look unfinished and ambiguous.
 - Delete old evidence: rejected because the migration history is still valuable and deletion would be unsafe.
-- Put all docs under one huge folder: rejected because mart operations, architecture, Bob framework, and archive need separate ownership boundaries.
+- Put all docs under one huge folder: rejected because mart operations, architecture, Enterprise ETL framework, and archive need separate ownership boundaries.
 

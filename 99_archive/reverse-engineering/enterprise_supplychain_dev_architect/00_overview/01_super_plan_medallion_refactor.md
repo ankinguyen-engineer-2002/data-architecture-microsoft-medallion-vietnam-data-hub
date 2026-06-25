@@ -46,7 +46,7 @@ Current v9 co 28 active tables, 52 lineage edges, 7 pipelines, generic SQL frame
 | Current v9 | Target | Hanh dong |
 |---|---|---|
 | `bronze` schema | Logical Bronze nam o shortcuts/source; persisted part thanh `Staging` hoac `BronzeMirror` | Rename concept truoc, migrate vat ly theo compatibility plan |
-| `bronze` objects co `TRIM`, `CAST`, `CASE`, filter, standardization | Silver / working transformation | Move logic ra khoi Bronze vi Bob dung: enhancement khong nen o Bronze |
+| `bronze` objects co `TRIM`, `CAST`, `CASE`, filter, standardization | Silver / working transformation | Move logic ra khoi Bronze vi Enterprise ETL dung: enhancement khong nen o Bronze |
 | 4 `_edw` supplement tables | Staging exception | Giu tam trong initial build; 2 object la ExitCandidate, 2 object NotReady theo v9 note; formal lifecycle in `ADR-002` |
 | `silver` schema | PascalCase domain schemas | Vi du: `ForecastHistory`, `WholesaleSalesHistoryAFI`, `OpenOrderHistory`, `MasterDataReference` |
 | `gold` schema | Dedicated Gold Warehouse / Gold serving schemas | Vi du: `ForecastAccuracyWholesale`, `ForecastAccuracyRetail` |
@@ -115,7 +115,7 @@ Extend metadata layer, khong hardcode trong pipeline.
 | `is_enterprise_reusable` | Co promote sang Enterprise_Data hay khong |
 | `staging_reason` | Vi sao can persisted staging |
 | `source_contract_status` | Stable / Pending / Exception |
-| `approval_status` | Draft / RakeshApproved / BobReviewed |
+| `approval_status` | Draft / RakeshApproved / enterprise_etlReviewed |
 
 ## 7. Uoc Luong Cong Viec
 
@@ -134,7 +134,7 @@ Danh gia: [Likely] day la **refactor architecture lon**, nhung **khong phai rewr
 ### Phase 0 - Approval And Baseline
 
 - Export current registry, lineage, view definitions, row counts, DQ results, semantic model dependencies.
-- Chot naming standard voi Bob/Rakesh: PascalCase cho Silver/Gold, Bronze mimic source.
+- Chot naming standard voi Enterprise ETL/Rakesh: PascalCase cho Silver/Gold, Bronze mimic source.
 - Chot entity classification: domain-specific vs enterprise-reusable.
 
 Exit criteria:
@@ -240,7 +240,7 @@ Required validation:
 | Direct shortcut source changes during run | Non-deterministic results | Use staging only for tables requiring snapshot consistency |
 | Removing mirror too early | Loss of replay/audit/debug ability | Table-by-table staging decision |
 | PascalCase/schema rename breaks consumers | Reports/models fail | Compatibility views and controlled cutover |
-| Enterprise reusable boundary unclear | Wrong ownership | Rakesh/Bob approval gate |
+| Enterprise reusable boundary unclear | Wrong ownership | Rakesh/Enterprise ETL approval gate |
 | Current Bronze contains transformations | Architecture remains non-standard | Move transformations to Silver/domain schemas |
 | EDW supplement still temporary | Lineage/source confusion | Keep explicit `EDWSupplement` access mode |
 

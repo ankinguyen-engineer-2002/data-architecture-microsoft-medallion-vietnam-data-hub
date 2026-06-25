@@ -15,7 +15,7 @@ SERVER = "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fa
 DB = "SupplyChain_Processing_Warehouse"
 
 OLD_SCHEMAS = {"Staging", "ReferenceMaster", "SalesHistory", "ForecastHistory", "OpenOrderHistory", "ForecastAccuracy"}
-# Bob-aligned PascalCase per ADR-008 (2026-05-10): _Enh / _Wrk (was _ENH / _WRK pre-rebuild)
+# Enterprise ETL-aligned PascalCase per ADR-008 (2026-05-10): _Enh / _Wrk (was _ENH / _WRK pre-rebuild)
 NEW_SCHEMAS = {"Staging_Wrk", "ReferenceMaster_Enh", "SalesHistory_Enh", "ForecastHistory_Enh", "OpenOrderHistory_Enh", "Meta"}
 
 

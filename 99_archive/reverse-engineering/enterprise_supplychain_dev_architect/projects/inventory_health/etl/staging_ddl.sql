@@ -21,7 +21,7 @@
 --   3. SupplyChain_Lakehouse.dbo.logility_demandfulfillment           — partial / stale
 --   4. SupplyChain_Enh.PurchaseOrderSnapshot                          — EDW-only currently
 --
--- See `01_docs/open_questions_for_bob.md` + `dataflows/drafts/README.md` + recent
+-- See `01_docs/open_questions_for_enterprise_etl.md` + `dataflows/drafts/README.md` + recent
 -- commits (8683eaeb, 533fb1c6, b38d4e81) for dataflow fix progress.
 -- ============================================================
 -- If/when DE US declines to fix one of the 4 at the Bronze layer and we

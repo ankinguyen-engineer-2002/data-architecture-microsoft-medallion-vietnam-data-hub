@@ -290,7 +290,7 @@ It is **not** currently bound to:
 
 ### Repo candidates
 
-- `99_archive/architectures/v10_may_pre_bob/` — [Likely] historical duplicate/archive tree
+- `99_archive/architectures/v10_may_pre_enterprise_etl/` — [Likely] historical duplicate/archive tree
 - `serious-check/` — [Likely] investigation workspace, not core architecture docs
 - stale per-project semantic docs that still claim separate live semantic models
 

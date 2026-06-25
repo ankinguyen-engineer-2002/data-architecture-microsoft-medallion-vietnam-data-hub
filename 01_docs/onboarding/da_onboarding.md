@@ -2,7 +2,7 @@
 
 Tài liệu này dành cho DA / Analytics Engineer, tức người hiểu business logic, report requirement và ý nghĩa dữ liệu.
 
-DA không cần tự vận hành toàn bộ Fabric infrastructure. Điều quan trọng là DA phải mô tả đủ rõ logic, source, grain, key, DQ và semantic impact để DE có thể đưa logic đó vào hệ thống BOB runtime một cách an toàn.
+DA không cần tự vận hành toàn bộ Fabric infrastructure. Điều quan trọng là DA phải mô tả đủ rõ logic, source, grain, key, DQ và semantic impact để DE có thể đưa logic đó vào hệ thống Enterprise ETL runtime một cách an toàn.
 
 ![Luồng onboarding DA](da_onboarding_flow.svg)
 
@@ -26,10 +26,10 @@ Mermaid source: [da_onboarding_flow.mmd](da_onboarding_flow.mmd)
 
 | Khu vực | Ai thường sở hữu |
 |---|---|
-| Setup scheduler / SQL Agent job | DE / BOB operations |
+| Setup scheduler / SQL Agent job | DE / Enterprise ETL operations |
 | Publish SQLPROJ lên environment | DE / platform owner / reviewer |
 | Permission Fabric workspace | DE / platform owner |
-| Nội bộ BOB loader | BOB framework owner / DE |
+| Nội bộ Enterprise ETL loader | Enterprise ETL framework owner / DE |
 | Quyết định live refresh production | Operations owner |
 
 ## Workflow Chuẩn Cho DA
@@ -122,7 +122,7 @@ Cấu trúc mart:
   03_gold/
 ```
 
-Silver và Gold đi theo pattern BOB:
+Silver và Gold đi theo pattern Enterprise ETL:
 
 ```text
 Final table:
@@ -223,7 +223,7 @@ DE sẽ kiểm tra live Fabric, update SQLPROJ, xác nhận wrapper/runtime orde
 
 ```text
 Source này hiện có trên live Fabric chưa?
-Tên schema/table đã đúng chuẩn BOB chưa?
+Tên schema/table đã đúng chuẩn Enterprise ETL chưa?
 _Wrk view có map đúng với final table không?
 Bảng này nên chạy ở wave nào?
 Load pattern là full refresh, incremental append, incremental merge, SCD2 hay date-range?

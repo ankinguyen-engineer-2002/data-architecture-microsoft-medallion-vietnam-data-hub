@@ -1,10 +1,10 @@
-# How VN team consumes Bob's hub data via shortcuts
+# How VN team consumes Enterprise ETL's hub data via shortcuts
 
-> Operational runbook. How `Enterprise SupplyChain-Dev` workspace reads from `EnterpriseData-Dev` (Bob's hub).
+> Operational runbook. How `Enterprise SupplyChain-Dev` workspace reads from `EnterpriseData-Dev` (Enterprise ETL's hub).
 
 ## Pattern: OneLake shortcut aggregator
 
-Bob's enterprise hub uses the **shortcut aggregator pattern** for cross-workspace data sharing:
+Enterprise ETL's enterprise hub uses the **shortcut aggregator pattern** for cross-workspace data sharing:
 
 ```
 🇺🇸 EnterpriseData-Dev (hub — data lives here)
@@ -55,7 +55,7 @@ WHERE ORDNO IS NOT NULL;
 
 ## What VN can read from hub today (current shortcuts)
 
-| VN-side path | Points to (Bob hub) | VN purpose |
+| VN-side path | Points to (Enterprise ETL hub) | VN purpose |
 |--------------|---------------------|-----------|
 | `Enterprise_Lakehouse.MasterData_DW.DimDate` | `MasterData_Warehouse.MasterData_DW.DimDate` | Calendar reference |
 | `Enterprise_Lakehouse.MasterData_DW.DimItemMaster` | `MasterData_Warehouse.MasterData_DW.DimItemMaster` | Item master |
@@ -71,7 +71,7 @@ WHERE ORDNO IS NOT NULL;
 
 ## What VN CANNOT do today
 
-- **Write** to any hub WH (requires Contributor permission — pending Bob Q1)
+- **Write** to any hub WH (requires Contributor permission — pending Enterprise ETL Q1)
 - **Cross-DB SP execute** at hub WH (requires execute permission)
 - **Schedule/trigger** pipelines in hub workspace (requires Admin)
 - **Add new shortcuts** (requires hub-side OneLake admin)
@@ -86,7 +86,7 @@ Once `SupplyChain_Warehouse` is created in hub (per [`../20_proposals/02_supply_
 │
 └── Centralized_Lakehouse (existing aggregator)
     └── (optional NEW shortcut: SupplyChain_Forecast.* ← shortcut to SupplyChain_Warehouse.Forecast_Enh)
-        ↑ Bob's team or other value streams consume this for cross-team forecast access
+        ↑ Enterprise ETL's team or other value streams consume this for cross-team forecast access
 ```
 
 ## Operational tips
@@ -99,5 +99,5 @@ Once `SupplyChain_Warehouse` is created in hub (per [`../20_proposals/02_supply_
 
 ## Cross-refs
 
-- ADR-008 (VN naming alignment): [`../../docs/decisions/ADR-008-bob-alignment-naming-and-integration.md`](../../docs/decisions/ADR-008-bob-alignment-naming-and-integration.md)
+- ADR-008 (VN naming alignment): [`../../docs/decisions/ADR-008-enterprise_etl-alignment-naming-and-integration.md`](../../docs/decisions/ADR-008-enterprise_etl-alignment-naming-and-integration.md)
 - Domain team workflow: [`02_domain_team_workflow.md`](02_domain_team_workflow.md)

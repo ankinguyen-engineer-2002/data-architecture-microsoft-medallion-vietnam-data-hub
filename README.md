@@ -1,6 +1,6 @@
 # Fabric SupplyChain Operating Repo
 
-> Repo tài liệu và vận hành cho kiến trúc SupplyChain trên Microsoft Fabric, đã được chuẩn hóa theo hướng BOB ETL Framework.
+> Repo tài liệu và vận hành cho kiến trúc SupplyChain trên Microsoft Fabric, đã được chuẩn hóa theo hướng Enterprise ETL Framework.
 
 Repo này không chỉ để lưu code SQL. Nó là nơi giải thích toàn bộ cách hệ thống dữ liệu SupplyChain đang được tổ chức, vận hành, kiểm tra chất lượng, triển khai thay đổi và bàn giao cho các nhóm khác.
 
@@ -8,7 +8,7 @@ Nói ngắn gọn:
 
 ```text
 Business logic vẫn nằm ở Bronze / Silver / Gold.
-BOB ETL Framework chịu trách nhiệm load, log, audit, metadata.
+Enterprise ETL Framework chịu trách nhiệm load, log, audit, metadata.
 Repo này giúp DA, DE, reviewer và operations hiểu cùng một bức tranh.
 ```
 
@@ -21,7 +21,7 @@ Giữ sản phẩm dữ liệu:
   source -> Bronze -> Silver -> Gold -> semantic/report
 
 Chuẩn hóa cách vận hành:
-  _Wrk view -> final table -> wrapper procedure -> BOB loader -> AuditLog/TableDictionary
+  _Wrk view -> final table -> wrapper procedure -> Enterprise ETL loader -> AuditLog/TableDictionary
 
 Chuẩn hóa cách triển khai thay đổi:
   SQL source trong repo -> SQLPROJ build -> .dacpac -> review -> publish có kiểm soát
@@ -39,7 +39,7 @@ Mermaid source: [readme_operating_map.mmd](01_docs/architecture/current/readme_o
 |---|---|---|
 | DA / Analytics Engineer | [DA onboarding](01_docs/onboarding/da_onboarding.md) | Biết cách đưa business logic, source, grain, DQ và semantic impact vào repo để DE có thể vận hành. |
 | DE / Platform Operator | [DE onboarding](01_docs/onboarding/de_onboarding.md) | Biết cách scan live Fabric, sync repo, build SQLPROJ, vận hành refresh, kiểm tra DQ và cập nhật context. |
-| Reviewer / Architect | [Current architecture](01_docs/architecture/current/README.md) | Hiểu kiến trúc hiện tại, lý do dùng `_Wrk`, wrapper procedures và BOB runtime. |
+| Reviewer / Architect | [Current architecture](01_docs/architecture/current/README.md) | Hiểu kiến trúc hiện tại, lý do dùng `_Wrk`, wrapper procedures và Enterprise ETL runtime. |
 | Operations | [Operations](03_operations/README.md) | Biết manifest nào định nghĩa thứ tự chạy, dry-run ra sao, khi nào được live trigger. |
 | CI/CD Owner | [SQLPROJ CI/CD guide](01_docs/runbook/guides/sqlproj_cicd_operating_guide_for_da.md) | Hiểu CI/CD triển khai SQL object như thế nào và khác gì với refresh dữ liệu. |
 
@@ -51,7 +51,7 @@ Mermaid source: [readme_operating_map.mmd](01_docs/architecture/current/readme_o
 | [01_docs/onboarding/](01_docs/onboarding/) | Hướng dẫn nhập môn theo vai trò DA và DE. |
 | [01_docs/glossary.md](01_docs/glossary.md) | Giải thích thuật ngữ như `_Wrk`, `TableDictionary`, `SQLPROJ`, `.dacpac`, `semantic smoke`. |
 | [01_docs/architecture/current/](01_docs/architecture/current/) | Kiến trúc hiện tại sau Phase 1. |
-| [01_docs/bob-framework/](01_docs/bob-framework/) | Tài liệu BOB gửi và cách repo này diễn giải để áp dụng. |
+| [01_docs/enterprise-etl-framework/](01_docs/enterprise-etl-framework/) | Tài liệu Enterprise ETL gửi và cách repo này diễn giải để áp dụng. |
 | [01_docs/decisions/](01_docs/decisions/) | ADR, tức các quyết định kiến trúc quan trọng và lý do chọn. |
 | [02_marts/](02_marts/) | Nơi lưu logic theo từng mart: source, Bronze, Silver, Gold, DQ, catalog. |
 | [03_operations/](03_operations/) | Nơi lưu manifest chạy luồng, wrapper SQL, registry, SQLPROJ package và tool vận hành. |
@@ -61,7 +61,7 @@ Mermaid source: [readme_operating_map.mmd](01_docs/architecture/current/readme_o
 
 ## Dòng Chảy Dữ Liệu
 
-![Kiến trúc BOB runtime hiện tại](01_docs/architecture/current/final_bob_runtime_architecture.svg)
+![Kiến trúc Enterprise ETL runtime hiện tại](01_docs/architecture/current/final_enterprise_etl_runtime_architecture.svg)
 
 Hệ thống đi theo một câu chuyện rất quen thuộc với data platform:
 
@@ -74,7 +74,7 @@ Source systems
   -> Semantic model / Power BI / downstream users
 ```
 
-Điểm quan trọng là repo này không cố viết lại business logic từ đầu. Nó giữ nguyên lớp dữ liệu nghiệp vụ và thay đổi cách vận hành để khớp với BOB/Enterprise pattern.
+Điểm quan trọng là repo này không cố viết lại business logic từ đầu. Nó giữ nguyên lớp dữ liệu nghiệp vụ và thay đổi cách vận hành để khớp với Enterprise ETL/Enterprise pattern.
 
 ```text
 Business surface:
@@ -114,11 +114,11 @@ Cấu trúc chuẩn:
   README.md         hướng dẫn riêng của mart
 ```
 
-## BOB Runtime Chạy Bảng Như Thế Nào?
+## Enterprise ETL Runtime Chạy Bảng Như Thế Nào?
 
-![BOB loader contract](01_docs/architecture/current/readme_bob_loader_contract.svg)
+![Enterprise ETL loader contract](01_docs/architecture/current/readme_enterprise_etl_loader_contract.svg)
 
-Mermaid source: [readme_bob_loader_contract.mmd](01_docs/architecture/current/readme_bob_loader_contract.mmd)
+Mermaid source: [readme_enterprise_etl_loader_contract.mmd](01_docs/architecture/current/readme_enterprise_etl_loader_contract.mmd)
 
 Đây là phần dễ gây rối nhất, nên hãy nhớ một câu:
 
@@ -126,7 +126,7 @@ Mermaid source: [readme_bob_loader_contract.mmd](01_docs/architecture/current/re
 Business SQL nằm trong _Wrk view.
 Kết quả cuối nằm trong final table.
 Wrapper procedure quyết định thứ tự chạy.
-BOB loader thực hiện load và ghi log.
+Enterprise ETL loader thực hiện load và ghi log.
 ```
 
 Mẫu mapping:
@@ -155,7 +155,7 @@ Giải thích nhanh:
 | `_Wrk view` | View chứa SQL logic để tạo dữ liệu cho bảng đích. |
 | Final table | Bảng vật lý downstream sẽ dùng. |
 | Wrapper procedure | Stored procedure gọi nhiều bảng theo đúng thứ tự dependency/wave. |
-| BOB loader | Procedure framework thực hiện load, swap/materialize, log audit và cập nhật metadata. |
+| Enterprise ETL loader | Procedure framework thực hiện load, swap/materialize, log audit và cập nhật metadata. |
 | `TableDictionary` | Bảng đăng ký metadata: table nào, source view nào, load pattern nào. |
 | `AuditLog` | Bảng log lần chạy: start, complete, error, duration. |
 
@@ -210,7 +210,7 @@ SQL Agent hoặc approved trigger
   -> gọi wrapper procedure
   -> chạy shared/reference wave trước nếu cần
   -> chạy Silver/Gold theo đúng wave
-  -> mỗi table gọi BOB loader
+  -> mỗi table gọi Enterprise ETL loader
   -> loader đọc _Wrk view
   -> ghi final table
   -> ghi AuditLog và TableDictionary
@@ -262,7 +262,7 @@ DA định nghĩa business logic
   -> SQLPROJ build và tạo package review
   -> object được publish sau approval
   -> scheduler hoặc approved trigger chạy wrapper
-  -> BOB loader refresh table
+  -> Enterprise ETL loader refresh table
   -> AuditLog / TableDictionary / DQ / semantic smoke được kiểm tra
   -> context và docs được cập nhật
 ```
@@ -283,7 +283,7 @@ semantic/report impact
 handoff notes cho DE
 ```
 
-DA không cần tự setup scheduler, SQL Agent job hoặc BOB loader. Nhưng DA phải mô tả rõ logic và contract để DE vận hành được.
+DA không cần tự setup scheduler, SQL Agent job hoặc Enterprise ETL loader. Nhưng DA phải mô tả rõ logic và contract để DE vận hành được.
 
 Đọc: [DA onboarding](01_docs/onboarding/da_onboarding.md)
 
@@ -337,7 +337,7 @@ Nếu hai tài liệu nói khác nhau, dùng thứ tự này:
 ```text
 1. AGENTS.md
 2. 00_CONTEXT/current.md
-3. 01_docs/architecture/current/final_bob_runtime_architecture.md
+3. 01_docs/architecture/current/final_enterprise_etl_runtime_architecture.md
 4. 01_docs/Enterprise_Framework_Migration_Master_Plan.md
 5. 03_operations/orchestration/*/manifest.json
 6. 02_marts/<mart> SQL + DQ/catalog contracts

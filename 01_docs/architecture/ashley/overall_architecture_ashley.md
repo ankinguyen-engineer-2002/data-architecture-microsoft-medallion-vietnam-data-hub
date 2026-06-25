@@ -22,18 +22,18 @@ See: `overall_architecture_ashley_legend.md`
 
 ![Legacy overall architecture (nested layers) — PNG preview](overall_architecture_ashley.png)
 
-> Mục tiêu: vẽ “big picture” theo đúng góc nhìn enterprise (US) mà Bob mô tả: **1 system-of-record orchestrator** bọc toàn bộ; compute chính ở **Databricks**; publish/serve ở **Fabric (EnterpriseData → domain workspaces)**; VN Control Plane là **domain runtime capability** (waves/due gate/run logs), không phải tool thay thế enterprise scheduler.
+> Mục tiêu: vẽ “big picture” theo đúng góc nhìn enterprise (US) mà Enterprise ETL mô tả: **1 system-of-record orchestrator** bọc toàn bộ; compute chính ở **Databricks**; publish/serve ở **Fabric (EnterpriseData → domain workspaces)**; VN Control Plane là **domain runtime capability** (waves/due gate/run logs), không phải tool thay thế enterprise scheduler.
 >
 > Lưu ý quan trọng (Zero-hallucination): tên dịch vụ Azure cụ thể (Event Hubs vs IoT Hub vs Kafka, SQL MI vs Synapse vs SQL Server on VM, ADF vs custom schedulers, v.v.) chưa được confirm → mình ghi theo **pattern** và đánh dấu trạng thái:
 > - [Verified] = đúng theo tài liệu Microsoft / đúng logic nền tảng
-> - [Likely] = phù hợp mô tả của Bob, nhưng chưa có inventory chi tiết
+> - [Likely] = phù hợp mô tả của Enterprise ETL, nhưng chưa có inventory chi tiết
 > - [Need-verify] = cần hỏi/scan hệ thống để chốt
 
 ---
 
 ## 0) TL;DR (1 phút)
 
-- **L0 Orchestrator (Enterprise)**: SQL Server Agent Jobs (theo Bob) là “super orchestrator” bọc end-to-end: schedule, retries, alerting, job history, cross-system gating. [Likely]
+- **L0 Orchestrator (Enterprise)**: SQL Server Agent Jobs (theo Enterprise ETL) là “super orchestrator” bọc end-to-end: schedule, retries, alerting, job history, cross-system gating. [Likely]
 - **L1 Compute/Curate (Enterprise)**: Databricks xử lý ingestion + streaming + transform + curate (Delta). [Likely]
 - **L2 Fabric (EnterpriseData)**: workspace trung tâm publish “enterprise surfaces”; từ đó **tỏa ra domain workspaces** (SupplyChain, Finance, …) cho serving/BI. [Likely]
 - **VN Control Plane** không phải “thêm 1 orchestrator” cạnh tranh L0, mà là **domain runtime control** (waves/due gate/run logs/DQ/lineage hooks) có thể chạy *dưới* L0. [Likely]
@@ -43,7 +43,7 @@ See: `overall_architecture_ashley_legend.md`
 
 ## 1) Glossary ngắn (để nói chuyện không lệch nghĩa)
 
-- **Orchestrator (L0)**: nơi “system-of-record” sở hữu schedule/retry/alert/job history cho toàn enterprise. (Bob: SQL Server Agent Jobs). [Likely]
+- **Orchestrator (L0)**: nơi “system-of-record” sở hữu schedule/retry/alert/job history cho toàn enterprise. (Enterprise ETL: SQL Server Agent Jobs). [Likely]
 - **Runtime engine / Control Plane (L1.5)**: quyết định “chạy asset nào, theo thứ tự nào, song song ra sao” dựa trên metadata/DAG/waves; trả lời câu hỏi ops theo asset-level. (VN: Meta.AssetRegistry + waves + RunLog…). [Likely]
 - **Executor (L2)**: nơi thực thi work units (Spark jobs, SQL procs, Fabric activities, refresh calls…).
 
@@ -67,7 +67,7 @@ See: `overall_architecture_ashley_legend.md`
 │   - Files/exports (SFTP, APIs, partner feeds)                                                │
 │                                                                                             │
 │  L0 Orchestrator (system-of-record) — "SUPER ORCHESTRATION"                                 │
-│   - SQL Server Agent Jobs (Bob) [Likely]                                                     │
+│   - SQL Server Agent Jobs (Enterprise ETL) [Likely]                                                     │
 │   - Owns: schedule + retries + alerting + job history + cross-system gating                 │
 │   - Steps can run: SQL, PowerShell, invoke APIs, start other jobs, trigger downstream runs  │
 │                                                                                             │
@@ -202,7 +202,7 @@ Các use case “OK”:
 
 ## 7) Questions to verify (để biến sơ đồ này thành “Ashley-accurate”)
 
-Checklist cần hỏi Bob/Saravan (để chuyển [Need-verify] → [Verified]):
+Checklist cần hỏi Enterprise ETL/Saravan (để chuyển [Need-verify] → [Verified]):
 1) L0 orchestrator chính xác là gì ngoài SQL Agent? (ADF? Control-M? Airflow? custom?) [Need-verify]
 2) Ingestion streaming cụ thể: IoT Hub/Event Hubs/Kafka? [Need-verify]
 3) Databricks: Workflows/Jobs đang được trigger bằng gì? [Need-verify]

@@ -1,6 +1,6 @@
 # SQLPROJ Tools
 
-Tools for generating local, build-only Microsoft.Build.Sql packages from the current BOB-aligned Fabric runtime.
+Tools for generating local, build-only Microsoft.Build.Sql packages from the current Enterprise ETL-aligned Fabric runtime.
 
 These tools are intentionally non-publishing:
 

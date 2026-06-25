@@ -3,7 +3,7 @@
 v10 control-plane hardening (live):
 
 Targets:
-  1) TableDictionary backfill for active assets (Bob-compatible mapping).
+  1) TableDictionary backfill for active assets (Enterprise ETL-compatible mapping).
   2) Mart-level pipeline logging (pl_sc_mart -> Meta.usp_LogPipelineRun).
   3) Due-only gating for Silver waves (pl_sc_silver_wave).
   4) Gold per-table run logging + due gating (pl_sc_gold -> Meta.usp_LogRun + ufn_should_run gate).
@@ -412,7 +412,7 @@ def alter_usp_logrun_next_runtime(conn: pyodbc.Connection) -> None:
                             END
                     WHERE asset_id = @asset_id;
 
-                    -- AuditLog (Bob pattern)
+                    -- AuditLog (Enterprise ETL pattern)
                     INSERT INTO Meta.AuditLog (AuditID, AuditDateTime, UserName, Command,
                                                 Description, ErrorMessage, AssetID, RunID,
                                                 Severity, LoadDT)
@@ -430,7 +430,7 @@ def alter_usp_logrun_next_runtime(conn: pyodbc.Connection) -> None:
                            @now_cst
                     FROM Meta.AssetRegistry WHERE asset_id = @asset_id;
 
-                    -- NEW (Mức 2): TableDictionary update via Bob's pattern proc
+                    -- NEW (Mức 2): TableDictionary update via Enterprise ETL's pattern proc
                     IF @status IN ('success', 'skipped')
                     BEGIN
                         SELECT @db = physical_item, @schema = physical_schema,

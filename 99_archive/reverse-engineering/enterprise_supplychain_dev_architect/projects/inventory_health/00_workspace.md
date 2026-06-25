@@ -25,7 +25,7 @@ SQL Endpoint (both WHs): `7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.
 
 | Lakehouse | ID | Purpose | Inventory Health usage |
 |---|---|---|---|
-| `Enterprise_Lakehouse` | (Bob hub) | OneLake shortcuts to Enterprise Bronze | Primary source for most active Inventory Health bronze paths |
+| `Enterprise_Lakehouse` | (Enterprise ETL hub) | OneLake shortcuts to Enterprise Bronze | Primary source for most active Inventory Health bronze paths |
 | `SupplyChain_Lakehouse` | `62a3081e-4093-4f46-856c-f50aa58732fa` | EDW supplement staging | Current workaround path for `dbo.itembalance`; `dbo.purchaseordersnapshot` remains inactive Phase 2 |
 
 ## Authentication

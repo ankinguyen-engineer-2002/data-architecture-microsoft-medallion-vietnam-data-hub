@@ -1,7 +1,7 @@
 {
   "edges": [
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DimCustomerGrouping.sql",
       "source": "ForecastAccuracy_DW_Wrk.v_DimCustomerGrouping",
       "source_asset_key": "forecastaccuracy.dw.wrk.v.dimcustomergrouping",
@@ -9,7 +9,7 @@
       "target_asset_key": "forecastaccuracy.dw.dimcustomergrouping"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DimForecastHorizon.sql",
       "source": "ForecastAccuracy_DW_Wrk.v_DimForecastHorizon",
       "source_asset_key": "forecastaccuracy.dw.wrk.v.dimforecasthorizon",
@@ -17,7 +17,7 @@
       "target_asset_key": "forecastaccuracy.dw.dimforecasthorizon"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastActual.sql",
       "source": "ForecastAccuracy_DW_Wrk.v_FactForecastActual",
       "source_asset_key": "forecastaccuracy.dw.wrk.v.factforecastactual",
@@ -25,7 +25,7 @@
       "target_asset_key": "forecastaccuracy.dw.factforecastactual"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastKpi.sql",
       "source": "ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
       "source_asset_key": "forecastaccuracy.dw.wrk.v.factforecastkpi",
@@ -105,7 +105,7 @@
       "target_asset_key": "forecastaccuracy.dw.wrk.v.factforecastkpi"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_ForecastDemandMonthly.sql",
       "source": "ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
       "source_asset_key": "forecasthistory.enh.wrk.v.forecastdemandmonthly",
@@ -113,7 +113,7 @@
       "target_asset_key": "forecasthistory.enh.forecastdemandmonthly"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_NaiveForecastMonthly.sql",
       "source": "ForecastHistory_Enh_Wrk.v_NaiveForecastMonthly",
       "source_asset_key": "forecasthistory.enh.wrk.v.naiveforecastmonthly",
@@ -161,7 +161,7 @@
       "target_asset_key": "forecasthistory.enh.wrk.v.naiveforecastmonthly"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderLineLevel.sql",
       "source": "OpenOrderHistory_Enh_Wrk.v_OpenOrderLineLevel",
       "source_asset_key": "openorderhistory.enh.wrk.v.openorderlinelevel",
@@ -169,7 +169,7 @@
       "target_asset_key": "openorderhistory.enh.openorderlinelevel"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderMonthly.sql",
       "source": "OpenOrderHistory_Enh_Wrk.v_OpenOrderMonthly",
       "source_asset_key": "openorderhistory.enh.wrk.v.openordermonthly",
@@ -233,7 +233,7 @@
       "target_asset_key": "openorderhistory.enh.wrk.v.openordermonthly"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_Calendar.sql",
       "source": "ReferenceMaster_Enh_Wrk.v_Calendar",
       "source_asset_key": "referencemaster.enh.wrk.v.calendar",
@@ -241,7 +241,7 @@
       "target_asset_key": "referencemaster.enh.calendar"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccount.sql",
       "source": "ReferenceMaster_Enh_Wrk.v_CustomerAccount",
       "source_asset_key": "referencemaster.enh.wrk.v.customeraccount",
@@ -249,7 +249,7 @@
       "target_asset_key": "referencemaster.enh.customeraccount"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccountGroup.sql",
       "source": "ReferenceMaster_Enh_Wrk.v_CustomerAccountGroup",
       "source_asset_key": "referencemaster.enh.wrk.v.customeraccountgroup",
@@ -257,7 +257,7 @@
       "target_asset_key": "referencemaster.enh.customeraccountgroup"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerGrouping.sql",
       "source": "ReferenceMaster_Enh_Wrk.v_CustomerGrouping",
       "source_asset_key": "referencemaster.enh.wrk.v.customergrouping",
@@ -265,7 +265,7 @@
       "target_asset_key": "referencemaster.enh.customergrouping"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerShippingLocation.sql",
       "source": "ReferenceMaster_Enh_Wrk.v_CustomerShippingLocation",
       "source_asset_key": "referencemaster.enh.wrk.v.customershippinglocation",
@@ -273,7 +273,7 @@
       "target_asset_key": "referencemaster.enh.customershippinglocation"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ForecastCycle.sql",
       "source": "ReferenceMaster_Enh_Wrk.v_ForecastCycle",
       "source_asset_key": "referencemaster.enh.wrk.v.forecastcycle",
@@ -281,7 +281,7 @@
       "target_asset_key": "referencemaster.enh.forecastcycle"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ForecastHorizon.sql",
       "source": "ReferenceMaster_Enh_Wrk.v_ForecastHorizon",
       "source_asset_key": "referencemaster.enh.wrk.v.forecasthorizon",
@@ -289,7 +289,7 @@
       "target_asset_key": "referencemaster.enh.forecasthorizon"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
       "source": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
       "source_asset_key": "referencemaster.enh.wrk.v.itemmaster",
@@ -297,7 +297,7 @@
       "target_asset_key": "referencemaster.enh.itemmaster"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_OrderType.sql",
       "source": "ReferenceMaster_Enh_Wrk.v_OrderType",
       "source_asset_key": "referencemaster.enh.wrk.v.ordertype",
@@ -305,7 +305,7 @@
       "target_asset_key": "referencemaster.enh.ordertype"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_Warehouse.sql",
       "source": "ReferenceMaster_Enh_Wrk.v_Warehouse",
       "source_asset_key": "referencemaster.enh.wrk.v.warehouse",
@@ -425,7 +425,7 @@
       "target_asset_key": "referencemaster.enh.wrk.v.warehouse"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandMonthly.sql",
       "source": "SalesHistory_Enh_Wrk.v_ActualDemandMonthly",
       "source_asset_key": "saleshistory.enh.wrk.v.actualdemandmonthly",
@@ -433,7 +433,7 @@
       "target_asset_key": "saleshistory.enh.actualdemandmonthly"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandWeekly.sql",
       "source": "SalesHistory_Enh_Wrk.v_ActualDemandWeekly",
       "source_asset_key": "saleshistory.enh.wrk.v.actualdemandweekly",
@@ -441,7 +441,7 @@
       "target_asset_key": "saleshistory.enh.actualdemandweekly"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
       "source": "SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel",
       "source_asset_key": "saleshistory.enh.wrk.v.invoicedetaillinelevel",
@@ -449,7 +449,7 @@
       "target_asset_key": "saleshistory.enh.invoicedetaillinelevel"
     },
     {
-      "edge_type": "bob_wrk_view_materializes_final_table",
+      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceWeekly.sql",
       "source": "SalesHistory_Enh_Wrk.v_InvoiceWeekly",
       "source_asset_key": "saleshistory.enh.wrk.v.invoiceweekly",

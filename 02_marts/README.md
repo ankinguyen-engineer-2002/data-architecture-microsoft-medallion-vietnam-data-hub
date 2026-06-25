@@ -47,7 +47,7 @@ Shared/reference dependencies phải chạy trước mart-specific Gold facts n�
 
 ## Enterprise `_Wrk` Contract
 
-Silver và Gold theo pattern curated warehouse của BOB/Enterprise:
+Silver và Gold theo pattern curated warehouse của Enterprise ETL/Enterprise:
 
 ```text
 Final table:

@@ -64,7 +64,7 @@ Add or represent these attributes in `Meta.AssetRegistryV10` or a child table su
 | `grain_status` | Confirms row grain is compatible with v9 logic |
 | `schema_status` | Confirms columns/types/nullability are compatible |
 | `performance_status` | Confirms direct shortcut read is acceptable |
-| `cutover_approved_by` | Bob/Rakesh/assigned owner approval |
+| `cutover_approved_by` | Enterprise ETL/Rakesh/assigned owner approval |
 | `cutover_approved_at` | Approval timestamp |
 | `fallback_retention_until` | Date/time to retain `_edw` fallback after cutover |
 
@@ -93,7 +93,7 @@ Use this sequence per object, not as a bulk switch.
 3. Run dual-read validation and store results in `Meta.ReconciliationResult`.
 4. If validation fails, keep `_edw` as active and log the failed gate.
 5. If validation passes for the agreed number of runs, mark `edw_exit_status = CutoverPendingApproval`.
-6. Ask Bob/Rakesh/assigned approver for object-level sign-off.
+6. Ask Enterprise ETL/Rakesh/assigned approver for object-level sign-off.
 7. Change only metadata routing to `DirectShortcut`; do not delete `_edw`.
 8. Run Bronze/Silver/Gold side-by-side or shadow validation for the affected downstream chain.
 9. Keep `_edw` as `RetainedFallback` through the agreed retention window.
@@ -132,7 +132,7 @@ Rollback should be metadata-first:
 ### `ref_product`
 
 - V9 note marks EL as `Ready`.
-- Because Bob's pattern treats reusable/reference data as Enterprise-owned when cross-domain, this object needs both source validation and ownership decision.
+- Because Enterprise ETL's pattern treats reusable/reference data as Enterprise-owned when cross-domain, this object needs both source validation and ownership decision.
 - Do not force it into local SupplyChain direct mode if EnterpriseData should own the reference contract.
 
 ## 9. Build Rule For v10

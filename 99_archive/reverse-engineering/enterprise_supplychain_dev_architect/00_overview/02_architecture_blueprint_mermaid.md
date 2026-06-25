@@ -20,7 +20,7 @@ Neu copy len Mermaid Live Editor, hay copy truc tiep cac file `.mmd` trong folde
 - [`../diagrams/07_pipeline_sequence.mmd`](../diagrams/07_pipeline_sequence.mmd)
 - [`../diagrams/08_mart_schedule_smart_skip.mmd`](../diagrams/08_mart_schedule_smart_skip.mmd)
 - [`../diagrams/09_v9_feature_parity_control_plane.mmd`](../diagrams/09_v9_feature_parity_control_plane.mmd)
-- [`../diagrams/10_bob_standards_overlay.mmd`](../diagrams/10_bob_standards_overlay.mmd)
+- [`../diagrams/10_enterprise_etl_standards_overlay.mmd`](../diagrams/10_enterprise_etl_standards_overlay.mmd)
 
 ## 2. Overview De Nhin
 

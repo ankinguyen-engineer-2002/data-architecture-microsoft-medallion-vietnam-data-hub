@@ -46,16 +46,16 @@ flowchart LR
 
 | Layer | Workspace location | Object type | Owner |
 |-------|---------------------|-------------|-------|
-| Source raw | `Source_Data` (64 schemas, 636 tables) | Warehouse | Bob's team central |
-| Control plane | `ETL_Framework` (35 procs, TableDictionary, AuditLog) | Warehouse | Bob's team central |
+| Source raw | `Source_Data` (64 schemas, 636 tables) | Warehouse | Enterprise ETL's team central |
+| Control plane | `ETL_Framework` (35 procs, TableDictionary, AuditLog) | Warehouse | Enterprise ETL's team central |
 | Silver — Wholesale | `Wholesale_Warehouse` (28 schemas, 209 tables, 126 _Wrk views) | Warehouse | Wholesale value-stream team |
 | Silver — Retail | `Retail_Warehouse` (25 schemas, 198 tables, 41 views, 146 procs) | Warehouse | Retail value-stream team |
 | Silver — Master Data | `MasterData_Warehouse` (14 schemas, 46 tables) | Warehouse | MasterData / Central team |
 | Silver — Distribution | `Distribution_Warehouse` (8 schemas, 7 tables) | Warehouse | Distribution team (incomplete) |
 | Silver — Quality | `Quality_Warehouse` (6 schemas, **0 tables — empty shell**) | Warehouse | TBD (not built) |
 | Silver — **SupplyChain (NEW, pending)** | `SupplyChain_Warehouse` — DOES NOT EXIST | Warehouse | **VN team** (proposed) |
-| Gold | `Centralized_Warehouse` (23 schemas, 38 tables, 0 procs internal) | Warehouse | Bob's team |
-| Gold lakehouse | `Centralized_Lakehouse` (501 tables, 5.92B rows via shortcut to PROD) | Lakehouse | Bob's team |
+| Gold | `Centralized_Warehouse` (23 schemas, 38 tables, 0 procs internal) | Warehouse | Enterprise ETL's team |
+| Gold lakehouse | `Centralized_Lakehouse` (501 tables, 5.92B rows via shortcut to PROD) | Lakehouse | Enterprise ETL's team |
 | Sandbox | `A_Developement` (3 local + 7 ADLS shortcuts) | Lakehouse | Dev sandbox |
 
 ## Domain ownership pattern

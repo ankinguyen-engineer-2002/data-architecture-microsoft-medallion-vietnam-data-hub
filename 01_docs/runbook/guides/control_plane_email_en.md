@@ -1,8 +1,8 @@
-# Email draft (EN) — to Bob (US DE) for thanks + alignment recap + request for review
+# Email draft (EN) — to Enterprise ETL (US DE) for thanks + alignment recap + request for review
 
 **Subject:** Follow-up — VN SupplyChain Control Plane (built on Enterprise ETL Framework) + request for your review
 
-Hi Bob,
+Hi Enterprise ETL,
 
 Thank you again for the recent discussion and for sharing your perspective.
 
@@ -67,7 +67,7 @@ When convenient, could you reply by email (or via a quick Teams discussion) with
 - ops metrics level + pairing/correlation requirement
 - ownership/placement if additional runtime controls are needed
 
-Thanks again, Bob.
+Thanks again, Enterprise ETL.
 
 Best regards,  
 Aric Nguyen  

@@ -7,7 +7,7 @@ Nói đơn giản:
 ```text
 SQLPROJ giúp build và review SQL object.
 SQLPROJ không tự refresh dữ liệu.
-Refresh dữ liệu vẫn do wrapper procedure + BOB loader chạy.
+Refresh dữ liệu vẫn do wrapper procedure + Enterprise ETL loader chạy.
 ```
 
 ## Có Những Project Nào?
@@ -56,4 +56,4 @@ Operating guide:
 
 - [SQLPROJ CI/CD Operating Guide](../../../01_docs/runbook/guides/sqlproj_cicd_operating_guide_for_da.md)
 
-Runtime handoff vẫn là wrapper procedures được mô tả trong [ADR-010](../../../01_docs/decisions/ADR-010-bob-wrapper-runtime-handoff.md).
+Runtime handoff vẫn là wrapper procedures được mô tả trong [ADR-010](../../../01_docs/decisions/ADR-010-enterprise-etl-wrapper-runtime-handoff.md).

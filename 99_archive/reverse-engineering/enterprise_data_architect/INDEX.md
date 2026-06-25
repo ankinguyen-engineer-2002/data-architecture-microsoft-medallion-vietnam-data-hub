@@ -1,8 +1,8 @@
 # INDEX — `EnterpriseData-Dev` Workspace Analysis
 
-> Bob Horton's Enterprise Data hub at Ashley Furniture · Workspace ID `5360a935-1984-4775-895f-f4c90bafa19d`
+> Enterprise ETL Horton's Enterprise Data hub at Ashley Furniture · Workspace ID `5360a935-1984-4775-895f-f4c90bafa19d`
 >
-> This folder contains the VN team's analysis of Bob's enterprise architecture, synthesized from a comprehensive scan of the workspace via [`enterprisedata-dev-docs`](https://github.com/ankinguyen-engineer-2002/enterprisedata-dev-docs) (cloned to `_external_refs/`, gitignored).
+> This folder contains the VN team's analysis of Enterprise ETL's enterprise architecture, synthesized from a comprehensive scan of the workspace via [`enterprisedata-dev-docs`](https://github.com/ankinguyen-engineer-2002/enterprisedata-dev-docs) (cloned to `_external_refs/`, gitignored).
 >
 > Mirror structure of `Enterprise_SupplyChain_Dev_architect/` for easy side-by-side comparison.
 
@@ -17,13 +17,13 @@
 - [Risks register](10_evidence/04_risks.md) — 28 issues from scan, top 5 critical/high
 
 ## 20_proposals/ — Integration planning
-- [ETL framework alignment](20_proposals/01_etl_framework_alignment.md) — Bob's pattern vs VN approach, what to align
+- [ETL framework alignment](20_proposals/01_etl_framework_alignment.md) — Enterprise ETL's pattern vs VN approach, what to align
 - [SupplyChain_Warehouse proposal](20_proposals/02_supply_chain_warehouse_proposal.md) — request to create new domain WH for SC team
 - [Naming conventions audit](20_proposals/03_naming_conventions.md) — schema/table/view/proc patterns observed
 
 ## 30_runbook/ — Operational notes (read-mostly)
 - [Cross-workspace consumption](30_runbook/01_cross_workspace_consumption.md) — how SC workspace shortcuts to hub Silver
-- [How Bob's domain teams add Silver tables](30_runbook/02_domain_team_workflow.md) — Wholesale/Retail self-serve pattern
+- [How Enterprise ETL's domain teams add Silver tables](30_runbook/02_domain_team_workflow.md) — Wholesale/Retail self-serve pattern
 
 ## projects/ — Deep dives per domain
 - [ETL framework deep dive](projects/etl_framework/SYNTHESIS.md) — 35 procs, 65-col TableDictionary lifecycle, audit pattern

@@ -88,7 +88,7 @@ Chúng có nhiệm vụ:
 ```text
 nhóm table theo mart/layer
 sắp thứ tự dependency/wave
-gọi đúng BOB loader procedure
+gọi đúng Enterprise ETL loader procedure
 để AuditLog và TableDictionary ghi evidence
 ```
 
@@ -108,4 +108,4 @@ Job history:
 GET /v1/workspaces/{workspaceId}/dataPipelines/{dataPipelineId}/jobs/execute/instances
 ```
 
-Với runtime hiện tại, wrapper procedures và BOB loader contract là handoff chính. Fabric pipeline IDs vẫn được giữ làm context và fallback/legacy reference khi cần.
+Với runtime hiện tại, wrapper procedures và Enterprise ETL loader contract là handoff chính. Fabric pipeline IDs vẫn được giữ làm context và fallback/legacy reference khi cần.

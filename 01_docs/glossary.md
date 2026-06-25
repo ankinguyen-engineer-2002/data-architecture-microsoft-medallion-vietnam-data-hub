@@ -17,11 +17,11 @@ Tài liệu này dành cho người đọc không muốn bị ngợp bởi thu�
 | Freshness | Độ mới của dữ liệu, thường kiểm tra bằng snapshot date, load timestamp hoặc business date đáng tin. |
 | Lineage | Dòng chảy dữ liệu: object nào lấy từ source nào và tạo ra object nào. |
 
-## Thuật Ngữ BOB Runtime
+## Thuật Ngữ Enterprise ETL Runtime
 
 | Thuật ngữ | Nghĩa dễ hiểu |
 |---|---|
-| BOB ETL Framework | Bộ framework vận hành load dữ liệu theo pattern của team BOB/Enterprise. |
+| Enterprise ETL Framework | Bộ framework vận hành load dữ liệu theo pattern của team Enterprise ETL/Enterprise. |
 | `ETL_Framework` | Warehouse/framework local hiện dùng để chứa loader procs, metadata, audit tables. |
 | `_Wrk` schema | Schema chứa source/work view. View trong đây là nơi đặt SQL logic tạo dữ liệu cho final table. |
 | `v_<TableName>` | View nguồn cho loader. Tên view phải map với final table cùng tên. |

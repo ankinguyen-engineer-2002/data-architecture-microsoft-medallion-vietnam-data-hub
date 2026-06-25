@@ -4,11 +4,11 @@ This folder contains high-level architecture views and navigation pointers.
 
 ## Current Final Architecture
 
-- Entry point: [current/final_bob_runtime_architecture.md](current/final_bob_runtime_architecture.md)
-- Mermaid source: [current/final_bob_runtime_architecture.mmd](current/final_bob_runtime_architecture.mmd)
-- Generated SVG: [current/final_bob_runtime_architecture.svg](current/final_bob_runtime_architecture.svg)
+- Entry point: [current/final_enterprise_etl_runtime_architecture.md](current/final_enterprise_etl_runtime_architecture.md)
+- Mermaid source: [current/final_enterprise_etl_runtime_architecture.mmd](current/final_enterprise_etl_runtime_architecture.mmd)
+- Generated SVG: [current/final_enterprise_etl_runtime_architecture.svg](current/final_enterprise_etl_runtime_architecture.svg)
 
-Use this as the current architecture source of truth after Phase 1 BOB migration.
+Use this as the current architecture source of truth after Phase 1 Enterprise ETL migration.
 
 ## Current Contract Decisions
 

@@ -35,7 +35,7 @@ Snapshot of key control plane tables as CSV (full content, every row):
 | `LineageEdge.csv` | 105 edges (98 direct + 7 semantic) |
 | `SourceFeed.csv` | 52 sources |
 | `SilverDagWaveRuntime.csv` | 20 wave assignments |
-| `TableDictionary.csv` | 59 Bob-compat schema rows |
+| `TableDictionary.csv` | 59 Enterprise ETL-compat schema rows |
 | `ReconciliationRule.csv` | 6 rules |
 | `AssetAccessPolicy.csv` | 28 policies |
 

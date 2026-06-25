@@ -35,8 +35,8 @@ def clean_object_name(raw: str) -> str:
     raw = raw.strip()
     raw = raw.split("(")[0].strip()
     raw = raw.replace("[", "").replace("]", "")
-    raw = raw.replace(" (BOB source wrapper)", "")
-    raw = raw.replace(" (canonical BOB target table)", "")
+    raw = raw.replace(" (_Wrk source view)", "")
+    raw = raw.replace(" (canonical Enterprise ETL target table)", "")
     return raw
 
 
@@ -116,7 +116,7 @@ def restructure_forecast() -> None:
     # Manual target table note that appears as comments in staging_ddl.
     (mart / "00_source_wrk" / "staging_wrk" / "Staging.DemandForecastSnapshotDaily.sql").write_text(
         "-- Staging.DemandForecastSnapshotDaily\n"
-        "-- Canonical BOB target table materialized from Staging_Wrk.v_DemandForecastSnapshotDaily.\n"
+        "-- Canonical Enterprise ETL target table materialized from Staging_Wrk.v_DemandForecastSnapshotDaily.\n"
         "-- Loader: ETL_Framework.DW_Developer.usp_IncrementalTableLoad.\n"
         "-- UpdateMethod: DateRange. DateKey: dfcSnapshot. Window: 30 days.\n",
         encoding="utf-8",

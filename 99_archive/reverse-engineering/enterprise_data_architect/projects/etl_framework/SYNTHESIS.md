@@ -1,4 +1,4 @@
-# Bob's ETL Framework — Deep Dive Synthesis
+# Enterprise ETL's ETL Framework — Deep Dive Synthesis
 
 **For:** Aric Nguyen, VN SC Team Lead Data Engineer  
 **From:** Analysis of EnterpriseData-Dev (WS ID: 5360a935-1984-4775-895f-f4c90bafa19d)  
@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-Bob Horton's ETL framework in `ETL_Framework` warehouse is a **metadata-driven, register-based orchestration engine** that decouples data movement logic from table-specific configuration. The framework powers all Bronze→Silver→Gold transformations across 5 domain warehouses via:
+Enterprise ETL Horton's ETL framework in `ETL_Framework` warehouse is a **metadata-driven, register-based orchestration engine** that decouples data movement logic from table-specific configuration. The framework powers all Bronze→Silver→Gold transformations across 5 domain warehouses via:
 
 - **35 stored procedures** organized into 10 procedural families (parquet-loaders, refresh, incremental, SCD2, snapshot, audit, alert, cleanup, email, other)
 - **TableDictionary** (65-column registry) as the single source of truth for data lineage, update methods, refresh rates, SLA tracking
@@ -24,7 +24,7 @@ The architecture prioritizes **governance by metadata** over code flexibility—
 
 ### Purpose & Ownership
 
-`ETL_Framework` (owner: Bob Horton) serves as the **control plane** for the entire workspace:
+`ETL_Framework` (owner: Enterprise ETL Horton) serves as the **control plane** for the entire workspace:
 - Hosts the **35 procedural workhorses** (all in `DW_Developer` schema)
 - Owns **14 views** (mostly metadata query helpers)
 - Manages **2 logging tables** (AuditLog, TableDictionary) + **1 utility table** (TableDictionary_UpdateLog)
@@ -80,7 +80,7 @@ Tracks: which column was updated, old/new value, sync timestamp, operation type.
 
 **Purpose:** Load Delta tables from ABFSS parquet files in OneLake.
 
-**Why 12 variants?** Bob experimented with different read patterns (OPENROWSET dialects, cursor-based loops, direct COPY INTO). The family evolved through performance optimization.
+**Why 12 variants?** Enterprise ETL experimented with different read patterns (OPENROWSET dialects, cursor-based loops, direct COPY INTO). The family evolved through performance optimization.
 
 | Proc | Pattern | Key Feature | Status |
 |---|---|---|---|
@@ -699,7 +699,7 @@ Enables asynchronous metadata when mirror lag is acceptable.
 
 ---
 
-## 4. Generic Loader Patterns — Bob's Equivalent of usp_GenericLoad
+## 4. Generic Loader Patterns — Enterprise ETL's Equivalent of usp_GenericLoad
 
 The framework supports **two main modes:**
 
@@ -1076,7 +1076,7 @@ Indicates **incomplete cross-workspace inventory** — some data flows remain op
 
 ### Insight 1: Metadata Registry >> Code Flexibility
 
-**Bob's bet:** Store update logic in **TableDictionary columns** (UpdateMethod, PrimaryKey, RefreshRate, etc.) rather than procedure parameters.
+**Enterprise ETL's bet:** Store update logic in **TableDictionary columns** (UpdateMethod, PrimaryKey, RefreshRate, etc.) rather than procedure parameters.
 
 **Advantage:** Domain teams self-register tables (no proc re-parameterization).  
 **Tradeoff:** Limited flexibility. New load patterns require new procs (Upsert, CDC, SCD2, etc. are pre-coded, not composable).
@@ -1105,7 +1105,7 @@ Distribution_Warehouse.dbo.Usp_Refresh_Distribution_Warehouse [external]
 
 ### Insight 3: Parquet Loaders Are a Mess — Pick One and Stick
 
-**12 variants** evolved from experimentation. Bob never settled on a single pattern.
+**12 variants** evolved from experimentation. Enterprise ETL never settled on a single pattern.
 
 **Which to use?**
 - **`Usp_CreateTableFromParquet_V2`** (latest, HOLDING pattern) — safest
@@ -1196,7 +1196,7 @@ Or use **Application Insights** to trace at the query level (not Fabric-native; 
 
 ### Architectural Fit
 
-Bob's framework prioritizes **simplicity + metadata-driven self-service** over **flexibility + composability**. VN team should:
+Enterprise ETL's framework prioritizes **simplicity + metadata-driven self-service** over **flexibility + composability**. VN team should:
 - **Embrace** the fixed set of update methods (Upsert, CDC, SCD2, etc.). Use them as-is.
 - **Extend cautiously** with new procs only when existing methods don't fit.
 - **Standardize naming** early (schema prefixes, proc naming conventions, domain warehouse ownership).

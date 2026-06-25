@@ -58,7 +58,7 @@
     }
   ],
   "post_run_checks": [
-    "BOB AuditLog has Process Complete or actionable Error for triggered path",
+    "Enterprise ETL AuditLog has Process Complete or actionable Error for triggered path",
     "TableDictionary Modified/RowCount updated for loaded targets",
     "No grain duplicates on critical snapshot grains",
     "Gold row counts are non-zero and within expected tolerance",

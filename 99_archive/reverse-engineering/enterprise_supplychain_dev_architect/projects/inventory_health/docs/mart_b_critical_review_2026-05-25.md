@@ -377,7 +377,7 @@ A 450-line `v_FactInventoryHealthSnapshot` with 4 CTE helpers is harder to debug
 ### Risk 3: TMDL cross-schema fragility
 2 marts in 2 semantic models referencing 1 physical dim means a `DimProduct` schema change breaks both. Less isolation.
 
-**Mitigation:** Bob's Enterprise standards govern `ReferenceMaster_Enh.ItemMaster` and `ForecastAccuracy_DW.DimProduct` — these are stable contracts. Lower risk than maintaining separate copies that drift.
+**Mitigation:** Enterprise ETL's Enterprise standards govern `ReferenceMaster_Enh.ItemMaster` and `ForecastAccuracy_DW.DimProduct` — these are stable contracts. Lower risk than maintaining separate copies that drift.
 
 ### Risk 4: "Mart B is incomplete without Mart A"
 Currently if Mart A pipeline fails, Mart B can still run with cached SalesShipment. After Phase 2, Mart B is downstream of Mart A.

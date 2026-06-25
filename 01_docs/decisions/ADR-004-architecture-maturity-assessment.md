@@ -33,7 +33,7 @@ Scored against 15 criteria derived from 10+ authoritative Microsoft sources:
 |---|---|---|---|---:|---|
 | 1 | Medallion 3-layer separation | "Keep each layer separated in its own lakehouse or data warehouse" | 2 Lakehouses (Bronze) + Processing WH (Silver) + Gold WH (Gold) | **10/10** | Matches Pattern 2: Bronze/Silver lakehouse, Gold warehouse |
 | 2 | Bronze = shortcuts, no copy | "Create a shortcut instead of copying data across" | Enterprise_Lakehouse shortcuts; staging only for 4 EDW exceptions | **9/10** | -1: 4 EDW supplement tables still copied (documented in ADR-002) |
-| 3 | Silver = clean, standardize | "Fix errors, standardize formats, remove duplicates" using Delta tables | 5 domain schemas with Bob suffix (`_ENH`, `_WRK`), VIEW + CTAS pattern, Delta tables, PascalCase columns | **10/10** | Schema suffix + PascalCase columns per Bob DOCX (rebuilt 2026-05-04) |
+| 3 | Silver = clean, standardize | "Fix errors, standardize formats, remove duplicates" using Delta tables | 5 domain schemas with Enterprise ETL suffix (`_ENH`, `_WRK`), VIEW + CTAS pattern, Delta tables, PascalCase columns | **10/10** | Schema suffix + PascalCase columns per Enterprise ETL DOCX (rebuilt 2026-05-04) |
 | 4 | Gold = curated, BI-ready | "Organize for reports and dashboards" in dedicated serving item | Dedicated Gold Warehouse, FactForecastActual/Kpi with Fact prefix | **10/10** | Exact match |
 | 5 | Direct Lake for Gold | "Ideal choice for the gold analytics layer in medallion architecture" | Gold physical tables in Delta format, Direct Lake ready | **9/10** | -1: Semantic model not yet created (TMDL captured, pending deploy) |
 | 6 | Star schema / Kimball | "De-normalized star schema encouraged"; "Fact/Dim prefixes" | Complete star schema in `ForecastAccuracy_DW`: 2 Fact + 5 Dim tables | **10/10** | DimCalendar, DimCustomerGrouping, DimWarehouse, DimProduct, DimForecastHorizon (added 2026-05-04) |
@@ -76,7 +76,7 @@ These features are implemented in v10 but NOT explicitly prescribed or demonstra
 | Multi-mart routing | Not mentioned | ForEach DISTINCT project; N data marts in parallel; no pipeline changes | Horizontal scale for enterprise |
 | Smart skip scheduling | Not mentioned | Cron parser (5-field, *, step, range, list) + next_run_time filter + frequency-aware skip | Monthly REF tables correctly skip on daily runs |
 | 8 load patterns | MS mentions "Snapshot, Upsert, Append" (~3) | overwrite, incremental, upsert, datekey, daterange, identity, cdc, scd2 | Handles any ETL pattern in production |
-| Enterprise Dictionary | Not mentioned | 63-column Enterprise-compatible view adapter | Enterprise DW standards alignment (Bob standards) |
+| Enterprise Dictionary | Not mentioned | 63-column Enterprise-compatible view adapter | Enterprise DW standards alignment (Enterprise ETL standards) |
 | Source contracts | Not mentioned | 674 column-level schema contracts with drift detection capability | Pre-production schema governance |
 | Reconciliation rules | Not mentioned | Source-target row count validation framework (6 rules seeded) | Production data accuracy assurance |
 
@@ -111,7 +111,7 @@ These features are implemented in v10 but NOT explicitly prescribed or demonstra
 | `cdc` | ✓ | 0 | 0 | **CAPABILITY** |
 | `scd2` | ✓ | 0 | 0 | **CAPABILITY** |
 
-**Why only overwrite?** All current sources are full-refresh. 4 EDW supplement tables pull full snapshots via Dataflow đường vòng (vì Enterprise Lakehouse chưa đủ data). Verified 2026-05-04: Enterprise Lakehouse equivalents **đã tồn tại** (exact column match) nhưng pending data completeness từ Bob team.
+**Why only overwrite?** All current sources are full-refresh. 4 EDW supplement tables pull full snapshots via Dataflow đường vòng (vì Enterprise Lakehouse chưa đủ data). Verified 2026-05-04: Enterprise Lakehouse equivalents **đã tồn tại** (exact column match) nhưng pending data completeness từ Enterprise ETL team.
 
 **When `incremental` becomes real** (per ADR-002 exit plan): Khi Enterprise Lakehouse đủ data, 3/4 bảng lớn chuyển sang `incremental` load — đây là lúc pattern prove value lần đầu:
 - `DemandForecastSnapshot` (42M): watermark `SnapshotTS`, append-only daily ~50K rows
@@ -173,7 +173,7 @@ Other patterns become relevant when:
 
 | Action | Score Impact | New Total |
 |---|---|---|
-| Current baseline (post Bob Standards rebuild) | — | **134/150 (89.3%)** |
+| Current baseline (post Enterprise ETL Standards rebuild) | — | **134/150 (89.3%)** |
 | + Security matrix design | +4 | 138/150 (92.0%) |
 | + Semantic model deploy | +1 | 139/150 (92.7%) |
 | ~~+ Dim tables in Gold WH~~ | ~~+3~~ | ~~DONE (included in 89.3%)~~ |
@@ -239,4 +239,4 @@ All sources verified 2026-05-03. Tagged [Verified] per project Super Rule §0.
 9. [Verified] Data Processing Standards — learn.microsoft.com/azure/cloud-adoption-framework/data/operational-standards-data-processing-standards
 10. [Verified] Greenfield Lakehouse Architecture — learn.microsoft.com/azure/architecture/example-scenario/data/greenfield-lakehouse-fabric
 11. [Verified] Enterprise BI on Fabric — learn.microsoft.com/azure/architecture/example-scenario/analytics/enterprise-bi-microsoft-fabric
-12. [Verified] Bob SQL Server DW Standards — 99_archive/reverse-engineering/enterprise_supplychain_dev_architect/SQL Server Data Warehouse Standards.docx (local)
+12. [Verified] Enterprise ETL SQL Server DW Standards — 99_archive/reverse-engineering/enterprise_supplychain_dev_architect/SQL Server Data Warehouse Standards.docx (local)

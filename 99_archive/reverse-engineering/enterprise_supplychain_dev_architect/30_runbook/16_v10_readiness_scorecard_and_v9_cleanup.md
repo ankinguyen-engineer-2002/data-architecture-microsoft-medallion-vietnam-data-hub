@@ -12,7 +12,7 @@ Readiness score: 88 / 100
 Ready for:
 - Non-destructive v10 side-by-side build planning.
 - v10 metadata/control-plane scaffolding.
-- Bob/Rakesh approval discussion.
+- Enterprise ETL/Rakesh approval discussion.
 - Parallel validation design.
 
 Not ready for:
@@ -28,19 +28,19 @@ Not ready for:
 | Area | Score | Evidence | Remaining risk |
 |---|---:|---|---|
 | v9 evidence freeze and live clone | 10 / 10 | `readiness_exports/20260430_230936/`; `detail_clone_v9_forecast/20260501_093155/` | Raw exports are local-only and intentionally ignored from Git |
-| Bob/Rakesh architecture alignment | 13 / 15 | Bob feedback mapped in `09_bob_standards_mapping_matrix.md`; runbook uses Pascal Case/process schemas and dedicated Gold | Final technical design sign-off still required |
+| Enterprise ETL/Rakesh architecture alignment | 13 / 15 | Enterprise ETL feedback mapped in `09_enterprise_etl_standards_mapping_matrix.md`; runbook uses Pascal Case/process schemas and dedicated Gold | Final technical design sign-off still required |
 | EDW supplement exit strategy | 10 / 10 | `01_docs/decisions/ADR-002-edw-supplement-exit-strategy.md`; `15_v10_edw_supplement_exit_strategy.md` | Object-level approval required before any direct cutover |
 | v9 control-plane parity | 18 / 20 | `03_v9_feature_parity_checklist.md`; `07_v9_capability_evidence_ledger.md`; live clone has registry, lineage, DQ, run logs, DAG, smart-skip evidence | DQ gates, alerting, CI/CD, and some Phase 3 objects are not fully active |
 | v10 implementation runbook | 14 / 15 | `14_v10_step_by_step_implementation_runbook.md` | Exact deployment scripts/DDL are not created yet |
 | Source contract and reconciliation readiness | 8 / 12 | `schema_contracts` exist in v9 clone; v10 requires reconciliation gates | Reconciliation implementation and source SLA approval are pending |
-| Security and governance model | 7 / 10 | Bob standards mapping and runbook define security matrix requirement | Detailed Fabric workspace/item/SQL endpoint/semantic grants are still pending |
+| Security and governance model | 7 / 10 | Enterprise ETL standards mapping and runbook define security matrix requirement | Detailed Fabric workspace/item/SQL endpoint/semantic grants are still pending |
 | CI/CD and deployment readiness | 8 / 10 | v10 docs require non-destructive side-by-side build and validation gates | Actual CI/CD/sqlproj migration path is still not implemented |
 | **Total** | **88 / 100** | Architecture package is strong enough for side-by-side implementation planning | Not sufficient for production cutover or v9 decommission |
 
 ## 3. Interpretation
 
 - [Verified] The package is strong enough to start non-destructive v10 scaffolding because the architecture, object mapping, EDW fallback policy, and runbook are now documented.
-- [Verified] The package is not strong enough to cut over production because source contracts, reconciliation, security, DQ gate mode, and Bob/Rakesh approval remain open.
+- [Verified] The package is not strong enough to cut over production because source contracts, reconciliation, security, DQ gate mode, and Enterprise ETL/Rakesh approval remain open.
 - [Verified] The package is not strong enough to remove `_edw` fallback because two of four `_edw` objects are still `NotReady`, and the two `ExitCandidate` objects still require dual-read validation.
 
 ## 4. Cleanup Principles
@@ -52,7 +52,7 @@ Cleanup must follow this order:
 1. Archive/freeze v9 definitions, pipeline definitions, row-count snapshots, run-history snapshots, and semantic dependencies.
 2. Build v10 side-by-side.
 3. Run v9 and v10 in parallel until validation gates pass.
-4. Switch consumers only after Bob/Rakesh or assigned approver signs off.
+4. Switch consumers only after Enterprise ETL/Rakesh or assigned approver signs off.
 5. Keep rollback window open.
 6. Disable old schedules before deleting anything.
 7. Ask Aric for explicit same-conversation destructive-operation approval before any delete/drop/truncate/disable action.

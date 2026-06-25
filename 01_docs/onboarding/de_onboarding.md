@@ -33,7 +33,7 @@ Mermaid source: [de_operating_cycle.mmd](de_operating_cycle.mmd)
 Repo là operating notebook.
 Fabric là hệ thống thật.
 SQLPROJ là package triển khai SQL object.
-BOB ETL Framework là runtime loader.
+Enterprise ETL Framework là runtime loader.
 Manifest và wrapper procedure định nghĩa thứ tự chạy.
 AuditLog và TableDictionary chứng minh runtime đã làm gì.
 ```
@@ -49,7 +49,7 @@ AGENTS.md
 00_CONTEXT/current.md
 README.md
 01_docs/glossary.md
-01_docs/architecture/current/final_bob_runtime_architecture.md
+01_docs/architecture/current/final_enterprise_etl_runtime_architecture.md
 03_operations/orchestration/main/manifest.json
 ```
 
@@ -156,7 +156,7 @@ Thứ tự chạy đến từ:
 wrapper procedure SQL under 03_operations/orchestration/*/sql/
 ```
 
-Thứ tự BOB runtime nên rõ theo wave:
+Thứ tự Enterprise ETL runtime nên rõ theo wave:
 
 ```text
 shared/reference prerequisite wave
@@ -282,6 +282,6 @@ Không tạo context song song nếu convention repo chưa đổi.
 | README biến thành báo cáo số liệu | Đưa metrics vào context/artifacts, giữ README là guide. |
 | DA đổi SQL nhưng thiếu DQ contract | Bắt buộc có grain, key, not-null, duplicate, freshness expectation. |
 | `_Wrk` view và final table lệch tên | Validate `<SchemaName>_Wrk.v_<TableName>` trước build/handoff. |
-| Nhầm SQLPROJ publish với refresh dữ liệu | CI/CD chỉ deploy object; runtime là wrapper + BOB loader. |
+| Nhầm SQLPROJ publish với refresh dữ liệu | CI/CD chỉ deploy object; runtime là wrapper + Enterprise ETL loader. |
 | Manual refresh bỏ qua dependency order | Chỉ dùng manifest/wrapper order. |
 | Dùng docs cũ để kết luận live state | Scan live Fabric khi current truth quan trọng. |

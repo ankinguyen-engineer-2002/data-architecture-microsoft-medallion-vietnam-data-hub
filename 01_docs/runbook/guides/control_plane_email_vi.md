@@ -1,8 +1,8 @@
-# Email draft (VI) — gửi Bob (US DE) để cảm ơn + xác nhận nội dung buổi trao đổi + xin review hướng đồng bộ
+# Email draft (VI) — gửi Enterprise ETL (US DE) để cảm ơn + xác nhận nội dung buổi trao đổi + xin review hướng đồng bộ
 
 **Subject:** Follow-up — VN SupplyChain Control Plane (built on Enterprise ETL Framework) + request for your review
 
-Chào Bob,
+Chào Enterprise ETL,
 
 Cảm ơn anh về buổi chia sẻ/trao đổi hôm trước.  
 Em là **Aric Nguyen** (VN SupplyChain DE) — em là người build/operate phần lớn solution ở phía VN, nên em sẽ giữ mình trong CC để tiện follow-up và để team của anh dễ phối hợp khi cần.
@@ -73,7 +73,7 @@ Nhờ anh phản hồi trực tiếp qua email này (hoặc trao đổi nhanh qu
 - ops metrics level + pairing/correlation requirement
 - ownership/placement nếu cần bổ sung runtime controls
 
-Cảm ơn anh Bob.
+Cảm ơn anh Enterprise ETL.
 
 Trân trọng,  
 Aric Nguyen  

@@ -15,7 +15,7 @@ Why:
 - [Verified] Smart skip is active for `pl_sc_bronze` and `pl_sc_gold` Lookup queries.
 - [Verified] DQ pipeline exists and is active as a standalone pipeline, but the current master pipeline does not invoke DQ gates.
 - [Verified] Phase 3 objects exist: schema contracts, performance baseline, pipeline cost log, validation SPs.
-- [Need-verify] Bob/Rakesh sign-off is still external and cannot be completed by this repo work alone.
+- [Need-verify] Enterprise ETL/Rakesh sign-off is still external and cannot be completed by this repo work alone.
 - [Need-verify] Silver multi-mart filtering needs design correction before scaling beyond one project.
 
 Conclusion:
@@ -215,14 +215,14 @@ Summary:
 |---|---:|---|
 | StagingException / EDWSupplement | 4 total: 2 ExitCandidate + 2 NotReady | Keep persisted staging initially; validate ExitCandidates first |
 | LogicalBronzeCandidate / DirectReadCandidate | 4 BRZ | Direct by default if source contract passes |
-| ReferenceMaster / NeedOwnerDecision | 7 REF | Bob/Rakesh ownership decision |
+| ReferenceMaster / NeedOwnerDecision | 7 REF | Enterprise ETL/Rakesh ownership decision |
 | ReferenceMaster / DomainReference | 3 REF | Keep local unless EnterpriseData takes ownership |
 | DomainSilver | 8 SLV | Keep in SupplyChain Processing Warehouse initially |
 | GoldServing | 2 GLD | Publish to dedicated Gold Warehouse physical tables |
 
 ## 5. Step 4 - Sign-Off Checklist
 
-This step cannot be completed locally because Bob/Rakesh approval is external. The required pack is ready.
+This step cannot be completed locally because Enterprise ETL/Rakesh approval is external. The required pack is ready.
 
 Sign-off questions:
 
@@ -316,8 +316,8 @@ SupplyChain Dev workspace
 | Source contract not active in flow | Open | Promote schema contract validation to pre-load gate |
 | DQ gates not called by master | Open | Add v10 DQ mode and explicit gate placement |
 | Silver DAG not project-filtered | Open | Add project-aware wave computation |
-| Naming not signed off | Open | Bob/Rakesh decision before physical DDL |
-| TableDictionary physical sync unclear | Open | Ask Bob/Rakesh; keep adapter as default |
+| Naming not signed off | Open | Enterprise ETL/Rakesh decision before physical DDL |
+| TableDictionary physical sync unclear | Open | Ask Enterprise ETL/Rakesh; keep adapter as default |
 | Direct Lake view fallback | Open | Use physical Gold tables and validate semantic model mode |
 | EDW supplement still temporary | Open | Keep `EDWSupplement` access mode |
 
@@ -329,5 +329,5 @@ Recommended immediate next engineering task:
 
 ```text
 Build v10 metadata compatibility layer and project-aware DAG design in documentation/DDL draft,
-then review with Bob/Rakesh before deploying any Fabric object changes.
+then review with Enterprise ETL/Rakesh before deploying any Fabric object changes.
 ```
