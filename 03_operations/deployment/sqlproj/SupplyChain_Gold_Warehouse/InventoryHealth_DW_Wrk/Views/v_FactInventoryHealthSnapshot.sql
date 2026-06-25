@@ -203,8 +203,7 @@ joined AS (
         ON afi.ItemSku = b.ItemSku
        AND afi.WarehouseCode = b.WarehouseCode
        AND afi.WeekEndingDate = b.SnapshotWeekEndingDate
-),
-__bob_source AS (
+)
 SELECT
     CAST(ItemSku AS VARCHAR(50)) AS ItemSku,
     CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,
@@ -291,59 +290,4 @@ SELECT
     CAST(NULL AS DECIMAL(18,4)) AS [Aging Bucket <12M Qty],
     CAST(NULL AS DECIMAL(18,4)) AS [Aging Bucket >12M Qty],
     CAST(AFIStatus AS VARCHAR(20)) AS AFIStatus
-FROM joined
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [SnapshotWeekEndingDate] = src.[SnapshotWeekEndingDate],
-    [OnHandQty] = src.[OnHandQty],
-    [OnHand Value] = src.[OnHand Value],
-    [On Order Qty] = src.[On Order Qty],
-    [POOnOrderQty] = src.[POOnOrderQty],
-    [MOOnOrderQty] = src.[MOOnOrderQty],
-    [In Transit Qty] = src.[In Transit Qty],
-    [TransferInInTransitQty] = src.[TransferInInTransitQty],
-    [POInTransitQty] = src.[POInTransitQty],
-    [On Order Value] = src.[On Order Value],
-    [In Transit Value] = src.[In Transit Value],
-    [AwdQty] = src.[AwdQty],
-    [On Hold Ratio] = src.[On Hold Ratio],
-    [IsActiveItemWhIn7DNext] = src.[IsActiveItemWhIn7DNext],
-    [IsActiveItemWhIn14DNext] = src.[IsActiveItemWhIn14DNext],
-    [ATP Qty] = src.[ATP Qty],
-    [SIQty] = src.[SIQty],
-    [Revenue at risk] = src.[Revenue at risk],
-    [InventoryClassification Final Status] = src.[InventoryClassification Final Status],
-    [Qty by InventoryClassification (InActive)] = src.[Qty by InventoryClassification (InActive)],
-    [Qty by InventoryClassification (SLOB)] = src.[Qty by InventoryClassification (SLOB)],
-    [Qty by InventoryClassification (Below Target)] = src.[Qty by InventoryClassification (Below Target)],
-    [Qty by InventoryClassification (SweetSpot)] = src.[Qty by InventoryClassification (SweetSpot)],
-    [Qty by InventoryClassification (OverTarget)] = src.[Qty by InventoryClassification (OverTarget)],
-    [Qty by InventoryClassification (Excess)] = src.[Qty by InventoryClassification (Excess)],
-    [Qty by InventoryClassification (AE)] = src.[Qty by InventoryClassification (AE)],
-    [Qty by InventoryClassification (TB Inventory)] = src.[Qty by InventoryClassification (TB Inventory)],
-    [SafetyStockTarget] = src.[SafetyStockTarget],
-    [FirmDemandQtyAtRisk] = src.[FirmDemandQtyAtRisk],
-    [NetFcstQtyAtRisk] = src.[NetFcstQtyAtRisk],
-    [FirmDemandQty] = src.[FirmDemandQty],
-    [NetFcstQty] = src.[NetFcstQty],
-    [COGS52W] = src.[COGS52W],
-    [IsShortage/Surplus/InStock] = src.[IsShortage/Surplus/InStock],
-    [Shortage/Surplus Qty] = src.[Shortage/Surplus Qty],
-    [MakeBuyCode] = src.[MakeBuyCode],
-    [PrimaryVendorName] = src.[PrimaryVendorName],
-    [SecondaryVendorName] = src.[SecondaryVendorName],
-    [ReplenishmentLeadTime] = src.[ReplenishmentLeadTime],
-    [UsedStorageCube] = src.[UsedStorageCube],
-    [StandardCost] = src.[StandardCost],
-    [FobArcPrice] = src.[FobArcPrice],
-    [Cubes] = src.[Cubes],
-    [LastInvoiceDate] = src.[LastInvoiceDate],
-    [InventoryAgeWeeks] = src.[InventoryAgeWeeks],
-    [Aging Bucket <3M Qty] = src.[Aging Bucket <3M Qty],
-    [Aging Bucket <6M Qty] = src.[Aging Bucket <6M Qty],
-    [Aging Bucket <12M Qty] = src.[Aging Bucket <12M Qty],
-    [Aging Bucket >12M Qty] = src.[Aging Bucket >12M Qty],
-    [AFIStatus] = src.[AFIStatus]
-FROM __bob_source AS src;
+FROM joined;

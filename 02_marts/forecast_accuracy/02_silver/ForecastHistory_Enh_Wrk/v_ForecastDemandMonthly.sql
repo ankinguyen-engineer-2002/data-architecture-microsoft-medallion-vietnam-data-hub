@@ -37,26 +37,12 @@ Calc AS (
     WHERE FC.FiscalMonth>=DATEADD(MONTH,-36,DATETRUNC(YEAR,DATEADD(MONTH,-6,CAST(GETDATE() AS DATE))))
       AND FC.FiscalMonth<=DATEADD(MONTH,12,DATETRUNC(YEAR,DATEADD(MONTH,6,CAST(GETDATE() AS DATE))))
     GROUP BY FC.ItemSKU, FC.WarehouseCode, FC.CustomerGroupCode, CAL.FSCMonthFirst, CAL.FSCMonthLast, FC.Snapshot, FC.FiscalMonth
-),
-__bob_source AS (
+)
 SELECT CAST(TRIM(ItemSKU) AS VARCHAR(50)) AS ItemSKU, CAST(TRIM(WarehouseCode) AS VARCHAR(10)) AS WarehouseCode,
     CAST(TRIM(CustomerGroupCode) AS VARCHAR(50)) AS CustomerGroupCode,
     CAST(FSCMonthFirst AS DATE) AS FSCMonthFirst, CAST(FSCMonthLast AS DATE) AS FSCMonthLast,
     CAST(Snapshot AS DATE) AS Snapshot, CAST(TRIM(HorizonCode) AS VARCHAR(10)) AS HorizonCode,
     CAST(QtyForecast AS FLOAT) AS QtyForecast, CAST(TRIM(VersionCode) AS VARCHAR(20)) AS VersionCode,
-    CAST(TRIM(StatusCode) AS VARCHAR(20)) AS StatusCode
-FROM Calc
-)
-SELECT
-    [ItemSKU] = src.[ItemSKU],
-    [WarehouseCode] = src.[WarehouseCode],
-    [CustomerGroupCode] = src.[CustomerGroupCode],
-    [FSCMonthFirst] = src.[FSCMonthFirst],
-    [FSCMonthLast] = src.[FSCMonthLast],
-    [Snapshot] = src.[Snapshot],
-    [HorizonCode] = src.[HorizonCode],
-    [QtyForecast] = src.[QtyForecast],
-    [VersionCode] = src.[VersionCode],
-    [StatusCode] = src.[StatusCode],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+    CAST(TRIM(StatusCode) AS VARCHAR(20)) AS StatusCode,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
+FROM Calc;

@@ -103,8 +103,7 @@ bounded AS (
             ELSE ExcessUpperQty
         END AS AEUpperQty
     FROM excess_bound
-),
-__bob_source AS (
+)
 SELECT
     Item,
     WH,
@@ -147,19 +146,4 @@ SELECT
         WHEN OnHandsQty <= AEUpperQty THEN 0
         ELSE OnHandsQty - AEUpperQty
     END AS [Qty by InventoryClassification (TB Inventory)]
-FROM bounded
-)
-SELECT
-    [Item] = src.[Item],
-    [WH] = src.[WH],
-    [SnapshotWeekEnding] = src.[SnapshotWeekEnding],
-    [InventoryClassification Final Status] = src.[InventoryClassification Final Status],
-    [Qty by InventoryClassification (Inactive)] = src.[Qty by InventoryClassification (Inactive)],
-    [Qty by InventoryClassification (SLOB)] = src.[Qty by InventoryClassification (SLOB)],
-    [Qty by InventoryClassification (Below Target)] = src.[Qty by InventoryClassification (Below Target)],
-    [Qty by InventoryClassification (SweetSpot)] = src.[Qty by InventoryClassification (SweetSpot)],
-    [Qty by InventoryClassification (OverTarget)] = src.[Qty by InventoryClassification (OverTarget)],
-    [Qty by InventoryClassification (Excess)] = src.[Qty by InventoryClassification (Excess)],
-    [Qty by InventoryClassification (AE)] = src.[Qty by InventoryClassification (AE)],
-    [Qty by InventoryClassification (TB Inventory)] = src.[Qty by InventoryClassification (TB Inventory)]
-FROM __bob_source AS src;
+FROM bounded;

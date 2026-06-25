@@ -203,8 +203,7 @@ ranked AS (
             ELSE 99
         END AS ProjectedRanking
     FROM classified c
-),
-__bob_source AS (
+)
 SELECT
     ItemSku,
     WarehouseCode,
@@ -246,35 +245,4 @@ SELECT
     CAST(DATEDIFF(day, AwdAsOfDate, FactAsOfDate) AS INT) AS AwdLagDays,
     CAST(DATEDIFF(day, AfiStatusAsOfDate, FactAsOfDate) AS INT) AS AfiStatusLagDays,
     CAST(DATEDIFF(day, LastInvoiceAsOfDate, FactAsOfDate) AS INT) AS LastInvoiceLagDays
-FROM ranked
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [FactAsOfDate] = src.[FactAsOfDate],
-    [FutureWeekEndingDate] = src.[FutureWeekEndingDate],
-    [SupplyPlanSnapshotDate] = src.[SupplyPlanSnapshotDate],
-    [AwdAsOfDate] = src.[AwdAsOfDate],
-    [AfiStatusAsOfDate] = src.[AfiStatusAsOfDate],
-    [LastInvoiceAsOfDate] = src.[LastInvoiceAsOfDate],
-    [ProjectedSubStatus] = src.[ProjectedSubStatus],
-    [ProjectedRanking] = src.[ProjectedRanking],
-    [ProjectedInventoryClassificationFinalStatus] = src.[ProjectedInventoryClassificationFinalStatus],
-    [AvgWeeklyDemand] = src.[AvgWeeklyDemand],
-    [SafetyStockTarget] = src.[SafetyStockTarget],
-    [ProjectedInventoryQty] = src.[ProjectedInventoryQty],
-    [FirmDemandQty] = src.[FirmDemandQty],
-    [NetFcstQty] = src.[NetFcstQty],
-    [FirmDemandQtyAtRisk] = src.[FirmDemandQtyAtRisk],
-    [NetFcstQtyAtRisk] = src.[NetFcstQtyAtRisk],
-    [IsActiveItemWhIn7DNext] = src.[IsActiveItemWhIn7DNext],
-    [IsActiveItemWhIn14DNext] = src.[IsActiveItemWhIn14DNext],
-    [AFIStatus] = src.[AFIStatus],
-    [LastInvoiceDate] = src.[LastInvoiceDate],
-    [SupplyPlanSnapshotType] = src.[SupplyPlanSnapshotType],
-    [LatestSupplyPlanSnapshotDate] = src.[LatestSupplyPlanSnapshotDate],
-    [SupplyPlanSnapshotLagDays] = src.[SupplyPlanSnapshotLagDays],
-    [AwdLagDays] = src.[AwdLagDays],
-    [AfiStatusLagDays] = src.[AfiStatusLagDays],
-    [LastInvoiceLagDays] = src.[LastInvoiceLagDays]
-FROM __bob_source AS src;
+FROM ranked;

@@ -89,8 +89,7 @@ ranked AS (
                 AtpQty DESC
         ) AS rn
     FROM source_rows
-),
-__bob_source AS (
+)
 SELECT
     ItemSku,
     WarehouseCode,
@@ -114,33 +113,7 @@ SELECT
     IsHistoricalWeeklySnapshot,
     IsLatestAtpSnapshot,
     SnapshotType,
-    LatestAtpSnapshotDate
+    LatestAtpSnapshotDate,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
 FROM ranked
-WHERE rn = 1
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [SnapshotDate] = src.[SnapshotDate],
-    [SnapshotWeekEndingDate] = src.[SnapshotWeekEndingDate],
-    [SourceRunDate] = src.[SourceRunDate],
-    [SeriesNumber] = src.[SeriesNumber],
-    [AFIFinanceDivision] = src.[AFIFinanceDivision],
-    [AFISalesDivision] = src.[AFISalesDivision],
-    [ItemGrouping] = src.[ItemGrouping],
-    [ATPWeek] = src.[ATPWeek],
-    [WeekNumber] = src.[WeekNumber],
-    [WeekEndingDate] = src.[WeekEndingDate],
-    [AtpQty] = src.[AtpQty],
-    [APNQ] = src.[APNQ],
-    [InsertedDateTime] = src.[InsertedDateTime],
-    [InsertedVersion] = src.[InsertedVersion],
-    [VersionDescription] = src.[VersionDescription],
-    [SourceSystem] = src.[SourceSystem],
-    [SourceTable] = src.[SourceTable],
-    [IsHistoricalWeeklySnapshot] = src.[IsHistoricalWeeklySnapshot],
-    [IsLatestAtpSnapshot] = src.[IsLatestAtpSnapshot],
-    [SnapshotType] = src.[SnapshotType],
-    [LatestAtpSnapshotDate] = src.[LatestAtpSnapshotDate],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+WHERE rn = 1;

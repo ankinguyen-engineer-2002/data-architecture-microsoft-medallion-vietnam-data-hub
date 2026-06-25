@@ -104,8 +104,7 @@ cogs52w AS (
         b.ItemSku,
         b.WarehouseCode,
         b.WeekEndingDate
-),
-__bob_source AS (
+)
 SELECT
     ItemSku,
     WarehouseCode,
@@ -117,20 +116,6 @@ SELECT
     CAST(PeriodShippedQty AS DECIMAL(18,4)) AS PeriodShippedQty,
     CAST(PeriodCogs AS DECIMAL(18,4)) AS PeriodCogs,
     CAST(ShippedQty52W AS DECIMAL(18,4)) AS ShippedQty52W,
-    CAST(COGS52W AS DECIMAL(18,4)) AS COGS52W
-FROM cogs52w
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [WeekEndingDate] = src.[WeekEndingDate],
-    [RollingWindowStartDate] = src.[RollingWindowStartDate],
-    [RollingWindowEndDate] = src.[RollingWindowEndDate],
-    [StandardCost] = src.[StandardCost],
-    [StandardCostRevision] = src.[StandardCostRevision],
-    [PeriodShippedQty] = src.[PeriodShippedQty],
-    [PeriodCogs] = src.[PeriodCogs],
-    [ShippedQty52W] = src.[ShippedQty52W],
-    [COGS52W] = src.[COGS52W],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+    CAST(COGS52W AS DECIMAL(18,4)) AS COGS52W,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
+FROM cogs52w;

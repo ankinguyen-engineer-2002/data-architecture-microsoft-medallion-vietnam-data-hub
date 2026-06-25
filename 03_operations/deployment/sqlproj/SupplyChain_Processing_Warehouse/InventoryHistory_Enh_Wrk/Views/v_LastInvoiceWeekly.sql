@@ -24,8 +24,7 @@ _InvoiceDetail AS (
       AND TRIM(ItemSKU) <> ''
       AND TRIM(WarehouseCode) <> ''
       AND InvoiceDate IS NOT NULL
-),
-__bob_source AS (
+)
 SELECT
     b.ItemSku,
     b.WarehouseCode,
@@ -37,7 +36,8 @@ SELECT
             ELSE DATEDIFF(week, MAX(i.InvoiceDate), b.WeekEndingDate)
         END
         AS INT
-    ) AS WeeksSinceLastInvoice
+    ) AS WeeksSinceLastInvoice,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
 FROM _BaseFact AS b
 LEFT JOIN _InvoiceDetail AS i
     ON i.ItemSku = b.ItemSku
@@ -46,13 +46,4 @@ LEFT JOIN _InvoiceDetail AS i
 GROUP BY
     b.ItemSku,
     b.WarehouseCode,
-    b.WeekEndingDate
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [WeekEndingDate] = src.[WeekEndingDate],
-    [LastInvoiceDate] = src.[LastInvoiceDate],
-    [WeeksSinceLastInvoice] = src.[WeeksSinceLastInvoice],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+    b.WeekEndingDate;

@@ -1,6 +1,5 @@
 -- SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_OrderType
 CREATE   VIEW [ReferenceMaster_Enh_Wrk].[v_OrderType] AS
-WITH __bob_source AS (
 SELECT
     CAST(TRIM(src.[OTCODE]) AS VARCHAR(8000)) AS [OTCODE],
     CAST(TRIM(src.[OTDES1]) AS VARCHAR(8000)) AS [OTDES1],
@@ -21,29 +20,6 @@ SELECT
     CAST(TRIM(src.[OZNLTIM]) AS VARCHAR(8000)) AS [OZNLTIM],
     CAST(TRIM(src.[OSPECHND]) AS VARCHAR(8000)) AS [OSPECHND],
     CAST(TRIM(src.[OAUTORSCH]) AS VARCHAR(8000)) AS [OAUTORSCH],
-    CAST(TRIM(src.[OUSRDFN]) AS VARCHAR(8000)) AS [OUSRDFN]
-FROM [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[AAORDTYP] AS src
-)
-SELECT
-    [OTCODE] = src.[OTCODE],
-    [OTDES1] = src.[OTDES1],
-    [OTDES2] = src.[OTDES2],
-    [OTUSER] = src.[OTUSER],
-    [OTDATE] = src.[OTDATE],
-    [OORDCL] = src.[OORDCL],
-    [OROUTE] = src.[OROUTE],
-    [OOTCAT] = src.[OOTCAT],
-    [OADCHG] = src.[OADCHG],
-    [OARFLG] = src.[OARFLG],
-    [OWNEXP] = src.[OWNEXP],
-    [OMINEXC] = src.[OMINEXC],
-    [OREQMNT] = src.[OREQMNT],
-    [OFDESCH] = src.[OFDESCH],
-    [OFDRIMS] = src.[OFDRIMS],
-    [OTRPTYP] = src.[OTRPTYP],
-    [OZNLTIM] = src.[OZNLTIM],
-    [OSPECHND] = src.[OSPECHND],
-    [OAUTORSCH] = src.[OAUTORSCH],
-    [OUSRDFN] = src.[OUSRDFN],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+    CAST(TRIM(src.[OUSRDFN]) AS VARCHAR(8000)) AS [OUSRDFN],
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
+FROM [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[AAORDTYP] AS src;

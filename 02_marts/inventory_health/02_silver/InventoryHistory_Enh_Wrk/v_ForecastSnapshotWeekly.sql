@@ -1,6 +1,5 @@
 -- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_ForecastSnapshotWeekly
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_ForecastSnapshotWeekly] AS
-WITH __bob_source AS (
 -- CORE CONCEPT UPDATE 2026-05-22:
 --   SnapshotDate is the capture date; FiscalMonthDate is the forecast period.
 --   Weekly reporting uses Saturday captures from the daily staging source.
@@ -26,7 +25,8 @@ SELECT
     -- CAST(SUM(CAST(dfcPermComptQty      AS DECIMAL(18,4))) AS DECIMAL(18,4)) AS PermComptQty, --Giang: hiện ko sử dụng
     -- CAST(SUM(CAST(dfcPermComptQty      AS DECIMAL(18,4))) AS DECIMAL(18,4)) AS DependentForecastQty, --Giang: sai
     CAST('Staging_Wrk'                    AS VARCHAR(64))  AS SourceSystem,
-    CAST('DemandForecastSnapshotDaily'    AS VARCHAR(128)) AS SourceTable
+    CAST('DemandForecastSnapshotDaily'    AS VARCHAR(128)) AS SourceTable,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
 FROM Staging.DemandForecastSnapshotDaily
 WHERE dfcItem IS NOT NULL AND dfcWarehouse IS NOT NULL
   AND dfcFiscalMonth IS NOT NULL
@@ -38,18 +38,4 @@ GROUP BY
     TRIM(dfcItem),
     TRIM(dfcWarehouse),
     CAST(dfcSnapshot AS DATE),
-    dfcFiscalMonth
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [SnapshotDate] = src.[SnapshotDate],
-    [SnapshotWeekEndingDate] = src.[SnapshotWeekEndingDate],
-    [FiscalMonth] = src.[FiscalMonth],
-    [FiscalMonthDate] = src.[FiscalMonthDate],
-    [ForecastQty] = src.[ForecastQty],
-    [PromoLiftQty] = src.[PromoLiftQty],
-    [SourceSystem] = src.[SourceSystem],
-    [SourceTable] = src.[SourceTable],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+    dfcFiscalMonth;

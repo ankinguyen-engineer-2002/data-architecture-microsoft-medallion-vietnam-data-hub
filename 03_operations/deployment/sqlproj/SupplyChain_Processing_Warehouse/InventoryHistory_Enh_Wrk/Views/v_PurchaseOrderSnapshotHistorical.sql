@@ -1,6 +1,5 @@
 -- InventoryHistory_Enh_Wrk.v_PurchaseOrderSnapshotHistorical
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_PurchaseOrderSnapshotHistorical] AS
-WITH __bob_source AS (
 SELECT
     CAST(posSnapshot AS DATE) AS SnapshotDate,
     CAST(TRIM(posItNbr) AS VARCHAR(50)) AS ItemSku,
@@ -29,26 +28,10 @@ SELECT
     ) AS DueDate,
     CAST(posUUD1PM AS DECIMAL(18,4)) AS UnitCost,
     CAST('Enterprise_Lakehouse' AS VARCHAR(64)) AS SourceSystem,
-    CAST('SupplyChain_Enh.PurchaseOrderSnapshot' AS VARCHAR(128)) AS SourceTable
+    CAST('SupplyChain_Enh.PurchaseOrderSnapshot' AS VARCHAR(128)) AS SourceTable,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
 FROM [Enterprise_Lakehouse].[SupplyChain_Enh].[PurchaseOrderSnapshot]
 WHERE posItNbr IS NOT NULL
   AND posWhse IS NOT NULL
   AND TRIM(posItNbr) <> ''
-  AND TRIM(posWhse) <> ''
-)
-SELECT
-    [SnapshotDate] = src.[SnapshotDate],
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [VendorNumber] = src.[VendorNumber],
-    [OrderedQty] = src.[OrderedQty],
-    [StatusCode] = src.[StatusCode],
-    [StatusName] = src.[StatusName],
-    [POOnOrderQty] = src.[POOnOrderQty],
-    [POInTransitQty] = src.[POInTransitQty],
-    [DueDate] = src.[DueDate],
-    [UnitCost] = src.[UnitCost],
-    [SourceSystem] = src.[SourceSystem],
-    [SourceTable] = src.[SourceTable],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+  AND TRIM(posWhse) <> '';

@@ -50,8 +50,7 @@ WITH _HoldingTransfer AS (
           AND TRIM(d.DITNBR) <> '' AND TRIM(h.HFHOUS) <> ''
     ) ranked
     WHERE ranked.rn = 1
-),
-__bob_source AS (
+)
 SELECT
     CAST(CAST(SYSUTCDATETIME() AS DATE)  AS DATE)        AS SnapshotDate,
     CAST(TransferNumber                  AS VARCHAR(50)) AS TransferNumber,
@@ -77,34 +76,6 @@ SELECT
     CAST(HeaderStatus                    AS VARCHAR(10))  AS HeaderStatus,
     CAST(CancelFlag                      AS VARCHAR(10))  AS CancelFlag,
     CAST('Manufacturing_Inventory_AFI'   AS VARCHAR(64))  AS SourceSystem,
-    CAST('TFRDTL+TFRHDR'                 AS VARCHAR(128)) AS SourceTable
-FROM _HoldingTransfer
-)
-SELECT
-    [SnapshotDate] = src.[SnapshotDate],
-    [TransferNumber] = src.[TransferNumber],
-    [TransferLine] = src.[TransferLine],
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [SourceWarehouseCode] = src.[SourceWarehouseCode],
-    [ReceivingWarehouseCode] = src.[ReceivingWarehouseCode],
-    [ShipDateKey] = src.[ShipDateKey],
-    [ShipDate] = src.[ShipDate],
-    [ShipWeekEndingDate] = src.[ShipWeekEndingDate],
-    [DueDateKey] = src.[DueDateKey],
-    [DueDate] = src.[DueDate],
-    [DueWeekEndingDate] = src.[DueWeekEndingDate],
-    [HeaderComment] = src.[HeaderComment],
-    [DetailComment] = src.[DetailComment],
-    [TransferQty] = src.[TransferQty],
-    [ShippedQty] = src.[ShippedQty],
-    [TotalShippedQty] = src.[TotalShippedQty],
-    [ExpediteCode] = src.[ExpediteCode],
-    [FirmCode] = src.[FirmCode],
-    [TransferCube] = src.[TransferCube],
-    [HeaderStatus] = src.[HeaderStatus],
-    [CancelFlag] = src.[CancelFlag],
-    [SourceSystem] = src.[SourceSystem],
-    [SourceTable] = src.[SourceTable],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+    CAST('TFRDTL+TFRHDR'                 AS VARCHAR(128)) AS SourceTable,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
+FROM _HoldingTransfer;

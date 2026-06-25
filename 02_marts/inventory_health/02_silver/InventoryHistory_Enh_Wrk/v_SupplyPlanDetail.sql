@@ -201,47 +201,7 @@ final AS (
        AND cur.WarehouseCode = fut.WarehouseCode
        AND cur.SnapshotDate = fut.SnapshotDate
        AND cur.spdWeekEnding = fut.WeekEnding
-),
-__bob_source AS (
-SELECT *
-FROM final
 )
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [SnapshotDate] = src.[SnapshotDate],
-    [WeekEnding] = src.[WeekEnding],
-    [BeginningBalanceQty] = src.[BeginningBalanceQty],
-    [FirmDemandQty] = src.[FirmDemandQty],
-    [NetFcstQty] = src.[NetFcstQty],
-    [FirmTransferOutQty] = src.[FirmTransferOutQty],
-    [FirmProductionQty] = src.[FirmProductionQty],
-    [FirmPurchaseOrderQty] = src.[FirmPurchaseOrderQty],
-    [InTransitTransferInQty] = src.[InTransitTransferInQty],
-    [OnOrderTransferInQty] = src.[OnOrderTransferInQty],
-    [PlannedTransferInQty] = src.[PlannedTransferInQty],
-    [PlannedTransferOutQty] = src.[PlannedTransferOutQty],
-    [PlannedProductionQty] = src.[PlannedProductionQty],
-    [PlannedPurchaseOrderQty] = src.[PlannedPurchaseOrderQty],
-    [TotalReceiptQty] = src.[TotalReceiptQty],
-    [SIQty] = src.[SIQty],
-    [SafetyStockQty] = src.[SafetyStockQty],
-    [MonthsOfSupplyQty] = src.[MonthsOfSupplyQty],
-    [ResultantForecastQty] = src.[ResultantForecastQty],
-    [PromotionalLiftQty] = src.[PromotionalLiftQty],
-    [DemandFulfillmentQty] = src.[DemandFulfillmentQty],
-    [WeeklyPromotionalLiftQty] = src.[WeeklyPromotionalLiftQty],
-    [IsHistoricalWeeklySnapshot] = src.[IsHistoricalWeeklySnapshot],
-    [IsLatestSupplyPlanSnapshot] = src.[IsLatestSupplyPlanSnapshot],
-    [SnapshotType] = src.[SnapshotType],
-    [LatestSupplyPlanSnapshotDate] = src.[LatestSupplyPlanSnapshotDate],
-    [SINegQty] = src.[SINegQty],
-    [FirmDemandQtyNext7D] = src.[FirmDemandQtyNext7D],
-    [IsActiveItemWhIn7DNext] = src.[IsActiveItemWhIn7DNext],
-    [FirmDemandQtyNext14D] = src.[FirmDemandQtyNext14D],
-    [NetFcstQtyNext14D] = src.[NetFcstQtyNext14D],
-    [IsActiveItemWhIn14DNext] = src.[IsActiveItemWhIn14DNext],
-    [NetFcstQtyAtRisk] = src.[NetFcstQtyAtRisk],
-    [FirmDemandQtyAtRisk] = src.[FirmDemandQtyAtRisk],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+SELECT *,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
+FROM final;

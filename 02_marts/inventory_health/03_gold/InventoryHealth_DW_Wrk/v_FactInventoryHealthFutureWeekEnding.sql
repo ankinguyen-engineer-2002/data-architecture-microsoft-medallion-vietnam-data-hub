@@ -174,8 +174,7 @@ joined AS (
        AND cls.FutureWeekEndingDate = sp.WeekEnding
     LEFT JOIN [SupplyChain_Gold_Warehouse].[Shared_DW].[DimProduct] dp
         ON dp.ItemSKU = sp.Item
-),
-__bob_source AS (
+)
 SELECT
     CAST(Item AS VARCHAR(50)) AS ItemSku,
     CAST(WH AS VARCHAR(50)) AS WarehouseCode,
@@ -244,39 +243,4 @@ SELECT
     CAST(LatestSupplyPlanSnapshotDate AS DATE) AS LatestSupplyPlanSnapshotDate,
     CAST(AwdAsOfDate AS DATE) AS AwdAsOfDate,
     CAST(AfiStatusAsOfDate AS DATE) AS AfiStatusAsOfDate
-FROM joined
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [FutureWeekEnding] = src.[FutureWeekEnding],
-    [SnapshotDate] = src.[SnapshotDate],
-    [TotalInvCommitmentInFuture] = src.[TotalInvCommitmentInFuture],
-    [ATPQty] = src.[ATPQty],
-    [IsShortage/Surplus/InStock] = src.[IsShortage/Surplus/InStock],
-    [Shortage/SurplusQty] = src.[Shortage/SurplusQty],
-    [MakeBuyCode] = src.[MakeBuyCode],
-    [PrimaryVendorName] = src.[PrimaryVendorName],
-    [SecondaryVendorName] = src.[SecondaryVendorName],
-    [ReplenishmentLeadTime] = src.[ReplenishmentLeadTime],
-    [UsedStoreCube] = src.[UsedStoreCube],
-    [ProjectedRevenueAtRisk] = src.[ProjectedRevenueAtRisk],
-    [ProjectedWOS] = src.[ProjectedWOS],
-    [ProjectedInventoryClassification] = src.[ProjectedInventoryClassification],
-    [AwdQty] = src.[AwdQty],
-    [SafetyStockTarget] = src.[SafetyStockTarget],
-    [AFIStatus] = src.[AFIStatus],
-    [Cubes] = src.[Cubes],
-    [InventorySnapshotDate] = src.[InventorySnapshotDate],
-    [SupplyPlanSnapshotDate] = src.[SupplyPlanSnapshotDate],
-    [ATPSnapshotDate] = src.[ATPSnapshotDate],
-    [FirmDemandQty] = src.[FirmDemandQty],
-    [NetFcstQty] = src.[NetFcstQty],
-    [FirmDemandQtyAtRisk] = src.[FirmDemandQtyAtRisk],
-    [NetFcstQtyAtRisk] = src.[NetFcstQtyAtRisk],
-    [IsActiveItemWhIn7DNext] = src.[IsActiveItemWhIn7DNext],
-    [IsActiveItemWhIn14DNext] = src.[IsActiveItemWhIn14DNext],
-    [LatestSupplyPlanSnapshotDate] = src.[LatestSupplyPlanSnapshotDate],
-    [AwdAsOfDate] = src.[AwdAsOfDate],
-    [AfiStatusAsOfDate] = src.[AfiStatusAsOfDate]
-FROM __bob_source AS src;
+FROM joined;

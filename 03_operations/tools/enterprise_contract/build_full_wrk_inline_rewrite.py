@@ -6,7 +6,7 @@ Goal:
   <BaseSchema>_Wrk.v_<TableName>  direct source/work view
 
 The generated _Wrk view preserves the final table column contract and inlines
-the existing base-schema view SQL into a private CTE named __bob_source.
+the existing base-schema view SQL into a private CTE named __source_rows.
 """
 
 from __future__ import annotations
@@ -156,7 +156,7 @@ def build_select_from_columns(columns: list[str]) -> str:
         else:
             expr = f"    {quote_name(col)} = src.{quote_name(col)}{comma}"
         lines.append(expr)
-    lines.append("FROM __bob_source AS src;")
+    lines.append("FROM __source_rows AS src;")
     return "\n".join(lines)
 
 
@@ -168,12 +168,12 @@ def build_inline_body(base_body: str, output_columns: list[str]) -> str:
         source_select = base_body[final_select:].strip().rstrip(";")
         return (
             f"{prefix},\n"
-            f"__bob_source AS (\n{source_select}\n)\n"
+            f"__source_rows AS (\n{source_select}\n)\n"
             f"{select_from_source}"
         )
     source_select = base_body.strip().rstrip(";")
     return (
-        "WITH __bob_source AS (\n"
+        "WITH __source_rows AS (\n"
         f"{source_select}\n"
         ")\n"
         f"{select_from_source}"

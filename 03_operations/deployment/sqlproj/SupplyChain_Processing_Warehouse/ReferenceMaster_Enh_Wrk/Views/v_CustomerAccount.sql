@@ -1,6 +1,5 @@
 -- ReferenceMaster_Enh_Wrk.v_CustomerAccount
 CREATE   VIEW [ReferenceMaster_Enh_Wrk].[v_CustomerAccount] AS
-WITH __bob_source AS (
 SELECT
     CAST(TRIM(src.[cmaCustomerNumber]) AS VARCHAR(8000)) AS [cmaCustomerNumber],
     CAST(TRIM(src.[cmaPhone]) AS VARCHAR(8000)) AS [cmaPhone],
@@ -54,62 +53,6 @@ SELECT
     CAST(src.[cmaDeductTerritoryID] AS DECIMAL(2,0)) AS [cmaDeductTerritoryID],
     CAST(TRIM(src.[cmaCurrencyCode]) AS VARCHAR(8000)) AS [cmaCurrencyCode],
     CAST(src.[cmaAllowAllowanceCredits] AS BIT) AS [cmaAllowAllowanceCredits],
-    CAST(TRIM(src.[cmaCustomerChannelID]) AS VARCHAR(8000)) AS [cmaCustomerChannelID]
-FROM [Enterprise_Lakehouse].[Customers].[AccountMaster] AS src
-)
-SELECT
-    [cmaCustomerNumber] = src.[cmaCustomerNumber],
-    [cmaPhone] = src.[cmaPhone],
-    [cmaFaxtn] = src.[cmaFaxtn],
-    [cmaContact] = src.[cmaContact],
-    [cmaEmail] = src.[cmaEmail],
-    [cmaPrimaryTerritory] = src.[cmaPrimaryTerritory],
-    [cmaMinimumFreightCode] = src.[cmaMinimumFreightCode],
-    [cmaCreditLimitAmount] = src.[cmaCreditLimitAmount],
-    [cmaTermsCode] = src.[cmaTermsCode],
-    [cmaTermsDays] = src.[cmaTermsDays],
-    [cmaCreditTerritoryID] = src.[cmaCreditTerritoryID],
-    [cmaCancelBackOrders] = src.[cmaCancelBackOrders],
-    [cmaAllowPartialShipment] = src.[cmaAllowPartialShipment],
-    [cmaCustomerClassCode] = src.[cmaCustomerClassCode],
-    [cmaLanguageCode] = src.[cmaLanguageCode],
-    [cmaStatementCode] = src.[cmaStatementCode],
-    [cmaItemCrossReferenceCode] = src.[cmaItemCrossReferenceCode],
-    [cmaTerritoryChangeDate] = src.[cmaTerritoryChangeDate],
-    [cmaCreditAuthorizationCode] = src.[cmaCreditAuthorizationCode],
-    [cmaMemo] = src.[cmaMemo],
-    [cmaChgCustAr] = src.[cmaChgCustAr],
-    [cmaChgCust] = src.[cmaChgCust],
-    [cmaChgCustExt] = src.[cmaChgCustExt],
-    [cmaPercentAvailableCredit] = src.[cmaPercentAvailableCredit],
-    [cmaCommAudit] = src.[cmaCommAudit],
-    [cmaInheritBlocking] = src.[cmaInheritBlocking],
-    [cmaCustomerName] = src.[cmaCustomerName],
-    [usra] = src.[usra],
-    [dtea] = src.[dtea],
-    [usrc] = src.[usrc],
-    [dtec] = src.[dtec],
-    [acrec] = src.[acrec],
-    [cmaLastStatusChangeDate] = src.[cmaLastStatusChangeDate],
-    [cmaBillingAddressID] = src.[cmaBillingAddressID],
-    [cmaDBAName] = src.[cmaDBAName],
-    [cmaLateChargePercent] = src.[cmaLateChargePercent],
-    [cmaMinPreapprovalAmount] = src.[cmaMinPreapprovalAmount],
-    [cmaCreditAddessCode] = src.[cmaCreditAddessCode],
-    [cmaRFCTaxIdNumber] = src.[cmaRFCTaxIdNumber],
-    [cmaDocumentationHold] = src.[cmaDocumentationHold],
-    [cmaPARSByPurchaser] = src.[cmaPARSByPurchaser],
-    [cma10DigitScheduleB] = src.[cma10DigitScheduleB],
-    [cmaTypeOfInsurance] = src.[cmaTypeOfInsurance],
-    [cmaInsExpirationDate] = src.[cmaInsExpirationDate],
-    [cmaInsCoverageRequested] = src.[cmaInsCoverageRequested],
-    [cmaInsCoverageApproved] = src.[cmaInsCoverageApproved],
-    [cmaInsuranceStatus] = src.[cmaInsuranceStatus],
-    [cmaHomestoreFacingWhse] = src.[cmaHomestoreFacingWhse],
-    [cmaAppcd] = src.[cmaAppcd],
-    [cmaDeductTerritoryID] = src.[cmaDeductTerritoryID],
-    [cmaCurrencyCode] = src.[cmaCurrencyCode],
-    [cmaAllowAllowanceCredits] = src.[cmaAllowAllowanceCredits],
-    [cmaCustomerChannelID] = src.[cmaCustomerChannelID],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+    CAST(TRIM(src.[cmaCustomerChannelID]) AS VARCHAR(8000)) AS [cmaCustomerChannelID],
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
+FROM [Enterprise_Lakehouse].[Customers].[AccountMaster] AS src;

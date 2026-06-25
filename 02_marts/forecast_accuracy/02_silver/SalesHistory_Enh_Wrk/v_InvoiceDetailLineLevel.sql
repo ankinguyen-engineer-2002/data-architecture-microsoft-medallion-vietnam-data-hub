@@ -1,6 +1,5 @@
 -- SupplyChain_Processing_Warehouse.SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel
 CREATE   VIEW [SalesHistory_Enh_Wrk].[v_InvoiceDetailLineLevel] AS
-WITH __bob_source AS (
 SELECT 
     INV.InvoiceNumber                                AS InvoiceID,
     INV.ExtendedInvoiceNumber                        AS InvoiceExtended,
@@ -38,49 +37,9 @@ SELECT
     INV.OrderType3                                   AS OrderType3Code,
     INV.CreditCode,
     INV.ItemClass                                    AS ItemClassCode,
-    INV.OrderItemStatus                              AS OrderItemStatusCode
+    INV.OrderItemStatus                              AS OrderItemStatusCode,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
 FROM [Enterprise_Lakehouse].[SalesHistory_AFI_Enh].[InvoiceDetail] AS INV
 LEFT JOIN [Enterprise_Lakehouse].[SalesHistory_AFI_Enh].[InvoiceHeader] AS IH
        ON INV.InvoiceNumber=IH.InvoiceNumber AND INV.InvoiceDate=IH.InvoiceDate AND INV.OrderDate=IH.OrderDate AND INV.OrderNumber=IH.OrderNumber
-LEFT JOIN ReferenceMaster_Enh.CustomerAccountGroup AS CG ON CG.Customer=INV.CustomerNumber
-)
-SELECT
-    [InvoiceID] = src.[InvoiceID],
-    [InvoiceExtended] = src.[InvoiceExtended],
-    [OrderID] = src.[OrderID],
-    [ItemSequenceNum] = src.[ItemSequenceNum],
-    [Customer] = src.[Customer],
-    [ShipToCode] = src.[ShipToCode],
-    [AccountShipTo] = src.[AccountShipTo],
-    [ItemSKU] = src.[ItemSKU],
-    [WarehouseCode] = src.[WarehouseCode],
-    [CustomerGroupCode] = src.[CustomerGroupCode],
-    [LeadTimeDaysNum] = src.[LeadTimeDaysNum],
-    [QtyShipped] = src.[QtyShipped],
-    [QtyOrdered] = src.[QtyOrdered],
-    [QtyBackordered] = src.[QtyBackordered],
-    [AmtInvoice] = src.[AmtInvoice],
-    [AmtNetSales] = src.[AmtNetSales],
-    [AmtPrice] = src.[AmtPrice],
-    [AmtStandardPrice] = src.[AmtStandardPrice],
-    [AmtContractPrice] = src.[AmtContractPrice],
-    [AmtDiscount] = src.[AmtDiscount],
-    [AmtPriceAdjustment] = src.[AmtPriceAdjustment],
-    [AmtFreight] = src.[AmtFreight],
-    [InvoiceDate] = src.[InvoiceDate],
-    [OrderDate] = src.[OrderDate],
-    [Request] = src.[Request],
-    [CurrentRequest] = src.[CurrentRequest],
-    [CurrentPromise] = src.[CurrentPromise],
-    [OriginalRequest] = src.[OriginalRequest],
-    [OriginalPromise] = src.[OriginalPromise],
-    [PromisedDelivery] = src.[PromisedDelivery],
-    [Delivery] = src.[Delivery],
-    [ActualDelivery] = src.[ActualDelivery],
-    [OrderTypeCode] = src.[OrderTypeCode],
-    [OrderType3Code] = src.[OrderType3Code],
-    [CreditCode] = src.[CreditCode],
-    [ItemClassCode] = src.[ItemClassCode],
-    [OrderItemStatusCode] = src.[OrderItemStatusCode],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+LEFT JOIN ReferenceMaster_Enh.CustomerAccountGroup AS CG ON CG.Customer=INV.CustomerNumber;

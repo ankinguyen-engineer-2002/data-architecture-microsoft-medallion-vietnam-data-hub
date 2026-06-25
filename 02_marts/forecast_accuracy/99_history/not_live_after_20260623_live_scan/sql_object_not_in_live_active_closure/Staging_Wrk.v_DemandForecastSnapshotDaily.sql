@@ -1,5 +1,5 @@
--- ---- Staging_Wrk.v_DemandForecastSnapshotDaily (BOB source wrapper) ----
--- BOB contract: include LoadDT so usp_IncrementalTableLoad source columns match target columns.
+-- ---- Staging_Wrk.v_DemandForecastSnapshotDaily (_Wrk source view) ----
+-- Loader contract: include LoadDT so usp_IncrementalTableLoad source columns match target columns.
 CREATE VIEW Staging_Wrk.v_DemandForecastSnapshotDaily AS
 WITH dedupe AS (
   SELECT

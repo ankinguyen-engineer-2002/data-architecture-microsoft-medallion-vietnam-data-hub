@@ -71,8 +71,7 @@ ranked AS (
             ORDER BY dtec DESC, dtea DESC
         ) AS rn
     FROM source_rows
-),
-__bob_source AS (
+)
 SELECT
     ItemSku,
     WarehouseCode,
@@ -100,37 +99,7 @@ SELECT
     IsHistoricalWeeklySnapshot,
     IsLatestInventorySnapshot,
     SnapshotType,
-    LatestInventorySnapshotDate
+    LatestInventorySnapshotDate,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
 FROM ranked
-WHERE rn = 1
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [SnapshotDate] = src.[SnapshotDate],
-    [SnapshotWeekEndingDate] = src.[SnapshotWeekEndingDate],
-    [FiscalMonth] = src.[FiscalMonth],
-    [FiscalMonthDate] = src.[FiscalMonthDate],
-    [OnHandQty] = src.[OnHandQty],
-    [SafetyStockTarget] = src.[SafetyStockTarget],
-    [IOSafetyStock] = src.[IOSafetyStock],
-    [OrderQty] = src.[OrderQty],
-    [BuildQty] = src.[BuildQty],
-    [MakeBuyCode] = src.[MakeBuyCode],
-    [SourceWarehouseCode] = src.[SourceWarehouseCode],
-    [PrimaryVendorNumber] = src.[PrimaryVendorNumber],
-    [PrimaryVendorName] = src.[PrimaryVendorName],
-    [PrimaryVendorSplit] = src.[PrimaryVendorSplit],
-    [SecondaryVendorNumber] = src.[SecondaryVendorNumber],
-    [SecondaryVendorName] = src.[SecondaryVendorName],
-    [SecondaryVendorSplit] = src.[SecondaryVendorSplit],
-    [ReplenishmentLeadTime] = src.[ReplenishmentLeadTime],
-    [SourceLabel] = src.[SourceLabel],
-    [SourceSystem] = src.[SourceSystem],
-    [SourceTable] = src.[SourceTable],
-    [IsHistoricalWeeklySnapshot] = src.[IsHistoricalWeeklySnapshot],
-    [IsLatestInventorySnapshot] = src.[IsLatestInventorySnapshot],
-    [SnapshotType] = src.[SnapshotType],
-    [LatestInventorySnapshotDate] = src.[LatestInventorySnapshotDate],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+WHERE rn = 1;

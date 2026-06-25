@@ -54,23 +54,13 @@ fiscal_ss AS (
         ls.ItemSku,
         ls.WarehouseCode,
         ls.AsOfDate
-),
-__bob_source AS (
+)
 SELECT
     CAST(ItemSku AS VARCHAR(50)) AS ItemSku,
     CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,
     CAST(AsOfDate AS DATE) AS AsOfDate,
     CAST(SafetyStockTarget AS DECIMAL(18,4)) AS SafetyStockTarget,
     CAST(SnapshotCount AS INT) AS SnapshotCount,
-    CAST('Next3FiscalMonths' AS VARCHAR(30)) AS SafetyStockSource
-FROM fiscal_ss
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [AsOfDate] = src.[AsOfDate],
-    [SafetyStockTarget] = src.[SafetyStockTarget],
-    [SnapshotCount] = src.[SnapshotCount],
-    [SafetyStockSource] = src.[SafetyStockSource],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+    CAST('Next3FiscalMonths' AS VARCHAR(30)) AS SafetyStockSource,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
+FROM fiscal_ss;

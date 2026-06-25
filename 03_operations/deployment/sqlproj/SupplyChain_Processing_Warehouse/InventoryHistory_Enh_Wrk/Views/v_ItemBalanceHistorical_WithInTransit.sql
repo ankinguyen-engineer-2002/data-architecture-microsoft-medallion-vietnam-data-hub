@@ -56,8 +56,7 @@ InTransitQty AS
         H.ItemSku,
         M.[WarehouseCode],
         H.WeekEndingDate
-),
-__bob_source AS (
+)
 SELECT
     FG.ItemSku,
     FG.WarehouseCode,
@@ -67,7 +66,8 @@ SELECT
     CAST(FG.OnHandQty + ISNULL(IT.InTransitQty,0) AS DECIMAL(18,4)) AS TotalAvailQty,
     FG.ItemStatus,
     FG.SourceSystem,
-    FG.SourceTable
+    FG.SourceTable,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
 FROM ItemBalanceHistorical FG
 LEFT JOIN InTransitQty IT
     ON FG.ItemSku         = IT.ItemSku
@@ -77,17 +77,4 @@ WHERE FG.WarehouseCode IN
 (
     '1','5','15','17','28',
     '42','ECR','3','12','16','19'
-)
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [WeekEndingDate] = src.[WeekEndingDate],
-    [OnHandQty] = src.[OnHandQty],
-    [InTransitQty] = src.[InTransitQty],
-    [TotalAvailQty] = src.[TotalAvailQty],
-    [ItemStatus] = src.[ItemStatus],
-    [SourceSystem] = src.[SourceSystem],
-    [SourceTable] = src.[SourceTable],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+);

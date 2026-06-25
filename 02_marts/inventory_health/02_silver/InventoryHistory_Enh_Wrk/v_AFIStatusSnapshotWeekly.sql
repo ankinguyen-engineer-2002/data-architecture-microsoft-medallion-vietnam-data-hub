@@ -110,8 +110,7 @@ _ItemMaster AS (
         NULLIF(TRIM(CAST(AFIItemStatus AS VARCHAR(20))), '') AS StatusFromItemMaster
     FROM ReferenceMaster_Enh.ItemMaster
     WHERE ItemSKU IS NOT NULL AND TRIM(ItemSKU) <> ''
-),
-__bob_source AS (
+)
 SELECT
     b.WeekEndingDate,
     b.ItemSku,
@@ -123,7 +122,8 @@ SELECT
             ELSE COALESCE(lw.StatusFromLogility, ll.StatusFromLogilityLatestWH)
         END
         AS VARCHAR(20)
-    ) AS AFIStatus
+    ) AS AFIStatus,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
 FROM _BaseFact AS b
 CROSS JOIN _LatestInventoryWeek AS liw
 LEFT JOIN _LogilityWeekly AS lw
@@ -134,12 +134,4 @@ LEFT JOIN _LogilityLatestByWh AS ll
     ON ll.ItemSku = b.ItemSku
    AND ll.WarehouseCode = b.WarehouseCode
 LEFT JOIN _ItemMaster AS im
-    ON im.ItemSku = b.ItemSku
-)
-SELECT
-    [WeekEndingDate] = src.[WeekEndingDate],
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [AFIStatus] = src.[AFIStatus],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+    ON im.ItemSku = b.ItemSku;

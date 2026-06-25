@@ -125,8 +125,7 @@ dedup AS (
             PARTITION BY ItemSKU
         ) AS SourceRecordCount
     FROM unioned
-),
-__bob_source AS (
+)
 SELECT
     ItemSKU,
     Description,
@@ -165,45 +164,7 @@ SELECT
         WHEN SourceRecordCount > 1 THEN 'Both'
         ELSE SourceTable
     END AS SourceCoverage,
-    SourceTable AS SelectedSourceTable
+    SourceTable AS SelectedSourceTable,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
 FROM dedup
-WHERE rn = 1
-)
-SELECT
-    [ItemSKU] = src.[ItemSKU],
-    [Description] = src.[Description],
-    [Seats] = src.[Seats],
-    [CEXCode] = src.[CEXCode],
-    [UnitWeightLbs] = src.[UnitWeightLbs],
-    [ItemClassCode] = src.[ItemClassCode],
-    [ItemClassDescription] = src.[ItemClassDescription],
-    [ProductWidthInches] = src.[ProductWidthInches],
-    [ProductDepthInches] = src.[ProductDepthInches],
-    [ProductHeightInches] = src.[ProductHeightInches],
-    [CartonWidthInches] = src.[CartonWidthInches],
-    [CartonDepthInches] = src.[CartonDepthInches],
-    [CartonHeightInches] = src.[CartonHeightInches],
-    [Cubes] = src.[Cubes],
-    [ExtSeriesNumber] = src.[ExtSeriesNumber],
-    [FOBArcPrice] = src.[FOBArcPrice],
-    [AFIItemStatus] = src.[AFIItemStatus],
-    [FutureStatus] = src.[FutureStatus],
-    [CollectiveClass] = src.[CollectiveClass],
-    [AFIFinanceDivisionCode] = src.[AFIFinanceDivisionCode],
-    [AFIFinanceDivisionName] = src.[AFIFinanceDivisionName],
-    [AFIItemStatusCode] = src.[AFIItemStatusCode],
-    [AFISalesCategoryCode] = src.[AFISalesCategoryCode],
-    [AFISalesCategoryName] = src.[AFISalesCategoryName],
-    [AFISalesDivisionCode] = src.[AFISalesDivisionCode],
-    [AFISalesDivisionName] = src.[AFISalesDivisionName],
-    [CategoryCode] = src.[CategoryCode],
-    [CategoryName] = src.[CategoryName],
-    [CollectiveClassCode] = src.[CollectiveClassCode],
-    [CollectiveClassName] = src.[CollectiveClassName],
-    [CurrentSCPManufacturingStatusCode] = src.[CurrentSCPManufacturingStatusCode],
-    [CurrentStatusCode] = src.[CurrentStatusCode],
-    [CurrentUnitCost] = src.[CurrentUnitCost],
-    [SourceCoverage] = src.[SourceCoverage],
-    [SelectedSourceTable] = src.[SelectedSourceTable],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+WHERE rn = 1;

@@ -37,8 +37,7 @@ sp AS (
     SELECT K.i, K.w, K.mf, K.ml, H.HorizonCode AS h
     FROM dk K
     CROSS JOIN SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ForecastHorizon H
-),
-__bob_source AS (
+)
 SELECT
     sp.i AS ItemSKU,
     sp.w AS WarehouseCode,
@@ -102,26 +101,4 @@ LEFT JOIN nv
     ON (sp.i = nv.i OR (sp.i IS NULL AND nv.i IS NULL))
    AND (sp.w = nv.w OR (sp.w IS NULL AND nv.w IS NULL))
    AND (sp.mf = nv.mf OR (sp.mf IS NULL AND nv.mf IS NULL))
-   AND (sp.ml = nv.ml OR (sp.ml IS NULL AND nv.ml IS NULL))
-)
-SELECT
-    [ItemSKU] = src.[ItemSKU],
-    [WarehouseCode] = src.[WarehouseCode],
-    [FSCMonthFirst] = src.[FSCMonthFirst],
-    [FSCMonthLast] = src.[FSCMonthLast],
-    [HorizonCode] = src.[HorizonCode],
-    [Snapshot] = src.[Snapshot],
-    [QtyForecast] = src.[QtyForecast],
-    [QtyActual] = src.[QtyActual],
-    [QtyNaiveForecast] = src.[QtyNaiveForecast],
-    [QtyFcstError] = src.[QtyFcstError],
-    [QtyAbsFcstError] = src.[QtyAbsFcstError],
-    [QtyNaiveFcstError] = src.[QtyNaiveFcstError],
-    [QtyAbsNaiveFcstError] = src.[QtyAbsNaiveFcstError],
-    [QtySquaredFcstError] = src.[QtySquaredFcstError],
-    [QtySquaredNaiveFcstError] = src.[QtySquaredNaiveFcstError],
-    [ValidObsFlag] = src.[ValidObsFlag],
-    [ValidActualNonzeroFlag] = src.[ValidActualNonzeroFlag],
-    [AbsPctError] = src.[AbsPctError],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+   AND (sp.ml = nv.ml OR (sp.ml IS NULL AND nv.ml IS NULL));

@@ -1126,3 +1126,50 @@
 **Current handoff:**
 - Repo is currently public.
 - Do not change back to private until Aric explicitly asks.
+
+## 2026-06-25 10:31:38 ICT — Removed generated `__bob_source` wrappers from active views
+
+**Scope lock:**
+- View-definition cleanup only.
+- No physical table DDL/DML.
+- No ETL wrapper/proc execution.
+- No semantic model/report refresh.
+
+**User instruction:**
+- Clean both marts because DA/DE flagged generated `Bob_Source` / `__bob_source` CTE wrappers as confusing and not part of their original ETL SQL.
+- Preserve old ETL business logic and do not affect current physical tables or full flow.
+
+**Actions executed:**
+- Added cleanup utility:
+  - `05_tools/02_repo_maintenance/remove_bob_source_cte.py`
+- Regenerated active mart SQL from `HEAD` definitions and unwrapped generated `__bob_source` CTEs.
+- Updated active SQL in:
+  - `02_marts/forecast_accuracy/`
+  - `02_marts/inventory_health/`
+  - `03_operations/deployment/sqlproj/SupplyChain_Processing_Warehouse/`
+  - `03_operations/deployment/sqlproj/SupplyChain_Gold_Warehouse/`
+- Patched old migration generator so it no longer generates `__bob_source`:
+  - `03_operations/tools/enterprise_contract/build_full_wrk_inline_rewrite.py`
+- Applied live `CREATE OR ALTER VIEW` cleanup to:
+  - `SupplyChain_Processing_Warehouse`: `31` `_Wrk` views
+  - `SupplyChain_Gold_Warehouse`: `11` `_Wrk` views
+
+**Verification:**
+- Live Fabric metadata after cleanup:
+  - `SupplyChain_Processing_Warehouse` modules with `__bob_source`: `0`
+  - `SupplyChain_Gold_Warehouse` modules with `__bob_source`: `0`
+- `SELECT TOP 0` compile check passed for:
+  - `31` Processing views
+  - `11` Gold views
+- View-vs-final-table column contract matched for all `42` checked views.
+- Local active SQL grep found no `__bob_source` / `Bob_Source` references in:
+  - `02_marts`
+  - `03_operations/deployment/sqlproj`
+- One first-pass live apply failure occurred on `ForecastAccuracy_DW_Wrk.v_FactForecastActual` due UNION column count; it was rolled back immediately from backup, transformer was fixed, and the single view was reapplied successfully.
+- Evidence artifacts:
+  - `01_docs/runbook/artifacts/20260625_102602_remove_bob_source_cte_live/`
+  - `01_docs/runbook/artifacts/20260625_103111_remove_bob_source_cte_final_verification/`
+
+**Current handoff:**
+- Active repo SQL and live Fabric `_Wrk` views no longer contain generated `__bob_source` wrappers.
+- Physical tables, loaded data, ETL wrappers, AuditLog/TableDictionary, and semantic model were not refreshed or mutated by this cleanup.

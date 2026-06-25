@@ -4,14 +4,7 @@
 
 -- ForecastAccuracy_DW_Wrk.v_DimCustomerGrouping
 CREATE   VIEW [ForecastAccuracy_DW_Wrk].[v_DimCustomerGrouping] AS
-WITH __bob_source AS (
 SELECT DISTINCT CustomerGroupCode, Customer,
     CAST(GETUTCDATE() AS DATETIME2(6)) AS LoadDT
 FROM SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.CustomerGrouping
-WHERE CustomerGroupCode IS NOT NULL
-)
-SELECT
-    [CustomerGroupCode] = src.[CustomerGroupCode],
-    [Customer] = src.[Customer],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+WHERE CustomerGroupCode IS NOT NULL;

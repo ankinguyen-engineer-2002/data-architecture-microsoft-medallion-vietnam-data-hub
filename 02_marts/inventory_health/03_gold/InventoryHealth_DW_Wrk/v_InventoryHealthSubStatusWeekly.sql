@@ -120,8 +120,7 @@ ranked AS (
             ELSE 99
         END AS Ranking
     FROM classified c
-),
-__bob_source AS (
+)
 SELECT
     ItemSku,
     WarehouseCode,
@@ -146,19 +145,4 @@ SELECT
     OnOrderQty AS [On Order Qty],
     AFIStatus,
     LastInvoiceDate
-FROM ranked
-)
-SELECT
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [SnapshotWeekEnding] = src.[SnapshotWeekEnding],
-    [SubStatus] = src.[SubStatus],
-    [Ranking] = src.[Ranking],
-    [InventoryClassification Final Status] = src.[InventoryClassification Final Status],
-    [Avg Weekly Demand] = src.[Avg Weekly Demand],
-    [SS target] = src.[SS target],
-    [On Hands Qty] = src.[On Hands Qty],
-    [On Order Qty] = src.[On Order Qty],
-    [AFIStatus] = src.[AFIStatus],
-    [LastInvoiceDate] = src.[LastInvoiceDate]
-FROM __bob_source AS src;
+FROM ranked;

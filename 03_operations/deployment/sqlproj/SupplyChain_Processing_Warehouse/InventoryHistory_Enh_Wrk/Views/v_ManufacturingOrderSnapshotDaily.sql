@@ -24,8 +24,7 @@ WITH _ManufacturingOrder AS (
     FROM [Enterprise_Lakehouse].[Manufacturing_ProductionPlanning_AFI].[MOMAST]
     WHERE FITEM IS NOT NULL AND FITWH IS NOT NULL
       AND TRIM(FITEM) <> '' AND TRIM(FITWH) <> ''
-),
-__bob_source AS (
+)
 SELECT
     CAST(CAST(SYSUTCDATETIME() AS DATE)  AS DATE)         AS SnapshotDate,
     CAST(MoNumber                        AS VARCHAR(50))  AS MoNumber,
@@ -41,24 +40,6 @@ SELECT
     CAST(SplitQty                        AS DECIMAL(18,4))  AS SplitQty,
     CAST(DueDateKey                      AS INT)          AS DueDateKey,
     CAST('Manufacturing_ProductionPlanning_AFI'  AS VARCHAR(64))  AS SourceSystem,
-    CAST('MOMAST'                                AS VARCHAR(128)) AS SourceTable
-FROM _ManufacturingOrder
-)
-SELECT
-    [SnapshotDate] = src.[SnapshotDate],
-    [MoNumber] = src.[MoNumber],
-    [ItemSku] = src.[ItemSku],
-    [WarehouseCode] = src.[WarehouseCode],
-    [StatusCode] = src.[StatusCode],
-    [StatusName] = src.[StatusName],
-    [RemainingMOQty] = src.[RemainingMOQty],
-    [OrderQty] = src.[OrderQty],
-    [DeviationQty] = src.[DeviationQty],
-    [ReceivedQty] = src.[ReceivedQty],
-    [ScrapQty] = src.[ScrapQty],
-    [SplitQty] = src.[SplitQty],
-    [DueDateKey] = src.[DueDateKey],
-    [SourceSystem] = src.[SourceSystem],
-    [SourceTable] = src.[SourceTable],
-    [LoadDT] = CAST(SYSUTCDATETIME() AS datetime2(6))
-FROM __bob_source AS src;
+    CAST('MOMAST'                                AS VARCHAR(128)) AS SourceTable,
+    CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
+FROM _ManufacturingOrder;
