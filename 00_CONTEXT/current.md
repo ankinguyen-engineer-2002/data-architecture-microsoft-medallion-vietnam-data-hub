@@ -1103,3 +1103,26 @@
 **Current handoff:**
 - Remote GitHub repo is private and contains the current operating-repo restructure commit.
 - Final local clean/sync verification should be checked after this context note is committed and pushed.
+
+## 2026-06-25 09:57:12 ICT — Reopened GitHub repo visibility to public
+
+**Scope lock:**
+- GitHub repository visibility operation only.
+- No live Fabric/SQL/Power BI mutation.
+
+**User instruction:**
+- Temporarily make the GitHub repo public again; switch it back to private later only when explicitly requested.
+
+**Actions executed:**
+- Changed repository visibility from private to public:
+  - `ankinguyen-engineer-2002/data-architecture-microsoft-medallion-vietnam-data-hub`
+
+**Verification:**
+- `gh repo view` returned:
+  - `visibility`: `PUBLIC`
+  - `isPrivate`: `false`
+  - default branch: `main`
+
+**Current handoff:**
+- Repo is currently public.
+- Do not change back to private until Aric explicitly asks.
