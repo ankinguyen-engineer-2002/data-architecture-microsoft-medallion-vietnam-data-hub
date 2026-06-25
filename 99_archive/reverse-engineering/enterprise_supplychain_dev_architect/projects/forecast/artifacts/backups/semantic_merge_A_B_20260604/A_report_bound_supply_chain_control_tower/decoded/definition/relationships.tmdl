@@ -1,0 +1,36 @@
+relationship ac03d934-7148-c108-0024-5a5c7b4f2b8f
+	fromColumn: fact_flat_forecast_actual.code_customer_group
+	toColumn: dim_customer_grouping.code_customer_group
+
+relationship 989a8da6-4dcb-ea88-bddd-01fa8d62b680
+	fromColumn: fact_flat_forecast_actual.dt_fsc_month_last
+	toColumn: dim_calendar.dt_date
+
+relationship dca12f50-313b-108a-5d02-657cefc4430e
+	fromColumn: fact_flat_forecast_actual.id_item_sku
+	toColumn: dim_product.id_item_sku
+
+relationship 4b605214-3b88-cecf-a45f-4ea6c722ce33
+	fromColumn: fact_flat_forecast_actual.code_warehouse
+	toColumn: dim_warehouse.code_warehouse
+
+relationship ff2be1e9-7597-5637-ca86-630b6668e109
+	fromColumn: fact_flat_forecast_actual.code_horizon
+	toColumn: dim_forecast_horizon.code_horizon
+
+relationship 6e5cdaed-163d-c705-4623-41f5bc170007
+	fromColumn: fact_forecast_kpi.code_horizon
+	toColumn: dim_forecast_horizon.code_horizon
+
+relationship de2c09bb-d429-5c2d-b69c-59ce0874dffd
+	fromColumn: fact_forecast_kpi.code_warehouse
+	toColumn: dim_warehouse.code_warehouse
+
+relationship a0e62e86-c2ed-d201-1442-547119c34389
+	fromColumn: fact_forecast_kpi.id_item_sku
+	toColumn: dim_product.id_item_sku
+
+relationship b7b31688-a2c2-7ae3-9857-333aa1226fbd
+	fromColumn: fact_forecast_kpi.dt_fsc_month_last
+	toColumn: dim_calendar.dt_date
+

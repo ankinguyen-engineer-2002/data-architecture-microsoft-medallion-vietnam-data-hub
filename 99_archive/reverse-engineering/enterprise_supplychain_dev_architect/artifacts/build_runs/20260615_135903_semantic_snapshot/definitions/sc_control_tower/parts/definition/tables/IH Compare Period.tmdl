@@ -1,0 +1,37 @@
+/// Disconnected Inventory Health compare-period table used by _Measure_InventoryHealth measures and report slicers.
+table 'IH Compare Period'
+	lineageTag: 7d852d72-a1fc-4608-909d-b76b2aaf97b4
+
+	column 'Compare Label'
+		lineageTag: ad69f9bc-5994-4f5f-b6a4-f1e9b9c316d6
+		isNameInferred
+		sourceColumn: [Compare Label]
+		sortByColumn: Sort
+
+	column 'Weeks Offset'
+		lineageTag: f9008218-c71c-47ca-9ed9-872f8d17c870
+		isNameInferred
+		sourceColumn: [Weeks Offset]
+
+	column Sort
+		lineageTag: 2aff26b3-6ec8-4307-b1f4-2488aece465f
+		isNameInferred
+		sourceColumn: [Sort]
+
+	partition 'IH Compare Period' = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Compare Label", STRING,
+				    "Weeks Offset", INTEGER,
+				    "Sort", INTEGER,
+				    {
+				        { "1 Week", 1, 1 },
+				        { "4 Weeks", 4, 2 },
+				        { "8 Weeks", 8, 3 },
+				        { "13 Weeks", 13, 4 },
+				        { "6 Months", 26, 5 },
+				        { "1 Year", 52, 6 }
+				    }
+				)
+

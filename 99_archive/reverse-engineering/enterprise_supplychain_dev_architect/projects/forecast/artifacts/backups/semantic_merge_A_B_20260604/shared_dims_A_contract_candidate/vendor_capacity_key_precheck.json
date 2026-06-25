@@ -1,0 +1,19 @@
+{
+  "results": [
+    {
+      "tables": [
+        {
+          "rows": [
+            {
+              "[DimVendorDistinctKeys]": 86620,
+              "[DimVendorRows]": 86620,
+              "[DimWarehouseDistinctKeys]": 53,
+              "[DimWarehouseNonBlankCapacityRows]": null,
+              "[DimWarehouseRows]": 53
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

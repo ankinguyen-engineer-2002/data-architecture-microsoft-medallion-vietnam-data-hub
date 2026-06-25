@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "sc_forecast_control_tower",
+    "description": "v10 clone of Supply Chain Control Tower — Direct Lake on SupplyChain_Gold_Warehouse, PascalCase columns, ForecastAccuracy_DW schema"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "00000000-0000-0000-0000-000000000000"
+  }
+}

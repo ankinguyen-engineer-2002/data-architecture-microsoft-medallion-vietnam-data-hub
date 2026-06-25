@@ -1,0 +1,3 @@
+ItemNumber,Warehouse,DateWeekEnding,OnHandQty,ItemStatus,ItemNumber_bracket,Warehouse_bracket,ItemStatus_bracket,ItemNumber_len,ItemNumber_bytes,Warehouse_len,Warehouse_bytes,ItemStatus_len,ItemStatus_bytes,rn,cnt
+A3HAYESDAL,ECR,2025-07-26,50.000, ,[A3HAYESDAL],[ECR],[ ],10,10,3,3,0,1,1,2
+A3HAYESDAL     ,ECR,2025-07-26,50.000, ,[A3HAYESDAL     ],[ECR],[ ],10,15,3,3,0,1,2,2

@@ -1,0 +1,613 @@
+{
+  "@odata.context": "https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1.0/myorg/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/$metadata#refreshes",
+  "value": [
+    {
+      "endTime": "2026-06-14T19:40:26.183Z",
+      "id": 1402427998,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "4ce3830e-7ba4-458a-ac99-4ec3f99e8a72",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:40:26.027Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:40:16.09Z",
+      "id": 1402427983,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "5e20555a-59b6-4f2f-9dda-ab7251fb7ffa",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:40:16.01Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:40:06.107Z",
+      "id": 1402427818,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "54258a77-baf9-40c5-b593-129a8df12413",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:40:06.013Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:39:56.153Z",
+      "id": 1402427141,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "e9682ae6-415a-47dd-b8ed-2f8d5e53dde6",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:39:56.013Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:39:46.143Z",
+      "id": 1402427132,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "bcb51c13-516f-46bd-a71c-321c3e71faf3",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:39:46Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:39:36.117Z",
+      "id": 1402427119,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "48706dc4-2cea-4a35-a808-6008b639336e",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:39:35.993Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:39:26.043Z",
+      "id": 1402427112,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "3355921a-7746-4fde-88aa-627fef70aea3",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:39:25.98Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:39:16.063Z",
+      "id": 1402427101,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "14eacbc7-bbf1-4918-a3e1-10833ebd98a0",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:39:15.983Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:39:06.127Z",
+      "id": 1402427057,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "5e0fb934-559a-4d6d-b7d4-e4d20ad134f6",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:39:05.983Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:38:56.08Z",
+      "id": 1402426508,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "2f5fe6bb-96ce-450e-ae12-4420152a2f9b",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:38:55.987Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:38:46.067Z",
+      "id": 1402426502,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "061f61f0-1941-4941-94c1-63fcf2fc512b",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:38:45.973Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:38:36.07Z",
+      "id": 1402426496,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "a14c7ef2-8071-4d6c-ad01-f172d18ea787",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:38:35.963Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:38:26.043Z",
+      "id": 1402426483,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "a2733ea1-df08-4b08-8e32-75ba47b8b301",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:38:25.95Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:38:16.067Z",
+      "id": 1402426457,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "9d58b61b-f770-40f0-8b03-d49fa76eac57",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:38:15.96Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:38:06.057Z",
+      "id": 1402426417,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "f930bc80-ff69-4ef3-99e3-19a25c30426c",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:38:05.963Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:37:56.12Z",
+      "id": 1402425947,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "a66c162f-2b10-4cd3-b008-0044998602b2",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:37:55.967Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:37:46.047Z",
+      "id": 1402425939,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "17364d58-1ac3-42b6-8e59-76e102462d69",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:37:45.953Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:37:36.097Z",
+      "id": 1402425932,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "3d645373-dc38-499b-809b-a64405dda7c8",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:37:35.953Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:37:26.083Z",
+      "id": 1402425927,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "cb525a0d-13aa-4c18-90f7-0c7737dc38bf",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:37:25.96Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:37:16.1Z",
+      "id": 1402425898,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "ad4d5c2c-ad50-44a9-8472-c715a434acd4",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:37:15.96Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:37:06.087Z",
+      "id": 1402425813,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "70a98811-c3fc-4ce7-a262-4d327f92f059",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:37:05.96Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:36:56.04Z",
+      "id": 1402425281,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "74deaf4d-a7c4-4845-abb9-fb3b30020965",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:36:55.947Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:36:46.06Z",
+      "id": 1402425273,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "7780c10d-3d9f-413d-bad9-7159a3c98e31",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:36:45.933Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:36:36.16Z",
+      "id": 1402425269,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "444f8604-87e5-40da-9c2d-15d826fd4557",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:36:35.933Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:36:26.05Z",
+      "id": 1402425254,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "8cb58166-8ee0-453e-9acf-cec81c1fec81",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:36:25.94Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:36:16.163Z",
+      "id": 1402425239,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "9a8c1647-de82-4e1b-bf48-fac7ba90054a",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:36:15.943Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:36:06.09Z",
+      "id": 1402425133,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "3e532362-c199-465f-b764-505325c53b04",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:36:05.95Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:35:56.073Z",
+      "id": 1402424586,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "f321c8a5-2e91-455f-b369-8806a09ae672",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:35:55.95Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:35:46.137Z",
+      "id": 1402424579,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "1e94c73b-6295-4071-bbfe-20623c374595",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:35:45.95Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:35:36.343Z",
+      "id": 1402424572,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "c34d5a0f-9a3c-498c-92d8-6d28d01e11cd",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-14T19:35:35.937Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-14T19:35:29.69Z",
+      "extendedStatus": "Completed",
+      "id": 1402424548,
+      "refreshAttempts": [
+        {
+          "attemptId": 1,
+          "endTime": "2026-06-14T19:35:29.690861Z",
+          "executionMetrics": [],
+          "startTime": "2026-06-14T19:35:21.3070996Z",
+          "type": "Data"
+        }
+      ],
+      "refreshType": "DataFactory",
+      "requestId": "a8aee0b4-a4cf-4904-8f3e-bd4ad2625fb3",
+      "startTime": "2026-06-14T19:35:18.6Z",
+      "status": "Completed"
+    },
+    {
+      "endTime": "2026-06-13T19:38:51.893Z",
+      "id": 1401576865,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "8525dd52-7cb9-473f-bcb8-0fff62b4412b",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:38:51.83Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:38:41.867Z",
+      "id": 1401576852,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "d7420e39-5088-46c2-a896-3208c258da70",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:38:41.82Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:38:31.903Z",
+      "id": 1401576848,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "44145f55-6d8a-429c-a9eb-33644bfe41bc",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:38:31.823Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:38:21.89Z",
+      "id": 1401576840,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "3617bd70-c316-4fd2-a2e8-2727464bee8c",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:38:21.813Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:38:11.91Z",
+      "id": 1401576830,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "c69fdf5b-54e0-46a8-9a75-c016d6801ea8",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:38:11.817Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:38:01.883Z",
+      "id": 1401576819,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "dd65576e-b4c3-47e7-97ad-f8bb918e115c",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:38:01.803Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:37:51.853Z",
+      "id": 1401576717,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "1bfa40ea-280e-4a42-a57a-79ba318ad748",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:37:51.79Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:37:41.857Z",
+      "id": 1401576714,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "db77ed19-7cde-4694-9256-f3b4ee877d41",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:37:41.793Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:37:31.913Z",
+      "id": 1401576707,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "38810889-d119-4672-9f7f-0bb148ed16be",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:37:31.803Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:37:21.853Z",
+      "id": 1401576702,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "c1d74082-e42e-4919-8d02-1a6922e44351",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:37:21.79Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:37:11.84Z",
+      "id": 1401576693,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "c5aa6c4a-75f7-4e23-aa54-9be0bfbbc263",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:37:11.793Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:37:01.857Z",
+      "id": 1401576681,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "bb56dacc-42ce-4dea-8603-e4654b1f8311",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:37:01.78Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:36:51.847Z",
+      "id": 1401576491,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "d35a682f-12ba-433a-ac9a-baa208145a87",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:36:51.783Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:36:41.867Z",
+      "id": 1401576482,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "93bbd0aa-4371-432b-8d5d-285855724475",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:36:41.787Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:36:31.857Z",
+      "id": 1401576474,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "45e77f82-35ed-48b5-8d39-204fc845887c",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:36:31.777Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:36:21.847Z",
+      "id": 1401576467,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "928b9b3a-0cd3-4e11-a619-720f425b72e0",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:36:21.783Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:36:11.85Z",
+      "id": 1401576453,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "f7502050-e848-465f-90cd-799ff62bba31",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:36:11.79Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:36:01.84Z",
+      "id": 1401576247,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "cc785262-5ed1-4aa8-af79-b09473fbdb2f",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:36:01.777Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:35:51.873Z",
+      "id": 1401576018,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "ecfeea39-c953-4eec-8549-2d588c815f89",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:35:51.78Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:35:41.83Z",
+      "id": 1401576013,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "c5f2f0be-d868-4be5-9011-134d93b8c277",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:35:41.77Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:35:31.837Z",
+      "id": 1401576006,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "2caadd5f-0aa9-4481-a796-d583fac96b8e",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:35:31.773Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:35:21.84Z",
+      "id": 1401575994,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "360c97fa-9608-4644-bbcc-8fe6f71817da",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:35:21.777Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:35:11.893Z",
+      "id": 1401575978,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "add6f370-421e-4800-b73f-e4a7cda0fd11",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:35:11.767Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:35:01.843Z",
+      "id": 1401575457,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "5e1b8e65-97e9-4750-b2fc-008e45aca825",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:35:01.767Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:34:51.83Z",
+      "id": 1401575209,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "a979a0bf-9467-47f2-8870-120e225398c6",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:34:51.767Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:34:41.833Z",
+      "id": 1401575200,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "5c7a60c4-7eb1-487b-8105-59951823ef6c",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:34:41.77Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:34:31.87Z",
+      "id": 1401575185,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "2eeff336-d92d-4858-94a4-d962297ed944",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:34:31.773Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:34:21.83Z",
+      "id": 1401575170,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "2e25f34e-3fdc-49aa-87e0-2210ea51a606",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:34:21.767Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-13T19:34:11.867Z",
+      "id": 1401575155,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "e39b33fa-bbfd-4ab3-aedd-8c88861ae568",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'CogsRollingHelper' is not found.\"}",
+      "startTime": "2026-06-13T19:34:11.757Z",
+      "status": "Failed"
+    }
+  ]
+}

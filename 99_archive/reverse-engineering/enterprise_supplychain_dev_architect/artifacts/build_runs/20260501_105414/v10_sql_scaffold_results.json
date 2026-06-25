@@ -1,0 +1,56 @@
+{
+  "created_meta_tables": [
+    "Meta.AssetRegistryV10",
+    "Meta.SourceFeed",
+    "Meta.AssetAccessPolicy",
+    "Meta.ObjectClassification",
+    "Meta.SourceContract",
+    "Meta.SourceContractRun",
+    "Meta.DQRule",
+    "Meta.DQGateRun",
+    "Meta.ReconciliationRule",
+    "Meta.ReconciliationResult",
+    "Meta.LineageEdge",
+    "Meta.RunLog",
+    "Meta.PipelineRunLog",
+    "Meta.SilverDagWaveRuntime",
+    "Meta.ApprovalLog",
+    "Meta.DeploymentChecklist",
+    "Meta.SecurityPolicy",
+    "Meta.SemanticModelContract",
+    "Meta.PerformanceBaseline",
+    "Meta.PipelineCostLog"
+  ],
+  "created_views": [
+    "Meta.vw_RegistryCompat",
+    "Meta.vw_AccessDecision",
+    "Meta.vw_TableDictionary"
+  ],
+  "dq_rules_inserted": 38,
+  "empty_tables": {
+    "empty_tables_created": 14,
+    "empty_tables_skipped_existing": 0
+  },
+  "finished_at_utc": "2026-05-01T04:53:01.874241",
+  "seed_registry": {
+    "asset_registry_inserted": 28,
+    "classifications_inserted": 28,
+    "lineage_edges_inserted": 65,
+    "policies_inserted": 28,
+    "source_feeds_inserted": 52
+  },
+  "semantic_contracts_inserted": 2,
+  "source_contracts_inserted": 674,
+  "started_at_utc": "2026-05-01T04:35:32.055204",
+  "verification_counts": {
+    "Meta.AssetRegistryV10": 28,
+    "Meta.DQRule": 38,
+    "Meta.LineageEdge": 65,
+    "Meta.SemanticModelContract": 2,
+    "Meta.SourceContract": 674,
+    "Meta.SourceFeed": 52,
+    "Meta.vw_TableDictionary_columns": 69,
+    "gold_empty_tables": 2,
+    "processing_empty_tables": 12
+  }
+}

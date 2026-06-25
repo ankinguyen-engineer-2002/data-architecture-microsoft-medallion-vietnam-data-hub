@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[SafetyStockHelper]
+-- Loaded by ETL_Framework from [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh_Wrk].[v_SafetyStockHelper].
+-- Business/source view SQL is documented in ../InventoryHistory_Enh_Wrk/v_SafetyStockHelper.sql.

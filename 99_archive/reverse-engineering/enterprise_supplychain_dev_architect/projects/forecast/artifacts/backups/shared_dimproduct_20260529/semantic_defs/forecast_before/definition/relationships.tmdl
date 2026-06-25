@@ -1,0 +1,36 @@
+relationship a50b7b00-ee3a-403c-a8cd-051a6d7d4044
+	fromColumn: FactForecastActual.CustomerGroupCode
+	toColumn: DimCustomerGrouping.CustomerGroupCode
+
+relationship 904d7e28-b23e-4b1d-82e0-d8adf8c9f385
+	fromColumn: FactForecastActual.FSCMonthLast
+	toColumn: DimCalendar.Date
+
+relationship 232c1e9b-5543-4ff1-be1b-6c63aeeecdc4
+	fromColumn: FactForecastActual.ItemSKU
+	toColumn: DimProduct.ItemSKU
+
+relationship dc92a38b-3427-4f4a-88af-27683d790f4e
+	fromColumn: FactForecastActual.WarehouseCode
+	toColumn: DimWarehouse.WarehouseCode
+
+relationship 148f153f-c6f0-4945-81b3-b6766bf0187b
+	fromColumn: FactForecastActual.HorizonCode
+	toColumn: DimForecastHorizon.HorizonCode
+
+relationship 2504d047-00b4-4aea-8a4b-c964c84e9a19
+	fromColumn: FactForecastKpi.HorizonCode
+	toColumn: DimForecastHorizon.HorizonCode
+
+relationship e7f577fc-21cb-4856-b4c2-2fa5a413995a
+	fromColumn: FactForecastKpi.WarehouseCode
+	toColumn: DimWarehouse.WarehouseCode
+
+relationship 22e242ec-5afa-41dd-b2ca-48b190fc05b4
+	fromColumn: FactForecastKpi.ItemSKU
+	toColumn: DimProduct.ItemSKU
+
+relationship 54309aee-50a4-4527-94b5-f4a34c3959e9
+	fromColumn: FactForecastKpi.FSCMonthLast
+	toColumn: DimCalendar.Date
+

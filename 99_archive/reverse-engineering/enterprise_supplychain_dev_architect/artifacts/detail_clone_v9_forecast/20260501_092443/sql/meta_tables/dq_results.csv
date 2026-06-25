@@ -1,0 +1,39 @@
+result_id,pipeline_run_id,rule_id,check_time,status,actual_value,expected_value,error_detail
+38,f08b9e33-832e-417b-836a-cac31c9afe73,38,2026-04-19T06:57:45.013333,PASS,0 hours,<= 48.00 hours,freshness on silver.slv_actual_demand_monthly._load_dt: WARNING
+15,23ad3652-17c3-4b04-81a3-6c69c7897faf,15,2026-04-19T09:06:14.283333,PASS,918213,100000.00,row_count on bronze.brz_wholesale_codis_afi__codatan: WARNING
+8,23ad3652-17c3-4b04-81a3-6c69c7897faf,8,2026-04-19T09:06:50.316667,PASS,100.0000,100.0,completeness on bronze.brz_wholesale_codis_afi__extorit.id_order: CRITICAL
+19,23ad3652-17c3-4b04-81a3-6c69c7897faf,19,2026-04-19T09:23:58.996667,PASS,100.0000,100.0,completeness on silver.slv_invoice_detail_line_level.id_item_sku: CRITICAL
+20,23ad3652-17c3-4b04-81a3-6c69c7897faf,20,2026-04-19T09:24:08.296667,PASS,36109369,1000000.00,row_count on silver.slv_invoice_detail_line_level: CRITICAL
+33,f08b9e33-832e-417b-836a-cac31c9afe73,33,2026-04-19T06:57:38.120000,FAIL,13863019,0,uniqueness on silver.slv_forecast_demand_monthly.id_item_sku: WARNING
+18,23ad3652-17c3-4b04-81a3-6c69c7897faf,18,2026-04-19T09:06:30.206667,PASS,8,8.00,row_count on bronze.ref_forecast_horizon: CRITICAL
+37,f08b9e33-832e-417b-836a-cac31c9afe73,37,2026-04-19T06:57:29.510000,PASS,0 hours,<= 48.00 hours,freshness on silver.slv_invoice_detail_line_level._load_dt: WARNING
+21,23ad3652-17c3-4b04-81a3-6c69c7897faf,21,2026-04-19T09:24:03.286667,PASS,100.0000,100.0,completeness on silver.slv_open_order_line_level.id_item_sku: CRITICAL
+23,23ad3652-17c3-4b04-81a3-6c69c7897faf,23,2026-04-19T09:24:09.530000,PASS,552197,100000.00,row_count on silver.slv_actual_demand_monthly: CRITICAL
+16,23ad3652-17c3-4b04-81a3-6c69c7897faf,16,2026-04-19T09:06:16.413333,PASS,21551,10000.00,row_count on bronze.ref_calendar: CRITICAL
+10,23ad3652-17c3-4b04-81a3-6c69c7897faf,10,2026-04-19T09:06:40.706667,PASS,100.0000,100.0,completeness on bronze.ref_item_master.id_item_sku: CRITICAL
+1,23ad3652-17c3-4b04-81a3-6c69c7897faf,1,2026-04-19T09:06:18.143333,PASS,100.0000,100.0,completeness on bronze.brz_saleshistory_afi__invoicedetail.id_invoice: CRITICAL
+6,23ad3652-17c3-4b04-81a3-6c69c7897faf,6,2026-04-19T09:06:42.733333,PASS,100.0000,100.0,completeness on bronze.brz_wholesale_codis_afi__comast.id_order: CRITICAL
+36,f08b9e33-832e-417b-836a-cac31c9afe73,36,2026-04-19T07:02:05.876667,PASS,1 hours,<= 48.00 hours,freshness on gold.gld_fact_forecast_kpi._load_dt: WARNING
+14,23ad3652-17c3-4b04-81a3-6c69c7897faf,14,2026-04-19T09:06:14.873333,PASS,4038205,100000.00,row_count on bronze.brz_saleshistory_afi__invoiceheader: CRITICAL
+29,23ad3652-17c3-4b04-81a3-6c69c7897faf,29,2026-04-19T09:27:49.843333,PASS,100.0000,100.00,completeness on gold.gld_fact_forecast_kpi.id_item_sku: CRITICAL
+22,23ad3652-17c3-4b04-81a3-6c69c7897faf,22,2026-04-19T09:23:58.650000,PASS,100.0000,100.0,completeness on silver.slv_forecast_demand_monthly.id_item_sku: CRITICAL
+30,23ad3652-17c3-4b04-81a3-6c69c7897faf,30,2026-04-19T09:27:50.060000,PASS,9113008,100000.00,row_count on gold.gld_fact_forecast_kpi: CRITICAL
+35,f08b9e33-832e-417b-836a-cac31c9afe73,35,2026-04-19T07:02:14.683333,PASS,1 hours,<= 48.00 hours,freshness on gold.gld_fact_flat_forecast_actual._load_dt: WARNING
+5,23ad3652-17c3-4b04-81a3-6c69c7897faf,5,2026-04-19T09:06:33.343333,PASS,100.0000,100.0,completeness on bronze.brz_wholesale_codis_afi__codatan.id_order: CRITICAL
+9,23ad3652-17c3-4b04-81a3-6c69c7897faf,9,2026-04-19T09:06:25.333333,PASS,100.0000,100.0,completeness on bronze.ref_calendar.sk_date: CRITICAL
+17,23ad3652-17c3-4b04-81a3-6c69c7897faf,17,2026-04-19T09:06:22.530000,PASS,379350,100000.00,row_count on bronze.ref_item_master: WARNING
+13,23ad3652-17c3-4b04-81a3-6c69c7897faf,13,2026-04-19T09:06:51.586667,PASS,36109369,1000000.00,row_count on bronze.brz_saleshistory_afi__invoicedetail: CRITICAL
+3,23ad3652-17c3-4b04-81a3-6c69c7897faf,3,2026-04-19T09:06:19.270000,PASS,100.0000,100.0,completeness on bronze.brz_saleshistory_afi__invoiceheader.id_invoice: CRITICAL
+26,23ad3652-17c3-4b04-81a3-6c69c7897faf,26,2026-04-19T09:24:00.543333,PASS,334086,100000.00,row_count on silver.slv_naive_forecast_monthly: WARNING
+12,23ad3652-17c3-4b04-81a3-6c69c7897faf,12,2026-04-19T09:06:43.720000,PASS,100.0000,100.0,completeness on bronze.ref_warehouse.code_warehouse: CRITICAL
+24,23ad3652-17c3-4b04-81a3-6c69c7897faf,24,2026-04-19T09:23:58.156667,PASS,1081394,100000.00,row_count on silver.slv_actual_demand_weekly: WARNING
+2,23ad3652-17c3-4b04-81a3-6c69c7897faf,2,2026-04-19T09:06:46.203333,PASS,100.0000,100.0,completeness on bronze.brz_saleshistory_afi__invoicedetail.id_item_sku: CRITICAL
+28,23ad3652-17c3-4b04-81a3-6c69c7897faf,28,2026-04-19T09:27:47.396667,PASS,14763232,100000.00,row_count on gold.gld_fact_flat_forecast_actual: CRITICAL
+4,23ad3652-17c3-4b04-81a3-6c69c7897faf,4,2026-04-19T09:06:26.780000,PASS,100.0000,100.0,completeness on bronze.brz_supplychain_enh_1__demandforecastsnapshotdaily.id_item_sku: CRITICAL
+31,f08b9e33-832e-417b-836a-cac31c9afe73,31,2026-04-19T06:57:45.643333,FAIL,26510943,0,uniqueness on silver.slv_invoice_detail_line_level.id_invoice: WARNING
+32,f08b9e33-832e-417b-836a-cac31c9afe73,32,2026-04-19T06:57:49.480000,FAIL,186434,0,uniqueness on silver.slv_open_order_line_level.id_order: WARNING
+25,23ad3652-17c3-4b04-81a3-6c69c7897faf,25,2026-04-19T09:24:07.740000,PASS,15801991,1000000.00,row_count on silver.slv_invoice_weekly: WARNING
+11,23ad3652-17c3-4b04-81a3-6c69c7897faf,11,2026-04-19T09:06:48.130000,PASS,100.0000,100.0,completeness on bronze.ref_product.id_item_sku: CRITICAL
+27,23ad3652-17c3-4b04-81a3-6c69c7897faf,27,2026-04-19T09:27:47.803333,PASS,100.0000,100.00,completeness on gold.gld_fact_flat_forecast_actual.id_item_sku: CRITICAL
+7,23ad3652-17c3-4b04-81a3-6c69c7897faf,7,2026-04-19T09:06:56.740000,PASS,100.0000,100.0,completeness on bronze.brz_wholesale_codis_afi__extord.id_order: CRITICAL
+34,f08b9e33-832e-417b-836a-cac31c9afe73,34,2026-04-19T07:01:57.663333,FAIL,9099078,0,uniqueness on gold.gld_fact_forecast_kpi.id_item_sku: WARNING

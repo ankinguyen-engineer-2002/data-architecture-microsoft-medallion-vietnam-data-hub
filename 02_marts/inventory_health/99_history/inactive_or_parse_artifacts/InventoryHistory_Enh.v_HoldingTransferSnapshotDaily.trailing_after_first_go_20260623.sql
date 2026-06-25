@@ -1,0 +1,3 @@
+-- ---- InventoryHistory_Enh.v_LogilityItemStatusSnapshotWeekly ----
+-- WEEKLY — Saturday only (cron '0 6 * * 6' in registry).
+-- Full history output (one row per ItemSku + WarehouseCode + WeekEndingDate, after dedupe).

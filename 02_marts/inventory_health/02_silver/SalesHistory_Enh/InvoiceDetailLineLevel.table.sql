@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Processing_Warehouse].[SalesHistory_Enh].[InvoiceDetailLineLevel]
+-- Loaded by ETL_Framework from [SupplyChain_Processing_Warehouse].[SalesHistory_Enh_Wrk].[v_InvoiceDetailLineLevel].
+-- Business/source view SQL is documented in ../SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql.

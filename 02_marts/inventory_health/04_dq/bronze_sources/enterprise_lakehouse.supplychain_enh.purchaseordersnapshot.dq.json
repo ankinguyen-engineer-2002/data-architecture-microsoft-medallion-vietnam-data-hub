@@ -1,0 +1,122 @@
+{
+  "asset_key": "enterprise_lakehouse.supplychain_enh.purchaseordersnapshot",
+  "display": "Enterprise_Lakehouse.SupplyChain_Enh.PurchaseOrderSnapshot",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 8,
+    "columns": [
+      {
+        "column_name": "posItNbr",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "posWhse",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "posQtyOr",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "posPstts",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "posDueDt",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "posSnapshot",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "posUUD1PM",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "posVndnr",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "posDueDt": 1301030,
+      "posSnapshot": "2026-06-22 15:01:09"
+    },
+    "freshness_columns": [
+      "posSnapshot",
+      "posDueDt"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 3.18,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "posSnapshot",
+      "posItNbr",
+      "posWhse",
+      "posVndnr",
+      "posDueDt"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 1.84,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": 96412,
+          "latest_partition_duplicate_groups": 71063,
+          "latest_partition_max_rows_per_key": 83
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 1.64,
+      "status": "PASS"
+    },
+    "projects": [
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.SupplyChain_Enh.PurchaseOrderSnapshot",
+    "row_count_metadata": null,
+    "status": "REVIEW"
+  },
+  "dq_status": "REVIEW",
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.SupplyChain_Enh.PurchaseOrderSnapshot.sql"
+}

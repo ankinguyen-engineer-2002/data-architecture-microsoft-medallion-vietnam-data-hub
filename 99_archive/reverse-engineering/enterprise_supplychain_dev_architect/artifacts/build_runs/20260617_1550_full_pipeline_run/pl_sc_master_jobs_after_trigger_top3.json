@@ -1,0 +1,37 @@
+{
+  "value": [
+    {
+      "endTimeUtc": null,
+      "failureReason": null,
+      "id": "d49947c6-3a8f-419a-b61a-414f3518ccf6",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "742622e0-5338-4692-a8c2-4aed8cb83abf",
+      "startTimeUtc": "2026-06-17T08:48:34.79",
+      "status": "NotStarted"
+    },
+    {
+      "endTimeUtc": "2026-06-04T03:20:36.4327015",
+      "failureReason": null,
+      "id": "8dc43c5a-cf79-45bf-9169-12e6e30cf3f2",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "590bdec0-c2fd-45a2-bb37-850836374a57",
+      "startTimeUtc": "2026-06-04T02:07:47.4304184",
+      "status": "Completed"
+    },
+    {
+      "endTimeUtc": "2026-05-29T17:27:26.2952124",
+      "failureReason": null,
+      "id": "24942a8b-1750-4f96-9bfc-23fecac90952",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "58744fff-7799-42ec-bc09-887b0a7384e9",
+      "startTimeUtc": "2026-05-29T16:15:07.8548838",
+      "status": "Completed"
+    }
+  ]
+}

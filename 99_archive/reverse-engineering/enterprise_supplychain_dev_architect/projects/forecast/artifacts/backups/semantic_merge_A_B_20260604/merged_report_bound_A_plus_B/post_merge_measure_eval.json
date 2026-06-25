@@ -1,0 +1,1309 @@
+{
+  "datasetId": "3eecf594-a75e-46ab-9162-63c95ee68e45",
+  "A": {
+    "measure_count": 85,
+    "ok_count": 84,
+    "failures": [
+      "Selected_Months"
+    ],
+    "changed_ok_values": [
+      {
+        "measure": "Pct_MAPE",
+        "before": 1.2213307836429044,
+        "after": 1.2213307836429041
+      }
+    ]
+  },
+  "B": {
+    "measure_count": 125,
+    "ok_count": 125,
+    "failures": []
+  },
+  "A_results": [
+    {
+      "measure": "Qty_Forecast",
+      "status": 200,
+      "value": 536148968.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Actual",
+      "status": 200,
+      "value": 754229927.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Bias",
+      "status": 200,
+      "value": -218080959.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_NForecast",
+      "status": 200,
+      "value": 665800337.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Abs_Bias",
+      "status": 200,
+      "value": 526533785.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_NBias",
+      "status": 200,
+      "value": -88429590.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Abs_NBias",
+      "status": 200,
+      "value": 352622650.0,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE",
+      "status": 200,
+      "value": 0.6981077866988431,
+      "ok": true
+    },
+    {
+      "measure": "Pct_MPE",
+      "status": 200,
+      "value": -0.2891438687237347,
+      "ok": true
+    },
+    {
+      "measure": "Pct_MAPE",
+      "status": 200,
+      "value": 1.2213307836429041,
+      "ok": true
+    },
+    {
+      "measure": "RMSE",
+      "status": 200,
+      "value": 99.46762233032945,
+      "ok": true
+    },
+    {
+      "measure": "ProcessValueAdd",
+      "status": 200,
+      "value": -0.2305810586060184,
+      "ok": true
+    },
+    {
+      "measure": "Pct_NwMAPE",
+      "status": 200,
+      "value": 0.4675267280928247,
+      "ok": true
+    },
+    {
+      "measure": "Pct_ForecastAccuracy",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Pct_ForecastAccuracy_lm",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Delta_ForecastAccuracy_MoM",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "TrueError",
+      "status": 200,
+      "value": 0.4089639179751084,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE_Lag0",
+      "status": 200,
+      "value": 0.4524461162784256,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE_Lag1",
+      "status": 200,
+      "value": 0.5224473704504737,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE_Lag2",
+      "status": 200,
+      "value": 0.5793729820536604,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE_Lag3",
+      "status": 200,
+      "value": 0.6295184384746051,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE_Lag4",
+      "status": 200,
+      "value": 0.6925142432285616,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Actual_2W",
+      "status": 200,
+      "value": 96073867.0,
+      "ok": true
+    },
+    {
+      "measure": "Qt_Invoice",
+      "status": 200,
+      "value": 90918069.0,
+      "ok": true
+    },
+    {
+      "measure": "Qt_Open_SO",
+      "status": 200,
+      "value": 410203.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Latest_V",
+      "status": 200,
+      "value": 12552323.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_V_2",
+      "status": 200,
+      "value": 12290835.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_V_3",
+      "status": 200,
+      "value": 12325933.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_V_4",
+      "status": 200,
+      "value": 12634681.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_V_5",
+      "status": 200,
+      "value": 12525921.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_V_6",
+      "status": 200,
+      "value": 12707442.0,
+      "ok": true
+    },
+    {
+      "measure": "RMSE_Naive",
+      "status": 200,
+      "value": 76.74377936494284,
+      "ok": true
+    },
+    {
+      "measure": "Pct_ForecastAccuracy_lq",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "RMSE_Table_Background_Color",
+      "status": 200,
+      "value": "#D9D9D9",
+      "ok": true
+    },
+    {
+      "measure": "UpdatedTime",
+      "status": 200,
+      "value": "2026-06-04T00:00:00",
+      "ok": true
+    },
+    {
+      "measure": "BestPeformanceHorizon_Insight",
+      "status": 200,
+      "value": "Lag-0",
+      "ok": true
+    },
+    {
+      "measure": "Bias_Status",
+      "status": 200,
+      "value": "UNDER",
+      "ok": true
+    },
+    {
+      "measure": "TrendSummaryMetricsBySelectedHorizon_Title",
+      "status": 200,
+      "value": "Trend Summary Metrics by ",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Quarter_Status",
+      "status": 200,
+      "value": "Your selected period from Q1 2000 to Q4 2028",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Quarter_Min",
+      "status": 200,
+      "value": "Q1 2000",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Quarter_Max",
+      "status": 200,
+      "value": "Q4 2028",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Months",
+      "status": 200,
+      "ok": false,
+      "response": {
+        "results": [
+          {
+            "tables": [
+              {
+                "rows": []
+              }
+            ],
+            "error": {
+              "code": "QueryUserError",
+              "message": "The locale name specified in FORMAT is not supported because 'The parameter is incorrect.'.",
+              "details": [
+                {
+                  "code": "AnalysisServicesErrorCode",
+                  "detail": {
+                    "type": "1",
+                    "value": 3241804279
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "measure": "Selected_Month_Status",
+      "status": 200,
+      "value": "Your selected period from 01/2000 to 12/2028",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Month_Min",
+      "status": 200,
+      "value": "01/2000",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Month_Max",
+      "status": 200,
+      "value": "12/2028",
+      "ok": true
+    },
+    {
+      "measure": "NBias_Status",
+      "status": 200,
+      "value": "UNDER",
+      "ok": true
+    },
+    {
+      "measure": "HowAccurateWasEachForecastVersion_Title_Quarter",
+      "status": 200,
+      "value": "HOW ACCURATE WAS EACH FORECAST VERSION FROM Q1 2000 TO Q4 2028?",
+      "ok": true
+    },
+    {
+      "measure": "HowAccurateWasEachForecastVersion_Title_Month",
+      "status": 200,
+      "value": "HOW ACCURATE WAS EACH FORECAST VERSION FROM 01/2000 TO 12/2028?",
+      "ok": true
+    },
+    {
+      "measure": "HowAccurateAreWe_Title_Quarter",
+      "status": 200,
+      "value": "HOW ACCURATE ARE WE FROM Q1 2000 TO Q4 2028?",
+      "ok": true
+    },
+    {
+      "measure": "HowAccurateAreWe_Title_Month",
+      "status": 200,
+      "value": "HOW ACCURATE ARE WE FROM 01/2000 TO 12/2028?",
+      "ok": true
+    },
+    {
+      "measure": "ForecastAccuracy_lq_Status",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "ForecastAccuracy_lm_Status",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "ForecastAccuracy_HorizonCompare_Insight",
+      "status": 200,
+      "value": "Accuracy is declining as the forecast lag increases. Lag-3 shows higher error than Lag-0",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_6_Quarter",
+      "status": 200,
+      "value": "- wMAPE increases sharply for Lag-3 and Lag-4 from Q3 2025 onward — longer horizons becoming less reliable.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_6_Month",
+      "status": 200,
+      "value": "- wMAPE increases sharply for Lag-3 and Lag-4 from Mar 2026 onward — longer horizons becoming less reliable.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_5_Quarter",
+      "status": 200,
+      "value": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n- Only Apr 2023: Actual 6,602K | Under-forecast Lags: Lag-3 (2,151K), Lag-2 (5,084K)\n- Only Jul 2023: Actual 6,271K | Under-forecast Lags: >Lag-4 (4,558K), Lag-1 (6,106K), Lag-0 (5,951K)\n\n\n\n\n\n\n\n\n- Only Sep 2025: Actual 6,853K | Under-forecast Lags: Lag-1 (6,659K), Lag-0 (6,516K)\n- Only Dec 2025: Actual 7,022K | Under-forecast Lags: Lag-3 (6,930K), Lag-2 (6,790K), Lag-1 (6,714K), Lag-0 (6,631K)\n- Only Mar 2026: Actual 6,550K | Under-forecast Lags: >Lag-4 (6,513K), Lag-2 (6,357K), Lag-1 (6,201K), Lag-0 (6,113K)\n\n\n\n\n\n\n\n\n\n\n\n",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_5_Month",
+      "status": 200,
+      "value": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n- Only Apr 2023: Actual 2,668K | Under-forecast Lags: Lag-3 (2,151K)\n\n- Only May 2023: Actual 1,900K | Under-forecast Lags: Lag-0 (1,847K)\n\n\n- Only Aug 2023: Actual 1,957K | Under-forecast Lags: Lag-3 (1,940K), Lag-2 (1,931K), Lag-0 (1,884K)\n- Only Sep 2023: Actual 2,579K | Under-forecast Lags: Lag-4 (2,312K), Lag-3 (2,279K), Lag-2 (2,374K), Lag-1 (2,389K), Lag-0 (2,376K)\n\n\n\n- Only Jan 2024: Actual 1,986K | Under-forecast Lags: >Lag-4 (1,810K), Lag-4 (1,825K), Lag-3 (1,880K), Lag-2 (1,943K), Lag-1 (1,948K)\n- Only Feb 2024: Actual 2,027K | Under-forecast Lags: >Lag-4 (1,865K), Lag-4 (1,911K), Lag-3 (1,995K), Lag-2 (1,999K), Lag-1 (2,026K)\n\n\n\n\n\n- Only Aug 2024: Actual 1,979K | Under-forecast Lags: Lag-4 (1,953K), Lag-3 (1,895K), Lag-2 (1,887K), Lag-1 (1,915K), Lag-0 (1,922K)\n- Only Sep 2024: Actual 2,556K | Under-forecast Lags: >Lag-4 (2,462K), Lag-4 (2,417K), Lag-3 (2,465K), Lag-2 (2,515K), Lag-0 (2,487K)\n- Only Oct 2024: Actual 2,089K | Under-forecast Lags: >Lag-4 (1,946K), Lag-4 (1,963K), Lag-3 (2,024K), Lag-1 (2,084K), Lag-0 (2,064K)\n\n\n\n- Only Feb 2025: Actual 2,126K | Under-forecast Lags: >Lag-4 (2,115K), Lag-3 (2,093K), Lag-2 (2,100K), Lag-1 (2,063K), Lag-0 (2,040K)\n\n\n\n\n- Only Jul 2025: Actual 1,984K | Under-forecast Lags: >Lag-4 (1,955K)\n- Only Aug 2025: Actual 2,099K | Under-forecast Lags: Lag-2 (2,077K), Lag-1 (1,985K), Lag-0 (1,926K)\n- Only Sep 2025: Actual 2,769K | Under-forecast Lags: Lag-3 (2,720K), Lag-2 (2,618K), Lag-1 (2,516K), Lag-0 (2,544K)\n- Only Oct 2025: Actual 2,092K | Under-forecast Lags: Lag-3 (2,065K), Lag-2 (2,040K), Lag-1 (1,958K), Lag-0 (1,940K)\n- Only Nov 2025: Actual 2,244K | Under-forecast Lags: Lag-2 (2,212K), Lag-1 (2,150K), Lag-0 (2,191K)\n\n- Only Jan 2026: Actual 1,938K | Under-forecast Lags: >Lag-4 (1,933K), Lag-4 (1,928K), Lag-2 (1,924K), Lag-1 (1,818K), Lag-0 (1,804K)\n- Only Feb 2026: Actual 1,951K | Under-forecast Lags: Lag-1 (1,935K), Lag-0 (1,925K)\n\n- Only Apr 2026: Actual 1,939K | Under-forecast Lags: Lag-2 (1,914K), Lag-1 (1,851K), Lag-0 (1,865K)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_4_Quarter",
+      "status": 200,
+      "value": "- Q1 2026: mixed forecast accuracy (6.1M–6.6M vs 6.6M actual). Under-forecast versions: >Lag-4, Lag-2, Lag-1, Lag-0.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_4_Month",
+      "status": 200,
+      "value": "- May 2026: all versions over-forecast (1.9M–1.9M vs 1.6M actual) — possible demand drop not captured.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_3_Quarter",
+      "status": 200,
+      "value": "- Q4 2025: mixed forecast accuracy (6.6M–7.1M vs 7.0M actual). Under-forecast versions: Lag-3, Lag-2, Lag-1, Lag-0.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_3_Month",
+      "status": 200,
+      "value": "- Apr 2026: mixed forecast accuracy (1.9M–2.0M vs 1.9M actual). Under-forecast versions: Lag-2, Lag-1, Lag-0.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_2_Quarter",
+      "status": 200,
+      "value": "- Spread across lags stays tight at 10,131 units for most quarters.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_2_Month",
+      "status": 200,
+      "value": "- Spread across lags stays tight at 281,911 units for most months.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_1_Quarter",
+      "status": 200,
+      "value": "- Lag-0 tracks actuals closely: Q4 2025 (6,631,241 units vs 7,021,812 units), Q3 2025 (6,515,796 units vs 6,852,527 units). The actual demand for Q1 2026 is 2,661,785 units",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_1_Month",
+      "status": 200,
+      "value": "- Lag-0 tracks actuals closely: Apr 2026 (1,865,073 units vs 1,938,612 units), Mar 2026 (2,383,854 units vs 2,661,785 units). The actual demand for May 2026 is 1,595,256 units",
+      "ok": true
+    },
+    {
+      "measure": "Dynamic_Forecast_Insight_1_Quarter",
+      "status": 200,
+      "value": "Lag-3 (wMAPE 63.0%) underperforms Naive Forecast (N_wMAPE 46.8%) by 16.2pp. The period from Q1 2000 to Q4 2028 under-forecasts by 218,080,959 units, while Naive under-forecasts by 88,429,590 units.",
+      "ok": true
+    },
+    {
+      "measure": "Dynamic_Forecast_Insight_1_Month",
+      "status": 200,
+      "value": "Lag-3 (wMAPE 63.0%) underperforms Naive Forecast (N_wMAPE 46.8%) by 16.2pp. The period from 01/2000 to 12/2028 under-forecasts by 218,080,959 units, while Naive under-forecasts by 88,429,590 units.",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag4_FontColor",
+      "status": 200,
+      "value": "#FF3333",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag4_Color",
+      "status": 200,
+      "value": "#341913",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag3_FontColor",
+      "status": 200,
+      "value": "#FF6600",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag3_Color",
+      "status": 200,
+      "value": "#342013",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag2_FontColor",
+      "status": 200,
+      "value": "#FF9900",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag2_Color",
+      "status": 200,
+      "value": "#342A13",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag1_FontColor",
+      "status": 200,
+      "value": "#3399FF",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag1_Color",
+      "status": 200,
+      "value": "#132234",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag0_FontColor",
+      "status": 200,
+      "value": "#99FF33",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag0_Color",
+      "status": 200,
+      "value": "#2D3419",
+      "ok": true
+    },
+    {
+      "measure": "Today_X_Axis_Line",
+      "status": 200,
+      "value": "2026-06-04T00:00:00",
+      "ok": true
+    },
+    {
+      "measure": "ProcessValueAdd_Color",
+      "status": 200,
+      "value": "#FF0001",
+      "ok": true
+    },
+    {
+      "measure": "NNBiasStatus_Color",
+      "status": 200,
+      "value": "#FFD767",
+      "ok": true
+    },
+    {
+      "measure": "Max_Axis_By_Invoice_Scale",
+      "status": 200,
+      "value": 2882369.0,
+      "ok": true
+    },
+    {
+      "measure": "ForecastAccuracy_lq_Color",
+      "status": 200,
+      "value": "#FFCA61",
+      "ok": true
+    },
+    {
+      "measure": "ForecastAccuracy_lm_Color",
+      "status": 200,
+      "value": "#FFCA61",
+      "ok": true
+    },
+    {
+      "measure": "ContextMonth",
+      "status": 200,
+      "value": "2027-06-26T00:00:00",
+      "ok": true
+    },
+    {
+      "measure": "BiasStatus_Color",
+      "status": 200,
+      "value": "#FFD767",
+      "ok": true
+    }
+  ],
+  "B_results": [
+    {
+      "measure": "Firm Demand Qty",
+      "status": 200,
+      "value": 4840856.0,
+      "ok": true
+    },
+    {
+      "measure": "Net Forecast Qty",
+      "status": 200,
+      "value": 17171055.0,
+      "ok": true
+    },
+    {
+      "measure": "Inbound 14D Qty",
+      "status": 200,
+      "value": 29690610.0,
+      "ok": true
+    },
+    {
+      "measure": "Allocated Demand Qty",
+      "status": 200,
+      "value": 420.0,
+      "ok": true
+    },
+    {
+      "measure": "Shippable Inventory Qty",
+      "status": 200,
+      "value": 268319591.0,
+      "ok": true
+    },
+    {
+      "measure": "SI Negative Qty",
+      "status": 200,
+      "value": 14426963.0,
+      "ok": true
+    },
+    {
+      "measure": "Active Demand Qty - 14D",
+      "status": 200,
+      "value": 22011911.0,
+      "ok": true
+    },
+    {
+      "measure": "Shortage Qty - Week Four",
+      "status": 200,
+      "value": 649886.0,
+      "ok": true
+    },
+    {
+      "measure": "Revenue at Risk - Week Four",
+      "status": 200,
+      "value": 119115322.36,
+      "ok": true
+    },
+    {
+      "measure": "Week Four Blank FOB Rows",
+      "status": 200,
+      "value": 23305,
+      "ok": true
+    },
+    {
+      "measure": "Active Item-WH Count",
+      "status": 200,
+      "value": 57665,
+      "ok": true
+    },
+    {
+      "measure": "Positive SI Item-WH Count",
+      "status": 200,
+      "value": 48022,
+      "ok": true
+    },
+    {
+      "measure": "Shippable Inventory In-Stock Rate",
+      "status": 200,
+      "value": 0.8327755137431717,
+      "ok": true
+    },
+    {
+      "measure": "On Hand Qty",
+      "status": 200,
+      "value": 238843096.0,
+      "ok": true
+    },
+    {
+      "measure": "Transfer In In-Transit Qty",
+      "status": 200,
+      "value": 3345064.0,
+      "ok": true
+    },
+    {
+      "measure": "PO In-Transit Qty",
+      "status": 200,
+      "value": 0.0,
+      "ok": true
+    },
+    {
+      "measure": "In Transit Qty",
+      "status": 200,
+      "value": 3345064.0,
+      "ok": true
+    },
+    {
+      "measure": "PO On-Order Qty",
+      "status": 200,
+      "value": 0.0,
+      "ok": true
+    },
+    {
+      "measure": "MO On-Order Qty",
+      "status": 200,
+      "value": 0.0,
+      "ok": true
+    },
+    {
+      "measure": "On Order Qty",
+      "status": 200,
+      "value": 0.0,
+      "ok": true
+    },
+    {
+      "measure": "Total Inventory Commitment Qty",
+      "status": 200,
+      "value": 242188160.0,
+      "ok": true
+    },
+    {
+      "measure": "On Hand Inventory Value at Cost",
+      "status": 200,
+      "value": 10567963809.3455,
+      "ok": true
+    },
+    {
+      "measure": "In Transit Inventory Value at Cost",
+      "status": 200,
+      "value": 353062280.8758,
+      "ok": true
+    },
+    {
+      "measure": "On Order Inventory Value at Cost",
+      "status": 200,
+      "value": 0.0,
+      "ok": true
+    },
+    {
+      "measure": "Total Inventory Commitment at Cost",
+      "status": 200,
+      "value": 10921026090.221302,
+      "ok": true
+    },
+    {
+      "measure": "Total Inventory Commitment $",
+      "status": 200,
+      "value": 10921026090.221302,
+      "ok": true
+    },
+    {
+      "measure": "On-Hand Value $",
+      "status": 200,
+      "value": 10567963809.3455,
+      "ok": true
+    },
+    {
+      "measure": "In-Transit Value $",
+      "status": 200,
+      "value": 353062280.8758,
+      "ok": true
+    },
+    {
+      "measure": "On-Order Value $",
+      "status": 200,
+      "value": 0.0,
+      "ok": true
+    },
+    {
+      "measure": "Prior 4W Total Inventory Commitment $",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Total Inventory Commitment Delta $",
+      "status": 200,
+      "value": 10921026090.221302,
+      "ok": true
+    },
+    {
+      "measure": "Total Inventory Commitment Delta %",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Trailing 12M COGS",
+      "status": 200,
+      "value": 38508206725.2271,
+      "ok": true
+    },
+    {
+      "measure": "Turns - Current Inventory Denominator",
+      "status": 200,
+      "value": 3.6438624715173025,
+      "ok": true
+    },
+    {
+      "measure": "Turns - Average Inventory Denominator",
+      "status": 200,
+      "value": 3.931548680806294,
+      "ok": true
+    },
+    {
+      "measure": "Inventory Turns",
+      "status": 200,
+      "value": 3.6438624715173025,
+      "ok": true
+    },
+    {
+      "measure": "Safety Stock Target Qty",
+      "status": 200,
+      "value": 116089000.4101,
+      "ok": true
+    },
+    {
+      "measure": "Inventory Position Qty",
+      "status": 200,
+      "value": 238843096.0,
+      "ok": true
+    },
+    {
+      "measure": "Safety Stock Multiple",
+      "status": 200,
+      "value": 2.057413666723416,
+      "ok": true
+    },
+    {
+      "measure": "Safety Stock Exception Flag",
+      "status": 200,
+      "value": 0,
+      "ok": true
+    },
+    {
+      "measure": "Used Storage Cube",
+      "status": 200,
+      "value": 971035635.09,
+      "ok": true
+    },
+    {
+      "measure": "Total Available Warehouse Cube",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Warehouse Capacity Utilization",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Warehouse Capacity Risk Flag",
+      "status": 200,
+      "value": 0,
+      "ok": true
+    },
+    {
+      "measure": "On Hold Qty",
+      "status": 200,
+      "value": 1081.0,
+      "ok": true
+    },
+    {
+      "measure": "On Hold Ratio - Units",
+      "status": 200,
+      "value": 4.525983870180614e-06,
+      "ok": true
+    },
+    {
+      "measure": "On Hold Value at Cost",
+      "status": 200,
+      "value": 119147.8265,
+      "ok": true
+    },
+    {
+      "measure": "On Hold Ratio - Value",
+      "status": 200,
+      "value": 1.1274435515632136e-05,
+      "ok": true
+    },
+    {
+      "measure": "No Movement Inventory Value at Cost",
+      "status": 200,
+      "value": 2216969940.0584,
+      "ok": true
+    },
+    {
+      "measure": "Obsolete Inventory Value at Cost",
+      "status": 200,
+      "value": 225117666.9927,
+      "ok": true
+    },
+    {
+      "measure": "Obsolete Ratio",
+      "status": 200,
+      "value": 0.20978212833184393,
+      "ok": true
+    },
+    {
+      "measure": "Aged Inventory Value at Cost",
+      "status": 200,
+      "value": 2216969940.0584,
+      "ok": true
+    },
+    {
+      "measure": "Aged Inventory %",
+      "status": 200,
+      "value": 0.20978212833184393,
+      "ok": true
+    },
+    {
+      "measure": "WOS",
+      "status": 200,
+      "value": 14.0809,
+      "ok": true
+    },
+    {
+      "measure": "DOH",
+      "status": 200,
+      "value": 98.5663,
+      "ok": true
+    },
+    {
+      "measure": "TB Inventory Value at Cost",
+      "status": 200,
+      "value": 2012924731.0823,
+      "ok": true
+    },
+    {
+      "measure": "Aggressive Excess Value at Cost",
+      "status": 200,
+      "value": 331515669.6602,
+      "ok": true
+    },
+    {
+      "measure": "Excess Value at Cost",
+      "status": 200,
+      "value": 1398048658.6678,
+      "ok": true
+    },
+    {
+      "measure": "Surplus Inventory Value at Cost",
+      "status": 200,
+      "value": 3742489059.4103,
+      "ok": true
+    },
+    {
+      "measure": "Percent Surplus Classification",
+      "status": 200,
+      "value": 0.3541353024033569,
+      "ok": true
+    },
+    {
+      "measure": "Firm Demand at Risk Qty - Week Four",
+      "status": 200,
+      "value": 153985.3046,
+      "ok": true
+    },
+    {
+      "measure": "Forecast Demand at Risk Qty - Week Four",
+      "status": 200,
+      "value": 363889.6958,
+      "ok": true
+    },
+    {
+      "measure": "Firm Demand at Risk $ - Week Four",
+      "status": 200,
+      "value": 34432008.85621558,
+      "ok": true
+    },
+    {
+      "measure": "Forecast Demand at Risk $ - Week Four",
+      "status": 200,
+      "value": 79991013.6137844,
+      "ok": true
+    },
+    {
+      "measure": "Shortage / Revenue at Risk Horizon $",
+      "status": 200,
+      "value": 2574722961.72,
+      "ok": true
+    },
+    {
+      "measure": "Shortage Horizon Qty",
+      "status": 200,
+      "value": 14426963.0,
+      "ok": true
+    },
+    {
+      "measure": "Surplus / Excess Exposure $",
+      "status": 200,
+      "value": 3742489059.4103,
+      "ok": true
+    },
+    {
+      "measure": "Net Surplus Less Risk $",
+      "status": 200,
+      "value": 1167766097.6903,
+      "ok": true
+    },
+    {
+      "measure": "Top Shortage Value $",
+      "status": 200,
+      "value": 119115322.36,
+      "ok": true
+    },
+    {
+      "measure": "Top Surplus Value $",
+      "status": 200,
+      "value": 3742489059.4103,
+      "ok": true
+    },
+    {
+      "measure": "Service Rate",
+      "status": 200,
+      "value": 0.8327755137431717,
+      "ok": true
+    },
+    {
+      "measure": "Excess to Risk %",
+      "status": 200,
+      "value": 31.419,
+      "ok": true
+    },
+    {
+      "measure": "In Control %",
+      "status": 200,
+      "value": 0.6222479879591262,
+      "ok": true
+    },
+    {
+      "measure": "Process Value Add %",
+      "status": 200,
+      "value": 0.8327642393076561,
+      "ok": true
+    },
+    {
+      "measure": "Inventory Health Summary Score",
+      "status": 200,
+      "value": 0.7002960664329804,
+      "ok": true
+    },
+    {
+      "measure": "KPI Delta",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "KPI Delta Color - Higher Is Bad",
+      "status": 200,
+      "value": "#6B7280",
+      "ok": true
+    },
+    {
+      "measure": "KPI Delta Color - Higher Is Good",
+      "status": 200,
+      "value": "#6B7280",
+      "ok": true
+    },
+    {
+      "measure": "Color - Primary Navy",
+      "status": 200,
+      "value": "#07135F",
+      "ok": true
+    },
+    {
+      "measure": "Color - Ashley Orange",
+      "status": 200,
+      "value": "#FF5A00",
+      "ok": true
+    },
+    {
+      "measure": "Color - Risk Red",
+      "status": 200,
+      "value": "#FF1F1F",
+      "ok": true
+    },
+    {
+      "measure": "Color - Watch Amber",
+      "status": 200,
+      "value": "#F6B000",
+      "ok": true
+    },
+    {
+      "measure": "Color - Good Green",
+      "status": 200,
+      "value": "#16A34A",
+      "ok": true
+    },
+    {
+      "measure": "Color - Prior Neutral",
+      "status": 200,
+      "value": "#D8D0C4",
+      "ok": true
+    },
+    {
+      "measure": "Color - Grid Border",
+      "status": 200,
+      "value": "#D9E0EA",
+      "ok": true
+    },
+    {
+      "measure": "Font - Main Title",
+      "status": 200,
+      "value": "Segoe UI Semibold",
+      "ok": true
+    },
+    {
+      "measure": "Font - Body",
+      "status": 200,
+      "value": "Segoe UI",
+      "ok": true
+    },
+    {
+      "measure": "Font Size - KPI Label",
+      "status": 200,
+      "value": 8,
+      "ok": true
+    },
+    {
+      "measure": "Font Size - KPI Value",
+      "status": 200,
+      "value": 28,
+      "ok": true
+    },
+    {
+      "measure": "Font Size - Section Title",
+      "status": 200,
+      "value": 12,
+      "ok": true
+    },
+    {
+      "measure": "Inventory Health Insight - What We Noticed",
+      "status": 200,
+      "value": "Inventory commitment and service metrics require review by week ending context.",
+      "ok": true
+    },
+    {
+      "measure": "Inventory Health Insight - Where The Risk Is",
+      "status": 200,
+      "value": "Primary risk is concentrated in shortage/revenue at risk, surplus exposure, and capacity utilization.",
+      "ok": true
+    },
+    {
+      "measure": "Inventory Health Insight - What This Means",
+      "status": 200,
+      "value": "Service pressure and trapped capital should be prioritized together.",
+      "ok": true
+    },
+    {
+      "measure": "Inventory Health Insight - Focus For Next Steps",
+      "status": 200,
+      "value": "Prioritize high-risk SKU-location combinations and validate surplus/shortage drivers.",
+      "ok": true
+    },
+    {
+      "measure": "Bottom Line Text",
+      "status": 200,
+      "value": "Service pressure in low WOS. Capital trapped in high WOS. Inventory not converting to service.",
+      "ok": true
+    },
+    {
+      "measure": "ATP Active Item-WH Count",
+      "status": 200,
+      "value": 57665,
+      "ok": true
+    },
+    {
+      "measure": "Positive ATP Item-WH Count",
+      "status": 200,
+      "value": 48022,
+      "ok": true
+    },
+    {
+      "measure": "ATP In-Stock Rate",
+      "status": 200,
+      "value": 0.8327755137431717,
+      "ok": true
+    },
+    {
+      "measure": "Warehouse Capacity Risk",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Revenue at Risk $",
+      "status": 200,
+      "value": 119115322.36,
+      "ok": true
+    },
+    {
+      "measure": "Shortage Qty",
+      "status": 200,
+      "value": 649886.0,
+      "ok": true
+    },
+    {
+      "measure": "Firm Demand at Risk",
+      "status": 200,
+      "value": 34432008.85621558,
+      "ok": true
+    },
+    {
+      "measure": "Forecast Demand at Risk",
+      "status": 200,
+      "value": 79991013.6137844,
+      "ok": true
+    },
+    {
+      "measure": "Firm Demand at Risk %",
+      "status": 200,
+      "value": 0.28906448116013467,
+      "ok": true
+    },
+    {
+      "measure": "Forecast Demand at Risk %",
+      "status": 200,
+      "value": 0.6715426028234139,
+      "ok": true
+    },
+    {
+      "measure": "Surplus Amount $",
+      "status": 200,
+      "value": 3742489059.4103,
+      "ok": true
+    },
+    {
+      "measure": "Percent Surplus",
+      "status": 200,
+      "value": 0.3541353024033569,
+      "ok": true
+    },
+    {
+      "measure": "Below Target Value at Cost",
+      "status": 200,
+      "value": 249580532.7451,
+      "ok": true
+    },
+    {
+      "measure": "Sweet Spot Value at Cost",
+      "status": 200,
+      "value": 1605728338.3922,
+      "ok": true
+    },
+    {
+      "measure": "Over Target Value at Cost",
+      "status": 200,
+      "value": 4970165878.7979,
+      "ok": true
+    },
+    {
+      "measure": "SLOB Value at Cost",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Inactive Value at Cost",
+      "status": 200,
+      "value": 0.0,
+      "ok": true
+    },
+    {
+      "measure": "TB Inventory %",
+      "status": 200,
+      "value": 0.19047422638807895,
+      "ok": true
+    },
+    {
+      "measure": "Aggressive Excess %",
+      "status": 200,
+      "value": 0.031369871778613855,
+      "ok": true
+    },
+    {
+      "measure": "Excess %",
+      "status": 200,
+      "value": 0.13229120423666407,
+      "ok": true
+    },
+    {
+      "measure": "Over Target %",
+      "status": 200,
+      "value": 0.47030496777464975,
+      "ok": true
+    },
+    {
+      "measure": "Sweet Spot %",
+      "status": 200,
+      "value": 0.15194302018447645,
+      "ok": true
+    },
+    {
+      "measure": "Below Target %",
+      "status": 200,
+      "value": 0.02361670963751693,
+      "ok": true
+    },
+    {
+      "measure": "SLOB %",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Inactive %",
+      "status": 200,
+      "value": 0.0,
+      "ok": true
+    },
+    {
+      "measure": "Current Value Color",
+      "status": 200,
+      "value": "#FF5A00",
+      "ok": true
+    },
+    {
+      "measure": "Prior Value Color",
+      "status": 200,
+      "value": "#D8D0C4",
+      "ok": true
+    },
+    {
+      "measure": "Risk Color",
+      "status": 200,
+      "value": "#FF1F1F",
+      "ok": true
+    },
+    {
+      "measure": "Service Good Color",
+      "status": 200,
+      "value": "#16A34A",
+      "ok": true
+    },
+    {
+      "measure": "Watch Color",
+      "status": 200,
+      "value": "#F6B000",
+      "ok": true
+    }
+  ]
+}

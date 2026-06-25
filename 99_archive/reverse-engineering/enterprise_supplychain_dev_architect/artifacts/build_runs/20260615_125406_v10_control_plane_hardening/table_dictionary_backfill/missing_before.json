@@ -1,0 +1,92 @@
+[
+  {
+    "asset_id": "InventoryHistory_Enh.Cogs52WWeekly",
+    "physical_item": "SupplyChain_Processing_Warehouse",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "Cogs52WWeekly",
+    "legacy_sp_name": null,
+    "rows_loaded": 2907355,
+    "last_load_date_utc": "2026-06-10 14:38:37.473333"
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+    "physical_item": "SupplyChain_Processing_Warehouse",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "ItemBalanceHistorical_WithInTransit",
+    "legacy_sp_name": null,
+    "rows_loaded": 30041548,
+    "last_load_date_utc": "2026-06-10 13:36:51.416667"
+  },
+  {
+    "asset_id": "Staging_Wrk.DemandForecastSnapshotDaily",
+    "physical_item": "SupplyChain_Processing_Warehouse",
+    "physical_schema": "Staging_Wrk",
+    "physical_object": "DemandForecastSnapshotDaily",
+    "legacy_sp_name": null,
+    "rows_loaded": 6869202992,
+    "last_load_date_utc": "2026-06-11 13:02:01.850000"
+  },
+  {
+    "asset_id": "InventoryHealth_DW.FactInventoryRiskForward",
+    "physical_item": "SupplyChain_Gold_Warehouse",
+    "physical_schema": "InventoryHealth_DW",
+    "physical_object": "FactInventoryRiskForward",
+    "legacy_sp_name": null,
+    "rows_loaded": 3779069,
+    "last_load_date_utc": "2026-05-29 10:18:55.946248"
+  },
+  {
+    "asset_id": "InventoryHealth_DW.FactInventoryHealthSnapshot",
+    "physical_item": "SupplyChain_Gold_Warehouse",
+    "physical_schema": "InventoryHealth_DW",
+    "physical_object": "FactInventoryHealthSnapshot",
+    "legacy_sp_name": null,
+    "rows_loaded": 60863538,
+    "last_load_date_utc": "2026-05-29 10:18:53.833247"
+  },
+  {
+    "asset_id": "InventoryHealth_DW.CogsRollingHelper",
+    "physical_item": "SupplyChain_Gold_Warehouse",
+    "physical_schema": "InventoryHealth_DW",
+    "physical_object": "CogsRollingHelper",
+    "legacy_sp_name": null,
+    "rows_loaded": 3135832,
+    "last_load_date_utc": "2026-05-27 16:54:08.996149"
+  },
+  {
+    "asset_id": "Shared_DW.DimWarehouse",
+    "physical_item": "SupplyChain_Gold_Warehouse",
+    "physical_schema": "Shared_DW",
+    "physical_object": "DimWarehouse",
+    "legacy_sp_name": "Shared_DW.DimWarehouse",
+    "rows_loaded": 53,
+    "last_load_date_utc": "2026-05-29 10:59:11.193110"
+  },
+  {
+    "asset_id": "InventoryHealth_DW.DimVendor",
+    "physical_item": "SupplyChain_Gold_Warehouse",
+    "physical_schema": "InventoryHealth_DW",
+    "physical_object": "DimVendor",
+    "legacy_sp_name": null,
+    "rows_loaded": 0,
+    "last_load_date_utc": "2026-06-15 05:54:23.755125"
+  },
+  {
+    "asset_id": "Shared_DW.DimProduct",
+    "physical_item": "SupplyChain_Gold_Warehouse",
+    "physical_schema": "Shared_DW",
+    "physical_object": "DimProduct",
+    "legacy_sp_name": null,
+    "rows_loaded": 383883,
+    "last_load_date_utc": "2026-05-29 08:33:21.517972"
+  },
+  {
+    "asset_id": "Shared_DW.DimCalendar",
+    "physical_item": "SupplyChain_Gold_Warehouse",
+    "physical_schema": "Shared_DW",
+    "physical_object": "DimCalendar",
+    "legacy_sp_name": "Shared_DW.DimCalendar",
+    "rows_loaded": 21551,
+    "last_load_date_utc": "2026-05-29 04:32:29.285755"
+  }
+]

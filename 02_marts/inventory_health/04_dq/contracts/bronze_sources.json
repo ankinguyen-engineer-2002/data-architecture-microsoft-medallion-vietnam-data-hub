@@ -1,0 +1,820 @@
+{
+  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "mart": "inventory_health",
+  "sources": [
+    {
+      "asset_key": "enterprise_lakehouse.customerorders_afi.warehousemaster",
+      "column_count": 29,
+      "display": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.customerorders_afi.warehousemaster.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [
+        "Warehouse"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.customerorders_afi.warehousemaster.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.inventory_enh_history.itembalance",
+      "column_count": 5,
+      "display": "Enterprise_Lakehouse.Inventory_Enh_History.ItemBalance",
+      "dq_status": "REVIEW_HISTORY_DUP_LATEST_CLEAN",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.inventory_enh_history.itembalance.dq.json",
+      "freshness": {
+        "DateWeekEnding": "2026-06-13"
+      },
+      "freshness_columns": [
+        "DateWeekEnding"
+      ],
+      "key_columns": [
+        "ItemNumber",
+        "Warehouse",
+        "DateWeekEnding"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate",
+        "all_history_grain_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.inventory_enh_history.itembalance.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.aitmcls",
+      "column_count": 6,
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.AITMCLS",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.aitmcls.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.aitmcls.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itbext",
+      "column_count": 50,
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.itbext.dq.json",
+      "freshness": {
+        "MFSDT": 20391101
+      },
+      "freshness_columns": [
+        "MFSDT"
+      ],
+      "key_columns": [
+        "ITNBR"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.itbext.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itembl",
+      "column_count": 124,
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITEMBL",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.itembl.dq.json",
+      "freshness": {
+        "LACDT": 1800305,
+        "LPHDT": 1071230,
+        "MDATE": 1260623,
+        "NXCDT": 9999999,
+        "SCPDT": 1260623
+      },
+      "freshness_columns": [
+        "LACDT",
+        "LPHDT",
+        "NXCDT",
+        "MDATE",
+        "SCPDT"
+      ],
+      "key_columns": [
+        "ITNBR",
+        "MDATE"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.itembl.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itmext",
+      "column_count": 80,
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.itmext.dq.json",
+      "freshness": {
+        "ITMOBDT": 0,
+        "ITSCDT": 20260623,
+        "LINTRCPTDT": 20210515
+      },
+      "freshness_columns": [
+        "LINTRCPTDT",
+        "ITSCDT",
+        "ITMOBDT"
+      ],
+      "key_columns": [
+        "ITNBR"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.itmext.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itmrva",
+      "column_count": 122,
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.itmrva.dq.json",
+      "freshness": {
+        "BZBLDT": 1060826,
+        "CRDT": 1260623
+      },
+      "freshness_columns": [
+        "BZBLDT",
+        "CRDT"
+      ],
+      "key_columns": [
+        "ITNBR"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.itmrva.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.manufacturing_inventory_afi.tfrdtl",
+      "column_count": 19,
+      "display": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRDTL",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.manufacturing_inventory_afi.tfrdtl.dq.json",
+      "freshness": {
+        "DETADT": 0
+      },
+      "freshness_columns": [
+        "DETADT"
+      ],
+      "key_columns": [
+        "DTFRNO"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.manufacturing_inventory_afi.tfrdtl.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.manufacturing_inventory_afi.tfrhdr",
+      "column_count": 20,
+      "display": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRHDR",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.manufacturing_inventory_afi.tfrhdr.dq.json",
+      "freshness": {
+        "HARRDT": 20280619
+      },
+      "freshness_columns": [
+        "HARRDT"
+      ],
+      "key_columns": [
+        "HTFRNO"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.manufacturing_inventory_afi.tfrhdr.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.manufacturing_productionplanning_afi.momast",
+      "column_count": 71,
+      "display": "Enterprise_Lakehouse.Manufacturing_ProductionPlanning_AFI.MOMAST",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.manufacturing_productionplanning_afi.momast.dq.json",
+      "freshness": {
+        "ASTDT": 1260714,
+        "LATDT": 1260623,
+        "OCODT": 1260629,
+        "ODUDT": 1261231,
+        "SSTDT": 1260916
+      },
+      "freshness_columns": [
+        "ODUDT",
+        "SSTDT",
+        "LATDT",
+        "ASTDT",
+        "OCODT"
+      ],
+      "key_columns": [
+        "ORDNO"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.manufacturing_productionplanning_afi.momast.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimdate",
+      "column_count": 72,
+      "display": "Enterprise_Lakehouse.MasterData_DW.DimDate",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.masterdata_dw.dimdate.dq.json",
+      "freshness": {
+        "CalendarDate": "2028-12-31",
+        "CalendarMonthFirstDate": "2028-12-01",
+        "CalendarWeekFirstDate": "2028-12-31",
+        "CalendarWeekLastDate": "2028-12-31",
+        "MapicsDate": 1281231
+      },
+      "freshness_columns": [
+        "MapicsDate",
+        "CalendarDate",
+        "CalendarWeekFirstDate",
+        "CalendarWeekLastDate",
+        "CalendarMonthFirstDate"
+      ],
+      "key_columns": [
+        "MapicsDate",
+        "CalendarDate",
+        "CalendarWeekFirstDate",
+        "CalendarWeekLastDate",
+        "CalendarMonthFirstDate"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.masterdata_dw.dimdate.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimitemmaster",
+      "column_count": 173,
+      "display": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.masterdata_dw.dimitemmaster.dq.json",
+      "freshness": {
+        "DiscontinuedDate": "2026-06-22",
+        "ManufacturingStatusChangeDate": "2026-06-22",
+        "MarketBeginDate": "2026-07-01",
+        "MarketEndDate": "2026-08-01",
+        "StatusCodeChangeDate": "2026-06-22"
+      },
+      "freshness_columns": [
+        "ManufacturingStatusChangeDate",
+        "DiscontinuedDate",
+        "StatusCodeChangeDate",
+        "MarketBeginDate",
+        "MarketEndDate"
+      ],
+      "key_columns": [
+        "ItemSKU"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.masterdata_dw.dimitemmaster.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_productknowledge.item_env",
+      "column_count": 24,
+      "display": "Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.masterdata_productknowledge.item_env.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.masterdata_productknowledge.item_env.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.purchasing_afi.vendormaster",
+      "column_count": 51,
+      "display": "Enterprise_Lakehouse.Purchasing_AFI.VendorMaster",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.purchasing_afi.vendormaster.dq.json",
+      "freshness": {
+        "AmountToDate": "17935148565.42",
+        "LastPaymentDate": 1030725
+      },
+      "freshness_columns": [
+        "AmountToDate",
+        "LastPaymentDate"
+      ],
+      "key_columns": [
+        "VendorNumber"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.purchasing_afi.vendormaster.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoicedetail",
+      "column_count": 80,
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.saleshistory_afi_enh.invoicedetail.dq.json",
+      "freshness": {
+        "InvoiceDate": "2026-06-23",
+        "OrderDate": "2026-06-22",
+        "OriginalInvoiceDate": "2026-06-11",
+        "OriginalOrderDate": "2026-06-08",
+        "RequestDate": "2028-09-28"
+      },
+      "freshness_columns": [
+        "InvoiceDate",
+        "OrderDate",
+        "RequestDate",
+        "OriginalInvoiceDate",
+        "OriginalOrderDate"
+      ],
+      "key_columns": [
+        "InvoiceNumber",
+        "ItemSequence",
+        "LineReleaseNumber",
+        "OriginalSequenceNumber",
+        "ItemSKU"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.saleshistory_afi_enh.invoicedetail.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoiceheader",
+      "column_count": 40,
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.saleshistory_afi_enh.invoiceheader.dq.json",
+      "freshness": {
+        "InvoiceDate": "2026-06-23",
+        "OrderDate": "2026-06-22",
+        "RequestDate": "2028-09-28",
+        "TripCreatedDate": "2026-06-22"
+      },
+      "freshness_columns": [
+        "InvoiceDate",
+        "OrderDate",
+        "RequestDate",
+        "TripCreatedDate"
+      ],
+      "key_columns": [
+        "InvoiceNumber"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.saleshistory_afi_enh.invoiceheader.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.atpweekending",
+      "column_count": 14,
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.ATPWeekEnding",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.atpweekending.dq.json",
+      "freshness": {
+        "InsertedDate": "2026-06-23 07:11:53",
+        "RunDate": "2026-06-23",
+        "WeekEnding": "2026-08-01"
+      },
+      "freshness_columns": [
+        "InsertedDate",
+        "RunDate",
+        "WeekEnding"
+      ],
+      "key_columns": [
+        "WeekEnding",
+        "RunDate",
+        "InsertedDate",
+        "ItemSKU",
+        "Warehouse",
+        "AFIFinanceDivision"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.atpweekending.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.demandforecastsnapshotdaily",
+      "column_count": 23,
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.demandforecastsnapshotdaily.dq.json",
+      "freshness": {
+        "dfcSnapshot": "2026-06-19 00:00:00"
+      },
+      "freshness_columns": [
+        "dfcSnapshot"
+      ],
+      "key_columns": [
+        "dfcSnapshot",
+        "dfcItem",
+        "dfcWarehouse"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.demandforecastsnapshotdaily.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.demandfulfillmentcommoncontainer_logility",
+      "column_count": 53,
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.demandfulfillmentcommoncontainer_logility.dq.json",
+      "freshness": {
+        "FileDate": "2026-05-11 00:00:00",
+        "StatusChngDate": "2026-05-08 00:00:00",
+        "WeekEnding": "2026-05-16"
+      },
+      "freshness_columns": [
+        "WeekEnding",
+        "StatusChngDate",
+        "FileDate"
+      ],
+      "key_columns": [
+        "WeekEnding",
+        "Item"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.demandfulfillmentcommoncontainer_logility.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.demandinventorysnapshotdaily",
+      "column_count": 31,
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.DemandInventorySnapshotDaily",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.demandinventorysnapshotdaily.dq.json",
+      "freshness": {
+        "dinSnapshot": "2026-06-23 05:30:02"
+      },
+      "freshness_columns": [
+        "dinSnapshot"
+      ],
+      "key_columns": [
+        "dinSnapshot",
+        "dinItem",
+        "dinWarehouse"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.demandinventorysnapshotdaily.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.purchaseordersnapshot",
+      "column_count": 8,
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.PurchaseOrderSnapshot",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.purchaseordersnapshot.dq.json",
+      "freshness": {
+        "posDueDt": 1301030,
+        "posSnapshot": "2026-06-22 15:01:09"
+      },
+      "freshness_columns": [
+        "posSnapshot",
+        "posDueDt"
+      ],
+      "key_columns": [
+        "posSnapshot",
+        "posItNbr",
+        "posWhse",
+        "posVndnr",
+        "posDueDt"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.purchaseordersnapshot.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.supplyplandetailsnapshotdaily",
+      "column_count": 27,
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.SupplyPlanDetailSnapshotDaily",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.supplyplandetailsnapshotdaily.dq.json",
+      "freshness": {
+        "dtea": "2026-06-23 04:46:40",
+        "spdWeekEnding": "2027-03-06"
+      },
+      "freshness_columns": [
+        "dtea",
+        "spdWeekEnding"
+      ],
+      "key_columns": [
+        "dtea",
+        "spdItem",
+        "spdWarehouse",
+        "spdWeekEnding"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.supplychain_enh.supplyplandetailsnapshotdaily.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.ashleywarehousemaster",
+      "column_count": 29,
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.AshleyWarehouseMaster",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.ashleywarehousemaster.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.ashleywarehousemaster.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing.nonpkitems",
+      "column_count": 9,
+      "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.wholesale_productsourcing.nonpkitems.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.wholesale_productsourcing.nonpkitems.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing_afi.customergrouping",
+      "column_count": 8,
+      "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.wholesale_productsourcing_afi.customergrouping.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [
+        "CustomerNumber",
+        "CustomerGroup"
+      ],
+      "layer": "bronze",
+      "mart": "inventory_health",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/inventory_health/04_dq/bronze_sources/enterprise_lakehouse.wholesale_productsourcing_afi.customergrouping.dq.sql"
+    }
+  ]
+}

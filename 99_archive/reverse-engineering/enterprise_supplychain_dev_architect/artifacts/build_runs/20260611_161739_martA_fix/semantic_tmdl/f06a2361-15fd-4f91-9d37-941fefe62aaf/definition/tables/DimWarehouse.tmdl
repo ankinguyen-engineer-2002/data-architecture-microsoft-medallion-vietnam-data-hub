@@ -1,0 +1,208 @@
+/// Warehouse/location dimension used across Control Tower reporting. Supports filtering, grouping, and analysis by warehouse and related location attributes.
+table DimWarehouse
+	lineageTag: 91e8585a-c807-4412-af0c-604c7bd7f287
+	sourceLineageTag: [Shared_DW].[DimWarehouse]
+
+	/// Warehouse surrogate key from the warehouse dimension source.
+	column AFIWarehousesKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 329987aa-f1eb-4b9a-bc1e-8b452d6973dd
+		sourceLineageTag: AFIWarehousesKey
+		summarizeBy: sum
+		sourceColumn: AFIWarehousesKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business warehouse code used to join warehouse-related facts and slice Control Tower metrics.
+	column WarehouseCode
+		dataType: string
+		lineageTag: 9b7bf84b-06fe-43b8-8127-69ab9ae8492f
+		sourceLineageTag: WarehouseCode
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column IntransitWarehouse
+		dataType: string
+		lineageTag: df4261bb-e845-4326-b6bd-d4bb54ae7ba2
+		sourceLineageTag: IntransitWarehouse
+		summarizeBy: none
+		sourceColumn: IntransitWarehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContainerDirectWarehouse
+		dataType: string
+		lineageTag: d0027cbe-adcd-4102-a91a-2536256044d7
+		sourceLineageTag: ContainerDirectWarehouse
+		summarizeBy: none
+		sourceColumn: ContainerDirectWarehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Flag indicating whether the warehouse is included in controlled warehouse reporting logic.
+	column ControlledWarehouse
+		dataType: int64
+		formatString: 0
+		lineageTag: 0640f772-e153-4250-9144-17399c3b3649
+		sourceLineageTag: ControlledWarehouse
+		summarizeBy: sum
+		sourceColumn: ControlledWarehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Warehouse location name used for reporting and user-facing filters.
+	column WarehouseLocation
+		dataType: string
+		lineageTag: 6e36fef7-faae-4bd6-9d4c-4ae2a3d7f403
+		sourceLineageTag: WarehouseLocation
+		summarizeBy: none
+		sourceColumn: WarehouseLocation
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Warehouse order group used for grouped warehouse analysis.
+	column WarehouseOrderGroup
+		dataType: string
+		lineageTag: 35451d53-d8ed-4848-9091-da8eb2a8bde2
+		sourceLineageTag: WarehouseOrderGroup
+		summarizeBy: none
+		sourceColumn: WarehouseOrderGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinanceInventoryReportFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 7f3e731f-5355-4a9d-99e4-87bb1cc0adfe
+		sourceLineageTag: FinanceInventoryReportFlag
+		summarizeBy: sum
+		sourceColumn: FinanceInventoryReportFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseName
+		dataType: string
+		lineageTag: 465943f0-d4d6-4980-926c-eb94148f9040
+		sourceLineageTag: WarehouseName
+		summarizeBy: none
+		sourceColumn: WarehouseName
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseType
+		dataType: string
+		lineageTag: 2680d1b7-97d7-4ae9-ab1a-b65c9045d533
+		sourceLineageTag: WarehouseType
+		summarizeBy: none
+		sourceColumn: WarehouseType
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseSourceId
+		dataType: string
+		lineageTag: 0348efc1-c576-4db6-8843-31b4059378ad
+		sourceLineageTag: WarehouseSourceId
+		summarizeBy: none
+		sourceColumn: WarehouseSourceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SellableWarehouseFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f518a478-76a4-46db-aff9-52e39751adfe
+		sourceLineageTag: SellableWarehouseFlag
+		summarizeBy: none
+		sourceColumn: SellableWarehouseFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column ControlledFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: eb08147f-3d1a-4241-a484-888a7a638dca
+		sourceLineageTag: ControlledFlag
+		summarizeBy: none
+		sourceColumn: ControlledFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column WhereMadeCode
+		dataType: string
+		lineageTag: 8974379b-0a63-4b8a-b9da-a955d5660222
+		sourceLineageTag: WhereMadeCode
+		summarizeBy: none
+		sourceColumn: WhereMadeCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column ManufacturingSite
+		dataType: string
+		lineageTag: 10060577-2411-4184-b116-f7642ba36f26
+		sourceLineageTag: ManufacturingSite
+		summarizeBy: none
+		sourceColumn: ManufacturingSite
+
+		annotation SummarizationSetBy = Automatic
+
+	column IntransitWarehouseCode
+		dataType: string
+		lineageTag: 1f89e086-b01c-4b70-9249-926fe9312c0b
+		sourceLineageTag: IntransitWarehouseCode
+		summarizeBy: none
+		sourceColumn: IntransitWarehouseCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsFinishedGoodsWarehouse
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: dc570347-e807-40a6-b86d-91f6f208f479
+		sourceLineageTag: IsFinishedGoodsWarehouse
+		summarizeBy: none
+		sourceColumn: IsFinishedGoodsWarehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsManufacturingWarehouse
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5887b0db-74eb-4af8-a851-9619c832a1ae
+		sourceLineageTag: IsManufacturingWarehouse
+		summarizeBy: none
+		sourceColumn: IsManufacturingWarehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalAvailableWarehouseCube
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 236cfc3a-70e8-4938-8b16-1570b0d56a7b
+		sourceLineageTag: TotalAvailableWarehouseCube
+		summarizeBy: sum
+		sourceColumn: TotalAvailableWarehouseCube
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column LoadDT
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0be2bd95-9cd3-42ce-be5e-85074c06ed45
+		sourceLineageTag: LoadDT
+		summarizeBy: none
+		sourceColumn: LoadDT
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimWarehouse = entity
+		mode: directLake
+		source
+			entityName: DimWarehouse
+			schemaName: Shared_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

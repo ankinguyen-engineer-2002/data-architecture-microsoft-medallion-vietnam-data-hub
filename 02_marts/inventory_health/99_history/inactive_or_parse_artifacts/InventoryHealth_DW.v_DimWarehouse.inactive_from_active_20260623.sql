@@ -1,0 +1,3 @@
+-- ---- InventoryHealth_DW.v_DimWarehouse ----  [DROPPED 2026-05-29]
+-- Consolidated to Shared_DW.DimWarehouse. The shared superset keeps all
+-- inventory-specific warehouse flags plus forecast warehouse fields.

@@ -1,0 +1,157 @@
+{
+  "value": [
+    {
+      "id": "95d8f2a2-d1f9-4c82-8ee9-ccd4c41891ff",
+      "type": "DataPipeline",
+      "displayName": "pl_forecast",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "f8d8d3cf-5947-419c-ac93-4e594d5e2b98",
+      "type": "DataPipeline",
+      "displayName": "pipeline1",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "7127b462-1967-4c3f-9441-30ef1f2a2555",
+      "type": "DataPipeline",
+      "displayName": "test",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "eebac28a-79e3-43d8-8e67-58f07c3d83ec"
+    },
+    {
+      "id": "e388c9ef-f067-4e95-91b2-961436b8a683",
+      "type": "DataPipeline",
+      "displayName": "pl_brz_daily",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "188d52f4-ff31-4459-904d-ea3a6e89b87f",
+      "type": "DataPipeline",
+      "displayName": "pl_slv_daily",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "23500e03-9be9-414b-ba34-c8914ca8f70f"
+    },
+    {
+      "id": "8a8fabf1-634e-4705-9909-929b5b451438",
+      "type": "DataPipeline",
+      "displayName": "pl_gld_daily",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "c2f8b30e-9431-481c-b05c-b2e572eec397"
+    },
+    {
+      "id": "4214332e-392f-4d2e-ac11-99094ac33aa7",
+      "type": "DataPipeline",
+      "displayName": "pl_master_daily",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "e3331c43-a9e1-4a7b-a170-234d2457dfcc"
+    },
+    {
+      "id": "7e0c18d2-1656-4b64-9642-d1787e9ce78c",
+      "type": "DataPipeline",
+      "displayName": "pl_test_concurrency",
+      "description": "Test concurrency. Set concurrency=1 on UI, then trigger twice. DELETE after testing.",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "e3331c43-a9e1-4a7b-a170-234d2457dfcc"
+    },
+    {
+      "id": "7370cb2a-15c8-4fb9-8714-a4ce8c1d0fc7",
+      "type": "DataPipeline",
+      "displayName": "pl_regional_forecast",
+      "description": "Child pipeline. Accepts REGION parameter. Set concurrency=3 on UI.",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "e3331c43-a9e1-4a7b-a170-234d2457dfcc"
+    },
+    {
+      "id": "f743db73-610c-40fd-a8a7-09be823eca51",
+      "type": "DataPipeline",
+      "displayName": "pl_master_regional",
+      "description": "Parent pipeline. Calls pl_regional_forecast 3 times in parallel with REGION=US/EU/APAC.",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "e3331c43-a9e1-4a7b-a170-234d2457dfcc"
+    },
+    {
+      "id": "6577f34d-5765-4232-a045-9594017100c5",
+      "type": "DataPipeline",
+      "displayName": "pl_stored_procedure",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "e3331c43-a9e1-4a7b-a170-234d2457dfcc"
+    },
+    {
+      "id": "c2254a55-0525-468f-99bf-1a2ce4e71938",
+      "type": "DataPipeline",
+      "displayName": "pl_warehouse",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "1c0d4245-4e0f-433c-9d93-53391b604def"
+    },
+    {
+      "id": "1bdbaebb-7222-4e9c-a45d-3e632bba846d",
+      "type": "DataPipeline",
+      "displayName": "pl_sc_bronze",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "38cdbf44-d108-4e00-98ae-69c2f5aa60b7"
+    },
+    {
+      "id": "46437ae6-3a15-4697-957d-f1f44ba10633",
+      "type": "DataPipeline",
+      "displayName": "pl_sc_silver",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "38cdbf44-d108-4e00-98ae-69c2f5aa60b7"
+    },
+    {
+      "id": "94fc130e-f327-46a9-b7ba-cd2aa328c0da",
+      "type": "DataPipeline",
+      "displayName": "pl_sc_gold",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "38cdbf44-d108-4e00-98ae-69c2f5aa60b7"
+    },
+    {
+      "id": "319a8160-3f3a-4b87-8ad6-75ac4f3ec184",
+      "type": "DataPipeline",
+      "displayName": "pl_sc_master",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "38cdbf44-d108-4e00-98ae-69c2f5aa60b7"
+    },
+    {
+      "id": "57a09720-21a2-49b5-a472-1e19abd14f76",
+      "type": "DataPipeline",
+      "displayName": "pl_sc_silver_wave",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "38cdbf44-d108-4e00-98ae-69c2f5aa60b7"
+    },
+    {
+      "id": "c32dc18d-d027-4672-9872-f73404cd7c6f",
+      "type": "DataPipeline",
+      "displayName": "pl_dq_check",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "38cdbf44-d108-4e00-98ae-69c2f5aa60b7"
+    },
+    {
+      "id": "9a1e7a12-30ab-465c-a45d-b051619193ac",
+      "type": "DataPipeline",
+      "displayName": "pl_sc_mart",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "38cdbf44-d108-4e00-98ae-69c2f5aa60b7"
+    }
+  ],
+  "count": 19
+}

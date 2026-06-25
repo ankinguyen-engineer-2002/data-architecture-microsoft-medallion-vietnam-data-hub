@@ -1,0 +1,34 @@
+{
+  "e122da00-2e36-4f33-94b3-272e16ab6677": {
+    "configuration": {
+      "endDateTime": "2027-05-03T19:00:00",
+      "interval": 60,
+      "localTimeZoneId": "SE Asia Standard Time",
+      "startDateTime": "2026-05-03T19:00:00",
+      "type": "Cron"
+    },
+    "createdDateTime": "2026-06-15T02:50:44.76",
+    "enabled": false,
+    "id": "e122da00-2e36-4f33-94b3-272e16ab6677",
+    "owner": {
+      "id": "331f9337-32ff-4f39-a283-ed7ef56ff430",
+      "type": "User"
+    }
+  },
+  "94a80d90-f1c5-47ed-b1d8-22b20c99e704": {
+    "configuration": {
+      "endDateTime": "2027-05-03T19:00:00",
+      "interval": 60,
+      "localTimeZoneId": "SE Asia Standard Time",
+      "startDateTime": "2026-05-03T19:00:00",
+      "type": "Cron"
+    },
+    "createdDateTime": "2026-06-15T02:50:44.7866667",
+    "enabled": false,
+    "id": "94a80d90-f1c5-47ed-b1d8-22b20c99e704",
+    "owner": {
+      "id": "331f9337-32ff-4f39-a283-ed7ef56ff430",
+      "type": "User"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+-- ---- InventoryHistory_Enh.v_AFIStatusSnapshotWeekly ----
+-- Purpose:
+--   Provide 1-column AFI status at Gold fact grain: ItemSku + WarehouseCode + WeekEndingDate.
+-- Rule (per DA guidance):
+--   - Past weeks (<= max WeekEndingDate available in Logility weekly table): use Logility ItemStatus.
+--   - Current / future weeks ( > max Logility WeekEndingDate): use ItemMaster AFIItemStatus (current attribute).
+-- Notes:
+--   - ItemMaster has no historical by-week status; it is a current attribute source.
+--   - This view intentionally outputs ONLY keys + 1 status column (no extra KPI/helper fields).

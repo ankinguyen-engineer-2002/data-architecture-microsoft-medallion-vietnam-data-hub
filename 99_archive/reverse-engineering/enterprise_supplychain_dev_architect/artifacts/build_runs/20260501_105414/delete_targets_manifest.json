@@ -1,0 +1,53 @@
+{
+  "targets": [
+    {
+      "displayName": "SC_Control_Tower",
+      "type": "SemanticModel",
+      "id": "a52841ee-d853-46df-b2f7-2a2cc4493d60",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_bronze",
+      "type": "DataPipeline",
+      "id": "1bdbaebb-7222-4e9c-a45d-3e632bba846d",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_silver",
+      "type": "DataPipeline",
+      "id": "46437ae6-3a15-4697-957d-f1f44ba10633",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_gold",
+      "type": "DataPipeline",
+      "id": "94fc130e-f327-46a9-b7ba-cd2aa328c0da",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_master",
+      "type": "DataPipeline",
+      "id": "319a8160-3f3a-4b87-8ad6-75ac4f3ec184",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_silver_wave",
+      "type": "DataPipeline",
+      "id": "57a09720-21a2-49b5-a472-1e19abd14f76",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_dq_check",
+      "type": "DataPipeline",
+      "id": "c32dc18d-d027-4672-9872-f73404cd7c6f",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_mart",
+      "type": "DataPipeline",
+      "id": "9a1e7a12-30ab-465c-a45d-b051619193ac",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    }
+  ],
+  "count": 8
+}

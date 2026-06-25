@@ -1,0 +1,151 @@
+{
+  "timestamp": "20260430_230811",
+  "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+  "sql_server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "database": "SupplyChain_Warehouse",
+  "output_dir": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/Enterprise_SupplyChain_Dev_architect/readiness_exports/20260430_230811",
+  "sql_exports": {
+    "00_object_inventory.csv": {
+      "status": "exported",
+      "rows": 150
+    },
+    "01_table_row_counts.csv": {
+      "status": "exported",
+      "rows": 71
+    },
+    "02_columns.csv": {
+      "status": "exported",
+      "rows": 3751
+    },
+    "03_sp_registry.csv": {
+      "status": "exported",
+      "rows": 28
+    },
+    "04_sp_registry_summary.csv": {
+      "status": "exported",
+      "rows": 5
+    },
+    "05_smart_skip_registry.csv": {
+      "status": "exported",
+      "rows": 28
+    },
+    "06_lineage.csv": {
+      "status": "error",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'source_object'. (207) (SQLExecDirectW)\")"
+    },
+    "07_dq_rules.csv": {
+      "status": "exported",
+      "rows": 54
+    },
+    "08_dq_rules_summary.csv": {
+      "status": "exported",
+      "rows": 15
+    },
+    "09_dq_results_recent.csv": {
+      "status": "exported",
+      "rows": 38
+    },
+    "10_run_history_recent.csv": {
+      "status": "exported",
+      "rows": 300
+    },
+    "11_pipeline_run_log_recent.csv": {
+      "status": "exported",
+      "rows": 23
+    },
+    "12_table_dictionary.csv": {
+      "status": "error",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'tpkSchemaName'. (207) (SQLExecDirectW)\")"
+    },
+    "13_view_definitions.csv": {
+      "status": "exported",
+      "rows": 55
+    },
+    "14_routine_definitions.csv": {
+      "status": "exported",
+      "rows": 28
+    },
+    "15_phase3_object_existence.csv": {
+      "status": "exported",
+      "rows": 7
+    },
+    "16_schema_contracts.csv": {
+      "status": "exported",
+      "rows": 674
+    },
+    "17_performance_baseline.csv": {
+      "status": "exported",
+      "rows": 28
+    },
+    "18_pipeline_cost_log.csv": {
+      "status": "error",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'pipeline_start_time'. (207) (SQLExecDirectW)\")"
+    }
+  },
+  "rest_exports": {
+    "pipeline_summaries": [
+      {
+        "pipeline": "pl_sc_master",
+        "has_pipeline_content": true,
+        "activity_count": 7,
+        "sql_query_count": 1,
+        "has_next_run_time_filter": false,
+        "has_project_filter": true,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_sc_mart",
+        "has_pipeline_content": true,
+        "activity_count": 3,
+        "sql_query_count": 0,
+        "has_next_run_time_filter": false,
+        "has_project_filter": false,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_sc_bronze",
+        "has_pipeline_content": true,
+        "activity_count": 3,
+        "sql_query_count": 1,
+        "has_next_run_time_filter": true,
+        "has_project_filter": true,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_sc_silver",
+        "has_pipeline_content": true,
+        "activity_count": 4,
+        "sql_query_count": 1,
+        "has_next_run_time_filter": false,
+        "has_project_filter": false,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_sc_silver_wave",
+        "error": "sequence item 0: expected str instance, dict found"
+      },
+      {
+        "pipeline": "pl_sc_gold",
+        "has_pipeline_content": true,
+        "activity_count": 3,
+        "sql_query_count": 1,
+        "has_next_run_time_filter": true,
+        "has_project_filter": true,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_dq_check",
+        "error": "sequence item 0: expected str instance, dict found"
+      }
+    ],
+    "items_status": "exported",
+    "warehouses_status": "exported",
+    "lakehouses_status": "exported",
+    "semanticModels_status": "exported"
+  }
+}

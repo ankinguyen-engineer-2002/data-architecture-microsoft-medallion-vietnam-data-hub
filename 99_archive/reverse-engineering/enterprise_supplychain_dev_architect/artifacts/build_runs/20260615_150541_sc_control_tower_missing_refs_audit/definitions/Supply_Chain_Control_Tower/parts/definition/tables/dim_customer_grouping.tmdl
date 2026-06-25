@@ -1,0 +1,22 @@
+/// Customer group dimension used across Control Tower reporting. Supports grouping, filtering, and aggregation of customer-related metrics at governed customer group levels.
+table dim_customer_grouping
+	lineageTag: 1db73139-6905-4e51-9b59-6ceb530285d0
+	sourceLineageTag: [dbo].[dim_customer_grouping]
+
+	/// Governed customer group code used to group customer-related metrics across Control Tower reporting.
+	column code_customer_group
+		dataType: string
+		lineageTag: 5f609cfa-551b-4cb9-b8f5-7859c736fd73
+		sourceLineageTag: code_customer_group
+		summarizeBy: none
+		sourceColumn: code_customer_group
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer_grouping = entity
+		mode: directLake
+		source
+			entityName: dim_customer_grouping
+			schemaName: dbo
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

@@ -1,0 +1,3 @@
+-- ---- InventoryHistory_Enh.v_HoldingTransfer ----
+-- TFRDTL + TFRHDR. Same-warehouse holding transfers.
+-- DA Silver_Check 2026-05-28: keep cancelled rows; expose CancelFlag for downstream logic.

@@ -1,0 +1,67 @@
+{
+  "name": "main",
+    "description": "Full SupplyChain all-mart refresh order. Runs the two active marts with mart-local wave dependencies.",
+  "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+  "pipeline": {
+    "name": "pl_sc_master",
+    "id": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+    "api": "dataPipelineExecute"
+  },
+  "default_mode": "dry_run",
+  "wrapper_procedures": [
+        {
+            "step": 10,
+            "database": "SupplyChain_Processing_Warehouse",
+            "schema": "dbo",
+            "procedure": "Usp_Refresh_ForecastAccuracy_Silver",
+            "purpose": "Forecast Accuracy Silver waves, including ReferenceMaster Wave 00."
+        },
+        {
+            "step": 20,
+            "database": "SupplyChain_Gold_Warehouse",
+            "schema": "dbo",
+            "procedure": "Usp_Refresh_ForecastAccuracy_Gold",
+            "purpose": "Forecast Accuracy Gold waves, including Shared_DW Wave 00."
+        },
+        {
+            "step": 30,
+            "database": "SupplyChain_Processing_Warehouse",
+            "schema": "dbo",
+            "procedure": "Usp_Refresh_InventoryHealth_Silver",
+            "purpose": "Inventory Health Silver waves, including ReferenceMaster Wave 00."
+        },
+        {
+            "step": 40,
+            "database": "SupplyChain_Gold_Warehouse",
+            "schema": "dbo",
+            "procedure": "Usp_Refresh_InventoryHealth_Gold",
+            "purpose": "Inventory Health Gold waves, including Shared_DW Wave 00."
+        }
+    ],
+  "sequence": [
+        {
+            "step": 10,
+            "type": "project",
+            "project": "forecast_accuracy",
+            "purpose": "Forecast Accuracy mart, Silver then Gold."
+        },
+        {
+            "step": 20,
+            "type": "project",
+            "project": "inventory_health",
+            "purpose": "Inventory Health mart, Silver then Gold."
+        },
+    {
+      "step": 90,
+      "type": "smoke",
+      "purpose": "Run row-count/freshness/DQ/semantic smoke after refresh."
+    }
+  ],
+  "post_run_checks": [
+    "BOB AuditLog has Process Complete or actionable Error for triggered path",
+    "TableDictionary Modified/RowCount updated for loaded targets",
+    "No grain duplicates on critical snapshot grains",
+    "Gold row counts are non-zero and within expected tolerance",
+    "Semantic smoke passes if report-facing objects changed"
+  ]
+}

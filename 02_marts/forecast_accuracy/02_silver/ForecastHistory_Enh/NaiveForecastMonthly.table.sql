@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Processing_Warehouse].[ForecastHistory_Enh].[NaiveForecastMonthly]
+-- Loaded by ETL_Framework from [SupplyChain_Processing_Warehouse].[ForecastHistory_Enh_Wrk].[v_NaiveForecastMonthly].
+-- Business/source view SQL is documented in ../ForecastHistory_Enh_Wrk/v_NaiveForecastMonthly.sql.

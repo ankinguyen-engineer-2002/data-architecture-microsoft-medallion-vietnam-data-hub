@@ -1,0 +1,188 @@
+{
+  "asset_key": "enterprise_lakehouse.manufacturing_inventory_afi.tfrhdr",
+  "display": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRHDR",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 20,
+    "columns": [
+      {
+        "column_name": "HACREC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "HTFRNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "HFHOUS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "HTHOUS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "HSHDTE",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "HLDDTE",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "HDLDTE",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "HCANCL",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "HSTATS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "HBPRNT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "HBPDTE",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "HPOST",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "HORIG",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "HTRCMT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "HARRDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "HTFRTP",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "HDDCFL",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "HORDNO",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "HORDTP",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "HDDAFL",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 20
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "HARRDT": 20280619
+    },
+    "freshness_columns": [
+      "HARRDT"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 0.43,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "HTFRNO"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.307,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": null,
+          "latest_partition_duplicate_groups": 0,
+          "latest_partition_max_rows_per_key": null
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 0.382,
+      "status": "PASS"
+    },
+    "projects": [
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRHDR",
+    "row_count_metadata": null,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRHDR.sql"
+}

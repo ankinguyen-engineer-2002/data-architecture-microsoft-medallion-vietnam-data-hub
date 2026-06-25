@@ -1,0 +1,30 @@
+flowchart TB
+    repo["Root README<br/>cửa chính của repo"]
+
+    context["00_CONTEXT<br/>trạng thái mới nhất và handoff log"]
+    docs["01_docs<br/>kiến trúc, onboarding, BOB guide, ADR, runbook"]
+    marts["02_marts<br/>SQL theo mart, DQ contract, catalog"]
+    ops["03_operations<br/>orchestration, SQLPROJ, registry, tools"]
+    semantic["04_semantic<br/>semantic/report contract"]
+    tools["05_tools<br/>script audit, sync, generator"]
+    archive["99_archive<br/>kiến thức lịch sử"]
+
+    repo --> context
+    repo --> docs
+    repo --> marts
+    repo --> ops
+    repo --> semantic
+    repo --> tools
+    repo --> archive
+
+    docs --> onboarding["onboarding<br/>DA và DE đọc theo vai trò"]
+    docs --> glossary["glossary<br/>giải thích thuật ngữ"]
+    docs --> arch["architecture/current<br/>kiến trúc hiện tại"]
+    docs --> bob["bob-framework<br/>tài liệu BOB và cách áp dụng"]
+    docs --> decisions["decisions<br/>ADR và lý do chọn"]
+    docs --> runbook["runbook/guides<br/>hướng dẫn vận hành"]
+
+    marts --> martA["<mart_name><br/>00_source_wrk đến 05_catalog"]
+    ops --> sqlproj["deployment/sqlproj<br/>package build-only"]
+    ops --> orch["orchestration<br/>manifest và wrapper order"]
+    ops --> registry["operating_registry<br/>DQ/catalog/run-order rollup"]

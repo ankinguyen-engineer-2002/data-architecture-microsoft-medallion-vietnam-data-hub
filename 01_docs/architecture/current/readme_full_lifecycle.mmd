@@ -1,0 +1,20 @@
+flowchart LR
+    Req["Business request<br/>hoặc source change"]
+    DA["DA đóng gói logic<br/>source, grain, SQL, DQ, semantic impact"]
+    Repo["Mart package trong repo<br/>02_marts/&lt;mart_name&gt;"]
+    DE["DE validate contract<br/>sync live + build package"]
+    CI["CI<br/>dotnet build .sqlproj"]
+    Artifact[".dacpac + DeployReport / Script"]
+    Approval["Review / approval gate"]
+    Publish["CD publish<br/>SQL object đã duyệt"]
+    Scheduler["SQL Agent<br/>hoặc approved trigger"]
+    Wrapper["Wrapper procedure"]
+    Loader["BOB ETL_Framework loader"]
+    Target["Final table"]
+    Evidence["AuditLog + TableDictionary<br/>DQ + semantic smoke"]
+    Context["Context / docs updated"]
+
+    Req --> DA --> Repo --> DE --> CI --> Artifact --> Approval --> Publish
+    Publish --> Scheduler --> Wrapper --> Loader --> Target --> Evidence --> Context
+    Evidence -.feedback.-> DA
+    Context -.operating knowledge.-> DE

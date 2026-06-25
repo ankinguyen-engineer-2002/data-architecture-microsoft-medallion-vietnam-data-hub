@@ -1,0 +1,106 @@
+[
+  {
+    "path": "definition.pbism",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/dim_customer_grouping.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/dim_calendar.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/dim_warehouse.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/dim_product.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/_Measure.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/dim_forecast_horizon.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/fact_flat_forecast_actual.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/fact_forecast_kpi.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/dq_forecast_accuracy.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/para_metric_table.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/Parameter.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimCalendar.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimProduct.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimWarehouse.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimVendor.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/CogsRollingHelper.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/FactInventoryHealthSnapshot.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/FactInventoryRiskForward.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/Measure.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/relationships.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/roles/All_Permission.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/expressions.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/model.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/database.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": ".platform",
+    "payloadType": "InlineBase64"
+  }
+]

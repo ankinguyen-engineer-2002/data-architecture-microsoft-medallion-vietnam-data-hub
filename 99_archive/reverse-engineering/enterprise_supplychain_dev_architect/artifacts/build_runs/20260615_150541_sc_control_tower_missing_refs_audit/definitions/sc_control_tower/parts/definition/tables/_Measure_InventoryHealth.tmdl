@@ -1,0 +1,1091 @@
+table _Measure_InventoryHealth
+	lineageTag: a5f82348-bc2d-41c7-a3fa-1274eb66e44b
+
+	/// Inventory Health on-hand inventory value at cost/value basis from snapshot fact.
+	measure 'IH On Hand Value' = SUM ( 'FactInventoryHealthSnapshot'[OnHand Value] )
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 56c41882-7e14-4dfa-8ac8-800c888c5bdb
+
+	/// Inventory Health in-transit inventory value.
+	measure 'IH In Transit Value' = SUM ( 'FactInventoryHealthSnapshot'[In Transit Value] )
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 66ad97ac-0fee-4ef5-bb9f-d24b878d7d51
+
+	/// Inventory Health on-order inventory value.
+	measure 'IH On Order Value' = SUM ( 'FactInventoryHealthSnapshot'[On Order Value] )
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 3ff2c681-b2c4-4e78-8b72-2af939a69891
+
+	/// BRD total committed supply across on-hand, in-transit, and on-order inventory.
+	measure 'IH Total Inventory Commitment' = [IH On Hand Value] + [IH In Transit Value] + [IH On Order Value]
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: bc052eef-86fd-4e1d-a994-d8a68713c221
+
+	/// Total on-hand quantity.
+	measure 'IH On Hand Qty' = SUM ( 'FactInventoryHealthSnapshot'[OnHandQty] )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 89e10fff-0aba-4801-acb6-e953f1b47a90
+
+	/// Total in-transit quantity.
+	measure 'IH In Transit Qty' = SUM ( 'FactInventoryHealthSnapshot'[In Transit Qty] )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 505db589-306a-467d-9023-e756a288fdd3
+
+	/// Total on-order quantity.
+	measure 'IH On Order Qty' = SUM ( 'FactInventoryHealthSnapshot'[On Order Qty] )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 9dd34521-b3bc-4db9-a98f-aea015ef1e4f
+
+	/// Total available-to-promise quantity.
+	measure 'IH ATP Qty' = SUM ( 'FactInventoryHealthSnapshot'[ATP Qty] )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 108c76d3-5a2b-462d-9e26-339a5e14dbb0
+
+	/// Total shippable inventory quantity.
+	measure 'IH SI Qty' = SUM ( 'FactInventoryHealthSnapshot'[SIQty] )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: dd9006c2-3665-4b4d-a398-729c2242d27b
+
+	/// Average weekly demand quantity from inventory snapshot.
+	measure 'IH AWD Qty' = SUM ( 'FactInventoryHealthSnapshot'[AwdQty] )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: f41735fd-e6cd-49e2-977a-53382a364ca7
+
+	/// Revenue exposed due to lack of inventory availability, expressed as a positive exposure value.
+	measure 'IH Revenue at Risk' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    ABS ( 'FactInventoryHealthSnapshot'[Revenue at risk] )
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 90b9f9bc-a6b7-4929-b43a-c5521d3e8a06
+
+	/// Proxy value of firm demand at risk using FOB ARC price.
+	measure 'IH Firm Demand at Risk Value' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    ABS ( 'FactInventoryHealthSnapshot'[FirmDemandQtyAtRisk] )
+			        * 'FactInventoryHealthSnapshot'[FobArcPrice]
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 9037f8cf-a6ab-4157-9f00-50f954252997
+
+	/// Proxy value of forecast demand at risk using FOB ARC price.
+	measure 'IH Forecast Demand at Risk Value' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    ABS ( 'FactInventoryHealthSnapshot'[NetFcstQtyAtRisk] )
+			        * 'FactInventoryHealthSnapshot'[FobArcPrice]
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: e567559a-3001-47b5-a327-adacd44a54fe
+
+	/// Count of active SKU-location combinations using the 14-day active flag from BRD service logic.
+	measure 'IH Active Item-WH Count 14D' =
+			VAR ItemWh =
+			    SUMMARIZE (
+			        'FactInventoryHealthSnapshot',
+			        'FactInventoryHealthSnapshot'[ItemSku],
+			        'FactInventoryHealthSnapshot'[WarehouseCode],
+			        "ActiveFlag", MAX ( 'FactInventoryHealthSnapshot'[IsActiveItemWhIn14DNext] )
+			    )
+			RETURN
+			COALESCE ( COUNTROWS ( FILTER ( ItemWh, [ActiveFlag] > 0 ) ), 0 )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 5e0024cc-08f1-43d6-8f24-8dfcf5b44a00
+
+	/// Count of active SKU-location combinations with positive ATP.
+	measure 'IH ATP Positive Active Item-WH Count' =
+			VAR ItemWh =
+			    SUMMARIZE (
+			        'FactInventoryHealthSnapshot',
+			        'FactInventoryHealthSnapshot'[ItemSku],
+			        'FactInventoryHealthSnapshot'[WarehouseCode],
+			        "ActiveFlag", MAX ( 'FactInventoryHealthSnapshot'[IsActiveItemWhIn7DNext] ),
+			        "ATPQty", SUM ( 'FactInventoryHealthSnapshot'[ATP Qty] )
+			    )
+			RETURN
+			COALESCE (
+			    COUNTROWS (
+			        FILTER (
+			            ItemWh,
+			            [ActiveFlag] > 0
+			                && [ATPQty] > 0
+			        )
+			    ),
+			    0
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 77c22927-6b3f-4fc1-a6a8-f296be050a74
+
+	/// BRD ATP In-Stock Rate: active Item-WH with positive ATP divided by active Item-WH.
+	measure 'IH ATP In-Stock Rate %' = DIVIDE ( [IH ATP Positive Active Item-WH Count], [IH Active Item-WH Count 7D] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 9e75abe5-03f2-49f4-a77b-1dd03cf6ec79
+
+	/// Count of active SKU-location combinations with positive shippable inventory.
+	measure 'IH SI Positive Active Item-WH Count' =
+			VAR ItemWh =
+			    SUMMARIZE (
+			        'FactInventoryHealthSnapshot',
+			        'FactInventoryHealthSnapshot'[ItemSku],
+			        'FactInventoryHealthSnapshot'[WarehouseCode],
+			        "ActiveFlag", MAX ( 'FactInventoryHealthSnapshot'[IsActiveItemWhIn14DNext] ),
+			        "SIQty", SUM ( 'FactInventoryHealthSnapshot'[SIQty] )
+			    )
+			RETURN
+			COALESCE (
+			    COUNTROWS (
+			        FILTER (
+			            ItemWh,
+			            [ActiveFlag] > 0
+			                && [SIQty] > 0
+			        )
+			    ),
+			    0
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: a4b40f3d-7259-43e6-b5d6-0fa632018763
+
+	/// BRD Shippable Inventory In-Stock Rate: active Item-WH with positive SI divided by active Item-WH.
+	measure 'IH Shipmate Inventory Rate %' = DIVIDE ( [IH SI Positive Active Item-WH Count], [IH Active Item-WH Count 14D] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 1993d20f-f237-4721-80b5-2ceeff38d138
+
+	/// Weeks of supply based on total committed supply quantity divided by AWD.
+	measure 'IH Weeks of Supply' =
+			DIVIDE (
+			    [IH On Hand Qty] + [IH In Transit Qty] + [IH On Order Qty],
+			    [IH AWD Qty]
+			)
+		formatString: 0.0
+		displayFolder: 1. Main KPIs
+		lineageTag: 25978f2a-f9a7-4af3-baec-cba620021afd
+
+	/// Days on hand derived from weeks of supply.
+	measure 'IH DOH' = [IH Weeks of Supply] * 7
+		formatString: 0.0
+		displayFolder: 1. Main KPIs
+		lineageTag: 9d57a1d6-bb87-42c9-ad47-6e5271cf2837
+
+	/// Inventory turns using COGS52W divided by current on-hand inventory value.
+	measure 'IH Inventory Turns TTM' =
+			DIVIDE (
+			    SUM ( 'FactInventoryHealthSnapshot'[COGS52W] ),
+			    [IH On Hand Value]
+			)
+		formatString: 0.0x
+		displayFolder: 1. Main KPIs
+		lineageTag: 7dcaabc0-687b-41f5-b257-8b0fb18e7fe5
+
+	/// System-calculated safety stock target quantity.
+	measure 'IH Safety Stock Target Qty' = SUM ( 'FactInventoryHealthSnapshot'[SafetyStockTarget] )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: c7fcbc9a-fab5-48f6-8034-f54df8b24228
+
+	/// BRD safety stock multiple: inventory position divided by safety stock target.
+	measure 'IH Safety Stock Multiple' = DIVIDE ( [IH On Hand Qty], [IH Safety Stock Target Qty] )
+		formatString: 0.0x
+		displayFolder: 1. Main KPIs
+		lineageTag: 0aff8a03-5c21-43cb-aaed-a4e43e99ad90
+
+	/// Value of Trash & Burn inventory using classification quantity times standard cost.
+	measure 'IH TB Inventory Value' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (TB Inventory)]
+			        * 'FactInventoryHealthSnapshot'[StandardCost]
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 3fe7a12f-38d7-4c2a-a709-2ceeafd7144d
+
+	/// Value of aggressive excess inventory using classification quantity times standard cost.
+	measure 'IH Aggressive Excess Value' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (AE)]
+			        * 'FactInventoryHealthSnapshot'[StandardCost]
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 30d19476-3934-4ea8-b42e-8b14f51ad750
+
+	/// Value of excess inventory using classification quantity times standard cost.
+	measure 'IH Excess Value' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (Excess)]
+			        * 'FactInventoryHealthSnapshot'[StandardCost]
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 69f1bdc2-3b5f-4e3a-b310-873d69045997
+
+	/// Value of slow moving and obsolete inventory using classification quantity times standard cost.
+	measure 'IH SLOB Value' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (SLOB)]
+			        * 'FactInventoryHealthSnapshot'[StandardCost]
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 2709063d-d69b-4045-a863-c0d30c9d22b5
+
+	/// Value of inactive inventory using classification quantity times standard cost.
+	measure 'IH Inactive Inventory Value' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (InActive)]
+			        * 'FactInventoryHealthSnapshot'[StandardCost]
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: a439c305-c9b0-459c-9e68-4f2fbd8a980e
+
+	/// Total surplus/excess exposure across TB, aggressive excess, excess, SLOB, and inactive inventory.
+	measure 'IH Surplus Exposure Value' =
+			[IH TB Inventory Value]
+			    + [IH Aggressive Excess Value]
+			    + [IH Excess Value]
+			    + [IH SLOB Value]
+			    + [IH Inactive Inventory Value]
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 547db797-081c-4445-a8b3-4f281bc7470b
+
+	/// Shortage exposure value represented by revenue at risk.
+	measure 'IH Shortage Exposure Value' = [IH Revenue at Risk]
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 72a490fc-bb42-4323-8514-d8a0dec1f53e
+
+	/// Net exposure for hotspot matrix: surplus exposure minus shortage exposure.
+	measure 'IH Net Risk Exposure' = [IH Surplus Exposure Value] - [IH Shortage Exposure Value]
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 7afbf6bd-2dfb-4e12-8a52-48bee38fb5ce
+
+	/// Share of inventory in control, proxied by Sweet Spot classification value divided by total inventory commitment.
+	measure 'IH In Control % of Inventory' =
+			VAR InControlValue =
+			    SUMX (
+			        'FactInventoryHealthSnapshot',
+			        'FactInventoryHealthSnapshot'[Qty by InventoryClassification (SweetSpot)]
+			            * 'FactInventoryHealthSnapshot'[StandardCost]
+			    )
+			RETURN
+			DIVIDE ( InControlValue, [IH Total Inventory Commitment] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: f6a40ab5-7e9a-4952-b6b3-42d1f27777f4
+
+	/// TB inventory value as a percent of total inventory commitment.
+	measure 'IH TB Inventory % of Inventory' = DIVIDE ( [IH TB Inventory Value], [IH Total Inventory Commitment] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 54c68a9b-984b-4b73-84d6-6d1ba6e5e324
+
+	/// Aggressive excess value as a percent of total inventory commitment.
+	measure 'IH Aggressive Excess % of Inventory' = DIVIDE ( [IH Aggressive Excess Value], [IH Total Inventory Commitment] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: a7a9ee2b-47fb-4590-871f-37dd4d48deba
+
+	/// Excess value as a percent of total inventory commitment.
+	measure 'IH Excess % of Inventory' = DIVIDE ( [IH Excess Value], [IH Total Inventory Commitment] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 132b06de-f672-4a1b-b29b-cff7f9ecdffb
+
+	/// SLOB value as a percent of total inventory commitment.
+	measure 'IH SLOB % of Inventory' = DIVIDE ( [IH SLOB Value], [IH Total Inventory Commitment] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 6cf0d8ac-14a8-463d-8e54-df55dacc6229
+
+	/// Inactive inventory value as a percent of total inventory commitment.
+	measure 'IH Inactive % of Inventory' = DIVIDE ( [IH Inactive Inventory Value], [IH Total Inventory Commitment] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 5706edcd-d07e-49f3-9d4f-8ce040092eef
+
+	/// Total surplus/excess exposure as a percent of total inventory commitment.
+	measure 'IH Surplus Exposure % of Inventory' = DIVIDE ( [IH Surplus Exposure Value], [IH Total Inventory Commitment] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 392bd2d8-07dd-421d-b6de-b4a922945fbb
+
+	/// Share of total risk represented by surplus/excess exposure.
+	measure 'IH Excess & Obsolete % of Risk' =
+			DIVIDE (
+			    [IH Surplus Exposure Value],
+			    [IH Surplus Exposure Value] + [IH Shortage Exposure Value]
+			)
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 20b40e63-e158-4ba1-ad34-94b9b4e09073
+
+	/// Share of total risk represented by service/shortage exposure.
+	measure 'IH Service Rate % of Risk' =
+			DIVIDE (
+			    [IH Shortage Exposure Value],
+			    [IH Surplus Exposure Value] + [IH Shortage Exposure Value]
+			)
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 44438052-0ec7-438b-ba2e-bcf3b31b90e5
+
+	/// Ratio of surplus/excess exposure to shortage exposure.
+	measure 'IH Excess to Risk Ratio' = DIVIDE ( [IH Surplus Exposure Value], [IH Shortage Exposure Value] )
+		formatString: 0.0x
+		displayFolder: 1. Main KPIs
+		lineageTag: ada15ac0-1fd6-4e39-9e0e-1306e43ad21a
+
+	/// Selected compare offset in weeks from IH Compare Period; defaults to 4 weeks.
+	measure 'IH Compare Weeks Offset' = SELECTEDVALUE ( 'IH Compare Period'[Weeks Offset], 4 )
+		formatString: 0
+		displayFolder: 1. Main KPIs
+		lineageTag: 1180da47-8e09-466f-845e-c46f10b30177
+
+	/// Selected compare label from IH Compare Period; defaults to 4 Weeks.
+	measure 'IH Compare Label' = SELECTEDVALUE ( 'IH Compare Period'[Compare Label], "4 Weeks" )
+		displayFolder: 3. Narrative
+		lineageTag: a36573ab-9178-40fe-995e-349cd8257bb4
+
+	/// Selected week ending date in the current filter context.
+	measure 'IH Selected Week Ending' = MAX ( 'DimCalendar'[Date] )
+		formatString: Short Date
+		displayFolder: 1. Main KPIs
+		lineageTag: de62239c-5067-4470-aa12-8fd7c1035e97
+
+	/// Prior comparison week ending date based on the compare offset.
+	measure 'IH Prior Week Ending' = [IH Selected Week Ending] - ( [IH Compare Weeks Offset] * 7 )
+		formatString: Short Date
+		displayFolder: 1. Main KPIs
+		lineageTag: a1822862-388b-4492-ab4d-cb65b4a671e2
+
+	/// Total inventory commitment at the prior comparison week.
+	measure 'IH Total Inventory Commitment Prior' =
+			VAR PriorDate = [IH Prior Week Ending]
+			RETURN
+			CALCULATE (
+			    [IH Total Inventory Commitment],
+			    FILTER ( ALL ( 'DimCalendar'[Date] ), 'DimCalendar'[Date] = PriorDate )
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: b4c24ec8-6207-44be-a849-1b42d0cef666
+
+	/// Change in total inventory commitment versus prior comparison week.
+	measure 'IH Total Inventory Commitment Delta' = [IH Total Inventory Commitment] - [IH Total Inventory Commitment Prior]
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 686a78dc-d3ee-45cf-a6de-c85cc77751aa
+
+	/// Percent change in total inventory commitment versus prior comparison week.
+	measure 'IH Total Inventory Commitment Delta %' = DIVIDE ( [IH Total Inventory Commitment Delta], [IH Total Inventory Commitment Prior] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 24ad521a-fa3e-4dce-8dbd-34107d53887b
+
+	/// ATP in-stock rate at the prior comparison week.
+	measure 'IH ATP In-Stock Rate Prior %' =
+			VAR PriorDate = [IH Prior Week Ending]
+			RETURN
+			CALCULATE (
+			    [IH ATP In-Stock Rate %],
+			    FILTER ( ALL ( 'DimCalendar'[Date] ), 'DimCalendar'[Date] = PriorDate )
+			)
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: d858aa37-5e8b-4be0-9345-bdfef85fbce7
+
+	/// Percentage-point change in ATP in-stock rate versus prior comparison week.
+	measure 'IH ATP In-Stock Rate Delta pp' = [IH ATP In-Stock Rate %] - [IH ATP In-Stock Rate Prior %]
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: cb8598d5-d0ab-46b6-a82a-52f09ea8a467
+
+	/// Shippable inventory rate at the prior comparison week.
+	measure 'IH Shipmate Inventory Rate Prior %' =
+			VAR PriorDate = [IH Prior Week Ending]
+			RETURN
+			CALCULATE (
+			    [IH Shipmate Inventory Rate %],
+			    FILTER ( ALL ( 'DimCalendar'[Date] ), 'DimCalendar'[Date] = PriorDate )
+			)
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 2836184a-c450-4f73-b261-15eb586325b5
+
+	/// Percentage-point change in shippable inventory rate versus prior comparison week.
+	measure 'IH Shipmate Inventory Rate Delta pp' = [IH Shipmate Inventory Rate %] - [IH Shipmate Inventory Rate Prior %]
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 76873c41-1f83-490b-a4d5-a3e89e959682
+
+	/// Revenue at risk at the prior comparison week.
+	measure 'IH Revenue at Risk Prior' =
+			VAR PriorDate = [IH Prior Week Ending]
+			RETURN
+			CALCULATE (
+			    [IH Revenue at Risk],
+			    FILTER ( ALL ( 'DimCalendar'[Date] ), 'DimCalendar'[Date] = PriorDate )
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: d6613500-1dcb-40f8-a0aa-977d759f24b4
+
+	/// Percent change in revenue at risk versus prior comparison week.
+	measure 'IH Revenue at Risk Delta %' = DIVIDE ( [IH Revenue at Risk] - [IH Revenue at Risk Prior], [IH Revenue at Risk Prior] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: d4b3236b-465d-4034-9c39-e6277d1d3bed
+
+	/// Surplus/excess exposure at the prior comparison week.
+	measure 'IH Surplus Exposure Prior' =
+			VAR PriorDate = [IH Prior Week Ending]
+			RETURN
+			CALCULATE (
+			    [IH Surplus Exposure Value],
+			    FILTER ( ALL ( 'DimCalendar'[Date] ), 'DimCalendar'[Date] = PriorDate )
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 3f866031-511f-47ba-8bd4-793d67b09e03
+
+	/// Percent change in surplus/excess exposure versus prior comparison week.
+	measure 'IH Surplus Exposure Delta %' = DIVIDE ( [IH Surplus Exposure Value] - [IH Surplus Exposure Prior], [IH Surplus Exposure Prior] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 81516873-27ab-44e7-bfab-a9d189753689
+
+	/// Warehouse-context surplus exposure for hotspot visuals.
+	measure 'IH Warehouse Surplus Exposure' = [IH Surplus Exposure Value]
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 2fbb3aeb-d38c-451c-8c20-21ee2204bcd9
+
+	/// Warehouse-context shortage exposure for hotspot visuals.
+	measure 'IH Warehouse Shortage Exposure' = [IH Shortage Exposure Value]
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 17b40d6b-3c66-4557-959d-c5b04239238d
+
+	/// Warehouse-context net risk exposure.
+	measure 'IH Warehouse Net Exposure' = [IH Warehouse Surplus Exposure] - [IH Warehouse Shortage Exposure]
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 854d3a9d-706f-454d-85d9-246a523b26f9
+
+	/// Name of the warehouse with the highest surplus exposure.
+	measure 'IH Top Surplus Warehouse' =
+			VAR TopWarehouse =
+			    TOPN (
+			        1,
+			        ADDCOLUMNS (
+			            VALUES ( 'DimWarehouse'[WarehouseName] ),
+			            "@Surplus", [IH Warehouse Surplus Exposure]
+			        ),
+			        [@Surplus], DESC
+			    )
+			RETURN
+			CONCATENATEX ( TopWarehouse, 'DimWarehouse'[WarehouseName], ", " )
+		displayFolder: 3. Narrative
+		lineageTag: 22f66320-c7ed-4e93-921e-e8f852a0a58a
+
+	/// Amount of the highest warehouse surplus exposure.
+	measure 'IH Top Surplus Amount' =
+			VAR TopWarehouse =
+			    TOPN (
+			        1,
+			        ADDCOLUMNS (
+			            VALUES ( 'DimWarehouse'[WarehouseName] ),
+			            "@Surplus", [IH Warehouse Surplus Exposure]
+			        ),
+			        [@Surplus], DESC
+			    )
+			RETURN
+			MAXX ( TopWarehouse, [@Surplus] )
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 1d9dee29-28bd-4be8-8245-17898b79071a
+
+	/// Name of the warehouse with the highest shortage exposure.
+	measure 'IH Top Shortage Warehouse' =
+			VAR TopWarehouse =
+			    TOPN (
+			        1,
+			        ADDCOLUMNS (
+			            VALUES ( 'DimWarehouse'[WarehouseName] ),
+			            "@Shortage", [IH Warehouse Shortage Exposure]
+			        ),
+			        [@Shortage], DESC
+			    )
+			RETURN
+			CONCATENATEX ( TopWarehouse, 'DimWarehouse'[WarehouseName], ", " )
+		displayFolder: 3. Narrative
+		lineageTag: 13817b7b-97f4-479e-b1a0-f0366786977c
+
+	/// Amount of the highest warehouse shortage exposure.
+	measure 'IH Top Shortage Amount' =
+			VAR TopWarehouse =
+			    TOPN (
+			        1,
+			        ADDCOLUMNS (
+			            VALUES ( 'DimWarehouse'[WarehouseName] ),
+			            "@Shortage", [IH Warehouse Shortage Exposure]
+			        ),
+			        [@Shortage], DESC
+			    )
+			RETURN
+			MAXX ( TopWarehouse, [@Shortage] )
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 3ab24527-0dbb-4e15-b456-bcf4c20d40b1
+
+	/// Total used storage cube from inventory snapshot.
+	measure 'IH Used Storage Cube' = SUM ( 'FactInventoryHealthSnapshot'[UsedStorageCube] )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 262fefcd-5366-4761-ba23-a3e69f080379
+
+	/// Total available warehouse cube from warehouse dimension.
+	measure 'IH Available Warehouse Cube' = SUM ( 'DimWarehouse'[TotalAvailableWarehouseCube] )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 617fb93a-4fcc-4f7f-b527-4ba36f18b651
+
+	/// BRD warehouse capacity utilization: used storage cube divided by total available cube.
+	measure 'IH Warehouse Capacity Utilization %' = DIVIDE ( [IH Used Storage Cube], [IH Available Warehouse Cube] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 4244da15-25fa-49a8-8073-28fdd02113eb
+
+	/// Capacity risk status based on utilization thresholds.
+	measure 'IH Warehouse Capacity Risk Status' =
+			SWITCH (
+			    TRUE (),
+			    ISBLANK ( [IH Warehouse Capacity Utilization %] ), BLANK (),
+			    [IH Warehouse Capacity Utilization %] >= 0.95, "At Risk",
+			    [IH Warehouse Capacity Utilization %] >= 0.88, "Watch",
+			    "Good"
+			)
+		displayFolder: 3. Narrative
+		lineageTag: db7591a9-a6e6-4d93-8e30-ce2583091712
+
+	/// Dynamic warehouse capacity narrative for the overview banner.
+	measure 'IH Warehouse Capacity Narrative' =
+			VAR Utilization = [IH Warehouse Capacity Utilization %]
+			VAR UtilText = FORMAT ( Utilization, "0%" )
+			VAR StatusText = [IH Warehouse Capacity Risk Status]
+			RETURN
+			SWITCH (
+			    TRUE (),
+			    ISBLANK ( Utilization ), "Warehouse capacity data is not available for the current selection.",
+			    StatusText = "At Risk", "Warehouse capacity is at " & UtilText & ", at or above the 95% action threshold. Immediate review is recommended.",
+			    StatusText = "Watch", "Warehouse capacity remains at " & UtilText & ", below the 95% action threshold. Monitor near-term inbound pressure.",
+			    "Warehouse capacity remains stable at " & UtilText & ", below the 95% action threshold. No immediate constraint is flagged this week."
+			)
+		displayFolder: 3. Narrative
+		lineageTag: 7e7f08bc-94fe-481c-87b4-20acaa954523
+
+	/// Flag for dates in the last 13 weeks relative to selected week.
+	measure 'IH Last 13 Weeks Flag' =
+			VAR SelectedWeek = [IH Selected Week Ending]
+			VAR CurrentWeek = MAX ( 'DimCalendar'[Date] )
+			RETURN
+			IF (
+			    CurrentWeek <= SelectedWeek
+			        && CurrentWeek > SelectedWeek - ( 13 * 7 ),
+			    1,
+			    0
+			)
+		formatString: 0
+		displayFolder: 1. Main KPIs
+		lineageTag: 6b4cc9d3-3acb-4673-b300-e9e690c4032c
+
+	/// Marker for the current calendar week used in trend visuals.
+	measure 'IH Today Week Marker' =
+			VAR CurrentWeek = MAX ( 'DimCalendar'[Date] )
+			VAR TodayDate = TODAY ()
+			RETURN
+			IF (
+			    CurrentWeek >= TodayDate - WEEKDAY ( TodayDate, 2 )
+			        && CurrentWeek <= TodayDate + ( 7 - WEEKDAY ( TodayDate, 2 ) ),
+			    1,
+			    BLANK ()
+			)
+		formatString: 0
+		displayFolder: 2. Format
+		lineageTag: 16bb1e78-c392-4f1b-9124-945fcd3179aa
+
+	/// Surplus exposure by selected IH Week Horizon offset.
+	measure 'IH Surplus Exposure Horizon' =
+			VAR WeekOffset = SELECTEDVALUE ( 'IH Week Horizon'[Week Offset], 0 )
+			VAR TargetDate = [IH Selected Week Ending] + ( WeekOffset * 7 )
+			RETURN
+			CALCULATE (
+			    [IH Surplus Exposure Value],
+			    FILTER ( ALL ( 'DimCalendar'[Date] ), 'DimCalendar'[Date] = TargetDate )
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: 81bd70ec-10c8-4834-8de9-90b8943e1191
+
+	/// Shortage exposure by selected IH Week Horizon offset, returned as negative value for diverging bar visuals.
+	measure 'IH Shortage Exposure Horizon' =
+			VAR WeekOffset = SELECTEDVALUE ( 'IH Week Horizon'[Week Offset], 0 )
+			VAR TargetDate = [IH Selected Week Ending] + ( WeekOffset * 7 )
+			RETURN
+			CALCULATE (
+			    -1 * [IH Shortage Exposure Value],
+			    FILTER ( ALL ( 'DimCalendar'[Date] ), 'DimCalendar'[Date] = TargetDate )
+			)
+		formatString: $#,0.0,,M
+		displayFolder: 1. Main KPIs
+		lineageTag: f5806487-d267-46d6-881f-87c19221b5cd
+
+	/// Zero threshold line for surplus versus shortage exposure chart.
+	measure 'IH Risk Threshold Line' = 0
+		formatString: $#,0.0,,M
+		displayFolder: 2. Format
+		lineageTag: b643e414-f3dc-475d-a6af-2ae146778434
+
+	/// Sort order for selected IH Week Horizon label.
+	measure 'IH Horizon Label Sort' = SELECTEDVALUE ( 'IH Week Horizon'[Sort] )
+		formatString: 0
+		displayFolder: 2. Format
+		lineageTag: d69b366e-d80f-4042-bfd4-7cc38865aeea
+
+	/// Dynamic narrative describing inventory commitment movement versus prior period.
+	measure 'IH Insight What We Noticed 1' =
+			VAR DeltaPct = [IH Total Inventory Commitment Delta %]
+			VAR Direction =
+			    IF ( DeltaPct >= 0, "increased", "decreased" )
+			VAR CurrentValueText =
+			    "$" & FORMAT ( DIVIDE ( [IH Total Inventory Commitment], 1000000 ), "#,0.0" ) & "M"
+			RETURN
+			"Total inventory " & Direction & " "
+			    & FORMAT ( ABS ( DeltaPct ), "0.0%" )
+			    & " compared with "
+			    & [IH Compare Label]
+			    & " ago to "
+			    & CurrentValueText
+			    & "."
+		displayFolder: 3. Narrative
+		lineageTag: c3b36773-15c1-48d1-9370-79f4da431f28
+
+	/// Dynamic narrative describing shippable inventory rate movement versus prior period.
+	measure 'IH Insight What We Noticed 2' =
+			VAR DeltaPp = [IH Shipmate Inventory Rate Delta pp]
+			VAR Direction =
+			    IF ( DeltaPp >= 0, "improved", "declined" )
+			RETURN
+			"Shipmate inventory rate " & Direction & " "
+			    & FORMAT ( ABS ( DeltaPp ) * 100, "0.0" )
+			    & " pp compared with "
+			    & [IH Compare Label]
+			    & " ago to "
+			    & FORMAT ( [IH Shipmate Inventory Rate %], "0.0%" )
+			    & "."
+		displayFolder: 3. Narrative
+		lineageTag: 158dfb0d-e388-4695-a23f-0728e0b5134a
+
+	/// Dynamic narrative for below-target inventory risk.
+	measure 'IH Insight Where Risk Is 1' =
+			VAR BelowTargetValue =
+			    SUMX (
+			        'FactInventoryHealthSnapshot',
+			        'FactInventoryHealthSnapshot'[Qty by InventoryClassification (Below Target)]
+			            * 'FactInventoryHealthSnapshot'[StandardCost]
+			    )
+			VAR BelowTargetPct =
+			    DIVIDE ( BelowTargetValue, [IH Total Inventory Commitment] )
+			RETURN
+			FORMAT ( BelowTargetPct, "0.0%" )
+			    & " of inventory is below target, indicating service pressure in low-WOS positions."
+		displayFolder: 3. Narrative
+		lineageTag: 13dd37ce-9351-4cb2-9749-a50b8060561b
+
+	/// Dynamic narrative for surplus and TB concentration.
+	measure 'IH Insight Where Risk Is 2' =
+			VAR TBIShare = [IH TB Inventory % of Inventory]
+			VAR SurplusShare = [IH Surplus Exposure % of Inventory]
+			RETURN
+			FORMAT ( SurplusShare, "0.0%" )
+			    & " of inventory is in surplus/excess buckets; TB inventory alone represents "
+			    & FORMAT ( TBIShare, "0.0%" )
+			    & "."
+		displayFolder: 3. Narrative
+		lineageTag: b49bb303-a0fb-4a33-a946-abc4cbaf049a
+
+	/// Dynamic business implication narrative for the risk story.
+	measure 'IH Insight What This Means' =
+			SWITCH (
+			    TRUE (),
+			    [IH Revenue at Risk] > [IH Surplus Exposure Value], "Service pressure is the dominant risk; shortage exposure is higher than surplus exposure.",
+			    [IH Surplus Exposure Value] > [IH Revenue at Risk], "Working capital is the dominant risk; capital is concentrated in slow-moving and excess inventory.",
+			    "Inventory risk is balanced between service pressure and surplus exposure."
+			)
+		displayFolder: 3. Narrative
+		lineageTag: faa2b0a3-ace8-40e8-a533-05ce59bc5a6e
+
+	/// Recommended next step narrative for high-risk SKU-Warehouse review.
+	measure 'IH Insight Focus Next Step 1' = "Review high-risk SKU-Warehouse combinations with high revenue at risk and low ATP."
+		displayFolder: 3. Narrative
+		lineageTag: fbeaa502-fcf8-4b73-89a7-c472da251d67
+
+	/// Recommended next step narrative for rebalancing and replenishment.
+	measure 'IH Insight Focus Next Step 2' = "Prioritize rebalancing and replenishment for below-target and low-WOS positions."
+		displayFolder: 3. Narrative
+		lineageTag: f578ab66-2035-4d80-98ab-77385e9ef0c2
+
+	/// Recommended next step narrative for excess and obsolete inventory.
+	measure 'IH Insight Focus Next Step 3' = "Execute liquidation, markdown, or disposition actions for excess, obsolete, and TB inventory."
+		displayFolder: 3. Narrative
+		lineageTag: 11f615f0-3953-430c-ac4d-779299654e8d
+
+	/// Dynamic bottom-line narrative for Inventory Health overview.
+	measure 'IH Bottom Line Narrative' =
+			VAR WOS = [IH Weeks of Supply]
+			VAR Risk = [IH Revenue at Risk]
+			VAR Surplus = [IH Surplus Exposure Value]
+			VAR RiskText = "$" & FORMAT ( DIVIDE ( Risk, 1000000 ), "#,0.0" ) & "M"
+			VAR SurplusText = "$" & FORMAT ( DIVIDE ( Surplus, 1000000 ), "#,0.0" ) & "M"
+			RETURN
+			"Service pressure in low WOS. Capital trapped in high WOS. Inventory not converting to service. Current WOS: "
+			    & FORMAT ( WOS, "0.0" )
+			    & "; Revenue at Risk: "
+			    & RiskText
+			    & "; Surplus Exposure: "
+			    & SurplusText
+			    & "."
+		displayFolder: 3. Narrative
+		lineageTag: 37fbc990-c29c-4457-8e6d-2b7d21ec24cf
+
+	/// Good/Watch/At Risk status for Inventory Health KPI formatting.
+	measure 'IH KPI Status' =
+			SWITCH (
+			    TRUE (),
+			    ISBLANK ( [IH Total Inventory Commitment] ), BLANK (),
+			    [IH ATP In-Stock Rate %] < 0.85 || [IH Warehouse Capacity Utilization %] >= 0.95, "At Risk",
+			    [IH ATP In-Stock Rate %] < 0.95 || [IH Warehouse Capacity Utilization %] >= 0.88, "Watch",
+			    "Good"
+			)
+		displayFolder: 2. Format
+		lineageTag: ecfe2795-7b4c-46d5-857f-205c85be7e3b
+
+	/// Background color for Inventory Health KPI status.
+	measure 'IH KPI Background Color' =
+			SWITCH (
+			    [IH KPI Status],
+			    "Good", "#E7F6EC",
+			    "Watch", "#FFF4CC",
+			    "At Risk", "#FDE7E9",
+			    "#F3F4F6"
+			)
+		displayFolder: 2. Format
+		lineageTag: 9eb197e6-a2db-4689-817e-fa1feac99a8e
+
+	/// Font color for Inventory Health KPI status.
+	measure 'IH KPI Font Color' =
+			SWITCH (
+			    [IH KPI Status],
+			    "Good", "#107C41",
+			    "Watch", "#9A6700",
+			    "At Risk", "#C50F1F",
+			    "#111827"
+			)
+		displayFolder: 2. Format
+		lineageTag: 6c0eda48-f83a-45d3-8519-f7e70c07e61b
+
+	/// Arrow indicator for total inventory commitment movement.
+	measure 'IH Delta Arrow' =
+			VAR Delta = [IH Total Inventory Commitment Delta]
+			RETURN
+			SWITCH (
+			    TRUE (),
+			    ISBLANK ( Delta ), BLANK (),
+			    Delta > 0, "▲",
+			    Delta < 0, "▼",
+			    "●"
+			)
+		displayFolder: 2. Format
+		lineageTag: 103d60eb-9c79-484f-a24a-ebc0a67ba26c
+
+	/// Color for total inventory commitment delta.
+	measure 'IH Delta Color' =
+			VAR Delta = [IH Total Inventory Commitment Delta]
+			RETURN
+			SWITCH (
+			    TRUE (),
+			    ISBLANK ( Delta ), "#6B7280",
+			    Delta > 0, "#C50F1F",
+			    Delta < 0, "#107C41",
+			    "#6B7280"
+			)
+		displayFolder: 2. Format
+		lineageTag: 00bbbdfb-a2c1-4dc6-bab7-c70793d2ebab
+
+	/// Color selector for surplus/shortage risk bars.
+	measure 'IH Risk Bar Color' =
+			SWITCH (
+			    TRUE (),
+			    [IH Net Risk Exposure] > 0, "#FF8C00",
+			    [IH Net Risk Exposure] < 0, "#E31B23",
+			    "#9CA3AF"
+			)
+		displayFolder: 2. Format
+		lineageTag: f2fcbdd1-caf0-4bdc-9b4c-d52c675e3de0
+
+	/// BRD obsolete ratio proxy: SLOB value divided by on-hand value.
+	measure 'IH Obsolete Ratio %' = DIVIDE ( [IH SLOB Value], [IH On Hand Value] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: d2652393-1fb6-4a4c-aada-883f4b747852
+
+	/// On-hold ratio from inventory snapshot.
+	measure 'IH On-Hold Ratio %' = AVERAGE ( 'FactInventoryHealthSnapshot'[On Hold Ratio] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: ca7846f6-4fa7-4be9-b0e4-7dee558e7415
+
+	/// Percent of on-hand value older than approximately 180 days.
+	measure 'IH Aged Inventory > 180D %' =
+			VAR AgedValue =
+			    CALCULATE (
+			        [IH On Hand Value],
+			        'FactInventoryHealthSnapshot'[InventoryAgeWeeks] > 26
+			    )
+			RETURN
+			DIVIDE ( AgedValue, [IH On Hand Value] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 10c9c976-0e15-40fe-be29-e6e36ad45fe2
+
+	/// Percent of on-hand value older than approximately 270 days.
+	measure 'IH Aged Inventory > 270D %' =
+			VAR AgedValue =
+			    CALCULATE (
+			        [IH On Hand Value],
+			        'FactInventoryHealthSnapshot'[InventoryAgeWeeks] > 39
+			    )
+			RETURN
+			DIVIDE ( AgedValue, [IH On Hand Value] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 8800717d-0ad6-43db-bf98-720fbd6d5862
+
+	/// Percent of on-hand value older than approximately 365 days.
+	measure 'IH Aged Inventory > 365D %' =
+			VAR AgedValue =
+			    CALCULATE (
+			        [IH On Hand Value],
+			        'FactInventoryHealthSnapshot'[InventoryAgeWeeks] > 52
+			    )
+			RETURN
+			DIVIDE ( AgedValue, [IH On Hand Value] )
+		formatString: 0.0%
+		displayFolder: 1. Main KPIs
+		lineageTag: 6168eb42-2151-4d77-a188-f0db56822577
+
+	/// Count of SKU-location combinations with blank or zero safety stock target.
+	measure 'IH Safety Stock Exception Count' =
+			VAR ItemWh =
+			    SUMMARIZE (
+			        'FactInventoryHealthSnapshot',
+			        'FactInventoryHealthSnapshot'[ItemSku],
+			        'FactInventoryHealthSnapshot'[WarehouseCode],
+			        "SSTarget", SUM ( 'FactInventoryHealthSnapshot'[SafetyStockTarget] )
+			    )
+			RETURN
+			COUNTROWS ( FILTER ( ItemWh, [SSTarget] = 0 || ISBLANK ( [SSTarget] ) ) )
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: ac09d7c7-300f-4627-8b41-2a83a01c67a8
+
+	/// Count of snapshot rows with key data quality exceptions: missing key/cost or negative core quantities.
+	measure 'IH Data Quality Flag Count' =
+			COUNTROWS (
+			    FILTER (
+			        'FactInventoryHealthSnapshot',
+			        ISBLANK ( 'FactInventoryHealthSnapshot'[ItemSku] )
+			            || ISBLANK ( 'FactInventoryHealthSnapshot'[WarehouseCode] )
+			            || ISBLANK ( 'FactInventoryHealthSnapshot'[StandardCost] )
+			            || 'FactInventoryHealthSnapshot'[OnHandQty] < 0
+			            || 'FactInventoryHealthSnapshot'[In Transit Qty] < 0
+			            || 'FactInventoryHealthSnapshot'[On Order Qty] < 0
+			    )
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 0e78ba41-a6ed-4985-9ed5-710ced775816
+
+	/// Count of active SKU-location combinations using the 7-day active flag from BRD service logic.
+	measure 'IH Active Item-WH Count 7D' =
+			VAR ItemWh =
+			    SUMMARIZE (
+			        'FactInventoryHealthSnapshot',
+			        'FactInventoryHealthSnapshot'[ItemSku],
+			        'FactInventoryHealthSnapshot'[WarehouseCode],
+			        "ActiveFlag", MAX ( 'FactInventoryHealthSnapshot'[IsActiveItemWhIn7DNext] )
+			    )
+			RETURN
+			COALESCE ( COUNTROWS ( FILTER ( ItemWh, [ActiveFlag] > 0 ) ), 0 )
+		formatString: 0
+		displayFolder: 1. Main KPIs
+		lineageTag: ab0696ad-97cb-447c-a5bf-7f730ed94bb5
+
+	measure 'IH Over Target Value' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (OverTarget)]
+			        * 'FactInventoryHealthSnapshot'[StandardCost]
+			)
+		displayFolder: 1. Main KPIs
+		lineageTag: 48ac5b8d-8d2d-40b1-a279-ec1b92d5b2cd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'IH SweetSpot Value' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (SweetSpot)]
+			        * 'FactInventoryHealthSnapshot'[StandardCost]
+			)
+		displayFolder: 1. Main KPIs
+		lineageTag: ff32ab08-795e-4d4f-aa53-4886b17be9c9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'IH Below Target Value' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (Below Target)]
+			        * 'FactInventoryHealthSnapshot'[StandardCost]
+			)
+		displayFolder: 1. Main KPIs
+		lineageTag: e6ce1f35-526e-4a47-a99a-214ec020b6eb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'IH Excess Qty' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (Excess)]
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: fe987455-e2e7-454d-8078-12cbb9688cc0
+
+	measure 'IH Below Target Qty' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (Below Target)]
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 9c9cbecf-b3d8-4750-888f-93aa1921be2c
+
+	measure 'IH Aggressive Excess Qty' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (AE)]
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 22e1fbdb-606e-4857-8a74-ef3d47ae82ce
+
+	measure 'IH TB Inventory Qty' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (TB Inventory)]
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: da3c9793-6fc6-46d6-a6f3-9835d46f96f4
+
+	measure 'IH SweetSpot Qty' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (SweetSpot)]
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 3e9fa3c0-fca6-431e-aae3-9fc36db6eb0a
+
+	measure 'IH SLOB Qty' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (SLOB)]
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 4f7f6550-cd5d-4dae-8049-d2acf708c127
+
+	measure 'IH Over Target Qty' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (OverTarget)]
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: b0b8c3c8-1ac3-4fe0-8941-86a77f1a05af
+
+	measure 'IH Inactive Inventory Qty' =
+			SUMX (
+			    'FactInventoryHealthSnapshot',
+			    'FactInventoryHealthSnapshot'[Qty by InventoryClassification (InActive)]
+			)
+		formatString: #,0
+		displayFolder: 1. Main KPIs
+		lineageTag: 0d742c2a-ac70-45c9-99fe-962fac61fbe3
+
+	measure 'IH AWD Qty - test' = AVERAGE( 'FactInventoryHealthSnapshot'[AwdQty] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 1. Main KPIs
+		lineageTag: 4ad1b66b-96fa-4d4f-8b29-cc8bbc1cf0a0
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column Column
+		formatString: 0
+		lineageTag: dd23a7e7-0b46-4d64-967c-3e180a9a4308
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measure_InventoryHealth = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 5113cbd335ce487f9f4227aad1f85a79
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":null}
+
+	annotation 277cc1b9-af89-4597-8e15-cacc25c0886b = To use special characters in a calculated table name, enclose the entire name in brackets ( [] ) and add a ] to any closing brackets in the name.
+

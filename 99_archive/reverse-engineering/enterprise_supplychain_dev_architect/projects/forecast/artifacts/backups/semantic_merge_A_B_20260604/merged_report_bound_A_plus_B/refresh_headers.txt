@@ -1,0 +1,13 @@
+HTTP/2 202 
+cache-control: no-store, must-revalidate, no-cache
+pragma: no-cache
+content-type: application/octet-stream
+strict-transport-security: max-age=31536000; includeSubDomains
+x-frame-options: deny
+x-content-type-options: nosniff
+requestid: c75ed0fa-81c5-448a-befd-0c8a730055f6
+access-control-expose-headers: RequestId
+request-redirected: true
+home-cluster-uri: https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/
+date: Thu, 04 Jun 2026 03:39:07 GMT
+

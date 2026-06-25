@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Gold_Warehouse].[InventoryHealth_DW].[ProjectedInventoryHealthSubStatus]
+-- Loaded by ETL_Framework from [SupplyChain_Gold_Warehouse].[InventoryHealth_DW_Wrk].[v_ProjectedInventoryHealthSubStatus].
+-- Business/source view SQL is documented in ../InventoryHealth_DW_Wrk/v_ProjectedInventoryHealthSubStatus.sql.

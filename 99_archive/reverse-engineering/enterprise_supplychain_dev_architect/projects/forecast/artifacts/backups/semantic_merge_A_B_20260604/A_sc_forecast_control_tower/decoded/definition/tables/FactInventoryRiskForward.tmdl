@@ -1,0 +1,281 @@
+table FactInventoryRiskForward
+	lineageTag: 01785fe6-ce42-4d7d-ad82-cc2394915842
+	sourceLineageTag: [InventoryHealth_DW].[FactInventoryRiskForward]
+
+	column ItemSku
+		dataType: string
+		lineageTag: bd2f72a2-33d2-47f6-9ec7-46b2cb2e05e5
+		sourceLineageTag: ItemSku
+		summarizeBy: none
+		sourceColumn: ItemSku
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseCode
+		dataType: string
+		lineageTag: 53ad830c-9e88-4a7e-9a05-4fa10e3349a1
+		sourceLineageTag: WarehouseCode
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekEndingDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b159056a-d5e1-43fb-999d-5435126f2680
+		sourceLineageTag: WeekEndingDate
+		summarizeBy: none
+		sourceColumn: WeekEndingDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 364342f4-5a9b-4114-9d14-36bc77ebb08a
+		sourceLineageTag: DateKey
+		summarizeBy: count
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column BeginningBalanceQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 0f89b076-36cd-4f2b-8550-ad721d067176
+		sourceLineageTag: BeginningBalanceQty
+		summarizeBy: sum
+		sourceColumn: BeginningBalanceQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column FirmDemandQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 881a3ba2-4462-4a3e-84ce-b90a3808fe6e
+		sourceLineageTag: FirmDemandQty
+		summarizeBy: sum
+		sourceColumn: FirmDemandQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column NetForecastQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f97e10fb-11dd-437e-a944-2787749dffa3
+		sourceLineageTag: NetForecastQty
+		summarizeBy: sum
+		sourceColumn: NetForecastQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column FirmPurchaseOrderQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 74dec055-72d5-4585-929c-f0c44ce20e4a
+		sourceLineageTag: FirmPurchaseOrderQty
+		summarizeBy: sum
+		sourceColumn: FirmPurchaseOrderQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column PlannedPurchaseOrderQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 9fab3b13-bdb8-4be1-a6bd-06f63002d774
+		sourceLineageTag: PlannedPurchaseOrderQty
+		summarizeBy: sum
+		sourceColumn: PlannedPurchaseOrderQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column OnOrderTransferInQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 2f576301-2d28-43d4-96e5-c43a1e69070a
+		sourceLineageTag: OnOrderTransferInQty
+		summarizeBy: sum
+		sourceColumn: OnOrderTransferInQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column ShippableInventoryQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 2b9a7c94-c688-4d24-b28f-94d28b8f4301
+		sourceLineageTag: ShippableInventoryQty
+		summarizeBy: sum
+		sourceColumn: ShippableInventoryQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column SafetyStockTargetQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: fcddd0ce-646b-4c04-830d-5a5fb5e4a51e
+		sourceLineageTag: SafetyStockTargetQty
+		summarizeBy: sum
+		sourceColumn: SafetyStockTargetQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column MonthsOfSupply
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 0d8419d3-651a-4ecb-9f32-20f4327c32ea
+		sourceLineageTag: MonthsOfSupply
+		summarizeBy: sum
+		sourceColumn: MonthsOfSupply
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column ExpectedDemand14DQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 7e5c8cde-c1e3-40d6-a3bb-f08000738e87
+		sourceLineageTag: ExpectedDemand14DQty
+		summarizeBy: sum
+		sourceColumn: ExpectedDemand14DQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column Inbound14DQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 63f0a15e-5830-44d7-90ce-2a400ca8cdd2
+		sourceLineageTag: Inbound14DQty
+		summarizeBy: sum
+		sourceColumn: Inbound14DQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column AllocatedDemandQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 2867c8fa-bf2b-472b-a1e1-c6401c0d1c14
+		sourceLineageTag: AllocatedDemandQty
+		summarizeBy: sum
+		sourceColumn: AllocatedDemandQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column ATPQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 738f2782-ee87-448a-919f-078078c3b568
+		sourceLineageTag: ATPQty
+		summarizeBy: sum
+		sourceColumn: ATPQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column ATPInStockFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: dc86952d-50aa-4431-bd19-e43334e9b1fb
+		sourceLineageTag: ATPInStockFlag
+		summarizeBy: none
+		sourceColumn: ATPInStockFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShippableInStockFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 031952f1-29d5-4d74-b176-0422b1a52c31
+		sourceLineageTag: ShippableInStockFlag
+		summarizeBy: none
+		sourceColumn: ShippableInStockFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column SINegQty
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: fccca17f-ff40-4512-9173-8d1373202fa7
+		sourceLineageTag: SINegQty
+		summarizeBy: sum
+		sourceColumn: SINegQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column RevenueAtRiskValue
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f4cdbbdd-bb1c-4b26-a430-772a9674b7aa
+		sourceLineageTag: RevenueAtRiskValue
+		summarizeBy: sum
+		sourceColumn: RevenueAtRiskValue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column WeekFourFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5b06b49d-db3b-4cc3-b70c-85a5eb64f153
+		sourceLineageTag: WeekFourFlag
+		summarizeBy: none
+		sourceColumn: WeekFourFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column FobArcPrice
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: fba13ba9-63de-45ab-a378-6e4d405be9ac
+		sourceLineageTag: FobArcPrice
+		summarizeBy: sum
+		sourceColumn: FobArcPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column RuleVersionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e8d42f4f-e3a5-434c-b221-62741ce02ff9
+		sourceLineageTag: RuleVersionKey
+		summarizeBy: count
+		sourceColumn: RuleVersionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactInventoryRiskForward = entity
+		mode: directLake
+		source
+			entityName: FactInventoryRiskForward
+			schemaName: InventoryHealth_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

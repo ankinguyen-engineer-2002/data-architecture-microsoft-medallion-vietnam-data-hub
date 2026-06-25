@@ -1,0 +1,188 @@
+{
+  "asset_key": "enterprise_lakehouse.wholesale_codis_afi.aaordtyp",
+  "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 20,
+    "columns": [
+      {
+        "column_name": "OTCODE",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "OTDES1",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "OTDES2",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "OTUSER",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "OTDATE",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "OORDCL",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "OROUTE",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "OOTCAT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "OADCHG",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "OARFLG",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "OWNEXP",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "OMINEXC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "OREQMNT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "OFDESCH",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "OFDRIMS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "OTRPTYP",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "OZNLTIM",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "OSPECHND",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "OAUTORSCH",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "OUSRDFN",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 20
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "OTDATE": 20210317
+    },
+    "freshness_columns": [
+      "OTDATE"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 2.765,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "OTDATE"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.303,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": null,
+          "latest_partition_duplicate_groups": 0,
+          "latest_partition_max_rows_per_key": null
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 0.383,
+      "status": "PASS"
+    },
+    "projects": [
+      "forecast_accuracy"
+    ],
+    "ref": "Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP",
+    "row_count_metadata": null,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "forecast_accuracy",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP.sql"
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "b1bf3f61388026d5ca56",
+  "position": {
+    "x": 586.335782696059,
+    "y": 132.16585265689855,
+    "z": 2000,
+    "height": 343.63121690793622,
+    "width": 676.44886405303532,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_forecast_kpi"
+                    }
+                  },
+                  "Property": "dt_snapshot"
+                }
+              },
+              "queryRef": "fact_forecast_kpi.dt_snapshot",
+              "nativeQueryRef": "dt_snapshot"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_forecast_kpi"
+                        }
+                      },
+                      "Property": "qty_forecast"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(fact_forecast_kpi.qty_forecast)",
+              "nativeQueryRef": "Sum of qty_forecast"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_forecast_kpi"
+                        }
+                      },
+                      "Property": "qty_actual"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(fact_forecast_kpi.qty_actual)",
+              "nativeQueryRef": "Sum of qty_actual"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "111D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fact_forecast_kpi.dt_snapshot"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,5 @@
+-- ---------------------------------------------------------------------
+-- Last invoice: DA as-of behavior + direct Mart A invoice source.
+-- ---------------------------------------------------------------------
+-- ---- InventoryHistory_Enh.v_LastInvoiceHelper ----
+-- MAX(InvoiceDate) <= AsOfDate per ItemSku × WarehouseCode

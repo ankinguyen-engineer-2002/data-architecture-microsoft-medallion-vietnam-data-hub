@@ -1,0 +1,117 @@
+%%{init: {
+  "theme": "base",
+  "flowchart": { "curve": "linear", "nodeSpacing": 22, "rankSpacing": 34 },
+  "themeVariables": {
+    "fontFamily": "Inter, Segoe UI, Arial",
+    "fontSize": "14px",
+    "primaryTextColor": "#0b1220",
+    "lineColor": "#334155",
+    "background": "#ffffff"
+  }
+} }%%
+
+flowchart TB
+  %% Goal: stable, "normal-looking" overview with clear L0/L1/L2 + explicit domains.
+  %% Nested boxes are for emphasis, not physical containment.
+
+  classDef box fill:#ffffff,stroke:#475569,stroke-width:1px,color:#0b1220;
+  classDef note fill:#fffbeb,stroke:#f59e0b,stroke-width:1px,color:#0b1220;
+  classDef orch fill:#0f172a,stroke:#0f172a,stroke-width:1px,color:#ffffff;
+  classDef hub fill:#1d4ed8,stroke:#1d4ed8,stroke-width:1px,color:#ffffff;
+  classDef control fill:#ecfdf5,stroke:#10b981,stroke-width:1px,color:#0b1220;
+  classDef warn fill:#fff1f2,stroke:#e11d48,stroke-width:1px,color:#0b1220;
+
+  subgraph AZ["<b>L0 — Azure Foundation (Enterprise)</b>"]
+    direction TB
+    style AZ fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+
+    %% Make L0 span width: place Data Estate and Foundation+Orchestration on the same row.
+    subgraph AZ_ROW[" "]
+      direction LR
+      style AZ_ROW fill:transparent,stroke:transparent,stroke-width:0px
+
+      subgraph AZ_DATA["<b>Data Estate (global)</b>"]
+        direction LR
+        style AZ_DATA fill:#f0f9ff,stroke:#38bdf8,stroke-width:1px
+
+        SRC["External systems\nPOS • ERP • WMS • IoT • Partners"]:::box
+        LAND["Landing\nADLS • files • events"]:::box
+        EDW["Azure Databases / EDW\n(multi-domain)"]:::box
+        SRC --> LAND
+        SRC --> EDW
+      end
+
+      subgraph AZ_TOP["<b>Foundation + Orchestration</b>"]
+        direction LR
+        style AZ_TOP fill:#f0f9ff,stroke:#38bdf8,stroke-width:1px
+
+        GOV["Identity / Security / Ops\n(Entra ID • Network • Key Vault • Monitor)"]:::box
+        ORCH["SQL Server Agent Jobs\n<b>system-of-record orchestrator</b>\nSchedule • Retry • Alert • Job history\nRuns cross-system steps (SQL/PowerShell/API)"]:::orch
+        NOTE["Note: nested boxes show flow emphasis\n(not physical containment)."]:::note
+      end
+    end
+  end
+
+  %% Nested compute + analytics layers (conceptual)
+  subgraph DBX["<b>L1 — Databricks (core compute)</b>"]
+    direction TB
+    style DBX fill:#fff7ed,stroke:#f97316,stroke-width:2px
+
+    DBX_JOBS["Databricks Jobs / Workflows\n(job runs + retries at job level)"]:::box
+    DBX_PROC["Streaming + Batch processing\nTransform + curate (Delta)"]:::box
+    DBX_OUT["Curated outputs\n(domain-ready datasets)"]:::box
+    DBX_JOBS --> DBX_PROC --> DBX_OUT
+  end
+
+  subgraph FAB["<b>L2 — Microsoft Fabric (EnterpriseData → Domains)</b>"]
+    direction TB
+    style FAB fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px
+
+    HUB["EnterpriseData workspace\n(shared curated surfaces)"]:::hub
+
+    subgraph DOM["<b>Domain workspaces (explicit)</b>"]
+      direction LR
+      style DOM fill:#f5f3ff,stroke:#a78bfa,stroke-width:1px
+
+      subgraph WS_SC["Enterprise SupplyChain workspace"]
+        direction TB
+        style WS_SC fill:#ede9fe,stroke:#8b5cf6,stroke-width:1px
+        SC_CP["VN Control Plane (SupplyChain)\nWaves • Due gate • Run logs"]:::control
+        SC_PIPE["Fabric Data Pipeline(s)\n(business ETL executor)"]:::box
+        SC_ETL["Domain ETL framework\n(metadata-driven T-SQL patterns)"]:::box
+        SC_CP --> SC_PIPE --> SC_ETL
+      end
+
+      RETAIL["Retail workspace\nDomain ETL framework\n(enterprise pattern / framework)"]:::box
+      WHOLESALE["Wholesale workspace\nDomain ETL framework\n(enterprise pattern / framework)"]:::box
+      SALES["Sales workspace\nDomain ETL framework\n(enterprise pattern / framework)"]:::box
+      FINANCE["Finance workspace\nDomain ETL framework\n(enterprise pattern / framework)"]:::box
+    end
+
+    HUB --> WS_SC
+    HUB --> RETAIL
+    HUB --> WHOLESALE
+    HUB --> SALES
+    HUB --> FINANCE
+
+    %% Entry points + anti-pattern callout (kept inside L2, close to hub)
+    subgraph FAB_UTIL["Entry points + guardrail"]
+      direction LR
+      style FAB_UTIL fill:#f5f3ff,stroke:#c4b5fd,stroke-width:1px
+      FAB_ENTRY["Fabric jobs entrypoints\n(pipeline runs / refresh / SQL execution)\n(triggered by L0; not self-scheduled)"]:::box
+      BAD["❌ Anti-pattern:\nDueling schedulers\n(Fabric self-schedules/retries)\nwhile SQL Agent schedules same workload"]:::warn
+    end
+    HUB --> FAB_ENTRY
+  end
+
+  %% Main flow
+  LAND --> DBX_JOBS
+  EDW --> DBX_JOBS
+  DBX_OUT --> HUB
+
+  %% Orchestrator control edges (dashed)
+  ORCH -.-> DBX_JOBS
+  ORCH -.-> FAB_ENTRY
+  FAB_ENTRY -.-> SC_PIPE
+
+  %% (anti-pattern callout is placed in FAB hub row)

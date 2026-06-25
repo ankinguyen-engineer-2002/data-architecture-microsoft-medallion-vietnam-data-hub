@@ -1,0 +1,278 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "refresh_edw",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[bronze].[usp_refresh_edw_tables]"
+        },
+        "linkedService": {
+          "name": "SupplyChain_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "e146ffe2-d907-46a7-9b7e-3e739a31b24e",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "log_start",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "refresh_edw",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[meta].[usp_log_pipeline_run]",
+          "storedProcedureParameters": {
+            "pipeline_run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "pipeline_name": {
+              "value": "pl_sc_master",
+              "type": "String"
+            },
+            "status": {
+              "value": "running",
+              "type": "String"
+            }
+          }
+        },
+        "linkedService": {
+          "name": "SupplyChain_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "e146ffe2-d907-46a7-9b7e-3e739a31b24e",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "lk_projects",
+        "type": "Lookup",
+        "dependsOn": [
+          {
+            "activity": "log_start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "sqlReaderQuery": "SELECT DISTINCT project FROM SupplyChain_Warehouse.meta.sp_registry WHERE is_active = 1 AND project IS NOT NULL",
+            "partitionOption": "None"
+          },
+          "firstRowOnly": false,
+          "datasetSettings": {
+            "annotations": [],
+            "connectionSettings": {
+              "name": "SupplyChain_Lakehouse",
+              "properties": {
+                "annotations": [],
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+                  "artifactId": "62a3081e-4093-4f46-856c-f50aa58732fa",
+                  "rootFolder": "Tables"
+                },
+                "externalReferences": {
+                  "connection": "b4311980-3d3b-49be-bd11-7e2f8e424e19"
+                }
+              }
+            },
+            "type": "LakehouseTable",
+            "schema": [],
+            "typeProperties": {}
+          }
+        }
+      },
+      {
+        "name": "fe_projects",
+        "type": "ForEach",
+        "dependsOn": [
+          {
+            "activity": "lk_projects",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "isSequential": false,
+          "batchCount": 10,
+          "items": {
+            "value": "@activity('lk_projects').output.value",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "name": "invoke_mart",
+              "type": "InvokePipeline",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.06:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "waitOnCompletion": true,
+                "operationType": "InvokeFabricPipeline",
+                "pipelineId": "9a1e7a12-30ab-465c-a45d-b051619193ac",
+                "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+                "parameters": {
+                  "project_name": {
+                    "value": "@item().project",
+                    "type": "Expression"
+                  }
+                }
+              },
+              "externalReferences": {
+                "connection": "3bee8b0e-bc72-484d-9008-4a7c0acd92d0"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "finalize",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "fe_projects",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[meta].[usp_finalize_pipeline]",
+          "storedProcedureParameters": {
+            "pipeline_run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            }
+          }
+        },
+        "linkedService": {
+          "name": "SupplyChain_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "e146ffe2-d907-46a7-9b7e-3e739a31b24e",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "refresh_sm",
+        "type": "PBISemanticModelRefresh",
+        "dependsOn": [
+          {
+            "activity": "finalize",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.02:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "method": "post",
+          "waitOnCompletion": true,
+          "commitMode": "Transactional",
+          "operationType": "SemanticModelRefresh",
+          "groupId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+          "datasetId": "a52841ee-d853-46df-b2f7-2a2cc4493d60",
+          "objects": [
+            {
+              "table": "dim_calendar"
+            },
+            {
+              "table": "dim_customer_grouping"
+            },
+            {
+              "table": "dim_warehouse"
+            },
+            {
+              "table": "dim_product"
+            },
+            {
+              "table": "dim_forecast_horizon"
+            },
+            {
+              "table": "fact_flat_forecast_actual"
+            },
+            {
+              "table": "fact_forecast_kpi"
+            }
+          ]
+        },
+        "externalReferences": {
+          "connection": "0f1e7cd1-737b-44f3-a630-29c73a5e40cd"
+        }
+      }
+    ],
+    "concurrency": 1
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "target_semantic_model_id": "3eecf594-a75e-46ab-9162-63c95ee68e45",
+  "source_semantic_model_id": "88c3fccd-698d-4175-b7b9-ea377e0f5afc",
+  "added_table_files": [
+    "CogsRollingHelper.tmdl",
+    "DimCalendar.tmdl",
+    "DimProduct.tmdl",
+    "DimVendor.tmdl",
+    "DimWarehouse.tmdl",
+    "FactInventoryHealthSnapshot.tmdl",
+    "FactInventoryRiskForward.tmdl",
+    "Measure.tmdl"
+  ],
+  "added_table_refs": [
+    "DimCalendar",
+    "DimProduct",
+    "DimWarehouse",
+    "DimVendor",
+    "CogsRollingHelper",
+    "FactInventoryHealthSnapshot",
+    "FactInventoryRiskForward",
+    "Measure"
+  ],
+  "added_relationships": [
+    "DimCalendar_to_FactHealth",
+    "DimCalendar_to_FactRisk",
+    "DimWarehouse_to_FactHealth",
+    "DimWarehouse_to_FactRisk",
+    "DimProduct_to_FactHealth",
+    "DimProduct_to_FactRisk",
+    "DimVendor_to_DimProduct"
+  ],
+  "added_expression": "DirectLake - SupplyChain_Gold_Warehouse",
+  "preserved_a_existing_table_files": [
+    "Parameter.tmdl",
+    "_Measure.tmdl",
+    "dim_calendar.tmdl",
+    "dim_customer_grouping.tmdl",
+    "dim_forecast_horizon.tmdl",
+    "dim_product.tmdl",
+    "dim_warehouse.tmdl",
+    "dq_forecast_accuracy.tmdl",
+    "fact_flat_forecast_actual.tmdl",
+    "fact_forecast_kpi.tmdl",
+    "para_metric_table.tmdl"
+  ]
+}

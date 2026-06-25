@@ -1,0 +1,55 @@
+table DimCalendar
+	lineageTag: bef0cd97-661a-4e99-80bb-b1a7e51dbefa
+
+	column DateKey
+		dataType: int64
+		isKey
+		lineageTag: a0dc2c53-9056-4ba0-bdd8-953ccb36d587
+		summarizeBy: none
+		sourceColumn: DateSK
+
+	column CalendarDate
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: e066245d-da43-4fa5-a3fe-953effd21a7f
+		summarizeBy: none
+		sourceColumn: Date
+
+	column WeekEndingDate
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 78ee2b22-0757-4102-b91d-8bd8533e4186
+		summarizeBy: none
+		sourceColumn: FSCWeekLast
+
+	column FiscalWeek
+		dataType: int64
+		lineageTag: 6c5c22a7-9062-4480-8e41-cca9f1d99686
+		summarizeBy: none
+		sourceColumn: FSCWeekNum
+
+	column FiscalWeekIndicator
+		dataType: int64
+		lineageTag: c501ca52-522b-4a24-994b-20caf4a57a63
+		summarizeBy: none
+		sourceColumn: FSCWeekIndicatorNum
+
+	column FiscalMonth
+		dataType: int64
+		lineageTag: 49f75ad1-e0bb-416b-b8c1-880e0e594c58
+		summarizeBy: none
+		sourceColumn: FSCMonthNum
+
+	column FiscalMonthYear
+		dataType: int64
+		lineageTag: fb0dfd40-b1ad-47ff-939a-56f853bfdb56
+		summarizeBy: none
+		sourceColumn: FSCMonthYearNum
+
+	partition DimCalendar-ef83248a-8d45-4012-8408-bf450a4fb1d0 = entity
+		mode: directLake
+		source
+			entityName: DimCalendar
+			schemaName: Shared_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

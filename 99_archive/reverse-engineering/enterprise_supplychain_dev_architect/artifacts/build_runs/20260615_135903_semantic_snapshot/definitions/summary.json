@@ -1,0 +1,22 @@
+{
+  "results": [
+    {
+      "name": "sc_control_tower",
+      "id": "f06a2361-15fd-4f91-9d37-941fefe62aaf",
+      "ok": true,
+      "dir": "Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/20260615_135903_semantic_snapshot/definitions/sc_control_tower"
+    },
+    {
+      "name": "Supply Chain Control Tower",
+      "id": "3eecf594-a75e-46ab-9162-63c95ee68e45",
+      "ok": true,
+      "dir": "Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/20260615_135903_semantic_snapshot/definitions/Supply_Chain_Control_Tower"
+    },
+    {
+      "name": "SupplyChain_Gold",
+      "id": "b4b302e7-65d7-464d-9083-aaef9d88dfc2",
+      "ok": true,
+      "dir": "Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/20260615_135903_semantic_snapshot/definitions/SupplyChain_Gold"
+    }
+  ]
+}

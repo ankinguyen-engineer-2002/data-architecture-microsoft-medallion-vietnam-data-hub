@@ -1,0 +1,11 @@
+expression 'DirectLake - SupplyChain_Gold_Warehouse' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/98e2a911-5af9-442e-9cc8-5d8dadb8b762", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: fd674193-3f01-4996-a829-7f1759b1b3a9
+
+	annotation PBI_IncludeFutureArtifacts = False
+
+	annotation PBI_RemovedChildren = [{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[Shared_DW].[DimWarehouse__old_20260529_175532]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[InventoryHealth_DW].[__rename_probe_renamed_20260529_101705]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[InventoryHealth_DW].[CogsRollingHelper]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[InventoryHealth_DW].[DimVendor]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[InventoryHealth_DW].[FactInventoryHealthSnapshot]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[InventoryHealth_DW].[DimItem]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[ForecastAccuracy_DW].[DimProduct]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[InventoryHealth_DW].[FactInventoryHealthSnapshot__old_20260529_101243]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[InventoryHealth_DW].[FactInventoryRiskForward__old_20260529_101243]"}},"objectType":"Table"}]
+

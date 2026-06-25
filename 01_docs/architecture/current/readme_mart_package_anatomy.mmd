@@ -1,0 +1,15 @@
+flowchart TD
+    Mart["02_marts/&lt;mart_name&gt;/"]
+    Mart --> SourceWrk["00_source_wrk<br/>source wrapper / prep notes"]
+    Mart --> Bronze["01_bronze<br/>source contract đang active"]
+    Mart --> Silver["02_silver<br/>final tables + _Wrk view SQL"]
+    Mart --> Gold["03_gold<br/>serving tables + _Wrk view SQL"]
+    Mart --> DQ["04_dq<br/>rule / exception / evidence"]
+    Mart --> Catalog["05_catalog<br/>asset / lineage / run order / semantic binding"]
+    Mart --> History["99_history<br/>logic cũ hoặc inactive"]
+
+    Bronze --> Silver
+    Silver --> Gold
+    Gold --> Semantic["04_semantic<br/>semantic/report contract"]
+    DQ --> Ops["03_operations<br/>operating registry"]
+    Catalog --> Ops

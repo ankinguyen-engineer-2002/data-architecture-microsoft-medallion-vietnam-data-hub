@@ -1,0 +1,16 @@
+{
+  "captured_at_utc": "2026-05-01T04:03:23.634326+00:00",
+  "counts": {},
+  "database": "SupplyChain_Warehouse",
+  "foreign_key_count": 0,
+  "foreign_keys": [],
+  "object_count": 0,
+  "objects": [],
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "target_schemas": [
+    "bronze",
+    "silver",
+    "gold",
+    "meta"
+  ]
+}

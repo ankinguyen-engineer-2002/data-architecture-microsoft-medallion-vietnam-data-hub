@@ -1,0 +1,46 @@
+{
+  "step": 5,
+  "file": "05_drop_old_gold_views.sql",
+  "db": "SupplyChain_Gold_Warehouse",
+  "started": "2026-05-10T06:25:45.367547+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ForecastAccuracy_DW.vw_DimCalendar;"
+    },
+    {
+      "i": 1,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ForecastAccuracy_DW.vw_DimCustomerGrouping;"
+    },
+    {
+      "i": 2,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ForecastAccuracy_DW.vw_DimForecastHorizon;"
+    },
+    {
+      "i": 3,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ForecastAccuracy_DW.vw_DimProduct;"
+    },
+    {
+      "i": 4,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ForecastAccuracy_DW.vw_DimWarehouse;"
+    },
+    {
+      "i": 5,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ForecastAccuracy_DW.vw_FactForecastActual;"
+    },
+    {
+      "i": 6,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ForecastAccuracy_DW.vw_FactForecastKpi;"
+    }
+  ],
+  "ended": "2026-05-10T06:25:50.382672+00:00",
+  "ok": 7,
+  "total": 7
+}

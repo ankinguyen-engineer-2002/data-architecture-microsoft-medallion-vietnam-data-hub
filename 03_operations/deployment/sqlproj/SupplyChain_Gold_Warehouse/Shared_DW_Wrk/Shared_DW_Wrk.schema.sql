@@ -1,0 +1,1 @@
+CREATE SCHEMA [Shared_DW_Wrk];

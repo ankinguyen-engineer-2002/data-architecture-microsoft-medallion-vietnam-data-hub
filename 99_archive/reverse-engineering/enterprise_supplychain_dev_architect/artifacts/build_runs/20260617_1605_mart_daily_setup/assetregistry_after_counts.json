@@ -1,0 +1,12 @@
+[
+  {
+    "project": "forecast_accuracy",
+    "frequency": "daily",
+    "cnt": 26
+  },
+  {
+    "project": "inventory_health",
+    "frequency": "daily",
+    "cnt": 16
+  }
+]

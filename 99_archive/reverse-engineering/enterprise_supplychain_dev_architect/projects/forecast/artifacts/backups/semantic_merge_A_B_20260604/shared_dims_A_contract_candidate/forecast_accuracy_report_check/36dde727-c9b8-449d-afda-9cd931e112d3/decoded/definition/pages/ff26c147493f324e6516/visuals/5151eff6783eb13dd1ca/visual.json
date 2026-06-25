@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "5151eff6783eb13dd1ca",
+  "position": {
+    "x": 0,
+    "y": 420,
+    "z": 1000,
+    "height": 300,
+    "width": 501.25,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measure"
+                    }
+                  },
+                  "Property": "ForecastAccuracy_Insight_3_5_Month"
+                }
+              },
+              "queryRef": "_Measure.ForecastAccuracy_Insight_3_5_Month",
+              "nativeQueryRef": "ForecastAccuracy_Insight_3_5_Month"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "asset_key": "enterprise_lakehouse.customerorders_afi.warehousemaster",
+  "display": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 29,
+    "columns": [
+      {
+        "column_name": "Warehouse",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "LocationID",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "IntransitWarehouse",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "SiteID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "MROSiteID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "WarehouseType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "WarehouseOrderGroup",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "WarehouseSourceID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "RouteType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "DefaultPortId",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "Controlled",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "PrinterName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "ZebraPrinter",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "SendBolsToManu",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "OrderReleaseMin",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "OrderReleaseMinType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "DefaultShipId",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "SortOrder",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "AsOverhead",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "AsFreight",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 20
+      },
+      {
+        "column_name": "ContainerDirectWhse",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 21
+      },
+      {
+        "column_name": "ActiveRecord",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 22
+      },
+      {
+        "column_name": "usra",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 23
+      },
+      {
+        "column_name": "dtea",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 24
+      },
+      {
+        "column_name": "usrc",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 25
+      },
+      {
+        "column_name": "dtec",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 26
+      },
+      {
+        "column_name": "WhereMade",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 27
+      },
+      {
+        "column_name": "ManufacturingSite",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 28
+      },
+      {
+        "column_name": "SellableWarehouse",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 29
+      }
+    ],
+    "exists": true,
+    "freshness": {},
+    "freshness_columns": [],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "full_row_duplicate_extra_rows": null,
+          "full_row_duplicate_groups": 0,
+          "max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 0.815,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "Warehouse"
+    ],
+    "latest_partition_duplicate": {
+      "error": "No freshness column or no key columns",
+      "rows": [],
+      "status": "NOT_APPLICABLE"
+    },
+    "latest_partition_null_blank": {
+      "error": "No freshness column or no key columns",
+      "rows": [],
+      "status": "NOT_APPLICABLE"
+    },
+    "projects": [
+      "forecast_accuracy",
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+    "row_count_metadata": null,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "forecast_accuracy",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster.sql"
+}

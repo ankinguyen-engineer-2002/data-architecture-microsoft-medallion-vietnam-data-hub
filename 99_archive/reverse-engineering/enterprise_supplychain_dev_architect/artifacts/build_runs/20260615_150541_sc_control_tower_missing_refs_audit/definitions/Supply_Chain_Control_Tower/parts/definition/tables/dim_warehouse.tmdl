@@ -1,0 +1,92 @@
+/// Warehouse/location dimension used across Control Tower reporting. Supports filtering, grouping, and analysis by warehouse and related location attributes.
+table dim_warehouse
+	lineageTag: cbf0c9bd-8c9d-4422-992a-d7afe7192897
+	sourceLineageTag: [dbo].[dim_warehouse]
+
+	/// Warehouse surrogate key from the warehouse dimension source.
+	column sk_warehouse
+		dataType: int64
+		formatString: 0
+		lineageTag: 8643d64a-4892-4796-8d55-cd25c5ffee35
+		sourceLineageTag: sk_warehouse
+		summarizeBy: sum
+		sourceColumn: sk_warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business warehouse code used to join warehouse-related facts and slice Control Tower metrics.
+	column code_warehouse
+		dataType: string
+		lineageTag: bd7717e1-2f1a-4ce0-ae77-09eba6b9581f
+		sourceLineageTag: code_warehouse
+		summarizeBy: none
+		sourceColumn: code_warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_intransit_warehouse
+		dataType: string
+		lineageTag: 6e6498df-bf67-4566-85df-94fbf98fb1a2
+		sourceLineageTag: code_intransit_warehouse
+		summarizeBy: none
+		sourceColumn: code_intransit_warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_container_direct
+		dataType: string
+		lineageTag: 20d86467-2de5-4de3-978f-d0f284f93b90
+		sourceLineageTag: code_container_direct
+		summarizeBy: none
+		sourceColumn: code_container_direct
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Flag indicating whether the warehouse is included in controlled warehouse reporting logic.
+	column is_controlled_warehouse
+		dataType: int64
+		formatString: 0
+		lineageTag: f97ac1c1-a416-42c0-a1f0-f75a81c3db12
+		sourceLineageTag: is_controlled_warehouse
+		summarizeBy: sum
+		sourceColumn: is_controlled_warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Warehouse location name used for reporting and user-facing filters.
+	column name_warehouse_location
+		dataType: string
+		lineageTag: 0ec99fc0-0467-4848-a240-9b17e370065a
+		sourceLineageTag: name_warehouse_location
+		summarizeBy: none
+		sourceColumn: name_warehouse_location
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Warehouse order group used for grouped warehouse analysis.
+	column name_warehouse_order_group
+		dataType: string
+		lineageTag: c0f4a67b-0918-4591-b75c-2af7c21e909b
+		sourceLineageTag: name_warehouse_order_group
+		summarizeBy: none
+		sourceColumn: name_warehouse_order_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_finance_inventory_report
+		dataType: int64
+		formatString: 0
+		lineageTag: 0888a430-8cff-4c1b-b95a-f56d90fc265d
+		sourceLineageTag: is_finance_inventory_report
+		summarizeBy: sum
+		sourceColumn: is_finance_inventory_report
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_warehouse = entity
+		mode: directLake
+		source
+			entityName: dim_warehouse
+			schemaName: dbo
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

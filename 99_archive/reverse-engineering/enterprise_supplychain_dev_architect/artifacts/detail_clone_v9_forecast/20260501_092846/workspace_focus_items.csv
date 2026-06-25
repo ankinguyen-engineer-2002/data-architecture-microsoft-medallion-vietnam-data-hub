@@ -1,0 +1,17 @@
+description,displayName,folderId,id,type,workspaceId
+,Forecast Accuracy Gold,,23718231-b394-4b84-a215-50c302043ed0,Report,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,SupplyChain_Gold,,b4b302e7-65d7-464d-9083-aaef9d88dfc2,SemanticModel,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,Supply Chain Control Tower,,3eecf594-a75e-46ab-9162-63c95ee68e45,SemanticModel,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,SC_Control_Tower,38cdbf44-d108-4e00-98ae-69c2f5aa60b7,a52841ee-d853-46df-b2f7-2a2cc4493d60,SemanticModel,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,Enterprise_Lakehouse,,22bf1a2c-6810-4228-b69b-7a0f7853cd73,SQLEndpoint,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,SupplyChain_Warehouse,,e146ffe2-d907-46a7-9b7e-3e739a31b24e,Warehouse,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,SupplyChain_Lakehouse,,cf6f1c4a-43ab-4e95-a78e-d99897be56da,SQLEndpoint,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,Enterprise_Lakehouse,,584e7d2c-46ca-49dc-bb6c-68df6ef4f424,Lakehouse,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,SupplyChain_Lakehouse,,62a3081e-4093-4f46-856c-f50aa58732fa,Lakehouse,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,pl_sc_bronze,38cdbf44-d108-4e00-98ae-69c2f5aa60b7,1bdbaebb-7222-4e9c-a45d-3e632bba846d,DataPipeline,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,pl_sc_silver,38cdbf44-d108-4e00-98ae-69c2f5aa60b7,46437ae6-3a15-4697-957d-f1f44ba10633,DataPipeline,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,pl_sc_gold,38cdbf44-d108-4e00-98ae-69c2f5aa60b7,94fc130e-f327-46a9-b7ba-cd2aa328c0da,DataPipeline,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,pl_sc_master,38cdbf44-d108-4e00-98ae-69c2f5aa60b7,319a8160-3f3a-4b87-8ad6-75ac4f3ec184,DataPipeline,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,pl_sc_silver_wave,38cdbf44-d108-4e00-98ae-69c2f5aa60b7,57a09720-21a2-49b5-a472-1e19abd14f76,DataPipeline,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,pl_dq_check,38cdbf44-d108-4e00-98ae-69c2f5aa60b7,c32dc18d-d027-4672-9872-f73404cd7c6f,DataPipeline,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+,pl_sc_mart,38cdbf44-d108-4e00-98ae-69c2f5aa60b7,9a1e7a12-30ab-465c-a45d-b051619193ac,DataPipeline,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0

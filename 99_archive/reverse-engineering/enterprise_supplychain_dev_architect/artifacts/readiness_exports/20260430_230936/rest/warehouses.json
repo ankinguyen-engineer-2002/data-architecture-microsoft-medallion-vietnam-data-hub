@@ -1,0 +1,64 @@
+{
+  "value": [
+    {
+      "id": "d4eb02f9-c29e-4f0d-9870-43b5970b349f",
+      "type": "Warehouse",
+      "displayName": "ETL_Framework",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "properties": {
+        "connectionInfo": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+        "connectionString": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+        "createdDate": "2025-08-19T20:46:20.7010572",
+        "lastUpdatedTime": "2026-04-10T07:04:40.6905266",
+        "collationType": "Latin1_General_100_CI_AS_KS_WS_SC_UTF8",
+        "creationMode": "New"
+      }
+    },
+    {
+      "id": "e146ffe2-d907-46a7-9b7e-3e739a31b24e",
+      "type": "Warehouse",
+      "displayName": "SupplyChain_Warehouse",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "properties": {
+        "connectionInfo": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+        "connectionString": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+        "createdDate": "2025-08-19T20:47:08.7276586",
+        "lastUpdatedTime": "2026-04-29T16:14:24.8079263",
+        "collationType": "Latin1_General_100_CI_AS_KS_WS_SC_UTF8",
+        "creationMode": "New"
+      }
+    },
+    {
+      "id": "b8182cdf-abb6-4d13-b1be-2837ae8efac2",
+      "type": "Warehouse",
+      "displayName": "StagingWarehouseForDataflows_20251008171231",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "properties": {
+        "connectionInfo": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+        "connectionString": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+        "createdDate": "2025-10-08T17:12:31.4958566",
+        "lastUpdatedTime": "2026-03-11T09:04:02.5714671",
+        "collationType": "Latin1_General_100_BIN2_UTF8",
+        "creationMode": "New"
+      }
+    },
+    {
+      "id": "3ca38f6c-666b-4f50-ab1b-bb72cf1778ea",
+      "type": "Warehouse",
+      "displayName": "Temp_SCPWarehouse",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "properties": {
+        "connectionInfo": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+        "connectionString": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+        "createdDate": "2025-10-21T17:53:44.6618728",
+        "lastUpdatedTime": "2026-03-16T22:46:49.3834899",
+        "collationType": "Latin1_General_100_CI_AS_KS_WS_SC_UTF8",
+        "creationMode": "New"
+      }
+    }
+  ]
+}

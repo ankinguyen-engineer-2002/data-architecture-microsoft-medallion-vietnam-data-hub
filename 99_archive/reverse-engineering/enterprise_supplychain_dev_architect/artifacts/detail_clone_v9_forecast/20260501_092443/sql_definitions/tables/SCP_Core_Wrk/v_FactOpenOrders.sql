@@ -1,0 +1,35 @@
+-- Source: SupplyChain_Warehouse.SCP_Core_Wrk.v_FactOpenOrders
+-- Generated from INFORMATION_SCHEMA.COLUMNS.
+-- This is a logical schema snapshot; review Fabric physical options before execution.
+CREATE TABLE [SCP_Core_Wrk].[v_FactOpenOrders] (
+    [OrderTakenDate] date NULL,
+    [OrderNumber] varchar(8000) NULL,
+    [ItemSequenceNumber] decimal(7,0) NULL,
+    [AccountNumber] varchar(8000) NULL,
+    [ShipToNumber] varchar(8000) NULL,
+    [Account And ShipTo Number] varchar(101) NULL,
+    [ItemSKU] varchar(8000) NULL,
+    [Warehouse] varchar(8000) NULL,
+    [ItemStatus] varchar(8000) NULL,
+    [OpenOrderQty] int NULL,
+    [BackOrderQty] int NULL,
+    [OpenOrderAmt] decimal(13,2) NULL,
+    [BackOrderAmt] decimal(13,2) NULL,
+    [OrderArrival] varchar(8000) NULL,
+    [OriginalPromiseDate] date NULL,
+    [CurrentPromiseDate] date NULL,
+    [OriginalRequestDate] date NULL,
+    [CurrentRequestDate] date NULL,
+    [PrimaryOrderType] varchar(8000) NULL,
+    [SecondaryOrderType] varchar(8000) NULL,
+    [3rdOrderType] varchar(8000) NULL,
+    [4thOrderType] varchar(8000) NULL,
+    [InventoryAllocatedFlag] decimal(1,0) NULL,
+    [CurrentLoadDate] date NULL,
+    [CountofLoadDateChanges] decimal(3,0) NULL,
+    [LoadLeadTime] decimal(2,0) NULL,
+    [ShippingInstructions] varchar(8000) NULL,
+    [CustomerSKUNo] varchar(8000) NULL,
+    [OrderFreight] decimal(12,2) NULL,
+    [FlagPastDue] varchar(10) NOT NULL
+);

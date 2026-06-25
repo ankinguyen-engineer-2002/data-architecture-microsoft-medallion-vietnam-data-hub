@@ -1,0 +1,137 @@
+{
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "source_count": 25,
+  "sources": [
+    {
+      "asset_key": "enterprise_lakehouse.customerorders_afi.warehousemaster",
+      "display": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.inventory_enh_history.itembalance",
+      "display": "Enterprise_Lakehouse.Inventory_Enh_History.ItemBalance",
+      "dq_status": "REVIEW_HISTORY_DUP_LATEST_CLEAN"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.aitmcls",
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.AITMCLS",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itbext",
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itembl",
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITEMBL",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itmext",
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itmrva",
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.manufacturing_inventory_afi.tfrdtl",
+      "display": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRDTL",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.manufacturing_inventory_afi.tfrhdr",
+      "display": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRHDR",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.manufacturing_productionplanning_afi.momast",
+      "display": "Enterprise_Lakehouse.Manufacturing_ProductionPlanning_AFI.MOMAST",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimdate",
+      "display": "Enterprise_Lakehouse.MasterData_DW.DimDate",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimitemmaster",
+      "display": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_productknowledge.item_env",
+      "display": "Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.purchasing_afi.vendormaster",
+      "display": "Enterprise_Lakehouse.Purchasing_AFI.VendorMaster",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoicedetail",
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoiceheader",
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.atpweekending",
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.ATPWeekEnding",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.demandforecastsnapshotdaily",
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.demandfulfillmentcommoncontainer_logility",
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.demandinventorysnapshotdaily",
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.DemandInventorySnapshotDaily",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.purchaseordersnapshot",
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.PurchaseOrderSnapshot",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.supplychain_enh.supplyplandetailsnapshotdaily",
+      "display": "Enterprise_Lakehouse.SupplyChain_Enh.SupplyPlanDetailSnapshotDaily",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.ashleywarehousemaster",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.AshleyWarehouseMaster",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing.nonpkitems",
+      "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing_afi.customergrouping",
+      "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping",
+      "dq_status": "PASS"
+    }
+  ],
+  "status_counts": {
+    "PASS": 16,
+    "REVIEW": 8,
+    "REVIEW_HISTORY_DUP_LATEST_CLEAN": 1
+  }
+}

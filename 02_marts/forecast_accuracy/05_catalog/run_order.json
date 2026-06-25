@@ -1,0 +1,135 @@
+{
+  "default_mode": "dry_run",
+  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "manifest": "03_operations/orchestration/forecast_accuracy/manifest.json",
+  "mart": "forecast_accuracy",
+  "pipeline": {
+    "api": "dataPipelineExecute",
+    "id": "20db5725-80e3-4081-9ef5-01700acdf3b3",
+    "name": "pl_sc_mart",
+    "parameters": {
+      "project_name": "forecast_accuracy"
+    },
+    "parameters_need_verify": true
+  },
+  "post_run_checks": [],
+  "sequence": [
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "manifest",
+      "object": "ReferenceMaster_Enh.*",
+      "purpose": "Reference/master data",
+      "resolved_asset_key": null,
+      "step": 100,
+      "wave": 0
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "manifest",
+      "object": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "purpose": "Invoice detail silver",
+      "resolved_asset_key": "saleshistory.enh.invoicedetaillinelevel",
+      "step": 200,
+      "wave": 1
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "manifest",
+      "object": "OpenOrderHistory_Enh.OpenOrderLineLevel",
+      "purpose": "Open order line silver",
+      "resolved_asset_key": "openorderhistory.enh.openorderlinelevel",
+      "step": 210,
+      "wave": 1
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "manifest",
+      "object": "SalesHistory_Enh.ActualDemandMonthly",
+      "purpose": "Actual demand aggregate",
+      "resolved_asset_key": "saleshistory.enh.actualdemandmonthly",
+      "step": 300,
+      "wave": 2
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "manifest",
+      "object": "ForecastHistory_Enh.ForecastDemandMonthly",
+      "purpose": "Forecast demand aggregate",
+      "resolved_asset_key": "forecasthistory.enh.forecastdemandmonthly",
+      "step": 310,
+      "wave": 2
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "overwrite_or_current_manifest",
+      "object": "Shared_DW.DimCalendar",
+      "purpose": "Shared date dimension",
+      "resolved_asset_key": null,
+      "step": 350,
+      "wave": "gold_shared"
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "overwrite_or_current_manifest",
+      "object": "Shared_DW.DimProduct",
+      "purpose": "Shared product dimension",
+      "resolved_asset_key": null,
+      "step": 360,
+      "wave": "gold_shared"
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "overwrite_or_current_manifest",
+      "object": "Shared_DW.DimWarehouse",
+      "purpose": "Shared warehouse dimension",
+      "resolved_asset_key": null,
+      "step": 370,
+      "wave": "gold_shared"
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "manifest",
+      "object": "ForecastAccuracy_DW.DimCustomerGrouping",
+      "purpose": "Forecast mart dimension",
+      "resolved_asset_key": "forecastaccuracy.dw.dimcustomergrouping",
+      "step": 400,
+      "wave": "gold_dim"
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "manifest",
+      "object": "ForecastAccuracy_DW.DimForecastHorizon",
+      "purpose": "Forecast mart dimension",
+      "resolved_asset_key": "forecastaccuracy.dw.dimforecasthorizon",
+      "step": 410,
+      "wave": "gold_dim"
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "manifest",
+      "object": "ForecastAccuracy_DW.FactForecastActual",
+      "purpose": "Forecast actual fact",
+      "resolved_asset_key": "forecastaccuracy.dw.factforecastactual",
+      "step": 500,
+      "wave": "gold_fact"
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "manifest",
+      "object": "ForecastAccuracy_DW.FactForecastKpi",
+      "purpose": "Forecast KPI fact",
+      "resolved_asset_key": "forecastaccuracy.dw.factforecastkpi",
+      "step": 510,
+      "wave": "gold_fact"
+    },
+    {
+      "dq_gate": "bronze_source_contracts",
+      "load_type": "read_only",
+      "object": "04_semantic/row-count/freshness",
+      "purpose": "Post-run validation",
+      "resolved_asset_key": null,
+      "step": 900,
+      "wave": "smoke"
+    }
+  ]
+}

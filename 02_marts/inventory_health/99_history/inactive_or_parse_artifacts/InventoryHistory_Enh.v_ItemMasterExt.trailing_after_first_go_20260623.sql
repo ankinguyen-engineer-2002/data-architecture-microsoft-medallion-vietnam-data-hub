@@ -1,0 +1,5 @@
+-- ---- InventoryHistory_Enh.v_WarehouseExt ----
+-- Base: AshleyWarehouseMaster (Wholesale_Codis_AFI). Extension adds:
+--   - IsFinishedGoodsWarehouse + IsManufacturingWarehouse flags
+--   - B3 FIX: IsExcludedDirectCustomerRP flag (direct-to-customer / RP exclusion)
+--   - IsNetworkInventoryWarehouse flag (matrix v3 extended network)

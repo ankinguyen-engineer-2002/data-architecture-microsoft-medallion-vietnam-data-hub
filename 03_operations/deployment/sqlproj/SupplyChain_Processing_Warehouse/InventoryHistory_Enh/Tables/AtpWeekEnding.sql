@@ -1,0 +1,27 @@
+-- Generated from live Fabric metadata: SupplyChain_Processing_Warehouse
+CREATE TABLE [InventoryHistory_Enh].[AtpWeekEnding] (
+    [ItemSku] varchar(50) NULL,
+    [WarehouseCode] varchar(50) NULL,
+    [SnapshotDate] date NULL,
+    [SnapshotWeekEndingDate] date NULL,
+    [SourceRunDate] date NULL,
+    [SeriesNumber] varchar(50) NULL,
+    [AFIFinanceDivision] varchar(50) NULL,
+    [AFISalesDivision] varchar(50) NULL,
+    [ItemGrouping] varchar(100) NULL,
+    [ATPWeek] varchar(20) NULL,
+    [WeekNumber] int NULL,
+    [WeekEndingDate] date NULL,
+    [AtpQty] decimal(18,4) NULL,
+    [APNQ] decimal(18,4) NULL,
+    [InsertedDateTime] datetime2(6) NULL,
+    [InsertedVersion] int NULL,
+    [VersionDescription] varchar(100) NULL,
+    [SourceSystem] varchar(64) NULL,
+    [SourceTable] varchar(128) NULL,
+    [IsHistoricalWeeklySnapshot] int NULL,
+    [IsLatestAtpSnapshot] int NULL,
+    [SnapshotType] varchar(30) NULL,
+    [LatestAtpSnapshotDate] date NULL,
+    [LoadDT] datetime2(6) NULL
+);

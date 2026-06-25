@@ -1,0 +1,117 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "lk_gld",
+        "type": "Lookup",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "sqlReaderQuery": "SELECT r.target_schema, r.target_table FROM SupplyChain_Warehouse.meta.sp_registry r WHERE r.layer = 'GLD' AND r.is_active = 1 AND (r.cron_expression IS NULL OR r.next_run_time IS NULL OR r.next_run_time <= GETUTCDATE()) AND r.project = '@{pipeline().parameters.project_name}'",
+            "partitionOption": "None"
+          },
+          "firstRowOnly": false,
+          "datasetSettings": {
+            "annotations": [],
+            "connectionSettings": {
+              "name": "SupplyChain_Lakehouse",
+              "properties": {
+                "annotations": [],
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+                  "artifactId": "62a3081e-4093-4f46-856c-f50aa58732fa",
+                  "rootFolder": "Tables"
+                },
+                "externalReferences": {
+                  "connection": "b4311980-3d3b-49be-bd11-7e2f8e424e19"
+                }
+              }
+            },
+            "type": "LakehouseTable",
+            "schema": [],
+            "typeProperties": {}
+          }
+        }
+      },
+      {
+        "name": "fe_gld",
+        "type": "ForEach",
+        "dependsOn": [
+          {
+            "activity": "lk_gld",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "items": {
+            "value": "@activity('lk_gld').output.value",
+            "type": "Expression"
+          },
+          "batchCount": 2,
+          "activities": [
+            {
+              "name": "exec_generic",
+              "type": "SqlServerStoredProcedure",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.02:00:00",
+                "retry": 3,
+                "retryIntervalInSeconds": 60,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "storedProcedureName": "[meta].[usp_generic_load]",
+                "storedProcedureParameters": {
+                  "target_schema": {
+                    "value": {
+                      "value": "@item().target_schema",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  },
+                  "target_table": {
+                    "value": {
+                      "value": "@item().target_table",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  }
+                }
+              },
+              "linkedService": {
+                "name": "SupplyChain_Warehouse",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+                    "artifactId": "e146ffe2-d907-46a7-9b7e-3e739a31b24e",
+                    "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "parameters": {
+      "project_name": {
+        "type": "String",
+        "defaultValue": "supplychain"
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "results": [
+    {
+      "tables": [
+        {
+          "rows": [
+            {
+              "DimWarehouse[WarehouseCode]": "28",
+              "[HealthRows]": 354422,
+              "[RiskRows]": 440929
+            },
+            {
+              "DimWarehouse[WarehouseCode]": "201",
+              "[HealthRows]": 19684,
+              "[RiskRows]": 25493
+            },
+            {
+              "DimWarehouse[WarehouseCode]": "17",
+              "[HealthRows]": 379103,
+              "[RiskRows]": 556517
+            },
+            {
+              "DimWarehouse[WarehouseCode]": "20",
+              "[HealthRows]": 2931,
+              "[RiskRows]": 5032
+            },
+            {
+              "DimWarehouse[WarehouseCode]": "19",
+              "[HealthRows]": 26663,
+              "[RiskRows]": 36778
+            },
+            {
+              "DimWarehouse[WarehouseCode]": "101",
+              "[HealthRows]": 30754,
+              "[RiskRows]": 45473
+            },
+            {
+              "DimWarehouse[WarehouseCode]": "1",
+              "[HealthRows]": 450201,
+              "[RiskRows]": 651570
+            },
+            {
+              "DimWarehouse[WarehouseCode]": null,
+              "[HealthRows]": 21136,
+              "[RiskRows]": null
+            },
+            {
+              "DimWarehouse[WarehouseCode]": "12",
+              "[HealthRows]": 70480,
+              "[RiskRows]": 101713
+            },
+            {
+              "DimWarehouse[WarehouseCode]": "15",
+              "[HealthRows]": 385460,
+              "[RiskRows]": 563732
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

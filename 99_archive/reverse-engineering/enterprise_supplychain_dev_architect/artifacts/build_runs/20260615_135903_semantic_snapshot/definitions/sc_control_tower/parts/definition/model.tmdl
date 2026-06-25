@@ -1,0 +1,35 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DirectLake - SupplyChain_Gold_Warehouse"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","WebModelingEdit","DaxQueryView_Desktop","RemoteModeling","MCP-PBIModeling","Copilot","CopilotMeasureDescriptions","CalcGroup"]
+
+ref table DimCustomerGrouping
+ref table DimCalendar
+ref table DimWarehouse
+ref table DimProduct
+ref table _Measure_ForecastAccuracy
+ref table DimForecastHorizon
+ref table FactForecastActual
+ref table FactForecastKpi
+ref table para_metric_table
+ref table Parameter
+ref table DimVendor
+ref table InventoryHealthSubStatusWeekly
+ref table InventoryClassificationQtyWeekly
+ref table FactInventoryHealthSnapshot
+ref table _Measure_InventoryHealth
+ref table 'IH Compare Period'
+ref table 'IH Week Horizon'
+
+ref role All_Permission
+

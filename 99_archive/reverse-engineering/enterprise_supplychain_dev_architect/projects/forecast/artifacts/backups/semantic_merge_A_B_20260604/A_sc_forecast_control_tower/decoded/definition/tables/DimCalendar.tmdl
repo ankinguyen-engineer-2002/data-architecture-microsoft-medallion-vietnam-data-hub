@@ -1,0 +1,803 @@
+/// Shared fiscal and calendar date dimension for Control Tower reporting. Use fiscal fields for 4-4-5 month/quarter analysis and rolling period comparisons.
+table DimCalendar
+	lineageTag: be0962df-dfc6-4804-a117-3c63ba02338b
+	sourceLineageTag: [Shared_DW].[DimCalendar]
+
+	/// Surrogate date key from the calendar source. Used for reference and integration where numeric date keys are required.
+	column DateSK
+		dataType: int64
+		formatString: 0
+		lineageTag: 9118c831-6a00-4c7e-8598-6f8ddd6b7f03
+		sourceLineageTag: DateSK
+		summarizeBy: sum
+		sourceColumn: DateSK
+
+		annotation SummarizationSetBy = Automatic
+
+	column MapicsDate
+		dataType: int64
+		formatString: 0
+		lineageTag: b93ed569-6b9d-4019-b9ee-0dab21d932c5
+		sourceLineageTag: MapicsDate
+		summarizeBy: sum
+		sourceColumn: MapicsDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Primary calendar date used for relationships to fact tables. Use fiscal attributes from this table for 4-4-5 reporting logic.
+	column Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4ca42dac-727e-4553-b3ac-7ce89ac33560
+		sourceLineageTag: Date
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Datetime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2424d153-64d1-490a-be96-d25b9fb38f5e
+		sourceLineageTag: Datetime
+		summarizeBy: none
+		sourceColumn: Datetime
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar date attribute for standard calendar-based analysis.
+	column Calendar
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6d355307-2db1-4420-b8a4-9f4dbf0e6ed5
+		sourceLineageTag: Calendar
+		summarizeBy: none
+		sourceColumn: Calendar
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarDateName
+		dataType: string
+		lineageTag: 7da9079a-97c4-4016-bdb5-e34b28d58888
+		sourceLineageTag: CalendarDateName
+		summarizeBy: none
+		sourceColumn: CalendarDateName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar date indicator used for date slicers or page-level filtering where indicator-based selection is required.
+	column CalDateIndicatorNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 7183ad0d-0f94-4e50-863d-bc98905d2d93
+		sourceLineageTag: CalDateIndicatorNum
+		summarizeBy: sum
+		sourceColumn: CalDateIndicatorNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalDayOfWeekNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 4b1f40e5-7cdf-4773-ad84-1c85dbb2f6ac
+		sourceLineageTag: CalDayOfWeekNum
+		summarizeBy: sum
+		sourceColumn: CalDayOfWeekNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalDayOfWeekName
+		dataType: string
+		lineageTag: 6bbe52c7-30c2-4ab4-a226-b87d26f86f3e
+		sourceLineageTag: CalDayOfWeekName
+		summarizeBy: none
+		sourceColumn: CalDayOfWeekName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalDayOfMonthNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 09435e19-32ec-4f29-9ae8-e7fbcaa0df2f
+		sourceLineageTag: CalDayOfMonthNum
+		summarizeBy: sum
+		sourceColumn: CalDayOfMonthNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalDayOfYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: b356cc54-4d07-407f-80d2-019f5f5484b9
+		sourceLineageTag: CalDayOfYearNum
+		summarizeBy: sum
+		sourceColumn: CalDayOfYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalWeekNum
+		dataType: int64
+		formatString: 0
+		lineageTag: ff3293a7-ee3a-451a-987b-575636ea13d6
+		sourceLineageTag: CalWeekNum
+		summarizeBy: sum
+		sourceColumn: CalWeekNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar week indicator used for week slicers or page-level filtering where indicator-based selection is required.
+	column CalWeekIndicatorNum
+		dataType: int64
+		formatString: 0
+		lineageTag: e6ceddeb-870f-43aa-8815-f5f564525d62
+		sourceLineageTag: CalWeekIndicatorNum
+		summarizeBy: sum
+		sourceColumn: CalWeekIndicatorNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalWeekYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 9fbd310b-e9be-4e76-ae3f-fbdc1142d204
+		sourceLineageTag: CalWeekYearNum
+		summarizeBy: sum
+		sourceColumn: CalWeekYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalWeekYearName
+		dataType: string
+		lineageTag: b4bb6551-9af1-4c59-9c52-ac2ade14d710
+		sourceLineageTag: CalWeekYearName
+		summarizeBy: none
+		sourceColumn: CalWeekYearName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalWeekFirst
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6de99fbb-04c0-48ad-a9df-ba76f3fb0582
+		sourceLineageTag: CalWeekFirst
+		summarizeBy: none
+		sourceColumn: CalWeekFirst
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalWeekLast
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: adf4d60b-b1a9-454e-a5a7-408bbce231d7
+		sourceLineageTag: CalWeekLast
+		summarizeBy: none
+		sourceColumn: CalWeekLast
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalWeekOfMonthNum
+		dataType: int64
+		formatString: 0
+		lineageTag: bf71b39c-db0e-4230-9d8a-2faafd992023
+		sourceLineageTag: CalWeekOfMonthNum
+		summarizeBy: sum
+		sourceColumn: CalWeekOfMonthNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalMonthNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 84515f35-7804-40cf-a72d-fe0698201a26
+		sourceLineageTag: CalMonthNum
+		summarizeBy: sum
+		sourceColumn: CalMonthNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar month indicator used for month slicers or page-level filtering where indicator-based selection is required.
+	column CalMonthIndicatorNum
+		dataType: int64
+		formatString: 0
+		lineageTag: f15ced23-375a-4d0d-981b-d5c3da483947
+		sourceLineageTag: CalMonthIndicatorNum
+		summarizeBy: sum
+		sourceColumn: CalMonthIndicatorNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar month-year key for standard calendar month grouping and sorting.
+	column CalMonthYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b803281-cf90-4dab-8ab4-44e42b2300a2
+		sourceLineageTag: CalMonthYearNum
+		summarizeBy: sum
+		sourceColumn: CalMonthYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalMonthName
+		dataType: string
+		lineageTag: 21eb52a8-71bd-4db0-ad97-2ba7f213a10a
+		sourceLineageTag: CalMonthName
+		summarizeBy: none
+		sourceColumn: CalMonthName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalMonthYearName
+		dataType: string
+		lineageTag: 0faadca7-efab-4672-ac21-aaaa4707bb97
+		sourceLineageTag: CalMonthYearName
+		summarizeBy: none
+		sourceColumn: CalMonthYearName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalMonthFirst
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6f72b30c-9f62-45d3-8c29-e1dccb49b0ec
+		sourceLineageTag: CalMonthFirst
+		summarizeBy: none
+		sourceColumn: CalMonthFirst
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalMonthLast
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e7d613d1-15f0-4b62-ab24-588596d159ce
+		sourceLineageTag: CalMonthLast
+		summarizeBy: none
+		sourceColumn: CalMonthLast
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalQuarterNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 3dc7ce11-220d-4be1-bb59-5a1f442ff402
+		sourceLineageTag: CalQuarterNum
+		summarizeBy: sum
+		sourceColumn: CalQuarterNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalQuarterName
+		dataType: string
+		lineageTag: 8e47ed0a-2068-43d7-b6ae-d19003dd341c
+		sourceLineageTag: CalQuarterName
+		summarizeBy: none
+		sourceColumn: CalQuarterName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar quarter indicator used for quarter slicers or page-level filtering where indicator-based selection is required.
+	column CalQuarterIndicatorNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 506bd99d-8d5a-4e2c-b12c-57bb3d990822
+		sourceLineageTag: CalQuarterIndicatorNum
+		summarizeBy: sum
+		sourceColumn: CalQuarterIndicatorNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar quarter-year key for standard calendar quarter grouping and sorting.
+	column CalQuarterYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 5669860f-e61f-4a6e-9a12-2b67757a4b76
+		sourceLineageTag: CalQuarterYearNum
+		summarizeBy: sum
+		sourceColumn: CalQuarterYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalQuarterYearName
+		dataType: string
+		lineageTag: bc60eb07-d6ce-4bc1-91f5-1e5f9da1485e
+		sourceLineageTag: CalQuarterYearName
+		summarizeBy: none
+		sourceColumn: CalQuarterYearName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalSemesterNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 83849295-ffe1-47dd-b993-33c41b2decc1
+		sourceLineageTag: CalSemesterNum
+		summarizeBy: sum
+		sourceColumn: CalSemesterNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalSemesterYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c4125ea-7a9d-49c6-94af-a520ed48901b
+		sourceLineageTag: CalSemesterYearNum
+		summarizeBy: sum
+		sourceColumn: CalSemesterYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar year number for calendar-based reporting.
+	column CalYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: c115944c-deff-44ad-9a01-51be0dd24b8a
+		sourceLineageTag: CalYearNum
+		summarizeBy: sum
+		sourceColumn: CalYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalYearName
+		dataType: string
+		lineageTag: e0f132e0-a9ca-422b-a18c-62986d1f9674
+		sourceLineageTag: CalYearName
+		summarizeBy: none
+		sourceColumn: CalYearName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar year indicator used for year slicers or page-level filtering where indicator-based selection is required.
+	column CalYearIndicatorNum
+		dataType: int64
+		formatString: 0
+		lineageTag: d9bbb7d9-3bb0-42a0-8c30-0f2c5ca4f260
+		sourceLineageTag: CalYearIndicatorNum
+		summarizeBy: sum
+		sourceColumn: CalYearIndicatorNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal date attribute used for fiscal calendar alignment.
+	column FiscalDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f5998d5b-771e-4090-9e87-a49f09cc22a2
+		sourceLineageTag: FiscalDate
+		summarizeBy: none
+		sourceColumn: FiscalDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalDateName
+		dataType: string
+		lineageTag: ee5bf120-d12e-429e-a38e-aea32e5ec053
+		sourceLineageTag: FiscalDateName
+		summarizeBy: none
+		sourceColumn: FiscalDateName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal date indicator used for fiscal date slicers or page-level filtering where indicator-based selection is required.
+	column FSCDateIndicatorNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 94a28804-c956-48ce-ba5b-e4a5a3dd5a15
+		sourceLineageTag: FSCDateIndicatorNum
+		summarizeBy: sum
+		sourceColumn: FSCDateIndicatorNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCDayOfWeekNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e513324-40e2-4d49-9b68-6ff59a94c9ba
+		sourceLineageTag: FSCDayOfWeekNum
+		summarizeBy: sum
+		sourceColumn: FSCDayOfWeekNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCDayOfWeekName
+		dataType: string
+		lineageTag: c4921428-2faa-40a4-b5a9-21ceffffe37c
+		sourceLineageTag: FSCDayOfWeekName
+		summarizeBy: none
+		sourceColumn: FSCDayOfWeekName
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCDayOfMonthNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 439e45c5-8f64-41ca-b890-1b7e13a9dabd
+		sourceLineageTag: FSCDayOfMonthNum
+		summarizeBy: sum
+		sourceColumn: FSCDayOfMonthNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCDayOfYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 7245da72-2858-442e-bb3e-980cd1c34677
+		sourceLineageTag: FSCDayOfYearNum
+		summarizeBy: sum
+		sourceColumn: FSCDayOfYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCWeekNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 6252c338-d33b-41de-8a7a-aef87c970db4
+		sourceLineageTag: FSCWeekNum
+		summarizeBy: sum
+		sourceColumn: FSCWeekNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal week indicator used for fiscal week slicers or page-level filtering where indicator-based selection is required.
+	column FSCWeekIndicatorNum
+		dataType: int64
+		formatString: 0
+		lineageTag: b3875592-245a-4087-a30f-3b4443f25f98
+		sourceLineageTag: FSCWeekIndicatorNum
+		summarizeBy: sum
+		sourceColumn: FSCWeekIndicatorNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCWeekYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 724262d4-18c2-46f3-b586-54d353e98569
+		sourceLineageTag: FSCWeekYearNum
+		summarizeBy: sum
+		sourceColumn: FSCWeekYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCWeekYearName
+		dataType: string
+		lineageTag: 5b8e22e4-ccc7-4963-8d95-da5136534da7
+		sourceLineageTag: FSCWeekYearName
+		summarizeBy: none
+		sourceColumn: FSCWeekYearName
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCWeekFirst
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2648e9f4-d868-4622-9a4a-28fe35df1c8c
+		sourceLineageTag: FSCWeekFirst
+		summarizeBy: none
+		sourceColumn: FSCWeekFirst
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCWeekLast
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 27799aa2-8793-4861-ac7f-5b5e3dcfb881
+		sourceLineageTag: FSCWeekLast
+		summarizeBy: none
+		sourceColumn: FSCWeekLast
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCWeekOfMonthNum
+		dataType: int64
+		formatString: 0
+		lineageTag: dc1fdb23-a138-4ec8-a3ea-d09c46c86ee0
+		sourceLineageTag: FSCWeekOfMonthNum
+		summarizeBy: sum
+		sourceColumn: FSCWeekOfMonthNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal month number within the fiscal year. Follows the governed 4-4-5 calendar.
+	column FSCMonthNum
+		dataType: int64
+		formatString: 0
+		lineageTag: cf85caef-66fb-4e86-bc87-808170b07cd9
+		sourceLineageTag: FSCMonthNum
+		summarizeBy: sum
+		sourceColumn: FSCMonthNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal month indicator used for fiscal month slicers or page-level filtering. Preferred over fiscal month-year keys for indicator-based page slicers.
+	column FSCMonthIndicatorNum
+		dataType: int64
+		formatString: 0
+		lineageTag: e5f758b0-102b-491a-8850-5724182be93c
+		sourceLineageTag: FSCMonthIndicatorNum
+		summarizeBy: sum
+		sourceColumn: FSCMonthIndicatorNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal month-year key used for calculations and sorting. Not intended as the primary slicer field; use the appropriate fiscal indicator columns for page slicers.
+	column FSCMonthYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: a4a531ef-50e7-444d-a018-2194f2ad6032
+		sourceLineageTag: FSCMonthYearNum
+		summarizeBy: sum
+		sourceColumn: FSCMonthYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCMonthName
+		dataType: string
+		lineageTag: 80064108-4122-4b33-813a-eba2f09eb075
+		sourceLineageTag: FSCMonthName
+		summarizeBy: none
+		sourceColumn: FSCMonthName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Display label for fiscal month-year used in reports and slicers.
+	column FSCMonthYearName
+		dataType: string
+		lineageTag: 4cf4bdf1-7cd9-4ddf-9bf4-1c2117b4abb3
+		sourceLineageTag: FSCMonthYearName
+		summarizeBy: none
+		sourceColumn: FSCMonthYearName
+		sortByColumn: FSCMonthYearNum
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// First date of the fiscal month under the governed 4-4-5 calendar.
+	column FSCMonthFirst
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 96d84011-b3f4-450d-887c-632432133536
+		sourceLineageTag: FSCMonthFirst
+		summarizeBy: none
+		sourceColumn: FSCMonthFirst
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Last date of the fiscal month under the governed 4-4-5 calendar. Common month-end alignment date for facts.
+	column FSCMonthLast
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: 5124f196-e362-4680-8bf9-06351abb7f85
+		sourceLineageTag: FSCMonthLast
+		summarizeBy: none
+		sourceColumn: FSCMonthLast
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	/// Fiscal quarter number within the fiscal year. Follows the governed 4-4-5 calendar.
+	column FSCQuarterNum
+		dataType: int64
+		formatString: 0
+		lineageTag: aef7ee4e-4902-4c89-81af-1a4de66dd4ef
+		sourceLineageTag: FSCQuarterNum
+		summarizeBy: sum
+		sourceColumn: FSCQuarterNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCQuarterName
+		dataType: string
+		lineageTag: c55a7677-f047-4d5f-ae8d-72cfa168137a
+		sourceLineageTag: FSCQuarterName
+		summarizeBy: none
+		sourceColumn: FSCQuarterName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal quarter indicator used for fiscal quarter slicers or page-level filtering. Preferred over fiscal quarter-year keys for indicator-based page slicers.
+	column FSCQuarterIndicatorNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 881c1f52-bd1d-47cf-affa-d495369cf504
+		sourceLineageTag: FSCQuarterIndicatorNum
+		summarizeBy: sum
+		sourceColumn: FSCQuarterIndicatorNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal quarter-year key used for calculations and sorting. Not intended as the primary slicer field; use the appropriate fiscal indicator columns for page slicers.
+	column FSCQuarterYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d791859-dc18-4f51-ab66-3c648d5689f3
+		sourceLineageTag: FSCQuarterYearNum
+		summarizeBy: sum
+		sourceColumn: FSCQuarterYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Display label for fiscal quarter-year used in reports and slicers.
+	column FSCQuarterYearName
+		dataType: string
+		lineageTag: 640f0f63-91e9-46b8-bdbd-532aee7d3c65
+		sourceLineageTag: FSCQuarterYearName
+		summarizeBy: none
+		sourceColumn: FSCQuarterYearName
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCSemesterNum
+		dataType: int64
+		formatString: 0
+		lineageTag: af6d720b-5113-42c3-9511-86002a00b76c
+		sourceLineageTag: FSCSemesterNum
+		summarizeBy: sum
+		sourceColumn: FSCSemesterNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FSCSemesterYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 66c04336-3324-4649-b5bf-26b0eae4b4e5
+		sourceLineageTag: FSCSemesterYearNum
+		summarizeBy: sum
+		sourceColumn: FSCSemesterYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal year number used for fiscal reporting and period comparisons.
+	column FSCYearNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 65c78ebc-4c93-4f78-a0dc-61c1e1093245
+		sourceLineageTag: FSCYearNum
+		summarizeBy: sum
+		sourceColumn: FSCYearNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Display label for fiscal year used in reports and slicers.
+	column FSCYearName
+		dataType: string
+		lineageTag: 012e2f11-2f23-4544-8bdc-33baa68847a3
+		sourceLineageTag: FSCYearName
+		summarizeBy: none
+		sourceColumn: FSCYearName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal year indicator used for fiscal year slicers or page-level filtering where indicator-based selection is required.
+	column FSCYearIndicatorNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 16755d18-0c73-4ee4-be5f-c38d14d11996
+		sourceLineageTag: FSCYearIndicatorNum
+		summarizeBy: sum
+		sourceColumn: FSCYearIndicatorNum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// First date of the fiscal year under the governed 4-4-5 calendar.
+	column FSCYearFirst
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d6c102c1-8f73-4e43-881d-1d321f1be9f6
+		sourceLineageTag: FSCYearFirst
+		summarizeBy: none
+		sourceColumn: FSCYearFirst
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Last date of the fiscal year under the governed 4-4-5 calendar.
+	column FSCYearLast
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ec0c1c92-3745-497c-b4d4-a30a77bf0ae6
+		sourceLineageTag: FSCYearLast
+		summarizeBy: none
+		sourceColumn: FSCYearLast
+
+		annotation SummarizationSetBy = Automatic
+
+	column HolidayIndicatorCode
+		dataType: string
+		lineageTag: 5bb1b10e-9a2d-4443-94a8-edb309518e06
+		sourceLineageTag: HolidayIndicatorCode
+		summarizeBy: none
+		sourceColumn: HolidayIndicatorCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column HolidayName
+		dataType: string
+		lineageTag: 7405f661-db78-4870-b65d-1836e3b2f6b6
+		sourceLineageTag: HolidayName
+		summarizeBy: none
+		sourceColumn: HolidayName
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkingDayCode
+		dataType: string
+		lineageTag: c1e97f24-972f-42b1-a484-2467c6bfa128
+		sourceLineageTag: WorkingDayCode
+		summarizeBy: none
+		sourceColumn: WorkingDayCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekdayWeekendCode
+		dataType: string
+		lineageTag: 904a8816-6feb-431f-a68e-8ea38d71d3b7
+		sourceLineageTag: WeekdayWeekendCode
+		summarizeBy: none
+		sourceColumn: WeekdayWeekendCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// First date of the fiscal quarter under the governed 4-4-5 calendar.
+	column FSCQuarterFirst
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a51c7d04-e404-4c1e-a6c6-1c9ab6f0303b
+		sourceLineageTag: FSCQuarterFirst
+		summarizeBy: none
+		sourceColumn: FSCQuarterFirst
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Last date of the fiscal quarter under the governed 4-4-5 calendar.
+	column FSCQuarterLast
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 594ac752-97ae-41a5-971b-2930cfd8a326
+		sourceLineageTag: FSCQuarterLast
+		summarizeBy: none
+		sourceColumn: FSCQuarterLast
+
+		annotation SummarizationSetBy = Automatic
+
+	column LoadDT
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 86c9b844-3e2c-40ac-8ecc-a110f86031ba
+		sourceLineageTag: LoadDT
+		summarizeBy: none
+		sourceColumn: LoadDT
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy Year/Quarter
+		lineageTag: 522b5bfe-d63d-4067-b1c8-96a1deffac3e
+
+		level Year/Quarter
+			lineageTag: 49367523-13f9-4f53-885e-21f3a6179676
+			column: FSCYearNum
+
+		level Quarter
+			lineageTag: 38f191c6-7cc7-42a7-8e63-fc5d4cf1e3c6
+			column: FSCQuarterNum
+
+		level FSCMonthNum
+			lineageTag: eae1472a-28fb-460f-bb2c-becd2d5b85af
+			column: FSCMonthNum
+
+		level FSCWeekNum
+			lineageTag: 0413092d-2225-453e-8071-1ff49b7ba43e
+			column: FSCWeekNum
+
+		changedProperty = Name
+
+	partition DimCalendar = entity
+		mode: directLake
+		source
+			entityName: DimCalendar
+			schemaName: Shared_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

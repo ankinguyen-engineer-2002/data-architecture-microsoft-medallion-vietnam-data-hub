@@ -1,0 +1,4 @@
+-- Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT
+-- Layer: Bronze/source shortcut reference for mart `forecast_accuracy`.
+-- This is not a local view/table definition in this repo.
+-- It documents the upstream Fabric Lakehouse object used by downstream views/registry lineage.

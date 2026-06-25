@@ -1,0 +1,126 @@
+{
+  "step": 3,
+  "file": "03_drop_old_views.sql",
+  "db": "SupplyChain_Processing_Warehouse",
+  "started": "2026-05-10T06:24:58.299282+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS Staging_WRK.vw_Codatan;"
+    },
+    {
+      "i": 1,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS Staging_WRK.vw_Comast;"
+    },
+    {
+      "i": 2,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS Staging_WRK.vw_Extord;"
+    },
+    {
+      "i": 3,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS Staging_WRK.vw_Extorit;"
+    },
+    {
+      "i": 4,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_Calendar;"
+    },
+    {
+      "i": 5,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_CustomerAccount;"
+    },
+    {
+      "i": 6,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_CustomerAccountGroup;"
+    },
+    {
+      "i": 7,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_CustomerGrouping;"
+    },
+    {
+      "i": 8,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_CustomerShippingLocation;"
+    },
+    {
+      "i": 9,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_ForecastCycle;"
+    },
+    {
+      "i": 10,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_ForecastHorizon;"
+    },
+    {
+      "i": 11,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_ItemMaster;"
+    },
+    {
+      "i": 12,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_OrderType;"
+    },
+    {
+      "i": 13,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_Product;"
+    },
+    {
+      "i": 14,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ReferenceMaster_ENH.vw_Warehouse;"
+    },
+    {
+      "i": 15,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS SalesHistory_ENH.vw_ActualDemandMonthly;"
+    },
+    {
+      "i": 16,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS SalesHistory_ENH.vw_ActualDemandWeekly;"
+    },
+    {
+      "i": 17,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS SalesHistory_ENH.vw_InvoiceDetailLineLevel;"
+    },
+    {
+      "i": 18,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS SalesHistory_ENH.vw_InvoiceWeekly;"
+    },
+    {
+      "i": 19,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ForecastHistory_ENH.vw_ForecastDemandMonthly;"
+    },
+    {
+      "i": 20,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS ForecastHistory_ENH.vw_NaiveForecastMonthly;"
+    },
+    {
+      "i": 21,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS OpenOrderHistory_ENH.vw_OpenOrderLineLevel;"
+    },
+    {
+      "i": 22,
+      "status": "ok",
+      "first": "DROP VIEW IF EXISTS OpenOrderHistory_ENH.vw_OpenOrderMonthly;"
+    }
+  ],
+  "ended": "2026-05-10T06:25:08.987040+00:00",
+  "ok": 23,
+  "total": 23
+}

@@ -1,0 +1,390 @@
+{
+  "asset_key": "enterprise_lakehouse.customers.accountmaster",
+  "display": "Enterprise_Lakehouse.Customers.AccountMaster",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 53,
+    "columns": [
+      {
+        "column_name": "cmaCustomerNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "cmaPhone",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "cmaFaxtn",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "cmaContact",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "cmaEmail",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "cmaPrimaryTerritory",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "cmaMinimumFreightCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "cmaCreditLimitAmount",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "cmaTermsCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "cmaTermsDays",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "cmaCreditTerritoryID",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "cmaCancelBackOrders",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "cmaAllowPartialShipment",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "cmaCustomerClassCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "cmaLanguageCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "cmaStatementCode",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "cmaItemCrossReferenceCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "cmaTerritoryChangeDate",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "cmaCreditAuthorizationCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "cmaMemo",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 20
+      },
+      {
+        "column_name": "cmaChgCustAr",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 21
+      },
+      {
+        "column_name": "cmaChgCust",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 22
+      },
+      {
+        "column_name": "cmaChgCustExt",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 23
+      },
+      {
+        "column_name": "cmaPercentAvailableCredit",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 24
+      },
+      {
+        "column_name": "cmaCommAudit",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 25
+      },
+      {
+        "column_name": "cmaInheritBlocking",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 26
+      },
+      {
+        "column_name": "cmaCustomerName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 27
+      },
+      {
+        "column_name": "usra",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 28
+      },
+      {
+        "column_name": "dtea",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 29
+      },
+      {
+        "column_name": "usrc",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 30
+      },
+      {
+        "column_name": "dtec",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 31
+      },
+      {
+        "column_name": "acrec",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 32
+      },
+      {
+        "column_name": "cmaLastStatusChangeDate",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 33
+      },
+      {
+        "column_name": "cmaBillingAddressID",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 34
+      },
+      {
+        "column_name": "cmaDBAName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 35
+      },
+      {
+        "column_name": "cmaLateChargePercent",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 36
+      },
+      {
+        "column_name": "cmaMinPreapprovalAmount",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 37
+      },
+      {
+        "column_name": "cmaCreditAddessCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 38
+      },
+      {
+        "column_name": "cmaRFCTaxIdNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 39
+      },
+      {
+        "column_name": "cmaDocumentationHold",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 40
+      },
+      {
+        "column_name": "cmaPARSByPurchaser",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 41
+      },
+      {
+        "column_name": "cma10DigitScheduleB",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 42
+      },
+      {
+        "column_name": "cmaTypeOfInsurance",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 43
+      },
+      {
+        "column_name": "cmaInsExpirationDate",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 44
+      },
+      {
+        "column_name": "cmaInsCoverageRequested",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 45
+      },
+      {
+        "column_name": "cmaInsCoverageApproved",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 46
+      },
+      {
+        "column_name": "cmaInsuranceStatus",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 47
+      },
+      {
+        "column_name": "cmaHomestoreFacingWhse",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 48
+      },
+      {
+        "column_name": "cmaAppcd",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 49
+      },
+      {
+        "column_name": "cmaDeductTerritoryID",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 50
+      },
+      {
+        "column_name": "cmaCurrencyCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 51
+      },
+      {
+        "column_name": "cmaAllowAllowanceCredits",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 52
+      },
+      {
+        "column_name": "cmaCustomerChannelID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 53
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "cmaInsExpirationDate": "2010-12-31 00:00:00",
+      "cmaLastStatusChangeDate": "2026-06-22 15:40:43",
+      "cmaTerritoryChangeDate": "2026-06-22 00:00:00"
+    },
+    "freshness_columns": [
+      "cmaTerritoryChangeDate",
+      "cmaLastStatusChangeDate",
+      "cmaInsExpirationDate"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 13.416,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "cmaCustomerNumber"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.297,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": null,
+          "latest_partition_duplicate_groups": 0,
+          "latest_partition_max_rows_per_key": null
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 1.022,
+      "status": "PASS"
+    },
+    "projects": [
+      "forecast_accuracy"
+    ],
+    "ref": "Enterprise_Lakehouse.Customers.AccountMaster",
+    "row_count_metadata": 0,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "forecast_accuracy",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.Customers.AccountMaster.sql"
+}

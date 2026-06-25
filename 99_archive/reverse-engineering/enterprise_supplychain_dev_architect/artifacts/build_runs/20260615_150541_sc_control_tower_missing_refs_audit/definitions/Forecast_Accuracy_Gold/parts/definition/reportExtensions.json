@@ -1,0 +1,45 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/reportExtension/1.0.0/schema.json",
+  "name": "extension",
+  "entities": [
+    {
+      "name": "_Measure",
+      "measures": [
+        {
+          "name": "status_process_value_add",
+          "dataType": "Double",
+          "expression": "\nSWITCH(\n    TRUE(),\n    [Pct_NwMAPE] < [Pct_wMAPE], \"The current forecast model performs worse than the Naive forecast\",\n    [Pct_NwMAPE] > [Pct_wMAPE], \"The current forecast model outperforms the Naive forecast\",\n    \"The current forecast model performs the same as the Naive forecast\"\n)",
+          "formatString": "General Number",
+          "displayFolder": "1. Main KPIs - Forecast Accuracy",
+          "references": {
+            "measures": [
+              {
+                "entity": "_Measure",
+                "name": "Pct_NwMAPE"
+              },
+              {
+                "entity": "_Measure",
+                "name": "Pct_wMAPE"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Cumulative_Forecast_Bias",
+          "dataType": "Double",
+          "expression": "\nVAR MaxDateInRow = MAX('dim_calendar'[dt_fsc_month_last])\nVAR CurrentDate = TODAY()\n\nRETURN\nCALCULATE (\n    [Qty_Bias],\n    FILTER (\n        ALLSELECTED('dim_calendar'), -- Go bo bo loc tren bang ngay de quet toan bo thoi gian\n        'dim_calendar'[dt_fsc_month_last] <= MaxDateInRow && \n        'dim_calendar'[dt_fsc_month_last] <= CurrentDate\n    )\n)",
+          "formatString": "General Number",
+          "displayFolder": "1. Main KPIs - Forecast Accuracy",
+          "references": {
+            "measures": [
+              {
+                "entity": "_Measure",
+                "name": "Qty_Bias"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

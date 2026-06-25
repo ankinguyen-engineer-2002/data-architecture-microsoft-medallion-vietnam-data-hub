@@ -1,0 +1,28 @@
+flowchart LR
+    subgraph cicd["CI/CD cho SQL object"]
+        pr["PR / commit<br/>sửa SQL object"]
+        build["CI build<br/>dotnet build .sqlproj"]
+        dacpac["Artifact<br/>.dacpac"]
+        review["DeployReport / Script<br/>review và approval"]
+        publish["CD publish<br/>schema/view/proc đã duyệt"]
+    end
+
+    subgraph runtime["Runtime ETL refresh"]
+        schedule["SQL Agent<br/>hoặc approved trigger"]
+        wrapper["Wrapper procedure<br/>Usp_Refresh_<Mart>_<Layer>"]
+        loader["ETL_Framework loader<br/>DW_Developer"]
+        wrk["<Schema>_Wrk.v_<TableName><br/>business SQL"]
+        table["<Schema>.<TableName><br/>final physical table"]
+        evidence["AuditLog + TableDictionary<br/>runtime evidence"]
+    end
+
+    subgraph consume["Consumption"]
+        dq["DQ / parity checks"]
+        semantic["Semantic smoke"]
+        report["Power BI / downstream users"]
+    end
+
+    pr --> build --> dacpac --> review --> publish
+    publish --> schedule --> wrapper --> loader --> wrk --> table --> evidence
+    table --> dq --> semantic --> report
+    evidence --> dq

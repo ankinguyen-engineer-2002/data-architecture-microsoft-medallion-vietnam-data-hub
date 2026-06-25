@@ -1,0 +1,238 @@
+{
+  "@odata.context": "https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1.0/myorg/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/$metadata#refreshes",
+  "value": [
+    {
+      "endTime": "2026-06-14T09:45:49.213Z",
+      "id": 1402046717,
+      "refreshAttempts": [],
+      "refreshType": "ViaXmlaEndpoint",
+      "requestId": "fd584333-8a73-41bf-a481-13ffb44d741a",
+      "startTime": "2026-06-14T09:45:47.557Z",
+      "status": "Completed"
+    },
+    {
+      "endTime": "2026-06-14T09:44:37.3Z",
+      "id": 1402046137,
+      "refreshAttempts": [],
+      "refreshType": "ViaXmlaEndpoint",
+      "requestId": "b84b66a4-1217-4aa7-857e-8f8de00d0573",
+      "startTime": "2026-06-14T09:44:36.33Z",
+      "status": "Completed"
+    },
+    {
+      "endTime": "2026-06-14T09:44:27.84Z",
+      "id": 1402046130,
+      "refreshAttempts": [],
+      "refreshType": "ViaXmlaEndpoint",
+      "requestId": "a7e9cdb1-8dd1-41b7-b329-9ecad3231434",
+      "startTime": "2026-06-14T09:44:26.277Z",
+      "status": "Completed"
+    },
+    {
+      "endTime": "2026-06-14T08:38:03.163Z",
+      "id": 1402008458,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "2e4cf6f8-48dd-4ea9-8f58-c1ea69af74bd",
+      "startTime": "2026-06-14T08:38:00.803Z",
+      "status": "Completed"
+    },
+    {
+      "endTime": "2026-06-13T16:03:10.743Z",
+      "id": 1401449988,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "1acd2709-5229-4e50-ad54-3e7471c249b8",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while checking the latest version of the direct lake table 'DimCustomerGrouping', error: An error occurred while sending the request..\"}",
+      "startTime": "2026-06-13T16:03:08.693Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-12T06:35:33.707Z",
+      "extendedStatus": "Completed",
+      "id": 1400193548,
+      "refreshAttempts": [
+        {
+          "attemptId": 1,
+          "endTime": "2026-06-12T06:35:33.7081105Z",
+          "executionMetrics": [],
+          "startTime": "2026-06-12T06:35:25.0136814Z",
+          "type": "Data"
+        }
+      ],
+      "refreshType": "WebModeling",
+      "requestId": "3ad25051-4b8e-7395-08ea-cfea001085f9",
+      "startTime": "2026-06-12T06:35:24.413Z",
+      "status": "Completed"
+    },
+    {
+      "endTime": "2026-06-12T04:24:29.837Z",
+      "extendedStatus": "Completed",
+      "id": 1400113310,
+      "refreshAttempts": [
+        {
+          "attemptId": 1,
+          "endTime": "2026-06-12T04:24:29.8360163Z",
+          "executionMetrics": [],
+          "startTime": "2026-06-12T04:24:21.8461587Z",
+          "type": "Data"
+        }
+      ],
+      "refreshType": "WebModeling",
+      "requestId": "6fd435ef-4085-f95f-37c5-d4b0d6313e48",
+      "startTime": "2026-06-12T04:24:21.25Z",
+      "status": "Completed"
+    },
+    {
+      "endTime": "2026-06-12T03:46:12.963Z",
+      "extendedStatus": "Completed",
+      "id": 1400089076,
+      "refreshAttempts": [
+        {
+          "attemptId": 1,
+          "endTime": "2026-06-12T03:46:12.9623492Z",
+          "executionMetrics": [],
+          "startTime": "2026-06-12T03:46:02.0154393Z",
+          "type": "Data"
+        }
+      ],
+      "refreshType": "WebModeling",
+      "requestId": "7b018992-df33-32f3-eb13-6536bb3bef54",
+      "startTime": "2026-06-12T03:46:01.49Z",
+      "status": "Completed"
+    },
+    {
+      "endTime": "2026-06-11T15:37:13.713Z",
+      "id": 1399647940,
+      "refreshAttempts": [
+        {
+          "attemptId": 1,
+          "endTime": "2026-06-11T15:37:11.6515129Z",
+          "executionMetrics": [],
+          "startTime": "2026-06-11T15:36:56.6815397Z",
+          "type": "Data"
+        },
+        {
+          "attemptId": 1,
+          "endTime": "2026-06-11T15:37:12.1359084Z",
+          "executionMetrics": [],
+          "startTime": "2026-06-11T15:37:11.8859Z",
+          "type": "Query"
+        }
+      ],
+      "refreshType": "ViaApi",
+      "requestId": "7c469750-8d6f-4ab2-b707-3a1a74021d28",
+      "startTime": "2026-06-11T15:36:56.557Z",
+      "status": "Completed"
+    },
+    {
+      "endTime": "2026-06-11T13:03:06.457Z",
+      "id": 1399544084,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "d5995b17-642f-433b-843b-e919225b70f6",
+      "startTime": "2026-06-11T13:02:57.447Z",
+      "status": "Completed"
+    },
+    {
+      "endTime": "2026-06-01T08:39:18.047Z",
+      "id": 1390567367,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "00f2b69b-95e9-4239-a884-e2ec3d8c2e8a",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while framing the dataset f06a2361-15fd-4f91-9d37-941fefe62aaf, error: Failed to save modifications to the server. Error returned: '{\\\"RootActivityId\\\":\\\"8669C838-60B8-4AFB-A279-A829C8135C7E\\\"}\\r\\nDelta protocol violation: the column '<oii>ATPQty<\\/oii>' is not found in delta table '<oii>FactInventoryRiskForward<\\/oii>'.\\r\\n{\\\"RootActivityId\\\":\\\"8669C838-60B8-4AFB-A279-A829C8135C7E\\\"}\\r\\n'..\"}",
+      "startTime": "2026-06-01T08:39:17.153Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-01T08:39:08.207Z",
+      "id": 1390567354,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "76663cb5-cce2-40f8-9baa-06a1518f4e89",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while framing the dataset f06a2361-15fd-4f91-9d37-941fefe62aaf, error: Failed to save modifications to the server. Error returned: '{\\\"RootActivityId\\\":\\\"CE787D9D-1277-4DBE-90E8-E50F42A289E6\\\"}\\r\\nDelta protocol violation: the column '<oii>ATPQty<\\/oii>' is not found in delta table '<oii>FactInventoryRiskForward<\\/oii>'.\\r\\n{\\\"RootActivityId\\\":\\\"CE787D9D-1277-4DBE-90E8-E50F42A289E6\\\"}\\r\\n'..\"}",
+      "startTime": "2026-06-01T08:39:07.157Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-01T08:39:01.713Z",
+      "id": 1390567303,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "a28f4eda-375e-49df-8664-ff8673e41281",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while framing the dataset f06a2361-15fd-4f91-9d37-941fefe62aaf, error: Failed to save modifications to the server. Error returned: '{\\\"RootActivityId\\\":\\\"1687C77D-C1A0-402E-87B7-405F5EE8D52F\\\"}\\r\\nDelta protocol violation: the column '<oii>ATPQty<\\/oii>' is not found in delta table '<oii>FactInventoryRiskForward<\\/oii>'.\\r\\n{\\\"RootActivityId\\\":\\\"1687C77D-C1A0-402E-87B7-405F5EE8D52F\\\"}\\r\\n'..\"}",
+      "startTime": "2026-06-01T08:38:57.16Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-01T08:38:48.023Z",
+      "id": 1390567279,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "de85f8a7-2a07-4235-8fa6-f841270dfedc",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while framing the dataset f06a2361-15fd-4f91-9d37-941fefe62aaf, error: Failed to save modifications to the server. Error returned: '{\\\"RootActivityId\\\":\\\"32780BBF-0237-4B0A-997B-462CBF951886\\\"}\\r\\nDelta protocol violation: the column '<oii>ATPQty<\\/oii>' is not found in delta table '<oii>FactInventoryRiskForward<\\/oii>'.\\r\\n{\\\"RootActivityId\\\":\\\"32780BBF-0237-4B0A-997B-462CBF951886\\\"}\\r\\n'..\"}",
+      "startTime": "2026-06-01T08:38:47.163Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-01T08:38:37.997Z",
+      "id": 1390567268,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "d1979784-d616-44ff-ba1d-5d3c12c6e09c",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while framing the dataset f06a2361-15fd-4f91-9d37-941fefe62aaf, error: Failed to save modifications to the server. Error returned: '{\\\"RootActivityId\\\":\\\"5063E6BD-375C-4E93-8ECB-A892E80C2F09\\\"}\\r\\nDelta protocol violation: the column '<oii>ATPQty<\\/oii>' is not found in delta table '<oii>FactInventoryRiskForward<\\/oii>'.\\r\\n{\\\"RootActivityId\\\":\\\"5063E6BD-375C-4E93-8ECB-A892E80C2F09\\\"}\\r\\n'..\"}",
+      "startTime": "2026-06-01T08:38:37.15Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-01T08:38:28.16Z",
+      "id": 1390567253,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "22ba1608-e25a-4b7c-8217-1a105de8c657",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while framing the dataset f06a2361-15fd-4f91-9d37-941fefe62aaf, error: Failed to save modifications to the server. Error returned: '{\\\"RootActivityId\\\":\\\"08A11EF7-11F4-4413-91D4-79E0A7A1AAE4\\\"}\\r\\nDelta protocol violation: the column '<oii>ATPQty<\\/oii>' is not found in delta table '<oii>FactInventoryRiskForward<\\/oii>'.\\r\\n{\\\"RootActivityId\\\":\\\"08A11EF7-11F4-4413-91D4-79E0A7A1AAE4\\\"}\\r\\n'..\"}",
+      "startTime": "2026-06-01T08:38:27.143Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-01T08:38:17.99Z",
+      "id": 1390567236,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "6b5af591-997a-4764-b1ee-71044b9d5657",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while framing the dataset f06a2361-15fd-4f91-9d37-941fefe62aaf, error: Failed to save modifications to the server. Error returned: '{\\\"RootActivityId\\\":\\\"1774F12E-4BC7-48FA-A7CB-085623A4612E\\\"}\\r\\nDelta protocol violation: the column '<oii>ATPQty<\\/oii>' is not found in delta table '<oii>FactInventoryRiskForward<\\/oii>'.\\r\\n{\\\"RootActivityId\\\":\\\"1774F12E-4BC7-48FA-A7CB-085623A4612E\\\"}\\r\\n'..\"}",
+      "startTime": "2026-06-01T08:38:17.147Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-01T08:38:07.93Z",
+      "id": 1390567222,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "547b45b6-c323-4363-a961-d1e320756282",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while framing the dataset f06a2361-15fd-4f91-9d37-941fefe62aaf, error: Failed to save modifications to the server. Error returned: '{\\\"RootActivityId\\\":\\\"041DC88A-1ECF-467D-9310-10F097B57F9F\\\"}\\r\\nDelta protocol violation: the column '<oii>ATPQty<\\/oii>' is not found in delta table '<oii>FactInventoryRiskForward<\\/oii>'.\\r\\n{\\\"RootActivityId\\\":\\\"041DC88A-1ECF-467D-9310-10F097B57F9F\\\"}\\r\\n'..\"}",
+      "startTime": "2026-06-01T08:38:07.147Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-01T08:37:57.993Z",
+      "id": 1390566639,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "48e313d5-1584-4d7c-b25c-484e74030836",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while framing the dataset f06a2361-15fd-4f91-9d37-941fefe62aaf, error: Failed to save modifications to the server. Error returned: '{\\\"RootActivityId\\\":\\\"CAC995D5-E252-4321-BC84-4FF07884F498\\\"}\\r\\nDelta protocol violation: the column '<oii>ATPQty<\\/oii>' is not found in delta table '<oii>FactInventoryRiskForward<\\/oii>'.\\r\\n{\\\"RootActivityId\\\":\\\"CAC995D5-E252-4321-BC84-4FF07884F498\\\"}\\r\\n'..\"}",
+      "startTime": "2026-06-01T08:37:57.15Z",
+      "status": "Failed"
+    },
+    {
+      "endTime": "2026-06-01T08:37:47.953Z",
+      "id": 1390566625,
+      "refreshAttempts": [],
+      "refreshType": "DirectLakeFraming",
+      "requestId": "6699458a-c4e8-49da-94d6-5c050179c586",
+      "serviceExceptionJson": "{\"errorCode\":\"Premium_ASWL_Error\",\"errorDescription\":\"An error has occurred while framing the dataset f06a2361-15fd-4f91-9d37-941fefe62aaf, error: Failed to save modifications to the server. Error returned: '{\\\"RootActivityId\\\":\\\"51F5C063-50AB-42EB-BB95-F8FAB2F93AFD\\\"}\\r\\nDelta protocol violation: the column '<oii>ATPQty<\\/oii>' is not found in delta table '<oii>FactInventoryRiskForward<\\/oii>'.\\r\\n{\\\"RootActivityId\\\":\\\"51F5C063-50AB-42EB-BB95-F8FAB2F93AFD\\\"}\\r\\n'..\"}",
+      "startTime": "2026-06-01T08:37:47.153Z",
+      "status": "Failed"
+    }
+  ]
+}

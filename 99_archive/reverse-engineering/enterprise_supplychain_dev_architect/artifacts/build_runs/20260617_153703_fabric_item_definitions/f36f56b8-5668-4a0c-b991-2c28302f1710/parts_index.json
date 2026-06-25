@@ -1,0 +1,14 @@
+[
+  {
+    "path": "pipeline-content.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": ".schedules",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": ".platform",
+    "payloadType": "InlineBase64"
+  }
+]

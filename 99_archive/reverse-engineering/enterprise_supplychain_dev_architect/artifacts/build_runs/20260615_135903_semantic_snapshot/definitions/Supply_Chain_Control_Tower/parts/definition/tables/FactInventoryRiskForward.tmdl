@@ -1,0 +1,136 @@
+table FactInventoryRiskForward
+	lineageTag: f6299c3f-0a83-4f1f-a570-b2a0ba938b83
+
+	column ItemSku
+		dataType: string
+		lineageTag: 1a8ed044-524b-4048-a82b-555f2a65df06
+		summarizeBy: none
+		sourceColumn: ItemSku
+
+	column WarehouseCode
+		dataType: string
+		lineageTag: f61cf39a-7598-45dc-b7a8-bf0984dd50af
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+	column WeekEndingDate
+		dataType: dateTime
+		lineageTag: 8379ce0c-d540-4495-893d-48f85504ca6d
+		summarizeBy: none
+		sourceColumn: WeekEndingDate
+
+	column DateKey
+		dataType: int64
+		lineageTag: 65fb4296-5b39-4021-9554-bddf2477ff91
+		summarizeBy: sum
+		sourceColumn: DateKey
+
+	column BeginningBalanceQty
+		dataType: decimal
+		lineageTag: 3fb31d74-da74-4b19-b310-46500353e284
+		summarizeBy: sum
+		sourceColumn: BeginningBalanceQty
+
+	column FirmDemandQty
+		dataType: decimal
+		lineageTag: 8ab87d54-9874-4d37-93fe-c3179eb254f2
+		summarizeBy: sum
+		sourceColumn: FirmDemandQty
+
+	column NetForecastQty
+		dataType: decimal
+		lineageTag: d6ea7548-21ce-4e59-b24d-3b7e66a17d0a
+		summarizeBy: sum
+		sourceColumn: NetForecastQty
+
+	column FirmPurchaseOrderQty
+		dataType: decimal
+		lineageTag: d2b97db4-3e90-454c-9121-9a6f6d1f2b08
+		summarizeBy: sum
+		sourceColumn: FirmPurchaseOrderQty
+
+	column PlannedPurchaseOrderQty
+		dataType: decimal
+		lineageTag: 45a078e4-9a48-4ae3-ae1a-8ea1ee99ea83
+		summarizeBy: sum
+		sourceColumn: PlannedPurchaseOrderQty
+
+	column OnOrderTransferInQty
+		dataType: decimal
+		lineageTag: 695ac7fb-5226-45b6-9712-8193953e709b
+		summarizeBy: sum
+		sourceColumn: OnOrderTransferInQty
+
+	column ShippableInventoryQty
+		dataType: decimal
+		lineageTag: d26fed9a-8d5e-48eb-be72-fc9335021170
+		summarizeBy: sum
+		sourceColumn: ShippableInventoryQty
+
+	column SafetyStockTargetQty
+		dataType: decimal
+		lineageTag: 2aba9e70-dae9-46dd-a7e3-97f300a6ba78
+		summarizeBy: sum
+		sourceColumn: SafetyStockTargetQty
+
+	column MonthsOfSupply
+		dataType: decimal
+		lineageTag: 60180643-4b81-4100-835c-7afbc11566bb
+		summarizeBy: sum
+		sourceColumn: MonthsOfSupply
+
+	column ExpectedDemand14DQty
+		dataType: decimal
+		lineageTag: f7ad19e0-65ed-4480-a9d1-882c7b89f3ef
+		summarizeBy: sum
+		sourceColumn: ExpectedDemand14DQty
+
+	column Inbound14DQty
+		dataType: decimal
+		lineageTag: 7344744d-960e-42ae-b7a5-067e26405718
+		summarizeBy: sum
+		sourceColumn: Inbound14DQty
+
+	column AllocatedDemandQty
+		dataType: decimal
+		lineageTag: fd7b1cce-50d9-4635-abfc-2e6a50d1d15b
+		summarizeBy: sum
+		sourceColumn: AllocatedDemandQty
+
+	column ShippableInStockFlag
+		dataType: boolean
+		lineageTag: 12e02b86-ad4a-4ec4-a0e3-8de2b03653fa
+		summarizeBy: none
+		sourceColumn: ShippableInStockFlag
+
+	column SINegQty
+		dataType: decimal
+		lineageTag: a706d7fd-b2c5-4362-bc00-df87bfc0f49c
+		summarizeBy: sum
+		sourceColumn: SINegQty
+
+	column RevenueAtRiskValue
+		dataType: decimal
+		lineageTag: 5a7c6e2c-f411-4868-b1a5-3f2c48132b2f
+		summarizeBy: sum
+		sourceColumn: RevenueAtRiskValue
+
+	column WeekFourFlag
+		dataType: boolean
+		lineageTag: 427f840f-5a0f-48fb-99aa-bee768bf6eaf
+		summarizeBy: none
+		sourceColumn: WeekFourFlag
+
+	column FobArcPrice
+		dataType: decimal
+		lineageTag: 3e945897-e0d0-4e6d-8541-bb430fd1b8a6
+		summarizeBy: sum
+		sourceColumn: FobArcPrice
+
+	partition FactInventoryRiskForward-2f7b5961-17b5-4d3a-839a-9fc8d51b0aaa = entity
+		mode: directLake
+		source
+			entityName: FactInventoryRiskForward
+			schemaName: InventoryHealth_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

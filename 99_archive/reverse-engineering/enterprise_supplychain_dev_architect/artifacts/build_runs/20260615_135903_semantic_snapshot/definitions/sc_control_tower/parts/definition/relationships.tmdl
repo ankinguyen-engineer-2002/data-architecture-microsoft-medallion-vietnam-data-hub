@@ -1,0 +1,81 @@
+relationship a50b7b00-ee3a-403c-a8cd-051a6d7d4044
+	fromColumn: FactForecastActual.CustomerGroupCode
+	toColumn: DimCustomerGrouping.CustomerGroupCode
+
+relationship 904d7e28-b23e-4b1d-82e0-d8adf8c9f385
+	fromColumn: FactForecastActual.FSCMonthLast
+	toColumn: DimCalendar.Date
+
+relationship 232c1e9b-5543-4ff1-be1b-6c63aeeecdc4
+	fromColumn: FactForecastActual.ItemSKU
+	toColumn: DimProduct.ItemSKU
+
+relationship dc92a38b-3427-4f4a-88af-27683d790f4e
+	fromColumn: FactForecastActual.WarehouseCode
+	toColumn: DimWarehouse.WarehouseCode
+
+relationship 148f153f-c6f0-4945-81b3-b6766bf0187b
+	fromColumn: FactForecastActual.HorizonCode
+	toColumn: DimForecastHorizon.HorizonCode
+
+relationship 2504d047-00b4-4aea-8a4b-c964c84e9a19
+	fromColumn: FactForecastKpi.HorizonCode
+	toColumn: DimForecastHorizon.HorizonCode
+
+relationship e7f577fc-21cb-4856-b4c2-2fa5a413995a
+	fromColumn: FactForecastKpi.WarehouseCode
+	toColumn: DimWarehouse.WarehouseCode
+
+relationship 22e242ec-5afa-41dd-b2ca-48b190fc05b4
+	fromColumn: FactForecastKpi.ItemSKU
+	toColumn: DimProduct.ItemSKU
+
+relationship 54309aee-50a4-4527-94b5-f4a34c3959e9
+	fromColumn: FactForecastKpi.FSCMonthLast
+	toColumn: DimCalendar.Date
+
+relationship 2f2ba704-f61b-1a52-14d7-b31eeffe40d2
+	fromColumn: FactInventoryHealthSnapshot.WarehouseCode
+	toColumn: DimWarehouse.WarehouseCode
+
+relationship dfd04443-b1c6-ecea-a1ca-6a0a758147f9
+	fromColumn: FactInventoryHealthSnapshot.PrimaryVendorName
+	toColumn: DimVendor.VendorName
+
+relationship 77dbc929-caf9-766c-f1b5-99f7c21a8f7b
+	isActive: false
+	fromColumn: FactInventoryHealthSnapshot.SecondaryVendorName
+	toColumn: DimVendor.VendorName
+
+relationship 31a6dd08-6799-9847-79dc-a60df5c6b35a
+	fromColumn: FactInventoryHealthSnapshot.SnapshotWeekEndingDate
+	toColumn: DimCalendar.Date
+
+relationship 58c71ce9-2b59-66e8-aa40-17cb685b2e6e
+	fromColumn: InventoryClassificationQtyWeekly.WH
+	toColumn: DimWarehouse.WarehouseCode
+
+relationship 6a228e0d-9dd1-9cd6-1b73-ee9176108a89
+	fromColumn: InventoryClassificationQtyWeekly.SnapshotWeekEnding
+	toColumn: DimCalendar.Date
+
+relationship 6f9a5ce2-5cb8-5e51-c599-574e67797cca
+	fromColumn: InventoryHealthSubStatusWeekly.WarehouseCode
+	toColumn: DimWarehouse.WarehouseCode
+
+relationship e99859ea-9ec3-8108-23da-15da815de41e
+	fromColumn: InventoryHealthSubStatusWeekly.SnapshotWeekEnding
+	toColumn: DimCalendar.Date
+
+relationship 144f826c-ac7b-e6f6-7976-1634fa50db22
+	fromColumn: InventoryClassificationQtyWeekly.Item
+	toColumn: DimProduct.ItemSKU
+
+relationship b301f94d-ec1e-6aab-154d-0e334d348bc8
+	fromColumn: InventoryHealthSubStatusWeekly.ItemSku
+	toColumn: DimProduct.ItemSKU
+
+relationship 18362c49-770d-d5dd-38f7-1868948e2f19
+	fromColumn: FactInventoryHealthSnapshot.ItemSku
+	toColumn: DimProduct.ItemSKU
+

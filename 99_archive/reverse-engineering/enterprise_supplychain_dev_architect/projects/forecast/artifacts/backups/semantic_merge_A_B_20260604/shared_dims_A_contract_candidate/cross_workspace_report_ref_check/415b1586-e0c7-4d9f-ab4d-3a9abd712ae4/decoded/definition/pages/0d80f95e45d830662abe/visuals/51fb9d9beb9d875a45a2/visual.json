@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "51fb9d9beb9d875a45a2",
+  "position": {
+    "x": 695.87647720479276,
+    "y": 546.03863091814526,
+    "z": 10000,
+    "height": 255.33255633255621,
+    "width": 620,
+    "tabOrder": 9000
+  },
+  "visualGroup": {
+    "displayName": "Timeline",
+    "groupMode": "ScaleMode"
+  }
+}

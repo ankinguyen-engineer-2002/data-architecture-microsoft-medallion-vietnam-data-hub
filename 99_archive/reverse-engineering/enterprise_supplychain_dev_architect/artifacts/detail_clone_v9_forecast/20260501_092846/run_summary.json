@@ -1,0 +1,631 @@
+{
+  "timestamp": "20260501_092846",
+  "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+  "warehouse_id": "e146ffe2-d907-46a7-9b7e-3e739a31b24e",
+  "sql_server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "database": "SupplyChain_Warehouse",
+  "output_dir": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/Enterprise_SupplyChain_Dev_architect/detail_clone_v9_forecast/20260501_092846",
+  "safety": {
+    "mode": "read_only_clone",
+    "business_data_rows_exported": false,
+    "destructive_operations_executed": false
+  },
+  "sql_exports": {
+    "static_exports": {
+      "00_schemas.csv": {
+        "status": "exported",
+        "rows": 22
+      },
+      "01_object_inventory.csv": {
+        "status": "exported",
+        "rows": 150
+      },
+      "02_object_counts_by_schema.csv": {
+        "status": "exported",
+        "rows": 20
+      },
+      "03_table_row_counts.csv": {
+        "status": "exported",
+        "rows": 71
+      },
+      "04_columns.csv": {
+        "status": "exported",
+        "rows": 3751
+      },
+      "05_v9_layer_inventory.csv": {
+        "status": "exported",
+        "rows": 88
+      },
+      "06_sp_registry.csv": {
+        "status": "exported",
+        "rows": 28
+      },
+      "07_sp_registry_summary.csv": {
+        "status": "exported",
+        "rows": 5
+      },
+      "08_registry_dependency_map.csv": {
+        "status": "exported",
+        "rows": 28
+      },
+      "09_smart_skip_registry.csv": {
+        "status": "exported",
+        "rows": 28
+      },
+      "10_lineage.csv": {
+        "status": "exported",
+        "rows": 52
+      },
+      "11_dq_rules.csv": {
+        "status": "exported",
+        "rows": 54
+      },
+      "12_dq_rules_summary.csv": {
+        "status": "exported",
+        "rows": 15
+      },
+      "13_dq_results.csv": {
+        "status": "exported",
+        "rows": 38
+      },
+      "14_sp_run_history.csv": {
+        "status": "exported",
+        "rows": 367
+      },
+      "15_pipeline_run_log.csv": {
+        "status": "exported",
+        "rows": 24
+      },
+      "16_slv_dag_waves_runtime.csv": {
+        "status": "exported",
+        "rows": 8
+      },
+      "17_table_dictionary.csv": {
+        "status": "exported",
+        "rows": 28
+      },
+      "18_view_definitions.csv": {
+        "status": "exported",
+        "rows": 55
+      },
+      "19_routine_definitions.csv": {
+        "status": "exported",
+        "rows": 28
+      },
+      "20_phase3_object_existence.csv": {
+        "status": "exported",
+        "rows": 7
+      },
+      "21_schema_contracts.csv": {
+        "status": "exported",
+        "rows": 674
+      },
+      "22_performance_baseline.csv": {
+        "status": "exported",
+        "rows": 28
+      },
+      "23_pipeline_cost_log.csv": {
+        "status": "exported",
+        "rows": 1
+      }
+    },
+    "meta_table_exports": {
+      "dq_results": {
+        "status": "exported",
+        "rows": 38
+      },
+      "dq_rules": {
+        "status": "exported",
+        "rows": 54
+      },
+      "performance_baseline": {
+        "status": "exported",
+        "rows": 28
+      },
+      "pipeline_cost_log": {
+        "status": "exported",
+        "rows": 1
+      },
+      "pipeline_run_log": {
+        "status": "exported",
+        "rows": 24
+      },
+      "schema_contracts": {
+        "status": "exported",
+        "rows": 674
+      },
+      "slv_dag_waves_runtime": {
+        "status": "exported",
+        "rows": 8
+      },
+      "sp_lineage": {
+        "status": "exported",
+        "rows": 52
+      },
+      "sp_registry": {
+        "status": "exported",
+        "rows": 28
+      },
+      "sp_run_history": {
+        "status": "exported",
+        "rows": 367
+      },
+      "view_definitions": {
+        "status": "exported",
+        "rows": 32
+      }
+    },
+    "definition_exports": {
+      "object_count": 83,
+      "objects": {
+        "bronze.usp_refresh_edw_tables": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/bronze/usp_refresh_edw_tables.sql"
+        },
+        "bronze.vw_brz_saleshistory_afi__invoicedetail": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_brz_saleshistory_afi__invoicedetail.sql"
+        },
+        "bronze.vw_brz_saleshistory_afi__invoiceheader": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_brz_saleshistory_afi__invoiceheader.sql"
+        },
+        "bronze.vw_brz_supplychain_enh_1__demandforecastsnapshotdaily": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_brz_supplychain_enh_1__demandforecastsnapshotdaily.sql"
+        },
+        "bronze.vw_brz_wholesale_codis_afi__codatan": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_brz_wholesale_codis_afi__codatan.sql"
+        },
+        "bronze.vw_brz_wholesale_codis_afi__comast": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_brz_wholesale_codis_afi__comast.sql"
+        },
+        "bronze.vw_brz_wholesale_codis_afi__extord": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_brz_wholesale_codis_afi__extord.sql"
+        },
+        "bronze.vw_brz_wholesale_codis_afi__extorit": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_brz_wholesale_codis_afi__extorit.sql"
+        },
+        "bronze.vw_ref_calendar": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_calendar.sql"
+        },
+        "bronze.vw_ref_customer_account": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_customer_account.sql"
+        },
+        "bronze.vw_ref_customer_account_group": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_customer_account_group.sql"
+        },
+        "bronze.vw_ref_customer_grouping": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_customer_grouping.sql"
+        },
+        "bronze.vw_ref_customer_shipping_location": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_customer_shipping_location.sql"
+        },
+        "bronze.vw_ref_forecast_cycle": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_forecast_cycle.sql"
+        },
+        "bronze.vw_ref_forecast_horizon": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_forecast_horizon.sql"
+        },
+        "bronze.vw_ref_item_master": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_item_master.sql"
+        },
+        "bronze.vw_ref_order_type": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_order_type.sql"
+        },
+        "bronze.vw_ref_product": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_product.sql"
+        },
+        "bronze.vw_ref_warehouse": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/bronze/vw_ref_warehouse.sql"
+        },
+        "dbo.usp_Load_Dim_Calendar": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/dbo/usp_Load_Dim_Calendar.sql"
+        },
+        "dbo.usp_Load_Dim_Customer_Grouping": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/dbo/usp_Load_Dim_Customer_Grouping.sql"
+        },
+        "dbo.usp_Load_Dim_Forecast_Horizon": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/dbo/usp_Load_Dim_Forecast_Horizon.sql"
+        },
+        "dbo.usp_Load_Dim_Product": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/dbo/usp_Load_Dim_Product.sql"
+        },
+        "dbo.usp_Load_Dim_Warehouse": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/dbo/usp_Load_Dim_Warehouse.sql"
+        },
+        "dbo.usp_Load_DQ_Forecast_Accuracy": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/dbo/usp_Load_DQ_Forecast_Accuracy.sql"
+        },
+        "dbo.usp_Load_Fact_Flat_Forecast_Actual": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/dbo/usp_Load_Fact_Flat_Forecast_Actual.sql"
+        },
+        "dbo.usp_Load_Fact_Forecast_KPI": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/dbo/usp_Load_Fact_Forecast_KPI.sql"
+        },
+        "dbo.usp_load_one_wh_table": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/dbo/usp_load_one_wh_table.sql"
+        },
+        "dbo.vw_dq_forecast_accuracy": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/dbo/vw_dq_forecast_accuracy.sql"
+        },
+        "gold.vw_gld_fact_flat_forecast_actual": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/gold/vw_gld_fact_flat_forecast_actual.sql"
+        },
+        "gold.vw_gld_fact_forecast_kpi": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/gold/vw_gld_fact_forecast_kpi.sql"
+        },
+        "meta.ufn_cron_is_due": {
+          "type_desc": "SQL_SCALAR_FUNCTION",
+          "path": "sql_definitions/routines/meta/ufn_cron_is_due.sql"
+        },
+        "meta.ufn_should_run": {
+          "type_desc": "SQL_SCALAR_FUNCTION",
+          "path": "sql_definitions/routines/meta/ufn_should_run.sql"
+        },
+        "meta.ufn_utc_to_cst": {
+          "type_desc": "SQL_SCALAR_FUNCTION",
+          "path": "sql_definitions/routines/meta/ufn_utc_to_cst.sql"
+        },
+        "meta.usp_build_lineage": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_build_lineage.sql"
+        },
+        "meta.usp_check_dq": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_check_dq.sql"
+        },
+        "meta.usp_check_dq_single": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_check_dq_single.sql"
+        },
+        "meta.usp_compute_slv_waves": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_compute_slv_waves.sql"
+        },
+        "meta.usp_debug_loop": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_debug_loop.sql"
+        },
+        "meta.usp_finalize_pipeline": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_finalize_pipeline.sql"
+        },
+        "meta.usp_generic_load": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_generic_load.sql"
+        },
+        "meta.usp_log_pipeline_run": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_log_pipeline_run.sql"
+        },
+        "meta.usp_log_run": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_log_run.sql"
+        },
+        "meta.usp_run_silver_dag": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_run_silver_dag.sql"
+        },
+        "meta.usp_validate_schema_contracts": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/meta/usp_validate_schema_contracts.sql"
+        },
+        "meta.vw_run_history_tz": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/meta/vw_run_history_tz.sql"
+        },
+        "meta.vw_table_dictionary": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/meta/vw_table_dictionary.sql"
+        },
+        "queryinsights.exec_requests_history": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/queryinsights/exec_requests_history.sql"
+        },
+        "queryinsights.exec_sessions_history": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/queryinsights/exec_sessions_history.sql"
+        },
+        "queryinsights.frequently_run_queries": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/queryinsights/frequently_run_queries.sql"
+        },
+        "queryinsights.long_running_queries": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/queryinsights/long_running_queries.sql"
+        },
+        "queryinsights.sql_pool_insights": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/queryinsights/sql_pool_insights.sql"
+        },
+        "SCP_Core.usp_Update_AFISalesFacts": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/SCP_Core/usp_Update_AFISalesFacts.sql"
+        },
+        "SCP_Core.usp_Update_Dimensions": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/SCP_Core/usp_Update_Dimensions.sql"
+        },
+        "SCP_Core.usp_Update_FcstAccuracy": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/SCP_Core/usp_Update_FcstAccuracy.sql"
+        },
+        "SCP_Core.usp_Update_LogilityData": {
+          "type_desc": "SQL_STORED_PROCEDURE",
+          "path": "sql_definitions/routines/SCP_Core/usp_Update_LogilityData.sql"
+        },
+        "SCP_Core_Wrk.v_DimCustomerMaster": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_DimCustomerMaster.sql"
+        },
+        "SCP_Core_Wrk.v_DimFcstSnapshotDates": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_DimFcstSnapshotDates.sql"
+        },
+        "SCP_Core_Wrk.v_DimFiscalCalendar": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_DimFiscalCalendar.sql"
+        },
+        "SCP_Core_Wrk.v_DimSCPItemMaster": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_DimSCPItemMaster.sql"
+        },
+        "SCP_Core_Wrk.v_DimVendorMaster": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_DimVendorMaster.sql"
+        },
+        "SCP_Core_Wrk.v_DimWarehouseMaster": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_DimWarehouseMaster.sql"
+        },
+        "SCP_Core_Wrk.v_FactAFISales_CurReqQty": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_FactAFISales_CurReqQty.sql"
+        },
+        "SCP_Core_Wrk.v_FactFcstErrorCalc": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_FactFcstErrorCalc.sql"
+        },
+        "SCP_Core_Wrk.v_FactOpenOrders": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_FactOpenOrders.sql"
+        },
+        "SCP_Core_Wrk.v_FactWorkingForecastCurrent": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_FactWorkingForecastCurrent.sql"
+        },
+        "SCP_Core_Wrk.v_FiscalCalendar": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_FiscalCalendar.sql"
+        },
+        "SCP_Core_Wrk.v_WorkingForecastCurrent": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/SCP_Core_Wrk/v_WorkingForecastCurrent.sql"
+        },
+        "silver.vw_slv_actual_demand_monthly": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/silver/vw_slv_actual_demand_monthly.sql"
+        },
+        "silver.vw_slv_actual_demand_weekly": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/silver/vw_slv_actual_demand_weekly.sql"
+        },
+        "silver.vw_slv_forecast_demand_monthly": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/silver/vw_slv_forecast_demand_monthly.sql"
+        },
+        "silver.vw_slv_invoice_detail_line_level": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/silver/vw_slv_invoice_detail_line_level.sql"
+        },
+        "silver.vw_slv_invoice_weekly": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/silver/vw_slv_invoice_weekly.sql"
+        },
+        "silver.vw_slv_naive_forecast_monthly": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/silver/vw_slv_naive_forecast_monthly.sql"
+        },
+        "silver.vw_slv_open_order_line_level": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/silver/vw_slv_open_order_line_level.sql"
+        },
+        "silver.vw_slv_open_order_monthly": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/silver/vw_slv_open_order_monthly.sql"
+        },
+        "sys.dm_db_external_tables_log_status": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/sys/dm_db_external_tables_log_status.sql"
+        },
+        "sys.external_delta_tables": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/sys/external_delta_tables.sql"
+        },
+        "sys.managed_delta_table_checkpoints": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/sys/managed_delta_table_checkpoints.sql"
+        },
+        "sys.managed_delta_table_forks": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/sys/managed_delta_table_forks.sql"
+        },
+        "sys.managed_delta_table_log_files": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/sys/managed_delta_table_log_files.sql"
+        },
+        "sys.managed_delta_tables": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/sys/managed_delta_tables.sql"
+        },
+        "sys.sys_dw_schemas": {
+          "type_desc": "VIEW",
+          "path": "sql_definitions/views/sys/sys_dw_schemas.sql"
+        }
+      }
+    },
+    "table_ddl_exports": {
+      "table_count": 126
+    },
+    "registry_edges": {
+      "source_edge_count": 52,
+      "dependency_edge_count": 13
+    },
+    "registry_with_row_counts": {
+      "rows": 28,
+      "join_mode": "local_postprocess"
+    }
+  },
+  "rest_exports": {
+    "pipeline_summaries": [
+      {
+        "pipeline": "pl_sc_master",
+        "has_pipeline_content": true,
+        "parameter_count": 0,
+        "variable_count": 0,
+        "activity_count": 7,
+        "sql_query_count": 1,
+        "stored_procedure_activity_count": 3,
+        "pipeline_invocation_count": 1,
+        "has_next_run_time_filter": false,
+        "has_project_filter": true,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_sc_mart",
+        "has_pipeline_content": true,
+        "parameter_count": 1,
+        "variable_count": 0,
+        "activity_count": 3,
+        "sql_query_count": 0,
+        "stored_procedure_activity_count": 0,
+        "pipeline_invocation_count": 3,
+        "has_next_run_time_filter": false,
+        "has_project_filter": false,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_sc_bronze",
+        "has_pipeline_content": true,
+        "parameter_count": 1,
+        "variable_count": 0,
+        "activity_count": 3,
+        "sql_query_count": 1,
+        "stored_procedure_activity_count": 1,
+        "pipeline_invocation_count": 0,
+        "has_next_run_time_filter": true,
+        "has_project_filter": true,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_sc_silver",
+        "has_pipeline_content": true,
+        "parameter_count": 1,
+        "variable_count": 0,
+        "activity_count": 4,
+        "sql_query_count": 1,
+        "stored_procedure_activity_count": 1,
+        "pipeline_invocation_count": 1,
+        "has_next_run_time_filter": false,
+        "has_project_filter": false,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_sc_silver_wave",
+        "has_pipeline_content": true,
+        "parameter_count": 1,
+        "variable_count": 0,
+        "activity_count": 3,
+        "sql_query_count": 1,
+        "stored_procedure_activity_count": 1,
+        "pipeline_invocation_count": 0,
+        "has_next_run_time_filter": false,
+        "has_project_filter": false,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_sc_gold",
+        "has_pipeline_content": true,
+        "parameter_count": 1,
+        "variable_count": 0,
+        "activity_count": 3,
+        "sql_query_count": 1,
+        "stored_procedure_activity_count": 1,
+        "pipeline_invocation_count": 0,
+        "has_next_run_time_filter": true,
+        "has_project_filter": true,
+        "has_dq_activity_name": false,
+        "inactive_activity_count": 0
+      },
+      {
+        "pipeline": "pl_dq_check",
+        "has_pipeline_content": true,
+        "parameter_count": 2,
+        "variable_count": 0,
+        "activity_count": 3,
+        "sql_query_count": 1,
+        "stored_procedure_activity_count": 1,
+        "pipeline_invocation_count": 0,
+        "has_next_run_time_filter": false,
+        "has_project_filter": false,
+        "has_dq_activity_name": true,
+        "inactive_activity_count": 0
+      }
+    ],
+    "items_all_status": "exported",
+    "items_all_count": 133,
+    "items_dataPipelines_status": "exported",
+    "items_dataPipelines_count": 19,
+    "items_dataflows_status": "exported",
+    "items_dataflows_count": 18,
+    "items_notebooks_status": "exported",
+    "items_notebooks_count": 80,
+    "items_reports_status": "exported",
+    "items_reports_count": 1,
+    "items_semanticModels_status": "exported",
+    "items_semanticModels_count": 4,
+    "items_lakehouses_status": "exported",
+    "items_lakehouses_count": 3,
+    "items_warehouses_status": "exported",
+    "items_warehouses_count": 4,
+    "warehouses_status": "exported",
+    "warehouses_count": 4,
+    "lakehouses_status": "exported",
+    "lakehouses_count": 3,
+    "semanticModels_status": "exported",
+    "semanticModels_count": 4
+  }
+}

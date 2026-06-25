@@ -1,0 +1,1049 @@
+{
+  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "mart": "forecast_accuracy",
+  "rule_contracts": [
+    {
+      "asset_key": "enterprise_lakehouse.customerorders_afi.warehousemaster",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 29,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {},
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "Warehouse"
+          ],
+          "metric": {},
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "grain": [
+            "Warehouse"
+          ],
+          "metric": {},
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "metric": {
+            "full_row_duplicate_extra_rows": null,
+            "full_row_duplicate_groups": 0,
+            "max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.customers.accountmaster",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 53,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "cmaInsExpirationDate": "2010-12-31 00:00:00",
+            "cmaLastStatusChangeDate": "2026-06-22 15:40:43",
+            "cmaTerritoryChangeDate": "2026-06-22 00:00:00"
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "cmaCustomerNumber"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 0
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "cmaCustomerNumber"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": null,
+            "latest_partition_duplicate_groups": 0,
+            "latest_partition_max_rows_per_key": null
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {
+            "latest_full_row_duplicate_extra_rows": null,
+            "latest_full_row_duplicate_groups": 0,
+            "latest_full_row_max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.customers.shippinglocations",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 87,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "cslLastStatusChangeDate": "2026-06-22 16:35:12",
+            "cslTerritoryEffectivityDate": "2026-06-22 00:00:00"
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "cslCustomerNumber",
+            "cslShiptoNumber"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 0
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "cslCustomerNumber",
+            "cslShiptoNumber"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": null,
+            "latest_partition_duplicate_groups": 0,
+            "latest_partition_max_rows_per_key": null
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {
+            "latest_full_row_duplicate_extra_rows": null,
+            "latest_full_row_duplicate_groups": 0,
+            "latest_full_row_max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.aitmcls",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 6,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {},
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [],
+          "metric": {},
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "grain": [],
+          "metric": {},
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "metric": {
+            "full_row_duplicate_extra_rows": null,
+            "full_row_duplicate_groups": 0,
+            "max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itmext",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 80,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "ITMOBDT": 0,
+            "ITSCDT": 20260623,
+            "LINTRCPTDT": 20210515
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "ITNBR"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 0
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "ITNBR"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": null,
+            "latest_partition_duplicate_groups": 0,
+            "latest_partition_max_rows_per_key": null
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {
+            "latest_full_row_duplicate_extra_rows": null,
+            "latest_full_row_duplicate_groups": 0,
+            "latest_full_row_max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimdate",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 72,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "CalendarDate": "2028-12-31",
+            "CalendarMonthFirstDate": "2028-12-01",
+            "CalendarWeekFirstDate": "2028-12-31",
+            "CalendarWeekLastDate": "2028-12-31",
+            "MapicsDate": 1281231
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "MapicsDate",
+            "CalendarDate",
+            "CalendarWeekFirstDate",
+            "CalendarWeekLastDate",
+            "CalendarMonthFirstDate"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 0
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "MapicsDate",
+            "CalendarDate",
+            "CalendarWeekFirstDate",
+            "CalendarWeekLastDate",
+            "CalendarMonthFirstDate"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": null,
+            "latest_partition_duplicate_groups": 0,
+            "latest_partition_max_rows_per_key": null
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {
+            "latest_full_row_duplicate_extra_rows": null,
+            "latest_full_row_duplicate_groups": 0,
+            "latest_full_row_max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimitemmaster",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 173,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "DiscontinuedDate": "2026-06-22",
+            "ManufacturingStatusChangeDate": "2026-06-22",
+            "MarketBeginDate": "2026-07-01",
+            "MarketEndDate": "2026-08-01",
+            "StatusCodeChangeDate": "2026-06-22"
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "ItemSKU"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 0
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "ItemSKU"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": null,
+            "latest_partition_duplicate_groups": 0,
+            "latest_partition_max_rows_per_key": null
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {
+            "latest_full_row_duplicate_extra_rows": null,
+            "latest_full_row_duplicate_groups": 0,
+            "latest_full_row_max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_productknowledge.item_env",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 24,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {},
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [],
+          "metric": {},
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "grain": [],
+          "metric": {},
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "metric": {
+            "full_row_duplicate_extra_rows": null,
+            "full_row_duplicate_groups": 0,
+            "max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoicedetail",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 80,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "InvoiceDate": "2026-06-23",
+            "OrderDate": "2026-06-22",
+            "OriginalInvoiceDate": "2026-06-11",
+            "OriginalOrderDate": "2026-06-08",
+            "RequestDate": "2028-09-28"
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "InvoiceNumber",
+            "ItemSequence",
+            "LineReleaseNumber",
+            "OriginalSequenceNumber",
+            "ItemSKU"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 10149
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "InvoiceNumber",
+            "ItemSequence",
+            "LineReleaseNumber",
+            "OriginalSequenceNumber",
+            "ItemSKU"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": null,
+            "latest_partition_duplicate_groups": 0,
+            "latest_partition_max_rows_per_key": null
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {
+            "latest_full_row_duplicate_extra_rows": null,
+            "latest_full_row_duplicate_groups": 0,
+            "latest_full_row_max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoiceheader",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 40,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "InvoiceDate": "2026-06-23",
+            "OrderDate": "2026-06-22",
+            "RequestDate": "2028-09-28",
+            "TripCreatedDate": "2026-06-22"
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "InvoiceNumber"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 0
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "InvoiceNumber"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": null,
+            "latest_partition_duplicate_groups": 0,
+            "latest_partition_max_rows_per_key": null
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {
+            "latest_full_row_duplicate_extra_rows": null,
+            "latest_full_row_duplicate_groups": 0,
+            "latest_full_row_max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.aaordtyp",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 20,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "OTDATE": 20210317
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "OTDATE"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 0
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "OTDATE"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": null,
+            "latest_partition_duplicate_groups": 0,
+            "latest_partition_max_rows_per_key": null
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {
+            "latest_full_row_duplicate_extra_rows": null,
+            "latest_full_row_duplicate_groups": 0,
+            "latest_full_row_max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.codatan",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 66,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "EARLDDT": "2039-11-01 00:00:00",
+            "LATLDDT": "2065-01-01 00:00:00",
+            "MFIDT": 20391101,
+            "RQIDT": 20391225
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "ITNBR"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 0
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "ITNBR"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": 5,
+            "latest_partition_duplicate_groups": 5,
+            "latest_partition_max_rows_per_key": 2
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "ERROR"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.comast",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 15,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {},
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [],
+          "metric": {},
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "grain": [],
+          "metric": {},
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "metric": {
+            "full_row_duplicate_extra_rows": null,
+            "full_row_duplicate_groups": 0,
+            "max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.extord",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 54,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "ARDATE": 0,
+            "CAPRDT": 0,
+            "CROVDT": 20261015,
+            "HDATE": 20260623
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "WHSE",
+            "CUSTNO",
+            "HDATE",
+            "ARDATE"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 0
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "WHSE",
+            "CUSTNO",
+            "HDATE",
+            "ARDATE"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": 46,
+            "latest_partition_duplicate_groups": 10,
+            "latest_partition_max_rows_per_key": 14
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {
+            "latest_full_row_duplicate_extra_rows": null,
+            "latest_full_row_duplicate_groups": 0,
+            "latest_full_row_max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.extorit",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 77,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {
+            "IMRDDT": 0,
+            "IOISDT": 20251218,
+            "IPRCDT": 0,
+            "IPRMDT": 20391225
+          },
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "IORD",
+            "ISEQ"
+          ],
+          "metric": {
+            "latest_partition_null_blank_key_rows": 0
+          },
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "grain": [
+            "IORD",
+            "ISEQ"
+          ],
+          "metric": {
+            "latest_partition_duplicate_extra_rows": null,
+            "latest_partition_duplicate_groups": 0,
+            "latest_partition_max_rows_per_key": null
+          },
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "metric": {
+            "latest_full_row_duplicate_extra_rows": null,
+            "latest_full_row_duplicate_groups": 0,
+            "latest_full_row_max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing.nonpkitems",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 9,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {},
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [],
+          "metric": {},
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "grain": [],
+          "metric": {},
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "metric": {
+            "full_row_duplicate_extra_rows": null,
+            "full_row_duplicate_groups": 0,
+            "max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing_afi.customergrouping",
+      "rules": [
+        {
+          "rule": "table_exists",
+          "severity": "critical",
+          "status": "PASS"
+        },
+        {
+          "column_count": 8,
+          "rule": "schema_snapshot",
+          "severity": "info"
+        },
+        {
+          "observed_values": {},
+          "rule": "freshness_observed",
+          "severity": "warning"
+        },
+        {
+          "key_columns": [
+            "CustomerNumber",
+            "CustomerGroup"
+          ],
+          "metric": {},
+          "rule": "latest_partition_null_blank_key",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "grain": [
+            "CustomerNumber",
+            "CustomerGroup"
+          ],
+          "metric": {},
+          "rule": "latest_partition_grain_duplicate",
+          "severity": "critical",
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "metric": {
+            "full_row_duplicate_extra_rows": null,
+            "full_row_duplicate_groups": 0,
+            "max_rows_per_full_row": null
+          },
+          "rule": "full_row_duplicate",
+          "severity": "warning",
+          "status": "PASS"
+        },
+        {
+          "metric": {},
+          "rule": "all_history_grain_duplicate",
+          "severity": "warning",
+          "status": "SKIPPED"
+        }
+      ]
+    }
+  ]
+}

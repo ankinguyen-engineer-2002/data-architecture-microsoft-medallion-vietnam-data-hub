@@ -1,0 +1,793 @@
+/// Shared fiscal and calendar date dimension for Control Tower reporting. Use fiscal fields for 4-4-5 month/quarter analysis and rolling period comparisons.
+table dim_calendar
+	lineageTag: 282f6b99-3310-430f-8c81-de675dd7a6cc
+	sourceLineageTag: [dbo].[dim_calendar]
+
+	/// Surrogate date key from the calendar source. Used for reference and integration where numeric date keys are required.
+	column sk_date
+		dataType: int64
+		formatString: 0
+		lineageTag: b8a3c5c8-1ecc-4751-b70d-a4dc5ee519bf
+		sourceLineageTag: sk_date
+		summarizeBy: sum
+		sourceColumn: sk_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_mapics_date
+		dataType: int64
+		formatString: 0
+		lineageTag: de23b8a3-6d3b-43e9-b9ad-1dbcb3281a2c
+		sourceLineageTag: id_mapics_date
+		summarizeBy: sum
+		sourceColumn: id_mapics_date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Primary calendar date used for relationships to fact tables. Use fiscal attributes from this table for 4-4-5 reporting logic.
+	column dt_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 296a62e9-c925-44cd-be58-6b5031f1e7a9
+		sourceLineageTag: dt_date
+		summarizeBy: none
+		sourceColumn: dt_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_datetime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c0d4c6f4-972d-4043-bb3e-1b3e776aedd8
+		sourceLineageTag: dt_datetime
+		summarizeBy: none
+		sourceColumn: dt_datetime
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar date attribute for standard calendar-based analysis.
+	column dt_calendar
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fc233309-0d86-45d4-9a2f-47ce3a7dfc25
+		sourceLineageTag: dt_calendar
+		summarizeBy: none
+		sourceColumn: dt_calendar
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_calendar_date
+		dataType: string
+		lineageTag: b39bc741-0a0f-4a48-92aa-72e4d6c2e2cb
+		sourceLineageTag: name_calendar_date
+		summarizeBy: none
+		sourceColumn: name_calendar_date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar date indicator used for date slicers or page-level filtering where indicator-based selection is required.
+	column num_cal_date_indicator
+		dataType: int64
+		formatString: 0
+		lineageTag: 4df3f58d-8e51-48b3-93d6-a9a143715655
+		sourceLineageTag: num_cal_date_indicator
+		summarizeBy: sum
+		sourceColumn: num_cal_date_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cal_day_of_week
+		dataType: int64
+		formatString: 0
+		lineageTag: 0cb69abf-c042-42fd-b747-4695d57d62ff
+		sourceLineageTag: num_cal_day_of_week
+		summarizeBy: sum
+		sourceColumn: num_cal_day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_cal_day_of_week
+		dataType: string
+		lineageTag: 9273d8c9-0c9d-4bfc-a8a1-f90e04d48a38
+		sourceLineageTag: name_cal_day_of_week
+		summarizeBy: none
+		sourceColumn: name_cal_day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cal_day_of_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b24727d-e6c8-4bcc-9775-ae31dae782e2
+		sourceLineageTag: num_cal_day_of_month
+		summarizeBy: sum
+		sourceColumn: num_cal_day_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cal_day_of_year
+		dataType: int64
+		formatString: 0
+		lineageTag: adb4a38f-4fa6-435f-858f-cfa37f10dad2
+		sourceLineageTag: num_cal_day_of_year
+		summarizeBy: sum
+		sourceColumn: num_cal_day_of_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cal_week
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a089e06-0a7d-416b-afbd-4da6d59df1bc
+		sourceLineageTag: num_cal_week
+		summarizeBy: sum
+		sourceColumn: num_cal_week
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar week indicator used for week slicers or page-level filtering where indicator-based selection is required.
+	column num_cal_week_indicator
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ac80426-fe66-4273-8232-d71eb832c38a
+		sourceLineageTag: num_cal_week_indicator
+		summarizeBy: sum
+		sourceColumn: num_cal_week_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cal_week_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 05732744-4afe-4141-a7be-54c8feb1495b
+		sourceLineageTag: num_cal_week_year
+		summarizeBy: sum
+		sourceColumn: num_cal_week_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_cal_week_year
+		dataType: string
+		lineageTag: 1de07f55-2e71-41f3-ad11-9b1087daee91
+		sourceLineageTag: name_cal_week_year
+		summarizeBy: none
+		sourceColumn: name_cal_week_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_cal_week_first
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1722da2c-5e3f-4bda-90cb-329b21ec0631
+		sourceLineageTag: dt_cal_week_first
+		summarizeBy: none
+		sourceColumn: dt_cal_week_first
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_cal_week_last
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 65583ffd-4202-4b1c-aeb6-b625ab5af265
+		sourceLineageTag: dt_cal_week_last
+		summarizeBy: none
+		sourceColumn: dt_cal_week_last
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cal_week_of_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 94d57292-9f6b-4a2b-aeb8-50beea60544b
+		sourceLineageTag: num_cal_week_of_month
+		summarizeBy: sum
+		sourceColumn: num_cal_week_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cal_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 9448951a-f320-4440-9207-0179accb80da
+		sourceLineageTag: num_cal_month
+		summarizeBy: sum
+		sourceColumn: num_cal_month
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar month indicator used for month slicers or page-level filtering where indicator-based selection is required.
+	column num_cal_month_indicator
+		dataType: int64
+		formatString: 0
+		lineageTag: d34418e5-2f39-4f1e-a072-cbd7fc92c4f4
+		sourceLineageTag: num_cal_month_indicator
+		summarizeBy: sum
+		sourceColumn: num_cal_month_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar month-year key for standard calendar month grouping and sorting.
+	column num_cal_month_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b97e21d-559a-4a35-b922-7c84a6d0a75f
+		sourceLineageTag: num_cal_month_year
+		summarizeBy: sum
+		sourceColumn: num_cal_month_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_cal_month
+		dataType: string
+		lineageTag: 9726ed97-8ed5-4dcd-ae61-f9507fd99041
+		sourceLineageTag: name_cal_month
+		summarizeBy: none
+		sourceColumn: name_cal_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_cal_month_year
+		dataType: string
+		lineageTag: a0e1f889-ed98-4cc8-a3df-90c35d9e93ac
+		sourceLineageTag: name_cal_month_year
+		summarizeBy: none
+		sourceColumn: name_cal_month_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_cal_month_first
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 35408017-f2c6-4579-bcb0-52a9cc9fb50f
+		sourceLineageTag: dt_cal_month_first
+		summarizeBy: none
+		sourceColumn: dt_cal_month_first
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_cal_month_last
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 256b49d7-b2f7-440c-aced-e47feb06d5ba
+		sourceLineageTag: dt_cal_month_last
+		summarizeBy: none
+		sourceColumn: dt_cal_month_last
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cal_quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 7fadeb03-11f9-4139-91c5-234b903bb8bb
+		sourceLineageTag: num_cal_quarter
+		summarizeBy: sum
+		sourceColumn: num_cal_quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_cal_quarter
+		dataType: string
+		lineageTag: 7edb0f66-e29c-4271-952e-9ff66314e0c7
+		sourceLineageTag: name_cal_quarter
+		summarizeBy: none
+		sourceColumn: name_cal_quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar quarter indicator used for quarter slicers or page-level filtering where indicator-based selection is required.
+	column num_cal_quarter_indicator
+		dataType: int64
+		formatString: 0
+		lineageTag: 538bc1bc-8b86-4fd4-a367-104a60bab69b
+		sourceLineageTag: num_cal_quarter_indicator
+		summarizeBy: sum
+		sourceColumn: num_cal_quarter_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar quarter-year key for standard calendar quarter grouping and sorting.
+	column num_cal_quarter_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 04739aa4-3380-4a50-9754-77a3cdb062c9
+		sourceLineageTag: num_cal_quarter_year
+		summarizeBy: sum
+		sourceColumn: num_cal_quarter_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_cal_quarter_year
+		dataType: string
+		lineageTag: e338e2f5-de52-488c-8ab2-dd03593b7131
+		sourceLineageTag: name_cal_quarter_year
+		summarizeBy: none
+		sourceColumn: name_cal_quarter_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cal_semester
+		dataType: int64
+		formatString: 0
+		lineageTag: 74ba5e39-466f-4a75-9852-f906157cad25
+		sourceLineageTag: num_cal_semester
+		summarizeBy: sum
+		sourceColumn: num_cal_semester
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cal_semester_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 07a96977-b480-4323-84c4-39b00a5602af
+		sourceLineageTag: num_cal_semester_year
+		summarizeBy: sum
+		sourceColumn: num_cal_semester_year
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar year number for calendar-based reporting.
+	column num_cal_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 6aa9c992-2965-4d4c-8621-2a45b59ca102
+		sourceLineageTag: num_cal_year
+		summarizeBy: sum
+		sourceColumn: num_cal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_cal_year
+		dataType: string
+		lineageTag: 2989ecdf-10d8-4a67-8847-be22ded8cae3
+		sourceLineageTag: name_cal_year
+		summarizeBy: none
+		sourceColumn: name_cal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar year indicator used for year slicers or page-level filtering where indicator-based selection is required.
+	column num_cal_year_indicator
+		dataType: int64
+		formatString: 0
+		lineageTag: fbade623-93e5-4cd1-91a4-9fab71735a70
+		sourceLineageTag: num_cal_year_indicator
+		summarizeBy: sum
+		sourceColumn: num_cal_year_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal date attribute used for fiscal calendar alignment.
+	column dt_fiscal
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f4182c33-329b-4cc6-be87-764664b4ed25
+		sourceLineageTag: dt_fiscal
+		summarizeBy: none
+		sourceColumn: dt_fiscal
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_fiscal_date
+		dataType: string
+		lineageTag: a31eb51e-a289-4d12-b6b0-41acb4be4439
+		sourceLineageTag: name_fiscal_date
+		summarizeBy: none
+		sourceColumn: name_fiscal_date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal date indicator used for fiscal date slicers or page-level filtering where indicator-based selection is required.
+	column num_fsc_date_indicator
+		dataType: int64
+		formatString: 0
+		lineageTag: f1be040a-977e-4079-a7bc-42f3556533f1
+		sourceLineageTag: num_fsc_date_indicator
+		summarizeBy: sum
+		sourceColumn: num_fsc_date_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_fsc_day_of_week
+		dataType: int64
+		formatString: 0
+		lineageTag: db6d72a7-c8a5-4d4c-a59f-377d6161f7ae
+		sourceLineageTag: num_fsc_day_of_week
+		summarizeBy: sum
+		sourceColumn: num_fsc_day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_fsc_day_of_week
+		dataType: string
+		lineageTag: 94cab57d-b561-4404-9e72-f3fede0e36de
+		sourceLineageTag: name_fsc_day_of_week
+		summarizeBy: none
+		sourceColumn: name_fsc_day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_fsc_day_of_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 150585bb-9de6-4ec3-9d2a-46d443c20d52
+		sourceLineageTag: num_fsc_day_of_month
+		summarizeBy: sum
+		sourceColumn: num_fsc_day_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_fsc_day_of_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 3761c04f-6d9f-4bdf-a331-d1cff1a839df
+		sourceLineageTag: num_fsc_day_of_year
+		summarizeBy: sum
+		sourceColumn: num_fsc_day_of_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_fsc_week
+		dataType: int64
+		formatString: 0
+		lineageTag: 43b543bf-ff07-4d77-a057-b640352621a6
+		sourceLineageTag: num_fsc_week
+		summarizeBy: sum
+		sourceColumn: num_fsc_week
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal week indicator used for fiscal week slicers or page-level filtering where indicator-based selection is required.
+	column num_fsc_week_indicator
+		dataType: int64
+		formatString: 0
+		lineageTag: 15d4ae49-83dd-45b5-a436-a6982a9babac
+		sourceLineageTag: num_fsc_week_indicator
+		summarizeBy: sum
+		sourceColumn: num_fsc_week_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_fsc_week_year
+		dataType: int64
+		formatString: 0
+		lineageTag: a6d63688-6739-4952-bd7c-99d615b3a219
+		sourceLineageTag: num_fsc_week_year
+		summarizeBy: sum
+		sourceColumn: num_fsc_week_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_fsc_week_year
+		dataType: string
+		lineageTag: ac8b09f2-df50-45b1-b398-3c9c7604c835
+		sourceLineageTag: name_fsc_week_year
+		summarizeBy: none
+		sourceColumn: name_fsc_week_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_fsc_week_first
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5fab66e6-1eba-456f-b88b-6a0d5508593d
+		sourceLineageTag: dt_fsc_week_first
+		summarizeBy: none
+		sourceColumn: dt_fsc_week_first
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_fsc_week_last
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 05e5466d-6d8d-4df3-bdc5-b46c390f8a8c
+		sourceLineageTag: dt_fsc_week_last
+		summarizeBy: none
+		sourceColumn: dt_fsc_week_last
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_fsc_week_of_month
+		dataType: int64
+		formatString: 0
+		lineageTag: eb745ac1-7de0-4534-9c85-a3ee780f9bcb
+		sourceLineageTag: num_fsc_week_of_month
+		summarizeBy: sum
+		sourceColumn: num_fsc_week_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal month number within the fiscal year. Follows the governed 4-4-5 calendar.
+	column num_fsc_month
+		dataType: int64
+		formatString: 0
+		lineageTag: ea01feb2-e51f-4e71-a2a3-bf3d10f8a874
+		sourceLineageTag: num_fsc_month
+		summarizeBy: sum
+		sourceColumn: num_fsc_month
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal month indicator used for fiscal month slicers or page-level filtering. Preferred over fiscal month-year keys for indicator-based page slicers.
+	column num_fsc_month_indicator
+		dataType: int64
+		formatString: 0
+		lineageTag: be7d04a3-5e90-4582-9459-7cb92744bb55
+		sourceLineageTag: num_fsc_month_indicator
+		summarizeBy: sum
+		sourceColumn: num_fsc_month_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal month-year key used for calculations and sorting. Not intended as the primary slicer field; use the appropriate fiscal indicator columns for page slicers.
+	column num_fsc_month_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 391d5999-a6d8-4800-9ae2-8b359afb9880
+		sourceLineageTag: num_fsc_month_year
+		summarizeBy: sum
+		sourceColumn: num_fsc_month_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_fsc_month
+		dataType: string
+		lineageTag: 3191753a-bd09-498e-82b6-9c9552d13723
+		sourceLineageTag: name_fsc_month
+		summarizeBy: none
+		sourceColumn: name_fsc_month
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Display label for fiscal month-year used in reports and slicers.
+	column name_fsc_month_year
+		dataType: string
+		lineageTag: 3d3f5e77-c726-4e50-a040-e68c8b89abef
+		sourceLineageTag: name_fsc_month_year
+		summarizeBy: none
+		sourceColumn: name_fsc_month_year
+		sortByColumn: num_fsc_month_year
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// First date of the fiscal month under the governed 4-4-5 calendar.
+	column dt_fsc_month_first
+		dataType: dateTime
+		formatString: M/d/yyyy h:mm:ss AM/PM
+		lineageTag: a6d3f359-0670-474b-ae57-95fd97ce4478
+		sourceLineageTag: dt_fsc_month_first
+		summarizeBy: none
+		sourceColumn: dt_fsc_month_first
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Last date of the fiscal month under the governed 4-4-5 calendar. Common month-end alignment date for facts.
+	column dt_fsc_month_last
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: e109d435-0f4e-488a-946c-e88de5794124
+		sourceLineageTag: dt_fsc_month_last
+		summarizeBy: none
+		sourceColumn: dt_fsc_month_last
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	/// Fiscal quarter number within the fiscal year. Follows the governed 4-4-5 calendar.
+	column num_fsc_quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 8b539fee-2fe4-4835-a93c-9d95f9c64c70
+		sourceLineageTag: num_fsc_quarter
+		summarizeBy: sum
+		sourceColumn: num_fsc_quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_fsc_quarter
+		dataType: string
+		lineageTag: b87a5a78-a3f2-4cc7-ad6c-568c758a7265
+		sourceLineageTag: name_fsc_quarter
+		summarizeBy: none
+		sourceColumn: name_fsc_quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal quarter indicator used for fiscal quarter slicers or page-level filtering. Preferred over fiscal quarter-year keys for indicator-based page slicers.
+	column num_fsc_quarter_indicator
+		dataType: int64
+		formatString: 0
+		lineageTag: 4b2df8ee-fdee-4f72-8418-65f6996a7007
+		sourceLineageTag: num_fsc_quarter_indicator
+		summarizeBy: sum
+		sourceColumn: num_fsc_quarter_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal quarter-year key used for calculations and sorting. Not intended as the primary slicer field; use the appropriate fiscal indicator columns for page slicers.
+	column num_fsc_quarter_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 0449c280-97d3-489e-8f6c-7a2bc4354e66
+		sourceLineageTag: num_fsc_quarter_year
+		summarizeBy: sum
+		sourceColumn: num_fsc_quarter_year
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Display label for fiscal quarter-year used in reports and slicers.
+	column name_fsc_quarter_year
+		dataType: string
+		lineageTag: 7b191baf-67ae-446e-b1fe-679d3dd4864f
+		sourceLineageTag: name_fsc_quarter_year
+		summarizeBy: none
+		sourceColumn: name_fsc_quarter_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_fsc_semester
+		dataType: int64
+		formatString: 0
+		lineageTag: d64e1234-2e51-4de0-b7fe-3395f005b257
+		sourceLineageTag: num_fsc_semester
+		summarizeBy: sum
+		sourceColumn: num_fsc_semester
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_fsc_semester_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 0125aea9-e9bf-4eb2-8b31-a2051fce8010
+		sourceLineageTag: num_fsc_semester_year
+		summarizeBy: sum
+		sourceColumn: num_fsc_semester_year
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal year number used for fiscal reporting and period comparisons.
+	column num_fsc_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 52193b3e-a8cd-43e0-b448-0b5eccedc5e3
+		sourceLineageTag: num_fsc_year
+		summarizeBy: sum
+		sourceColumn: num_fsc_year
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Display label for fiscal year used in reports and slicers.
+	column name_fsc_year
+		dataType: string
+		lineageTag: 3d1a30f8-6c44-4a09-a5df-e65d8fda816f
+		sourceLineageTag: name_fsc_year
+		summarizeBy: none
+		sourceColumn: name_fsc_year
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal year indicator used for fiscal year slicers or page-level filtering where indicator-based selection is required.
+	column num_fsc_year_indicator
+		dataType: int64
+		formatString: 0
+		lineageTag: b8652f06-2b1d-4596-ba49-d3437e52bf97
+		sourceLineageTag: num_fsc_year_indicator
+		summarizeBy: sum
+		sourceColumn: num_fsc_year_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	/// First date of the fiscal year under the governed 4-4-5 calendar.
+	column dt_fsc_year_first
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 33a7b7f9-51fc-42f8-a328-d6677a54957d
+		sourceLineageTag: dt_fsc_year_first
+		summarizeBy: none
+		sourceColumn: dt_fsc_year_first
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Last date of the fiscal year under the governed 4-4-5 calendar.
+	column dt_fsc_year_last
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d4f83adc-d808-42b4-add7-149b7cd474ce
+		sourceLineageTag: dt_fsc_year_last
+		summarizeBy: none
+		sourceColumn: dt_fsc_year_last
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_holiday_indicator
+		dataType: string
+		lineageTag: 5a6c5095-1013-4f4e-9c72-9dff5d8e2041
+		sourceLineageTag: code_holiday_indicator
+		summarizeBy: none
+		sourceColumn: code_holiday_indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_holiday
+		dataType: string
+		lineageTag: 4e8f0689-b106-4df5-afd7-f390ce487bdc
+		sourceLineageTag: name_holiday
+		summarizeBy: none
+		sourceColumn: name_holiday
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_working_day
+		dataType: string
+		lineageTag: b5ecd166-4d41-4cb5-a003-18f63c118b3f
+		sourceLineageTag: code_working_day
+		summarizeBy: none
+		sourceColumn: code_working_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_weekday_weekend
+		dataType: string
+		lineageTag: d738b6f4-7e7a-471c-a6c7-88c04c14aedc
+		sourceLineageTag: code_weekday_weekend
+		summarizeBy: none
+		sourceColumn: code_weekday_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	/// First date of the fiscal quarter under the governed 4-4-5 calendar.
+	column dt_fsc_quarter_first
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c0457fbc-cc31-4f68-8c67-463f64482f23
+		sourceLineageTag: dt_fsc_quarter_first
+		summarizeBy: none
+		sourceColumn: dt_fsc_quarter_first
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Last date of the fiscal quarter under the governed 4-4-5 calendar.
+	column dt_fsc_quarter_last
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 04812f88-c27e-4b27-bee2-e05ee4870c31
+		sourceLineageTag: dt_fsc_quarter_last
+		summarizeBy: none
+		sourceColumn: dt_fsc_quarter_last
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy Year/Quarter
+		lineageTag: 1e80d4fd-5a67-424f-bb76-7a9e03f59f71
+
+		level Year/Quarter
+			lineageTag: f06a6f53-a921-4a91-ab0a-4f7486fe7e3a
+			column: num_fsc_year
+
+		level Quarter
+			lineageTag: 54e5512d-97cc-4172-90a4-5bb4440b09fa
+			column: num_fsc_quarter
+
+		level num_fsc_month
+			lineageTag: 67b2d2ab-028c-4a8f-b1ba-b79b47d1ff90
+			column: num_fsc_month
+
+		level num_fsc_week
+			lineageTag: c63f486e-24be-45f3-82ab-55ec1d20b96f
+			column: num_fsc_week
+
+		changedProperty = Name
+
+	partition dim_calendar = entity
+		mode: directLake
+		source
+			entityName: dim_calendar
+			schemaName: dbo
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

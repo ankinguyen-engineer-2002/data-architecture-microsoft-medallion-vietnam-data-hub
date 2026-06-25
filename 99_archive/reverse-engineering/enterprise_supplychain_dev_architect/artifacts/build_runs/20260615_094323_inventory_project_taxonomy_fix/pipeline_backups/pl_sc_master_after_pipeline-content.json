@@ -1,0 +1,190 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "log_start",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[Meta].[usp_LogPipelineRun]",
+          "storedProcedureParameters": {
+            "pipeline_run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "pipeline_name": {
+              "value": "pl_sc_master",
+              "type": "String"
+            },
+            "status": {
+              "value": "running",
+              "type": "String"
+            }
+          }
+        },
+        "linkedService": {
+          "name": "SupplyChain_Processing_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "lk_projects",
+        "type": "Lookup",
+        "dependsOn": [
+          {
+            "activity": "log_start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "sqlReaderQuery": "SELECT DISTINCT project FROM SupplyChain_Processing_Warehouse.Meta.AssetRegistry WHERE is_active = 1 AND project IS NOT NULL ORDER BY CASE WHEN project = 'shared' THEN 0 WHEN project = 'forecast_accuracy' THEN 1 WHEN project = 'inventory_health' THEN 2 ELSE 99 END, project",
+            "partitionOption": "None"
+          },
+          "firstRowOnly": false,
+          "datasetSettings": {
+            "annotations": [],
+            "connectionSettings": {
+              "name": "SupplyChain_Lakehouse",
+              "properties": {
+                "annotations": [],
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+                  "artifactId": "62a3081e-4093-4f46-856c-f50aa58732fa",
+                  "rootFolder": "Tables"
+                },
+                "externalReferences": {
+                  "connection": "b4311980-3d3b-49be-bd11-7e2f8e424e19"
+                }
+              }
+            },
+            "type": "LakehouseTable",
+            "schema": [],
+            "typeProperties": {}
+          }
+        }
+      },
+      {
+        "name": "fe_projects",
+        "type": "ForEach",
+        "dependsOn": [
+          {
+            "activity": "lk_projects",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "items": {
+            "value": "@activity('lk_projects').output.value",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "name": "invoke_mart",
+              "type": "InvokePipeline",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.06:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "waitOnCompletion": true,
+                "operationType": "InvokeFabricPipeline",
+                "pipelineId": "20db5725-80e3-4081-9ef5-01700acdf3b3",
+                "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+                "parameters": {
+                  "project_name": {
+                    "value": "@item().project",
+                    "type": "Expression"
+                  }
+                }
+              },
+              "externalReferences": {
+                "connection": "3bee8b0e-bc72-484d-9008-4a7c0acd92d0"
+              }
+            }
+          ],
+          "isSequential": true
+        }
+      },
+      {
+        "name": "finalize",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "fe_projects",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[Meta].[usp_FinalizePipeline]",
+          "storedProcedureParameters": {
+            "pipeline_run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            }
+          }
+        },
+        "linkedService": {
+          "name": "SupplyChain_Processing_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      }
+    ],
+    "concurrency": 1
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "results": [
+    {
+      "tables": [
+        {
+          "rows": [
+            {
+              "[health_rows_missing_A_product]": 134230,
+              "[health_rows_missing_A_warehouse]": 21136,
+              "[risk_rows_missing_A_product]": 197506,
+              "[risk_rows_missing_A_warehouse]": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

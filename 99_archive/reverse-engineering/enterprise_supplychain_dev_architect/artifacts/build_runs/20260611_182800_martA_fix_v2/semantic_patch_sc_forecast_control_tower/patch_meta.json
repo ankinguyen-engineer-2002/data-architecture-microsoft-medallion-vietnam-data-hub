@@ -1,0 +1,12 @@
+{
+  "before": {
+    "part_count": 18,
+    "removed_paths": [
+      "definition/tables/FactInventoryRiskForward.tmdl"
+    ]
+  },
+  "after": {
+    "part_count": 17,
+    "removed_model_ref": true
+  }
+}

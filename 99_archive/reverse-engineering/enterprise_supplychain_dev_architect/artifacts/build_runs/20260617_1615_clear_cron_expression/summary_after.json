@@ -1,0 +1,12 @@
+[
+  {
+    "project": "forecast_accuracy",
+    "cnt": 26,
+    "cron_empty": 26
+  },
+  {
+    "project": "inventory_health",
+    "cnt": 16,
+    "cron_empty": 16
+  }
+]

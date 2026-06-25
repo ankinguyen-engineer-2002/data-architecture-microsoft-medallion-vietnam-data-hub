@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[SupplyPlanDetail]
+-- Loaded by ETL_Framework from [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh_Wrk].[v_SupplyPlanDetail].
+-- Business/source view SQL is documented in ../InventoryHistory_Enh_Wrk/v_SupplyPlanDetail.sql.

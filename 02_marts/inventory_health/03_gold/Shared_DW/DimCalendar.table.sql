@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Gold_Warehouse].[Shared_DW].[DimCalendar]
+-- Loaded by ETL_Framework from [SupplyChain_Gold_Warehouse].[Shared_DW_Wrk].[v_DimCalendar].
+-- Business/source view SQL is documented in ../Shared_DW_Wrk/v_DimCalendar.sql.

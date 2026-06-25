@@ -1,0 +1,42 @@
+{
+  "step": 15,
+  "file": "15_tabledictionary_procs.sql",
+  "db": "SupplyChain_Processing_Warehouse",
+  "started": "2026-05-10T07:06:35.751361+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "ok",
+      "first": "-- 15_tabledictionary_procs.sql"
+    },
+    {
+      "i": 1,
+      "status": "error",
+      "first": "CREATE PROCEDURE Meta.usp_UpdateTableDictionary_ModifiedDate",
+      "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Incorrect syntax near the keyword 'RowCount'. (156) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 2,
+      "status": "ok",
+      "first": "-- ========================================================================"
+    },
+    {
+      "i": 3,
+      "status": "ok",
+      "first": "CREATE PROCEDURE Meta.usp_UpdateTableDictionaryModified"
+    },
+    {
+      "i": 4,
+      "status": "ok",
+      "first": "-- ========================================================================"
+    },
+    {
+      "i": 5,
+      "status": "ok",
+      "first": "CREATE PROCEDURE Meta.usp_RefreshTableStats"
+    }
+  ],
+  "ended": "2026-05-10T07:06:41.460158+00:00",
+  "ok": 5,
+  "total": 6
+}

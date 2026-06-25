@@ -1,0 +1,45 @@
+{
+  "generated_at_utc": "2026-06-24T14:34:40Z",
+  "output_root": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/03_operations/deployment/sqlproj",
+  "projects": {
+    "ETL_Framework": {
+      "object_count": 10
+    },
+    "Enterprise_Lakehouse_Reference": {
+      "object_count": 47
+    },
+    "SupplyChain_Gold_Warehouse": {
+      "object_count": 28
+    },
+    "SupplyChain_Processing_Warehouse": {
+      "object_count": 79
+    }
+  },
+  "safety": "build_only_no_publish",
+  "latest_build": {
+    "build_completed_at_utc": "2026-06-24T14:46:48Z",
+    "overall_status": "pass",
+    "projects": {
+      "ETL_Framework": {
+        "warnings": 0,
+        "errors": 0
+      },
+      "Enterprise_Lakehouse_Reference": {
+        "warnings": 0,
+        "errors": 0
+      },
+      "SupplyChain_Processing_Warehouse": {
+        "warnings": 0,
+        "errors": 0
+      },
+      "SupplyChain_Gold_Warehouse": {
+        "warnings": 0,
+        "errors": 0
+      }
+    }
+  },
+  "sdk": {
+    "Microsoft.Build.Sql": "2.2.0",
+    "Microsoft.SqlServer.Dacpacs.FabricDw": "170.0.4"
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "step": 8,
+  "file": "08_update_asset_registry.sql",
+  "db": "SupplyChain_Processing_Warehouse",
+  "started": "2026-05-10T06:27:50.612545+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "ok",
+      "first": "UPDATE Meta.AssetRegistry SET physical_schema = 'Staging_Wrk' WHERE physical_schema = 'Sta"
+    },
+    {
+      "i": 1,
+      "status": "ok",
+      "first": "UPDATE Meta.AssetRegistry SET physical_schema = 'ReferenceMaster_Enh' WHERE physical_schem"
+    },
+    {
+      "i": 2,
+      "status": "ok",
+      "first": "UPDATE Meta.AssetRegistry SET physical_schema = 'SalesHistory_Enh' WHERE physical_schema ="
+    },
+    {
+      "i": 3,
+      "status": "ok",
+      "first": "UPDATE Meta.AssetRegistry SET physical_schema = 'ForecastHistory_Enh' WHERE physical_schem"
+    },
+    {
+      "i": 4,
+      "status": "ok",
+      "first": "UPDATE Meta.AssetRegistry SET physical_schema = 'OpenOrderHistory_Enh' WHERE physical_sche"
+    },
+    {
+      "i": 5,
+      "status": "ok",
+      "first": "UPDATE Meta.DQRule SET target_schema = 'Staging_Wrk' WHERE target_schema = 'Staging_WRK';"
+    },
+    {
+      "i": 6,
+      "status": "ok",
+      "first": "UPDATE Meta.DQRule SET target_schema = 'ReferenceMaster_Enh' WHERE target_schema = 'Refere"
+    },
+    {
+      "i": 7,
+      "status": "ok",
+      "first": "UPDATE Meta.DQRule SET target_schema = 'SalesHistory_Enh' WHERE target_schema = 'SalesHist"
+    },
+    {
+      "i": 8,
+      "status": "ok",
+      "first": "UPDATE Meta.DQRule SET target_schema = 'ForecastHistory_Enh' WHERE target_schema = 'Foreca"
+    },
+    {
+      "i": 9,
+      "status": "ok",
+      "first": "UPDATE Meta.DQRule SET target_schema = 'OpenOrderHistory_Enh' WHERE target_schema = 'OpenO"
+    },
+    {
+      "i": 10,
+      "status": "error",
+      "first": "UPDATE Meta.LineageEdge SET source_schema = 'Staging_Wrk' WHERE source_schema = 'Staging_W",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'source_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 11,
+      "status": "error",
+      "first": "UPDATE Meta.LineageEdge SET target_schema = 'Staging_Wrk' WHERE target_schema = 'Staging_W",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'target_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 12,
+      "status": "error",
+      "first": "UPDATE Meta.LineageEdge SET source_schema = 'ReferenceMaster_Enh' WHERE source_schema = 'R",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'source_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 13,
+      "status": "error",
+      "first": "UPDATE Meta.LineageEdge SET target_schema = 'ReferenceMaster_Enh' WHERE target_schema = 'R",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'target_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 14,
+      "status": "error",
+      "first": "UPDATE Meta.LineageEdge SET source_schema = 'SalesHistory_Enh' WHERE source_schema = 'Sale",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'source_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 15,
+      "status": "error",
+      "first": "UPDATE Meta.LineageEdge SET target_schema = 'SalesHistory_Enh' WHERE target_schema = 'Sale",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'target_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 16,
+      "status": "error",
+      "first": "UPDATE Meta.LineageEdge SET source_schema = 'ForecastHistory_Enh' WHERE source_schema = 'F",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'source_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 17,
+      "status": "error",
+      "first": "UPDATE Meta.LineageEdge SET target_schema = 'ForecastHistory_Enh' WHERE target_schema = 'F",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'target_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 18,
+      "status": "error",
+      "first": "UPDATE Meta.LineageEdge SET source_schema = 'OpenOrderHistory_Enh' WHERE source_schema = '",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'source_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 19,
+      "status": "error",
+      "first": "UPDATE Meta.LineageEdge SET target_schema = 'OpenOrderHistory_Enh' WHERE target_schema = '",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'target_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 20,
+      "status": "error",
+      "first": "UPDATE Meta.SourceContract SET target_schema = 'Staging_Wrk' WHERE target_schema = 'Stagin",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'target_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 21,
+      "status": "error",
+      "first": "UPDATE Meta.SourceContract SET target_schema = 'ReferenceMaster_Enh' WHERE target_schema =",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'target_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 22,
+      "status": "error",
+      "first": "UPDATE Meta.SourceContract SET target_schema = 'SalesHistory_Enh' WHERE target_schema = 'S",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'target_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 23,
+      "status": "error",
+      "first": "UPDATE Meta.SourceContract SET target_schema = 'ForecastHistory_Enh' WHERE target_schema =",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'target_schema'. (207) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 24,
+      "status": "error",
+      "first": "UPDATE Meta.SourceContract SET target_schema = 'OpenOrderHistory_Enh' WHERE target_schema ",
+      "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'target_schema'. (207) (SQLExecDirectW)\")"
+    }
+  ],
+  "ended": "2026-05-10T06:28:09.023085+00:00",
+  "ok": 10,
+  "total": 25
+}

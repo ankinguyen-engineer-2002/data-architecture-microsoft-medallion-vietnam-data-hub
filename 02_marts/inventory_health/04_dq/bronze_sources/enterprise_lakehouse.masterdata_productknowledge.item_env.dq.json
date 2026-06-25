@@ -1,0 +1,195 @@
+{
+  "asset_key": "enterprise_lakehouse.masterdata_productknowledge.item_env",
+  "display": "Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 24,
+    "columns": [
+      {
+        "column_name": "ienItemNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "ienItemType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "ienItemClass",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "ienEnvironmentCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "usra",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "dtea",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "usrc",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "dtec",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "ienItemLevelCountryOfOrigin",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "ienItemLevelCityOfOrigin",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "ienItemLevelCOOReviewed",
+        "data_type": "datetime2",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "ienFutureStatus",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "ienHoldBuyCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "ienForecastPlannerID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "ienDirectShipItemOnly",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "ienHTSCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "ienScheduleBCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "ienExpressShipCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "ienDeliverInPackage",
+        "data_type": "bit",
+        "is_nullable": "NO",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "ienVBoard",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 20
+      },
+      {
+        "column_name": "ienCertifiedPackage",
+        "data_type": "bit",
+        "is_nullable": "NO",
+        "ordinal_position": 21
+      },
+      {
+        "column_name": "ienRDCAssemblyRequired",
+        "data_type": "bit",
+        "is_nullable": "NO",
+        "ordinal_position": 22
+      },
+      {
+        "column_name": "ienCustomerAssemblyOnly",
+        "data_type": "bit",
+        "is_nullable": "NO",
+        "ordinal_position": 23
+      },
+      {
+        "column_name": "ienUniqueSerialNumbers",
+        "data_type": "int",
+        "is_nullable": "NO",
+        "ordinal_position": 24
+      }
+    ],
+    "exists": true,
+    "freshness": {},
+    "freshness_columns": [],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "full_row_duplicate_extra_rows": null,
+          "full_row_duplicate_groups": 0,
+          "max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 1.841,
+      "status": "PASS"
+    },
+    "key_columns": [],
+    "latest_partition_duplicate": {
+      "error": "No freshness column or no key columns",
+      "rows": [],
+      "status": "NOT_APPLICABLE"
+    },
+    "latest_partition_null_blank": {
+      "error": "No freshness column or no key columns",
+      "rows": [],
+      "status": "NOT_APPLICABLE"
+    },
+    "projects": [
+      "forecast_accuracy",
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV",
+    "row_count_metadata": 0,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV.sql"
+}

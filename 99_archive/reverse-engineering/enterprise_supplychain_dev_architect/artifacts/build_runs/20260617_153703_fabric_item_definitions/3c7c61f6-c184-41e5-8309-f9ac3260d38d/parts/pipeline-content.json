@@ -1,0 +1,124 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "lk_dq_rules",
+        "type": "Lookup",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.00:10:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "partitionOption": "None",
+            "sqlReaderQuery": {
+              "value": "@concat('SELECT rule_id FROM SupplyChain_Processing_Warehouse.Meta.DQRule WHERE is_active = 1 AND layer IN (', pipeline().parameters.dq_layer, ')')",
+              "type": "Expression"
+            }
+          },
+          "firstRowOnly": false,
+          "datasetSettings": {
+            "annotations": [],
+            "connectionSettings": {
+              "name": "SupplyChain_Lakehouse",
+              "properties": {
+                "annotations": [],
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+                  "artifactId": "62a3081e-4093-4f46-856c-f50aa58732fa",
+                  "rootFolder": "Tables"
+                },
+                "externalReferences": {
+                  "connection": "b4311980-3d3b-49be-bd11-7e2f8e424e19"
+                }
+              }
+            },
+            "type": "LakehouseTable",
+            "schema": [],
+            "typeProperties": {}
+          }
+        }
+      },
+      {
+        "name": "fe_dq_check",
+        "type": "ForEach",
+        "dependsOn": [
+          {
+            "activity": "lk_dq_rules",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "items": {
+            "value": "@activity('lk_dq_rules').output.value",
+            "type": "Expression"
+          },
+          "batchCount": 5,
+          "activities": [
+            {
+              "name": "exec_dq_single",
+              "type": "SqlServerStoredProcedure",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.00:10:00",
+                "retry": 2,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "storedProcedureName": "[Meta].[usp_CheckDqSingle]",
+                "storedProcedureParameters": {
+                  "rule_id": {
+                    "value": {
+                      "value": "@item().rule_id",
+                      "type": "Expression"
+                    },
+                    "type": "Int32"
+                  },
+                  "pipeline_run_id": {
+                    "value": {
+                      "value": "@pipeline().parameters.pipeline_run_id",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  }
+                }
+              },
+              "linkedService": {
+                "name": "wh",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+                    "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+                    "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "parameters": {
+      "dq_layer": {
+        "type": "String",
+        "defaultValue": "'Staging','ReferenceMaster'"
+      },
+      "pipeline_run_id": {
+        "type": "String",
+        "defaultValue": ""
+      }
+    }
+  }
+}

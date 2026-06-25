@@ -1,0 +1,24 @@
+{
+  "asset_count": 161,
+  "catalogs": [
+    {
+      "asset_count": 73,
+      "edge_count": 74,
+      "mart": "forecast_accuracy",
+      "run_step_count": 13,
+      "semantic_binding_count": 0
+    },
+    {
+      "asset_count": 88,
+      "edge_count": 109,
+      "mart": "inventory_health",
+      "run_step_count": 25,
+      "semantic_binding_count": 13
+    }
+  ],
+  "dq_review_count": 12,
+  "dq_source_count": 42,
+  "edge_count": 183,
+  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "mart_count": 2
+}

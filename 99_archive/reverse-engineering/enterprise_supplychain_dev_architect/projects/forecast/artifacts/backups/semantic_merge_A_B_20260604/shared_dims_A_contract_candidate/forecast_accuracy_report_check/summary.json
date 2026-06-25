@@ -1,0 +1,34 @@
+[
+  {
+    "workspaceId": "f0e1bc90-35c4-4e31-bc00-ff4a225152b7",
+    "workspaceName": "Supply Chain Analytics-Premium",
+    "id": "36dde727-c9b8-449d-afda-9cd931e112d3",
+    "name": "Forecast Accuracy",
+    "datasetId": "f06a2361-15fd-4f91-9d37-941fefe62aaf",
+    "datasetWorkspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+    "format": "PBIR",
+    "webUrl": "https://app.powerbi.com/groups/f0e1bc90-35c4-4e31-bc00-ff4a225152b7/reports/36dde727-c9b8-449d-afda-9cd931e112d3",
+    "initial_status": 202,
+    "operation_status": "Succeeded",
+    "definition_format": "PBIR",
+    "part_count": 409,
+    "pattern_counts": {
+      "\"Entity\": \"DimCalendar\"": 88,
+      "\"Entity\": \"DimProduct\"": 21,
+      "\"Entity\": \"DimWarehouse\"": 11,
+      "\"Entity\": \"DimVendor\"": 0,
+      "DimCalendar.": 31,
+      "DimProduct.": 18,
+      "DimWarehouse.": 7,
+      "DimVendor.": 0,
+      "FactInventoryHealthSnapshot": 0,
+      "FactInventoryRiskForward": 0,
+      "CogsRollingHelper": 0,
+      "dim_calendar": 0,
+      "dim_product": 0,
+      "dim_warehouse": 0,
+      "fact_forecast_kpi": 0,
+      "fact_flat_forecast_actual": 0
+    }
+  }
+]

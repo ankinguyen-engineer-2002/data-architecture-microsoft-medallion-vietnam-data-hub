@@ -1,0 +1,124 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "lk_wave_sps",
+        "type": "Lookup",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "partitionOption": "None",
+            "sqlReaderQuery": {
+              "value": "@concat('SELECT r.target_schema, r.target_table FROM SupplyChain_Processing_Warehouse.Meta.SilverDagWaveRuntime w INNER JOIN SupplyChain_Processing_Warehouse.Meta.v_sp_registry r ON w.asset_id = r.sp_name WHERE w.wave_number = ', string(pipeline().parameters.wave_number), ' AND w.project = ''', pipeline().parameters.project_name, '''')",
+              "type": "Expression"
+            }
+          },
+          "firstRowOnly": false,
+          "datasetSettings": {
+            "annotations": [],
+            "connectionSettings": {
+              "name": "SupplyChain_Lakehouse",
+              "properties": {
+                "annotations": [],
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+                  "artifactId": "62a3081e-4093-4f46-856c-f50aa58732fa",
+                  "rootFolder": "Tables"
+                },
+                "externalReferences": {
+                  "connection": "b4311980-3d3b-49be-bd11-7e2f8e424e19"
+                }
+              }
+            },
+            "type": "LakehouseTable",
+            "schema": [],
+            "typeProperties": {}
+          }
+        }
+      },
+      {
+        "name": "fe_exec_sps",
+        "type": "ForEach",
+        "dependsOn": [
+          {
+            "activity": "lk_wave_sps",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "items": {
+            "value": "@activity('lk_wave_sps').output.value",
+            "type": "Expression"
+          },
+          "batchCount": 2,
+          "activities": [
+            {
+              "name": "exec_generic",
+              "type": "SqlServerStoredProcedure",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.02:00:00",
+                "retry": 3,
+                "retryIntervalInSeconds": 60,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "storedProcedureName": "[Meta].[usp_GenericLoad]",
+                "storedProcedureParameters": {
+                  "target_schema": {
+                    "value": {
+                      "value": "@item().target_schema",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  },
+                  "target_table": {
+                    "value": {
+                      "value": "@item().target_table",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  }
+                }
+              },
+              "linkedService": {
+                "name": "wh",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+                    "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+                    "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "parameters": {
+      "wave_number": {
+        "type": "Int",
+        "defaultValue": 0
+      },
+      "project_name": {
+        "type": "String",
+        "defaultValue": "forecast_accuracy"
+      }
+    }
+  }
+}

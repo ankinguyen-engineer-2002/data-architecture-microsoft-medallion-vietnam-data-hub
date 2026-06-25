@@ -1,0 +1,54 @@
+{
+  "value": [
+    {
+      "id": "584e7d2c-46ca-49dc-bb6c-68df6ef4f424",
+      "type": "Lakehouse",
+      "displayName": "Enterprise_Lakehouse",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "properties": {
+        "oneLakeTablesPath": "https://onelake.dfs.fabric.microsoft.com/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/584e7d2c-46ca-49dc-bb6c-68df6ef4f424/Tables",
+        "oneLakeFilesPath": "https://onelake.dfs.fabric.microsoft.com/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/584e7d2c-46ca-49dc-bb6c-68df6ef4f424/Files",
+        "sqlEndpointProperties": {
+          "connectionString": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+          "id": "22bf1a2c-6810-4228-b69b-7a0f7853cd73",
+          "provisioningStatus": "Success"
+        },
+        "defaultSchema": "dbo"
+      }
+    },
+    {
+      "id": "62a3081e-4093-4f46-856c-f50aa58732fa",
+      "type": "Lakehouse",
+      "displayName": "SupplyChain_Lakehouse",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "properties": {
+        "oneLakeTablesPath": "https://onelake.dfs.fabric.microsoft.com/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/62a3081e-4093-4f46-856c-f50aa58732fa/Tables",
+        "oneLakeFilesPath": "https://onelake.dfs.fabric.microsoft.com/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/62a3081e-4093-4f46-856c-f50aa58732fa/Files",
+        "sqlEndpointProperties": {
+          "connectionString": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+          "id": "cf6f1c4a-43ab-4e95-a78e-d99897be56da",
+          "provisioningStatus": "Success"
+        },
+        "defaultSchema": "dbo"
+      }
+    },
+    {
+      "id": "e3012f7c-eaba-44ff-8252-05d79661b09d",
+      "type": "Lakehouse",
+      "displayName": "StagingLakehouseForDataflows_20251008171206",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "properties": {
+        "oneLakeTablesPath": "https://onelake.dfs.fabric.microsoft.com/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/e3012f7c-eaba-44ff-8252-05d79661b09d/Tables",
+        "oneLakeFilesPath": "https://onelake.dfs.fabric.microsoft.com/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/e3012f7c-eaba-44ff-8252-05d79661b09d/Files",
+        "sqlEndpointProperties": {
+          "connectionString": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+          "id": "dacd5e0d-b574-48a6-9362-917ff0492b91",
+          "provisioningStatus": "Success"
+        }
+      }
+    }
+  ]
+}

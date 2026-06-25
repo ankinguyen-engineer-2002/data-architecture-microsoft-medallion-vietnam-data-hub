@@ -1,0 +1,324 @@
+{
+  "started_at": "20260501_172411",
+  "phase2": {
+    "functions": [
+      {
+        "status": "ok",
+        "label": "Meta.ufn_utc_to_cst"
+      },
+      {
+        "status": "ok",
+        "label": "Meta.ufn_should_run"
+      },
+      {
+        "status": "ok",
+        "label": "Meta.ufn_cron_is_due"
+      }
+    ],
+    "sps_replaced": [
+      {
+        "status": "error",
+        "label": "Meta.usp_LogRun",
+        "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'duration_seconds'. (207) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "ok",
+        "label": "Meta.usp_GenericLoad"
+      },
+      {
+        "status": "ok",
+        "label": "Staging.usp_RefreshEdwTables"
+      },
+      {
+        "status": "ok",
+        "label": "Meta.usp_LogPipelineRun"
+      },
+      {
+        "status": "ok",
+        "label": "Meta.usp_BuildLineage"
+      },
+      {
+        "status": "ok",
+        "label": "Meta.usp_FinalizePipeline"
+      },
+      {
+        "status": "ok",
+        "label": "Meta.usp_CheckDqSingle"
+      }
+    ]
+  },
+  "phase3": {
+    "ref_views": [
+      {
+        "status": "ok",
+        "label": "ReferenceMaster.vw_Calendar"
+      },
+      {
+        "status": "ok",
+        "label": "ReferenceMaster.vw_CustomerAccount"
+      },
+      {
+        "status": "ok",
+        "label": "ReferenceMaster.vw_CustomerAccountGroup"
+      },
+      {
+        "status": "error",
+        "label": "ReferenceMaster.vw_CustomerGrouping",
+        "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'CustomerGroupCode'. (207) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "ok",
+        "label": "ReferenceMaster.vw_CustomerShippingLocation"
+      },
+      {
+        "status": "ok",
+        "label": "ReferenceMaster.vw_ForecastCycle"
+      },
+      {
+        "status": "ok",
+        "label": "ReferenceMaster.vw_ForecastHorizon"
+      },
+      {
+        "status": "ok",
+        "label": "ReferenceMaster.vw_ItemMaster"
+      },
+      {
+        "status": "ok",
+        "label": "ReferenceMaster.vw_OrderType"
+      },
+      {
+        "status": "ok",
+        "label": "ReferenceMaster.vw_Product"
+      },
+      {
+        "status": "ok",
+        "label": "ReferenceMaster.vw_Warehouse"
+      }
+    ],
+    "errors": [
+      {
+        "status": "error",
+        "label": "ReferenceMaster.vw_CustomerGrouping",
+        "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'CustomerGroupCode'. (207) (SQLExecDirectW)\")"
+      }
+    ]
+  },
+  "phase4": {
+    "silver_views": [
+      {
+        "status": "error",
+        "label": "SalesHistory.vw_InvoiceDetailLineLevel",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.CustomerAccountGroup'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "SalesHistory.vw_InvoiceWeekly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.Calendar'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "SalesHistory.vw_ActualDemandMonthly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.Calendar'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "SalesHistory.vw_ActualDemandWeekly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.Calendar'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "ForecastHistory.vw_ForecastDemandMonthly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.ForecastCycle'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "ForecastHistory.vw_NaiveForecastMonthly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.Calendar'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "OpenOrderHistory.vw_OpenOrderLineLevel",
+        "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'ORDNO'. (207) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "OpenOrderHistory.vw_OpenOrderMonthly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.Calendar'. (208) (SQLExecDirectW)\")"
+      }
+    ],
+    "errors": [
+      {
+        "status": "error",
+        "label": "SalesHistory.vw_InvoiceDetailLineLevel",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.CustomerAccountGroup'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "SalesHistory.vw_InvoiceWeekly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.Calendar'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "SalesHistory.vw_ActualDemandMonthly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.Calendar'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "SalesHistory.vw_ActualDemandWeekly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.Calendar'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "ForecastHistory.vw_ForecastDemandMonthly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.ForecastCycle'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "ForecastHistory.vw_NaiveForecastMonthly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.Calendar'. (208) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "OpenOrderHistory.vw_OpenOrderLineLevel",
+        "error": "('42S22', \"[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'ORDNO'. (207) (SQLExecDirectW)\")"
+      },
+      {
+        "status": "error",
+        "label": "OpenOrderHistory.vw_OpenOrderMonthly",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ReferenceMaster.Calendar'. (208) (SQLExecDirectW)\")"
+      }
+    ]
+  },
+  "phase5": {
+    "registry_updates": 24,
+    "staging_load": "success",
+    "ref_loads": [
+      {
+        "table": "ReferenceMaster.Calendar",
+        "status": "error",
+        "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+      },
+      {
+        "table": "ReferenceMaster.CustomerAccount",
+        "status": "error",
+        "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+      },
+      {
+        "table": "ReferenceMaster.CustomerAccountGroup",
+        "status": "error",
+        "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+      },
+      {
+        "table": "ReferenceMaster.CustomerGrouping",
+        "status": "error",
+        "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+      },
+      {
+        "table": "ReferenceMaster.CustomerShippingLocation",
+        "status": "error",
+        "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+      },
+      {
+        "table": "ReferenceMaster.ForecastCycle",
+        "status": "error",
+        "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+      },
+      {
+        "table": "ReferenceMaster.ForecastHorizon",
+        "status": "error",
+        "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+      },
+      {
+        "table": "ReferenceMaster.ItemMaster",
+        "status": "error",
+        "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+      },
+      {
+        "table": "ReferenceMaster.OrderType",
+        "status": "error",
+        "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+      },
+      {
+        "table": "ReferenceMaster.Warehouse",
+        "status": "error",
+        "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+      }
+    ]
+  },
+  "phase6": {
+    "waves": {
+      "0": [
+        {
+          "table": "SalesHistory.InvoiceDetailLineLevel",
+          "status": "error",
+          "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+        },
+        {
+          "table": "ForecastHistory.ForecastDemandMonthly",
+          "status": "error",
+          "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+        },
+        {
+          "table": "OpenOrderHistory.OpenOrderLineLevel",
+          "status": "error",
+          "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+        }
+      ],
+      "1": [
+        {
+          "table": "SalesHistory.ActualDemandMonthly",
+          "status": "error",
+          "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+        },
+        {
+          "table": "SalesHistory.ActualDemandWeekly",
+          "status": "error",
+          "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+        },
+        {
+          "table": "SalesHistory.InvoiceWeekly",
+          "status": "error",
+          "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+        },
+        {
+          "table": "OpenOrderHistory.OpenOrderMonthly",
+          "status": "error",
+          "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+        }
+      ],
+      "2": [
+        {
+          "table": "ForecastHistory.NaiveForecastMonthly",
+          "status": "error",
+          "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Could not find stored procedure 'Meta.usp_LogRun'. (2812) (SQLExecDirectW)\")"
+        }
+      ]
+    }
+  },
+  "phase7": {
+    "gold_views": [
+      {
+        "status": "ok",
+        "label": "ForecastAccuracy.vw_FactForecastActual"
+      },
+      {
+        "status": "error",
+        "label": "ForecastAccuracy.vw_FactForecastKpi",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'SupplyChain_Processing_Warehouse.ReferenceMaster.ForecastHorizon'. (208) (SQLExecDirectW)\")"
+      }
+    ],
+    "gold_loads": [
+      {
+        "table": "FactForecastActual",
+        "rows": 0,
+        "status": "ok"
+      },
+      {
+        "table": "FactForecastKpi",
+        "status": "error",
+        "error": "('42S02', \"[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'ForecastAccuracy.vw_FactForecastKpi'. (208) (SQLExecDirectW)\")"
+      }
+    ]
+  },
+  "finished_at": "20260501_173137"
+}

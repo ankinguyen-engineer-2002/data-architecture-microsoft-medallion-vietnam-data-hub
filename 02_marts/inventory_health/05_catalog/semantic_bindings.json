@@ -1,0 +1,85 @@
+{
+  "bindings": [
+    {
+      "gold_asset": "InventoryHealth_DW.FactInventoryHealthSnapshot",
+      "gold_asset_key": "inventoryhealth.dw.factinventoryhealthsnapshot",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/Measures_DAX.dax"
+    },
+    {
+      "gold_asset": "Shared_DW.DimProduct",
+      "gold_asset_key": "shared.dw.dimproduct",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/Measures_DAX.dax"
+    },
+    {
+      "gold_asset": "Shared_DW.DimWarehouse",
+      "gold_asset_key": "shared.dw.dimwarehouse",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/Measures_DAX.dax"
+    },
+    {
+      "gold_asset": "InventoryHealth_DW.DimVendor",
+      "gold_asset_key": "inventoryhealth.dw.dimvendor",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/SemanticModel.tmdl"
+    },
+    {
+      "gold_asset": "InventoryHealth_DW.FactInventoryHealthSnapshot",
+      "gold_asset_key": "inventoryhealth.dw.factinventoryhealthsnapshot",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/SemanticModel.tmdl"
+    },
+    {
+      "gold_asset": "Shared_DW.DimCalendar",
+      "gold_asset_key": "shared.dw.dimcalendar",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/SemanticModel.tmdl"
+    },
+    {
+      "gold_asset": "Shared_DW.DimProduct",
+      "gold_asset_key": "shared.dw.dimproduct",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/SemanticModel.tmdl"
+    },
+    {
+      "gold_asset": "Shared_DW.DimWarehouse",
+      "gold_asset_key": "shared.dw.dimwarehouse",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/SemanticModel.tmdl"
+    },
+    {
+      "gold_asset": "InventoryHealth_DW.DimVendor",
+      "gold_asset_key": "inventoryhealth.dw.dimvendor",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/relationships.tmdl"
+    },
+    {
+      "gold_asset": "InventoryHealth_DW.FactInventoryHealthSnapshot",
+      "gold_asset_key": "inventoryhealth.dw.factinventoryhealthsnapshot",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/relationships.tmdl"
+    },
+    {
+      "gold_asset": "Shared_DW.DimCalendar",
+      "gold_asset_key": "shared.dw.dimcalendar",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/relationships.tmdl"
+    },
+    {
+      "gold_asset": "Shared_DW.DimProduct",
+      "gold_asset_key": "shared.dw.dimproduct",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/relationships.tmdl"
+    },
+    {
+      "gold_asset": "Shared_DW.DimWarehouse",
+      "gold_asset_key": "shared.dw.dimwarehouse",
+      "match_type": "text_reference",
+      "semantic_file": "04_semantic/shared_supplychain_model/relationships.tmdl"
+    }
+  ],
+  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "mart": "inventory_health",
+  "semantic_root": "04_semantic"
+}

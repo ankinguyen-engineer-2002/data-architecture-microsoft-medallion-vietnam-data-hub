@@ -1,0 +1,1582 @@
+table DimSCPItemMaster
+	lineageTag: 44683449-13e4-46e8-a638-cefe681552d5
+	sourceLineageTag: [SCP_Core].[DimSCPItemMaster]
+
+	column 'Item SKU'
+		dataType: string
+		lineageTag: 99532f77-055d-4fcf-b120-94ce132b6578
+		sourceLineageTag: Item SKU
+		summarizeBy: none
+		sourceColumn: Item SKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Description'
+		dataType: string
+		lineageTag: 164482c4-8ce2-4cbd-bac0-9a4a1b3c5a23
+		sourceLineageTag: Item Description
+		summarizeBy: none
+		sourceColumn: Item Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item SKU Description'
+		dataType: string
+		lineageTag: 43478ce2-6ea9-4589-94a3-52691fedfbfe
+		sourceLineageTag: Item SKU Description
+		summarizeBy: none
+		sourceColumn: Item SKU Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Code'
+		dataType: string
+		lineageTag: 03ba2593-e35a-4d2e-85fa-dee612d6589b
+		sourceLineageTag: Item Code
+		summarizeBy: none
+		sourceColumn: Item Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Number'
+		dataType: string
+		lineageTag: d9b4752c-5cea-4271-8ed3-49dedd6888d2
+		sourceLineageTag: Series Number
+		summarizeBy: none
+		sourceColumn: Series Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ext Series Number'
+		dataType: string
+		lineageTag: c0246fef-52cd-458f-b0c9-977aecafaa94
+		sourceLineageTag: Ext Series Number
+		summarizeBy: none
+		sourceColumn: Ext Series Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item General Color'
+		dataType: string
+		lineageTag: df1d27cf-666c-4f04-9c15-282fa74b2cf6
+		sourceLineageTag: Item General Color
+		summarizeBy: none
+		sourceColumn: Item General Color
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Price Point Rating'
+		dataType: string
+		lineageTag: d5727961-c1b9-4852-b372-f9fc573710a8
+		sourceLineageTag: Item Price Point Rating
+		summarizeBy: none
+		sourceColumn: Item Price Point Rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Part Flag'
+		dataType: string
+		lineageTag: 18485fb4-2a44-4260-a26e-0b970e7d7770
+		sourceLineageTag: Part Flag
+		summarizeBy: none
+		sourceColumn: Part Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Kit Flag'
+		dataType: string
+		lineageTag: beb514cb-bc24-4c80-beaf-0cf69b66cdb6
+		sourceLineageTag: Kit Flag
+		summarizeBy: none
+		sourceColumn: Kit Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'E Retail Channel Sku'
+		dataType: string
+		lineageTag: c588ea6b-1881-47a9-b969-bff7b0704ed2
+		sourceLineageTag: E Retail Channel Sku
+		summarizeBy: none
+		sourceColumn: E Retail Channel Sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'E Retail Series Name'
+		dataType: string
+		lineageTag: 92f284ec-2ccd-4835-bdec-6d547d1d0c35
+		sourceLineageTag: E Retail Series Name
+		summarizeBy: none
+		sourceColumn: E Retail Series Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'E Retail Series Number'
+		dataType: string
+		lineageTag: e955e5d6-5957-4e63-8f81-d27ca23ae33d
+		sourceLineageTag: E Retail Series Number
+		summarizeBy: none
+		sourceColumn: E Retail Series Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Table Shape Type'
+		dataType: string
+		lineageTag: 33d807d3-a196-44dd-8b41-45ff4bcaa5dc
+		sourceLineageTag: Item Table Shape Type
+		summarizeBy: none
+		sourceColumn: Item Table Shape Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Bed Size Type'
+		dataType: string
+		lineageTag: 80dbe15b-305c-43a5-bf7c-0a7881005cd2
+		sourceLineageTag: Item Bed Size Type
+		summarizeBy: none
+		sourceColumn: Item Bed Size Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Bed Style Type'
+		dataType: string
+		lineageTag: 42d0a718-d08e-43a9-b497-4d9ab25dc001
+		sourceLineageTag: Item Bed Style Type
+		summarizeBy: none
+		sourceColumn: Item Bed Style Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Material
+		dataType: string
+		lineageTag: 3a4c40c6-258d-45e7-8977-d0c988611789
+		sourceLineageTag: Material
+		summarizeBy: none
+		sourceColumn: Material
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Features'
+		dataType: string
+		lineageTag: dfebb189-b843-4a41-91e5-962511679901
+		sourceLineageTag: Series Features
+		summarizeBy: none
+		sourceColumn: Series Features
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Is RTA'
+		dataType: string
+		lineageTag: 6100add4-f980-41e4-93df-230f7ed9c581
+		sourceLineageTag: Item Is RTA
+		summarizeBy: none
+		sourceColumn: Item Is RTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Channel Sku'
+		dataType: string
+		lineageTag: 24e39702-130a-43d9-90c8-6c9f03a3c2b4
+		sourceLineageTag: Primary Channel Sku
+		summarizeBy: none
+		sourceColumn: Primary Channel Sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Series Name'
+		dataType: string
+		lineageTag: d61e54c1-5dba-4214-aa0c-d35afd92f840
+		sourceLineageTag: Primary Series Name
+		summarizeBy: none
+		sourceColumn: Primary Series Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Series Number'
+		dataType: string
+		lineageTag: 2580da6a-a35e-4804-9a76-9b4f4b473b43
+		sourceLineageTag: Primary Series Number
+		summarizeBy: none
+		sourceColumn: Primary Series Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stand Alone Flag'
+		dataType: string
+		lineageTag: f8ccf03d-6f0c-4584-ab0e-f4a2241c82d8
+		sourceLineageTag: Stand Alone Flag
+		summarizeBy: none
+		sourceColumn: Stand Alone Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Supp Weight Net Weight Lbs'
+		dataType: string
+		lineageTag: 9e824a07-3b12-49c6-816d-595da2043e98
+		sourceLineageTag: Supp Weight Net Weight Lbs
+		summarizeBy: none
+		sourceColumn: Supp Weight Net Weight Lbs
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Weight Lbs'
+		dataType: string
+		lineageTag: 836fc7ed-db83-4f1e-9edc-3a558b380e98
+		sourceLineageTag: Unit Weight Lbs
+		summarizeBy: none
+		sourceColumn: Unit Weight Lbs
+
+		annotation SummarizationSetBy = Automatic
+
+	column UPC
+		dataType: string
+		lineageTag: e45952ce-129b-4687-a184-27f7a02369e2
+		sourceLineageTag: UPC
+		summarizeBy: none
+		sourceColumn: UPC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retail Brand Name'
+		dataType: string
+		lineageTag: 04729010-c3a5-4422-801f-bd044138f9b1
+		sourceLineageTag: Retail Brand Name
+		summarizeBy: none
+		sourceColumn: Retail Brand Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mfg Warranty'
+		dataType: string
+		lineageTag: 8a6db48e-b73d-4ff6-9676-22f96ab8feb2
+		sourceLineageTag: Mfg Warranty
+		summarizeBy: none
+		sourceColumn: Mfg Warranty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Friendly Dimensions'
+		dataType: string
+		lineageTag: d83a3be5-7ee7-4b4e-b9bb-2084be126ece
+		sourceLineageTag: Friendly Dimensions
+		summarizeBy: none
+		sourceColumn: Friendly Dimensions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Knockout
+		dataType: string
+		lineageTag: 52f8a342-d2af-4042-9c74-e923be310dec
+		sourceLineageTag: Knockout
+		summarizeBy: none
+		sourceColumn: Knockout
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Scene7 Image Set'
+		dataType: string
+		lineageTag: 66321670-6db6-4227-aa0f-74439e58f733
+		sourceLineageTag: Scene7 Image Set
+		summarizeBy: none
+		sourceColumn: Scene7 Image Set
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fluff AFI'
+		dataType: string
+		lineageTag: 7cdbc7e4-d406-4573-8142-0a5e555f0287
+		sourceLineageTag: Fluff AFI
+		summarizeBy: none
+		sourceColumn: Fluff AFI
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Primary'
+		dataType: string
+		lineageTag: 8208b34e-78ce-4163-926a-5b2981f85420
+		sourceLineageTag: Series Primary
+		summarizeBy: none
+		sourceColumn: Series Primary
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Main Image'
+		dataType: string
+		lineageTag: 910a79e1-2125-41c7-adcf-0fb88aeeb6ef
+		sourceLineageTag: Series Main Image
+		summarizeBy: none
+		sourceColumn: Series Main Image
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Ecom Merchant Notes'
+		dataType: string
+		lineageTag: 717ef1ea-7338-4557-8eab-83c6656ae854
+		sourceLineageTag: Item Ecom Merchant Notes
+		summarizeBy: none
+		sourceColumn: Item Ecom Merchant Notes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Amazon Brand Owner'
+		dataType: string
+		lineageTag: 2c67afd5-a8cc-40ed-bb5e-fa0a1101ccee
+		sourceLineageTag: Item Amazon Brand Owner
+		summarizeBy: none
+		sourceColumn: Item Amazon Brand Owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Supplier Direct Ship Only'
+		dataType: string
+		lineageTag: 52c973eb-76fe-4f85-b88d-3e49f070aca9
+		sourceLineageTag: Item Supplier Direct Ship Only
+		summarizeBy: none
+		sourceColumn: Item Supplier Direct Ship Only
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Consumer Choice Flag'
+		dataType: string
+		lineageTag: 3a712135-025e-4da1-8338-a84ebaa70deb
+		sourceLineageTag: Consumer Choice Flag
+		summarizeBy: none
+		sourceColumn: Consumer Choice Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Eligible For Protection Plan'
+		dataType: string
+		lineageTag: 314844c5-f517-4f04-9002-9ac8a011ddbf
+		sourceLineageTag: Eligible For Protection Plan
+		summarizeBy: none
+		sourceColumn: Eligible For Protection Plan
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Protection Plan'
+		dataType: string
+		lineageTag: 9677ecd8-6886-416c-9f18-3bc5846ca7ce
+		sourceLineageTag: Is Protection Plan
+		summarizeBy: none
+		sourceColumn: Is Protection Plan
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Power Motion Series Flag'
+		dataType: string
+		lineageTag: c0cb55b3-c491-45ad-8991-0051f8accff3
+		sourceLineageTag: Power Motion Series Flag
+		summarizeBy: none
+		sourceColumn: Power Motion Series Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Wedge Series Flag'
+		dataType: string
+		lineageTag: 5e2a3829-4564-4076-9afb-2c6bff1d649c
+		sourceLineageTag: Wedge Series Flag
+		summarizeBy: none
+		sourceColumn: Wedge Series Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dining Series Flag'
+		dataType: string
+		lineageTag: a706807e-f4e2-4757-ab59-b9de139560ff
+		sourceLineageTag: Dining Series Flag
+		summarizeBy: none
+		sourceColumn: Dining Series Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Third Party Item'
+		dataType: string
+		lineageTag: c0f96392-3ccb-42cb-ac22-f2d051ad84b8
+		sourceLineageTag: Item Third Party Item
+		summarizeBy: none
+		sourceColumn: Item Third Party Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Third Party'
+		dataType: string
+		lineageTag: 635aae81-28dc-4d1b-ba7e-b203763ce511
+		sourceLineageTag: Series Third Party
+		summarizeBy: none
+		sourceColumn: Series Third Party
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Home Store Product Line'
+		dataType: string
+		lineageTag: 200eb747-d2cc-4ffc-9f33-bd9bf66d378d
+		sourceLineageTag: Item Home Store Product Line
+		summarizeBy: none
+		sourceColumn: Item Home Store Product Line
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group Price Incr'
+		dataType: int64
+		formatString: 0
+		lineageTag: 65263ae1-8d8d-41a8-85b9-a6ea0ba6de05
+		sourceLineageTag: Group Price Incr
+		summarizeBy: sum
+		sourceColumn: Group Price Incr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group Price Point Type'
+		dataType: string
+		lineageTag: 7ef1049a-6679-4183-9181-238c38fe985c
+		sourceLineageTag: Group Price Point Type
+		summarizeBy: none
+		sourceColumn: Group Price Point Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Exclusive Comment'
+		dataType: string
+		lineageTag: 17e43cac-b61c-4420-987c-a6032fc753af
+		sourceLineageTag: Exclusive Comment
+		summarizeBy: none
+		sourceColumn: Exclusive Comment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Image'
+		dataType: string
+		lineageTag: 70a6e423-b9bb-4268-b029-2a8499027df6
+		sourceLineageTag: Series Image
+		summarizeBy: none
+		sourceColumn: Series Image
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sofa Table Series Flag'
+		dataType: string
+		lineageTag: 5c7e5e0b-cad3-4a4b-b781-6c95defb0624
+		sourceLineageTag: Sofa Table Series Flag
+		summarizeBy: none
+		sourceColumn: Sofa Table Series Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Recliner Series Flag'
+		dataType: string
+		lineageTag: ce8a98c6-8ddd-4cc7-880b-ece12aa2cb25
+		sourceLineageTag: Recliner Series Flag
+		summarizeBy: none
+		sourceColumn: Recliner Series Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Market Begin Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3d00eb60-7664-435c-ac05-418b0722436c
+		sourceLineageTag: Market Begin Date
+		summarizeBy: none
+		sourceColumn: Market Begin Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Market End Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ff551f72-7225-4605-b1df-41097789bc6a
+		sourceLineageTag: Market End Date
+		summarizeBy: none
+		sourceColumn: Market End Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FOB Arc Price'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 099d1da0-f7a3-4699-b85e-105243353025
+		sourceLineageTag: FOB Arc Price
+		summarizeBy: sum
+		sourceColumn: FOB Arc Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Division Ranking'
+		dataType: int64
+		formatString: 0
+		lineageTag: 561f07c2-c3ed-4092-b5a8-45484d53f6b8
+		sourceLineageTag: Division Ranking
+		summarizeBy: sum
+		sourceColumn: Division Ranking
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Trend Arrow'
+		dataType: string
+		lineageTag: b36e2d8f-93bf-42ef-b41d-1bc430db6e98
+		sourceLineageTag: Trend Arrow
+		summarizeBy: none
+		sourceColumn: Trend Arrow
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Merch Grid Override Photo'
+		dataType: string
+		lineageTag: 8afcd0a4-143d-4e89-aa88-171b2d5dbbdb
+		sourceLineageTag: Item Merch Grid Override Photo
+		summarizeBy: none
+		sourceColumn: Item Merch Grid Override Photo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shanghai Store'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 99cb96d9-fe42-4199-8ed7-05b72fede3ae
+		sourceLineageTag: Shanghai Store
+		summarizeBy: none
+		sourceColumn: Shanghai Store
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Group'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5693ff66-6ba8-4071-8400-302caed93e13
+		sourceLineageTag: Default Group
+		summarizeBy: none
+		sourceColumn: Default Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Good Better Best For Price Point'
+		dataType: string
+		lineageTag: 246a4a9c-fec3-4b61-8437-cf5cd9e4aba2
+		sourceLineageTag: Good Better Best For Price Point
+		summarizeBy: none
+		sourceColumn: Good Better Best For Price Point
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'GBB Sort Id'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9719b8d9-b65c-4b9d-9711-aa7cb9656a91
+		sourceLineageTag: GBB Sort Id
+		summarizeBy: count
+		sourceColumn: GBB Sort Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Initial Invoice Period'
+		dataType: string
+		lineageTag: cc4ba1ef-b4a2-48c8-8713-b6a3e494d4bb
+		sourceLineageTag: Initial Invoice Period
+		summarizeBy: none
+		sourceColumn: Initial Invoice Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Initial Invoice Qty'
+		dataType: double
+		lineageTag: fa273ca9-9c07-4aee-90ea-2376ffeea649
+		sourceLineageTag: Initial Invoice Qty
+		summarizeBy: sum
+		sourceColumn: Initial Invoice Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'HS Proprietary Product Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d3f45f49-5575-4d8d-8d64-43cfdb3373b5
+		sourceLineageTag: HS Proprietary Product Flag
+		summarizeBy: none
+		sourceColumn: HS Proprietary Product Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'HS Exclusive Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d66620a0-a8bc-4cdb-9807-9f86287573d4
+		sourceLineageTag: HS Exclusive Flag
+		summarizeBy: none
+		sourceColumn: HS Exclusive Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Berkline Product Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3d0fde57-6659-4664-80f5-f9f3483fcc5b
+		sourceLineageTag: Berkline Product Flag
+		summarizeBy: none
+		sourceColumn: Berkline Product Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Benchcraft Product Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9d15f294-a5d9-46b2-a82f-02e8eff3f3b1
+		sourceLineageTag: Benchcraft Product Flag
+		summarizeBy: none
+		sourceColumn: Benchcraft Product Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'New Millennium Product Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d4796593-4ef8-478b-b4a3-ed3e923ed824
+		sourceLineageTag: New Millennium Product Flag
+		summarizeBy: none
+		sourceColumn: New Millennium Product Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bardini Product Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 10c4f1d8-3a0a-482a-b695-164df564498a
+		sourceLineageTag: Bardini Product Flag
+		summarizeBy: none
+		sourceColumn: Bardini Product Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Marketing Item Status'
+		dataType: string
+		lineageTag: e89a6d55-4cd1-41d4-8527-c8fa92e57ad7
+		sourceLineageTag: Marketing Item Status
+		summarizeBy: none
+		sourceColumn: Marketing Item Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Marketing Status Description'
+		dataType: string
+		lineageTag: 933d8bcb-20d8-43bc-a73d-947c7e3926e4
+		sourceLineageTag: Marketing Status Description
+		summarizeBy: none
+		sourceColumn: Marketing Status Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Lifestyle
+		dataType: string
+		lineageTag: 8ad5c6e7-f22b-4a6b-8913-2b4af99cbc28
+		sourceLineageTag: Lifestyle
+		summarizeBy: none
+		sourceColumn: Lifestyle
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Commodity Item'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 4a58b6cf-d2b5-4e76-97a6-9e076f648fbc
+		sourceLineageTag: Commodity Item
+		summarizeBy: none
+		sourceColumn: Commodity Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'F123 Product Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 0a660635-9d0f-4490-8f83-c2a873415a7a
+		sourceLineageTag: F123 Product Flag
+		summarizeBy: none
+		sourceColumn: F123 Product Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'HS Core Product Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 2f4d1acc-8586-40f2-b511-3e93666ee89a
+		sourceLineageTag: HS Core Product Flag
+		summarizeBy: none
+		sourceColumn: HS Core Product Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CEX Code'
+		dataType: string
+		lineageTag: 48b9735b-3968-4524-8b58-6a5ed90b5ea7
+		sourceLineageTag: CEX Code
+		summarizeBy: none
+		sourceColumn: CEX Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Market Introduced At'
+		dataType: string
+		lineageTag: 665a5c54-3755-4354-b8bf-477d2fe028da
+		sourceLineageTag: Market Introduced At
+		summarizeBy: none
+		sourceColumn: Market Introduced At
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Merchandising Category'
+		dataType: int64
+		formatString: 0
+		lineageTag: 30f41d5e-868b-418b-a413-d5e71ef4d382
+		sourceLineageTag: Merchandising Category
+		summarizeBy: sum
+		sourceColumn: Merchandising Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Price Point'
+		dataType: int64
+		formatString: 0
+		lineageTag: 10bbeeaf-e4ae-4bac-840c-e26af8bfee98
+		sourceLineageTag: Price Point
+		summarizeBy: sum
+		sourceColumn: Price Point
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Grouping'
+		dataType: int64
+		formatString: 0
+		lineageTag: 32082381-58e9-4e1f-90fb-abd09ca2f0a1
+		sourceLineageTag: Series Grouping
+		summarizeBy: sum
+		sourceColumn: Series Grouping
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Master Group Code'
+		dataType: string
+		lineageTag: 30c01eb0-a250-40f8-a80d-026d1fa0f358
+		sourceLineageTag: Master Group Code
+		summarizeBy: none
+		sourceColumn: Master Group Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Discontinued Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ed2877b3-4495-4ff0-89ce-135e50035f4f
+		sourceLineageTag: Discontinued Date
+		summarizeBy: none
+		sourceColumn: Discontinued Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Date Archived'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fdca609e-966c-4a02-8681-0e74842af60e
+		sourceLineageTag: Series Date Archived
+		summarizeBy: none
+		sourceColumn: Series Date Archived
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Discontinued Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: dd29cc2a-1a61-48ef-93c6-6424a9cb9cdd
+		sourceLineageTag: Series Discontinued Flag
+		summarizeBy: none
+		sourceColumn: Series Discontinued Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Previous Status Code'
+		dataType: string
+		lineageTag: bce02a36-91c1-4641-b2bf-e8eec0960720
+		sourceLineageTag: Previous Status Code
+		summarizeBy: none
+		sourceColumn: Previous Status Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Status Code Change Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f6b4b003-2380-4ce6-a53a-703f4254720c
+		sourceLineageTag: Status Code Change Date
+		summarizeBy: none
+		sourceColumn: Status Code Change Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Unit Cost'
+		dataType: double
+		lineageTag: 7beae5c9-c8da-4eb9-8721-cd66653f9d0b
+		sourceLineageTag: Current Unit Cost
+		summarizeBy: sum
+		sourceColumn: Current Unit Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Manufacturing Status Change Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: edc123e7-85f1-4d0c-a913-bfd7b4cfd0d6
+		sourceLineageTag: Manufacturing Status Change Date
+		summarizeBy: none
+		sourceColumn: Manufacturing Status Change Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'New Item Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e310f48c-b1ea-4586-b3e9-996fa61a6d16
+		sourceLineageTag: New Item Flag
+		summarizeBy: none
+		sourceColumn: New Item Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Discontinued Flag'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 031d565f-73b6-4423-acfc-c83ac6701069
+		sourceLineageTag: Discontinued Flag
+		summarizeBy: none
+		sourceColumn: Discontinued Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Discontinued Year Period'
+		dataType: string
+		lineageTag: 6a9418eb-0f91-49c1-89ed-5341d8ebe96e
+		sourceLineageTag: Discontinued Year Period
+		summarizeBy: none
+		sourceColumn: Discontinued Year Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Common Carrier Flag'
+		dataType: string
+		lineageTag: 6dce4588-d078-423f-ae61-84abddd9f72b
+		sourceLineageTag: Common Carrier Flag
+		summarizeBy: none
+		sourceColumn: Common Carrier Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Express Ship Flag'
+		dataType: string
+		lineageTag: 30df75ab-81d6-4b43-b381-381122e62279
+		sourceLineageTag: Express Ship Flag
+		summarizeBy: none
+		sourceColumn: Express Ship Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Manufacturing Status'
+		dataType: string
+		lineageTag: 8ee3ee8f-bb1f-4d4a-ab90-608d9c0cb568
+		sourceLineageTag: Manufacturing Status
+		summarizeBy: none
+		sourceColumn: Manufacturing Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Responsible Office'
+		dataType: string
+		lineageTag: 0b935b96-caf4-4043-b19b-3645bc735929
+		sourceLineageTag: Responsible Office
+		summarizeBy: none
+		sourceColumn: Responsible Office
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Responsible Office Name'
+		dataType: string
+		lineageTag: c25c0448-14b3-4d3f-9526-0a502e396f81
+		sourceLineageTag: Responsible Office Name
+		summarizeBy: none
+		sourceColumn: Responsible Office Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Import Domestic Code'
+		dataType: string
+		lineageTag: 3122a1d7-2310-473b-a492-d16d2f0afa37
+		sourceLineageTag: Import Domestic Code
+		summarizeBy: none
+		sourceColumn: Import Domestic Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country Of Origin'
+		dataType: string
+		lineageTag: 8b2efa45-1404-43d3-9bfb-e4df1f8acbd9
+		sourceLineageTag: Country Of Origin
+		summarizeBy: none
+		sourceColumn: Country Of Origin
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Vendor'
+		dataType: string
+		lineageTag: 3ccf7bb7-cfe6-4290-a397-c74139f674be
+		sourceLineageTag: Primary Vendor
+		summarizeBy: none
+		sourceColumn: Primary Vendor
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Style'
+		dataType: string
+		lineageTag: 7cf37765-ad9f-434d-b59c-87782efe01ab
+		sourceLineageTag: Item Style
+		summarizeBy: none
+		sourceColumn: Item Style
+
+		annotation SummarizationSetBy = Automatic
+
+	column Division
+		dataType: string
+		lineageTag: 7b118b8f-9f2f-416f-b7bf-815ee3b0bc08
+		sourceLineageTag: Division
+		summarizeBy: none
+		sourceColumn: Division
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AFI Sales Division Code'
+		dataType: string
+		lineageTag: 3a57b410-5e34-4394-b39e-2c12f8cb4306
+		sourceLineageTag: AFI Sales Division Code
+		summarizeBy: none
+		sourceColumn: AFI Sales Division Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Key Item'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a3b77323-4f4b-41e2-ac91-c9a573d52690
+		sourceLineageTag: Key Item
+		summarizeBy: none
+		sourceColumn: Key Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Type'
+		dataType: string
+		lineageTag: 1a7ca891-bd6a-44a6-a9c6-4a64c5b81feb
+		sourceLineageTag: Item Type
+		summarizeBy: none
+		sourceColumn: Item Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sellable Item Flag'
+		dataType: string
+		lineageTag: 468061e7-ebcb-4ff2-8264-353d4b200eb0
+		sourceLineageTag: Sellable Item Flag
+		summarizeBy: none
+		sourceColumn: Sellable Item Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AFI Finance Division'
+		dataType: string
+		lineageTag: 8fa6e207-e701-410d-81b9-9ac82c4e8fba
+		sourceLineageTag: AFI Finance Division
+		summarizeBy: none
+		sourceColumn: AFI Finance Division
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AFI Finance Division Code'
+		dataType: string
+		lineageTag: 6f1fc7ac-8355-45fd-a59c-2972d3fc9dab
+		sourceLineageTag: AFI Finance Division Code
+		summarizeBy: none
+		sourceColumn: AFI Finance Division Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AFI Sales Category Code'
+		dataType: string
+		lineageTag: 61d80697-2aad-4cdf-95af-bbf2acccd418
+		sourceLineageTag: AFI Sales Category Code
+		summarizeBy: none
+		sourceColumn: AFI Sales Category Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AFI Sales Category'
+		dataType: string
+		lineageTag: 0fb8b11e-eee7-45e0-af85-30c4e901d3d8
+		sourceLineageTag: AFI Sales Category
+		summarizeBy: none
+		sourceColumn: AFI Sales Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Style Code'
+		dataType: string
+		lineageTag: 3b5c075b-d445-4584-97c7-468a623c6b89
+		sourceLineageTag: Item Style Code
+		summarizeBy: none
+		sourceColumn: Item Style Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Style Group'
+		dataType: string
+		lineageTag: c5725220-d9e9-4d6c-ae03-8d49c1b6ac80
+		sourceLineageTag: Item Style Group
+		summarizeBy: none
+		sourceColumn: Item Style Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retail Category Code'
+		dataType: string
+		lineageTag: 3b1335d1-2c36-44c6-94e4-47078eee598b
+		sourceLineageTag: Retail Category Code
+		summarizeBy: none
+		sourceColumn: Retail Category Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retail Category Description'
+		dataType: string
+		lineageTag: 31ef2268-ada4-483f-b4c7-924bdfe6150c
+		sourceLineageTag: Retail Category Description
+		summarizeBy: none
+		sourceColumn: Retail Category Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retail Category Name'
+		dataType: string
+		lineageTag: b95f9f28-dd0d-4c23-b95f-dc0d87926589
+		sourceLineageTag: Retail Category Name
+		summarizeBy: none
+		sourceColumn: Retail Category Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retail Department Name'
+		dataType: string
+		lineageTag: 3ced8814-091c-4a72-aecc-c0f1ca1f26d2
+		sourceLineageTag: Retail Department Name
+		summarizeBy: none
+		sourceColumn: Retail Department Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retail Category Group'
+		dataType: string
+		lineageTag: 9da514f8-fcbf-47a7-b85b-cf15abd861ae
+		sourceLineageTag: Retail Category Group
+		summarizeBy: none
+		sourceColumn: Retail Category Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retail Category Charge Type'
+		dataType: string
+		lineageTag: b458da9d-9ebe-48c7-8d46-30223252d7b9
+		sourceLineageTag: Retail Category Charge Type
+		summarizeBy: none
+		sourceColumn: Retail Category Charge Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Description Series Item Color'
+		dataType: string
+		lineageTag: 3487a1b2-f757-48e6-bb8e-1e5ad435092d
+		sourceLineageTag: Item Description Series Item Color
+		summarizeBy: none
+		sourceColumn: Item Description Series Item Color
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Child Style Description'
+		dataType: string
+		lineageTag: 9f932fec-014a-409c-b8c4-eb5d2150c390
+		sourceLineageTag: Child Style Description
+		summarizeBy: none
+		sourceColumn: Child Style Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parent Style Description'
+		dataType: string
+		lineageTag: 878f80b1-3215-466a-82bd-2f7d9bad25eb
+		sourceLineageTag: Parent Style Description
+		summarizeBy: none
+		sourceColumn: Parent Style Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Consumer Description'
+		dataType: string
+		lineageTag: 68cfbf22-28c6-4cd2-95e0-7edf47c2906b
+		sourceLineageTag: Item Consumer Description
+		summarizeBy: none
+		sourceColumn: Item Consumer Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retail Type Description'
+		dataType: string
+		lineageTag: 7c2cd729-8521-4e1e-b933-8a9676439075
+		sourceLineageTag: Retail Type Description
+		summarizeBy: none
+		sourceColumn: Retail Type Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Main Piece Item'
+		dataType: string
+		lineageTag: e4c1a9de-482e-4414-b2d4-5bd14cf35d6d
+		sourceLineageTag: Main Piece Item
+		summarizeBy: none
+		sourceColumn: Main Piece Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Carton Height Inches'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: aa62dd69-e3bf-419b-9bbe-349f8b5163db
+		sourceLineageTag: Carton Height Inches
+		summarizeBy: sum
+		sourceColumn: Carton Height Inches
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Carton Width Inches'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: ae916550-04a8-44b1-a4a9-014f7459d611
+		sourceLineageTag: Carton Width Inches
+		summarizeBy: sum
+		sourceColumn: Carton Width Inches
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Carton Depth Inches'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: b333a7fb-f566-4c4b-aa57-e32862082df3
+		sourceLineageTag: Carton Depth Inches
+		summarizeBy: sum
+		sourceColumn: Carton Depth Inches
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Item Description Series'
+		dataType: string
+		lineageTag: 77a2c04b-fb8d-4ded-b8ac-c202852c1d90
+		sourceLineageTag: Item Description Series
+		summarizeBy: none
+		sourceColumn: Item Description Series
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SH Item Description Series'
+		dataType: string
+		lineageTag: f975c228-af9d-4ab3-b370-92b38414b41d
+		sourceLineageTag: SH Item Description Series
+		summarizeBy: none
+		sourceColumn: SH Item Description Series
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SH Series Description'
+		dataType: string
+		lineageTag: 32346411-f8dd-4105-9d22-31c0289ab812
+		sourceLineageTag: SH Series Description
+		summarizeBy: none
+		sourceColumn: SH Series Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Carton Height Meters'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 2a2ba438-169d-4249-8853-49b5c0054018
+		sourceLineageTag: Carton Height Meters
+		summarizeBy: sum
+		sourceColumn: Carton Height Meters
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Carton Width Meters'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 726ed98f-8706-4ef9-ad9a-72dfd7909e85
+		sourceLineageTag: Carton Width Meters
+		summarizeBy: sum
+		sourceColumn: Carton Width Meters
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Carton Depth Meters'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: ae5ae19e-0c33-491d-8ddd-9851601ad626
+		sourceLineageTag: Carton Depth Meters
+		summarizeBy: sum
+		sourceColumn: Carton Depth Meters
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Product Height Inches'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 0578667f-967a-471a-85e4-bd4263dbe843
+		sourceLineageTag: Product Height Inches
+		summarizeBy: sum
+		sourceColumn: Product Height Inches
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Product Width Inches'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: af32d312-f68e-4e07-ac9a-a0415114654c
+		sourceLineageTag: Product Width Inches
+		summarizeBy: sum
+		sourceColumn: Product Width Inches
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Product Depth Inches'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 14639ee4-f72f-485a-a5ec-670f996aa288
+		sourceLineageTag: Product Depth Inches
+		summarizeBy: sum
+		sourceColumn: Product Depth Inches
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column UOM
+		dataType: string
+		lineageTag: 60bdb530-dabb-4406-9d33-5d73ed439ba0
+		sourceLineageTag: UOM
+		summarizeBy: none
+		sourceColumn: UOM
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cubes
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 12a722f1-09be-46c8-a7db-41da31570fee
+		sourceLineageTag: Cubes
+		summarizeBy: sum
+		sourceColumn: Cubes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column Seats
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 24e3e3fa-2955-4bdd-b722-46b0f14cc749
+		sourceLineageTag: Seats
+		summarizeBy: sum
+		sourceColumn: Seats
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Product Height Meters'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 35a69a53-64b8-4b42-8906-e1df5059cb95
+		sourceLineageTag: Product Height Meters
+		summarizeBy: sum
+		sourceColumn: Product Height Meters
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Product Width Meters'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 96725c1b-1cfd-4b03-a9da-e2952d08ad5a
+		sourceLineageTag: Product Width Meters
+		summarizeBy: sum
+		sourceColumn: Product Width Meters
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Product Depth Meters'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 5a0a3070-261d-49c0-8154-acad4ff36342
+		sourceLineageTag: Product Depth Meters
+		summarizeBy: sum
+		sourceColumn: Product Depth Meters
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column Showroom
+		dataType: string
+		lineageTag: a3d4857c-20c4-4e88-8815-208aa5bdc49a
+		sourceLineageTag: Showroom
+		summarizeBy: none
+		sourceColumn: Showroom
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Line'
+		dataType: string
+		lineageTag: 397f59f3-0fd5-4794-ab55-0d42019f3318
+		sourceLineageTag: Product Line
+		summarizeBy: none
+		sourceColumn: Product Line
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hold Buy Code'
+		dataType: string
+		lineageTag: a96c8a55-9de3-4ea3-9892-139cc997bd87
+		sourceLineageTag: Hold Buy Code
+		summarizeBy: none
+		sourceColumn: Hold Buy Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Image'
+		dataType: string
+		lineageTag: ba84e5e3-6261-4395-b2f8-8954f5a3e20a
+		sourceLineageTag: Item Image
+		summarizeBy: none
+		sourceColumn: Item Image
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Image URL'
+		dataType: string
+		lineageTag: 77c7aa66-e380-422d-9388-c9fb7fee0eb8
+		sourceLineageTag: Image URL
+		summarizeBy: none
+		sourceColumn: Image URL
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quantity In Box'
+		dataType: int64
+		formatString: 0
+		lineageTag: d8e106d9-4bf2-4a3d-a33a-1e0c9bd3ff07
+		sourceLineageTag: Quantity In Box
+		summarizeBy: sum
+		sourceColumn: Quantity In Box
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Class Code'
+		dataType: string
+		lineageTag: ccee984c-9b4d-474b-a8d9-397e690f3d4f
+		sourceLineageTag: Item Class Code
+		summarizeBy: none
+		sourceColumn: Item Class Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Class Name'
+		dataType: string
+		lineageTag: 459051bd-bd1d-44d1-8cac-9d962fe5bf49
+		sourceLineageTag: Item Class Name
+		summarizeBy: none
+		sourceColumn: Item Class Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Collective Class'
+		dataType: string
+		lineageTag: 71aeb247-97ad-453f-bffe-6b37a51ab94e
+		sourceLineageTag: Collective Class
+		summarizeBy: none
+		sourceColumn: Collective Class
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AFI Sales Division'
+		dataType: string
+		lineageTag: 8f9be205-d965-4526-a4b2-a4c4a7826615
+		sourceLineageTag: AFI Sales Division
+		summarizeBy: none
+		sourceColumn: AFI Sales Division
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Grouping'
+		dataType: string
+		lineageTag: 76d3971d-069f-45dc-8c7f-ba1891393fc6
+		sourceLineageTag: Item Grouping
+		summarizeBy: none
+		sourceColumn: Item Grouping
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Association Code'
+		dataType: string
+		lineageTag: a482e4d1-7dbd-4bae-971d-803148441607
+		sourceLineageTag: Association Code
+		summarizeBy: none
+		sourceColumn: Association Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Forecast Planner ID'
+		dataType: string
+		lineageTag: 912e3f66-edaf-42a1-bffe-bf59585f7144
+		sourceLineageTag: Item Forecast Planner ID
+		summarizeBy: none
+		sourceColumn: Item Forecast Planner ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Forecast Planner ID (Dim)'
+		dataType: string
+		lineageTag: 7ee4b57a-e27f-4259-887a-d643c7f8fe55
+		sourceLineageTag: Item Forecast Planner ID (Dim)
+		summarizeBy: none
+		sourceColumn: Item Forecast Planner ID (Dim)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AFI Item Status'
+		dataType: string
+		lineageTag: 8eeb72c7-5ae7-480a-9ecd-b69bc6184c1a
+		sourceLineageTag: AFI Item Status
+		summarizeBy: none
+		sourceColumn: AFI Item Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Future Status'
+		dataType: string
+		lineageTag: e18c5b58-0475-4711-9721-8ab2be7b9087
+		sourceLineageTag: Future Status
+		summarizeBy: none
+		sourceColumn: Future Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Name'
+		dataType: string
+		lineageTag: ad6ee64a-5641-403a-8c5e-7d25a9dc8cad
+		sourceLineageTag: Item Name
+		summarizeBy: none
+		sourceColumn: Item Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Class'
+		dataType: string
+		lineageTag: de9558e7-351f-4277-b92b-4f4210cc92ca
+		sourceLineageTag: Item Class
+		summarizeBy: none
+		sourceColumn: Item Class
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Planning Series'
+		dataType: string
+		lineageTag: e49a050a-e2e7-4209-bf3c-eb80fc6ed5fd
+		sourceLineageTag: Planning Series
+		summarizeBy: none
+		sourceColumn: Planning Series
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Name'
+		dataType: string
+		lineageTag: ce8350dd-6173-4039-9d23-390d070b3b0f
+		sourceLineageTag: Series Name
+		summarizeBy: none
+		sourceColumn: Series Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Color'
+		dataType: string
+		lineageTag: 5c5208c3-e490-4bda-846c-6867315d0c68
+		sourceLineageTag: Series Color
+		summarizeBy: none
+		sourceColumn: Series Color
+
+		annotation SummarizationSetBy = Automatic
+
+	column Colors
+		dataType: string
+		lineageTag: dd2fad5a-d337-4d17-abfb-ec6a5da78e54
+		sourceLineageTag: Colors
+		summarizeBy: none
+		sourceColumn: Colors
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Frame Number'
+		dataType: string
+		lineageTag: edb5624d-c3c8-49a1-9d1f-a03d880da9fb
+		sourceLineageTag: Frame Number
+		summarizeBy: none
+		sourceColumn: Frame Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Series Description'
+		dataType: string
+		lineageTag: 4a71382f-ffa1-40a2-bdc9-55c519008dff
+		sourceLineageTag: Series Description
+		summarizeBy: none
+		sourceColumn: Series Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimSCPItemMaster = entity
+		mode: directLake
+		source
+			entityName: DimSCPItemMaster
+			schemaName: SCP_Core
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

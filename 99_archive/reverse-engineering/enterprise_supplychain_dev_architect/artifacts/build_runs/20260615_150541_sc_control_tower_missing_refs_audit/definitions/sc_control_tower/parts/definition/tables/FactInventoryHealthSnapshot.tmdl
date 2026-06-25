@@ -1,0 +1,652 @@
+table FactInventoryHealthSnapshot
+	lineageTag: dcc96b9c-17fe-44ba-b581-ce9fc88ce4ed
+	sourceLineageTag: [InventoryHealth_DW].[FactInventoryHealthSnapshot]
+
+	column ItemSku
+		dataType: string
+		lineageTag: 26471c0a-efdc-4902-a589-618985e940bc
+		sourceLineageTag: ItemSku
+		summarizeBy: none
+		sourceColumn: ItemSku
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseCode
+		dataType: string
+		lineageTag: 073f11ce-8c6a-4c62-946b-17a7959b482d
+		sourceLineageTag: WarehouseCode
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column SnapshotWeekEndingDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3704befd-e901-4b74-9ccc-707bb25eade1
+		sourceLineageTag: SnapshotWeekEndingDate
+		summarizeBy: none
+		sourceColumn: SnapshotWeekEndingDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column OnHandQty
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 8124b05b-d83e-450d-bdf8-51f57f09240d
+		sourceLineageTag: OnHandQty
+		summarizeBy: sum
+		sourceColumn: OnHandQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'OnHand Value'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: ab9899d0-c2ca-4d11-8cc3-aacbc11587f2
+		sourceLineageTag: OnHand Value
+		summarizeBy: sum
+		sourceColumn: OnHand Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'On Order Qty'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 4a9a2f94-c8f1-4a60-84ab-7b12f54f8656
+		sourceLineageTag: On Order Qty
+		summarizeBy: sum
+		sourceColumn: On Order Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column POOnOrderQty
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 5c86313b-11df-42f1-b746-ad734d7542a1
+		sourceLineageTag: POOnOrderQty
+		summarizeBy: sum
+		sourceColumn: POOnOrderQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column MOOnOrderQty
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 6c0f3943-b89f-47a3-916e-a960d6f6c008
+		sourceLineageTag: MOOnOrderQty
+		summarizeBy: sum
+		sourceColumn: MOOnOrderQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'In Transit Qty'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 08b9b78f-c093-4742-8ac2-df3b51cb2f78
+		sourceLineageTag: In Transit Qty
+		summarizeBy: sum
+		sourceColumn: In Transit Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column TransferInInTransitQty
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: bc892f46-1995-4d13-89dc-db323fd6dc5f
+		sourceLineageTag: TransferInInTransitQty
+		summarizeBy: sum
+		sourceColumn: TransferInInTransitQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column POInTransitQty
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: c73651a4-fe4a-4b56-92e3-fd1b8b1d5d8e
+		sourceLineageTag: POInTransitQty
+		summarizeBy: sum
+		sourceColumn: POInTransitQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'On Order Value'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: c0312d3c-6d93-4dc9-877b-d96910875854
+		sourceLineageTag: On Order Value
+		summarizeBy: sum
+		sourceColumn: On Order Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'In Transit Value'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: baa68748-c9ca-4627-acb3-e369e300aa95
+		sourceLineageTag: In Transit Value
+		summarizeBy: sum
+		sourceColumn: In Transit Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column AwdQty
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 98070316-7d44-4323-b2db-940579cd4169
+		sourceLineageTag: AwdQty
+		summarizeBy: sum
+		sourceColumn: AwdQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'On Hold Ratio'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: c725f6da-0761-4188-b29c-6e8dbb30bda9
+		sourceLineageTag: On Hold Ratio
+		summarizeBy: sum
+		sourceColumn: On Hold Ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column IsActiveItemWhIn7DNext
+		dataType: int64
+		formatString: 0
+		lineageTag: 57ffea23-f1d2-40a3-a9f8-a4f202d46ac8
+		sourceLineageTag: IsActiveItemWhIn7DNext
+		summarizeBy: sum
+		sourceColumn: IsActiveItemWhIn7DNext
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsActiveItemWhIn14DNext
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c2afef5-6b89-4af8-be64-72b2e0f8b188
+		sourceLineageTag: IsActiveItemWhIn14DNext
+		summarizeBy: sum
+		sourceColumn: IsActiveItemWhIn14DNext
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ATP Qty'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 96e98425-4ca3-4fd8-ae07-26a26ba2610d
+		sourceLineageTag: ATP Qty
+		summarizeBy: sum
+		sourceColumn: ATP Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column SIQty
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: e1923f93-a530-4be5-a732-2940548a1c5d
+		sourceLineageTag: SIQty
+		summarizeBy: sum
+		sourceColumn: SIQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Revenue at risk'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: acef6b2f-85ce-4ba2-a1d7-f539976aed55
+		sourceLineageTag: Revenue at risk
+		summarizeBy: sum
+		sourceColumn: Revenue at risk
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'InventoryClassification Final Status'
+		dataType: string
+		lineageTag: b2ba38c7-d6e1-4b3c-9665-42f48ea60285
+		sourceLineageTag: InventoryClassification Final Status
+		summarizeBy: none
+		sourceColumn: InventoryClassification Final Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Qty by InventoryClassification (InActive)'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: ea601f1f-3a16-4c43-a2af-93c894e576ad
+		sourceLineageTag: Qty by InventoryClassification (InActive)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (InActive)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Qty by InventoryClassification (SLOB)'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: a5e4366e-f26f-4bea-b269-ff0c01642e5c
+		sourceLineageTag: Qty by InventoryClassification (SLOB)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (SLOB)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Qty by InventoryClassification (Below Target)'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 0bb4ea05-d457-46c7-9110-8e34e63cabf2
+		sourceLineageTag: Qty by InventoryClassification (Below Target)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (Below Target)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Qty by InventoryClassification (SweetSpot)'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 3915c865-0093-40fb-8daf-a2587e50a5bf
+		sourceLineageTag: Qty by InventoryClassification (SweetSpot)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (SweetSpot)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Qty by InventoryClassification (OverTarget)'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: e386758f-f261-4450-8732-75f8a59d1cfc
+		sourceLineageTag: Qty by InventoryClassification (OverTarget)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (OverTarget)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Qty by InventoryClassification (Excess)'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: bb22e825-ceb6-4217-8632-651ef2ee89d8
+		sourceLineageTag: Qty by InventoryClassification (Excess)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (Excess)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Qty by InventoryClassification (AE)'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: fafa60a6-9961-4124-bc14-28225ddd2132
+		sourceLineageTag: Qty by InventoryClassification (AE)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (AE)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Qty by InventoryClassification (TB Inventory)'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: de18497d-9300-4894-8d20-3fa83808636c
+		sourceLineageTag: Qty by InventoryClassification (TB Inventory)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (TB Inventory)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column SafetyStockTarget
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: a46e5e1c-184a-42e5-85ca-a5ab8127c836
+		sourceLineageTag: SafetyStockTarget
+		summarizeBy: sum
+		sourceColumn: SafetyStockTarget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column FirmDemandQtyAtRisk
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: ade4fafa-dc25-4fbd-bf08-5bb17ad70c57
+		sourceLineageTag: FirmDemandQtyAtRisk
+		summarizeBy: sum
+		sourceColumn: FirmDemandQtyAtRisk
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column NetFcstQtyAtRisk
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 501916ff-b905-4f6b-97e1-619b6b1c8947
+		sourceLineageTag: NetFcstQtyAtRisk
+		summarizeBy: sum
+		sourceColumn: NetFcstQtyAtRisk
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column FirmDemandQty
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 2581f80c-dd0b-4e2f-99c1-f355bb32cb63
+		sourceLineageTag: FirmDemandQty
+		summarizeBy: sum
+		sourceColumn: FirmDemandQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column NetFcstQty
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 75814d6f-35d6-4903-b77a-42b9aa39d97f
+		sourceLineageTag: NetFcstQty
+		summarizeBy: sum
+		sourceColumn: NetFcstQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column COGS52W
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: c1f7ce20-80a4-4a4c-89f4-c298123575fa
+		sourceLineageTag: COGS52W
+		summarizeBy: sum
+		sourceColumn: COGS52W
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column IsShortage/Surplus/InStock
+		dataType: string
+		lineageTag: 7ada742f-23fb-4add-a69f-41cad33eb4da
+		sourceLineageTag: IsShortage/Surplus/InStock
+		summarizeBy: none
+		sourceColumn: IsShortage/Surplus/InStock
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shortage/Surplus Qty'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: cd203447-0809-44ef-a441-9cd7d2933a54
+		sourceLineageTag: Shortage/Surplus Qty
+		summarizeBy: sum
+		sourceColumn: Shortage/Surplus Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column MakeBuyCode
+		dataType: string
+		lineageTag: 648bf5fd-9403-4bab-81b6-64104ffae7ff
+		sourceLineageTag: MakeBuyCode
+		summarizeBy: none
+		sourceColumn: MakeBuyCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrimaryVendorName
+		dataType: string
+		lineageTag: 267f1ffa-bf4d-4f32-bf73-873f2d75d487
+		sourceLineageTag: PrimaryVendorName
+		summarizeBy: none
+		sourceColumn: PrimaryVendorName
+
+		annotation SummarizationSetBy = Automatic
+
+	column SecondaryVendorName
+		dataType: string
+		lineageTag: 3090e04e-f2bf-40fc-8048-f5d46fe6dd48
+		sourceLineageTag: SecondaryVendorName
+		summarizeBy: none
+		sourceColumn: SecondaryVendorName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReplenishmentLeadTime
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: d6b8b75c-aca9-4b26-9ec5-20e95d8a0fc4
+		sourceLineageTag: ReplenishmentLeadTime
+		summarizeBy: sum
+		sourceColumn: ReplenishmentLeadTime
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column UsedStorageCube
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 19dbe37b-afb9-4216-9e66-4e88efbc9b21
+		sourceLineageTag: UsedStorageCube
+		summarizeBy: sum
+		sourceColumn: UsedStorageCube
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column StandardCost
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 1f7259d1-ec98-4dc3-9411-128a6d1f230c
+		sourceLineageTag: StandardCost
+		summarizeBy: sum
+		sourceColumn: StandardCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column FobArcPrice
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 5113fc0d-5dd2-4c3c-bb07-5c943b20ef95
+		sourceLineageTag: FobArcPrice
+		summarizeBy: sum
+		sourceColumn: FobArcPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column Cubes
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 6eb498ff-11e2-43db-80e2-5c643f0ea760
+		sourceLineageTag: Cubes
+		summarizeBy: sum
+		sourceColumn: Cubes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column LastInvoiceDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a669a7b5-33f2-4aad-833b-526aad24f331
+		sourceLineageTag: LastInvoiceDate
+		summarizeBy: none
+		sourceColumn: LastInvoiceDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aging Bucket <3M Qty'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: aec253d6-86e2-4e3e-8282-d77ea82cf0aa
+		sourceLineageTag: Aging Bucket <3M Qty
+		summarizeBy: sum
+		sourceColumn: Aging Bucket <3M Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Aging Bucket <6M Qty'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 042347a6-dd52-4cc7-b6ff-2f48e22bca1f
+		sourceLineageTag: Aging Bucket <6M Qty
+		summarizeBy: sum
+		sourceColumn: Aging Bucket <6M Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Aging Bucket <12M Qty'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 3f0b0f71-6fca-43a8-a952-45f8fb7831ea
+		sourceLineageTag: Aging Bucket <12M Qty
+		summarizeBy: sum
+		sourceColumn: Aging Bucket <12M Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Aging Bucket >12M Qty'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 0581146d-fcf9-4fbf-9566-3a97612747c4
+		sourceLineageTag: Aging Bucket >12M Qty
+		summarizeBy: sum
+		sourceColumn: Aging Bucket >12M Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column AFIStatus
+		dataType: string
+		lineageTag: 92dcfab9-249c-4751-9be4-d79ac36b6a57
+		sourceLineageTag: AFIStatus
+		summarizeBy: none
+		sourceColumn: AFIStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurplusType
+		dataType: string
+		lineageTag: 4d5ff1e2-eb6d-42a7-8c78-b3325c74dcd3
+		sourceLineageTag: SurplusType
+		summarizeBy: none
+		sourceColumn: SurplusType
+
+		annotation SummarizationSetBy = Automatic
+
+	column AgeBand
+		dataType: string
+		lineageTag: 659bed29-6e42-48b2-976f-be8d3f43d883
+		sourceLineageTag: AgeBand
+		summarizeBy: none
+		sourceColumn: AgeBand
+
+		annotation SummarizationSetBy = Automatic
+
+	column InventoryAgeWeeks
+		dataType: int64
+		formatString: 0
+		lineageTag: e18e9fc6-60ac-44dc-8d07-7e86ae10bf94
+		sourceLineageTag: InventoryAgeWeeks
+		summarizeBy: sum
+		sourceColumn: InventoryAgeWeeks
+
+		annotation SummarizationSetBy = Automatic
+
+	column NetPositionQtyNext4Weeks
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: b03f5864-9159-460b-80fa-94fb7c9d71c8
+		sourceLineageTag: NetPositionQtyNext4Weeks
+		summarizeBy: sum
+		sourceColumn: NetPositionQtyNext4Weeks
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column NetPositionQtyNext8Weeks
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: b2b2ab15-0ee0-48b8-b281-66fb9918032b
+		sourceLineageTag: NetPositionQtyNext8Weeks
+		summarizeBy: sum
+		sourceColumn: NetPositionQtyNext8Weeks
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column MDC
+		dataType: string
+		lineageTag: b900f5b5-0182-4563-9de9-15b406c0f647
+		sourceLineageTag: MDC
+		summarizeBy: none
+		sourceColumn: MDC
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactInventoryHealthSnapshot = entity
+		mode: directLake
+		source
+			entityName: FactInventoryHealthSnapshot
+			schemaName: InventoryHealth_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

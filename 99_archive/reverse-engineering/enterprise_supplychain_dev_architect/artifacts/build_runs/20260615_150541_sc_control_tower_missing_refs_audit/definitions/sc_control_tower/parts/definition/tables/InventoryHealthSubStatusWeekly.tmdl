@@ -1,0 +1,134 @@
+table InventoryHealthSubStatusWeekly
+	lineageTag: a41e6421-e794-4ced-969c-e127610370aa
+	sourceLineageTag: [InventoryHealth_DW].[InventoryHealthSubStatusWeekly]
+
+	column SnapshotWeekEnding
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1199ffd2-e09a-4577-a717-891f72058539
+		sourceLineageTag: SnapshotWeekEnding
+		summarizeBy: none
+		sourceColumn: SnapshotWeekEnding
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubStatus
+		dataType: string
+		lineageTag: 1084ee3f-6873-4aef-aee3-ee176f2e03e9
+		sourceLineageTag: SubStatus
+		summarizeBy: none
+		sourceColumn: SubStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ranking
+		dataType: int64
+		formatString: 0
+		lineageTag: 56fe5308-1dda-4f9f-971f-d2706b9e4951
+		sourceLineageTag: Ranking
+		summarizeBy: sum
+		sourceColumn: Ranking
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'InventoryClassification Final Status'
+		dataType: string
+		lineageTag: db59d1b4-aec8-4e06-a200-132fef17e024
+		sourceLineageTag: InventoryClassification Final Status
+		summarizeBy: none
+		sourceColumn: InventoryClassification Final Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Avg Weekly Demand'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: dad2d853-ccda-423a-8b3e-0f0107a2dc06
+		sourceLineageTag: Avg Weekly Demand
+		summarizeBy: sum
+		sourceColumn: Avg Weekly Demand
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'SS target'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: e9659c26-b449-4393-96b2-b8451026d3ea
+		sourceLineageTag: SS target
+		summarizeBy: sum
+		sourceColumn: SS target
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'On Hands Qty'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: c24bb81e-7e09-4aa6-8f85-498faadfb9e0
+		sourceLineageTag: On Hands Qty
+		summarizeBy: sum
+		sourceColumn: On Hands Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'On Order Qty'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: c8cf8e84-0072-48e1-9bcf-f8ae95013575
+		sourceLineageTag: On Order Qty
+		summarizeBy: sum
+		sourceColumn: On Order Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column AFIStatus
+		dataType: string
+		lineageTag: 204d0e66-028c-4782-929d-5a51a9c0231d
+		sourceLineageTag: AFIStatus
+		summarizeBy: none
+		sourceColumn: AFIStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastInvoiceDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: dbd5b04c-10bd-425d-916b-aa6304dd650e
+		sourceLineageTag: LastInvoiceDate
+		summarizeBy: none
+		sourceColumn: LastInvoiceDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemSku
+		dataType: string
+		lineageTag: d205026e-c6c6-44c8-b9e1-9783af23b6bc
+		sourceLineageTag: ItemSku
+		summarizeBy: none
+		sourceColumn: ItemSku
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseCode
+		dataType: string
+		lineageTag: dc24d55c-a006-4680-8722-f6831d5fc06c
+		sourceLineageTag: WarehouseCode
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+		annotation SummarizationSetBy = Automatic
+
+	partition InventoryHealthSubStatusWeekly = entity
+		mode: directLake
+		source
+			entityName: InventoryHealthSubStatusWeekly
+			schemaName: InventoryHealth_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

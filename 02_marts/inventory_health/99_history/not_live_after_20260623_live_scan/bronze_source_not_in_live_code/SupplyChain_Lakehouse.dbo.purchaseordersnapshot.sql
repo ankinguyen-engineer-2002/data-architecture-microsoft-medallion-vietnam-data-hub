@@ -1,0 +1,5 @@
+-- SupplyChain_Lakehouse.dbo.purchaseordersnapshot
+-- Layer: Bronze/source shortcut reference for mart `inventory_health`.
+-- This is not a local view/table definition in this repo.
+-- It documents the upstream Fabric Lakehouse object used by downstream views/registry lineage.
+-- Current note: this source is a SupplyChain_Lakehouse/Dataflow Gen2 path or historical fallback.

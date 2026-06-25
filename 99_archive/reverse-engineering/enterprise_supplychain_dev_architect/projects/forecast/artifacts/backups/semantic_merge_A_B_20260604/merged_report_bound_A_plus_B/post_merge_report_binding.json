@@ -1,0 +1,15 @@
+{
+  "@odata.context": "https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1.0/myorg/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/$metadata#reports/$entity",
+  "datasetId": "3eecf594-a75e-46ab-9162-63c95ee68e45",
+  "datasetWorkspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+  "embedUrl": "https://app.powerbi.com/reportEmbed?reportId=23718231-b394-4b84-a215-50c302043ed0&groupId=c8d9fc83-18b6-4e1d-8264-0b49eed36fe0&w=2&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+  "format": "PBIR",
+  "id": "23718231-b394-4b84-a215-50c302043ed0",
+  "isFromPbix": true,
+  "isOwnedByMe": true,
+  "name": "Forecast Accuracy Gold",
+  "reportType": "PowerBIReport",
+  "subscriptions": [],
+  "users": [],
+  "webUrl": "https://app.powerbi.com/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/reports/23718231-b394-4b84-a215-50c302043ed0"
+}

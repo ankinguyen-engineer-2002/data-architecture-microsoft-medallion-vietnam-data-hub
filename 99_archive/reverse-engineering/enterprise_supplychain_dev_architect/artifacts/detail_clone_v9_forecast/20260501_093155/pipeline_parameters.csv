@@ -1,0 +1,8 @@
+definition,parameter_name,pipeline
+"{""defaultValue"": ""supplychain"", ""type"": ""String""}",project_name,pl_sc_mart
+"{""defaultValue"": ""supplychain"", ""type"": ""String""}",project_name,pl_sc_bronze
+"{""defaultValue"": ""supplychain"", ""type"": ""String""}",project_name,pl_sc_silver
+"{""defaultValue"": 0, ""type"": ""Int""}",wave_number,pl_sc_silver_wave
+"{""defaultValue"": ""supplychain"", ""type"": ""String""}",project_name,pl_sc_gold
+"{""defaultValue"": ""'BRZ','REF'"", ""type"": ""String""}",dq_layer,pl_dq_check
+"{""defaultValue"": """", ""type"": ""String""}",pipeline_run_id,pl_dq_check

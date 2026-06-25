@@ -1,0 +1,561 @@
+{
+  "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoicedetail",
+  "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 80,
+    "columns": [
+      {
+        "column_name": "CustomerNumber",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "InvoiceNumber",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "ItemSKU",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "ItemSequence",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "QuantityShipped",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "InvoiceAmount",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "OrderNumber",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "ShiptoNumber",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "QuantityOrdered",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "QuantityBackOrdered",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "CreditCode",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "Warehouse",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "BilltoSalesman",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "ShiptoSalesman",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "Discount",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "PriceAdjustment",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "PostingMonth",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "Freight",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "Price",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "ItemClass",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 20
+      },
+      {
+        "column_name": "ExtendedInvoiceNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 21
+      },
+      {
+        "column_name": "PurchaseOrder",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 22
+      },
+      {
+        "column_name": "RequestDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 23
+      },
+      {
+        "column_name": "InvoiceDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 24
+      },
+      {
+        "column_name": "DefaultDeliveryDays",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 25
+      },
+      {
+        "column_name": "TripNumber",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 26
+      },
+      {
+        "column_name": "DropNumber",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 27
+      },
+      {
+        "column_name": "PromisedDelivery",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 28
+      },
+      {
+        "column_name": "OrderEntry",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 29
+      },
+      {
+        "column_name": "PriorityCode",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 30
+      },
+      {
+        "column_name": "OrderItemStatus",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 31
+      },
+      {
+        "column_name": "OrderPriority",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 32
+      },
+      {
+        "column_name": "OriginalRequestDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 33
+      },
+      {
+        "column_name": "ActualDelivery",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 34
+      },
+      {
+        "column_name": "CustomerSku",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 35
+      },
+      {
+        "column_name": "LineReleaseNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 36
+      },
+      {
+        "column_name": "NetSales",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 37
+      },
+      {
+        "column_name": "StandardPrice",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 38
+      },
+      {
+        "column_name": "AdvertisingAccrual",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 39
+      },
+      {
+        "column_name": "DFIDiscount",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 40
+      },
+      {
+        "column_name": "ContractPrice",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 41
+      },
+      {
+        "column_name": "CurrencyCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 42
+      },
+      {
+        "column_name": "DeliveryDays",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 43
+      },
+      {
+        "column_name": "DeliveryDaysOriginalPromiseDate",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 44
+      },
+      {
+        "column_name": "DeliveryDaysRaw",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 45
+      },
+      {
+        "column_name": "DeliveryDaysOriginalPromiseDateRaw",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 46
+      },
+      {
+        "column_name": "OriginalInvoiceNumber",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 47
+      },
+      {
+        "column_name": "OriginalInvoiceDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 48
+      },
+      {
+        "column_name": "OriginalOrderNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 49
+      },
+      {
+        "column_name": "OriginalOrderDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 50
+      },
+      {
+        "column_name": "OriginalSequenceNumber",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 51
+      },
+      {
+        "column_name": "OriginalDeliveryMethod",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 52
+      },
+      {
+        "column_name": "OrderType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 53
+      },
+      {
+        "column_name": "OrderDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 54
+      },
+      {
+        "column_name": "OriginalPromiseDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 55
+      },
+      {
+        "column_name": "CurrentRequestDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 56
+      },
+      {
+        "column_name": "DeliveryDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 57
+      },
+      {
+        "column_name": "TripCloseDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 58
+      },
+      {
+        "column_name": "FirstScanDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 59
+      },
+      {
+        "column_name": "TripCreateDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 60
+      },
+      {
+        "column_name": "CurrentPromiseDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 61
+      },
+      {
+        "column_name": "PriceCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 62
+      },
+      {
+        "column_name": "ItemDiscountCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 63
+      },
+      {
+        "column_name": "commissioncode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 64
+      },
+      {
+        "column_name": "FreightCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 65
+      },
+      {
+        "column_name": "DiscountSalesClass",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 66
+      },
+      {
+        "column_name": "ExceptionID",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 67
+      },
+      {
+        "column_name": "FreightSalesClass",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 68
+      },
+      {
+        "column_name": "BuyGroupCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 69
+      },
+      {
+        "column_name": "GroupPricingExceptionID",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 70
+      },
+      {
+        "column_name": "WarehouseOperationPercent",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 71
+      },
+      {
+        "column_name": "PriceAdderPercent",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 72
+      },
+      {
+        "column_name": "CalculatedAllowancePercent",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 73
+      },
+      {
+        "column_name": "PackageDiscountAllocationPercent",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 74
+      },
+      {
+        "column_name": "PackageDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 75
+      },
+      {
+        "column_name": "PackageID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 76
+      },
+      {
+        "column_name": "PackagePrice",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 77
+      },
+      {
+        "column_name": "PackageItemPrice",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 78
+      },
+      {
+        "column_name": "PackageItemDiscount",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 79
+      },
+      {
+        "column_name": "OrderType3",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 80
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "InvoiceDate": "2026-06-23",
+      "OrderDate": "2026-06-22",
+      "OriginalInvoiceDate": "2026-06-11",
+      "OriginalOrderDate": "2026-06-08",
+      "RequestDate": "2028-09-28"
+    },
+    "freshness_columns": [
+      "InvoiceDate",
+      "OrderDate",
+      "RequestDate",
+      "OriginalInvoiceDate",
+      "OriginalOrderDate"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 3.438,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "InvoiceNumber",
+      "ItemSequence",
+      "LineReleaseNumber",
+      "OriginalSequenceNumber",
+      "ItemSKU"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.435,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": null,
+          "latest_partition_duplicate_groups": 0,
+          "latest_partition_max_rows_per_key": null
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 10149
+        }
+      ],
+      "seconds": 0.428,
+      "status": "PASS"
+    },
+    "projects": [
+      "forecast_accuracy",
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+    "row_count_metadata": null,
+    "status": "REVIEW"
+  },
+  "dq_status": "REVIEW",
+  "layer": "bronze",
+  "mart": "forecast_accuracy",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail.sql"
+}

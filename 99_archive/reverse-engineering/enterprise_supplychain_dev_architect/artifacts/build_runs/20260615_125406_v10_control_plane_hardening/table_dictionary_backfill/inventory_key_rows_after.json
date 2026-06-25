@@ -1,0 +1,12 @@
+[
+  {
+    "SchemaName": "InventoryHistory_Enh",
+    "TableName": "Cogs52WWeekly",
+    "cnt": 1
+  },
+  {
+    "SchemaName": "InventoryHistory_Enh",
+    "TableName": "ItemBalanceHistorical_WithInTransit",
+    "cnt": 1
+  }
+]

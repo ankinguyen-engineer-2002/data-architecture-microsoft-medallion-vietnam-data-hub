@@ -1,0 +1,2047 @@
+/// Central measure table for Control Tower KPIs and supporting calculations. Contains no business rows; used only to organize semantic model measures.
+table _Measure
+	lineageTag: 3cc2eedd-0d84-484f-80b3-32e5e823f881
+
+	/// Total consensus forecast quantity in the current filter context.
+	measure Qty_Forecast = SUM(fact_forecast_kpi[qty_forecast])
+		formatString: #,0.00
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 9df2fe10-2b16-474c-ac57-8db761aea599
+
+	/// Total actual demand quantity in the current filter context.
+	measure Qty_Actual = SUM(fact_forecast_kpi[qty_actual])
+		formatString: #,0.00
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 811b72b7-1d61-4996-aeea-f27e8f648237
+
+	/// Total signed forecast error, stored as Forecast minus Actual. Positive values indicate over-forecast.
+	measure Qty_Bias =
+			
+			SUM(fact_forecast_kpi[qty_fcst_error])
+		formatString: #,0
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 91dff967-1957-4ab3-86b5-a2a1f677059c
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// Total naive forecast quantity used as a baseline comparison against the consensus forecast.
+	measure Qty_NForecast = SUM(fact_forecast_kpi[qty_naive_forecast])
+		formatString: #,0.00
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 78ffc136-3f74-45fe-bca4-9bb6ea734e54
+
+	/// Total absolute forecast error used for wMAPE, MAPE, and forecast accuracy calculations.
+	measure Qty_Abs_Bias = SUM(fact_forecast_kpi[qty_abs_fcst_error])
+		formatString: #,0
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: e5764b17-327c-42c5-a09f-5524d507b239
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// Total signed naive forecast error used to evaluate baseline forecast performance.
+	measure Qty_NBias = [Qty_NForecast]-[Qty_Actual]
+		formatString: #,0
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 390104c8-c8a5-43d4-9427-86fff6a9da46
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// Total absolute naive forecast error used for naive wMAPE and process value add calculations.
+	measure Qty_Abs_NBias = SUM(fact_forecast_kpi[qty_abs_naive_fcst_error])
+		formatString: #,0
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: bc6afe68-f211-4262-b959-08c14f7c2dc9
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// Weighted mean absolute percentage error: absolute forecast error divided by actual demand.
+	measure Pct_wMAPE = ```
+			DIVIDE([Qty_Abs_Bias] , [Qty_Actual] , BLANK() ) 
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: ec0572e3-a4ba-4bb0-a420-db626c8c8aad
+
+	/// Weighted signed forecast bias percentage: signed forecast error divided by actual demand. Positive values indicate over-forecast.
+	measure Pct_MPE = DIVIDE([Qty_Bias] , [Qty_Actual] , BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: f02ed56f-1f56-4593-81df-672aca3cd9ae
+
+	/// Mean absolute percentage error across valid rows where actual demand is nonzero.
+	measure Pct_MAPE = AVERAGEX ( FILTER ( fact_forecast_kpi, fact_forecast_kpi[valid_actual_nonzero_flag] = 1 ), DIVIDE ( fact_forecast_kpi[qty_abs_fcst_error], fact_forecast_kpi[qty_actual] ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 5ea554a0-13f0-4a53-a329-23d55674b077
+
+	/// Root mean squared forecast error across valid observations. Penalizes larger forecast misses more heavily.
+	measure RMSE = SQRT ( DIVIDE ( SUM ( fact_forecast_kpi[qty_squared_fcst_error] ), SUM ( fact_forecast_kpi[valid_obs_flag] ) ) )
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 5d8f3f9b-fe59-4908-a108-545ba165cbe7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Process value add: naive wMAPE minus forecast wMAPE. Positive values indicate the consensus forecast outperformed the naive baseline.
+	measure ProcessValueAdd = ```
+			[Pct_NwMAPE] - [Pct_wMAPE] 
+			```
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 07e5c8e3-8fc7-4921-8925-63e5e2780bcf
+
+	/// Naive weighted mean absolute percentage error: absolute naive forecast error divided by actual demand.
+	measure Pct_NwMAPE = ```
+			DIVIDE([Qty_Abs_NBias] , [Qty_Actual] , BLANK() ) 
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 8ef262eb-e12d-4ae0-b592-6aba3a04911f
+
+	/// Forecast accuracy percentage calculated as 1 minus wMAPE. Future fiscal periods return blank.
+	measure Pct_ForecastAccuracy = ```
+			
+			VAR MaxDateInRow = MAX('fact_forecast_kpi'[dt_fsc_month_last])
+			VAR CurrentDate = TODAY()
+			VAR wMAPE = [Pct_wMAPE]
+			
+			RETURN
+			IF (
+			    -- Điều kiện: Nếu ngày tháng dự báo nhỏ hơn hoặc bằng hôm nay
+			    MaxDateInRow <= CurrentDate,
+			    
+			    -- Thực hiện công thức gốc, cho phép kết quả âm
+			    1 - wMAPE,
+			    
+			    -- Nếu là ngày tương lai thì để trống
+			    BLANK()
+			)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 75955bb4-f1fd-453a-971a-9a5431dbd1c8
+
+	/// Forecast accuracy for the prior fiscal month window. For multi-month selections, compares against the same-length prior fiscal month window.
+	measure Pct_ForecastAccuracy_lm = ```
+			
+			VAR CurrentMonths =
+			    SELECTCOLUMNS(
+			        VALUES(dim_calendar[num_fsc_month_year]),
+			        "CurrentMonthKey", dim_calendar[num_fsc_month_year]
+			    )
+			
+			VAR PrevMonths =
+			    SELECTCOLUMNS(
+			        GENERATE(
+			            CurrentMonths,
+			            VAR CurrentMonthKey = [CurrentMonthKey]
+			            RETURN
+			                SELECTCOLUMNS(
+			                    TOPN(
+			                        1,
+			                        FILTER(
+			                            ALL(dim_calendar[num_fsc_month_year]),
+			                            dim_calendar[num_fsc_month_year] < CurrentMonthKey
+			                        ),
+			                        dim_calendar[num_fsc_month_year], DESC
+			                    ),
+			                    "PrevMonthKey", dim_calendar[num_fsc_month_year]
+			                )
+			        ),
+			        "num_fsc_month_year", [PrevMonthKey]
+			    )
+			
+			RETURN
+			CALCULATE(
+			    [Pct_ForecastAccuracy],
+			    REMOVEFILTERS(dim_calendar),
+			    TREATAS(
+			        PrevMonths,
+			        dim_calendar[num_fsc_month_year]
+			    )
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 0f86f9bd-ede3-42b5-87ed-6b422a38148f
+
+	/// Change in forecast accuracy versus the prior fiscal month comparison window.
+	measure Delta_ForecastAccuracy_MoM = ```
+			[Pct_ForecastAccuracy] - [Pct_ForecastAccuracy_lm] 
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: dc68ca40-69d4-4998-8b3f-82faed19749d
+
+	/// Difference between wMAPE and absolute signed bias percentage. Highlights error remaining after directional bias is removed.
+	measure TrueError = ```
+			[Pct_wMAPE] - ABS([Pct_MPE]) 
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 375c4197-03e0-4c07-b087-41edab193e46
+
+	/// wMAPE filtered to Lag-0 forecast horizon.
+	measure Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE] , dim_forecast_horizon[num_rank] = 1 )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 04fc3e4d-ab4a-4e2e-ac39-4119045b4eb1
+
+	/// wMAPE filtered to Lag-1 forecast horizon.
+	measure Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE] , dim_forecast_horizon[num_rank] = 2 )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: ba78b597-69ce-4d9e-9fbb-fdcb29000e60
+
+	/// wMAPE filtered to Lag-2 forecast horizon.
+	measure Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE] , dim_forecast_horizon[num_rank] = 3 )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: a0157ed3-170b-41f2-ad1b-68930bce90d8
+
+	/// wMAPE filtered to Lag-3 forecast horizon.
+	measure Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE] , dim_forecast_horizon[num_rank] = 4 )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: cb586b4c-8230-4b73-9c35-9fa2d55eb01b
+
+	/// wMAPE filtered to Lag-4 forecast horizon.
+	measure Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE] , dim_forecast_horizon[num_rank] = 5 )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 550541ca-0fe4-493d-a43e-34fe1ba61295
+
+	/// Actual demand quantity filtered to the Lag-0 horizon. Legacy name references the prior 2-week label.
+	measure Qty_Actual_2W = CALCULATE(SUM(fact_forecast_kpi[qty_actual]), dim_forecast_horizon[num_rank] = 1)
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 959f8982-718e-459d-9190-02b65417e70a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Total quantity from flat forecast/actual records where status is Invoice.
+	measure Qt_Invoice = ```
+			
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]),
+			        'fact_flat_forecast_actual'[code_status] = "Invoice"
+			    )
+			```
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 8129362f-2d6c-454b-b845-404d9aa055a6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Total quantity from flat forecast/actual records where status is Open Order.
+	measure Qt_Open_SO = ```
+			
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]),
+			        'fact_flat_forecast_actual'[code_status] = "Open Order"
+			    )
+			```
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 2e451320-d8bb-42a5-a000-4db59eff6733
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantity for the latest available forecast version in the selected context. Used for version comparison visuals.
+	measure Qty_Latest_V =
+			
+			VAR VersionTable =
+			    FILTER(
+			        ALLSELECTED('fact_flat_forecast_actual'),
+			        LEFT('fact_flat_forecast_actual'[name_version], 2) = "V "
+			    )
+			
+			VAR LatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        VersionTable
+			    )
+			
+			VAR YearText = MID(LatestVersion, 3, 4)
+			VAR MonthText = RIGHT(LatestVersion, 2)
+			
+			VAR DATE_VERSION =
+			    DATE(
+			        VALUE(YearText),
+			        VALUE(MonthText),
+			        1
+			    )
+			
+			RETURN
+			IF(
+			    MAX('fact_flat_forecast_actual'[dt_fsc_month_last]) >= DATE_VERSION,
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]),
+			        'fact_flat_forecast_actual'[name_version] = LatestVersion
+			    ),
+			    BLANK()
+			)
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 8db59774-8e5d-42eb-892c-307226212ea8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantity for the second latest available forecast version in the selected context.
+	measure Qty_V_2 =
+			
+			VAR VersionTable =
+			    FILTER(
+			        ALLSELECTED('fact_flat_forecast_actual'),
+			        LEFT('fact_flat_forecast_actual'[name_version], 2) = "V "
+			    )
+			
+			VAR LatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        VersionTable
+			    )
+			
+			VAR SecondLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < LatestVersion
+			        )
+			    )
+			
+			VAR YearText = MID(SecondLatestVersion, 3, 4)
+			VAR MonthText = RIGHT(SecondLatestVersion, 2)
+			
+			VAR DATE_VERSION =
+			    DATE(
+			        VALUE(YearText),
+			        VALUE(MonthText),
+			        1
+			    )
+			
+			RETURN
+			IF(
+			    MAX('fact_flat_forecast_actual'[dt_fsc_month_last]) >= DATE_VERSION,
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]),
+			        'fact_flat_forecast_actual'[name_version] = SecondLatestVersion
+			    ),
+			    BLANK()
+			)
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 87330796-96b6-4155-8a50-6c309eb55b59
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantity for the third latest available forecast version in the selected context.
+	measure Qty_V_3 =
+			
+			VAR VersionTable =
+			    FILTER(
+			        ALLSELECTED('fact_flat_forecast_actual'),
+			        LEFT('fact_flat_forecast_actual'[name_version], 2) = "V "
+			    )
+			
+			VAR LatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        VersionTable
+			    )
+			
+			VAR SecondLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < LatestVersion
+			        )
+			    )
+			
+			VAR ThirdLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < SecondLatestVersion
+			        )
+			    )
+			
+			VAR YearText = MID(ThirdLatestVersion, 3, 4)
+			VAR MonthText = RIGHT(ThirdLatestVersion, 2)
+			
+			VAR DATE_VERSION =
+			    DATE(
+			        VALUE(YearText),
+			        VALUE(MonthText),
+			        1
+			    )
+			
+			RETURN
+			IF(
+			    MAX('fact_flat_forecast_actual'[dt_fsc_month_last]) >= DATE_VERSION,
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]),
+			        'fact_flat_forecast_actual'[name_version] = ThirdLatestVersion
+			    ),
+			    BLANK()
+			)
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 38c00106-706d-43b3-807a-ec740b682601
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantity for the fourth latest available forecast version in the selected context.
+	measure Qty_V_4 =
+			
+			VAR VersionTable =
+			    FILTER(
+			        ALLSELECTED('fact_flat_forecast_actual'),
+			        LEFT('fact_flat_forecast_actual'[name_version], 2) = "V "
+			    )
+			
+			VAR LatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        VersionTable
+			    )
+			
+			VAR SecondLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < LatestVersion
+			        )
+			    )
+			
+			VAR ThirdLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < SecondLatestVersion
+			        )
+			    )
+			
+			VAR FourthLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < ThirdLatestVersion
+			        )
+			    )
+			
+			VAR YearText = MID(FourthLatestVersion, 3, 4)
+			VAR MonthText = RIGHT(FourthLatestVersion, 2)
+			
+			VAR DATE_VERSION =
+			    DATE(
+			        VALUE(YearText),
+			        VALUE(MonthText),
+			        1
+			    )
+			
+			RETURN
+			IF(
+			    MAX('fact_flat_forecast_actual'[dt_fsc_month_last]) >= DATE_VERSION,
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]),
+			        'fact_flat_forecast_actual'[name_version] = FourthLatestVersion
+			    ),
+			    BLANK()
+			)
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: cefe7e96-3dc7-4f7c-a4a9-d8c07383f511
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantity for the fifth latest available forecast version in the selected context.
+	measure Qty_V_5 =
+			
+			VAR VersionTable =
+			    FILTER(
+			        ALLSELECTED('fact_flat_forecast_actual'),
+			        LEFT('fact_flat_forecast_actual'[name_version], 2) = "V "
+			    )
+			
+			VAR LatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        VersionTable
+			    )
+			
+			VAR SecondLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < LatestVersion
+			        )
+			    )
+			
+			VAR ThirdLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < SecondLatestVersion
+			        )
+			    )
+			
+			VAR FourthLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < ThirdLatestVersion
+			        )
+			    )
+			
+			VAR FifthLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < FourthLatestVersion
+			        )
+			    )
+			
+			VAR YearText = MID(FifthLatestVersion, 3, 4)
+			VAR MonthText = RIGHT(FifthLatestVersion, 2)
+			
+			VAR DATE_VERSION =
+			    DATE(
+			        VALUE(YearText),
+			        VALUE(MonthText),
+			        1
+			    )
+			
+			RETURN
+			IF(
+			    MAX('fact_flat_forecast_actual'[dt_fsc_month_last]) >= DATE_VERSION,
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]),
+			        'fact_flat_forecast_actual'[name_version] = FifthLatestVersion
+			    ),
+			    BLANK()
+			)
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 14666e9f-f9d9-4e3c-bd36-f76c12ee79d4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantity for the sixth latest available forecast version in the selected context.
+	measure Qty_V_6 =
+			
+			VAR VersionTable =
+			    FILTER(
+			        ALLSELECTED('fact_flat_forecast_actual'),
+			        LEFT('fact_flat_forecast_actual'[name_version], 2) = "V "
+			    )
+			
+			VAR LatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        VersionTable
+			    )
+			
+			VAR SecondLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < LatestVersion
+			        )
+			    )
+			
+			VAR ThirdLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < SecondLatestVersion
+			        )
+			    )
+			
+			VAR FourthLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < ThirdLatestVersion
+			        )
+			    )
+			
+			VAR FifthLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < FourthLatestVersion
+			        )
+			    )
+			
+			VAR SixthLatestVersion =
+			    CALCULATE(
+			        MAX('fact_flat_forecast_actual'[name_version]),
+			        FILTER(
+			            VersionTable,
+			            'fact_flat_forecast_actual'[name_version] < FifthLatestVersion
+			        )
+			    )
+			
+			VAR YearText = MID(SixthLatestVersion, 3, 4)
+			VAR MonthText = RIGHT(SixthLatestVersion, 2)
+			
+			VAR DATE_VERSION =
+			    DATE(
+			        VALUE(YearText),
+			        VALUE(MonthText),
+			        1
+			    )
+			
+			RETURN
+			IF(
+			    MAX('fact_flat_forecast_actual'[dt_fsc_month_last]) >= DATE_VERSION,
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]),
+			        'fact_flat_forecast_actual'[name_version] = SixthLatestVersion
+			    ),
+			    BLANK()
+			)
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 493af4d3-3f33-4b84-b59a-3f0d2cff0293
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Root mean squared naive forecast error across valid observations. Used to compare the naive baseline against the consensus forecast.
+	measure RMSE_Naive = SQRT ( DIVIDE ( SUM ( fact_forecast_kpi[qty_squared_naive_fcst_error] ), SUM ( fact_forecast_kpi[valid_obs_flag] ) ) )
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 10fc8df1-4b5c-4177-b855-1cdc8c64e26d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Forecast accuracy for the prior fiscal quarter comparison. For multi-month selections, compares against the same-length window shifted back one fiscal quarter.
+	measure Pct_ForecastAccuracy_lq =
+			VAR CurrentMonths =
+			    VALUES(dim_calendar[num_fsc_month_year])
+			VAR MonthCount =
+			    COUNTROWS(CurrentMonths)
+			VAR CurrentQuarters =
+			    VALUES(dim_calendar[num_fsc_quarter_year])
+			VAR PrevQuarter =
+			    SELECTCOLUMNS(
+			        CurrentQuarters,
+			        "num_fsc_quarter_year",
+			            VAR CurrentQuarterKey = dim_calendar[num_fsc_quarter_year]
+			            RETURN
+			                MAXX(
+			                    FILTER(
+			                        ALL(dim_calendar[num_fsc_quarter_year]),
+			                        dim_calendar[num_fsc_quarter_year] < CurrentQuarterKey
+			                    ),
+			                    dim_calendar[num_fsc_quarter_year]
+			                )
+			    )
+			VAR RollingPrevQuarterMonths =
+			    SELECTCOLUMNS(
+			        CurrentMonths,
+			        "num_fsc_month_year",
+			            VAR CurrentMonthKey = dim_calendar[num_fsc_month_year]
+			            VAR PriorThreeMonths =
+			                TOPN(
+			                    3,
+			                    FILTER(
+			                        ALL(dim_calendar[num_fsc_month_year]),
+			                        dim_calendar[num_fsc_month_year] < CurrentMonthKey
+			                    ),
+			                    dim_calendar[num_fsc_month_year], DESC
+			                )
+			            RETURN
+			                MINX(
+			                    PriorThreeMonths,
+			                    dim_calendar[num_fsc_month_year]
+			                )
+			    )
+			RETURN
+			IF(
+			    MonthCount = 1,
+			    CALCULATE(
+			        [Pct_ForecastAccuracy],
+			        REMOVEFILTERS(dim_calendar),
+			        TREATAS(
+			            PrevQuarter,
+			            dim_calendar[num_fsc_quarter_year]
+			        )
+			    ),
+			    CALCULATE(
+			        [Pct_ForecastAccuracy],
+			        REMOVEFILTERS(dim_calendar),
+			        TREATAS(
+			            RollingPrevQuarterMonths,
+			            dim_calendar[num_fsc_month_year]
+			        )
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: 4f3c9dc7-00db-4d23-9073-436de685e8fa
+
+	/// Static background color value used for RMSE table visual conditional formatting.
+	measure RMSE_Table_Background_Color = "#D9D9D9"
+		displayFolder: 3. Narrative
+		lineageTag: ed672d4d-4f71-4299-b26c-cb3509a15ac6
+
+	/// Returns the current date for report refresh or display context.
+	measure UpdatedTime = TODAY()
+		formatString: Short Date
+		displayFolder: 1. Main KPIs - Forecast Accuracy
+		lineageTag: a6f930f8-9803-4f65-9c74-86c9964b885a
+
+	measure BestPeformanceHorizon_Insight =
+			
+			VAR Pct_wMAPE_Lag0 = [Pct_wMAPE_Lag0]
+			VAR Pct_wMAPE_Lag1 = [Pct_wMAPE_Lag1]
+			VAR Pct_wMAPE_Lag2 = [Pct_wMAPE_Lag2]
+			VAR Pct_wMAPE_Lag3 = [Pct_wMAPE_Lag3]
+			VAR Pct_wMAPE_Lag4 = [Pct_wMAPE_Lag4]
+			VAR bestValue =
+			    MIN ( [Pct_wMAPE_Lag0], MIN ( [Pct_wMAPE_Lag1], MIN ( [Pct_wMAPE_Lag2], MIN ( [Pct_wMAPE_Lag3], [Pct_wMAPE_Lag4] ) ) ) )
+			RETURN
+			SWITCH (
+			    TRUE(),
+			    [Pct_wMAPE_Lag0] = bestValue, "Lag-0",
+			    [Pct_wMAPE_Lag1] = bestValue, "Lag-1",
+			    [Pct_wMAPE_Lag2] = bestValue, "Lag-2",
+			    [Pct_wMAPE_Lag3] = bestValue, "Lag-3",
+			    [Pct_wMAPE_Lag4] = bestValue, "Lag-4" , "To be Defined"
+			)
+		displayFolder: 3. Narrative
+		lineageTag: b72639ab-13d4-4adc-9c03-982f6702fcdc
+
+	measure Bias_Status = ```
+			
+			SWITCH(TRUE() , [qty_bias] < 0 , "UNDER" , 
+			 [qty_bias] > 0 , "OVER" , "EQUAL")
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 549c27ac-d4a5-4a48-b9f1-3d21c4ac8983
+
+	measure TrendSummaryMetricsBySelectedHorizon_Title = "Trend Summary Metrics by " & SELECTEDVALUE(dim_forecast_horizon[code_horizon])
+		displayFolder: 3. Narrative
+		lineageTag: 01d2bac2-4533-4f59-9fa3-0091f937a134
+
+	measure Selected_Quarter_Status = ```
+			
+			SWITCH( TRUE() , [Selected_Quarter_Max] = [Selected_Quarter_Min] , "Your selected quarter is " & [Selected_Quarter_Max] 
+			, "Your selected period from " & [Selected_Quarter_Min] &" to " & [Selected_Quarter_Max])
+			```
+		displayFolder: 3. Narrative
+		lineageTag: c6b42297-1345-4c0c-bd6b-431d3b6128a5
+
+	measure Selected_Quarter_Min = FORMAT(MIN(dim_calendar[dt_fsc_quarter_last]) ,"\Qq yyyy")
+		displayFolder: 3. Narrative
+		lineageTag: d9d1dd82-2325-47ee-9b5a-e9f37d20f3f5
+
+	measure Selected_Quarter_Max = FORMAT(MAX(dim_calendar[dt_fsc_quarter_last]) , "\Qq yyyy")
+		displayFolder: 3. Narrative
+		lineageTag: 5f88aa66-e29a-459e-a2ef-4e0bffa28a69
+
+	measure Selected_Months = CONCATENATEX( VALUES(dim_calendar[dt_fsc_month_last]) , FORMAT(dim_calendar[dt_fsc_month_last] , "mm/yyyy" , ", "))
+		displayFolder: 3. Narrative
+		lineageTag: 33e6a18f-0508-4835-90ee-b15c024cb267
+
+	measure Selected_Month_Status = ```
+			
+			SWITCH( TRUE() , [Selected_Month_Max] = [Selected_Month_Min] , "Your selected month is " & [Selected_Month_Max] 
+			, "Your selected period from " & [Selected_Month_Min] &" to " & [Selected_Month_Max])
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 634ddc20-ed19-4639-b275-5d80330babea
+
+	measure Selected_Month_Min = FORMAT(MIN(dim_calendar[dt_fsc_month_last]) , "mm/yyyy")
+		displayFolder: 3. Narrative
+		lineageTag: 86b1e4ed-8d0c-489b-9c22-2863c1641ae7
+
+	measure Selected_Month_Max = FORMAT(MAX(dim_calendar[dt_fsc_month_last]) , "mm/yyyy")
+		displayFolder: 3. Narrative
+		lineageTag: 4220cede-53a9-40b4-b1d1-a19435b620fe
+
+	measure NBias_Status = ```
+			
+			SWITCH(TRUE() , [Qty_NBias] < 0 , "UNDER" , 
+			 [Qty_NBias] > 0 , "OVER" , "EQUAL")
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 162f7ad7-03ee-4011-bed0-e71ee583e8d5
+
+	measure HowAccurateWasEachForecastVersion_Title_Quarter =
+			
+			
+			SWITCH( TRUE() , [Selected_Quarter_Max] = [Selected_Quarter_Min] , "HOW ACCURATE WAS EACH FORECAST VERSION IN " & [Selected_Quarter_Max] &"?"
+			, "HOW ACCURATE WAS EACH FORECAST VERSION FROM " & [Selected_Quarter_Min] &" TO " & [Selected_Quarter_Max]) &"?"
+		displayFolder: 3. Narrative
+		lineageTag: 562eb638-2121-48c9-aec4-5a8bfaf20d04
+
+	measure HowAccurateWasEachForecastVersion_Title_Month =
+			
+			
+			SWITCH( TRUE() , [Selected_Month_Max] = [Selected_Month_Min] , "HOW ACCURATE WAS EACH FORECAST VERSION IN " & [Selected_Month_Max] &"?"
+			, "HOW ACCURATE WAS EACH FORECAST VERSION FROM " & [Selected_Month_Min] &" TO " & [Selected_Month_Max]) &"?"
+		displayFolder: 3. Narrative
+		lineageTag: ef2ba9f3-b2f0-406c-bb9a-b5d371670459
+
+	measure HowAccurateAreWe_Title_Quarter =
+			
+			
+			SWITCH( TRUE() , [Selected_Quarter_Max] = [Selected_Quarter_Min], "HOW ACCURATE ARE WE IN " & [Selected_Quarter_Max]  &"?"
+			, "HOW ACCURATE ARE WE FROM " & [Selected_Quarter_Min] &" TO " & [Selected_Quarter_Max])  &"?"
+		displayFolder: 3. Narrative
+		lineageTag: fa41540b-924d-431f-89cb-55e9d187cda1
+
+	measure HowAccurateAreWe_Title_Month =
+			
+			
+			SWITCH( TRUE() , [Selected_Month_Max] = [Selected_Month_Min] , "HOW ACCURATE ARE WE IN " & [Selected_Month_Max]  &"?"
+			, "HOW ACCURATE ARE WE FROM " & [Selected_Month_Min] &" TO " & [Selected_Month_Max])  &"?"
+		displayFolder: 3. Narrative
+		lineageTag: 345479eb-d5dd-4c2e-809e-7a1aca2e331a
+
+	measure ForecastAccuracy_lq_Status = ```
+			
+			VAR CurrentMonthCount =
+			    COUNTROWS(VALUES(dim_calendar[num_fsc_month_year]))
+			
+			VAR CurrentFA =
+			    [Pct_ForecastAccuracy]
+			
+			VAR CompareFA =
+			    [Pct_ForecastAccuracy_lq]
+			
+			VAR Gap =
+			    CurrentFA - CompareFA
+			
+			VAR FormatGap =
+			    FORMAT(Gap, "+0.0%;-0.0%;0.0%")
+			
+			VAR CompareLabel =
+			    IF(CurrentMonthCount = 1, "LQ", "Prior Window")
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(CurrentFA) || ISBLANK(CompareFA), BLANK(),
+			    Gap > 0, "Growth " & FormatGap & " vs " & CompareLabel,
+			    Gap < 0, "Decrease " & FormatGap & " vs " & CompareLabel,
+			    "No change vs " & CompareLabel
+			)
+			 
+			```
+		displayFolder: 3. Narrative
+		lineageTag: f7c734ca-329b-4e9e-b180-e65f2e4fe9f0
+
+	measure ForecastAccuracy_lm_Status = ```
+			
+			VAR CurrentMonthCount =
+			    COUNTROWS(VALUES(dim_calendar[num_fsc_month_year]))
+			
+			VAR CurrentFA =
+			    [Pct_ForecastAccuracy]
+			
+			VAR CompareFA =
+			    [Pct_ForecastAccuracy_lm]
+			
+			VAR Gap =
+			    CurrentFA - CompareFA
+			
+			VAR FormatGap =
+			    FORMAT(Gap, "+0.0%;-0.0%;0.0%")
+			
+			VAR CompareLabel =
+			    IF(CurrentMonthCount = 1, "LM", "Prior Window")
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(CurrentFA) || ISBLANK(CompareFA), BLANK(),
+			    Gap > 0, "Growth " & FormatGap & " vs " & CompareLabel,
+			    Gap < 0, "Decrease " & FormatGap & " vs " & CompareLabel,
+			    "No change vs " & CompareLabel
+			)
+			 
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 1e8a023b-08f0-4d7a-89cf-ce21bb42d826
+
+	measure ForecastAccuracy_HorizonCompare_Insight = ```
+			
+			 VAR is1 = 1  // is declining/ increasing 
+			 VAR is2 =  2 // %MAPE 
+			 
+			 // Khai báo biến so sánh để câu lệnh gọn hơn
+			 VAR ErrorComparison = 
+			    IF(
+			        [Pct_wMAPE_Lag0] < [Pct_wMAPE_Lag3], 
+			        "higher error than Lag-0", 
+			        IF(
+			            [Pct_wMAPE_Lag0] > [Pct_wMAPE_Lag3], 
+			            "lower error than Lag-0", 
+			            "the same error as Lag-0" // Trường hợp 2 giá trị bằng nhau
+			        )
+			    )
+			
+			 RETURN 
+			 "Accuracy is declining as the forecast lag increases. Lag-3 shows " & ErrorComparison
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 71c1f478-c2cb-4515-91f4-2a5bf90b10b1
+
+	measure Forecast_Accuracy_Insight_3_6_Quarter = ```
+			
+			VAR _TargetQuarter = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_quarter_last], 
+			        'dim_calendar'[num_fsc_quarter_indicator], -3
+			    )
+			VAR Label_Q1 = FORMAT(_TargetQuarter, "\Qq yyyy")
+			Return "- wMAPE increases sharply for Lag-3 and Lag-4 from "&Label_Q1&" onward — longer horizons becoming less reliable."
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 724424f2-25d6-4d9f-875b-7cbecaf539b7
+
+	measure Forecast_Accuracy_Insight_3_6_Month = ```
+			
+			VAR _TargetMonth = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_month_last], 
+			        'dim_calendar'[num_fsc_month_indicator], -3
+			    )
+			VAR Label_M1 = FORMAT(_TargetMonth, "MMM yyyy")
+			Return "- wMAPE increases sharply for Lag-3 and Lag-4 from "&Label_M1&" onward — longer horizons becoming less reliable."
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 896bd3d4-da27-4dc9-8bbf-a33f0b9ca3cd
+
+	measure Forecast_Accuracy_Insight_3_5_Quarter = ```
+			
+			VAR _IndicatorRange = GENERATESERIES(Min(dim_calendar[num_fsc_quarter_indicator]), Max(dim_calendar[num_fsc_quarter_indicator]), 1) -- Tạo dãy số từ -6 đến 0
+			
+			RETURN
+			CONCATENATEX(
+			    _IndicatorRange,
+			    VAR _CurrentInd = [Value]
+			    
+			    -- 1. Xác định tháng mục tiêu dựa trên Indicator
+			    VAR _TargetQuarter = 
+			        LOOKUPVALUE(
+			            'dim_calendar'[dt_fsc_quarter_last], 
+			            'dim_calendar'[num_fsc_quarter_indicator], _CurrentInd
+			        )
+			    VAR _QuarterName = FORMAT(_TargetQuarter, "mmm yyyy")
+			
+			    -- 2. Tính Actual của quý đó
+			    VAR _Actual = 
+			        CALCULATE(
+			            SUM('fact_flat_forecast_actual'[qty]), 
+			            'fact_flat_forecast_actual'[code_horizon] = "Actual demand",
+			            'dim_calendar'[dt_fsc_quarter_last] = _TargetQuarter
+			        )
+			
+			    -- 3. Tạo bảng chứa các Version Forecast (loại bỏ Actual/Naive)
+			    VAR _ForecastTable = 
+			        FILTER(
+			            SUMMARIZE(
+			                CALCULATETABLE(
+			                    'fact_flat_forecast_actual',
+			                    'dim_calendar'[dt_fsc_quarter_last] = _TargetQuarter
+			                ),
+			                'fact_flat_forecast_actual'[code_horizon], 
+			                "TotalQty", SUM('fact_flat_forecast_actual'[qty])
+			            ),
+			            NOT 'fact_flat_forecast_actual'[code_horizon] IN {"Actual demand", "Naive forecast"}
+			        )
+			
+			    -- 4. Lọc các version bị Under-forecast
+			    VAR _UnderForecastTable = FILTER(_ForecastTable, [TotalQty] < _Actual)
+			    VAR _CountUnder = COUNTROWS(_UnderForecastTable)
+			    VAR _TotalVersions = COUNTROWS(_ForecastTable)
+			
+			    -- 5. Logic xác định "Mixed": Có ít nhất 1 cái thấp hơn và ít nhất 1 cái cao hơn (hoặc đơn giản là không phải tất cả đều cao hơn/thấp hơn)
+			    -- Ở đây tôi lấy điều kiện: Có version bị Under nhưng không phải toàn bộ 100% version đều bị Under (Mixed)
+			    VAR _IsMixed = _CountUnder > 0 && _CountUnder < _TotalVersions
+			
+			    -- 6. Format nội dung cho các version bị Under
+			    VAR _UnderDetails = 
+			        CONCATENATEX(
+			            _UnderForecastTable, 
+			            'fact_flat_forecast_actual'[code_horizon] & " (" & FORMAT([TotalQty]/1000, "#,0K") & ")", 
+			            ", "
+			        )
+			
+			    RETURN 
+			        IF(
+			            _IsMixed && NOT ISBLANK(_Actual),
+			            "- Only " & _QuarterName & ": Actual " & FORMAT(_Actual/1000, "#,0K") & 
+			            " | Under-forecast Lags: " & _UnderDetails,
+			            BLANK()
+			        ),
+			    UNICHAR(10) -- Xuống dòng giữa các quý
+			)
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 9f347cdd-37a8-4e46-8a54-3c9cd1de8424
+
+	measure Forecast_Accuracy_Insight_3_5_Month = ```
+			
+			VAR _IndicatorRange = GENERATESERIES(Min(dim_calendar[num_fsc_month_indicator]), Max(dim_calendar[num_fsc_month_indicator]), 1) -- Tạo dãy số từ -6 đến 0
+			
+			RETURN
+			CONCATENATEX(
+			    _IndicatorRange,
+			    VAR _CurrentInd = [Value]
+			    
+			    -- 1. Xác định tháng mục tiêu dựa trên Indicator
+			    VAR _TargetMonth = 
+			        LOOKUPVALUE(
+			            'dim_calendar'[dt_fsc_month_last], 
+			            'dim_calendar'[num_fsc_month_indicator], _CurrentInd
+			        )
+			    VAR _MonthName = FORMAT(_TargetMonth, "mmm yyyy")
+			
+			    -- 2. Tính Actual của tháng đó
+			    VAR _Actual = 
+			        CALCULATE(
+			            SUM('fact_flat_forecast_actual'[qty]), 
+			            'fact_flat_forecast_actual'[code_horizon] = "Actual demand",
+			            'fact_flat_forecast_actual'[dt_fsc_month_last] = _TargetMonth
+			        )
+			
+			    -- 3. Tạo bảng chứa các Version Forecast (loại bỏ Actual/Naive)
+			    VAR _ForecastTable = 
+			        FILTER(
+			            SUMMARIZE(
+			                CALCULATETABLE(
+			                    'fact_flat_forecast_actual',
+			                    'fact_flat_forecast_actual'[dt_fsc_month_last] = _TargetMonth
+			                ),
+			                'fact_flat_forecast_actual'[code_horizon], 
+			                "TotalQty", SUM('fact_flat_forecast_actual'[qty])
+			            ),
+			            NOT 'fact_flat_forecast_actual'[code_horizon] IN {"Actual demand", "Naive forecast"}
+			        )
+			
+			    -- 4. Lọc các version bị Under-forecast
+			    VAR _UnderForecastTable = FILTER(_ForecastTable, [TotalQty] < _Actual)
+			    VAR _CountUnder = COUNTROWS(_UnderForecastTable)
+			    VAR _TotalVersions = COUNTROWS(_ForecastTable)
+			
+			    -- 5. Logic xác định "Mixed": Có ít nhất 1 cái thấp hơn và ít nhất 1 cái cao hơn (hoặc đơn giản là không phải tất cả đều cao hơn/thấp hơn)
+			    -- Ở đây tôi lấy điều kiện: Có version bị Under nhưng không phải toàn bộ 100% version đều bị Under (Mixed)
+			    VAR _IsMixed = _CountUnder > 0 && _CountUnder < _TotalVersions
+			
+			    -- 6. Format nội dung cho các version bị Under
+			    VAR _UnderDetails = 
+			        CONCATENATEX(
+			            _UnderForecastTable, 
+			            'fact_flat_forecast_actual'[code_horizon] & " (" & FORMAT([TotalQty]/1000, "#,0K") & ")", 
+			            ", "
+			        )
+			
+			    RETURN 
+			        IF(
+			            _IsMixed && NOT ISBLANK(_Actual),
+			            "- Only " & _MonthName & ": Actual " & FORMAT(_Actual/1000, "#,0K") & 
+			            " | Under-forecast Lags: " & _UnderDetails,
+			            BLANK()
+			        ),
+			    UNICHAR(10) -- Xuống dòng giữa các tháng
+			)
+			```
+		displayFolder: 3. Narrative
+		lineageTag: b5836f2a-c3db-4a46-a301-2d6a66016e22
+
+	measure Forecast_Accuracy_Insight_3_4_Quarter = ```
+			
+			VAR _TargetQuarter = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_quarter_last], 
+			        'dim_calendar'[num_fsc_quarter_indicator], -1
+			    )
+			VAR _QuarterName = FORMAT(_TargetQuarter, "\Qq yyyy")
+			
+			-- 1. Lấy giá trị Actual
+			VAR _Actual = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			        'fact_flat_forecast_actual'[code_horizon] = "Actual demand",
+			        'dim_calendar'[dt_fsc_quarter_last] = _TargetQuarter
+			    )
+			
+			-- 2. Tạo bảng ảo chứa các Version Forecast (Loại bỏ Actual và Naive)
+			VAR _ForecastTable = 
+			    FILTER(
+			        SUMMARIZE(
+			            CALCULATETABLE(
+			                'fact_flat_forecast_actual',
+			                'dim_calendar'[dt_fsc_quarter_last] = _TargetQuarter
+			            ),
+			            'fact_flat_forecast_actual'[code_horizon], 
+			            "TotalQty", SUM('fact_flat_forecast_actual'[qty])
+			        ),
+			        NOT 'fact_flat_forecast_actual'[code_horizon] IN {"Actual demand", "Naive forecast"}
+			    )
+			
+			-- 3. Đếm số lượng version bị thấp hơn Actual
+			VAR _UnderForecastTable = FILTER(_ForecastTable, [TotalQty] < _Actual)
+			VAR _CountUnder = COUNTROWS(_UnderForecastTable)
+			
+			-- 4. Tạo chuỗi danh sách các Lag bị thấp hơn
+			VAR _UnderLagsList = CONCATENATEX(_UnderForecastTable, 'fact_flat_forecast_actual'[code_horizon], ", ")
+			
+			-- 5. Lấy Min/Max để mô tả dải Forecast
+			VAR _MinF = MINX(_ForecastTable, [TotalQty])
+			VAR _MaxF = MAXX(_ForecastTable, [TotalQty])
+			
+			RETURN
+			IF(
+			    ISBLANK(_Actual), 
+			    "- "&_QuarterName & ": Data not available",
+			    "- "&_QuarterName & ": " & 
+			    IF(
+			        _CountUnder = 0,
+			        "all versions over-forecast (" & FORMAT(_MinF/1000000, "0.0M") & "–" & FORMAT(_MaxF/1000000, "0.0M") & 
+			        " vs " & FORMAT(_Actual/1000000, "0.0M") & " actual) — possible demand drop not captured.",
+			        "mixed forecast accuracy (" & FORMAT(_MinF/1000000, "0.0M") & "–" & FORMAT(_MaxF/1000000, "0.0M") & 
+			        " vs " & FORMAT(_Actual/1000000, "0.0M") & " actual). Under-forecast versions: " & _UnderLagsList & "."
+			    )
+			)
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 7a7657b0-cda3-4349-92f0-24ac4c4caae7
+
+	measure Forecast_Accuracy_Insight_3_4_Month = ```
+			
+			VAR _TargetMonth = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_month_last], 
+			        'dim_calendar'[num_fsc_month_indicator], -1
+			    )
+			VAR _MonthName = FORMAT(_TargetMonth, "mmm yyyy")
+			
+			-- 1. Lấy giá trị Actual
+			VAR _Actual = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			        'fact_flat_forecast_actual'[code_horizon] = "Actual demand",
+			        'fact_flat_forecast_actual'[dt_fsc_month_last] = _TargetMonth
+			    )
+			
+			-- 2. Tạo bảng ảo chứa các Version Forecast (Loại bỏ Actual và Naive)
+			VAR _ForecastTable = 
+			    FILTER(
+			        SUMMARIZE(
+			            CALCULATETABLE(
+			                'fact_flat_forecast_actual',
+			                'fact_flat_forecast_actual'[dt_fsc_month_last] = _TargetMonth
+			            ),
+			            'fact_flat_forecast_actual'[code_horizon], 
+			            "TotalQty", SUM('fact_flat_forecast_actual'[qty])
+			        ),
+			        NOT 'fact_flat_forecast_actual'[code_horizon] IN {"Actual demand", "Naive forecast"}
+			    )
+			
+			-- 3. Đếm số lượng version bị thấp hơn Actual
+			VAR _UnderForecastTable = FILTER(_ForecastTable, [TotalQty] < _Actual)
+			VAR _CountUnder = COUNTROWS(_UnderForecastTable)
+			
+			-- 4. Tạo chuỗi danh sách các Lag bị thấp hơn
+			VAR _UnderLagsList = CONCATENATEX(_UnderForecastTable, 'fact_flat_forecast_actual'[code_horizon], ", ")
+			
+			-- 5. Lấy Min/Max để mô tả dải Forecast
+			VAR _MinF = MINX(_ForecastTable, [TotalQty])
+			VAR _MaxF = MAXX(_ForecastTable, [TotalQty])
+			
+			RETURN
+			IF(
+			    ISBLANK(_Actual), 
+			    "- "&_MonthName & ": Data not available",
+			    "- "&_MonthName & ": " & 
+			    IF(
+			        _CountUnder = 0,
+			        "all versions over-forecast (" & FORMAT(_MinF/1000000, "0.0M") & "–" & FORMAT(_MaxF/1000000, "0.0M") & 
+			        " vs " & FORMAT(_Actual/1000000, "0.0M") & " actual) — possible demand drop not captured.",
+			        "mixed forecast accuracy (" & FORMAT(_MinF/1000000, "0.0M") & "–" & FORMAT(_MaxF/1000000, "0.0M") & 
+			        " vs " & FORMAT(_Actual/1000000, "0.0M") & " actual). Under-forecast versions: " & _UnderLagsList & "."
+			    )
+			)
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 40f29da5-5535-4335-b29b-0e3ca2228c31
+
+	measure Forecast_Accuracy_Insight_3_3_Quarter = ```
+			
+			VAR _TargetQuarter = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_quarter_last], 
+			        'dim_calendar'[num_fsc_quarter_indicator], -2
+			    )
+			VAR _QuarterName = FORMAT(_TargetQuarter, "\Qq yyyy")
+			
+			-- 1. Lấy giá trị Actual
+			VAR _Actual = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			        'fact_flat_forecast_actual'[code_horizon] = "Actual demand",
+			        'dim_calendar'[dt_fsc_quarter_last] = _TargetQuarter
+			    )
+			
+			-- 2. Tạo bảng ảo chứa các Version Forecast (Loại bỏ Actual và Naive)
+			VAR _ForecastTable = 
+			    FILTER(
+			        SUMMARIZE(
+			            CALCULATETABLE(
+			                'fact_flat_forecast_actual',
+			                'dim_calendar'[dt_fsc_quarter_last] = _TargetQuarter
+			            ),
+			            'fact_flat_forecast_actual'[code_horizon], 
+			            "TotalQty", SUM('fact_flat_forecast_actual'[qty])
+			        ),
+			        NOT 'fact_flat_forecast_actual'[code_horizon] IN {"Actual demand", "Naive forecast"}
+			    )
+			
+			-- 3. Đếm số lượng version bị thấp hơn Actual
+			VAR _UnderForecastTable = FILTER(_ForecastTable, [TotalQty] < _Actual)
+			VAR _CountUnder = COUNTROWS(_UnderForecastTable)
+			
+			-- 4. Tạo chuỗi danh sách các Lag bị thấp hơn
+			VAR _UnderLagsList = CONCATENATEX(_UnderForecastTable, 'fact_flat_forecast_actual'[code_horizon], ", ")
+			
+			-- 5. Lấy Min/Max để mô tả dải Forecast
+			VAR _MinF = MINX(_ForecastTable, [TotalQty])
+			VAR _MaxF = MAXX(_ForecastTable, [TotalQty])
+			
+			RETURN
+			IF(
+			    ISBLANK(_Actual), 
+			    "- "&_QuarterName & ": Data not available",
+			    "- "&_QuarterName & ": " & 
+			    IF(
+			        _CountUnder = 0,
+			        "all versions over-forecast (" & FORMAT(_MinF/1000000, "0.0M") & "–" & FORMAT(_MaxF/1000000, "0.0M") & 
+			        " vs " & FORMAT(_Actual/1000000, "0.0M") & " actual) — possible demand drop not captured.",
+			        "mixed forecast accuracy (" & FORMAT(_MinF/1000000, "0.0M") & "–" & FORMAT(_MaxF/1000000, "0.0M") & 
+			        " vs " & FORMAT(_Actual/1000000, "0.0M") & " actual). Under-forecast versions: " & _UnderLagsList & "."
+			    )
+			)
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 37064c47-b778-4d3b-841c-92d34d99c2c3
+
+	measure Forecast_Accuracy_Insight_3_3_Month = ```
+			
+			VAR _TargetMonth = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_month_last], 
+			        'dim_calendar'[num_fsc_month_indicator], -2
+			    )
+			VAR _MonthName = FORMAT(_TargetMonth, "mmm yyyy")
+			
+			-- 1. Lấy giá trị Actual
+			VAR _Actual = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			        'fact_flat_forecast_actual'[code_horizon] = "Actual demand",
+			        'fact_flat_forecast_actual'[dt_fsc_month_last] = _TargetMonth
+			    )
+			
+			-- 2. Tạo bảng ảo chứa các Version Forecast (Loại bỏ Actual và Naive)
+			VAR _ForecastTable = 
+			    FILTER(
+			        SUMMARIZE(
+			            CALCULATETABLE(
+			                'fact_flat_forecast_actual',
+			                'fact_flat_forecast_actual'[dt_fsc_month_last] = _TargetMonth
+			            ),
+			            'fact_flat_forecast_actual'[code_horizon], 
+			            "TotalQty", SUM('fact_flat_forecast_actual'[qty])
+			        ),
+			        NOT 'fact_flat_forecast_actual'[code_horizon] IN {"Actual demand", "Naive forecast"}
+			    )
+			
+			-- 3. Đếm số lượng version bị thấp hơn Actual
+			VAR _UnderForecastTable = FILTER(_ForecastTable, [TotalQty] < _Actual)
+			VAR _CountUnder = COUNTROWS(_UnderForecastTable)
+			
+			-- 4. Tạo chuỗi danh sách các Lag bị thấp hơn
+			VAR _UnderLagsList = CONCATENATEX(_UnderForecastTable, 'fact_flat_forecast_actual'[code_horizon], ", ")
+			
+			-- 5. Lấy Min/Max để mô tả dải Forecast
+			VAR _MinF = MINX(_ForecastTable, [TotalQty])
+			VAR _MaxF = MAXX(_ForecastTable, [TotalQty])
+			
+			RETURN
+			IF(
+			    ISBLANK(_Actual), 
+			    "- "&_MonthName & ": Data not available",
+			    "- "&_MonthName & ": " & 
+			    IF(
+			        _CountUnder = 0,
+			        "all versions over-forecast (" & FORMAT(_MinF/1000000, "0.0M") & "–" & FORMAT(_MaxF/1000000, "0.0M") & 
+			        " vs " & FORMAT(_Actual/1000000, "0.0M") & " actual) — possible demand drop not captured.",
+			        "mixed forecast accuracy (" & FORMAT(_MinF/1000000, "0.0M") & "–" & FORMAT(_MaxF/1000000, "0.0M") & 
+			        " vs " & FORMAT(_Actual/1000000, "0.0M") & " actual). Under-forecast versions: " & _UnderLagsList & "."
+			    )
+			)
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 55808416-0c1e-48f5-9cba-21a3ba7c1528
+
+	measure Forecast_Accuracy_Insight_3_2_Quarter = ```
+			
+			VAR LatestQuarter = 
+			    LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_quarter_last], 
+			        'dim_calendar'[num_fsc_quarter_indicator], 0
+			    )
+			
+			VAR Period3Q = 
+			    DATESINPERIOD(
+			        'dim_calendar'[dt_fsc_quarter_last], 
+			        LatestQuarter, 
+			        -3, 
+			        QUARTER
+			    )
+			
+			-- Use DATATABLE to create a clean, named virtual table
+			VAR TargetLags = 
+			    DATATABLE(
+			        "LagName", STRING, 
+			        {
+			            {"Lag-0"}, {"Lag-1"}, {"Lag-2"}, {"Lag-3"}, {"Lag-4"}
+			        }
+			    )
+			
+			-- Create the virtual table calculating Bias
+			VAR BiasTable = 
+			    GENERATE(
+			        Period3Q, 
+			        VAR CurrentQuarter = [dt_fsc_quarter_last]
+			        VAR ActualQty = 
+			            CALCULATE(
+			                SUM(fact_flat_forecast_actual[qty]),
+			                fact_flat_forecast_actual[code_horizon] = "Actual demand",
+			                dim_calendar[dt_fsc_quarter_last] = CurrentQuarter
+			            )
+			        RETURN
+			            SELECTCOLUMNS(
+			                TargetLags,
+			                "Lag", [LagName],
+			                "BiasValue", 
+			                    -- Capture the current row's LagName into a variable
+			                    VAR CurrentLag = [LagName] 
+			                    RETURN
+			                    CALCULATE(
+			                        SUM(fact_flat_forecast_actual[qty]),
+			                        fact_flat_forecast_actual[code_horizon] = CurrentLag,
+			                        dim_calendar[dt_fsc_quarter_last] = CurrentQuarter
+			                    ) - ActualQty
+			            )
+			    )
+			
+			RETURN
+			    "- Spread across lags stays tight at "&FORMAT(MEDIANX(BiasTable, [BiasValue]),"#,##0")&" units for most quarters."
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 62f42ea6-6fa4-43b3-9655-feae8a8f0050
+
+	measure Forecast_Accuracy_Insight_3_2_Month = ```
+			
+			VAR LatestMonth = 
+			    LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_month_last], 
+			        'dim_calendar'[num_fsc_month_indicator], 0
+			    )
+			
+			VAR Period3M = 
+			    DATESINPERIOD(
+			        'dim_calendar'[dt_fsc_month_last], 
+			        LatestMonth, 
+			        -3, 
+			        MONTH
+			    )
+			
+			-- Use DATATABLE to create a clean, named virtual table
+			VAR TargetLags = 
+			    DATATABLE(
+			        "LagName", STRING, 
+			        {
+			            {"Lag-0"}, {"Lag-1"}, {"Lag-2"}, {"Lag-3"}, {"Lag-4"}
+			        }
+			    )
+			
+			-- Create the virtual table calculating Bias
+			VAR BiasTable = 
+			    GENERATE(
+			        Period3M, 
+			        VAR CurrentMonth = [dt_fsc_month_last]
+			        VAR ActualQty = 
+			            CALCULATE(
+			                SUM(fact_flat_forecast_actual[qty]),
+			                fact_flat_forecast_actual[code_horizon] = "Actual demand",
+			                fact_flat_forecast_actual[dt_fsc_month_last] = CurrentMonth
+			            )
+			        RETURN
+			            SELECTCOLUMNS(
+			                TargetLags,
+			                "Lag", [LagName],
+			                "BiasValue", 
+			                    -- Capture the current row's LagName into a variable
+			                    VAR CurrentLag = [LagName] 
+			                    RETURN
+			                    CALCULATE(
+			                        SUM(fact_flat_forecast_actual[qty]),
+			                        fact_flat_forecast_actual[code_horizon] = CurrentLag,
+			                        fact_flat_forecast_actual[dt_fsc_month_last] = CurrentMonth
+			                    ) - ActualQty
+			            )
+			    )
+			
+			RETURN
+			    "- Spread across lags stays tight at "&FORMAT(MEDIANX(BiasTable, [BiasValue]),"#,##0")&" units for most months."
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 2e0aeb9c-6137-4136-bb43-f6e2c3532a7e
+
+	measure Forecast_Accuracy_Insight_3_1_Quarter = ```
+			
+			VAR CurrentDate = 
+			    LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_quarter_last], 
+			        'dim_calendar'[num_fsc_quarter_indicator], 0
+			    )
+			VAR FirstDayOfCurrentMonth = DATE(YEAR(CurrentDate), QUARTER(CurrentDate), 1)
+			
+			-- Lùi lại 1,2 quý và 3 quý
+			
+			VAR Quarter_1 = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_quarter_last], 
+			        'dim_calendar'[num_fsc_quarter_indicator], -1
+			    )
+			
+			VAR Quarter_2 = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_quarter_last], 
+			        'dim_calendar'[num_fsc_quarter_indicator], -2
+			    )
+			VAR Quarter_3 = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_quarter_last], 
+			        'dim_calendar'[num_fsc_quarter_indicator], -3
+			    )
+			
+			-- Định dạng nhãn: "Q2 2025"
+			VAR Label_Q1 = FORMAT(Quarter_1, "\Qq yyyy")
+			VAR Label_Q2 = FORMAT(Quarter_2, "\Qq yyyy")
+			VAR Label_Q3 = FORMAT(Quarter_3, "\Qq yyyy")
+			
+			-- Tính toán cho Quý -1 (Quý gần nhất)
+			VAR Actual_Q1 = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			         'fact_flat_forecast_actual'[code_horizon] = "Actual demand",
+			         'fact_flat_forecast_actual'[dt_fsc_month_last] = Quarter_1)
+			
+			-- Tính toán cho Quý -2 
+			VAR Lag0_Q2 = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			        'fact_flat_forecast_actual'[code_horizon] = "Lag-0",
+			        'dim_calendar'[dt_fsc_quarter_last] = Quarter_2
+			    )
+			VAR Actual_Q2 = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			         'fact_flat_forecast_actual'[code_horizon] = "Actual demand",
+			         'dim_calendar'[dt_fsc_quarter_last] = Quarter_2)
+			
+			-- Tính toán cho Quý -3
+			VAR Lag0_Q3 = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			        'dim_forecast_horizon'[code_horizon] = "Lag-0",
+			        'dim_calendar'[dt_fsc_quarter_last] = Quarter_3
+			    )
+			VAR Actual_Q3 = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			        'dim_forecast_horizon'[code_horizon] = "Actual demand",
+			        'dim_calendar'[dt_fsc_quarter_last] = Quarter_3
+			    )
+			
+			-- Định dạng số có dấu phẩy (Thêm units trực tiếp vào định dạng để gọn mã)
+			VAR Actual_Q1_Fmt = FORMAT(Actual_Q1, "#,0") & " units"
+			VAR Lag0_Q2_Fmt = FORMAT(Lag0_Q2, "#,0") & " units"
+			VAR Actual_Q2_Fmt = FORMAT(Actual_Q2, "#,0") & " units"
+			VAR Lag0_Q3_Fmt = FORMAT(Lag0_Q3, "#,0") & " units"
+			VAR Actual_Q3_Fmt = FORMAT(Actual_Q3, "#,0") & " units"
+			
+			-- Trả về chuỗi kết quả
+			RETURN 
+			    "- Lag-0 tracks actuals closely: " & 
+			    IF(
+			        ISBLANK(Lag0_Q2) && ISBLANK(Actual_Q2), 
+			        "No data for " & Label_Q2, 
+			        Label_Q2 & " (" & Lag0_Q2_Fmt & " vs " & Actual_Q2_Fmt & ")"
+			    ) 
+			    & ", " & 
+			    IF(
+			        ISBLANK(Lag0_Q3) && ISBLANK(Actual_Q3), 
+			        "No data for " & Label_Q3, 
+			        Label_Q3 & " (" & Lag0_Q3_Fmt & " vs " & Actual_Q3_Fmt & ")"
+			    ) & ". The actual demand for " & Label_Q1 & " is " & Actual_Q1_Fmt
+			```
+		displayFolder: 3. Narrative
+		lineageTag: e661f81f-1699-4653-b6d6-63ad6fa7be4f
+
+	measure Forecast_Accuracy_Insight_3_1_Month = ```
+			
+			VAR CurrentDate = 
+			    LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_month_last], 
+			        'dim_calendar'[num_fsc_month_indicator], 0
+			    )
+			VAR FirstDayOfCurrentMonth = DATE(YEAR(CurrentDate), MONTH(CurrentDate), 1)
+			
+			-- Lùi lại 1,2 tháng và 3 tháng
+			
+			VAR Month_1 = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_month_last], 
+			        'dim_calendar'[num_fsc_month_indicator], -1
+			    )
+			
+			VAR Month_2 = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_month_last], 
+			        'dim_calendar'[num_fsc_month_indicator], -2
+			    )
+			VAR Month_3 = LOOKUPVALUE(
+			        'dim_calendar'[dt_fsc_month_last], 
+			        'dim_calendar'[num_fsc_month_indicator], -3
+			    )
+			
+			-- Định dạng nhãn: "Oct 2025"
+			VAR Label_M1 = FORMAT(Month_1, "MMM yyyy")
+			VAR Label_M2 = FORMAT(Month_2, "MMM yyyy")
+			VAR Label_M3 = FORMAT(Month_3, "MMM yyyy")
+			
+			-- Tính toán cho Tháng -1 (Tháng gần nhất)
+			VAR Actual_M1 = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			         'fact_flat_forecast_actual'[code_horizon] = "Actual demand",
+			         'fact_flat_forecast_actual'[dt_fsc_month_last] = Month_1)
+			
+			-- Tính toán cho Tháng -2 (Tháng gần nhất)
+			VAR Lag0_M2 = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			        'fact_flat_forecast_actual'[code_horizon] = "Lag-0",
+			        'fact_flat_forecast_actual'[dt_fsc_month_last] = Month_2
+			    )
+			VAR Actual_M2 = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			         'fact_flat_forecast_actual'[code_horizon] = "Actual demand",
+			         'fact_flat_forecast_actual'[dt_fsc_month_last] = Month_2)
+			
+			-- Tính toán cho Tháng -3
+			VAR Lag0_M3 = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			        'dim_forecast_horizon'[code_horizon] = "Lag-0",
+			        'dim_calendar'[dt_fsc_month_last] = Month_3
+			    )
+			VAR Actual_M3 = 
+			    CALCULATE(
+			        SUM('fact_flat_forecast_actual'[qty]), 
+			        'dim_forecast_horizon'[code_horizon] = "Actual demand",
+			        'dim_calendar'[dt_fsc_month_last] = Month_3
+			    )
+			
+			-- Định dạng số có dấu phẩy (Thêm units trực tiếp vào định dạng để gọn mã)
+			VAR Actual_M1_Fmt = FORMAT(Actual_M1, "#,0") & " units"
+			VAR Lag0_M2_Fmt = FORMAT(Lag0_M2, "#,0") & " units"
+			VAR Actual_M2_Fmt = FORMAT(Actual_M2, "#,0") & " units"
+			VAR Lag0_M3_Fmt = FORMAT(Lag0_M3, "#,0") & " units"
+			VAR Actual_M3_Fmt = FORMAT(Actual_M3, "#,0") & " units"
+			
+			-- Trả về chuỗi kết quả
+			RETURN 
+			    "- Lag-0 tracks actuals closely: " & 
+			    IF(
+			        ISBLANK(Lag0_M2) && ISBLANK(Actual_M2), 
+			        "No data for " & Label_M2, 
+			        Label_M2 & " (" & Lag0_M2_Fmt & " vs " & Actual_M2_Fmt & ")"
+			    ) 
+			    & ", " & 
+			    IF(
+			        ISBLANK(Lag0_M3) && ISBLANK(Actual_M3), 
+			        "No data for " & Label_M3, 
+			        Label_M3 & " (" & Lag0_M3_Fmt & " vs " & Actual_M3_Fmt & ")"
+			    ) & ". The actual demand for " & Label_M1 & " is " & Actual_M1_Fmt
+			```
+		displayFolder: 3. Narrative
+		lineageTag: 6b068839-4abc-46e1-9ec8-fe6a6f461831
+
+	measure Dynamic_Forecast_Insight_1_Quarter = ```
+			
+			-- 1. Khai báo biến dữ liệu đầu vào
+			VAR _wMAPE_Lag3 = [Pct_wMAPE_Lag3]
+			VAR _wMAPE_Naive = [Pct_NwMAPE]
+			VAR _Qty = [Qty_Bias]
+			VAR _NQty = [Qty_NBias]
+			VAR _Raw_Min = [Selected_Quarter_Min]
+			VAR _Raw_Max = [Selected_Quarter_Max]
+			
+			-- 2. Định dạng các con số thành văn bản (Text)
+			VAR _Txt_Lag3 = FORMAT(_wMAPE_Lag3, "0.0%")
+			VAR _Txt_Naive = FORMAT(_wMAPE_Naive, "0.0%")
+			VAR _Txt_Add = FORMAT(ABS(_wMAPE_Lag3 - _wMAPE_Naive) * 100, "0.0") & "pp"
+			VAR _Txt_Qty = FORMAT(ABS(_Qty), "#,0")
+			VAR _Txt_NQty = FORMAT(ABS(_NQty), "#,0")
+			
+			-- 3. Logic so sánh Performance (wMAPE thấp hơn = Overperforms)
+			VAR _Performance = IF(_wMAPE_Lag3 < _wMAPE_Naive, "overperforms", "underperforms")
+			
+			-- 4. Logic Bias Status
+			VAR _Bias_Status = IF(_Qty < 0, "under-forecasts", "over-forecasts")
+			VAR _NBias_Status = IF(_NQty < 0, "under-forecasts", "over-forecasts")
+			
+			-- 5. Xử lý logic hiển thị Thời gian (The period in vs The period from...to)
+			VAR _Quarter_Min_Txt = FORMAT(_Raw_Min, "\Qq yyyy")
+			VAR _Quarter_Max_Txt = FORMAT(_Raw_Max, "\Qq yyyy")
+			
+			VAR _Period_Txt = 
+			    IF(
+			        _Raw_Min = _Raw_Max, 
+			        "The period in " & _Quarter_Min_Txt, 
+			        "The period from " & _Quarter_Min_Txt & " to " & _Quarter_Max_Txt
+			    )
+			
+			-- 6. Kết hợp chuỗi bằng dấu & để tránh lỗi Matching Type
+			RETURN
+			"Lag-3 (wMAPE " & _Txt_Lag3 & ") " & 
+			_Performance & " Naive Forecast (N_wMAPE " & _Txt_Naive & ") " & 
+			"by " & _Txt_Add & ". " & 
+			_Period_Txt & " " & 
+			_Bias_Status & " by " & _Txt_Qty & " units, while Naive " & 
+			_NBias_Status & " by " & _Txt_NQty & " units."
+			```
+		displayFolder: 3. Narrative
+		lineageTag: b89c1ce6-6fc5-4f4e-ba98-38689a5e7b27
+
+	measure Dynamic_Forecast_Insight_1_Month = ```
+			
+			-- 1. Khai báo biến dữ liệu đầu vào
+			VAR _wMAPE_Lag3 = [Pct_wMAPE_Lag3]
+			VAR _wMAPE_Naive = [Pct_NwMAPE]
+			VAR _Qty = [Qty_Bias]
+			VAR _NQty = [Qty_NBias]
+			VAR _Raw_Min = [Selected_Month_Min]
+			VAR _Raw_Max = [Selected_Month_Max]
+			
+			-- 2. Định dạng các con số thành văn bản (Text)
+			VAR _Txt_Lag3 = FORMAT(_wMAPE_Lag3, "0.0%")
+			VAR _Txt_Naive = FORMAT(_wMAPE_Naive, "0.0%")
+			VAR _Txt_Add = FORMAT(ABS(_wMAPE_Lag3 - _wMAPE_Naive) * 100, "0.0") & "pp"
+			VAR _Txt_Qty = FORMAT(ABS(_Qty), "#,0")
+			VAR _Txt_NQty = FORMAT(ABS(_NQty), "#,0")
+			
+			-- 3. Logic so sánh Performance (wMAPE thấp hơn = Overperforms)
+			VAR _Performance = IF(_wMAPE_Lag3 < _wMAPE_Naive, "overperforms", "underperforms")
+			
+			-- 4. Logic Bias Status
+			VAR _Bias_Status = IF(_Qty < 0, "under-forecasts", "over-forecasts")
+			VAR _NBias_Status = IF(_NQty < 0, "under-forecasts", "over-forecasts")
+			
+			-- 5. Xử lý logic hiển thị Thời gian (The period in vs The period from...to)
+			VAR _Month_Min_Txt = FORMAT(_Raw_Min, "MMM yyyy")
+			VAR _Month_Max_Txt = FORMAT(_Raw_Max, "MMM yyyy")
+			
+			VAR _Period_Txt = 
+			    IF(
+			        _Raw_Min = _Raw_Max, 
+			        "The period in " & _Month_Min_Txt, 
+			        "The period from " & _Month_Min_Txt & " to " & _Month_Max_Txt
+			    )
+			
+			-- 6. Kết hợp chuỗi bằng dấu & để tránh lỗi Matching Type
+			RETURN
+			"Lag-3 (wMAPE " & _Txt_Lag3 & ") " & 
+			_Performance & " Naive Forecast (N_wMAPE " & _Txt_Naive & ") " & 
+			"by " & _Txt_Add & ". " & 
+			_Period_Txt & " " & 
+			_Bias_Status & " by " & _Txt_Qty & " units, while Naive " & 
+			_NBias_Status & " by " & _Txt_NQty & " units."
+			```
+		displayFolder: 3. Narrative
+		lineageTag: cf41bbaf-0543-4f07-ab84-e3a09316f2cc
+
+	measure wMAPE_Lag4_FontColor = ```
+			
+			VAR Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE_Lag0], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE_Lag1], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE_Lag2], ALL(dim_forecast_horizon[code_horizon] ))
+			VAR Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE_Lag3], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE_Lag4], ALL(dim_forecast_horizon[code_horizon]))
+			VAR CurrentValue = Pct_wMAPE_Lag4
+			VAR Rankk =
+			    (IF(Pct_wMAPE_Lag0 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag1 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag2 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag3 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag4 <= CurrentValue, 1, 0)) 
+			RETURN
+			    SWITCH(
+			        Rankk,
+			        1, "#99FF33",
+			        2, "#3399FF",
+			        3, "#FF9900",
+			        4, "#FF6600",
+			        5, "#FF3333"
+			        ,"#FFFFFF"
+			    )
+			```
+		displayFolder: 2. Format
+		lineageTag: 2278238c-428d-4ce1-8a22-ef38ff77283a
+
+	measure wMAPE_Lag4_Color = ```
+			
+			VAR Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE_Lag0], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE_Lag1], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE_Lag2], ALL(dim_forecast_horizon[code_horizon] ))
+			VAR Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE_Lag3], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE_Lag4], ALL(dim_forecast_horizon[code_horizon]))
+			VAR CurrentValue = Pct_wMAPE_Lag4
+			VAR Rankk =
+			    (IF(Pct_wMAPE_Lag0 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag1 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag2 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag3 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag4 <= CurrentValue, 1, 0)) 
+			RETURN
+			    SWITCH(
+			        Rankk,
+			        1, "#2D3419", -- xanh lá 
+			        2, "#132234", -- xanh dương 
+			        3, "#342A13", -- vàng 
+			        4, "#342013", -- cam 
+			        5, "#341913" -- đỏ 
+			        , "#2A2A2A"
+			    )
+			```
+		displayFolder: 2. Format
+		lineageTag: 30202c14-2dfe-4552-b05e-49da94f2b21e
+
+	measure wMAPE_Lag3_FontColor = ```
+			
+			VAR Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE_Lag0], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE_Lag1], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE_Lag2], ALL(dim_forecast_horizon[code_horizon] ))
+			VAR Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE_Lag3], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE_Lag4], ALL(dim_forecast_horizon[code_horizon]))
+			VAR CurrentValue = Pct_wMAPE_Lag3
+			VAR Rankk =
+			    (IF(Pct_wMAPE_Lag0 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag1 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag2 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag3 <= CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag4 < CurrentValue, 1, 0)) 
+			RETURN
+			    SWITCH(
+			        Rankk,
+			        1, "#99FF33",
+			        2, "#3399FF",
+			        3, "#FF9900",
+			        4, "#FF6600",
+			        5, "#FF3333"
+			        ,"#FFFFFF"
+			    )
+			```
+		displayFolder: 2. Format
+		lineageTag: 93bfc8a0-ad07-404e-8cca-170d3b9d1377
+
+	measure wMAPE_Lag3_Color = ```
+			
+			VAR Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE_Lag0], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE_Lag1], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE_Lag2], ALL(dim_forecast_horizon[code_horizon] ))
+			VAR Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE_Lag3], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE_Lag4], ALL(dim_forecast_horizon[code_horizon]))
+			VAR CurrentValue = Pct_wMAPE_Lag3
+			VAR Rankk =
+			    (IF(Pct_wMAPE_Lag0 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag1 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag2 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag3 <= CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag4 < CurrentValue, 1, 0)) 
+			RETURN
+			    SWITCH(
+			        Rankk,
+			        1, "#2D3419", -- xanh lá 
+			        2, "#132234", -- xanh dương 
+			        3, "#342A13", -- vàng 
+			        4, "#342013", -- cam 
+			        5, "#341913" -- đỏ 
+			        , "#2A2A2A"
+			    )
+			```
+		displayFolder: 2. Format
+		lineageTag: 4960d047-cd7f-44f8-bc92-66661f62138c
+
+	measure wMAPE_Lag2_FontColor = ```
+			
+			VAR Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE_Lag0], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE_Lag1], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE_Lag2], ALL(dim_forecast_horizon[code_horizon] ))
+			VAR Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE_Lag3], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE_Lag4], ALL(dim_forecast_horizon[code_horizon]))
+			VAR CurrentValue = Pct_wMAPE_Lag2
+			VAR Rankk =
+			    (IF(Pct_wMAPE_Lag0 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag1 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag2 <= CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag3 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag4 < CurrentValue, 1, 0)) 
+			RETURN
+			    SWITCH(
+			        Rankk,
+			        1, "#99FF33",
+			        2, "#3399FF",
+			        3, "#FF9900",
+			        4, "#FF6600",
+			        5, "#FF3333"
+			        ,"#FFFFFF"
+			    )
+			```
+		displayFolder: 2. Format
+		lineageTag: 1ecc3bac-0f5d-40fe-84e9-3427444e0e27
+
+	measure wMAPE_Lag2_Color = ```
+			
+			VAR Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE_Lag0], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE_Lag1], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE_Lag2], ALL(dim_forecast_horizon[code_horizon] ))
+			VAR Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE_Lag3], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE_Lag4], ALL(dim_forecast_horizon[code_horizon]))
+			VAR CurrentValue = Pct_wMAPE_Lag2
+			VAR Rankk =
+			    (IF(Pct_wMAPE_Lag0 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag1 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag2 <= CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag3 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag4 < CurrentValue, 1, 0)) 
+			RETURN
+			    SWITCH(
+			        Rankk,
+			        1, "#2D3419", -- xanh lá 
+			        2, "#132234", -- xanh dương 
+			        3, "#342A13", -- vàng 
+			        4, "#342013", -- cam 
+			        5, "#341913" -- đỏ 
+			        , "#2A2A2A"
+			    )
+			```
+		displayFolder: 2. Format
+		lineageTag: 37721043-31c6-46e2-aba4-3a6724c148d7
+
+	measure wMAPE_Lag1_FontColor = ```
+			
+			VAR Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE_Lag0], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE_Lag1], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE_Lag2], ALL(dim_forecast_horizon[code_horizon] ))
+			VAR Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE_Lag3], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE_Lag4], ALL(dim_forecast_horizon[code_horizon]))
+			VAR CurrentValue = Pct_wMAPE_Lag1
+			VAR Rankk =
+			    (IF(Pct_wMAPE_Lag0 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag1 <= CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag2 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag3 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag4 < CurrentValue, 1, 0)) 
+			RETURN
+			    SWITCH(
+			        Rankk,
+			        1, "#99FF33",
+			        2, "#3399FF",
+			        3, "#FF9900",
+			        4, "#FF6600",
+			        5, "#FF3333"
+			        ,"#FFFFFF"
+			    )
+			```
+		displayFolder: 2. Format
+		lineageTag: abe1b68b-ce73-4c6e-81f9-e1d4ee588458
+
+	measure wMAPE_Lag1_Color = ```
+			
+			VAR Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE_Lag0], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE_Lag1], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE_Lag2], ALL(dim_forecast_horizon[code_horizon] ))
+			VAR Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE_Lag3], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE_Lag4], ALL(dim_forecast_horizon[code_horizon]))
+			VAR CurrentValue = Pct_wMAPE_Lag1
+			VAR Rankk =
+			    (IF(Pct_wMAPE_Lag0 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag1 <= CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag2 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag3 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag4 < CurrentValue, 1, 0)) 
+			RETURN
+			    SWITCH(
+			        Rankk,
+			        1, "#2D3419", -- xanh lá 
+			        2, "#132234", -- xanh dương 
+			        3, "#342A13", -- vàng 
+			        4, "#342013", -- cam 
+			        5, "#341913" -- đỏ 
+			        , "#2A2A2A"
+			    )
+			```
+		displayFolder: 2. Format
+		lineageTag: 411b8db4-dca6-4b57-a05f-8681d5aebf01
+
+	measure wMAPE_Lag0_FontColor = ```
+			
+			VAR Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE_Lag0], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE_Lag1], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE_Lag2], ALL(dim_forecast_horizon[code_horizon] ))
+			VAR Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE_Lag3], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE_Lag4], ALL(dim_forecast_horizon[code_horizon]))
+			VAR CurrentValue = Pct_wMAPE_Lag0
+			VAR Rankk =
+			    (IF(Pct_wMAPE_Lag0 <= CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag1 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag2 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag3 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag4 < CurrentValue, 1, 0)) 
+			RETURN
+			    SWITCH(
+			        Rankk,
+			        1, "#99FF33",
+			        2, "#3399FF",
+			        3, "#FF9900",
+			        4, "#FF6600",
+			        5, "#FF3333"
+			        ,"#FFFFFF"
+			    )
+			```
+		displayFolder: 2. Format
+		lineageTag: 13b9eec2-f2ab-4237-ac3a-1817f36cd12e
+
+	measure wMAPE_Lag0_Color = ```
+			
+			VAR Pct_wMAPE_Lag0 = CALCULATE([Pct_wMAPE_Lag0], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag1 = CALCULATE([Pct_wMAPE_Lag1], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag2 = CALCULATE([Pct_wMAPE_Lag2], ALL(dim_forecast_horizon[code_horizon] ))
+			VAR Pct_wMAPE_Lag3 = CALCULATE([Pct_wMAPE_Lag3], ALL(dim_forecast_horizon[code_horizon]))
+			VAR Pct_wMAPE_Lag4 = CALCULATE([Pct_wMAPE_Lag4], ALL(dim_forecast_horizon[code_horizon]))
+			VAR CurrentValue = Pct_wMAPE_Lag0
+			VAR Rankk =
+			    (IF(Pct_wMAPE_Lag0 <= CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag1 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag2 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag3 < CurrentValue, 1, 0)) +
+			    (IF(Pct_wMAPE_Lag4 < CurrentValue, 1, 0)) 
+			RETURN
+			    SWITCH(
+			        Rankk,
+			        1, "#2D3419", -- xanh lá 
+			        2, "#132234", -- xanh dương 
+			        3, "#342A13", -- vàng 
+			        4, "#342013", -- cam 
+			        5, "#341913" -- đỏ 
+			        , "#2A2A2A"
+			    )
+			```
+		displayFolder: 2. Format
+		lineageTag: ae58dc8c-2cf2-4de6-b449-8ddb7dac5bff
+
+	measure Today_X_Axis_Line = TODAY()
+		formatString: General Date
+		displayFolder: 2. Format
+		lineageTag: 2026929f-aa02-45fc-bc6c-9c771c49b0dd
+
+	measure ProcessValueAdd_Color = ```
+			
+			SWITCH( TRUE() , [Pct_NwMAPE] > [Pct_wMAPE] , "#57C774" ,  
+			                [Pct_NwMAPE] < [Pct_wMAPE] , "#FF0001", 
+			                  [Pct_NwMAPE] = [Pct_wMAPE] , "#FFCA61")
+			```
+		displayFolder: 2. Format
+		lineageTag: 5fc27c5f-ed8a-4a94-a808-5a831357acd9
+
+	measure NNBiasStatus_Color = ```
+			
+			SWITCH(TRUE() , [Qty_NBias] < 0 , "#FFD767", 
+			 [Qty_NBias] > 0 , "#FE6601" , "#2DB951")
+			```
+		displayFolder: 2. Format
+		lineageTag: 977db06e-06f1-4d5e-bfb2-d8e2acf0f3a9
+
+	measure Max_Axis_By_Invoice_Scale = ```
+			
+			VAR _MaxInvoice = 
+			    MAXX(
+			        ALLSELECTED('dim_calendar'[dt_fiscal]), -- Thay 'Calendar' bằng tên bảng Ngày của bạn
+			        [Qt_Invoice]
+			    )
+			RETURN 
+			_MaxInvoice  
+			```
+		displayFolder: 2. Format
+		lineageTag: 7059bd74-2eec-404f-8685-fc9a48dd9149
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ForecastAccuracy_lq_Color = ```
+			
+			SWITCH( TRUE() , [Pct_ForecastAccuracy] > [Pct_ForecastAccuracy_lq] , "#57C774" ,  
+			                [Pct_ForecastAccuracy] < [Pct_ForecastAccuracy_lq] , "#FF0001", 
+			                  [Pct_ForecastAccuracy] = [Pct_ForecastAccuracy_lq] , "#FFCA61")
+			```
+		displayFolder: 2. Format
+		lineageTag: d2784d14-4c79-48a9-9f73-720e2a4793d7
+
+	measure ForecastAccuracy_lm_Color = ```
+			
+			SWITCH( TRUE() , [Pct_ForecastAccuracy] > [Pct_ForecastAccuracy_lm] , "#57C774" ,  
+			                [Pct_ForecastAccuracy] < [Pct_ForecastAccuracy_lm] , "#FF0001", 
+			                  [Pct_ForecastAccuracy] = [Pct_ForecastAccuracy_lm] , "#FFCA61")
+			```
+		displayFolder: 2. Format
+		lineageTag: e1995c95-20a0-4ab9-b759-c8b8bf25b992
+
+	measure ContextMonth = ```
+			
+			    MAX ( 'fact_forecast_kpi'[dt_fsc_month_last] )
+			```
+		formatString: General Date
+		displayFolder: 2. Format
+		lineageTag: 483fe829-931d-404a-8d96-d92a91911db7
+
+	measure BiasStatus_Color = ```
+			
+			SWITCH(TRUE() , [Qty_Bias] < 0 , "#FFD767", 
+			 [Qty_Bias] > 0 , "#FE6601" , "#2DB951")
+			```
+		displayFolder: 2. Format
+		lineageTag: ad0b02df-dc46-4900-97bd-56a2c863d034
+
+	column Column
+		formatString: 0
+		lineageTag: 217e11fc-f4f8-4877-bbca-2be96a883c17
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measure = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = a0e04b233e184edda29637f74fe09972
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

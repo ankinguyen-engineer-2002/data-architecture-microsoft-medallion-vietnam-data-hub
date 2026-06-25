@@ -1,0 +1,241 @@
+{
+  "generated_at_utc": "2026-06-24T02:05:03Z",
+  "layer": "bronze",
+  "mart": "forecast_accuracy",
+  "pass_count": 14,
+  "review_count": 3,
+  "source_count": 17,
+  "sources": [
+    {
+      "asset_key": "enterprise_lakehouse.customerorders_afi.warehousemaster",
+      "display": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+      "dq_status": "PASS",
+      "freshness": {},
+      "key_columns": [
+        "Warehouse"
+      ],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.customers.accountmaster",
+      "display": "Enterprise_Lakehouse.Customers.AccountMaster",
+      "dq_status": "PASS",
+      "freshness": {
+        "cmaInsExpirationDate": "2010-12-31 00:00:00",
+        "cmaLastStatusChangeDate": "2026-06-22 15:40:43",
+        "cmaTerritoryChangeDate": "2026-06-22 00:00:00"
+      },
+      "key_columns": [
+        "cmaCustomerNumber"
+      ],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.customers.shippinglocations",
+      "display": "Enterprise_Lakehouse.Customers.ShippingLocations",
+      "dq_status": "PASS",
+      "freshness": {
+        "cslLastStatusChangeDate": "2026-06-22 16:35:12",
+        "cslTerritoryEffectivityDate": "2026-06-22 00:00:00"
+      },
+      "key_columns": [
+        "cslCustomerNumber",
+        "cslShiptoNumber"
+      ],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.aitmcls",
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.AITMCLS",
+      "dq_status": "PASS",
+      "freshness": {},
+      "key_columns": [],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itmext",
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT",
+      "dq_status": "PASS",
+      "freshness": {
+        "ITMOBDT": 0,
+        "ITSCDT": 20260623,
+        "LINTRCPTDT": 20210515
+      },
+      "key_columns": [
+        "ITNBR"
+      ],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimdate",
+      "display": "Enterprise_Lakehouse.MasterData_DW.DimDate",
+      "dq_status": "PASS",
+      "freshness": {
+        "CalendarDate": "2028-12-31",
+        "CalendarMonthFirstDate": "2028-12-01",
+        "CalendarWeekFirstDate": "2028-12-31",
+        "CalendarWeekLastDate": "2028-12-31",
+        "MapicsDate": 1281231
+      },
+      "key_columns": [
+        "MapicsDate",
+        "CalendarDate",
+        "CalendarWeekFirstDate",
+        "CalendarWeekLastDate",
+        "CalendarMonthFirstDate"
+      ],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimitemmaster",
+      "display": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+      "dq_status": "PASS",
+      "freshness": {
+        "DiscontinuedDate": "2026-06-22",
+        "ManufacturingStatusChangeDate": "2026-06-22",
+        "MarketBeginDate": "2026-07-01",
+        "MarketEndDate": "2026-08-01",
+        "StatusCodeChangeDate": "2026-06-22"
+      },
+      "key_columns": [
+        "ItemSKU"
+      ],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_productknowledge.item_env",
+      "display": "Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV",
+      "dq_status": "PASS",
+      "freshness": {},
+      "key_columns": [],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoicedetail",
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+      "dq_status": "REVIEW",
+      "freshness": {
+        "InvoiceDate": "2026-06-23",
+        "OrderDate": "2026-06-22",
+        "OriginalInvoiceDate": "2026-06-11",
+        "OriginalOrderDate": "2026-06-08",
+        "RequestDate": "2028-09-28"
+      },
+      "key_columns": [
+        "InvoiceNumber",
+        "ItemSequence",
+        "LineReleaseNumber",
+        "OriginalSequenceNumber",
+        "ItemSKU"
+      ],
+      "review_required": true
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoiceheader",
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader",
+      "dq_status": "PASS",
+      "freshness": {
+        "InvoiceDate": "2026-06-23",
+        "OrderDate": "2026-06-22",
+        "RequestDate": "2028-09-28",
+        "TripCreatedDate": "2026-06-22"
+      },
+      "key_columns": [
+        "InvoiceNumber"
+      ],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.aaordtyp",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP",
+      "dq_status": "PASS",
+      "freshness": {
+        "OTDATE": 20210317
+      },
+      "key_columns": [
+        "OTDATE"
+      ],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.codatan",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.codatan",
+      "dq_status": "REVIEW",
+      "freshness": {
+        "EARLDDT": "2039-11-01 00:00:00",
+        "LATLDDT": "2065-01-01 00:00:00",
+        "MFIDT": 20391101,
+        "RQIDT": 20391225
+      },
+      "key_columns": [
+        "ITNBR"
+      ],
+      "review_required": true
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.comast",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.COMAST",
+      "dq_status": "PASS",
+      "freshness": {},
+      "key_columns": [],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.extord",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD",
+      "dq_status": "REVIEW",
+      "freshness": {
+        "ARDATE": 0,
+        "CAPRDT": 0,
+        "CROVDT": 20261015,
+        "HDATE": 20260623
+      },
+      "key_columns": [
+        "WHSE",
+        "CUSTNO",
+        "HDATE",
+        "ARDATE"
+      ],
+      "review_required": true
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.extorit",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORIT",
+      "dq_status": "PASS",
+      "freshness": {
+        "IMRDDT": 0,
+        "IOISDT": 20251218,
+        "IPRCDT": 0,
+        "IPRMDT": 20391225
+      },
+      "key_columns": [
+        "IORD",
+        "ISEQ"
+      ],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing.nonpkitems",
+      "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems",
+      "dq_status": "PASS",
+      "freshness": {},
+      "key_columns": [],
+      "review_required": false
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing_afi.customergrouping",
+      "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping",
+      "dq_status": "PASS",
+      "freshness": {},
+      "key_columns": [
+        "CustomerNumber",
+        "CustomerGroup"
+      ],
+      "review_required": false
+    }
+  ],
+  "status_counts": {
+    "PASS": 14,
+    "REVIEW": 3
+  }
+}

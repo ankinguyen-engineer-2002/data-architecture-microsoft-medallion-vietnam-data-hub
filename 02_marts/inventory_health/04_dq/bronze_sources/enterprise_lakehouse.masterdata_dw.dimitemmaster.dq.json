@@ -1,0 +1,1115 @@
+{
+  "asset_key": "enterprise_lakehouse.masterdata_dw.dimitemmaster",
+  "display": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 173,
+    "columns": [
+      {
+        "column_name": "RowID",
+        "data_type": "bigint",
+        "is_nullable": "NO",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "ItemSKU",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "ItemKey",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "Item",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "ItemCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "SeriesNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "ExtSeriesNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "FrameNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "QtyInBox",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "UOM",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "ProductHeightMeters",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "ProductWidthMeters",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "ProductDepthMeters",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "CartonHeightMeters",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "CartonWidthMeters",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "CartonDepthMeters",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "ProductHeightInches",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "ProductWidthInches",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "ProductDepthInches",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "CartonHeightInches",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 20
+      },
+      {
+        "column_name": "CartonWidthInches",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 21
+      },
+      {
+        "column_name": "CartonDepthInches",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 22
+      },
+      {
+        "column_name": "Cubes",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 23
+      },
+      {
+        "column_name": "Seats",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 24
+      },
+      {
+        "column_name": "ItemDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 25
+      },
+      {
+        "column_name": "SeriesName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 26
+      },
+      {
+        "column_name": "SeriesColor",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 27
+      },
+      {
+        "column_name": "Colors",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 28
+      },
+      {
+        "column_name": "ItemDescriptionSeries",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 29
+      },
+      {
+        "column_name": "SHItemDescriptionSeries",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 30
+      },
+      {
+        "column_name": "SHSeriesDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 31
+      },
+      {
+        "column_name": "ItemDescriptionSeriesItemColor",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 32
+      },
+      {
+        "column_name": "ChildStyleDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 33
+      },
+      {
+        "column_name": "ParentStyleDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 34
+      },
+      {
+        "column_name": "SeriesDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 35
+      },
+      {
+        "column_name": "ItemName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 36
+      },
+      {
+        "column_name": "ItemConsumerDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 37
+      },
+      {
+        "column_name": "RetailTypeDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 38
+      },
+      {
+        "column_name": "MainPieceItem",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 39
+      },
+      {
+        "column_name": "ItemClass",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 40
+      },
+      {
+        "column_name": "ItemClassCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 41
+      },
+      {
+        "column_name": "ItemClassName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 42
+      },
+      {
+        "column_name": "ProductLine",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 43
+      },
+      {
+        "column_name": "RetailCategoryCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 44
+      },
+      {
+        "column_name": "RetailCategoryDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 45
+      },
+      {
+        "column_name": "RetailCategoryName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 46
+      },
+      {
+        "column_name": "RetailDepartmentName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 47
+      },
+      {
+        "column_name": "RetailCategoryGroup",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 48
+      },
+      {
+        "column_name": "RetailCategoryChargeType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 49
+      },
+      {
+        "column_name": "AFIFinanceDivision",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 50
+      },
+      {
+        "column_name": "AFIFinanceDivisionCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 51
+      },
+      {
+        "column_name": "AFISalesCategoryCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 52
+      },
+      {
+        "column_name": "AFISalesCategory",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 53
+      },
+      {
+        "column_name": "ItemStyleCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 54
+      },
+      {
+        "column_name": "ItemStyleGroup",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 55
+      },
+      {
+        "column_name": "ItemStyle",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 56
+      },
+      {
+        "column_name": "Division",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 57
+      },
+      {
+        "column_name": "AFISalesDivisionCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 58
+      },
+      {
+        "column_name": "AFISalesDivision",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 59
+      },
+      {
+        "column_name": "KeyItem",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 60
+      },
+      {
+        "column_name": "ItemType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 61
+      },
+      {
+        "column_name": "SalesClassCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 62
+      },
+      {
+        "column_name": "SalesClassDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 63
+      },
+      {
+        "column_name": "SalesClass",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 64
+      },
+      {
+        "column_name": "DiscountClassCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 65
+      },
+      {
+        "column_name": "DiscountClassDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 66
+      },
+      {
+        "column_name": "DiscountClass",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 67
+      },
+      {
+        "column_name": "CommissionClassCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 68
+      },
+      {
+        "column_name": "CommissionClassDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 69
+      },
+      {
+        "column_name": "CommissionClass",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 70
+      },
+      {
+        "column_name": "FreightClassCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 71
+      },
+      {
+        "column_name": "FreightClassDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 72
+      },
+      {
+        "column_name": "FreightClass",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 73
+      },
+      {
+        "column_name": "AFIItemStatus",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 74
+      },
+      {
+        "column_name": "SellableItemFlag",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 75
+      },
+      {
+        "column_name": "ManufacturingStatus",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 76
+      },
+      {
+        "column_name": "ResponsibleOffice",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 77
+      },
+      {
+        "column_name": "ResponsibleOfficeName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 78
+      },
+      {
+        "column_name": "ImportDomesticCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 79
+      },
+      {
+        "column_name": "CountryofOrigin",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 80
+      },
+      {
+        "column_name": "PrimaryVendor",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 81
+      },
+      {
+        "column_name": "ManufacturingStatusChangeDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 82
+      },
+      {
+        "column_name": "ItemForecastPlannerID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 83
+      },
+      {
+        "column_name": "NewItemFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 84
+      },
+      {
+        "column_name": "DiscontinuedFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 85
+      },
+      {
+        "column_name": "DiscontinuedYearPeriod",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 86
+      },
+      {
+        "column_name": "CommonCarrierFlag",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 87
+      },
+      {
+        "column_name": "ExpressShipFlag",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 88
+      },
+      {
+        "column_name": "DiscontinuedDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 89
+      },
+      {
+        "column_name": "SeriesDateArchived",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 90
+      },
+      {
+        "column_name": "SeriesDiscontinuedFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 91
+      },
+      {
+        "column_name": "PreviousStatusCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 92
+      },
+      {
+        "column_name": "StatusCodeChangeDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 93
+      },
+      {
+        "column_name": "CurrentUnitCost",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 94
+      },
+      {
+        "column_name": "CEXCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 95
+      },
+      {
+        "column_name": "MarketIntroducedAt",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 96
+      },
+      {
+        "column_name": "MerchandisingCategory",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 97
+      },
+      {
+        "column_name": "PricePoint",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 98
+      },
+      {
+        "column_name": "ItemGrouping",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 99
+      },
+      {
+        "column_name": "SeriesGrouping",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 100
+      },
+      {
+        "column_name": "MasterGroupCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 101
+      },
+      {
+        "column_name": "AssociationCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 102
+      },
+      {
+        "column_name": "MarketingItemStatus",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 103
+      },
+      {
+        "column_name": "MarketingStatusDescription",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 104
+      },
+      {
+        "column_name": "Lifestyle",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 105
+      },
+      {
+        "column_name": "CommodityItem",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 106
+      },
+      {
+        "column_name": "F123ProductFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 107
+      },
+      {
+        "column_name": "HSCoreProductFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 108
+      },
+      {
+        "column_name": "HSProprietaryProductFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 109
+      },
+      {
+        "column_name": "HSExclusiveFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 110
+      },
+      {
+        "column_name": "BerklineProductFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 111
+      },
+      {
+        "column_name": "BenchcraftProductFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 112
+      },
+      {
+        "column_name": "NewMillenniumProductFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 113
+      },
+      {
+        "column_name": "BardiniProductFlag",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 114
+      },
+      {
+        "column_name": "ShanghaiStore",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 115
+      },
+      {
+        "column_name": "DefaultGroup",
+        "data_type": "bit",
+        "is_nullable": "YES",
+        "ordinal_position": 116
+      },
+      {
+        "column_name": "GoodBetterBestForPricePoint",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 117
+      },
+      {
+        "column_name": "GBBSortId",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 118
+      },
+      {
+        "column_name": "InitialInvoicePeriod",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 119
+      },
+      {
+        "column_name": "InitialInvoiceQty",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 120
+      },
+      {
+        "column_name": "MarketBeginDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 121
+      },
+      {
+        "column_name": "MarketEndDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 122
+      },
+      {
+        "column_name": "Showroom",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 123
+      },
+      {
+        "column_name": "ItemImage",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 124
+      },
+      {
+        "column_name": "FOBArcPrice",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 125
+      },
+      {
+        "column_name": "DivisionRanking",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 126
+      },
+      {
+        "column_name": "TrendArrow",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 127
+      },
+      {
+        "column_name": "ItemMerchGridOverridePhoto",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 128
+      },
+      {
+        "column_name": "GroupPriceIncr",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 129
+      },
+      {
+        "column_name": "GroupPricePointType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 130
+      },
+      {
+        "column_name": "ExclusiveComment",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 131
+      },
+      {
+        "column_name": "SeriesImage",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 132
+      },
+      {
+        "column_name": "SofaTableSeriesFlag",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 133
+      },
+      {
+        "column_name": "ReclinerSeriesFlag",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 134
+      },
+      {
+        "column_name": "PowerMotionSeriesFlag",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 135
+      },
+      {
+        "column_name": "WedgeSeriesFlag",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 136
+      },
+      {
+        "column_name": "DiningSeriesFlag",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 137
+      },
+      {
+        "column_name": "ItemThirdPartyItem",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 138
+      },
+      {
+        "column_name": "SeriesThirdParty",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 139
+      },
+      {
+        "column_name": "ItemHomeStoreProductLine",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 140
+      },
+      {
+        "column_name": "ItemEcomMerchantNotes",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 141
+      },
+      {
+        "column_name": "ItemAmazonBrandOwner",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 142
+      },
+      {
+        "column_name": "ItemSupplierDirectShipOnly",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 143
+      },
+      {
+        "column_name": "ConsumerChoiceFlag",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 144
+      },
+      {
+        "column_name": "EligibleForProtectionPlan",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 145
+      },
+      {
+        "column_name": "IsProtectionPlan",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 146
+      },
+      {
+        "column_name": "CollectiveClass",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 147
+      },
+      {
+        "column_name": "FriendlyDimensions",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 148
+      },
+      {
+        "column_name": "Knockout",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 149
+      },
+      {
+        "column_name": "Scene7ImageSet",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 150
+      },
+      {
+        "column_name": "FluffAFI",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 151
+      },
+      {
+        "column_name": "SeriesPrimary",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 152
+      },
+      {
+        "column_name": "SeriesMainImage",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 153
+      },
+      {
+        "column_name": "StandAloneFlag",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 154
+      },
+      {
+        "column_name": "SuppWeightNetWeightLbs",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 155
+      },
+      {
+        "column_name": "UnitWeightLbs",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 156
+      },
+      {
+        "column_name": "UPC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 157
+      },
+      {
+        "column_name": "RetailBrandName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 158
+      },
+      {
+        "column_name": "MfgWarranty",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 159
+      },
+      {
+        "column_name": "Material",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 160
+      },
+      {
+        "column_name": "SeriesFeatures",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 161
+      },
+      {
+        "column_name": "ItemIsRTA",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 162
+      },
+      {
+        "column_name": "PrimaryChannelSku",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 163
+      },
+      {
+        "column_name": "PrimarySeriesName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 164
+      },
+      {
+        "column_name": "PrimarySeriesNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 165
+      },
+      {
+        "column_name": "ERetailChannelSku",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 166
+      },
+      {
+        "column_name": "ERetailSeriesName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 167
+      },
+      {
+        "column_name": "ERetailSeriesNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 168
+      },
+      {
+        "column_name": "ItemTableShapeType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 169
+      },
+      {
+        "column_name": "ItemBedSizeType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 170
+      },
+      {
+        "column_name": "ItemBedStyleType",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 171
+      },
+      {
+        "column_name": "ItemGeneralColor",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 172
+      },
+      {
+        "column_name": "ItemPricePointRating",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 173
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "DiscontinuedDate": "2026-06-22",
+      "ManufacturingStatusChangeDate": "2026-06-22",
+      "MarketBeginDate": "2026-07-01",
+      "MarketEndDate": "2026-08-01",
+      "StatusCodeChangeDate": "2026-06-22"
+    },
+    "freshness_columns": [
+      "ManufacturingStatusChangeDate",
+      "DiscontinuedDate",
+      "StatusCodeChangeDate",
+      "MarketBeginDate",
+      "MarketEndDate"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 1.23,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "ItemSKU"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.31,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": null,
+          "latest_partition_duplicate_groups": 0,
+          "latest_partition_max_rows_per_key": null
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 0.371,
+      "status": "PASS"
+    },
+    "projects": [
+      "forecast_accuracy",
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+    "row_count_metadata": 0,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.MasterData_DW.DimItemMaster.sql"
+}

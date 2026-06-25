@@ -1,0 +1,36 @@
+/// Forecast horizon/lag dimension for forecast-related Control Tower metrics. Maps Lag-0 through Lag-4 and other horizon categories to ranking values used by lag-based calculations.
+table dim_forecast_horizon
+	lineageTag: 7adfe1e8-4025-49dc-bd32-9d8a3b986929
+	sourceLineageTag: [dbo].[dim_forecast_horizon]
+
+	/// Forecast horizon label such as Lag-0 through Lag-4. Used to align forecast metrics to consensus lag periods.
+	column code_horizon
+		dataType: string
+		lineageTag: be6b7513-c707-4e87-b854-8eda0d3df609
+		sourceLineageTag: code_horizon
+		summarizeBy: none
+		sourceColumn: code_horizon
+		sortByColumn: num_rank
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sort and calculation rank for forecast horizons. Lag-0 starts at rank 1 and later lags increase by one.
+	column num_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: 985cd182-ab82-4edc-be87-ec4d9adba1b6
+		sourceLineageTag: num_rank
+		summarizeBy: sum
+		sourceColumn: num_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_forecast_horizon = entity
+		mode: directLake
+		source
+			entityName: dim_forecast_horizon
+			schemaName: dbo
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

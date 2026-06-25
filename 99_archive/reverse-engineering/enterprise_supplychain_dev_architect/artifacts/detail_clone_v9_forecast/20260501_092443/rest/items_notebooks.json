@@ -1,0 +1,645 @@
+{
+  "value": [
+    {
+      "id": "87de4648-01db-4aee-bda2-b0918812c8cd",
+      "type": "Notebook",
+      "displayName": "Refresh SQL Endpoint Metadata",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "3e4befb9-7204-4b59-a92f-4fc56e1c6f94"
+    },
+    {
+      "id": "87af989d-c59e-4e30-9600-02bd06bc93db",
+      "type": "Notebook",
+      "displayName": "remove_nb_actual_demand",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "38d21a27-b886-4fd0-8f3b-80297cf2e0a4",
+      "type": "Notebook",
+      "displayName": "remove_nb_forecast_demand",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "92bd06da-02fd-428e-bf8c-fd1483a3e571",
+      "type": "Notebook",
+      "displayName": "remove_nb_naive_forecast",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "4aec8d4c-c253-4760-afb4-30b4e09520a0",
+      "type": "Notebook",
+      "displayName": "remove_nb_forecast_kpi",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "09efa99c-d90d-4437-8b9d-ce04d4a184c7",
+      "type": "Notebook",
+      "displayName": "remove_nb_flat_forecast_actual",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "dad14c44-e4db-4771-be13-31afc1fe1856",
+      "type": "Notebook",
+      "displayName": "remove_nb_dim_product",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "aeadbada-4f0d-45cf-92c4-b1830248ed80",
+      "type": "Notebook",
+      "displayName": "Template full copy spark",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "22e92e0e-a3a4-4907-b0c1-9307bc7d61ac",
+      "type": "Notebook",
+      "displayName": "Notebook_test",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "bda656fe-0d5c-46cf-b38b-3ec5ff1287a7",
+      "type": "Notebook",
+      "displayName": "remove_nb_ref_warehouse",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "00cf51f2-7fe1-48d0-bc2d-4c8632f99d2d",
+      "type": "Notebook",
+      "displayName": "remove_nb_ref_customer_grouping",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "3bf6743c-596b-43fa-8aa9-b32de711de15",
+      "type": "Notebook",
+      "displayName": "remove_nb_brz_Wholesale_Codis_AFI__EXTORD",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "a0bed23e-73fe-4682-a1ba-4eee229a4b24",
+      "type": "Notebook",
+      "displayName": "remove_nb_ref_item_master",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "11b591a0-6a10-4f5e-a01a-51951e45241d",
+      "type": "Notebook",
+      "displayName": "remove_nb_ref_order_type",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "d1088e3e-60d3-4cbe-849d-7b67d30d5080",
+      "type": "Notebook",
+      "displayName": "remove_nb_ref_product",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "aaa59169-beb5-44d3-9ebc-cb8376a00a5d",
+      "type": "Notebook",
+      "displayName": "nb_utl_pipeline_metadata",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "eebac28a-79e3-43d8-8e67-58f07c3d83ec"
+    },
+    {
+      "id": "1a06ec93-b893-401c-9890-35b2e68e1cfa",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_order_type",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "0487bab2-ee88-4a70-801b-50f34dd4cbeb",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_open_order_detail",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "0137fdf0-e66c-43f8-8f7e-de6f78623515",
+      "type": "Notebook",
+      "displayName": "remove_nb_ref_customer_shipping_location",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "1c6f925f-4c95-472b-bb58-78e7e4ebe034",
+      "type": "Notebook",
+      "displayName": "remove_nb_ref_customer_account",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "3632bbc9-d1dd-45d1-93ec-71418b18dcad",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_open_order_header",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "fdfaedd3-332a-4129-be1f-b6e0719f5b9c",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_open_order_header_extended",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "eab75dd5-09c1-47ed-91aa-ceeb15fb0804",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_open_order_item_detail_extended",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "c083dccc-3933-47fb-8377-b5002a9756c4",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_customer_grouping",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "eb675921-0af2-4e88-9cca-efab24a38641",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_invoice_detail",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "f11e34f5-a5ec-404d-bd57-48965a66a04f",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_customer_account",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "d28e0ce1-964f-4edd-8b4f-b82397528bcc",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_product",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "d6134187-8169-482c-aed1-8ef1983390a5",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_customer_shipping_location",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "e2c4b62f-a928-4a4a-ae4a-133d0d6a768c",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_fcst_consensus_cycle_dates",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "a0dcc737-0b9a-4ce1-80d8-0acce5d4349c",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_forecast_demand_monthly",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "85764a36-9b69-4eca-b80c-28939db574c6",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_demand_forecast_snapshot",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "817822ae-4d81-49b4-9144-262f8994db12",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_item_master",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "59f1872a-bba0-47ea-972a-39cfc3781925",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_calendar",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "487ab34f-fbdd-46cb-a4ff-cb94d1c6a488",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_open_order_line_level",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "61c4dda4-ec8a-4368-ba03-b4ceca6a8350",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_open_order_monthly",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "9bccac98-1e0f-427c-9508-01186eece78e",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_actual_demand_weekly",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "f368ef87-739d-4868-96a8-9d4e590edb38",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_invoice_detail_line_level",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "6478aee3-366f-48aa-aafb-b5b469c1fda0",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_actual_demand_monthly",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "4b22be78-7cc7-4986-bef6-f57cc3580e02",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_naive_forecast_monthly",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "842aa39d-a4e2-475a-a41b-8e0fce950610",
+      "type": "Notebook",
+      "displayName": "remove_nb_slv_warehouse",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "2dbec528-6da2-46c4-b920-58224efe3dcd",
+      "type": "Notebook",
+      "displayName": "nb_ult_lineage",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "eebac28a-79e3-43d8-8e67-58f07c3d83ec"
+    },
+    {
+      "id": "f24ef5ff-6831-40d8-a543-210ed7c10362",
+      "type": "Notebook",
+      "displayName": "remove_nb_ref_forecast_horizon",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "dc70d612-180b-49eb-aeed-e0beb19bbee2",
+      "type": "Notebook",
+      "displayName": "brz_engine",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ed783e69-cefd-43a8-ba42-6e7696b9806c"
+    },
+    {
+      "id": "24e6e753-4985-4f38-bbe0-53075de6d869",
+      "type": "Notebook",
+      "displayName": "nb_brz_SalesHistory_AFI__InvoiceDetail",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "44068990-bc42-4613-aedf-4f8a32207e37",
+      "type": "Notebook",
+      "displayName": "nb_ref_warehouse",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "b1f60a2e-bf39-498b-8170-9ccb6701ead6",
+      "type": "Notebook",
+      "displayName": "nb_brz_SalesHistory_AFI__InvoiceHeader",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "d1f00c08-5410-4faf-8fc1-1bf55f7168cb",
+      "type": "Notebook",
+      "displayName": "nb_brz_Wholesale_Codis_AFI__codatan",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "dbdbaba0-06a4-4ae1-83d2-d73bc3d79e61",
+      "type": "Notebook",
+      "displayName": "nb_brz_Wholesale_Codis_AFI__COMAST",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "cd867d08-5d44-4ad2-9029-ff90f03671dd",
+      "type": "Notebook",
+      "displayName": "nb_brz_Wholesale_Codis_AFI__EXTORD",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "7864b7c6-a755-48af-ab65-a68332afaa91",
+      "type": "Notebook",
+      "displayName": "nb_brz_Wholesale_Codis_AFI__EXTORIT",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "cafa8be1-e811-4c36-a6d5-4ac9b1f76e52",
+      "type": "Notebook",
+      "displayName": "nb_ref_order_type",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "1f372050-e7ac-4f0e-84fb-fb8b7b30257c",
+      "type": "Notebook",
+      "displayName": "nb_ref_calendar",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "bf25c624-a157-496a-8a92-2e7ef2e30313",
+      "type": "Notebook",
+      "displayName": "nb_ref_customer_account",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "5525c13b-529b-44cf-843a-dd2fb3249e6b",
+      "type": "Notebook",
+      "displayName": "nb_ref_forecast_horizon",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "31dc60e8-879e-4a16-b860-0cf8df92c362",
+      "type": "Notebook",
+      "displayName": "nb_ref_item_master",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "cace98b3-31c5-42c0-ba77-2bda2451191b",
+      "type": "Notebook",
+      "displayName": "requirement",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "3535305d-14d1-412f-affe-0cf9e0a62569",
+      "type": "Notebook",
+      "displayName": "data_dictionary_app",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "4e51e622-77f4-4b80-8028-5e4d1b38a265",
+      "type": "Notebook",
+      "displayName": "env_config",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "4e08faf4-be97-416e-b7e0-459e32e1c1b3"
+    },
+    {
+      "id": "ff5572f6-7d00-416e-bba0-b3e94a24c417",
+      "type": "Notebook",
+      "displayName": "nb_ref_customer_grouping",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "8e454a89-f6f2-4924-aa68-edb04cc3b717",
+      "type": "Notebook",
+      "displayName": "nb_ref_product",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "8a714133-6411-40f0-96ba-c037d7f51096",
+      "type": "Notebook",
+      "displayName": "nb_brz_SupplyChain_Enh_1__DemandForecastSnapshotDaily",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "cd1ef0f8-dee7-4415-9258-c182df9e290c",
+      "type": "Notebook",
+      "displayName": "slv_engine",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "503f0354-32a2-41b1-a7e1-47b60420002b"
+    },
+    {
+      "id": "269a9b25-13bf-4fbe-bd93-2032b74ad8a0",
+      "type": "Notebook",
+      "displayName": "nb_slv_invoice_detail_line_level",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "23500e03-9be9-414b-ba34-c8914ca8f70f"
+    },
+    {
+      "id": "1dd75fc5-3578-4ad0-b500-3fb9ffa6ba71",
+      "type": "Notebook",
+      "displayName": "nb_slv_actual_demand_monthly",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "23500e03-9be9-414b-ba34-c8914ca8f70f"
+    },
+    {
+      "id": "b571c951-1775-4310-a182-ce66cbfb2708",
+      "type": "Notebook",
+      "displayName": "nb_slv_actual_demand_weekly",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "23500e03-9be9-414b-ba34-c8914ca8f70f"
+    },
+    {
+      "id": "52a03730-b55e-4c1c-a3c6-1484adb33c5c",
+      "type": "Notebook",
+      "displayName": "nb_slv_forecast_demand_monthly",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "23500e03-9be9-414b-ba34-c8914ca8f70f"
+    },
+    {
+      "id": "4ff7024e-4cba-4b53-abf8-d45572d3aae7",
+      "type": "Notebook",
+      "displayName": "nb_slv_invoice_weekly",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "23500e03-9be9-414b-ba34-c8914ca8f70f"
+    },
+    {
+      "id": "786c0566-47be-411d-be18-35a303ebd892",
+      "type": "Notebook",
+      "displayName": "nb_slv_naive_forecast_monthly",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "23500e03-9be9-414b-ba34-c8914ca8f70f"
+    },
+    {
+      "id": "a9676a07-33f0-4868-af5b-472f2fe55941",
+      "type": "Notebook",
+      "displayName": "nb_slv_open_order_line_level",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "23500e03-9be9-414b-ba34-c8914ca8f70f"
+    },
+    {
+      "id": "60cfd207-2ef5-4371-93e3-49f1dd88165e",
+      "type": "Notebook",
+      "displayName": "nb_slv_open_order_monthly",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "23500e03-9be9-414b-ba34-c8914ca8f70f"
+    },
+    {
+      "id": "4abb9011-9b6a-4882-adca-4ba93389f245",
+      "type": "Notebook",
+      "displayName": "nb_gld_flat_forecast_actual",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "c2f8b30e-9431-481c-b05c-b2e572eec397"
+    },
+    {
+      "id": "1a595d94-71f6-4293-924e-1fcacf02548c",
+      "type": "Notebook",
+      "displayName": "nb_gld_forecast_kpi_metric",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "c2f8b30e-9431-481c-b05c-b2e572eec397"
+    },
+    {
+      "id": "8c02c32b-2f04-4dbd-945b-b2f4f28bc4db",
+      "type": "Notebook",
+      "displayName": "gld_engine",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "f6cf2c44-7901-48fb-97bf-a9c5061e5e30"
+    },
+    {
+      "id": "8785871f-3dd7-471a-bc9c-148d04d6db41",
+      "type": "Notebook",
+      "displayName": "test_gen_lineage",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "ac2fba00-1adc-4dae-a7e6-7184c5cd17d2"
+    },
+    {
+      "id": "3efdaa82-016a-41ff-97a4-d50781060d0a",
+      "type": "Notebook",
+      "displayName": "nb_ref_customer_account_group",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "c03591da-5438-4801-bf5c-64569812dba0",
+      "type": "Notebook",
+      "displayName": "nb_dq_after_brz",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "a95718db-5100-4922-aca5-c39a2cc521e0"
+    },
+    {
+      "id": "e03dc50e-759d-4f80-9be9-2b3e663696a4",
+      "type": "Notebook",
+      "displayName": "nb_utl_dq_setup",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "a95718db-5100-4922-aca5-c39a2cc521e0"
+    },
+    {
+      "id": "670f3604-e625-4e4e-b11f-2f91ddf2d172",
+      "type": "Notebook",
+      "displayName": "nb_dq_engine",
+      "description": "New notebook",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "a95718db-5100-4922-aca5-c39a2cc521e0"
+    },
+    {
+      "id": "c619815e-e808-4a9d-89ff-e43e93c361ce",
+      "type": "Notebook",
+      "displayName": "Sp_structure",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "1c0d4245-4e0f-433c-9d93-53391b604def"
+    },
+    {
+      "id": "9c9ee55c-0111-4f81-95fc-b284ff2917bb",
+      "type": "Notebook",
+      "displayName": "update_metadata_template",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "e3331c43-a9e1-4a7b-a170-234d2457dfcc"
+    }
+  ],
+  "count": 80
+}

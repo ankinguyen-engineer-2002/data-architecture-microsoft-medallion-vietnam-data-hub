@@ -1,0 +1,107 @@
+{
+  "asset_key": "enterprise_lakehouse.inventory_enh_history.itembalance",
+  "display": "Enterprise_Lakehouse.Inventory_Enh_History.ItemBalance",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": null,
+      "seconds": 28.832,
+      "status": "PASS",
+      "value": [
+        {
+          "duplicate_extra_rows": 172,
+          "duplicate_groups": 172,
+          "max_rows_per_key": 2
+        }
+      ]
+    },
+    "column_count": 5,
+    "columns": [
+      {
+        "column_name": "ItemNumber",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "Warehouse",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "DateWeekEnding",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "OnHandQty",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "ItemStatus",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "DateWeekEnding": "2026-06-13"
+    },
+    "freshness_columns": [
+      "DateWeekEnding"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 1.225,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "ItemNumber",
+      "Warehouse",
+      "DateWeekEnding"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 1.061,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": null,
+          "latest_partition_duplicate_groups": 0,
+          "latest_partition_max_rows_per_key": null
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 0.617,
+      "status": "PASS"
+    },
+    "projects": [
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.Inventory_Enh_History.ItemBalance",
+    "row_count_metadata": null,
+    "status": "REVIEW_HISTORY_DUP_LATEST_CLEAN"
+  },
+  "dq_status": "REVIEW_HISTORY_DUP_LATEST_CLEAN",
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.Inventory_Enh_History.ItemBalance.sql"
+}

@@ -1,0 +1,55 @@
+rule_id,rule_name,target_schema,target_table,check_type,column_name,severity,threshold,params,is_active,layer
+1,brz_invoicedetail id_invoice not null,bronze,brz_saleshistory_afi__invoicedetail,completeness,id_invoice,CRITICAL,,,1,BRZ
+2,brz_invoicedetail id_item_sku not null,bronze,brz_saleshistory_afi__invoicedetail,completeness,id_item_sku,CRITICAL,,,1,BRZ
+13,brz_invoicedetail min 1M rows,bronze,brz_saleshistory_afi__invoicedetail,row_count,,CRITICAL,1000000.00,,1,BRZ
+3,brz_invoiceheader id_invoice not null,bronze,brz_saleshistory_afi__invoiceheader,completeness,id_invoice,CRITICAL,,,1,BRZ
+14,brz_invoiceheader min 100K rows,bronze,brz_saleshistory_afi__invoiceheader,row_count,,CRITICAL,100000.00,,1,BRZ
+4,brz_demandforecast id_item_sku not null,bronze,brz_supplychain_enh_1__demandforecastsnapshotdaily,completeness,id_item_sku,CRITICAL,,,1,BRZ
+5,brz_codatan id_order not null,bronze,brz_wholesale_codis_afi__codatan,completeness,id_order,CRITICAL,,,1,BRZ
+15,brz_codatan min 100K rows,bronze,brz_wholesale_codis_afi__codatan,row_count,,WARNING,100000.00,,1,BRZ
+6,brz_comast id_order not null,bronze,brz_wholesale_codis_afi__comast,completeness,id_order,CRITICAL,,,1,BRZ
+7,brz_extord id_order not null,bronze,brz_wholesale_codis_afi__extord,completeness,id_order,CRITICAL,,,1,BRZ
+8,brz_extorit id_order not null,bronze,brz_wholesale_codis_afi__extorit,completeness,id_order,CRITICAL,,,1,BRZ
+27,gold_fact_flat_forecast_actual_completeness_id_item_sku,gold,gld_fact_flat_forecast_actual,completeness,id_item_sku,CRITICAL,100.00,,1,GLD
+28,gold_fact_flat_forecast_actual_row_count,gold,gld_fact_flat_forecast_actual,row_count,,CRITICAL,100000.00,,1,GLD
+35,gld_flat_freshness,gold,gld_fact_flat_forecast_actual,freshness,_load_dt,WARNING,48.00,,0,GLD
+35,gld_flat_freshness,gold,gld_fact_flat_forecast_actual,freshness,_load_dt,WARNING,48.00,,0,GLD
+35,gld_flat_fresh,gold,gld_fact_flat_forecast_actual,freshness,_load_dt,WARNING,48.00,,0,GLD
+29,gold_fact_forecast_kpi_completeness_id_item_sku,gold,gld_fact_forecast_kpi,completeness,id_item_sku,CRITICAL,100.00,,1,GLD
+30,gold_fact_forecast_kpi_row_count,gold,gld_fact_forecast_kpi,row_count,,CRITICAL,100000.00,,1,GLD
+34,gld_kpi_uniq,gold,gld_fact_forecast_kpi,uniqueness,id_item_sku,WARNING,0.00,,0,GLD
+34,gld_kpi_unique_item,gold,gld_fact_forecast_kpi,uniqueness,id_item_sku,WARNING,0.00,,0,GLD
+34,gld_kpi_unique_item,gold,gld_fact_forecast_kpi,uniqueness,id_item_sku,WARNING,0.00,,0,GLD
+36,gld_kpi_freshness,gold,gld_fact_forecast_kpi,freshness,_load_dt,WARNING,48.00,,0,GLD
+36,gld_kpi_freshness,gold,gld_fact_forecast_kpi,freshness,_load_dt,WARNING,48.00,,0,GLD
+36,gld_kpi_fresh,gold,gld_fact_forecast_kpi,freshness,_load_dt,WARNING,48.00,,0,GLD
+9,ref_calendar sk_date not null,bronze,ref_calendar,completeness,sk_date,CRITICAL,,,1,REF
+16,ref_calendar min 10K rows,bronze,ref_calendar,row_count,,CRITICAL,10000.00,,1,REF
+18,ref_forecast_horizon exact 8 rows,bronze,ref_forecast_horizon,row_count,,CRITICAL,8.00,,1,REF
+10,ref_item_master id_item_sku not null,bronze,ref_item_master,completeness,id_item_sku,CRITICAL,,,1,REF
+17,ref_item_master min 100K rows,bronze,ref_item_master,row_count,,WARNING,100000.00,,1,REF
+11,ref_product id_item_sku not null,bronze,ref_product,completeness,id_item_sku,CRITICAL,,,1,REF
+12,ref_warehouse code_warehouse not null,bronze,ref_warehouse,completeness,code_warehouse,CRITICAL,,,1,REF
+23,slv_actual_monthly min 100K rows,silver,slv_actual_demand_monthly,row_count,,CRITICAL,100000.00,,1,SLV
+38,slv_demand_freshness,silver,slv_actual_demand_monthly,freshness,_load_dt,WARNING,48.00,,0,SLV
+38,slv_dem_fresh,silver,slv_actual_demand_monthly,freshness,_load_dt,WARNING,48.00,,0,SLV
+38,slv_actual_demand_freshness,silver,slv_actual_demand_monthly,freshness,_load_dt,WARNING,48.00,,0,SLV
+24,slv_actual_weekly min 100K rows,silver,slv_actual_demand_weekly,row_count,,WARNING,100000.00,,1,SLV
+22,slv_forecast id_item_sku not null,silver,slv_forecast_demand_monthly,completeness,id_item_sku,CRITICAL,,,1,SLV
+33,slv_forecast_unique_item_month,silver,slv_forecast_demand_monthly,uniqueness,id_item_sku,WARNING,0.00,,0,SLV
+33,slv_fcst_uniq,silver,slv_forecast_demand_monthly,uniqueness,id_item_sku,WARNING,0.00,,0,SLV
+33,slv_forecast_unique_item,silver,slv_forecast_demand_monthly,uniqueness,id_item_sku,WARNING,0.00,,0,SLV
+19,slv_invoice_detail id_item_sku not null,silver,slv_invoice_detail_line_level,completeness,id_item_sku,CRITICAL,,,1,SLV
+20,slv_invoice_detail min 1M rows,silver,slv_invoice_detail_line_level,row_count,,CRITICAL,1000000.00,,1,SLV
+31,slv_invoice_detail_unique_id,silver,slv_invoice_detail_line_level,uniqueness,id_invoice,WARNING,0.00,,0,SLV
+31,slv_inv_uniq,silver,slv_invoice_detail_line_level,uniqueness,id_invoice,WARNING,0.00,,0,SLV
+31,slv_invoice_detail_unique_composite,silver,slv_invoice_detail_line_level,uniqueness,id_invoice,WARNING,0.00,,0,SLV
+37,slv_invoice_detail_freshness,silver,slv_invoice_detail_line_level,freshness,_load_dt,WARNING,48.00,,0,SLV
+37,slv_inv_fresh,silver,slv_invoice_detail_line_level,freshness,_load_dt,WARNING,48.00,,0,SLV
+37,slv_invoice_freshness,silver,slv_invoice_detail_line_level,freshness,_load_dt,WARNING,48.00,,0,SLV
+25,slv_invoice_weekly min 1M rows,silver,slv_invoice_weekly,row_count,,WARNING,1000000.00,,1,SLV
+26,slv_naive_forecast min 100K rows,silver,slv_naive_forecast_monthly,row_count,,WARNING,100000.00,,1,SLV
+21,slv_open_order id_item_sku not null,silver,slv_open_order_line_level,completeness,id_item_sku,CRITICAL,,,1,SLV
+32,slv_ord_uniq,silver,slv_open_order_line_level,uniqueness,id_order,WARNING,0.00,,0,SLV
+32,slv_open_order_unique_id_order,silver,slv_open_order_line_level,uniqueness,id_order,WARNING,0.00,,0,SLV
+32,slv_open_order_unique_id,silver,slv_open_order_line_level,uniqueness,id_order,WARNING,0.00,,0,SLV

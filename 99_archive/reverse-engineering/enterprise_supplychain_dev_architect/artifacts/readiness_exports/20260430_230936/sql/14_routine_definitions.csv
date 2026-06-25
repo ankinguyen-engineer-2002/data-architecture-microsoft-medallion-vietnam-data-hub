@@ -1,0 +1,1191 @@
+schema_name,object_name,type_desc,definition
+bronze,usp_refresh_edw_tables,SQL_STORED_PROCEDURE,"
+CREATE   PROCEDURE bronze.usp_refresh_edw_tables AS
+BEGIN
+    -- Refresh 4 _edw tables from Lakehouse _ver2 (EDW source)
+    -- Chay TRUOC pl_sc_master (1:30 AM, truoc pipeline 2:00 AM)
+    -- TAM THOI: xoa khi Enterprise_Lakehouse day du data
+
+    -- 1. ref_product (379K rows, ~15s)
+    DROP TABLE IF EXISTS bronze.ref_product_edw;
+    CREATE TABLE bronze.ref_product_edw AS
+    SELECT * FROM SupplyChain_Lakehouse.dbo.ref_product_ver2;
+
+    -- 2. invoiceheader (24M rows, ~70s)
+    DROP TABLE IF EXISTS bronze.brz_saleshistory_afi__invoiceheader_edw;
+    CREATE TABLE bronze.brz_saleshistory_afi__invoiceheader_edw AS
+    SELECT * FROM SupplyChain_Lakehouse.dbo.brz_saleshistory_afi__invoiceheader_ver2;
+
+    -- 3. invoicedetail (87M rows, ~200s)
+    DROP TABLE IF EXISTS bronze.brz_saleshistory_afi__invoicedetail_edw;
+    CREATE TABLE bronze.brz_saleshistory_afi__invoicedetail_edw AS
+    SELECT * FROM SupplyChain_Lakehouse.dbo.brz_saleshistory_afi__invoicedetail_ver2;
+
+    -- 4. demandforecast (42M rows, ~80s) - EXCLUDE fiscal_month_last_date
+    DROP TABLE IF EXISTS bronze.brz_supplychain_enh_1__demandforecastsnapshotdaily_edw;
+    CREATE TABLE bronze.brz_supplychain_enh_1__demandforecastsnapshotdaily_edw AS
+    SELECT 
+        id_item_sku, code_warehouse, num_fiscal_month, code_customer_group,
+        qty_resultant_forecast, qty_promotional_lift, qty_forced_forecast,
+        qty_order_future, qty_perm_component, ts_snapshot,
+        code_main_piece, name_collective_class, name_product_category,
+        code_forecast_type, code_management, id_derived_forecast,
+        val_derived_forecast_factor, num_valid_demand_months, name_usr25,
+        name_created_by, ts_created, name_modified_by, ts_modified
+    FROM SupplyChain_Lakehouse.dbo.brz_supplychain_enh_1__demandforecastsnapshotdaily_ver2;
+END
+"
+dbo,usp_Load_Dim_Calendar,SQL_STORED_PROCEDURE,"CREATE       PROCEDURE dbo.usp_Load_Dim_Calendar
+AS
+BEGIN
+    /* 1. Xóa bảng cũ nếu đã tồn tại trong dbo */
+    IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.dim_calendar') AND type = 'U')
+        DROP TABLE dbo.dim_calendar;
+
+    /* 2. Dùng CTAS kéo data trực tiếp từ Bronze Lakehouse sang Calendar Dim */
+    /* Thực hiện Rename cột để xóa dấu cách và ký tự đặc biệt */
+    CREATE TABLE dbo.dim_calendar
+    AS
+    SELECT *
+    FROM [SupplyChain_Lakehouse].[dbo].[ref_calendar]
+
+
+    PRINT 'Successfully loaded dbo.dim_calender directly from Bronze layer with cleaned schema';
+END
+"
+dbo,usp_Load_Dim_Customer_Grouping,SQL_STORED_PROCEDURE,"CREATE           PROCEDURE dbo.usp_Load_Dim_Customer_Grouping
+AS
+BEGIN
+    /* 1. Xóa bảng cũ nếu tồn tại trong dbo */
+    IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.dim_customer_grouping') AND type = 'U')
+        DROP TABLE dbo.dim_customer_grouping;
+
+    /* 2. CTAS trực tiếp từ Bronze Lakehouse sang Warehouse Dim */
+    /* Giữ nguyên tên cột gốc, chỉ thực hiện TRIM */
+    CREATE TABLE dbo.dim_customer_grouping
+    AS
+    SELECT *
+    FROM [SupplyChain_Lakehouse].[dbo].[ref_customer_grouping]
+    
+
+    PRINT 'Successfully loaded dbo.dim_customer_grouping with original column names';
+END
+"
+dbo,usp_Load_Dim_Forecast_Horizon,SQL_STORED_PROCEDURE,"CREATE         PROCEDURE dbo.usp_Load_Dim_Forecast_Horizon
+AS
+BEGIN
+    /* 1. Xóa bảng cũ nếu đã tồn tại trong dbo */
+    IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.dim_forecast_horizon') AND type = 'U')
+        DROP TABLE dbo.dim_forecast_horizon;
+
+    /* 2. Dùng CTAS kéo data trực tiếp từ Bronze Lakehouse sang Calendar Dim */
+    /* Thực hiện Rename cột để xóa dấu cách và ký tự đặc biệt */
+    CREATE TABLE dbo.dim_forecast_horizon
+    AS
+    SELECT *
+    FROM [SupplyChain_Lakehouse].[dbo].[ref_forecast_horizon]
+
+
+    PRINT 'Successfully loaded dbo.ref_forecast_horizon directly from Bronze layer with cleaned schema';
+END
+"
+dbo,usp_Load_Dim_Product,SQL_STORED_PROCEDURE,"CREATE       PROCEDURE dbo.usp_Load_Dim_Product
+AS
+BEGIN
+    /* 1. Xóa bảng cũ nếu tồn tại trong dbo */
+    IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.dim_product') AND type = 'U')
+        DROP TABLE dbo.dim_product;
+
+    /* 2. Dùng CTAS kéo data từ Lakehouse Silver sang Warehouse Dim */
+    -- Đảm bảo [SupplyChain_Lakehouse] khớp chính xác với tên Lakehouse của Bro
+    CREATE TABLE dbo.dim_product
+    AS
+    SELECT * FROM [SupplyChain_Lakehouse].[dbo].[ref_product];
+    
+    PRINT 'Successfully loaded dbo.dim_product from Silver layer';
+END
+"
+dbo,usp_Load_Dim_Warehouse,SQL_STORED_PROCEDURE,"CREATE       PROCEDURE dbo.usp_Load_Dim_Warehouse
+AS
+BEGIN
+    /* 1. Xóa bảng cũ nếu đã tồn tại trong dbo */
+    IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.dim_warehouse') AND type = 'U')
+        DROP TABLE dbo.dim_warehouse;
+
+    /* 2. Dùng CTAS kéo data trực tiếp từ Bronze Lakehouse sang Warehouse Dim */
+    /* Thực hiện Rename cột để xóa dấu cách và ký tự đặc biệt */
+    CREATE TABLE dbo.dim_warehouse
+    AS
+    SELECT *
+    FROM [SupplyChain_Lakehouse].[dbo].[ref_warehouse]
+
+
+    PRINT 'Successfully loaded dbo.dim_warehouse directly from Bronze layer with cleaned schema';
+END
+"
+dbo,usp_Load_DQ_Forecast_Accuracy,SQL_STORED_PROCEDURE,"CREATE         PROCEDURE dbo.usp_Load_DQ_Forecast_Accuracy
+AS
+BEGIN
+    /* 1. Xóa bảng cũ nếu đã tồn tại trong dbo */
+    IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.dq_forecast_accuracy') AND type = 'U')
+        DROP TABLE dbo.dq_forecast_accuracy;
+
+    /* 2. Dùng CTAS kéo data trực tiếp từ Bronze Lakehouse sang Calendar Dim */
+    /* Thực hiện Rename cột để xóa dấu cách và ký tự đặc biệt */
+    CREATE TABLE dbo.dq_forecast_accuracy
+    AS
+    SELECT *
+    FROM [dbo].[vw_dq_forecast_accuracy]
+
+
+    PRINT 'Successfully loaded dbo.dim_calender directly from Bronze layer with cleaned schema';
+END
+"
+dbo,usp_Load_Fact_Flat_Forecast_Actual,SQL_STORED_PROCEDURE,"CREATE       PROCEDURE dbo.usp_Load_Fact_Flat_Forecast_Actual
+AS
+BEGIN
+    /* 1. Xóa bảng cũ nếu đã tồn tại trong schema dbo */
+    IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.fact_flat_forecast_actual') AND type = 'U')
+        DROP TABLE dbo.fact_flat_forecast_actual;
+
+    /* 2. Dùng CTAS kéo data trực tiếp từ Lakehouse Gold sang Warehouse Fact */
+    -- Thay [SupplyChain_Lakehouse] bằng tên chính xác của Lakehouse của Bro
+    CREATE TABLE dbo.fact_flat_forecast_actual
+    AS
+    SELECT * FROM [SupplyChain_Lakehouse].[dbo].[gld_flat_forecast_actual];
+
+    PRINT 'Successfully loaded dbo.fact_flat_forecast_actual';
+END
+"
+dbo,usp_Load_Fact_Forecast_KPI,SQL_STORED_PROCEDURE,"CREATE         PROCEDURE dbo.usp_Load_Fact_Forecast_KPI
+AS
+BEGIN
+    /* 1. Xóa bảng cũ nếu đã tồn tại trong schema dbo */
+    IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.fact_forecast_kpi') AND type = 'U')
+        DROP TABLE dbo.fact_forecast_kpi;
+
+    /* 2. Dùng CTAS kéo data trực tiếp từ Lakehouse Gold sang Warehouse Fact */
+    -- Thay [SupplyChain_Lakehouse] bằng tên chính xác của Lakehouse của Bro
+    CREATE TABLE dbo.fact_forecast_kpi
+    AS
+    SELECT * FROM [SupplyChain_Lakehouse].[dbo].[gld_forecast_kpi_metric];
+    
+    PRINT 'Successfully loaded dbo.fact_forecast_kpi';
+END
+"
+dbo,usp_load_one_wh_table,SQL_STORED_PROCEDURE,"CREATE PROCEDURE dbo.usp_load_one_wh_table
+    @table_name VARCHAR(200)
+AS
+BEGIN
+    -- ============================================================
+    -- SP: Load 1 bảng từ Lakehouse → Warehouse
+    -- Pattern: metadata-driven, table-agnostic, parallel-safe
+    -- Author: Aric Nguyen
+    -- ============================================================
+    DECLARE @tgt_schema  VARCHAR(50),
+            @tgt_table   VARCHAR(200),
+            @found       INT,
+            @sql         VARCHAR(8000);
+
+    -- Step 1: Đọc metadata từ Lakehouse qua 3-part name
+    SELECT 
+        @tgt_schema = ISNULL(wh_target_schema, 'dbo'),
+        @tgt_table  = ISNULL(wh_target_table, table_name),
+        @found      = 1
+    FROM [SupplyChain_Lakehouse].[dbo].[utl_pipeline_metadata]
+    WHERE table_name = @table_name
+      AND load_to_wh = 1
+      AND is_active  = 1;
+
+    -- Step 2: Guard clause — không match thì skip lặng lẽ
+    IF @found IS NULL
+    BEGIN
+        PRINT 'SKIP: ' + @table_name + ' (not flagged or inactive)';
+        RETURN;
+    END
+
+    -- Step 3: DROP target nếu tồn tại (overwrite mode)
+    SET @sql = 'DROP TABLE IF EXISTS [' + @tgt_schema + '].[' + @tgt_table + ']';
+    PRINT 'EXEC: ' + @sql;
+    EXEC(@sql);
+
+    -- Step 4: CTAS từ Lakehouse
+    SET @sql = 'CREATE TABLE [' + @tgt_schema + '].[' + @tgt_table + '] AS ' +
+               'SELECT * FROM [SupplyChain_Lakehouse].[dbo].[' + @table_name + ']';
+    PRINT 'EXEC: ' + @sql;
+    EXEC(@sql);
+
+    -- Step 5: Báo thành công
+    PRINT 'SUCCESS: ' + @table_name + ' -> [' + @tgt_schema + '].[' + @tgt_table + ']';
+END"
+meta,ufn_cron_is_due,SQL_SCALAR_FUNCTION,"
+CREATE   FUNCTION meta.ufn_cron_is_due(@cron VARCHAR(100))
+RETURNS INT
+AS
+BEGIN
+    -- ═══════════════════════════════════════════════════════════════
+    -- Cron parser: '*/15 8-22 * * 1-5' → 1 if now matches, 0 if not
+    -- Format: minute hour day_of_month month day_of_week
+    -- Supports: * (any), */N (every N), N (exact), N,M (list), N-M (range)
+    -- ═══════════════════════════════════════════════════════════════
+
+    IF @cron IS NULL OR @cron = '' RETURN 1  -- no cron = always run
+
+    DECLARE @now DATETIME2(6) = GETUTCDATE()
+    DECLARE @minute INT = DATEPART(MINUTE, @now)
+    DECLARE @hour INT = DATEPART(HOUR, @now)
+    DECLARE @day INT = DATEPART(DAY, @now)
+    DECLARE @month INT = DATEPART(MONTH, @now)
+    DECLARE @dow INT = (DATEPART(WEEKDAY, @now) + 5) % 7  -- 0=Mon, 6=Sun
+
+    -- Parse 5 fields
+    DECLARE @f1 VARCHAR(20), @f2 VARCHAR(20), @f3 VARCHAR(20), @f4 VARCHAR(20), @f5 VARCHAR(20)
+    DECLARE @parts VARCHAR(100) = LTRIM(RTRIM(@cron))
+
+    -- Split by spaces
+    SET @f1 = LEFT(@parts, CHARINDEX(' ', @parts + ' ') - 1)
+    SET @parts = LTRIM(SUBSTRING(@parts, LEN(@f1) + 2, 100))
+    SET @f2 = LEFT(@parts, CHARINDEX(' ', @parts + ' ') - 1)
+    SET @parts = LTRIM(SUBSTRING(@parts, LEN(@f2) + 2, 100))
+    SET @f3 = LEFT(@parts, CHARINDEX(' ', @parts + ' ') - 1)
+    SET @parts = LTRIM(SUBSTRING(@parts, LEN(@f3) + 2, 100))
+    SET @f4 = LEFT(@parts, CHARINDEX(' ', @parts + ' ') - 1)
+    SET @parts = LTRIM(SUBSTRING(@parts, LEN(@f4) + 2, 100))
+    SET @f5 = LEFT(@parts, CHARINDEX(' ', @parts + ' ') - 1)
+
+    -- Check each field
+    DECLARE @match_min INT = 0, @match_hr INT = 0, @match_day INT = 0, @match_mon INT = 0, @match_dow INT = 0
+
+    -- ── MINUTE ──
+    IF @f1 = '*' SET @match_min = 1
+    ELSE IF @f1 LIKE '*/%' BEGIN
+        DECLARE @step_min INT = CAST(SUBSTRING(@f1, 3, 10) AS INT)
+        IF @minute % @step_min = 0 SET @match_min = 1
+    END
+    ELSE IF @f1 LIKE '%-%' BEGIN
+        IF @minute >= CAST(LEFT(@f1, CHARINDEX('-', @f1) - 1) AS INT)
+           AND @minute <= CAST(SUBSTRING(@f1, CHARINDEX('-', @f1) + 1, 10) AS INT)
+            SET @match_min = 1
+    END
+    ELSE IF CHARINDEX(',', @f1) > 0 BEGIN
+        IF CHARINDEX(CAST(@minute AS VARCHAR), @f1) > 0 SET @match_min = 1
+    END
+    ELSE IF CAST(@f1 AS INT) = @minute SET @match_min = 1
+
+    -- ── HOUR ──
+    IF @f2 = '*' SET @match_hr = 1
+    ELSE IF @f2 LIKE '*/%' BEGIN
+        DECLARE @step_hr INT = CAST(SUBSTRING(@f2, 3, 10) AS INT)
+        IF @hour % @step_hr = 0 SET @match_hr = 1
+    END
+    ELSE IF @f2 LIKE '%-%' BEGIN
+        IF @hour >= CAST(LEFT(@f2, CHARINDEX('-', @f2) - 1) AS INT)
+           AND @hour <= CAST(SUBSTRING(@f2, CHARINDEX('-', @f2) + 1, 10) AS INT)
+            SET @match_hr = 1
+    END
+    ELSE IF CHARINDEX(',', @f2) > 0 BEGIN
+        IF CHARINDEX(CAST(@hour AS VARCHAR), @f2) > 0 SET @match_hr = 1
+    END
+    ELSE IF CAST(@f2 AS INT) = @hour SET @match_hr = 1
+
+    -- ── DAY OF MONTH ──
+    IF @f3 = '*' SET @match_day = 1
+    ELSE IF @f3 LIKE '%-%' BEGIN
+        IF @day >= CAST(LEFT(@f3, CHARINDEX('-', @f3) - 1) AS INT)
+           AND @day <= CAST(SUBSTRING(@f3, CHARINDEX('-', @f3) + 1, 10) AS INT)
+            SET @match_day = 1
+    END
+    ELSE IF CHARINDEX(',', @f3) > 0 BEGIN
+        IF CHARINDEX(CAST(@day AS VARCHAR), @f3) > 0 SET @match_day = 1
+    END
+    ELSE IF CAST(@f3 AS INT) = @day SET @match_day = 1
+
+    -- ── MONTH ──
+    IF @f4 = '*' SET @match_mon = 1
+    ELSE IF @f4 LIKE '%-%' BEGIN
+        IF @month >= CAST(LEFT(@f4, CHARINDEX('-', @f4) - 1) AS INT)
+           AND @month <= CAST(SUBSTRING(@f4, CHARINDEX('-', @f4) + 1, 10) AS INT)
+            SET @match_mon = 1
+    END
+    ELSE IF CHARINDEX(',', @f4) > 0 BEGIN
+        IF CHARINDEX(CAST(@month AS VARCHAR), @f4) > 0 SET @match_mon = 1
+    END
+    ELSE IF CAST(@f4 AS INT) = @month SET @match_mon = 1
+
+    -- ── DAY OF WEEK (0=Mon, 6=Sun) ──
+    IF @f5 = '*' SET @match_dow = 1
+    ELSE IF @f5 LIKE '%-%' BEGIN
+        IF @dow >= CAST(LEFT(@f5, CHARINDEX('-', @f5) - 1) AS INT)
+           AND @dow <= CAST(SUBSTRING(@f5, CHARINDEX('-', @f5) + 1, 10) AS INT)
+            SET @match_dow = 1
+    END
+    ELSE IF CHARINDEX(',', @f5) > 0 BEGIN
+        IF CHARINDEX(CAST(@dow AS VARCHAR), @f5) > 0 SET @match_dow = 1
+    END
+    ELSE IF CAST(@f5 AS INT) = @dow SET @match_dow = 1
+
+    -- ALL 5 must match
+    IF @match_min = 1 AND @match_hr = 1 AND @match_day = 1 AND @match_mon = 1 AND @match_dow = 1
+        RETURN 1
+
+    RETURN 0
+END
+"
+meta,ufn_should_run,SQL_SCALAR_FUNCTION,"
+CREATE FUNCTION meta.ufn_should_run(@sp_name VARCHAR(200))
+RETURNS INT
+AS
+BEGIN
+    DECLARE @result INT = 0;
+    SELECT @result = CASE
+        WHEN is_active = 0 THEN 0
+        WHEN next_run_time IS NULL THEN 1
+        WHEN next_run_time <= GETUTCDATE() THEN 1
+        ELSE 0
+    END
+    FROM meta.sp_registry WHERE sp_name = @sp_name;
+    RETURN ISNULL(@result, 0);
+END
+"
+meta,ufn_utc_to_cst,SQL_SCALAR_FUNCTION,"
+CREATE FUNCTION meta.ufn_utc_to_cst(@dt DATETIME2(6))
+RETURNS DATETIME2(6)
+AS
+BEGIN
+    RETURN DATEADD(HOUR,
+        CASE
+            WHEN @dt >= CAST(
+                DATEADD(DAY,
+                    (8 - DATEPART(WEEKDAY, DATEFROMPARTS(YEAR(@dt),3,1))) % 7 + 7,
+                    DATEFROMPARTS(YEAR(@dt),3,1)
+                ) AS DATETIME2(6))
+             AND @dt < CAST(
+                DATEADD(DAY,
+                    (8 - DATEPART(WEEKDAY, DATEFROMPARTS(YEAR(@dt),11,1))) % 7,
+                    DATEFROMPARTS(YEAR(@dt),11,1)
+                ) AS DATETIME2(6))
+            THEN -5
+            ELSE -6
+        END, @dt)
+END
+"
+meta,usp_build_lineage,SQL_STORED_PROCEDURE,"
+CREATE PROCEDURE meta.usp_build_lineage
+AS
+BEGIN
+    DELETE FROM meta.sp_lineage;
+
+    INSERT INTO meta.sp_lineage (lineage_id, source_schema, source_table, target_schema, target_table, relationship_type, sp_name)
+    SELECT
+        ROW_NUMBER() OVER (ORDER BY r.sp_name, src.value),
+        CASE WHEN CHARINDEX('.', TRIM(src.value)) > 0 
+             THEN LEFT(TRIM(src.value), CHARINDEX('.', TRIM(src.value)) - 1)
+             ELSE 'unknown' END,
+        CASE WHEN CHARINDEX('.', TRIM(src.value)) > 0 
+             THEN SUBSTRING(TRIM(src.value), CHARINDEX('.', TRIM(src.value)) + 1, LEN(TRIM(src.value)))
+             ELSE TRIM(src.value) END,
+        r.target_schema,
+        r.target_table,
+        'direct',
+        r.sp_name
+    FROM meta.sp_registry r
+    CROSS APPLY STRING_SPLIT(REPLACE(REPLACE(r.source_objects, '[', ''), ']', ''), ',') src
+    WHERE r.source_objects IS NOT NULL AND LEN(TRIM(src.value)) > 0;
+END
+"
+meta,usp_check_dq,SQL_STORED_PROCEDURE,"
+CREATE   PROCEDURE meta.usp_check_dq
+    @layer              VARCHAR(10),
+    @pipeline_run_id    VARCHAR(36) = NULL
+AS
+BEGIN
+    DECLARE @rule_id        INT;
+    DECLARE @target_schema  NVARCHAR(200);
+    DECLARE @target_table   NVARCHAR(200);
+    DECLARE @check_type     VARCHAR(30);
+    DECLARE @column_name    NVARCHAR(200);
+    DECLARE @severity       VARCHAR(10);
+    DECLARE @threshold      DECIMAL(18,2);
+    DECLARE @sql            NVARCHAR(4000);
+    DECLARE @result         INT;
+    DECLARE @actual_val     VARCHAR(500);
+    DECLARE @expected_val   VARCHAR(500);
+    DECLARE @status         VARCHAR(10);
+    DECLARE @has_critical   INT = 0;
+    DECLARE @next_result_id INT;
+    DECLARE @tgt            NVARCHAR(500);
+
+    SELECT @next_result_id = ISNULL(MAX(result_id), 0) FROM meta.dq_results;
+    SELECT @rule_id = MIN(rule_id) FROM meta.dq_rules WHERE layer = @layer AND is_active = 1;
+
+    WHILE @rule_id IS NOT NULL
+    BEGIN
+        SET @result = 0;
+        SET @actual_val = NULL;
+        SET @expected_val = NULL;
+        SET @status = 'PASS';
+
+        SELECT @target_schema = CAST(target_schema AS NVARCHAR(200)),
+               @target_table  = CAST(target_table AS NVARCHAR(200)),
+               @check_type    = check_type,
+               @column_name   = CAST(column_name AS NVARCHAR(200)),
+               @severity      = severity,
+               @threshold     = threshold
+        FROM meta.dq_rules
+        WHERE rule_id = @rule_id;
+
+        SET @tgt = @target_schema + N'.' + @target_table;
+
+        BEGIN TRY
+            IF @check_type = 'completeness'
+            BEGIN
+                SET @sql = N'SELECT @r = COUNT(*) FROM ' + @tgt + N' WHERE ' + @column_name + N' IS NULL';
+                EXEC sp_executesql @sql, N'@r INT OUTPUT', @r = @result OUTPUT;
+                SET @actual_val = CAST(@result AS VARCHAR) + ' nulls';
+                SET @expected_val = '0 nulls';
+                IF @result > 0 SET @status = 'FAIL';
+            END
+            ELSE IF @check_type = 'row_count'
+            BEGIN
+                SET @sql = N'SELECT @r = COUNT(*) FROM ' + @tgt;
+                EXEC sp_executesql @sql, N'@r INT OUTPUT', @r = @result OUTPUT;
+                SET @actual_val = CAST(@result AS VARCHAR) + ' rows';
+                SET @expected_val = '>=' + CAST(CAST(@threshold AS INT) AS VARCHAR);
+                IF @result < CAST(@threshold AS INT) SET @status = 'FAIL';
+            END
+            ELSE IF @check_type = 'uniqueness'
+            BEGIN
+                SET @sql = N'SELECT @r = COUNT(*) FROM (SELECT ' + @column_name
+                         + N', COUNT(*) AS cnt FROM ' + @tgt
+                         + N' GROUP BY ' + @column_name + N' HAVING COUNT(*) > 1) t';
+                EXEC sp_executesql @sql, N'@r INT OUTPUT', @r = @result OUTPUT;
+                SET @actual_val = CAST(@result AS VARCHAR) + ' duplicates';
+                SET @expected_val = '0 duplicates';
+                IF @result > 0 SET @status = 'FAIL';
+            END
+            ELSE IF @check_type = 'freshness'
+            BEGIN
+                SET @sql = N'SELECT @r = CASE WHEN MAX(' + @column_name
+                         + N') >= DATEADD(HOUR, -24, GETUTCDATE()) THEN 0 ELSE 1 END FROM ' + @tgt;
+                EXEC sp_executesql @sql, N'@r INT OUTPUT', @r = @result OUTPUT;
+                SET @actual_val = CASE WHEN @result = 0 THEN 'fresh' ELSE 'stale' END;
+                SET @expected_val = 'within 24h';
+                IF @result > 0 SET @status = 'FAIL';
+            END
+
+            IF @status = 'FAIL' AND @severity = 'CRITICAL'
+                SET @has_critical = @has_critical + 1;
+        END TRY
+        BEGIN CATCH
+            SET @status = 'FAIL';
+            SET @actual_val = LEFT(ERROR_MESSAGE(), 500);
+            SET @expected_val = '';
+            IF @severity = 'CRITICAL' SET @has_critical = @has_critical + 1;
+        END CATCH
+
+        SET @next_result_id = @next_result_id + 1;
+        INSERT INTO meta.dq_results (result_id, pipeline_run_id, rule_id, check_time, status, actual_value, expected_value, error_detail)
+        VALUES (@next_result_id, @pipeline_run_id, @rule_id, CAST(GETUTCDATE() AS DATETIME2(6)),
+                @status, @actual_val, @expected_val,
+                CASE WHEN @status = 'FAIL' THEN @actual_val ELSE NULL END);
+
+        SELECT @rule_id = MIN(rule_id) FROM meta.dq_rules
+        WHERE rule_id > @rule_id AND layer = @layer AND is_active = 1;
+    END
+
+    IF @has_critical > 0
+    BEGIN
+        DECLARE @msg NVARCHAR(500) = N'DQ CRITICAL: ' + CAST(@has_critical AS NVARCHAR(10)) + N' failures in layer ' + CAST(@layer AS NVARCHAR(10));
+        THROW 50001, @msg, 1;
+    END
+END
+"
+meta,usp_check_dq_single,SQL_STORED_PROCEDURE,"
+CREATE   PROCEDURE meta.usp_check_dq_single
+    @rule_id INT,
+    @pipeline_run_id VARCHAR(36) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @rule_name VARCHAR(200), @target_schema VARCHAR(50), @target_table VARCHAR(200);
+    DECLARE @check_type VARCHAR(30), @column_name VARCHAR(100), @severity VARCHAR(10);
+    DECLARE @threshold DECIMAL(18,2), @params VARCHAR(1000), @layer VARCHAR(10);
+
+    SELECT @rule_name = rule_name, @target_schema = target_schema, @target_table = target_table,
+           @check_type = check_type, @column_name = column_name, @severity = severity,
+           @threshold = threshold, @params = params, @layer = layer
+    FROM meta.dq_rules
+    WHERE rule_id = @rule_id AND is_active = 1;
+
+    IF @rule_name IS NULL RETURN;
+
+    DECLARE @sql NVARCHAR(4000), @actual_value VARCHAR(500), @expected_value VARCHAR(500);
+    DECLARE @result_val DECIMAL(18,4), @status VARCHAR(10);
+    DECLARE @full_table NVARCHAR(500) = QUOTENAME(@target_schema) + N'.' + QUOTENAME(@target_table);
+
+    BEGIN TRY
+        IF @check_type = 'completeness'
+        BEGIN
+            SET @sql = N'SELECT @val = CAST(SUM(CASE WHEN ' + QUOTENAME(@column_name) + N' IS NULL THEN 0 ELSE 1 END) * 100.0 / NULLIF(COUNT(*),0) AS DECIMAL(18,4)) FROM ' + @full_table;
+            EXEC sp_executesql @sql, N'@val DECIMAL(18,4) OUTPUT', @val = @result_val OUTPUT;
+            SET @actual_value = CAST(@result_val AS VARCHAR(50));
+            SET @expected_value = CASE WHEN @threshold IS NOT NULL THEN CAST(@threshold AS VARCHAR(50)) ELSE '100.0' END;
+            SET @status = CASE WHEN @result_val >= ISNULL(@threshold, 100.0) THEN 'PASS' ELSE 'FAIL' END;
+        END
+        ELSE IF @check_type = 'row_count'
+        BEGIN
+            SET @sql = N'SELECT @val = CAST(COUNT(*) AS DECIMAL(18,4)) FROM ' + @full_table;
+            EXEC sp_executesql @sql, N'@val DECIMAL(18,4) OUTPUT', @val = @result_val OUTPUT;
+            SET @actual_value = CAST(CAST(@result_val AS BIGINT) AS VARCHAR(50));
+            SET @expected_value = CAST(@threshold AS VARCHAR(50));
+            SET @status = CASE WHEN @result_val >= ISNULL(@threshold, 0) THEN 'PASS' ELSE 'FAIL' END;
+        END
+        ELSE IF @check_type = 'uniqueness'
+        BEGIN
+            SET @sql = N'SELECT @val = CAST(COUNT(*) - COUNT(DISTINCT ' + QUOTENAME(@column_name) + N') AS DECIMAL(18,4)) FROM ' + @full_table;
+            EXEC sp_executesql @sql, N'@val DECIMAL(18,4) OUTPUT', @val = @result_val OUTPUT;
+            SET @actual_value = CAST(CAST(@result_val AS BIGINT) AS VARCHAR(50));
+            SET @expected_value = '0';
+            SET @status = CASE WHEN @result_val = 0 THEN 'PASS' ELSE 'FAIL' END;
+        END
+        ELSE IF @check_type = 'freshness'
+        BEGIN
+            SET @sql = N'SELECT @val = CAST(DATEDIFF(HOUR, MAX(_load_dt), CAST(GETUTCDATE() AS DATETIME2(6))) AS DECIMAL(18,4)) FROM ' + @full_table;
+            EXEC sp_executesql @sql, N'@val DECIMAL(18,4) OUTPUT', @val = @result_val OUTPUT;
+            SET @actual_value = CAST(CAST(@result_val AS INT) AS VARCHAR(50)) + ' hours';
+            SET @expected_value = '<= ' + CAST(@threshold AS VARCHAR(50)) + ' hours';
+            SET @status = CASE WHEN @result_val <= ISNULL(@threshold, 24) THEN 'PASS' ELSE 'FAIL' END;
+        END
+        ELSE IF @check_type IN ('custom_sql', 'referential_integrity', 'validity')
+        BEGIN
+            SET @sql = CAST(@params AS NVARCHAR(4000));
+            EXEC sp_executesql @sql, N'@val DECIMAL(18,4) OUTPUT', @val = @result_val OUTPUT;
+            SET @actual_value = CAST(@result_val AS VARCHAR(50));
+            SET @expected_value = '0';
+            SET @status = CASE WHEN @result_val = 0 THEN 'PASS' ELSE 'FAIL' END;
+        END
+
+        -- Write result with retry (snapshot conflict protection)
+        DECLARE @write_attempt INT = 0, @write_done INT = 0;
+        WHILE @write_attempt < 3 AND @write_done = 0
+        BEGIN
+            BEGIN TRY
+                DELETE FROM meta.dq_results WHERE rule_id = @rule_id;
+                INSERT INTO meta.dq_results (result_id, pipeline_run_id, rule_id, check_time, status, actual_value, expected_value, error_detail)
+                VALUES (
+                    @rule_id, @pipeline_run_id, @rule_id,
+                    CAST(GETUTCDATE() AS DATETIME2(6)), @status, @actual_value, @expected_value,
+                    @check_type + ' on ' + @target_schema + '.' + @target_table
+                        + CASE WHEN @column_name IS NOT NULL THEN '.' + @column_name ELSE '' END
+                        + ': ' + @severity
+                );
+                SET @write_done = 1;
+            END TRY
+            BEGIN CATCH
+                SET @write_attempt = @write_attempt + 1;
+                IF @write_attempt < 3
+                    WAITFOR DELAY '00:00:02';
+            END CATCH
+        END
+
+        IF @status = 'FAIL' AND @severity = 'CRITICAL'
+        BEGIN
+            DECLARE @err_msg NVARCHAR(500) = N'DQ CRITICAL FAIL: ' + CAST(@rule_name AS NVARCHAR(200))
+                + N' | actual=' + ISNULL(CAST(@actual_value AS NVARCHAR(100)), N'NULL')
+                + N' | expected=' + ISNULL(CAST(@expected_value AS NVARCHAR(100)), N'NULL');
+            THROW 50001, @err_msg, 1;
+        END
+
+    END TRY
+    BEGIN CATCH
+        -- Write error result with retry
+        DECLARE @err_write INT = 0, @err_done INT = 0;
+        WHILE @err_write < 3 AND @err_done = 0
+        BEGIN
+            BEGIN TRY
+                IF NOT EXISTS (SELECT 1 FROM meta.dq_results WHERE rule_id = @rule_id AND check_time >= DATEADD(SECOND, -10, CAST(GETUTCDATE() AS DATETIME2(6))) AND status IN ('PASS','FAIL'))
+                BEGIN
+                    DELETE FROM meta.dq_results WHERE rule_id = @rule_id;
+                    INSERT INTO meta.dq_results (result_id, pipeline_run_id, rule_id, check_time, status, actual_value, expected_value, error_detail)
+                    VALUES (@rule_id, @pipeline_run_id, @rule_id, CAST(GETUTCDATE() AS DATETIME2(6)), 'ERROR', NULL, NULL, ERROR_MESSAGE());
+                END
+                SET @err_done = 1;
+            END TRY
+            BEGIN CATCH
+                SET @err_write = @err_write + 1;
+                IF @err_write < 3
+                    WAITFOR DELAY '00:00:02';
+            END CATCH
+        END
+
+        IF @severity = 'CRITICAL'
+            THROW;
+    END CATCH
+END
+"
+meta,usp_compute_slv_waves,SQL_STORED_PROCEDURE,"
+CREATE PROCEDURE meta.usp_compute_slv_waves AS
+BEGIN
+    DELETE FROM meta.slv_dag_waves_runtime;
+
+    DECLARE @wave INT = 0;
+    DECLARE @assigned INT = 0;
+    DECLARE @new_count INT = 1;
+    DECLARE @total INT;
+    DECLARE @max_waves INT = 30;
+
+    SELECT @total = COUNT(*) FROM meta.sp_registry WHERE layer = 'SLV' AND is_active = 1;
+
+    -- Wave 0: SPs with no silver dependencies
+    -- Check for ANY silver dependency pattern (covers both old and new naming)
+    INSERT INTO meta.slv_dag_waves_runtime (sp_name, wave)
+    SELECT sp_name, 0
+    FROM meta.sp_registry
+    WHERE layer = 'SLV' AND is_active = 1
+    AND (depends_on IS NULL OR (depends_on NOT LIKE '%silver.slv_%' AND depends_on NOT LIKE '%silver.usp_%'));
+
+    SELECT @assigned = COUNT(*) FROM meta.slv_dag_waves_runtime;
+    SET @wave = 1;
+
+    -- Iteratively: assign SPs whose ALL silver deps are in STRICTLY PREVIOUS waves
+    WHILE @assigned < @total AND @wave < @max_waves AND @new_count > 0
+    BEGIN
+        INSERT INTO meta.slv_dag_waves_runtime (sp_name, wave)
+        SELECT r.sp_name, @wave
+        FROM meta.sp_registry r
+        WHERE r.layer = 'SLV' AND r.is_active = 1
+        AND r.sp_name NOT IN (SELECT sp_name FROM meta.slv_dag_waves_runtime)
+        AND NOT EXISTS (
+            SELECT 1 FROM meta.sp_registry dep
+            WHERE dep.layer = 'SLV' AND dep.is_active = 1
+            AND r.depends_on LIKE '%' + dep.sp_name + '%'
+            AND dep.sp_name NOT IN (
+                SELECT sp_name FROM meta.slv_dag_waves_runtime
+                WHERE wave < @wave
+            )
+        );
+
+        SET @new_count = @@ROWCOUNT;
+        SET @assigned = @assigned + @new_count;
+        SET @wave = @wave + 1;
+    END
+END
+"
+meta,usp_debug_loop,SQL_STORED_PROCEDURE,"
+CREATE   PROCEDURE meta.usp_debug_loop AS
+BEGIN
+    DECLARE @id INT;
+    DECLARE @cnt INT = 0;
+    SELECT @id = MIN(rule_id) FROM meta.dq_rules WHERE layer = 'BRZ' AND is_active = 1;
+    
+    WHILE @id IS NOT NULL
+    BEGIN
+        SET @cnt = @cnt + 1;
+        
+        -- Get next
+        SELECT @id = MIN(rule_id) FROM meta.dq_rules WHERE rule_id > @id AND layer = 'BRZ' AND is_active = 1;
+    END
+    
+    SELECT @cnt AS total_iterations;
+END
+"
+meta,usp_finalize_pipeline,SQL_STORED_PROCEDURE,"
+CREATE   PROCEDURE meta.usp_finalize_pipeline
+    @pipeline_run_id VARCHAR(36) = NULL
+AS
+BEGIN
+    -- 1. Build lineage (auto-refresh from source_objects)
+    EXEC meta.usp_build_lineage;
+
+    -- 2. Count success/failed from sp_run_history for this pipeline run
+    DECLARE @succeeded INT = 0;
+    DECLARE @failed INT = 0;
+
+    SELECT @succeeded = COUNT(*) FROM meta.sp_run_history WHERE status = 'success' AND start_time >= DATEADD(MINUTE, -30, GETUTCDATE());
+    SELECT @failed = COUNT(*) FROM meta.sp_run_history WHERE status = 'failed' AND start_time >= DATEADD(MINUTE, -30, GETUTCDATE());
+
+    -- 3. Update pipeline_run_log
+    IF @pipeline_run_id IS NOT NULL
+    BEGIN
+        DECLARE @notes VARCHAR(2000);
+        SET @notes = CAST(@succeeded AS VARCHAR) + ' succeeded, ' + CAST(@failed AS VARCHAR) + ' failed';
+        
+        UPDATE meta.pipeline_run_log
+        SET status = CASE WHEN @failed > 0 THEN 'partial' ELSE 'success' END,
+            end_time = CAST(GETUTCDATE() AS DATETIME2(6)),
+            tables_succeeded = @succeeded,
+            tables_failed = @failed,
+            notes = @notes
+        WHERE pipeline_run_id = @pipeline_run_id;
+    END
+END
+"
+meta,usp_generic_load,SQL_STORED_PROCEDURE,"
+CREATE   PROCEDURE meta.usp_generic_load
+    @target_schema  VARCHAR(50),
+    @target_table   VARCHAR(200)
+AS
+BEGIN
+    DECLARE @run_id VARCHAR(36) = CONVERT(VARCHAR(36), NEWID());
+    DECLARE @sp_name VARCHAR(200), @view_name NVARCHAR(200), @load_type VARCHAR(20);
+    DECLARE @wm_col NVARCHAR(100), @pk_col NVARCHAR(500), @last_wm VARCHAR(200);
+    DECLARE @dt_key NVARCHAR(100), @dt_range_days INT;
+    DECLARE @rows BIGINT, @sql NVARCHAR(4000), @full_target NVARCHAR(500);
+    DECLARE @new_wm VARCHAR(200), @err VARCHAR(4000);
+
+    -- 1. READ CONFIG
+    EXEC sp_executesql
+        N'SELECT @o1=sp_name,@o2=view_name,@o3=load_type,@o4=watermark_column,@o5=primary_key,@o6=last_watermark_value,@o7=date_key,@o8=date_range_days FROM meta.sp_registry WHERE target_schema=@p1 AND target_table=@p2',
+        N'@p1 VARCHAR(50),@p2 VARCHAR(200),@o1 VARCHAR(200) OUT,@o2 NVARCHAR(200) OUT,@o3 VARCHAR(20) OUT,@o4 NVARCHAR(100) OUT,@o5 NVARCHAR(500) OUT,@o6 VARCHAR(200) OUT,@o7 NVARCHAR(100) OUT,@o8 INT OUT',
+        @p1=@target_schema,@p2=@target_table,@o1=@sp_name OUT,@o2=@view_name OUT,@o3=@load_type OUT,@o4=@wm_col OUT,@o5=@pk_col OUT,@o6=@last_wm OUT,@o7=@dt_key OUT,@o8=@dt_range_days OUT;
+
+    IF @sp_name IS NULL BEGIN RAISERROR('Table %s.%s not found in sp_registry',16,1,@target_schema,@target_table); RETURN; END
+    SET @full_target = QUOTENAME(@target_schema) + N'.' + QUOTENAME(@target_table);
+
+    -- 2. LOG START
+    EXEC meta.usp_log_run @run_id, @sp_name, 'running', @load_type = @load_type;
+
+    BEGIN TRY
+        -- Helper: check table exists
+        DECLARE @tbl_exists INT = 0;
+        EXEC sp_executesql N'SELECT @out=COUNT(*) FROM sys.tables t JOIN sys.schemas s ON t.schema_id=s.schema_id WHERE s.name=@s AND t.name=@t',
+            N'@s VARCHAR(50),@t VARCHAR(200),@out INT OUT', @s=@target_schema,@t=@target_table,@out=@tbl_exists OUT;
+
+        -- ═══ OVERWRITE ═══
+        IF @load_type = 'overwrite'
+        BEGIN
+            IF @view_name IS NULL BEGIN RAISERROR('overwrite requires view_name',16,1); RETURN; END
+            SET @sql = N'DROP TABLE IF EXISTS ' + @full_target; EXEC sp_executesql @sql;
+            SET @sql = N'CREATE TABLE ' + @full_target + N' AS SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name; EXEC sp_executesql @sql;
+        END
+
+        -- ═══ INCREMENTAL ═══
+        ELSE IF @load_type = 'incremental'
+        BEGIN
+            IF @tbl_exists = 0 OR @last_wm IS NULL
+            BEGIN
+                SET @sql = N'DROP TABLE IF EXISTS ' + @full_target; EXEC sp_executesql @sql;
+                SET @sql = N'CREATE TABLE ' + @full_target + N' AS SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name + N' WHERE ' + QUOTENAME(@wm_col) + N' >= CAST(''2023-01-01'' AS DATETIME2(6))'; EXEC sp_executesql @sql;
+            END
+            ELSE
+            BEGIN
+                SET @sql = N'INSERT INTO ' + @full_target + N' SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name + N' WHERE ' + QUOTENAME(@wm_col) + N' > CAST(@wm AS DATETIME2(6))';
+                EXEC sp_executesql @sql, N'@wm VARCHAR(200)', @wm=@last_wm;
+            END
+            SET @sql = N'SELECT @out=CAST(MAX(' + QUOTENAME(@wm_col) + N') AS VARCHAR(200)) FROM ' + @full_target;
+            EXEC sp_executesql @sql, N'@out VARCHAR(200) OUT', @out=@new_wm OUT;
+            IF @new_wm IS NOT NULL
+                EXEC sp_executesql N'UPDATE meta.sp_registry SET last_watermark_value=@wm WHERE target_schema=@s AND target_table=@t',
+                    N'@wm VARCHAR(200),@s VARCHAR(50),@t VARCHAR(200)', @wm=@new_wm,@s=@target_schema,@t=@target_table;
+        END
+
+        -- ═══ UPSERT (DELETE matching + INSERT) ═══
+        ELSE IF @load_type = 'upsert'
+        BEGIN
+            IF @pk_col IS NULL BEGIN RAISERROR('upsert requires primary_key',16,1); RETURN; END
+            IF @tbl_exists = 0
+            BEGIN
+                SET @sql = N'CREATE TABLE ' + @full_target + N' AS SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name; EXEC sp_executesql @sql;
+            END
+            ELSE
+            BEGIN
+                SET @sql = N'DELETE FROM ' + @full_target + N' WHERE ' + QUOTENAME(@pk_col) + N' IN (SELECT ' + QUOTENAME(@pk_col) + N' FROM ' + @view_name + N')'; EXEC sp_executesql @sql;
+                SET @sql = N'INSERT INTO ' + @full_target + N' SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name; EXEC sp_executesql @sql;
+            END
+        END
+
+        -- ═══ DATEKEY (delete today + insert today) ═══
+        ELSE IF @load_type = 'datekey'
+        BEGIN
+            DECLARE @dk NVARCHAR(100) = COALESCE(@dt_key, @wm_col);
+            IF @dk IS NULL BEGIN RAISERROR('datekey requires date_key or watermark_column',16,1); RETURN; END
+            IF @tbl_exists = 0
+            BEGIN
+                SET @sql = N'CREATE TABLE ' + @full_target + N' AS SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name; EXEC sp_executesql @sql;
+            END
+            ELSE
+            BEGIN
+                SET @sql = N'DELETE FROM ' + @full_target + N' WHERE CAST(' + QUOTENAME(@dk) + N' AS DATE) = CAST(GETDATE() AS DATE)'; EXEC sp_executesql @sql;
+                SET @sql = N'INSERT INTO ' + @full_target + N' SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name + N' WHERE CAST(' + QUOTENAME(@dk) + N' AS DATE) = CAST(GETDATE() AS DATE)'; EXEC sp_executesql @sql;
+            END
+        END
+
+        -- ═══ DATERANGE (delete N days + insert N days) ═══
+        ELSE IF @load_type = 'daterange'
+        BEGIN
+            DECLARE @dr_col NVARCHAR(100) = COALESCE(@dt_key, @wm_col);
+            DECLARE @neg_days INT = -1 * COALESCE(@dt_range_days, 30);
+            IF @dr_col IS NULL BEGIN RAISERROR('daterange requires date_key or watermark_column',16,1); RETURN; END
+            IF @tbl_exists = 0
+            BEGIN
+                SET @sql = N'CREATE TABLE ' + @full_target + N' AS SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name; EXEC sp_executesql @sql;
+            END
+            ELSE
+            BEGIN
+                SET @sql = N'DELETE FROM ' + @full_target + N' WHERE ' + QUOTENAME(@dr_col) + N' >= DATEADD(DAY,@d,CAST(GETDATE() AS DATE))';
+                EXEC sp_executesql @sql, N'@d INT', @d=@neg_days;
+                SET @sql = N'INSERT INTO ' + @full_target + N' SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name + N' WHERE ' + QUOTENAME(@dr_col) + N' >= DATEADD(DAY,@d,CAST(GETDATE() AS DATE))';
+                EXEC sp_executesql @sql, N'@d INT', @d=@neg_days;
+            END
+        END
+
+        -- ═══ IDENTITY (append WHERE pk > MAX) ═══
+        ELSE IF @load_type = 'identity'
+        BEGIN
+            IF @pk_col IS NULL BEGIN RAISERROR('identity requires primary_key',16,1); RETURN; END
+            IF @tbl_exists = 0
+            BEGIN
+                SET @sql = N'CREATE TABLE ' + @full_target + N' AS SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name; EXEC sp_executesql @sql;
+            END
+            ELSE
+            BEGIN
+                DECLARE @max_pk NVARCHAR(200);
+                SET @sql = N'SELECT @out=CAST(MAX(' + QUOTENAME(@pk_col) + N') AS NVARCHAR(200)) FROM ' + @full_target;
+                EXEC sp_executesql @sql, N'@out NVARCHAR(200) OUT', @out=@max_pk OUT;
+                SET @sql = N'INSERT INTO ' + @full_target + N' SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name + N' WHERE ' + QUOTENAME(@pk_col) + N' > @mx';
+                EXEC sp_executesql @sql, N'@mx NVARCHAR(200)', @mx=@max_pk;
+            END
+        END
+
+        -- ═══ CDC (apply changes from CDC log view) ═══
+        ELSE IF @load_type = 'cdc'
+        BEGIN
+            IF @pk_col IS NULL BEGIN RAISERROR('cdc requires primary_key',16,1); RETURN; END
+            IF @tbl_exists = 0
+            BEGIN
+                SET @sql = N'CREATE TABLE ' + @full_target + N' AS SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name; EXEC sp_executesql @sql;
+            END
+            ELSE
+            BEGIN
+                SET @sql = N'DELETE FROM ' + @full_target + N' WHERE ' + QUOTENAME(@pk_col) + N' IN (SELECT ' + QUOTENAME(@pk_col) + N' FROM ' + @view_name + N')'; EXEC sp_executesql @sql;
+                SET @sql = N'INSERT INTO ' + @full_target + N' SELECT *,CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt FROM ' + @view_name; EXEC sp_executesql @sql;
+            END
+            IF @wm_col IS NOT NULL
+            BEGIN
+                SET @sql = N'SELECT @out=CAST(MAX(' + QUOTENAME(@wm_col) + N') AS VARCHAR(200)) FROM ' + @full_target;
+                EXEC sp_executesql @sql, N'@out VARCHAR(200) OUT', @out=@new_wm OUT;
+                IF @new_wm IS NOT NULL
+                    EXEC sp_executesql N'UPDATE meta.sp_registry SET last_watermark_value=@wm WHERE target_schema=@s AND target_table=@t',
+                        N'@wm VARCHAR(200),@s VARCHAR(50),@t VARCHAR(200)', @wm=@new_wm,@s=@target_schema,@t=@target_table;
+            END
+        END
+
+        -- ═══ SCD2 (close old versions + insert new) ═══
+        ELSE IF @load_type = 'scd2'
+        BEGIN
+            IF @pk_col IS NULL BEGIN RAISERROR('scd2 requires primary_key',16,1); RETURN; END
+            IF @tbl_exists = 0
+            BEGIN
+                SET @sql = N'CREATE TABLE ' + @full_target + N' AS SELECT *,'
+                    + N'CAST(GETUTCDATE() AS DATETIME2(6)) AS _scd2_start_dt,'
+                    + N'CAST(''9999-12-31'' AS DATETIME2(6)) AS _scd2_end_dt,'
+                    + N'CAST(1 AS INT) AS _scd2_is_current,'
+                    + N'CAST(1 AS INT) AS _scd2_version,'
+                    + N'CAST(GETUTCDATE() AS DATETIME2(6)) AS _load_dt'
+                    + N' FROM ' + @view_name;
+                EXEC sp_executesql @sql;
+            END
+            ELSE
+            BEGIN
+                -- Close changed rows
+                SET @sql = N'UPDATE ' + @full_target + N' SET _scd2_end_dt=CAST(GETUTCDATE() AS DATETIME2(6)),_scd2_is_current=0'
+                    + N' WHERE _scd2_is_current=1 AND ' + QUOTENAME(@pk_col) + N' IN ('
+                    + N'SELECT src.' + QUOTENAME(@pk_col) + N' FROM ' + @view_name + N' src'
+                    + N' INNER JOIN ' + @full_target + N' tgt ON src.' + QUOTENAME(@pk_col) + N'=tgt.' + QUOTENAME(@pk_col)
+                    + N' WHERE tgt._scd2_is_current=1)';
+                EXEC sp_executesql @sql;
+
+                -- Insert new versions + new rows
+                SET @sql = N'INSERT INTO ' + @full_target
+                    + N' SELECT src.*,'
+                    + N'CAST(GETUTCDATE() AS DATETIME2(6)),'
+                    + N'CAST(''9999-12-31'' AS DATETIME2(6)),'
+                    + N'1,'
+                    + N'COALESCE(v.mx,0)+1,'
+                    + N'CAST(GETUTCDATE() AS DATETIME2(6))'
+                    + N' FROM ' + @view_name + N' src'
+                    + N' LEFT JOIN (SELECT ' + QUOTENAME(@pk_col) + N',MAX(_scd2_version) AS mx FROM ' + @full_target + N' GROUP BY ' + QUOTENAME(@pk_col) + N') v'
+                    + N' ON src.' + QUOTENAME(@pk_col) + N'=v.' + QUOTENAME(@pk_col)
+                    + N' WHERE src.' + QUOTENAME(@pk_col) + N' NOT IN (SELECT ' + QUOTENAME(@pk_col) + N' FROM ' + @full_target + N' WHERE _scd2_is_current=1)';
+                EXEC sp_executesql @sql;
+            END
+        END
+
+        ELSE BEGIN RAISERROR('Unsupported load_type: %s',16,1,@load_type); RETURN; END
+
+        -- COUNT + LOG
+        SET @sql = N'SELECT @out=COUNT(*) FROM ' + @full_target;
+        EXEC sp_executesql @sql, N'@out BIGINT OUT', @out=@rows OUT;
+        EXEC meta.usp_log_run @run_id, @sp_name, 'success', @rows_affected = @rows, @load_type = @load_type;
+
+    END TRY
+    BEGIN CATCH
+        SET @err = ERROR_MESSAGE();
+        EXEC meta.usp_log_run @run_id, @sp_name, 'failed', @error_message = @err, @load_type = @load_type;
+        THROW;
+    END CATCH
+END
+"
+meta,usp_log_pipeline_run,SQL_STORED_PROCEDURE,"
+CREATE PROCEDURE meta.usp_log_pipeline_run
+    @pipeline_run_id    VARCHAR(36),
+    @pipeline_name      VARCHAR(100),
+    @status             VARCHAR(20),
+    @tables_succeeded   INT = NULL,
+    @tables_failed      INT = NULL,
+    @notes              VARCHAR(2000) = NULL
+AS
+BEGIN
+    DECLARE @now DATETIME2(6) = CAST(GETUTCDATE() AS DATETIME2(6));
+    DECLARE @now_cst DATETIME2(6) = meta.ufn_utc_to_cst(@now);
+
+    IF @status = 'running'
+    BEGIN
+        INSERT INTO meta.pipeline_run_log
+            (pipeline_run_id, pipeline_name, status, start_time, start_cst,
+             tables_succeeded, tables_failed, dq_failures_critical, notes)
+        VALUES
+            (@pipeline_run_id, @pipeline_name, 'running',
+             @now, @now_cst, 0, 0, 0, NULL);
+    END
+    ELSE
+    BEGIN
+        UPDATE meta.pipeline_run_log
+        SET status = @status,
+            end_time = @now,
+            end_cst = @now_cst,
+            tables_succeeded = @tables_succeeded,
+            tables_failed = @tables_failed,
+            notes = @notes
+        WHERE pipeline_run_id = @pipeline_run_id;
+    END
+END
+"
+meta,usp_log_run,SQL_STORED_PROCEDURE,"
+CREATE PROCEDURE meta.usp_log_run
+    @run_id         VARCHAR(36),
+    @sp_name        VARCHAR(200),
+    @status         VARCHAR(20),
+    @rows_affected  BIGINT          = NULL,
+    @error_message  VARCHAR(4000)   = NULL,
+    @pipeline_run_id VARCHAR(36)    = NULL,
+    @load_type      VARCHAR(20)     = NULL
+AS
+BEGIN
+    DECLARE @retry INT = 0;
+    DECLARE @done INT = 0;
+    DECLARE @now DATETIME2(6) = GETUTCDATE();
+    DECLARE @now_cst DATETIME2(6) = meta.ufn_utc_to_cst(@now);
+
+    WHILE @retry < 3 AND @done = 0
+    BEGIN
+        BEGIN TRY
+            IF @status = 'running'
+            BEGIN
+                INSERT INTO meta.sp_run_history
+                    (run_id, pipeline_run_id, sp_name, start_time, start_cst, status, load_type)
+                VALUES
+                    (@run_id, @pipeline_run_id, @sp_name, @now, @now_cst, 'running', @load_type);
+            END
+            ELSE
+            BEGIN
+                UPDATE meta.sp_run_history
+                SET end_time         = @now,
+                    end_cst          = @now_cst,
+                    duration_seconds = DATEDIFF(SECOND, start_time, @now),
+                    rows_affected    = @rows_affected,
+                    status           = @status,
+                    error_message    = @error_message
+                WHERE run_id = @run_id;
+
+                UPDATE meta.sp_registry
+                SET last_load_date = @now,
+                    rows_loaded    = @rows_affected,
+                    next_run_time  = CASE
+                        WHEN frequency = 'daily'   THEN DATEADD(DAY, 1, CAST(@now AS DATE))
+                        WHEN frequency = 'hourly'  THEN DATEADD(HOUR, 1, @now)
+                        WHEN frequency = 'weekly'  THEN DATEADD(WEEK, 1, CAST(@now AS DATE))
+                        WHEN frequency = 'monthly' THEN DATEADD(MONTH, 1, CAST(@now AS DATE))
+                        ELSE DATEADD(DAY, 1, CAST(@now AS DATE))
+                    END
+                WHERE sp_name = @sp_name;
+            END
+
+            SET @done = 1;
+        END TRY
+        BEGIN CATCH
+            SET @retry = @retry + 1;
+            IF @retry >= 3
+            BEGIN
+                DECLARE @err_msg VARCHAR(4000) = ERROR_MESSAGE();
+                RAISERROR('usp_log_run failed after 3 retries: %s', 10, 1, @err_msg);
+            END
+            WAITFOR DELAY '00:00:02';
+        END CATCH
+    END
+END
+"
+meta,usp_run_silver_dag,SQL_STORED_PROCEDURE,"
+CREATE   PROCEDURE meta.usp_run_silver_dag AS
+BEGIN
+    -- Step 1: Compute waves
+    EXEC meta.usp_compute_slv_waves;
+
+    -- Step 2: Get max wave (use sp_executesql to avoid variable in distributed query)
+    DECLARE @max_wave INT;
+    EXEC sp_executesql N'SELECT @mw = ISNULL(MAX(wave), -1) FROM meta.slv_dag_waves_runtime',
+         N'@mw INT OUTPUT', @mw = @max_wave OUTPUT;
+
+    IF @max_wave < 0
+    BEGIN
+        PRINT 'No SLV SPs to run';
+        RETURN;
+    END
+
+    -- Step 3: Loop through waves
+    DECLARE @current_wave INT = 0;
+    DECLARE @sp_name NVARCHAR(200);
+    DECLARE @exec_sql NVARCHAR(500);
+    DECLARE @find_sql NVARCHAR(500);
+
+    WHILE @current_wave <= @max_wave
+    BEGIN
+        -- Find first SP in this wave using sp_executesql (parameterized)
+        SET @sp_name = NULL;
+        SET @find_sql = N'SELECT @out = MIN(sp_name) FROM meta.slv_dag_waves_runtime WHERE wave = @w';
+        EXEC sp_executesql @find_sql, N'@w INT, @out NVARCHAR(200) OUTPUT', 
+             @w = @current_wave, @out = @sp_name OUTPUT;
+
+        WHILE @sp_name IS NOT NULL
+        BEGIN
+            -- Execute the SP
+            SET @exec_sql = N'EXEC ' + @sp_name;
+            EXEC sp_executesql @exec_sql;
+
+            -- Find next SP in same wave
+            SET @find_sql = N'SELECT @out = MIN(sp_name) FROM meta.slv_dag_waves_runtime WHERE wave = @w AND sp_name > @prev';
+            EXEC sp_executesql @find_sql, N'@w INT, @prev NVARCHAR(200), @out NVARCHAR(200) OUTPUT',
+                 @w = @current_wave, @prev = @sp_name, @out = @sp_name OUTPUT;
+        END
+
+        SET @current_wave = @current_wave + 1;
+    END
+END
+"
+meta,usp_validate_schema_contracts,SQL_STORED_PROCEDURE,"
+CREATE   PROCEDURE meta.usp_validate_schema_contracts
+    @pipeline_run_id VARCHAR(36) = NULL
+AS
+BEGIN
+    DECLARE @drift_count INT = 0, @checked INT = 0;
+    DECLARE @cur_target VARCHAR(200), @cur_source VARCHAR(500);
+    DECLARE @source_db VARCHAR(100), @source_schema VARCHAR(100), @source_table VARCHAR(100);
+    DECLARE @contracted_cols INT, @actual_cols INT;
+    DECLARE @count_sql NVARCHAR(1000);
+    DECLARE @prev_target VARCHAR(200) = '';
+
+    -- Iterate distinct target_table from schema_contracts
+    SELECT @cur_target = MIN(target_table) FROM meta.schema_contracts WHERE is_active = 1;
+    
+    WHILE @cur_target IS NOT NULL
+    BEGIN
+        SELECT TOP 1 @cur_source = source_object FROM meta.schema_contracts 
+        WHERE target_table = @cur_target AND is_active = 1;
+        
+        SET @source_db = PARSENAME(@cur_source, 3);
+        SET @source_schema = PARSENAME(@cur_source, 2);
+        SET @source_table = PARSENAME(@cur_source, 1);
+        
+        SELECT @contracted_cols = COUNT(*) FROM meta.schema_contracts 
+        WHERE target_table = @cur_target AND is_active = 1;
+        
+        SET @count_sql = N'SELECT @ac = COUNT(*) FROM ' + QUOTENAME(@source_db) + 
+            '.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = @sch AND TABLE_NAME = @tbl';
+        
+        SET @actual_cols = -1;
+        BEGIN TRY
+            EXEC sp_executesql @count_sql, 
+                N'@sch VARCHAR(100), @tbl VARCHAR(100), @ac INT OUTPUT',
+                @sch = @source_schema, @tbl = @source_table, @ac = @actual_cols OUTPUT;
+            SET @checked = @checked + 1;
+            
+            IF @actual_cols = @contracted_cols
+                UPDATE meta.schema_contracts 
+                SET last_validated = CAST(GETUTCDATE() AS DATETIME2(6)), validation_status = 'valid'
+                WHERE target_table = @cur_target AND is_active = 1;
+            ELSE
+            BEGIN
+                SET @drift_count = @drift_count + 1;
+                UPDATE meta.schema_contracts 
+                SET last_validated = CAST(GETUTCDATE() AS DATETIME2(6)), validation_status = 'drift'
+                WHERE target_table = @cur_target AND is_active = 1;
+            END
+        END TRY
+        BEGIN CATCH
+            UPDATE meta.schema_contracts 
+            SET last_validated = CAST(GETUTCDATE() AS DATETIME2(6)), validation_status = 'error'
+            WHERE target_table = @cur_target AND is_active = 1;
+        END CATCH
+        
+        SELECT @cur_target = MIN(target_table) FROM meta.schema_contracts 
+        WHERE is_active = 1 AND target_table > @cur_target;
+    END
+    
+    IF @drift_count > 0 AND @pipeline_run_id IS NOT NULL
+    BEGIN
+        DECLARE @next_rid INT;
+        SELECT @next_rid = ISNULL(MAX(result_id),0)+1 FROM meta.dq_results;
+        
+        BEGIN TRY
+            INSERT INTO meta.dq_results (result_id, pipeline_run_id, rule_id, check_time, status, actual_value, expected_value, error_detail)
+            VALUES (@next_rid, @pipeline_run_id, 0, CAST(GETUTCDATE() AS DATETIME2(6)), 'WARNING', 
+                CAST(@drift_count AS VARCHAR) + ' source(s) schema drift', '0 drift', 
+                'Check meta.schema_contracts WHERE validation_status = drift');
+        END TRY
+        BEGIN CATCH
+            DECLARE @err VARCHAR(200) = ERROR_MESSAGE();
+        END CATCH
+    END
+END
+"
+SCP_Core,usp_Update_AFISalesFacts,SQL_STORED_PROCEDURE,"CREATE     PROCEDURE [SCP_Core].[usp_Update_AFISalesFacts]
+AS
+
+BEGIN 
+
+EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView] 'SupplyChain_Warehouse', 'SCP_Core', 'FactOpenOrders'
+EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView] 'SupplyChain_Warehouse', 'SCP_Core', 'FactAFISales_CurReqQty'
+
+END;"
+SCP_Core,usp_Update_Dimensions,SQL_STORED_PROCEDURE,"CREATE       PROCEDURE [SCP_Core].[usp_Update_Dimensions]
+AS
+
+BEGIN 
+
+
+EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView] 'SupplyChain_Warehouse', 'SCP_Core', 'DimFiscalCalendar'
+EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView] 'SupplyChain_Warehouse', 'SCP_Core', 'DimSCPItemMaster'
+EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView] 'SupplyChain_Warehouse', 'SCP_Core', 'DimVendorMaster'
+EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView] 'SupplyChain_Warehouse', 'SCP_Core', 'DimWarehouseMaster'
+EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView] 'SupplyChain_Warehouse', 'SCP_Core', 'DimCustomerMaster'
+EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView] 'SupplyChain_Warehouse', 'SCP_Core', 'DimFcstSnapshotDates'
+
+
+END;"
+SCP_Core,usp_Update_FcstAccuracy,SQL_STORED_PROCEDURE,"CREATE   PROCEDURE [SCP_Core].[usp_Update_FcstAccuracy]
+AS
+
+BEGIN 
+
+EXEC [ETL_Framework].[DW_Developer].[usp_IncrementalTableLoad] 'SupplyChain_Warehouse', 'SCP_Core', 'FactFcstErrorCalc', 'Append'
+
+END;"
+SCP_Core,usp_Update_LogilityData,SQL_STORED_PROCEDURE,"CREATE     PROCEDURE [SCP_Core].[usp_Update_LogilityData]
+AS
+
+BEGIN 
+
+EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView] 'SupplyChain_Warehouse', 'SCP_Core', 'FactWorkingForecastCurrent'
+
+END;"

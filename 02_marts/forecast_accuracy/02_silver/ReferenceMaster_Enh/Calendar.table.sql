@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Processing_Warehouse].[ReferenceMaster_Enh].[Calendar]
+-- Loaded by ETL_Framework from [SupplyChain_Processing_Warehouse].[ReferenceMaster_Enh_Wrk].[v_Calendar].
+-- Business/source view SQL is documented in ../ReferenceMaster_Enh_Wrk/v_Calendar.sql.

@@ -1,0 +1,96 @@
+{
+  "layer": "bronze",
+  "mart": "forecast_accuracy",
+  "source_count": 17,
+  "sources": [
+    {
+      "asset_key": "enterprise_lakehouse.customerorders_afi.warehousemaster",
+      "display": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.customers.accountmaster",
+      "display": "Enterprise_Lakehouse.Customers.AccountMaster",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.customers.shippinglocations",
+      "display": "Enterprise_Lakehouse.Customers.ShippingLocations",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.aitmcls",
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.AITMCLS",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itmext",
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimdate",
+      "display": "Enterprise_Lakehouse.MasterData_DW.DimDate",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimitemmaster",
+      "display": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_productknowledge.item_env",
+      "display": "Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoicedetail",
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoiceheader",
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.aaordtyp",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.codatan",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.codatan",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.comast",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.COMAST",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.extord",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD",
+      "dq_status": "REVIEW"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.extorit",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORIT",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing.nonpkitems",
+      "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems",
+      "dq_status": "PASS"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing_afi.customergrouping",
+      "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping",
+      "dq_status": "PASS"
+    }
+  ],
+  "status_counts": {
+    "PASS": 14,
+    "REVIEW": 3
+  }
+}

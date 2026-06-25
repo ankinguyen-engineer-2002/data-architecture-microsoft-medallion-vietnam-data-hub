@@ -1,0 +1,1 @@
+-- dbo exists by default in SQL projects; keep this file as a no-op marker.

@@ -1,0 +1,3 @@
+-- ---- InventoryHistory_Enh.v_SalesShipment ----
+-- REMOVED 2026-05-28: DA-first flow reads SalesHistory_Enh.v_InvoiceDetailLineLevel directly.
+-- Do not recreate Mart B SalesShipment materialization or alias view.

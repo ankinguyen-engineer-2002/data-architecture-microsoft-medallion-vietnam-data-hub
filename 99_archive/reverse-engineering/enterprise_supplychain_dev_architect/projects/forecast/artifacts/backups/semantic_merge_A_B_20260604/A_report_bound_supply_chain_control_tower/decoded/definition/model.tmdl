@@ -1,0 +1,28 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DirectLake - SupplyChain_Warehouse"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","WebModelingEdit","DaxQueryView_Desktop","RemoteModeling","MCP-PBIModeling","Copilot","CopilotMeasureDescriptions"]
+
+ref table dim_customer_grouping
+ref table dim_calendar
+ref table dim_warehouse
+ref table dim_product
+ref table _Measure
+ref table dim_forecast_horizon
+ref table fact_flat_forecast_actual
+ref table fact_forecast_kpi
+ref table dq_forecast_accuracy
+ref table para_metric_table
+ref table Parameter
+
+ref role All_Permission
+

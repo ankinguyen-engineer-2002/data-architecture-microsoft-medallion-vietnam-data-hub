@@ -1,0 +1,13 @@
+-- ============================================================
+-- §B. InventoryHistory_Enh — Master extension views (2 views)
+--     Wrap existing ReferenceMaster_Enh.ItemMaster + Warehouse with
+--     inventory-specific columns NOT present in the base masters.
+--     These views are persisted into InventoryHistory_Enh via GenericLoad
+--     (overwrite, monthly) so downstream Silver/Gold can JOIN them.
+-- ============================================================
+
+-- ---- InventoryHistory_Enh.v_ItemMasterExt ----
+-- Base columns sourced from DimItemMaster (matches ReferenceMaster_Enh.ItemMaster lineage).
+-- Extension JOINs:
+--   - VendorMaster (Purchasing_AFI) → PrimaryVendorName
+--   - ITBEXT (ItemMaster_AFI) → UnavailableFlag (MAX MFPUS='U' per ItemSku)

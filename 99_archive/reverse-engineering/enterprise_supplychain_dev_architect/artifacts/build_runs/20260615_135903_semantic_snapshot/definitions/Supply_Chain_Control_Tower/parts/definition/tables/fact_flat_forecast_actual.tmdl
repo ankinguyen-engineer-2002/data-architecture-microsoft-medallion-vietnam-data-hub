@@ -1,0 +1,106 @@
+/// Fact table containing forecast/actual quantity records by version, status, item, warehouse, customer group, horizon, and fiscal month. Used for detailed version and status analysis.
+table fact_flat_forecast_actual
+	lineageTag: a6309010-27f1-470a-9840-dbc71326ee45
+	sourceLineageTag: [dbo].[fact_flat_forecast_actual]
+
+	/// Item SKU identifier for joining to the product dimension.
+	column id_item_sku
+		dataType: string
+		lineageTag: 3042288f-170f-44fb-84c3-22f0e3bb20ab
+		sourceLineageTag: id_item_sku
+		summarizeBy: none
+		sourceColumn: id_item_sku
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Warehouse code for joining to the warehouse dimension.
+	column code_warehouse
+		dataType: string
+		lineageTag: a1ee07f6-fa9a-4ac8-af74-dee435590a36
+		sourceLineageTag: code_warehouse
+		summarizeBy: none
+		sourceColumn: code_warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Customer group code for joining to the customer grouping dimension.
+	column code_customer_group
+		dataType: string
+		lineageTag: 5ac609c1-9e41-4195-ada2-889025a08e8e
+		sourceLineageTag: code_customer_group
+		summarizeBy: none
+		sourceColumn: code_customer_group
+
+		annotation SummarizationSetBy = Automatic
+
+	/// First date of the fiscal month represented by this fact row.
+	column dt_fsc_month_first
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ff5da242-483c-40ca-b4da-abeeb704e5d7
+		sourceLineageTag: dt_fsc_month_first
+		summarizeBy: none
+		sourceColumn: dt_fsc_month_first
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fiscal month-end date represented by this fact row. Joins to dim_calendar[dt_date].
+	column dt_fsc_month_last
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7ac1f56c-f2e3-4532-a270-a8f7b12e4d0e
+		sourceLineageTag: dt_fsc_month_last
+		summarizeBy: none
+		sourceColumn: dt_fsc_month_last
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Forecast horizon or actual/naive category associated with the quantity row.
+	column code_horizon
+		dataType: string
+		lineageTag: ec2f5f11-88b9-46a3-a9d7-7e1b855918bd
+		sourceLineageTag: code_horizon
+		summarizeBy: none
+		sourceColumn: code_horizon
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Status category for the quantity row, such as Invoice or Open Order.
+	column code_status
+		dataType: string
+		lineageTag: 52dd09bb-75cb-4a42-87c8-4d4cbb0527b7
+		sourceLineageTag: code_status
+		summarizeBy: none
+		sourceColumn: code_status
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Forecast or actual version label used for version-based analysis.
+	column name_version
+		dataType: string
+		lineageTag: a5aebd74-ba2d-45e3-b87f-87a286330f14
+		sourceLineageTag: name_version
+		summarizeBy: none
+		sourceColumn: name_version
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Quantity value for the row, interpreted by horizon, status, version, item, warehouse, customer group, and fiscal month.
+	column qty
+		dataType: double
+		lineageTag: 2ca04482-4862-465b-a54b-98d264cb84b9
+		sourceLineageTag: qty
+		summarizeBy: sum
+		sourceColumn: qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_flat_forecast_actual = entity
+		mode: directLake
+		source
+			entityName: fact_flat_forecast_actual
+			schemaName: dbo
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

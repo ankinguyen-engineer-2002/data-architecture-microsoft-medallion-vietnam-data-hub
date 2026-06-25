@@ -1,0 +1,88 @@
+table FactWorkingForecastCurrent
+	lineageTag: 0e699085-1323-422d-a2db-5e2cd79f1308
+	sourceLineageTag: [SCP_Core].[FactWorkingForecastCurrent]
+
+	column CustomerGroup
+		dataType: string
+		lineageTag: ea881e79-cd1d-4aea-bf26-fd0edcf96679
+		sourceLineageTag: CustomerGroup
+		summarizeBy: none
+		sourceColumn: CustomerGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemSKU
+		dataType: string
+		lineageTag: 23df7b80-8c88-4fb4-a260-4f774215e400
+		sourceLineageTag: ItemSKU
+		summarizeBy: none
+		sourceColumn: ItemSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column Warehouse
+		dataType: string
+		lineageTag: 1776e0cd-f6e5-460b-b5a4-c861759201a4
+		sourceLineageTag: Warehouse
+		summarizeBy: none
+		sourceColumn: Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalMonthLastDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b69b3b5f-8829-44d4-a060-e33e3fa77616
+		sourceLineageTag: FiscalMonthLastDate
+		summarizeBy: none
+		sourceColumn: FiscalMonthLastDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResultantForecastQty
+		dataType: int64
+		formatString: 0
+		lineageTag: 185f4cce-3102-42fb-9ebc-1df69ed07900
+		sourceLineageTag: ResultantForecastQty
+		summarizeBy: sum
+		sourceColumn: ResultantForecastQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromoLiftQty
+		dataType: int64
+		formatString: 0
+		lineageTag: 2bb9a11e-1efa-40cb-b609-24e56b8971a3
+		sourceLineageTag: PromoLiftQty
+		summarizeBy: sum
+		sourceColumn: PromoLiftQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column FutureOrderQty
+		dataType: int64
+		formatString: 0
+		lineageTag: 49848ca8-3d20-453e-9557-bbc4ba5d1602
+		sourceLineageTag: FutureOrderQty
+		summarizeBy: sum
+		sourceColumn: FutureOrderQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column SnapshotDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1e780e60-b49f-48b2-a375-d0c0528838ab
+		sourceLineageTag: SnapshotDate
+		summarizeBy: none
+		sourceColumn: SnapshotDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactWorkingForecastCurrent = entity
+		mode: directLake
+		source
+			entityName: FactWorkingForecastCurrent
+			schemaName: SCP_Core
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

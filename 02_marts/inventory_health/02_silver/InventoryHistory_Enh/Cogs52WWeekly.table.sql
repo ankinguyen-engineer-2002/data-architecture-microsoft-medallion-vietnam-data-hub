@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[Cogs52WWeekly]
+-- Loaded by ETL_Framework from [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh_Wrk].[v_Cogs52WWeekly].
+-- Business/source view SQL is documented in ../InventoryHistory_Enh_Wrk/v_Cogs52WWeekly.sql.

@@ -1,0 +1,182 @@
+{
+  "asset_key": "enterprise_lakehouse.manufacturing_inventory_afi.tfrdtl",
+  "display": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRDTL",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 19,
+    "columns": [
+      {
+        "column_name": "DTFRNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "DITNBR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "DITCLS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "DGRFRC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "DATPQT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "DNTFRC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "DORFSH",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "DFRSHR",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "DTFRQT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "DSHPQT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "DTSHPQ",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "DCUBES",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "DWEGHT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "DTRIP#",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "DEQUIP",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "DEXPED",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "DCOMNT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "DETADT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "DFIRMC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "DETADT": 0
+    },
+    "freshness_columns": [
+      "DETADT"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 5.311,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "DTFRNO"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.42,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": 1417626,
+          "latest_partition_duplicate_groups": 44331,
+          "latest_partition_max_rows_per_key": 1499
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 41
+        }
+      ],
+      "seconds": 0.381,
+      "status": "PASS"
+    },
+    "projects": [
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRDTL",
+    "row_count_metadata": null,
+    "status": "REVIEW"
+  },
+  "dq_status": "REVIEW",
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRDTL.sql"
+}

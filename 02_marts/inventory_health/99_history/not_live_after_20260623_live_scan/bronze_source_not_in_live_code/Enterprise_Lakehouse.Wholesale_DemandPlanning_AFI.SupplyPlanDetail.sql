@@ -1,0 +1,4 @@
+-- Enterprise_Lakehouse.Wholesale_DemandPlanning_AFI.SupplyPlanDetail
+-- Layer: Bronze/source shortcut reference for mart `inventory_health`.
+-- This is not a local view/table definition in this repo.
+-- It documents the upstream Fabric Lakehouse object used by downstream views/registry lineage.

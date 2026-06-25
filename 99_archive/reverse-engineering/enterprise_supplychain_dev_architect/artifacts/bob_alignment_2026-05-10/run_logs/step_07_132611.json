@@ -1,0 +1,165 @@
+{
+  "step": 7,
+  "file": "07_drop_recreate_sps.sql",
+  "db": "SupplyChain_Processing_Warehouse",
+  "started": "2026-05-10T06:26:00.609793+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "ok",
+      "first": "-- 07_drop_recreate_sps.sql"
+    },
+    {
+      "i": 1,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_CheckDqSingle;"
+    },
+    {
+      "i": 2,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_ComputeSilverWaves;"
+    },
+    {
+      "i": 3,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_DebugLoop;"
+    },
+    {
+      "i": 4,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_FinalizePipeline;"
+    },
+    {
+      "i": 5,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_GenericLoad;"
+    },
+    {
+      "i": 6,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_LogPipelineRun;"
+    },
+    {
+      "i": 7,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_LogRun;"
+    },
+    {
+      "i": 8,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_ResolveAccessMode;"
+    },
+    {
+      "i": 9,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_RunDQGate;"
+    },
+    {
+      "i": 10,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_RunReconciliation;"
+    },
+    {
+      "i": 11,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_RunSilverDag;"
+    },
+    {
+      "i": 12,
+      "status": "ok",
+      "first": "DROP PROCEDURE IF EXISTS Meta.usp_ValidateSourceContract;"
+    },
+    {
+      "i": 13,
+      "status": "error",
+      "first": "-- Recreate (transformed):",
+      "error": "('42S01', \"[42S01] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]There is already an object named 'ufn_cron_is_due' in the database. (2714) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 14,
+      "status": "error",
+      "first": "-- ---- [SQL_SCALAR_FUNCTION] Meta.ufn_should_run ----",
+      "error": "('42S01', \"[42S01] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]There is already an object named 'ufn_should_run' in the database. (2714) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 15,
+      "status": "error",
+      "first": "-- ---- [SQL_SCALAR_FUNCTION] Meta.ufn_utc_to_cst ----",
+      "error": "('42S01', \"[42S01] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]There is already an object named 'ufn_utc_to_cst' in the database. (2714) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 16,
+      "status": "error",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_BuildLineage ----",
+      "error": "('42S01', \"[42S01] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]There is already an object named 'usp_BuildLineage' in the database. (2714) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 17,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_CheckDq ----"
+    },
+    {
+      "i": 18,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_CheckDqSingle ----"
+    },
+    {
+      "i": 19,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_ComputeSilverWaves ----"
+    },
+    {
+      "i": 20,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_DebugLoop ----"
+    },
+    {
+      "i": 21,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_FinalizePipeline ----"
+    },
+    {
+      "i": 22,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_GenericLoad ----"
+    },
+    {
+      "i": 23,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_LogPipelineRun ----"
+    },
+    {
+      "i": 24,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_LogRun ----"
+    },
+    {
+      "i": 25,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_ResolveAccessMode ----"
+    },
+    {
+      "i": 26,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_RunDQGate ----"
+    },
+    {
+      "i": 27,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_RunReconciliation ----"
+    },
+    {
+      "i": 28,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_RunSilverDag ----"
+    },
+    {
+      "i": 29,
+      "status": "ok",
+      "first": "-- ---- [SQL_STORED_PROCEDURE] Meta.usp_ValidateSourceContract ----"
+    }
+  ],
+  "ended": "2026-05-10T06:26:11.717729+00:00",
+  "ok": 26,
+  "total": 30
+}

@@ -1,0 +1,7 @@
+pipeline,query_index,sql_query
+pl_sc_master,1,SELECT DISTINCT project FROM SupplyChain_Warehouse.meta.sp_registry WHERE is_active = 1 AND project IS NOT NULL
+pl_sc_bronze,1,"SELECT r.target_schema, r.target_table FROM SupplyChain_Warehouse.meta.sp_registry r WHERE r.layer IN ('BRZ','REF') AND r.is_active = 1 AND (r.cron_expression IS NULL OR r.next_run_time IS NULL OR r.next_run_time <= GETUTCDATE()) AND r.project = '@{pipeline().parameters.project_name}'"
+pl_sc_silver,1,SELECT DISTINCT wave FROM SupplyChain_Warehouse.meta.slv_dag_waves_runtime ORDER BY wave
+pl_sc_silver_wave,1,"@concat('SELECT r.target_schema, r.target_table FROM SupplyChain_Warehouse.meta.slv_dag_waves_runtime w INNER JOIN SupplyChain_Warehouse.meta.sp_registry r ON w.sp_name = r.sp_name WHERE w.wave = ', string(pipeline().parameters.wave_number))"
+pl_sc_gold,1,"SELECT r.target_schema, r.target_table FROM SupplyChain_Warehouse.meta.sp_registry r WHERE r.layer = 'GLD' AND r.is_active = 1 AND (r.cron_expression IS NULL OR r.next_run_time IS NULL OR r.next_run_time <= GETUTCDATE()) AND r.project = '@{pipeline().parameters.project_name}'"
+pl_dq_check,1,"@concat('SELECT rule_id FROM SupplyChain_Warehouse.meta.dq_rules WHERE is_active = 1 AND layer IN (', pipeline().parameters.dq_layer, ')')"

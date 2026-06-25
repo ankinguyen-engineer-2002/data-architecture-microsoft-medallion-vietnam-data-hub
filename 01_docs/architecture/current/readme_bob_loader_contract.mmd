@@ -1,0 +1,24 @@
+flowchart TB
+    agent["Scheduler<br/>SQL Agent / approved trigger"]
+    wrapper["Wrapper stored procedure<br/>định nghĩa thứ tự chạy"]
+
+    subgraph framework["ETL_Framework.DW_Developer"]
+        td["TableDictionary<br/>metadata và load contract"]
+        audit["AuditLog<br/>start / complete / error"]
+        loader["Loader procedure<br/>full / incremental / SCD / date-range"]
+    end
+
+    subgraph warehouse["Curated Warehouse"]
+        wrk["<Schema>_Wrk.v_<TableName><br/>source/work view"]
+        load["<Schema>.<TableName>_LOAD<br/>bảng tạm của loader"]
+        final["<Schema>.<TableName><br/>final physical table"]
+    end
+
+    agent --> wrapper
+    wrapper --> loader
+    loader --> td
+    loader --> audit
+    loader --> wrk
+    wrk --> load --> final
+    final --> td
+    final --> audit

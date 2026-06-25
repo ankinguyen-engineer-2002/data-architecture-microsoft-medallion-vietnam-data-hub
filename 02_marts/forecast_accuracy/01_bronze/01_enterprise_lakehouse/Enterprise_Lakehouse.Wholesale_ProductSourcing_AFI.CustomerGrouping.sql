@@ -1,0 +1,4 @@
+-- Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping
+-- Layer: Bronze/source shortcut reference for mart `forecast_accuracy`.
+-- Status: live active source reference from current Fabric SQL module definitions.
+-- This is not a local view/table definition in this repo.

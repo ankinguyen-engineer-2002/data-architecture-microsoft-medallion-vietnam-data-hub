@@ -1,0 +1,401 @@
+{
+  "asset_key": "enterprise_lakehouse.wholesale_codis_afi.extord",
+  "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 54,
+    "columns": [
+      {
+        "column_name": "XORDNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "RQSDAT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "ORDUSE",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "ORDARR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "ADVTSP",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "NOSETS",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "ORDREF",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "ORDLNK",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "CSRPID",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "EXTCTY",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "EXTSTE",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "OTTYP1",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "OTTYP2",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "OTTYP3",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "OTTYP4",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "MNTCNT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "FRZDAT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "SHPNAM",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "WHSE",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "CUSTNO",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 20
+      },
+      {
+        "column_name": "SHPTO#",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 21
+      },
+      {
+        "column_name": "TKNDAT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 22
+      },
+      {
+        "column_name": "TRPNO",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 23
+      },
+      {
+        "column_name": "HDATE",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 24
+      },
+      {
+        "column_name": "DROP#",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 25
+      },
+      {
+        "column_name": "TRIP#",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 26
+      },
+      {
+        "column_name": "CREDVW",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 27
+      },
+      {
+        "column_name": "APVCHK",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 28
+      },
+      {
+        "column_name": "APPROV",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 29
+      },
+      {
+        "column_name": "ORDUSR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 30
+      },
+      {
+        "column_name": "HLDUSR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 31
+      },
+      {
+        "column_name": "TERRCD",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 32
+      },
+      {
+        "column_name": "CONTAC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 33
+      },
+      {
+        "column_name": "PHONE#",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 34
+      },
+      {
+        "column_name": "REFNUM",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 35
+      },
+      {
+        "column_name": "RCVCSH",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 36
+      },
+      {
+        "column_name": "CAPRDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 37
+      },
+      {
+        "column_name": "CROVRD",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 38
+      },
+      {
+        "column_name": "CROVDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 39
+      },
+      {
+        "column_name": "CRANOV",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 40
+      },
+      {
+        "column_name": "CBDDAT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 41
+      },
+      {
+        "column_name": "USRMNT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 42
+      },
+      {
+        "column_name": "DATMNT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 43
+      },
+      {
+        "column_name": "TIMMNT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 44
+      },
+      {
+        "column_name": "ORTYPE",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 45
+      },
+      {
+        "column_name": "COMMCO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 46
+      },
+      {
+        "column_name": "DSCNCO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 47
+      },
+      {
+        "column_name": "PRICCO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 48
+      },
+      {
+        "column_name": "FRGHCO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 49
+      },
+      {
+        "column_name": "ZIPCOD",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 50
+      },
+      {
+        "column_name": "ARZONE",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 51
+      },
+      {
+        "column_name": "ARSEQ",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 52
+      },
+      {
+        "column_name": "ARDATE",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 53
+      },
+      {
+        "column_name": "PRMNBR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 54
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "ARDATE": 0,
+      "CAPRDT": 0,
+      "CROVDT": 20261015,
+      "HDATE": 20260623
+    },
+    "freshness_columns": [
+      "HDATE",
+      "CAPRDT",
+      "CROVDT",
+      "ARDATE"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 12.803,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "WHSE",
+      "CUSTNO",
+      "HDATE",
+      "ARDATE"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.304,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": 46,
+          "latest_partition_duplicate_groups": 10,
+          "latest_partition_max_rows_per_key": 14
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 1.253,
+      "status": "PASS"
+    },
+    "projects": [
+      "forecast_accuracy"
+    ],
+    "ref": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD",
+    "row_count_metadata": null,
+    "status": "REVIEW"
+  },
+  "dq_status": "REVIEW",
+  "layer": "bronze",
+  "mart": "forecast_accuracy",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD.sql"
+}

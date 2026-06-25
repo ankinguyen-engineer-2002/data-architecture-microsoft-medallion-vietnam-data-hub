@@ -1,0 +1,68 @@
+table DimWarehouseMaster
+	lineageTag: 47760c9a-f259-471c-9ac9-0e6de7b9fc43
+	sourceLineageTag: [SCP_Core].[DimWarehouseMaster]
+
+	column 'Warehouse Code'
+		dataType: string
+		lineageTag: e784932b-2ed7-4bc7-b84f-1158b5706bbe
+		sourceLineageTag: Warehouse Code
+		summarizeBy: none
+		sourceColumn: Warehouse Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Warehouse Location'
+		dataType: string
+		lineageTag: 5e58709c-6944-43d4-851a-c964b256ef5d
+		sourceLineageTag: Warehouse Location
+		summarizeBy: none
+		sourceColumn: Warehouse Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WH Desc'
+		dataType: string
+		lineageTag: ed16304a-d3f7-4f2a-bee4-321567122ab3
+		sourceLineageTag: WH Desc
+		summarizeBy: none
+		sourceColumn: WH Desc
+		sortByColumn: 'Warehouse Code'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WH Group'
+		dataType: string
+		lineageTag: f5415a32-1cf6-4c53-bd81-ff5f7fee28c2
+		sourceLineageTag: WH Group
+		summarizeBy: none
+		sourceColumn: WH Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Warehouse Name'
+		dataType: string
+		lineageTag: 73c37693-3507-41f8-85f3-9f4172ed2909
+		sourceLineageTag: Warehouse Name
+		summarizeBy: none
+		sourceColumn: Warehouse Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column IntransitWarehouse
+		dataType: string
+		lineageTag: b2ac8f56-93f6-4c28-b1b2-c7f642404640
+		sourceLineageTag: IntransitWarehouse
+		summarizeBy: none
+		sourceColumn: IntransitWarehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimWarehouseMaster = entity
+		mode: directLake
+		source
+			entityName: DimWarehouseMaster
+			schemaName: SCP_Core
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

@@ -1,0 +1,54 @@
+[
+  {
+    "workspaceId": "f0e1bc90-35c4-4e31-bc00-ff4a225152b7",
+    "reportId": "415b1586-e0c7-4d9f-ab4d-3a9abd712ae4",
+    "reportName": "Forecast Accuracy_Connected live",
+    "initial_status": 202,
+    "operation": "https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1/03_operations/5f5ee693-f2d0-4bee-9bf0-2a580e685bc4",
+    "operation_status": "Succeeded",
+    "format": "PBIR",
+    "part_count": 410,
+    "pattern_counts": {
+      "\"Entity\": \"DimCalendar\"": 0,
+      "\"Entity\": \"DimProduct\"": 0,
+      "\"Entity\": \"DimWarehouse\"": 0,
+      "\"Entity\": \"DimVendor\"": 0,
+      "DimCalendar.": 0,
+      "DimProduct.": 0,
+      "DimWarehouse.": 0,
+      "DimVendor.": 0,
+      "FactInventoryHealthSnapshot": 0,
+      "FactInventoryRiskForward": 0,
+      "CogsRollingHelper": 0,
+      "dim_calendar": 124,
+      "dim_product": 39,
+      "dim_warehouse": 18
+    }
+  },
+  {
+    "workspaceId": "f0e1bc90-35c4-4e31-bc00-ff4a225152b7",
+    "reportId": "dc4c4de6-bf58-4c3e-a926-6378d152df00",
+    "reportName": "Forecast Accuracy - Arctic",
+    "initial_status": 202,
+    "operation": "https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1/03_operations/407022d4-ec33-41e2-b1d1-e1ee149be090",
+    "operation_status": "Succeeded",
+    "format": "PBIR-Legacy",
+    "part_count": 4,
+    "pattern_counts": {
+      "\"Entity\": \"DimCalendar\"": 0,
+      "\"Entity\": \"DimProduct\"": 0,
+      "\"Entity\": \"DimWarehouse\"": 0,
+      "\"Entity\": \"DimVendor\"": 0,
+      "DimCalendar.": 0,
+      "DimProduct.": 0,
+      "DimWarehouse.": 0,
+      "DimVendor.": 0,
+      "FactInventoryHealthSnapshot": 0,
+      "FactInventoryRiskForward": 0,
+      "CogsRollingHelper": 0,
+      "dim_calendar": 35,
+      "dim_product": 5,
+      "dim_warehouse": 5
+    }
+  }
+]

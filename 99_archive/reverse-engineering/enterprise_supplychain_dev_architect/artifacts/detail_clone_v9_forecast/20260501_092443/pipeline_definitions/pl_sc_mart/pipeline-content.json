@@ -1,0 +1,107 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "invoke_bronze",
+        "type": "InvokePipeline",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.06:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "waitOnCompletion": true,
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "1bdbaebb-7222-4e9c-a45d-3e632bba846d",
+          "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+          "parameters": {
+            "project_name": {
+              "value": "@pipeline().parameters.project_name",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "3bee8b0e-bc72-484d-9008-4a7c0acd92d0"
+        }
+      },
+      {
+        "name": "invoke_silver",
+        "type": "InvokePipeline",
+        "dependsOn": [
+          {
+            "activity": "invoke_bronze",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.06:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "waitOnCompletion": true,
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "46437ae6-3a15-4697-957d-f1f44ba10633",
+          "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+          "parameters": {
+            "project_name": {
+              "value": "@pipeline().parameters.project_name",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "3bee8b0e-bc72-484d-9008-4a7c0acd92d0"
+        }
+      },
+      {
+        "name": "invoke_gold",
+        "type": "InvokePipeline",
+        "dependsOn": [
+          {
+            "activity": "invoke_silver",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.06:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "waitOnCompletion": true,
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "94fc130e-f327-46a9-b7ba-cd2aa328c0da",
+          "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+          "parameters": {
+            "project_name": {
+              "value": "@pipeline().parameters.project_name",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "3bee8b0e-bc72-484d-9008-4a7c0acd92d0"
+        }
+      }
+    ],
+    "parameters": {
+      "project_name": {
+        "type": "String",
+        "defaultValue": "supplychain"
+      }
+    }
+  }
+}

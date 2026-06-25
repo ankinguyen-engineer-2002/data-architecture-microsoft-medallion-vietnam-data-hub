@@ -1,0 +1,35 @@
+-- Source: SupplyChain_Warehouse.silver.vw_slv_open_order_line_level
+-- Generated from INFORMATION_SCHEMA.COLUMNS.
+-- This is a logical schema snapshot; review Fabric physical options before execution.
+CREATE TABLE [silver].[vw_slv_open_order_line_level] (
+    [id_order] varchar(8000) NULL,
+    [num_item_sequence] int NULL,
+    [id_customer] varchar(8000) NULL,
+    [code_ship_to] varchar(8000) NULL,
+    [id_account_ship_to] varchar(8000) NULL,
+    [id_item_sku] varchar(8000) NULL,
+    [code_warehouse] varchar(8000) NULL,
+    [code_afi_item_status] varchar(8000) NULL,
+    [qty_open_order] int NULL,
+    [qty_backorder] int NULL,
+    [amt_open_order] decimal(13,2) NULL,
+    [amt_backorder] decimal(13,2) NULL,
+    [dt_order_taken] date NULL,
+    [dt_original_promise] date NULL,
+    [dt_current_promise] date NULL,
+    [dt_original_request] date NULL,
+    [dt_current_request] date NULL,
+    [dt_current_load] date NULL,
+    [name_primary_order_type] varchar(8000) NULL,
+    [name_secondary_order_type] varchar(8000) NULL,
+    [name_3rd_order_type] varchar(8000) NULL,
+    [name_4th_order_type] varchar(8000) NULL,
+    [code_order_arrival] varchar(8000) NULL,
+    [code_allocation_flag] varchar(200) NULL,
+    [num_load_date_changes] int NULL,
+    [num_lead_time_days] int NULL,
+    [name_shipping_instructions] varchar(8000) NULL,
+    [name_customer_sku] varchar(8000) NULL,
+    [amt_order_freight] decimal(12,2) NULL,
+    [code_past_due_flag] varchar(10) NOT NULL
+);

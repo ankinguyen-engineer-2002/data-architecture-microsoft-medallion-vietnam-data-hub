@@ -1,0 +1,4 @@
+-- Enterprise_Lakehouse.Customers.ShippingLocations
+-- Layer: Bronze/source shortcut reference for mart `forecast_accuracy`.
+-- Status: live active source reference from current Fabric SQL module definitions.
+-- This is not a local view/table definition in this repo.

@@ -1,0 +1,543 @@
+{
+  "datasetId": "3eecf594-a75e-46ab-9162-63c95ee68e45",
+  "measure_count": 85,
+  "ok_count": 84,
+  "failures": [
+    "Selected_Months"
+  ],
+  "results": [
+    {
+      "measure": "Qty_Forecast",
+      "status": 200,
+      "value": 536148968.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Actual",
+      "status": 200,
+      "value": 754229927.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Bias",
+      "status": 200,
+      "value": -218080959.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_NForecast",
+      "status": 200,
+      "value": 665800337.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Abs_Bias",
+      "status": 200,
+      "value": 526533785.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_NBias",
+      "status": 200,
+      "value": -88429590.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Abs_NBias",
+      "status": 200,
+      "value": 352622650.0,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE",
+      "status": 200,
+      "value": 0.6981077866988431,
+      "ok": true
+    },
+    {
+      "measure": "Pct_MPE",
+      "status": 200,
+      "value": -0.2891438687237347,
+      "ok": true
+    },
+    {
+      "measure": "Pct_MAPE",
+      "status": 200,
+      "value": 1.2213307836429044,
+      "ok": true
+    },
+    {
+      "measure": "RMSE",
+      "status": 200,
+      "value": 99.46762233032945,
+      "ok": true
+    },
+    {
+      "measure": "ProcessValueAdd",
+      "status": 200,
+      "value": -0.2305810586060184,
+      "ok": true
+    },
+    {
+      "measure": "Pct_NwMAPE",
+      "status": 200,
+      "value": 0.4675267280928247,
+      "ok": true
+    },
+    {
+      "measure": "Pct_ForecastAccuracy",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Pct_ForecastAccuracy_lm",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "Delta_ForecastAccuracy_MoM",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "TrueError",
+      "status": 200,
+      "value": 0.4089639179751084,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE_Lag0",
+      "status": 200,
+      "value": 0.4524461162784256,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE_Lag1",
+      "status": 200,
+      "value": 0.5224473704504737,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE_Lag2",
+      "status": 200,
+      "value": 0.5793729820536604,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE_Lag3",
+      "status": 200,
+      "value": 0.6295184384746051,
+      "ok": true
+    },
+    {
+      "measure": "Pct_wMAPE_Lag4",
+      "status": 200,
+      "value": 0.6925142432285616,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Actual_2W",
+      "status": 200,
+      "value": 96073867.0,
+      "ok": true
+    },
+    {
+      "measure": "Qt_Invoice",
+      "status": 200,
+      "value": 90918069.0,
+      "ok": true
+    },
+    {
+      "measure": "Qt_Open_SO",
+      "status": 200,
+      "value": 410203.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_Latest_V",
+      "status": 200,
+      "value": 12552323.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_V_2",
+      "status": 200,
+      "value": 12290835.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_V_3",
+      "status": 200,
+      "value": 12325933.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_V_4",
+      "status": 200,
+      "value": 12634681.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_V_5",
+      "status": 200,
+      "value": 12525921.0,
+      "ok": true
+    },
+    {
+      "measure": "Qty_V_6",
+      "status": 200,
+      "value": 12707442.0,
+      "ok": true
+    },
+    {
+      "measure": "RMSE_Naive",
+      "status": 200,
+      "value": 76.74377936494284,
+      "ok": true
+    },
+    {
+      "measure": "Pct_ForecastAccuracy_lq",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "RMSE_Table_Background_Color",
+      "status": 200,
+      "value": "#D9D9D9",
+      "ok": true
+    },
+    {
+      "measure": "UpdatedTime",
+      "status": 200,
+      "value": "2026-06-04T00:00:00",
+      "ok": true
+    },
+    {
+      "measure": "BestPeformanceHorizon_Insight",
+      "status": 200,
+      "value": "Lag-0",
+      "ok": true
+    },
+    {
+      "measure": "Bias_Status",
+      "status": 200,
+      "value": "UNDER",
+      "ok": true
+    },
+    {
+      "measure": "TrendSummaryMetricsBySelectedHorizon_Title",
+      "status": 200,
+      "value": "Trend Summary Metrics by ",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Quarter_Status",
+      "status": 200,
+      "value": "Your selected period from Q1 2000 to Q4 2028",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Quarter_Min",
+      "status": 200,
+      "value": "Q1 2000",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Quarter_Max",
+      "status": 200,
+      "value": "Q4 2028",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Months",
+      "status": 200,
+      "ok": false,
+      "response": {
+        "results": [
+          {
+            "tables": [
+              {
+                "rows": []
+              }
+            ],
+            "error": {
+              "code": "QueryUserError",
+              "message": "The locale name specified in FORMAT is not supported because 'The parameter is incorrect.'.",
+              "details": [
+                {
+                  "code": "AnalysisServicesErrorCode",
+                  "detail": {
+                    "type": "1",
+                    "value": 3241804279
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "measure": "Selected_Month_Status",
+      "status": 200,
+      "value": "Your selected period from 01/2000 to 12/2028",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Month_Min",
+      "status": 200,
+      "value": "01/2000",
+      "ok": true
+    },
+    {
+      "measure": "Selected_Month_Max",
+      "status": 200,
+      "value": "12/2028",
+      "ok": true
+    },
+    {
+      "measure": "NBias_Status",
+      "status": 200,
+      "value": "UNDER",
+      "ok": true
+    },
+    {
+      "measure": "HowAccurateWasEachForecastVersion_Title_Quarter",
+      "status": 200,
+      "value": "HOW ACCURATE WAS EACH FORECAST VERSION FROM Q1 2000 TO Q4 2028?",
+      "ok": true
+    },
+    {
+      "measure": "HowAccurateWasEachForecastVersion_Title_Month",
+      "status": 200,
+      "value": "HOW ACCURATE WAS EACH FORECAST VERSION FROM 01/2000 TO 12/2028?",
+      "ok": true
+    },
+    {
+      "measure": "HowAccurateAreWe_Title_Quarter",
+      "status": 200,
+      "value": "HOW ACCURATE ARE WE FROM Q1 2000 TO Q4 2028?",
+      "ok": true
+    },
+    {
+      "measure": "HowAccurateAreWe_Title_Month",
+      "status": 200,
+      "value": "HOW ACCURATE ARE WE FROM 01/2000 TO 12/2028?",
+      "ok": true
+    },
+    {
+      "measure": "ForecastAccuracy_lq_Status",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "ForecastAccuracy_lm_Status",
+      "status": 200,
+      "value": null,
+      "ok": true
+    },
+    {
+      "measure": "ForecastAccuracy_HorizonCompare_Insight",
+      "status": 200,
+      "value": "Accuracy is declining as the forecast lag increases. Lag-3 shows higher error than Lag-0",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_6_Quarter",
+      "status": 200,
+      "value": "- wMAPE increases sharply for Lag-3 and Lag-4 from Q3 2025 onward — longer horizons becoming less reliable.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_6_Month",
+      "status": 200,
+      "value": "- wMAPE increases sharply for Lag-3 and Lag-4 from Mar 2026 onward — longer horizons becoming less reliable.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_5_Quarter",
+      "status": 200,
+      "value": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n- Only Apr 2023: Actual 6,602K | Under-forecast Lags: Lag-3 (2,151K), Lag-2 (5,084K)\n- Only Jul 2023: Actual 6,271K | Under-forecast Lags: >Lag-4 (4,558K), Lag-1 (6,106K), Lag-0 (5,951K)\n\n\n\n\n\n\n\n\n- Only Sep 2025: Actual 6,853K | Under-forecast Lags: Lag-1 (6,659K), Lag-0 (6,516K)\n- Only Dec 2025: Actual 7,022K | Under-forecast Lags: Lag-3 (6,930K), Lag-2 (6,790K), Lag-1 (6,714K), Lag-0 (6,631K)\n- Only Mar 2026: Actual 6,550K | Under-forecast Lags: >Lag-4 (6,513K), Lag-2 (6,357K), Lag-1 (6,201K), Lag-0 (6,113K)\n\n\n\n\n\n\n\n\n\n\n\n",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_5_Month",
+      "status": 200,
+      "value": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n- Only Apr 2023: Actual 2,668K | Under-forecast Lags: Lag-3 (2,151K)\n\n- Only May 2023: Actual 1,900K | Under-forecast Lags: Lag-0 (1,847K)\n\n\n- Only Aug 2023: Actual 1,957K | Under-forecast Lags: Lag-3 (1,940K), Lag-2 (1,931K), Lag-0 (1,884K)\n- Only Sep 2023: Actual 2,579K | Under-forecast Lags: Lag-4 (2,312K), Lag-3 (2,279K), Lag-2 (2,374K), Lag-1 (2,389K), Lag-0 (2,376K)\n\n\n\n- Only Jan 2024: Actual 1,986K | Under-forecast Lags: >Lag-4 (1,810K), Lag-4 (1,825K), Lag-3 (1,880K), Lag-2 (1,943K), Lag-1 (1,948K)\n- Only Feb 2024: Actual 2,027K | Under-forecast Lags: >Lag-4 (1,865K), Lag-4 (1,911K), Lag-3 (1,995K), Lag-2 (1,999K), Lag-1 (2,026K)\n\n\n\n\n\n- Only Aug 2024: Actual 1,979K | Under-forecast Lags: Lag-4 (1,953K), Lag-3 (1,895K), Lag-2 (1,887K), Lag-1 (1,915K), Lag-0 (1,922K)\n- Only Sep 2024: Actual 2,556K | Under-forecast Lags: >Lag-4 (2,462K), Lag-4 (2,417K), Lag-3 (2,465K), Lag-2 (2,515K), Lag-0 (2,487K)\n- Only Oct 2024: Actual 2,089K | Under-forecast Lags: >Lag-4 (1,946K), Lag-4 (1,963K), Lag-3 (2,024K), Lag-1 (2,084K), Lag-0 (2,064K)\n\n\n\n- Only Feb 2025: Actual 2,126K | Under-forecast Lags: >Lag-4 (2,115K), Lag-3 (2,093K), Lag-2 (2,100K), Lag-1 (2,063K), Lag-0 (2,040K)\n\n\n\n\n- Only Jul 2025: Actual 1,984K | Under-forecast Lags: >Lag-4 (1,955K)\n- Only Aug 2025: Actual 2,099K | Under-forecast Lags: Lag-2 (2,077K), Lag-1 (1,985K), Lag-0 (1,926K)\n- Only Sep 2025: Actual 2,769K | Under-forecast Lags: Lag-3 (2,720K), Lag-2 (2,618K), Lag-1 (2,516K), Lag-0 (2,544K)\n- Only Oct 2025: Actual 2,092K | Under-forecast Lags: Lag-3 (2,065K), Lag-2 (2,040K), Lag-1 (1,958K), Lag-0 (1,940K)\n- Only Nov 2025: Actual 2,244K | Under-forecast Lags: Lag-2 (2,212K), Lag-1 (2,150K), Lag-0 (2,191K)\n\n- Only Jan 2026: Actual 1,938K | Under-forecast Lags: >Lag-4 (1,933K), Lag-4 (1,928K), Lag-2 (1,924K), Lag-1 (1,818K), Lag-0 (1,804K)\n- Only Feb 2026: Actual 1,951K | Under-forecast Lags: Lag-1 (1,935K), Lag-0 (1,925K)\n\n- Only Apr 2026: Actual 1,939K | Under-forecast Lags: Lag-2 (1,914K), Lag-1 (1,851K), Lag-0 (1,865K)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_4_Quarter",
+      "status": 200,
+      "value": "- Q1 2026: mixed forecast accuracy (6.1M–6.6M vs 6.6M actual). Under-forecast versions: >Lag-4, Lag-2, Lag-1, Lag-0.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_4_Month",
+      "status": 200,
+      "value": "- May 2026: all versions over-forecast (1.9M–1.9M vs 1.6M actual) — possible demand drop not captured.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_3_Quarter",
+      "status": 200,
+      "value": "- Q4 2025: mixed forecast accuracy (6.6M–7.1M vs 7.0M actual). Under-forecast versions: Lag-3, Lag-2, Lag-1, Lag-0.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_3_Month",
+      "status": 200,
+      "value": "- Apr 2026: mixed forecast accuracy (1.9M–2.0M vs 1.9M actual). Under-forecast versions: Lag-2, Lag-1, Lag-0.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_2_Quarter",
+      "status": 200,
+      "value": "- Spread across lags stays tight at 10,131 units for most quarters.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_2_Month",
+      "status": 200,
+      "value": "- Spread across lags stays tight at 281,911 units for most months.",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_1_Quarter",
+      "status": 200,
+      "value": "- Lag-0 tracks actuals closely: Q4 2025 (6,631,241 units vs 7,021,812 units), Q3 2025 (6,515,796 units vs 6,852,527 units). The actual demand for Q1 2026 is 2,661,785 units",
+      "ok": true
+    },
+    {
+      "measure": "Forecast_Accuracy_Insight_3_1_Month",
+      "status": 200,
+      "value": "- Lag-0 tracks actuals closely: Apr 2026 (1,865,073 units vs 1,938,612 units), Mar 2026 (2,383,854 units vs 2,661,785 units). The actual demand for May 2026 is 1,595,256 units",
+      "ok": true
+    },
+    {
+      "measure": "Dynamic_Forecast_Insight_1_Quarter",
+      "status": 200,
+      "value": "Lag-3 (wMAPE 63.0%) underperforms Naive Forecast (N_wMAPE 46.8%) by 16.2pp. The period from Q1 2000 to Q4 2028 under-forecasts by 218,080,959 units, while Naive under-forecasts by 88,429,590 units.",
+      "ok": true
+    },
+    {
+      "measure": "Dynamic_Forecast_Insight_1_Month",
+      "status": 200,
+      "value": "Lag-3 (wMAPE 63.0%) underperforms Naive Forecast (N_wMAPE 46.8%) by 16.2pp. The period from 01/2000 to 12/2028 under-forecasts by 218,080,959 units, while Naive under-forecasts by 88,429,590 units.",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag4_FontColor",
+      "status": 200,
+      "value": "#FF3333",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag4_Color",
+      "status": 200,
+      "value": "#341913",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag3_FontColor",
+      "status": 200,
+      "value": "#FF6600",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag3_Color",
+      "status": 200,
+      "value": "#342013",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag2_FontColor",
+      "status": 200,
+      "value": "#FF9900",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag2_Color",
+      "status": 200,
+      "value": "#342A13",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag1_FontColor",
+      "status": 200,
+      "value": "#3399FF",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag1_Color",
+      "status": 200,
+      "value": "#132234",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag0_FontColor",
+      "status": 200,
+      "value": "#99FF33",
+      "ok": true
+    },
+    {
+      "measure": "wMAPE_Lag0_Color",
+      "status": 200,
+      "value": "#2D3419",
+      "ok": true
+    },
+    {
+      "measure": "Today_X_Axis_Line",
+      "status": 200,
+      "value": "2026-06-04T00:00:00",
+      "ok": true
+    },
+    {
+      "measure": "ProcessValueAdd_Color",
+      "status": 200,
+      "value": "#FF0001",
+      "ok": true
+    },
+    {
+      "measure": "NNBiasStatus_Color",
+      "status": 200,
+      "value": "#FFD767",
+      "ok": true
+    },
+    {
+      "measure": "Max_Axis_By_Invoice_Scale",
+      "status": 200,
+      "value": 2882369.0,
+      "ok": true
+    },
+    {
+      "measure": "ForecastAccuracy_lq_Color",
+      "status": 200,
+      "value": "#FFCA61",
+      "ok": true
+    },
+    {
+      "measure": "ForecastAccuracy_lm_Color",
+      "status": 200,
+      "value": "#FFCA61",
+      "ok": true
+    },
+    {
+      "measure": "ContextMonth",
+      "status": 200,
+      "value": "2027-06-26T00:00:00",
+      "ok": true
+    },
+    {
+      "measure": "BiasStatus_Color",
+      "status": 200,
+      "value": "#FFD767",
+      "ok": true
+    }
+  ]
+}

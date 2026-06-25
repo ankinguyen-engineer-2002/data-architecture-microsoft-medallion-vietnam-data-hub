@@ -1,0 +1,513 @@
+{
+  "asset_key": "enterprise_lakehouse.masterdata_dw.dimdate",
+  "display": "Enterprise_Lakehouse.MasterData_DW.DimDate",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 72,
+    "columns": [
+      {
+        "column_name": "DateKey",
+        "data_type": "int",
+        "is_nullable": "NO",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "MapicsDate",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "DateID",
+        "data_type": "date",
+        "is_nullable": "NO",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "DateTimeID",
+        "data_type": "date",
+        "is_nullable": "NO",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "CalendarDate",
+        "data_type": "date",
+        "is_nullable": "NO",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "CalendarDateName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "CalendarDateIndicator",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "CalendarWeek",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "CalendarWeekIndicator",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "CalendarWeekYear",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "CalendarWeekYearName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "CalendarDayOfWeek",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "CalendarDayOfWeekName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "CalendarWeekFirstDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "CalendarWeekLastDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "CalendarMonth",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "CalendarMonthIndicator",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "CalendarMonthYear",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "CalendarMonthName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "CalendarMonthYearName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 20
+      },
+      {
+        "column_name": "CalendarDayOfMonth",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 21
+      },
+      {
+        "column_name": "CalendarWeekOfMonth",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 22
+      },
+      {
+        "column_name": "CalendarMonthFirstDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 23
+      },
+      {
+        "column_name": "CalendarMonthLastDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 24
+      },
+      {
+        "column_name": "CalendarQuarter",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 25
+      },
+      {
+        "column_name": "CalendarQuarterName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 26
+      },
+      {
+        "column_name": "CalendarQuarterIndicator",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 27
+      },
+      {
+        "column_name": "CalendarQuarterYear",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 28
+      },
+      {
+        "column_name": "CalendarQuarterYearName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 29
+      },
+      {
+        "column_name": "CalendarSemester",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 30
+      },
+      {
+        "column_name": "CalendarSemesterYear",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 31
+      },
+      {
+        "column_name": "CalendarYear",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 32
+      },
+      {
+        "column_name": "CalendarYearName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 33
+      },
+      {
+        "column_name": "CalendarYearIndicator",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 34
+      },
+      {
+        "column_name": "CalendarDayOfYear",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 35
+      },
+      {
+        "column_name": "FiscalDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 36
+      },
+      {
+        "column_name": "FiscalDateName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 37
+      },
+      {
+        "column_name": "FiscalDateIndicator",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 38
+      },
+      {
+        "column_name": "FiscalWeek",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 39
+      },
+      {
+        "column_name": "FiscalWeekIndicator",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 40
+      },
+      {
+        "column_name": "FiscalDayOfWeek",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 41
+      },
+      {
+        "column_name": "FiscalDayOfWeekName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 42
+      },
+      {
+        "column_name": "FiscalWeekYear",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 43
+      },
+      {
+        "column_name": "FiscalWeekYearName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 44
+      },
+      {
+        "column_name": "FiscalWeekFirstDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 45
+      },
+      {
+        "column_name": "FiscalWeekLastDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 46
+      },
+      {
+        "column_name": "FiscalMonth",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 47
+      },
+      {
+        "column_name": "FiscalMonthIndicator",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 48
+      },
+      {
+        "column_name": "FiscalMonthYear",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 49
+      },
+      {
+        "column_name": "FiscalMonthName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 50
+      },
+      {
+        "column_name": "FiscalMonthYearName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 51
+      },
+      {
+        "column_name": "FiscalDayOfMonth",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 52
+      },
+      {
+        "column_name": "FiscalWeekOfMonth",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 53
+      },
+      {
+        "column_name": "FiscalMonthFirstDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 54
+      },
+      {
+        "column_name": "FiscalMonthLastDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 55
+      },
+      {
+        "column_name": "FiscalQuarter",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 56
+      },
+      {
+        "column_name": "FiscalQuarterName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 57
+      },
+      {
+        "column_name": "FiscalQuarterIndicator",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 58
+      },
+      {
+        "column_name": "FiscalQuarterYear",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 59
+      },
+      {
+        "column_name": "FiscalQuarterYearName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 60
+      },
+      {
+        "column_name": "FiscalSemester",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 61
+      },
+      {
+        "column_name": "FiscalSemesterYear",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 62
+      },
+      {
+        "column_name": "FiscalYear",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 63
+      },
+      {
+        "column_name": "FiscalYearName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 64
+      },
+      {
+        "column_name": "FiscalYearIndicator",
+        "data_type": "int",
+        "is_nullable": "YES",
+        "ordinal_position": 65
+      },
+      {
+        "column_name": "FiscalDayOfYear",
+        "data_type": "smallint",
+        "is_nullable": "YES",
+        "ordinal_position": 66
+      },
+      {
+        "column_name": "FiscalYearFirstDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 67
+      },
+      {
+        "column_name": "FiscalYearLastDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 68
+      },
+      {
+        "column_name": "HolidayIndicator",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 69
+      },
+      {
+        "column_name": "HolidayName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 70
+      },
+      {
+        "column_name": "WorkingDayIndicator",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 71
+      },
+      {
+        "column_name": "WeekdayWeekend",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 72
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "CalendarDate": "2028-12-31",
+      "CalendarMonthFirstDate": "2028-12-01",
+      "CalendarWeekFirstDate": "2028-12-31",
+      "CalendarWeekLastDate": "2028-12-31",
+      "MapicsDate": 1281231
+    },
+    "freshness_columns": [
+      "MapicsDate",
+      "CalendarDate",
+      "CalendarWeekFirstDate",
+      "CalendarWeekLastDate",
+      "CalendarMonthFirstDate"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 0.513,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "MapicsDate",
+      "CalendarDate",
+      "CalendarWeekFirstDate",
+      "CalendarWeekLastDate",
+      "CalendarMonthFirstDate"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.306,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": null,
+          "latest_partition_duplicate_groups": 0,
+          "latest_partition_max_rows_per_key": null
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 0.38,
+      "status": "PASS"
+    },
+    "projects": [
+      "forecast_accuracy",
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.MasterData_DW.DimDate",
+    "row_count_metadata": 0,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.MasterData_DW.DimDate.sql"
+}

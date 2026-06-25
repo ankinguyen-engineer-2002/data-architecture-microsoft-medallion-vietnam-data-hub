@@ -1,0 +1,598 @@
+{
+  "edges": [
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DimCustomerGrouping.sql",
+      "source": "ForecastAccuracy_DW_Wrk.v_DimCustomerGrouping",
+      "source_asset_key": "forecastaccuracy.dw.wrk.v.dimcustomergrouping",
+      "target": "ForecastAccuracy_DW.DimCustomerGrouping",
+      "target_asset_key": "forecastaccuracy.dw.dimcustomergrouping"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DimForecastHorizon.sql",
+      "source": "ForecastAccuracy_DW_Wrk.v_DimForecastHorizon",
+      "source_asset_key": "forecastaccuracy.dw.wrk.v.dimforecasthorizon",
+      "target": "ForecastAccuracy_DW.DimForecastHorizon",
+      "target_asset_key": "forecastaccuracy.dw.dimforecasthorizon"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastActual.sql",
+      "source": "ForecastAccuracy_DW_Wrk.v_FactForecastActual",
+      "source_asset_key": "forecastaccuracy.dw.wrk.v.factforecastactual",
+      "target": "ForecastAccuracy_DW.FactForecastActual",
+      "target_asset_key": "forecastaccuracy.dw.factforecastactual"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastKpi.sql",
+      "source": "ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "source_asset_key": "forecastaccuracy.dw.wrk.v.factforecastkpi",
+      "target": "ForecastAccuracy_DW.FactForecastKpi",
+      "target_asset_key": "forecastaccuracy.dw.factforecastkpi"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DimCustomerGrouping.sql",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.CustomerGrouping",
+      "source_asset_key": "supplychain.processing.warehouse.referencemaster.enh.customergrouping",
+      "target": "ForecastAccuracy_DW_Wrk.v_DimCustomerGrouping",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dimcustomergrouping"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DimForecastHorizon.sql",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ForecastHorizon",
+      "source_asset_key": "supplychain.processing.warehouse.referencemaster.enh.forecasthorizon",
+      "target": "ForecastAccuracy_DW_Wrk.v_DimForecastHorizon",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dimforecasthorizon"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastActual.sql",
+      "source": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+      "source_asset_key": "supplychain.processing.warehouse.forecasthistory.enh.forecastdemandmonthly",
+      "target": "ForecastAccuracy_DW_Wrk.v_FactForecastActual",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.factforecastactual"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastActual.sql",
+      "source": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.NaiveForecastMonthly",
+      "source_asset_key": "supplychain.processing.warehouse.forecasthistory.enh.naiveforecastmonthly",
+      "target": "ForecastAccuracy_DW_Wrk.v_FactForecastActual",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.factforecastactual"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastActual.sql",
+      "source": "SupplyChain_Processing_Warehouse.SalesHistory_Enh.ActualDemandMonthly",
+      "source_asset_key": "supplychain.processing.warehouse.saleshistory.enh.actualdemandmonthly",
+      "target": "ForecastAccuracy_DW_Wrk.v_FactForecastActual",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.factforecastactual"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastKpi.sql",
+      "source": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+      "source_asset_key": "supplychain.processing.warehouse.forecasthistory.enh.forecastdemandmonthly",
+      "target": "ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.factforecastkpi"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastKpi.sql",
+      "source": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.NaiveForecastMonthly",
+      "source_asset_key": "supplychain.processing.warehouse.forecasthistory.enh.naiveforecastmonthly",
+      "target": "ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.factforecastkpi"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastKpi.sql",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ForecastHorizon",
+      "source_asset_key": "supplychain.processing.warehouse.referencemaster.enh.forecasthorizon",
+      "target": "ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.factforecastkpi"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastKpi.sql",
+      "source": "SupplyChain_Processing_Warehouse.SalesHistory_Enh.ActualDemandMonthly",
+      "source_asset_key": "supplychain.processing.warehouse.saleshistory.enh.actualdemandmonthly",
+      "target": "ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.factforecastkpi"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_ForecastDemandMonthly.sql",
+      "source": "ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
+      "source_asset_key": "forecasthistory.enh.wrk.v.forecastdemandmonthly",
+      "target": "ForecastHistory_Enh.ForecastDemandMonthly",
+      "target_asset_key": "forecasthistory.enh.forecastdemandmonthly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_NaiveForecastMonthly.sql",
+      "source": "ForecastHistory_Enh_Wrk.v_NaiveForecastMonthly",
+      "source_asset_key": "forecasthistory.enh.wrk.v.naiveforecastmonthly",
+      "target": "ForecastHistory_Enh.NaiveForecastMonthly",
+      "target_asset_key": "forecasthistory.enh.naiveforecastmonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_ForecastDemandMonthly.sql",
+      "source": "ReferenceMaster_Enh.Calendar",
+      "source_asset_key": "referencemaster.enh.calendar",
+      "target": "ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
+      "target_asset_key": "forecasthistory.enh.wrk.v.forecastdemandmonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_ForecastDemandMonthly.sql",
+      "source": "ReferenceMaster_Enh.ForecastCycle",
+      "source_asset_key": "referencemaster.enh.forecastcycle",
+      "target": "ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
+      "target_asset_key": "forecasthistory.enh.wrk.v.forecastdemandmonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_ForecastDemandMonthly.sql",
+      "source": "Staging.DemandForecastSnapshotDaily",
+      "source_asset_key": "staging.demandforecastsnapshotdaily",
+      "target": "ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
+      "target_asset_key": "forecasthistory.enh.wrk.v.forecastdemandmonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_NaiveForecastMonthly.sql",
+      "source": "ReferenceMaster_Enh.Calendar",
+      "source_asset_key": "referencemaster.enh.calendar",
+      "target": "ForecastHistory_Enh_Wrk.v_NaiveForecastMonthly",
+      "target_asset_key": "forecasthistory.enh.wrk.v.naiveforecastmonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_NaiveForecastMonthly.sql",
+      "source": "SalesHistory_Enh.ActualDemandMonthly",
+      "source_asset_key": "saleshistory.enh.actualdemandmonthly",
+      "target": "ForecastHistory_Enh_Wrk.v_NaiveForecastMonthly",
+      "target_asset_key": "forecasthistory.enh.wrk.v.naiveforecastmonthly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderLineLevel.sql",
+      "source": "OpenOrderHistory_Enh_Wrk.v_OpenOrderLineLevel",
+      "source_asset_key": "openorderhistory.enh.wrk.v.openorderlinelevel",
+      "target": "OpenOrderHistory_Enh.OpenOrderLineLevel",
+      "target_asset_key": "openorderhistory.enh.openorderlinelevel"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderMonthly.sql",
+      "source": "OpenOrderHistory_Enh_Wrk.v_OpenOrderMonthly",
+      "source_asset_key": "openorderhistory.enh.wrk.v.openordermonthly",
+      "target": "OpenOrderHistory_Enh.OpenOrderMonthly",
+      "target_asset_key": "openorderhistory.enh.openordermonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderLineLevel.sql",
+      "source": "Staging_Wrk.v_Codatan",
+      "source_asset_key": "staging.wrk.v.codatan",
+      "target": "OpenOrderHistory_Enh_Wrk.v_OpenOrderLineLevel",
+      "target_asset_key": "openorderhistory.enh.wrk.v.openorderlinelevel"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderLineLevel.sql",
+      "source": "Staging_Wrk.v_Comast",
+      "source_asset_key": "staging.wrk.v.comast",
+      "target": "OpenOrderHistory_Enh_Wrk.v_OpenOrderLineLevel",
+      "target_asset_key": "openorderhistory.enh.wrk.v.openorderlinelevel"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderLineLevel.sql",
+      "source": "Staging_Wrk.v_Extord",
+      "source_asset_key": "staging.wrk.v.extord",
+      "target": "OpenOrderHistory_Enh_Wrk.v_OpenOrderLineLevel",
+      "target_asset_key": "openorderhistory.enh.wrk.v.openorderlinelevel"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderLineLevel.sql",
+      "source": "Staging_Wrk.v_Extorit",
+      "source_asset_key": "staging.wrk.v.extorit",
+      "target": "OpenOrderHistory_Enh_Wrk.v_OpenOrderLineLevel",
+      "target_asset_key": "openorderhistory.enh.wrk.v.openorderlinelevel"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderMonthly.sql",
+      "source": "OpenOrderHistory_Enh.OpenOrderLineLevel",
+      "source_asset_key": "openorderhistory.enh.openorderlinelevel",
+      "target": "OpenOrderHistory_Enh_Wrk.v_OpenOrderMonthly",
+      "target_asset_key": "openorderhistory.enh.wrk.v.openordermonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderMonthly.sql",
+      "source": "ReferenceMaster_Enh.Calendar",
+      "source_asset_key": "referencemaster.enh.calendar",
+      "target": "OpenOrderHistory_Enh_Wrk.v_OpenOrderMonthly",
+      "target_asset_key": "openorderhistory.enh.wrk.v.openordermonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderMonthly.sql",
+      "source": "ReferenceMaster_Enh.CustomerAccountGroup",
+      "source_asset_key": "referencemaster.enh.customeraccountgroup",
+      "target": "OpenOrderHistory_Enh_Wrk.v_OpenOrderMonthly",
+      "target_asset_key": "openorderhistory.enh.wrk.v.openordermonthly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_Calendar.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_Calendar",
+      "source_asset_key": "referencemaster.enh.wrk.v.calendar",
+      "target": "ReferenceMaster_Enh.Calendar",
+      "target_asset_key": "referencemaster.enh.calendar"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccount.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_CustomerAccount",
+      "source_asset_key": "referencemaster.enh.wrk.v.customeraccount",
+      "target": "ReferenceMaster_Enh.CustomerAccount",
+      "target_asset_key": "referencemaster.enh.customeraccount"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccountGroup.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_CustomerAccountGroup",
+      "source_asset_key": "referencemaster.enh.wrk.v.customeraccountgroup",
+      "target": "ReferenceMaster_Enh.CustomerAccountGroup",
+      "target_asset_key": "referencemaster.enh.customeraccountgroup"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerGrouping.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_CustomerGrouping",
+      "source_asset_key": "referencemaster.enh.wrk.v.customergrouping",
+      "target": "ReferenceMaster_Enh.CustomerGrouping",
+      "target_asset_key": "referencemaster.enh.customergrouping"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerShippingLocation.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_CustomerShippingLocation",
+      "source_asset_key": "referencemaster.enh.wrk.v.customershippinglocation",
+      "target": "ReferenceMaster_Enh.CustomerShippingLocation",
+      "target_asset_key": "referencemaster.enh.customershippinglocation"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ForecastCycle.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_ForecastCycle",
+      "source_asset_key": "referencemaster.enh.wrk.v.forecastcycle",
+      "target": "ReferenceMaster_Enh.ForecastCycle",
+      "target_asset_key": "referencemaster.enh.forecastcycle"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ForecastHorizon.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_ForecastHorizon",
+      "source_asset_key": "referencemaster.enh.wrk.v.forecasthorizon",
+      "target": "ReferenceMaster_Enh.ForecastHorizon",
+      "target_asset_key": "referencemaster.enh.forecasthorizon"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "source_asset_key": "referencemaster.enh.wrk.v.itemmaster",
+      "target": "ReferenceMaster_Enh.ItemMaster",
+      "target_asset_key": "referencemaster.enh.itemmaster"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_OrderType.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_OrderType",
+      "source_asset_key": "referencemaster.enh.wrk.v.ordertype",
+      "target": "ReferenceMaster_Enh.OrderType",
+      "target_asset_key": "referencemaster.enh.ordertype"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_Warehouse.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_Warehouse",
+      "source_asset_key": "referencemaster.enh.wrk.v.warehouse",
+      "target": "ReferenceMaster_Enh.Warehouse",
+      "target_asset_key": "referencemaster.enh.warehouse"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_Calendar.sql",
+      "source": "Enterprise_Lakehouse.MasterData_DW.DimDate",
+      "source_asset_key": "enterprise.lakehouse.masterdata.dw.dimdate",
+      "target": "ReferenceMaster_Enh_Wrk.v_Calendar",
+      "target_asset_key": "referencemaster.enh.wrk.v.calendar"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccount.sql",
+      "source": "Enterprise_Lakehouse.Customers.AccountMaster",
+      "source_asset_key": "enterprise.lakehouse.customers.accountmaster",
+      "target": "ReferenceMaster_Enh_Wrk.v_CustomerAccount",
+      "target_asset_key": "referencemaster.enh.wrk.v.customeraccount"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccountGroup.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping",
+      "source_asset_key": "enterprise.lakehouse.wholesale.productsourcing.afi.customergrouping",
+      "target": "ReferenceMaster_Enh_Wrk.v_CustomerAccountGroup",
+      "target_asset_key": "referencemaster.enh.wrk.v.customeraccountgroup"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerGrouping.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping",
+      "source_asset_key": "enterprise.lakehouse.wholesale.productsourcing.afi.customergrouping",
+      "target": "ReferenceMaster_Enh_Wrk.v_CustomerGrouping",
+      "target_asset_key": "referencemaster.enh.wrk.v.customergrouping"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerShippingLocation.sql",
+      "source": "Enterprise_Lakehouse.Customers.ShippingLocations",
+      "source_asset_key": "enterprise.lakehouse.customers.shippinglocations",
+      "target": "ReferenceMaster_Enh_Wrk.v_CustomerShippingLocation",
+      "target_asset_key": "referencemaster.enh.wrk.v.customershippinglocation"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ForecastCycle.sql",
+      "source": "ProcessingSeed.ForecastCycle",
+      "source_asset_key": "processingseed.forecastcycle",
+      "target": "ReferenceMaster_Enh_Wrk.v_ForecastCycle",
+      "target_asset_key": "referencemaster.enh.wrk.v.forecastcycle"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ForecastHorizon.sql",
+      "source": "ProcessingSeed.ForecastHorizon",
+      "source_asset_key": "processingseed.forecasthorizon",
+      "target": "ReferenceMaster_Enh_Wrk.v_ForecastHorizon",
+      "target_asset_key": "referencemaster.enh.wrk.v.forecasthorizon"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "Enterprise_Lakehouse.ItemMaster_AFI.AITMCLS",
+      "source_asset_key": "enterprise.lakehouse.itemmaster.afi.aitmcls",
+      "target": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target_asset_key": "referencemaster.enh.wrk.v.itemmaster"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT",
+      "source_asset_key": "enterprise.lakehouse.itemmaster.afi.itmext",
+      "target": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target_asset_key": "referencemaster.enh.wrk.v.itemmaster"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+      "source_asset_key": "enterprise.lakehouse.masterdata.dw.dimitemmaster",
+      "target": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target_asset_key": "referencemaster.enh.wrk.v.itemmaster"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV",
+      "source_asset_key": "enterprise.lakehouse.masterdata.productknowledge.item.env",
+      "target": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target_asset_key": "referencemaster.enh.wrk.v.itemmaster"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems",
+      "source_asset_key": "enterprise.lakehouse.wholesale.productsourcing.nonpkitems",
+      "target": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target_asset_key": "referencemaster.enh.wrk.v.itemmaster"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_OrderType.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP",
+      "source_asset_key": "enterprise.lakehouse.wholesale.codis.afi.aaordtyp",
+      "target": "ReferenceMaster_Enh_Wrk.v_OrderType",
+      "target_asset_key": "referencemaster.enh.wrk.v.ordertype"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_Warehouse.sql",
+      "source": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+      "source_asset_key": "enterprise.lakehouse.customerorders.afi.warehousemaster",
+      "target": "ReferenceMaster_Enh_Wrk.v_Warehouse",
+      "target_asset_key": "referencemaster.enh.wrk.v.warehouse"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandMonthly.sql",
+      "source": "SalesHistory_Enh_Wrk.v_ActualDemandMonthly",
+      "source_asset_key": "saleshistory.enh.wrk.v.actualdemandmonthly",
+      "target": "SalesHistory_Enh.ActualDemandMonthly",
+      "target_asset_key": "saleshistory.enh.actualdemandmonthly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandWeekly.sql",
+      "source": "SalesHistory_Enh_Wrk.v_ActualDemandWeekly",
+      "source_asset_key": "saleshistory.enh.wrk.v.actualdemandweekly",
+      "target": "SalesHistory_Enh.ActualDemandWeekly",
+      "target_asset_key": "saleshistory.enh.actualdemandweekly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
+      "source": "SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel",
+      "source_asset_key": "saleshistory.enh.wrk.v.invoicedetaillinelevel",
+      "target": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "target_asset_key": "saleshistory.enh.invoicedetaillinelevel"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceWeekly.sql",
+      "source": "SalesHistory_Enh_Wrk.v_InvoiceWeekly",
+      "source_asset_key": "saleshistory.enh.wrk.v.invoiceweekly",
+      "target": "SalesHistory_Enh.InvoiceWeekly",
+      "target_asset_key": "saleshistory.enh.invoiceweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandMonthly.sql",
+      "source": "OpenOrderHistory_Enh.OpenOrderLineLevel",
+      "source_asset_key": "openorderhistory.enh.openorderlinelevel",
+      "target": "SalesHistory_Enh_Wrk.v_ActualDemandMonthly",
+      "target_asset_key": "saleshistory.enh.wrk.v.actualdemandmonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandMonthly.sql",
+      "source": "ReferenceMaster_Enh.Calendar",
+      "source_asset_key": "referencemaster.enh.calendar",
+      "target": "SalesHistory_Enh_Wrk.v_ActualDemandMonthly",
+      "target_asset_key": "saleshistory.enh.wrk.v.actualdemandmonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandMonthly.sql",
+      "source": "ReferenceMaster_Enh.CustomerAccountGroup",
+      "source_asset_key": "referencemaster.enh.customeraccountgroup",
+      "target": "SalesHistory_Enh_Wrk.v_ActualDemandMonthly",
+      "target_asset_key": "saleshistory.enh.wrk.v.actualdemandmonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandMonthly.sql",
+      "source": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "source_asset_key": "saleshistory.enh.invoicedetaillinelevel",
+      "target": "SalesHistory_Enh_Wrk.v_ActualDemandMonthly",
+      "target_asset_key": "saleshistory.enh.wrk.v.actualdemandmonthly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandWeekly.sql",
+      "source": "OpenOrderHistory_Enh.OpenOrderLineLevel",
+      "source_asset_key": "openorderhistory.enh.openorderlinelevel",
+      "target": "SalesHistory_Enh_Wrk.v_ActualDemandWeekly",
+      "target_asset_key": "saleshistory.enh.wrk.v.actualdemandweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandWeekly.sql",
+      "source": "ReferenceMaster_Enh.Calendar",
+      "source_asset_key": "referencemaster.enh.calendar",
+      "target": "SalesHistory_Enh_Wrk.v_ActualDemandWeekly",
+      "target_asset_key": "saleshistory.enh.wrk.v.actualdemandweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandWeekly.sql",
+      "source": "ReferenceMaster_Enh.CustomerAccountGroup",
+      "source_asset_key": "referencemaster.enh.customeraccountgroup",
+      "target": "SalesHistory_Enh_Wrk.v_ActualDemandWeekly",
+      "target_asset_key": "saleshistory.enh.wrk.v.actualdemandweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandWeekly.sql",
+      "source": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "source_asset_key": "saleshistory.enh.invoicedetaillinelevel",
+      "target": "SalesHistory_Enh_Wrk.v_ActualDemandWeekly",
+      "target_asset_key": "saleshistory.enh.wrk.v.actualdemandweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
+      "source": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+      "source_asset_key": "enterprise.lakehouse.saleshistory.afi.enh.invoicedetail",
+      "target": "SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel",
+      "target_asset_key": "saleshistory.enh.wrk.v.invoicedetaillinelevel"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
+      "source": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader",
+      "source_asset_key": "enterprise.lakehouse.saleshistory.afi.enh.invoiceheader",
+      "target": "SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel",
+      "target_asset_key": "saleshistory.enh.wrk.v.invoicedetaillinelevel"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
+      "source": "ReferenceMaster_Enh.CustomerAccountGroup",
+      "source_asset_key": "referencemaster.enh.customeraccountgroup",
+      "target": "SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel",
+      "target_asset_key": "saleshistory.enh.wrk.v.invoicedetaillinelevel"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceWeekly.sql",
+      "source": "ReferenceMaster_Enh.Calendar",
+      "source_asset_key": "referencemaster.enh.calendar",
+      "target": "SalesHistory_Enh_Wrk.v_InvoiceWeekly",
+      "target_asset_key": "saleshistory.enh.wrk.v.invoiceweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceWeekly.sql",
+      "source": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "source_asset_key": "saleshistory.enh.invoicedetaillinelevel",
+      "target": "SalesHistory_Enh_Wrk.v_InvoiceWeekly",
+      "target_asset_key": "saleshistory.enh.wrk.v.invoiceweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/00_source_wrk/staging_wrk/Staging_Wrk.v_Codatan.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_Codis_AFI.codatan",
+      "source_asset_key": "enterprise.lakehouse.wholesale.codis.afi.codatan",
+      "target": "Staging_Wrk.v_Codatan",
+      "target_asset_key": "staging.wrk.v.codatan"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/00_source_wrk/staging_wrk/Staging_Wrk.v_Comast.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_Codis_AFI.COMAST",
+      "source_asset_key": "enterprise.lakehouse.wholesale.codis.afi.comast",
+      "target": "Staging_Wrk.v_Comast",
+      "target_asset_key": "staging.wrk.v.comast"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/00_source_wrk/staging_wrk/Staging_Wrk.v_Extord.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD",
+      "source_asset_key": "enterprise.lakehouse.wholesale.codis.afi.extord",
+      "target": "Staging_Wrk.v_Extord",
+      "target_asset_key": "staging.wrk.v.extord"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/00_source_wrk/staging_wrk/Staging_Wrk.v_Extorit.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORIT",
+      "source_asset_key": "enterprise.lakehouse.wholesale.codis.afi.extorit",
+      "target": "Staging_Wrk.v_Extorit",
+      "target_asset_key": "staging.wrk.v.extorit"
+    }
+  ],
+  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "mart": "forecast_accuracy"
+}

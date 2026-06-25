@@ -1,0 +1,29 @@
+{
+  "@odata.context": "https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1.0/myorg/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/$metadata#refreshes",
+  "value": [
+    {
+      "endTime": "2026-06-04T03:39:15.78Z",
+      "id": 1393060685,
+      "refreshAttempts": [
+        {
+          "attemptId": 1,
+          "endTime": "2026-06-04T03:39:14.296433Z",
+          "executionMetrics": [],
+          "startTime": "2026-06-04T03:39:08.0616133Z",
+          "type": "Data"
+        },
+        {
+          "attemptId": 1,
+          "endTime": "2026-06-04T03:39:14.702707Z",
+          "executionMetrics": [],
+          "startTime": "2026-06-04T03:39:14.4852707Z",
+          "type": "Query"
+        }
+      ],
+      "refreshType": "ViaApi",
+      "requestId": "c75ed0fa-81c5-448a-befd-0c8a730055f6",
+      "startTime": "2026-06-04T03:39:07.967Z",
+      "status": "Completed"
+    }
+  ]
+}

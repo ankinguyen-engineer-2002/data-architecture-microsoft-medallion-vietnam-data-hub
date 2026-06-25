@@ -1,0 +1,130 @@
+table DimProduct
+	lineageTag: 7431e5f2-8e5a-4060-9116-7f489421830c
+
+	column ItemSKU
+		dataType: string
+		lineageTag: b27efe8a-42f8-4ee7-960b-e8ed6d8893a9
+		summarizeBy: none
+		sourceColumn: ItemSKU
+
+	column ItemDescription
+		dataType: string
+		lineageTag: 5392220d-42d0-489c-8dfe-e377184ffa83
+		summarizeBy: none
+		sourceColumn: ItemDescription
+
+	column ItemClassCode
+		dataType: string
+		lineageTag: a5c60094-cf84-46da-b7bf-478862494872
+		summarizeBy: none
+		sourceColumn: ItemClassCode
+
+	column ItemClassName
+		dataType: string
+		lineageTag: 2bca33d0-436d-47a2-add1-8878875d105b
+		summarizeBy: none
+		sourceColumn: ItemClassName
+
+	column CategoryName
+		dataType: string
+		lineageTag: b8344309-06e5-4f81-95c0-8a411449590a
+		summarizeBy: none
+		sourceColumn: CategoryName
+
+	column CategoryCode
+		dataType: string
+		lineageTag: 4e3f9976-cbf8-4f25-ad4e-5d8060554316
+		summarizeBy: none
+		sourceColumn: CategoryCode
+
+	column CollectiveClass
+		dataType: string
+		lineageTag: 575763a0-60e0-450a-954a-5e7748bd82f8
+		summarizeBy: none
+		sourceColumn: CollectiveClass
+
+	column SeriesNumber
+		dataType: string
+		lineageTag: 2ee93c08-782e-45f0-b876-054ee19afa8a
+		summarizeBy: none
+		sourceColumn: SeriesNumber
+
+	column SeriesName
+		dataType: string
+		lineageTag: 1496fe0f-010f-4922-b22e-5ff3998b0178
+		summarizeBy: none
+		sourceColumn: SeriesName
+
+	column AfiItemStatus
+		dataType: string
+		lineageTag: 10156c97-f620-448f-9b3e-de1ad53a741b
+		summarizeBy: none
+		sourceColumn: AfiItemStatus
+
+	column LifecycleStatus
+		dataType: string
+		lineageTag: 08a89616-2528-4da1-ad58-c0f12b324047
+		summarizeBy: none
+		sourceColumn: LifecycleStatus
+
+	column PrimaryVendorNumber
+		dataType: string
+		lineageTag: fa3b77dd-2716-4b34-bc9e-10ab1e0b007c
+		summarizeBy: none
+		sourceColumn: PrimaryVendorNumber
+
+	column PrimaryVendorName
+		dataType: string
+		lineageTag: 09b0a7ca-c360-40e7-98bc-494ce45a4050
+		summarizeBy: none
+		sourceColumn: PrimaryVendorDisplayName
+
+	column Cubes
+		dataType: decimal
+		lineageTag: 618456ed-a16d-4064-8186-8c51d8c169da
+		summarizeBy: none
+		sourceColumn: Cubes
+
+	column FOBArcPrice
+		dataType: decimal
+		lineageTag: 9d1c0722-b487-4f67-b6ef-ef08e77b9277
+		summarizeBy: none
+		sourceColumn: FOBArcPrice
+
+	column IsFinishedGoodsItem
+		dataType: boolean
+		lineageTag: c448177d-7a82-4826-a956-b9fd83035469
+		summarizeBy: none
+		sourceColumn: IsFinishedGoodsItem
+
+	column DiscontinuedFlag
+		dataType: boolean
+		lineageTag: 3b8c61f6-a148-4b21-b4e6-d26d131c94ff
+		summarizeBy: none
+		sourceColumn: DiscontinuedFlag
+
+	column NewItemFlag
+		dataType: boolean
+		lineageTag: 860b9f52-09f6-40af-9957-76ab33f16ca9
+		summarizeBy: none
+		sourceColumn: NewItemFlag
+
+	column StatusCodeChangeDate
+		dataType: dateTime
+		lineageTag: 174da6a8-cd9d-4ec8-bc75-5140b5097515
+		summarizeBy: none
+		sourceColumn: StatusCodeChangeDate
+
+	column UnavailableFlag
+		dataType: boolean
+		lineageTag: 3475b72b-a425-4d38-8f06-eb78fda65c90
+		summarizeBy: none
+		sourceColumn: UnavailableFlag
+
+	partition DimProduct-8f19c7ae-9fde-4397-83ae-ad392f2d1933 = entity
+		mode: directLake
+		source
+			entityName: DimProduct
+			schemaName: Shared_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

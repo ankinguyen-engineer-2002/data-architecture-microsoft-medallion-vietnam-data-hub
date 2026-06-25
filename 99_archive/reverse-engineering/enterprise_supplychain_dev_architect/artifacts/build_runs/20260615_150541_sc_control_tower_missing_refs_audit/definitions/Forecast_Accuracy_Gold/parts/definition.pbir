@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/2.0.0/schema.json",
+  "version": "4.0",
+  "datasetReference": {
+    "byConnection": {
+      "connectionString": "Data Source=\"powerbi://api.powerbi.com/v1.0/myorg/Enterprise SupplyChain-Dev\";initial catalog=\"Supply Chain Control Tower\";integrated security=ClaimsToken;semanticmodelid=3eecf594-a75e-46ab-9162-63c95ee68e45"
+    }
+  }
+}

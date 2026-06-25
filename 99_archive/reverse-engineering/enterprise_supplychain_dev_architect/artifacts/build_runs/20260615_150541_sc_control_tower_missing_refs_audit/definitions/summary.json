@@ -1,0 +1,28 @@
+{
+  "results": [
+    {
+      "name": "sc_control_tower",
+      "id": "f06a2361-15fd-4f91-9d37-941fefe62aaf",
+      "ok": true,
+      "dir": "Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/20260615_150541_sc_control_tower_missing_refs_audit/definitions/sc_control_tower"
+    },
+    {
+      "name": "Supply Chain Control Tower",
+      "id": "3eecf594-a75e-46ab-9162-63c95ee68e45",
+      "ok": true,
+      "dir": "Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/20260615_150541_sc_control_tower_missing_refs_audit/definitions/Supply_Chain_Control_Tower"
+    },
+    {
+      "name": "SupplyChain_Gold",
+      "id": "b4b302e7-65d7-464d-9083-aaef9d88dfc2",
+      "ok": true,
+      "dir": "Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/20260615_150541_sc_control_tower_missing_refs_audit/definitions/SupplyChain_Gold"
+    },
+    {
+      "name": "Forecast Accuracy Gold",
+      "id": "23718231-b394-4b84-a215-50c302043ed0",
+      "ok": true,
+      "dir": "Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/20260615_150541_sc_control_tower_missing_refs_audit/definitions/Forecast_Accuracy_Gold"
+    }
+  ]
+}

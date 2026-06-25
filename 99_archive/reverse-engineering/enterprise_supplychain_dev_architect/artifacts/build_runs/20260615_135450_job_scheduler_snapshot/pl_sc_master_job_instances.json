@@ -1,0 +1,126 @@
+{
+  "continuationToken": "eyJRdWVyeUVuZFRpbWVVdGMiOiIyMDI2LTA1LTIxVDA5OjMxOjQ5Ljg1Njg1NDcifQ==",
+  "continuationUri": "https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1/workspaces/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/items/f36f56b8-5668-4a0c-b991-2c28302f1710/jobs/Pipeline/instances?continuationToken=eyJRdWVyeUVuZFRpbWVVdGMiOiIyMDI2LTA1LTIxVDA5OjMxOjQ5Ljg1Njg1NDcifQ%3d%3d",
+  "value": [
+    {
+      "endTimeUtc": "2026-06-04T03:20:36.4327015",
+      "failureReason": null,
+      "id": "8dc43c5a-cf79-45bf-9169-12e6e30cf3f2",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "590bdec0-c2fd-45a2-bb37-850836374a57",
+      "startTimeUtc": "2026-06-04T02:07:47.4304184",
+      "status": "Completed"
+    },
+    {
+      "endTimeUtc": "2026-05-29T17:27:26.2952124",
+      "failureReason": null,
+      "id": "24942a8b-1750-4f96-9bfc-23fecac90952",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "58744fff-7799-42ec-bc09-887b0a7384e9",
+      "startTimeUtc": "2026-05-29T16:15:07.8548838",
+      "status": "Completed"
+    },
+    {
+      "endTimeUtc": "2026-05-28T13:48:09.2610746",
+      "failureReason": null,
+      "id": "34fc6f12-9027-4437-9aae-6ed0b604115b",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "86e934b8-067f-40b5-b6cd-0a32efdde008",
+      "startTimeUtc": "2026-05-28T12:34:44.0316257",
+      "status": "Completed"
+    },
+    {
+      "endTimeUtc": "2026-05-28T05:01:16.4615442",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target log_start failed: Failed to report Fabric capacity. Capacity is not found",
+        "requestId": "fdbe0cd4-311c-44c2-8ad6-8e1b4a5edcbb"
+      },
+      "id": "df8418a9-4fbe-4743-ae88-261b4a02a3c0",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "85555d4f-4822-43cc-90eb-01ed0d0964e5",
+      "startTimeUtc": "2026-05-28T05:00:32.4818574",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-28T04:05:16.8426008",
+      "failureReason": null,
+      "id": "171b27ef-9cd0-41ba-8d2e-864b9691533d",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "7d6133a5-6a20-4bad-b9e9-d181cfbc3e3e",
+      "startTimeUtc": "2026-05-28T04:03:18.3326322",
+      "status": "Cancelled"
+    },
+    {
+      "endTimeUtc": "2026-05-28T03:58:10.4861855",
+      "failureReason": null,
+      "id": "771c140c-7fc1-46ad-bff0-fd372a68da9c",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "67047ac2-44e4-4361-901b-36884ab6d0a7",
+      "startTimeUtc": "2026-05-28T03:47:50.6221076",
+      "status": "Cancelled"
+    },
+    {
+      "endTimeUtc": "2026-05-27T18:10:15.5913525",
+      "failureReason": {
+        "errorCode": "Failed",
+        "isRetriable": false,
+        "message": "Operation on target fe_projects failed: Activity failed because an inner activity failed; Inner activity name: invoke_mart, Error: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target invoke_staging failed: Fabric pipeline execution failed, error message received from failing pipeline - 'Operation on target fe_ref failed: Activity failed because an inner activity failed; Inner activity name: exec_ref, Error: Invalid object name 'Enterprise_Lakehouse.SupplyChain_DW.DimAFIWarehouses'.\r\nStatement ID: {EC383DD5-719D-4D0B-A996-792A9CA428D5} | Query hash: 0x1F0559148DCC7AC0 | Distributed request ID: {EBBBFAC4-6D49-4D9E-B3CA-8D8918C7EB97}\r\nStatement ID: {CC92CC80-4192-4CA9-ACCF-9896A2619898} | Query hash: 0xC20BFC387FAD1642 | Distributed request ID: {FF1F5255-2395-492D-8530-D5B74E48D59C}\r\nStatement ID: {8151808E-51BA-4F29-A779-CEB75FF46268} | Query hash: 0xB69A533B7523F11E | Distributed request ID: {57BA821F-1352-4F34-B819-4302AE9B67A9}\r\nStatement ID: {342E455C-78FA-4",
+        "requestId": "fdbe0cd4-311c-44c2-8ad6-8e1b4a5edcbb"
+      },
+      "id": "3393c7a3-bfc6-49d3-b203-ec0467f400dc",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "255563dc-9fe7-4c6b-884d-8f9d42c47b73",
+      "startTimeUtc": "2026-05-27T17:09:07.260447",
+      "status": "Failed"
+    },
+    {
+      "endTimeUtc": "2026-05-26T08:41:10.073315",
+      "failureReason": null,
+      "id": "7d88af27-9015-49a4-b3c2-1d625cbe17cd",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "ef580ab5-0773-49c0-a35f-fa58e357e150",
+      "startTimeUtc": "2026-05-26T07:15:49.8903348",
+      "status": "Completed"
+    },
+    {
+      "endTimeUtc": "2026-05-22T04:21:56.2714665",
+      "failureReason": null,
+      "id": "d0d12062-00f3-4a25-bab6-63ece3df534b",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "21b6b805-aaf5-490c-b6a2-d60fa19fb3ee",
+      "startTimeUtc": "2026-05-22T03:24:53.7318155",
+      "status": "Completed"
+    },
+    {
+      "endTimeUtc": "2026-05-21T10:22:20.7683839",
+      "failureReason": null,
+      "id": "2be6ff60-cef0-4d6e-860d-e6982f3ecebb",
+      "invokeType": "Manual",
+      "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+      "jobType": "Pipeline",
+      "rootActivityId": "6634f284-8048-4bb3-b38d-e63ceb389892",
+      "startTimeUtc": "2026-05-21T09:31:50.0591928",
+      "status": "Completed"
+    }
+  ]
+}

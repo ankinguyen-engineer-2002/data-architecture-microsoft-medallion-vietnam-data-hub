@@ -1,0 +1,2 @@
+pipeline_run_id,pipeline_name,start_time,end_time,total_duration_seconds,tables_processed,total_rows_affected,estimated_cu,cost_per_table_avg,log_date
+f08b9e33-832e-417b-836a-cac31c9afe73,pl_sc_master,2026-04-19T06:39:03.713333,2026-04-19T07:04:32.906667,472,18,1440864447,15.73,,2026-04-19T07:04:32.906667

@@ -1,0 +1,138 @@
+table InventoryClassificationQtyWeekly
+	lineageTag: dcbed1c2-e9af-46c1-a1e0-547f510ab0e5
+	sourceLineageTag: [InventoryHealth_DW].[InventoryClassificationQtyWeekly]
+
+	column Item
+		dataType: string
+		lineageTag: 6cb8a4be-e87d-4950-abbd-40f4ce4a5d19
+		sourceLineageTag: Item
+		summarizeBy: none
+		sourceColumn: Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column WH
+		dataType: string
+		lineageTag: 7db25130-a4be-4de6-b679-9b4e0300275e
+		sourceLineageTag: WH
+		summarizeBy: none
+		sourceColumn: WH
+
+		annotation SummarizationSetBy = Automatic
+
+	column SnapshotWeekEnding
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8a8e2bc2-ba73-4422-933d-0fab42eebed0
+		sourceLineageTag: SnapshotWeekEnding
+		summarizeBy: none
+		sourceColumn: SnapshotWeekEnding
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'InventoryClassification Final Status'
+		dataType: string
+		lineageTag: 0f72cd51-840f-49ab-a016-3b14612a9263
+		sourceLineageTag: InventoryClassification Final Status
+		summarizeBy: none
+		sourceColumn: InventoryClassification Final Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Qty by InventoryClassification (Inactive)'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 9f9c392f-ed31-4421-a9e0-110b3b675705
+		sourceLineageTag: Qty by InventoryClassification (Inactive)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (Inactive)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Qty by InventoryClassification (SLOB)'
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 6691c96f-02ca-4cbf-874e-c5e987db1dcb
+		sourceLineageTag: Qty by InventoryClassification (SLOB)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (SLOB)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column 'Qty by InventoryClassification (Below Target)'
+		dataType: double
+		lineageTag: f7137e1c-fdcc-474a-ab4d-c3f78f3463cb
+		sourceLineageTag: Qty by InventoryClassification (Below Target)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (Below Target)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Qty by InventoryClassification (SweetSpot)'
+		dataType: double
+		lineageTag: 7e04bdbb-de10-4f0a-9ecc-51967e068a8d
+		sourceLineageTag: Qty by InventoryClassification (SweetSpot)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (SweetSpot)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Qty by InventoryClassification (OverTarget)'
+		dataType: double
+		lineageTag: a5ed4c75-7af6-480e-9c32-1276cbad76c9
+		sourceLineageTag: Qty by InventoryClassification (OverTarget)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (OverTarget)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Qty by InventoryClassification (Excess)'
+		dataType: double
+		lineageTag: 4c959862-4429-47b1-b44f-aa05d269ce48
+		sourceLineageTag: Qty by InventoryClassification (Excess)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (Excess)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Qty by InventoryClassification (AE)'
+		dataType: double
+		lineageTag: 456fa7ee-9957-4332-8f47-d462949b30fc
+		sourceLineageTag: Qty by InventoryClassification (AE)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (AE)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Qty by InventoryClassification (TB Inventory)'
+		dataType: double
+		lineageTag: cf9a989a-02ee-4145-81e4-61e79d4ad71e
+		sourceLineageTag: Qty by InventoryClassification (TB Inventory)
+		summarizeBy: sum
+		sourceColumn: Qty by InventoryClassification (TB Inventory)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition InventoryClassificationQtyWeekly = entity
+		mode: directLake
+		source
+			entityName: InventoryClassificationQtyWeekly
+			schemaName: InventoryHealth_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

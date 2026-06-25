@@ -1,0 +1,1 @@
+('42000', '[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]The query references an object that is not supported in distributed processing mode. (15816) (SQLExecDirectW)')

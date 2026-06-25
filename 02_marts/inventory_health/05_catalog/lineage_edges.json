@@ -1,0 +1,878 @@
+{
+  "edges": [
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_DimVendor.sql",
+      "source": "InventoryHealth_DW_Wrk.v_DimVendor",
+      "source_asset_key": "inventoryhealth.dw.wrk.v.dimvendor",
+      "target": "InventoryHealth_DW.DimVendor",
+      "target_asset_key": "inventoryhealth.dw.dimvendor"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthFutureWeekEnding.sql",
+      "source": "InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding",
+      "source_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthfutureweekending",
+      "target": "InventoryHealth_DW.FactInventoryHealthFutureWeekEnding",
+      "target_asset_key": "inventoryhealth.dw.factinventoryhealthfutureweekending"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "source_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot",
+      "target": "InventoryHealth_DW.FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryClassificationQtyWeekly.sql",
+      "source": "InventoryHealth_DW_Wrk.v_InventoryClassificationQtyWeekly",
+      "source_asset_key": "inventoryhealth.dw.wrk.v.inventoryclassificationqtyweekly",
+      "target": "InventoryHealth_DW.InventoryClassificationQtyWeekly",
+      "target_asset_key": "inventoryhealth.dw.inventoryclassificationqtyweekly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryHealthSubStatusWeekly.sql",
+      "source": "InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly",
+      "source_asset_key": "inventoryhealth.dw.wrk.v.inventoryhealthsubstatusweekly",
+      "target": "InventoryHealth_DW.InventoryHealthSubStatusWeekly",
+      "target_asset_key": "inventoryhealth.dw.inventoryhealthsubstatusweekly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_ProjectedInventoryHealthSubStatus.sql",
+      "source": "InventoryHealth_DW_Wrk.v_ProjectedInventoryHealthSubStatus",
+      "source_asset_key": "inventoryhealth.dw.wrk.v.projectedinventoryhealthsubstatus",
+      "target": "InventoryHealth_DW.ProjectedInventoryHealthSubStatus",
+      "target_asset_key": "inventoryhealth.dw.projectedinventoryhealthsubstatus"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_DimVendor.sql",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Vendor",
+      "source_asset_key": "supplychain.processing.warehouse.referencemaster.enh.vendor",
+      "target": "InventoryHealth_DW_Wrk.v_DimVendor",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.dimvendor"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthFutureWeekEnding.sql",
+      "source": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.ProjectedInventoryHealthSubStatus",
+      "source_asset_key": "supplychain.gold.warehouse.inventoryhealth.dw.projectedinventoryhealthsubstatus",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthfutureweekending"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthFutureWeekEnding.sql",
+      "source": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct",
+      "source_asset_key": "supplychain.gold.warehouse.shared.dw.dimproduct",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthfutureweekending"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthFutureWeekEnding.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.afistatussnapshotweekly",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthfutureweekending"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthFutureWeekEnding.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AtpWeekEnding",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.atpweekending",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthfutureweekending"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthFutureWeekEnding.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.awdhelper",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthfutureweekending"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthFutureWeekEnding.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.inventorysnapshotweekly",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthfutureweekending"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthFutureWeekEnding.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SupplyPlanDetail",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.supplyplandetail",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthfutureweekending"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryClassificationQtyWeekly",
+      "source_asset_key": "supplychain.gold.warehouse.inventoryhealth.dw.inventoryclassificationqtyweekly",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryHealthSubStatusWeekly",
+      "source_asset_key": "supplychain.gold.warehouse.inventoryhealth.dw.inventoryhealthsubstatusweekly",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct",
+      "source_asset_key": "supplychain.gold.warehouse.shared.dw.dimproduct",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.afistatussnapshotweekly",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AtpWeekEnding",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.atpweekending",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.awdhelper",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.Cogs52WWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.cogs52wweekly",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.inventorysnapshotweekly",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.itembalancehistorical.withintransit",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.lastinvoiceweekly",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.manufacturingordersnapshotdaily",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.purchaseordersnapshothistorical",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.safetystockhelper",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SupplyPlanDetail",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.supplyplandetail",
+      "target": "InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.factinventoryhealthsnapshot"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryClassificationQtyWeekly.sql",
+      "source": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryHealthSubStatusWeekly",
+      "source_asset_key": "supplychain.gold.warehouse.inventoryhealth.dw.inventoryhealthsubstatusweekly",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryClassificationQtyWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryclassificationqtyweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryClassificationQtyWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.awdhelper",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryClassificationQtyWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryclassificationqtyweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryClassificationQtyWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.inventorysnapshotweekly",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryClassificationQtyWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryclassificationqtyweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryClassificationQtyWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.safetystockhelper",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryClassificationQtyWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryclassificationqtyweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryHealthSubStatusWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.afistatussnapshotweekly",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryhealthsubstatusweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryHealthSubStatusWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.awdhelper",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryhealthsubstatusweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryHealthSubStatusWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.inventorysnapshotweekly",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryhealthsubstatusweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryHealthSubStatusWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.lastinvoiceweekly",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryhealthsubstatusweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryHealthSubStatusWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.manufacturingordersnapshotdaily",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryhealthsubstatusweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryHealthSubStatusWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.purchaseordersnapshothistorical",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryhealthsubstatusweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryHealthSubStatusWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.safetystockhelper",
+      "target": "InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.inventoryhealthsubstatusweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_ProjectedInventoryHealthSubStatus.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.afistatussnapshotweekly",
+      "target": "InventoryHealth_DW_Wrk.v_ProjectedInventoryHealthSubStatus",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.projectedinventoryhealthsubstatus"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_ProjectedInventoryHealthSubStatus.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.awdhelper",
+      "target": "InventoryHealth_DW_Wrk.v_ProjectedInventoryHealthSubStatus",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.projectedinventoryhealthsubstatus"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_ProjectedInventoryHealthSubStatus.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.lastinvoiceweekly",
+      "target": "InventoryHealth_DW_Wrk.v_ProjectedInventoryHealthSubStatus",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.projectedinventoryhealthsubstatus"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_ProjectedInventoryHealthSubStatus.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SupplyPlanDetail",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.supplyplandetail",
+      "target": "InventoryHealth_DW_Wrk.v_ProjectedInventoryHealthSubStatus",
+      "target_asset_key": "inventoryhealth.dw.wrk.v.projectedinventoryhealthsubstatus"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AFIStatusSnapshotWeekly.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_AFIStatusSnapshotWeekly",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.afistatussnapshotweekly",
+      "target": "InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "target_asset_key": "inventoryhistory.enh.afistatussnapshotweekly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AtpWeekEnding.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_AtpWeekEnding",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.atpweekending",
+      "target": "InventoryHistory_Enh.AtpWeekEnding",
+      "target_asset_key": "inventoryhistory.enh.atpweekending"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AwdHelper.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_AwdHelper",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.awdhelper",
+      "target": "InventoryHistory_Enh.AwdHelper",
+      "target_asset_key": "inventoryhistory.enh.awdhelper"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_Cogs52WWeekly.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_Cogs52WWeekly",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.cogs52wweekly",
+      "target": "InventoryHistory_Enh.Cogs52WWeekly",
+      "target_asset_key": "inventoryhistory.enh.cogs52wweekly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ForecastSnapshotWeekly.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_ForecastSnapshotWeekly",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.forecastsnapshotweekly",
+      "target": "InventoryHistory_Enh.ForecastSnapshotWeekly",
+      "target_asset_key": "inventoryhistory.enh.forecastsnapshotweekly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_HoldingTransferSnapshotDaily.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_HoldingTransferSnapshotDaily",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.holdingtransfersnapshotdaily",
+      "target": "InventoryHistory_Enh.HoldingTransferSnapshotDaily",
+      "target_asset_key": "inventoryhistory.enh.holdingtransfersnapshotdaily"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_InventorySnapshotWeekly.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_InventorySnapshotWeekly",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.inventorysnapshotweekly",
+      "target": "InventoryHistory_Enh.InventorySnapshotWeekly",
+      "target_asset_key": "inventoryhistory.enh.inventorysnapshotweekly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ItemBalanceHistorical_WithInTransit.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_ItemBalanceHistorical_WithInTransit",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.itembalancehistorical.withintransit",
+      "target": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+      "target_asset_key": "inventoryhistory.enh.itembalancehistorical.withintransit"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_LastInvoiceWeekly.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_LastInvoiceWeekly",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.lastinvoiceweekly",
+      "target": "InventoryHistory_Enh.LastInvoiceWeekly",
+      "target_asset_key": "inventoryhistory.enh.lastinvoiceweekly"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ManufacturingOrderSnapshotDaily.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_ManufacturingOrderSnapshotDaily",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.manufacturingordersnapshotdaily",
+      "target": "InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+      "target_asset_key": "inventoryhistory.enh.manufacturingordersnapshotdaily"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_PurchaseOrderSnapshotHistorical.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_PurchaseOrderSnapshotHistorical",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.purchaseordersnapshothistorical",
+      "target": "InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
+      "target_asset_key": "inventoryhistory.enh.purchaseordersnapshothistorical"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_SafetyStockHelper.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_SafetyStockHelper",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.safetystockhelper",
+      "target": "InventoryHistory_Enh.SafetyStockHelper",
+      "target_asset_key": "inventoryhistory.enh.safetystockhelper"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_SupplyPlanDetail.sql",
+      "source": "InventoryHistory_Enh_Wrk.v_SupplyPlanDetail",
+      "source_asset_key": "inventoryhistory.enh.wrk.v.supplyplandetail",
+      "target": "InventoryHistory_Enh.SupplyPlanDetail",
+      "target_asset_key": "inventoryhistory.enh.supplyplandetail"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AFIStatusSnapshotWeekly.sql",
+      "source": "Enterprise_Lakehouse.SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility",
+      "source_asset_key": "enterprise.lakehouse.supplychain.enh.demandfulfillmentcommoncontainer.logility",
+      "target": "InventoryHistory_Enh_Wrk.v_AFIStatusSnapshotWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.afistatussnapshotweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AFIStatusSnapshotWeekly.sql",
+      "source": "InventoryHistory_Enh.InventorySnapshotWeekly",
+      "source_asset_key": "inventoryhistory.enh.inventorysnapshotweekly",
+      "target": "InventoryHistory_Enh_Wrk.v_AFIStatusSnapshotWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.afistatussnapshotweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AFIStatusSnapshotWeekly.sql",
+      "source": "ReferenceMaster_Enh.ItemMaster",
+      "source_asset_key": "referencemaster.enh.itemmaster",
+      "target": "InventoryHistory_Enh_Wrk.v_AFIStatusSnapshotWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.afistatussnapshotweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AtpWeekEnding.sql",
+      "source": "Enterprise_Lakehouse.SupplyChain_Enh.ATPWeekEnding",
+      "source_asset_key": "enterprise.lakehouse.supplychain.enh.atpweekending",
+      "target": "InventoryHistory_Enh_Wrk.v_AtpWeekEnding",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.atpweekending"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AwdHelper.sql",
+      "source": "Enterprise_Lakehouse.ItemMaster_AFI.ITEMBL",
+      "source_asset_key": "enterprise.lakehouse.itemmaster.afi.itembl",
+      "target": "InventoryHistory_Enh_Wrk.v_AwdHelper",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.awdhelper"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AwdHelper.sql",
+      "source": "InventoryHistory_Enh.ForecastSnapshotWeekly",
+      "source_asset_key": "inventoryhistory.enh.forecastsnapshotweekly",
+      "target": "InventoryHistory_Enh_Wrk.v_AwdHelper",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.awdhelper"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AwdHelper.sql",
+      "source": "InventoryHistory_Enh.InventorySnapshotWeekly",
+      "source_asset_key": "inventoryhistory.enh.inventorysnapshotweekly",
+      "target": "InventoryHistory_Enh_Wrk.v_AwdHelper",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.awdhelper"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AwdHelper.sql",
+      "source": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "source_asset_key": "saleshistory.enh.invoicedetaillinelevel",
+      "target": "InventoryHistory_Enh_Wrk.v_AwdHelper",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.awdhelper"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_Cogs52WWeekly.sql",
+      "source": "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+      "source_asset_key": "enterprise.lakehouse.itemmaster.afi.itmrva",
+      "target": "InventoryHistory_Enh_Wrk.v_Cogs52WWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.cogs52wweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_Cogs52WWeekly.sql",
+      "source": "InventoryHistory_Enh.InventorySnapshotWeekly",
+      "source_asset_key": "inventoryhistory.enh.inventorysnapshotweekly",
+      "target": "InventoryHistory_Enh_Wrk.v_Cogs52WWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.cogs52wweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_Cogs52WWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Calendar",
+      "source_asset_key": "supplychain.processing.warehouse.referencemaster.enh.calendar",
+      "target": "InventoryHistory_Enh_Wrk.v_Cogs52WWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.cogs52wweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_Cogs52WWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel",
+      "source_asset_key": "supplychain.processing.warehouse.saleshistory.enh.invoicedetaillinelevel",
+      "target": "InventoryHistory_Enh_Wrk.v_Cogs52WWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.cogs52wweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ForecastSnapshotWeekly.sql",
+      "source": "Staging.DemandForecastSnapshotDaily",
+      "source_asset_key": "staging.demandforecastsnapshotdaily",
+      "target": "InventoryHistory_Enh_Wrk.v_ForecastSnapshotWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.forecastsnapshotweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_HoldingTransferSnapshotDaily.sql",
+      "source": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRDTL",
+      "source_asset_key": "enterprise.lakehouse.manufacturing.inventory.afi.tfrdtl",
+      "target": "InventoryHistory_Enh_Wrk.v_HoldingTransferSnapshotDaily",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.holdingtransfersnapshotdaily"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_HoldingTransferSnapshotDaily.sql",
+      "source": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRHDR",
+      "source_asset_key": "enterprise.lakehouse.manufacturing.inventory.afi.tfrhdr",
+      "target": "InventoryHistory_Enh_Wrk.v_HoldingTransferSnapshotDaily",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.holdingtransfersnapshotdaily"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_InventorySnapshotWeekly.sql",
+      "source": "Enterprise_Lakehouse.SupplyChain_Enh.DemandInventorySnapshotDaily",
+      "source_asset_key": "enterprise.lakehouse.supplychain.enh.demandinventorysnapshotdaily",
+      "target": "InventoryHistory_Enh_Wrk.v_InventorySnapshotWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.inventorysnapshotweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ItemBalanceHistorical_WithInTransit.sql",
+      "source": "Enterprise_Lakehouse.Inventory_Enh_History.ItemBalance",
+      "source_asset_key": "enterprise.lakehouse.inventory.enh.history.itembalance",
+      "target": "InventoryHistory_Enh_Wrk.v_ItemBalanceHistorical_WithInTransit",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.itembalancehistorical.withintransit"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ItemBalanceHistorical_WithInTransit.sql",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Warehouse",
+      "source_asset_key": "supplychain.processing.warehouse.referencemaster.enh.warehouse",
+      "target": "InventoryHistory_Enh_Wrk.v_ItemBalanceHistorical_WithInTransit",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.itembalancehistorical.withintransit"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_LastInvoiceWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+      "source_asset_key": "supplychain.processing.warehouse.inventoryhistory.enh.inventorysnapshotweekly",
+      "target": "InventoryHistory_Enh_Wrk.v_LastInvoiceWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.lastinvoiceweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_LastInvoiceWeekly.sql",
+      "source": "SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel",
+      "source_asset_key": "supplychain.processing.warehouse.saleshistory.enh.invoicedetaillinelevel",
+      "target": "InventoryHistory_Enh_Wrk.v_LastInvoiceWeekly",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.lastinvoiceweekly"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ManufacturingOrderSnapshotDaily.sql",
+      "source": "Enterprise_Lakehouse.Manufacturing_ProductionPlanning_AFI.MOMAST",
+      "source_asset_key": "enterprise.lakehouse.manufacturing.productionplanning.afi.momast",
+      "target": "InventoryHistory_Enh_Wrk.v_ManufacturingOrderSnapshotDaily",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.manufacturingordersnapshotdaily"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_PurchaseOrderSnapshotHistorical.sql",
+      "source": "Enterprise_Lakehouse.SupplyChain_Enh.PurchaseOrderSnapshot",
+      "source_asset_key": "enterprise.lakehouse.supplychain.enh.purchaseordersnapshot",
+      "target": "InventoryHistory_Enh_Wrk.v_PurchaseOrderSnapshotHistorical",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.purchaseordersnapshothistorical"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_SafetyStockHelper.sql",
+      "source": "InventoryHistory_Enh.InventorySnapshotWeekly",
+      "source_asset_key": "inventoryhistory.enh.inventorysnapshotweekly",
+      "target": "InventoryHistory_Enh_Wrk.v_SafetyStockHelper",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.safetystockhelper"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_SupplyPlanDetail.sql",
+      "source": "Enterprise_Lakehouse.SupplyChain_Enh.SupplyPlanDetailSnapshotDaily",
+      "source_asset_key": "enterprise.lakehouse.supplychain.enh.supplyplandetailsnapshotdaily",
+      "target": "InventoryHistory_Enh_Wrk.v_SupplyPlanDetail",
+      "target_asset_key": "inventoryhistory.enh.wrk.v.supplyplandetail"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_Calendar.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_Calendar",
+      "source_asset_key": "referencemaster.enh.wrk.v.calendar",
+      "target": "ReferenceMaster_Enh.Calendar",
+      "target_asset_key": "referencemaster.enh.calendar"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccountGroup.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_CustomerAccountGroup",
+      "source_asset_key": "referencemaster.enh.wrk.v.customeraccountgroup",
+      "target": "ReferenceMaster_Enh.CustomerAccountGroup",
+      "target_asset_key": "referencemaster.enh.customeraccountgroup"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "source_asset_key": "referencemaster.enh.wrk.v.itemmaster",
+      "target": "ReferenceMaster_Enh.ItemMaster",
+      "target_asset_key": "referencemaster.enh.itemmaster"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_Vendor.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_Vendor",
+      "source_asset_key": "referencemaster.enh.wrk.v.vendor",
+      "target": "ReferenceMaster_Enh.Vendor",
+      "target_asset_key": "referencemaster.enh.vendor"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_Warehouse.sql",
+      "source": "ReferenceMaster_Enh_Wrk.v_Warehouse",
+      "source_asset_key": "referencemaster.enh.wrk.v.warehouse",
+      "target": "ReferenceMaster_Enh.Warehouse",
+      "target_asset_key": "referencemaster.enh.warehouse"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_Calendar.sql",
+      "source": "Enterprise_Lakehouse.MasterData_DW.DimDate",
+      "source_asset_key": "enterprise.lakehouse.masterdata.dw.dimdate",
+      "target": "ReferenceMaster_Enh_Wrk.v_Calendar",
+      "target_asset_key": "referencemaster.enh.wrk.v.calendar"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccountGroup.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping",
+      "source_asset_key": "enterprise.lakehouse.wholesale.productsourcing.afi.customergrouping",
+      "target": "ReferenceMaster_Enh_Wrk.v_CustomerAccountGroup",
+      "target_asset_key": "referencemaster.enh.wrk.v.customeraccountgroup"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "Enterprise_Lakehouse.ItemMaster_AFI.AITMCLS",
+      "source_asset_key": "enterprise.lakehouse.itemmaster.afi.aitmcls",
+      "target": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target_asset_key": "referencemaster.enh.wrk.v.itemmaster"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT",
+      "source_asset_key": "enterprise.lakehouse.itemmaster.afi.itmext",
+      "target": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target_asset_key": "referencemaster.enh.wrk.v.itemmaster"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+      "source_asset_key": "enterprise.lakehouse.masterdata.dw.dimitemmaster",
+      "target": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target_asset_key": "referencemaster.enh.wrk.v.itemmaster"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV",
+      "source_asset_key": "enterprise.lakehouse.masterdata.productknowledge.item.env",
+      "target": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target_asset_key": "referencemaster.enh.wrk.v.itemmaster"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems",
+      "source_asset_key": "enterprise.lakehouse.wholesale.productsourcing.nonpkitems",
+      "target": "ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target_asset_key": "referencemaster.enh.wrk.v.itemmaster"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_Vendor.sql",
+      "source": "Enterprise_Lakehouse.Purchasing_AFI.VendorMaster",
+      "source_asset_key": "enterprise.lakehouse.purchasing.afi.vendormaster",
+      "target": "ReferenceMaster_Enh_Wrk.v_Vendor",
+      "target_asset_key": "referencemaster.enh.wrk.v.vendor"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_Warehouse.sql",
+      "source": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+      "source_asset_key": "enterprise.lakehouse.customerorders.afi.warehousemaster",
+      "target": "ReferenceMaster_Enh_Wrk.v_Warehouse",
+      "target_asset_key": "referencemaster.enh.wrk.v.warehouse"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
+      "source": "SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel",
+      "source_asset_key": "saleshistory.enh.wrk.v.invoicedetaillinelevel",
+      "target": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "target_asset_key": "saleshistory.enh.invoicedetaillinelevel"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
+      "source": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+      "source_asset_key": "enterprise.lakehouse.saleshistory.afi.enh.invoicedetail",
+      "target": "SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel",
+      "target_asset_key": "saleshistory.enh.wrk.v.invoicedetaillinelevel"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
+      "source": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader",
+      "source_asset_key": "enterprise.lakehouse.saleshistory.afi.enh.invoiceheader",
+      "target": "SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel",
+      "target_asset_key": "saleshistory.enh.wrk.v.invoicedetaillinelevel"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
+      "source": "ReferenceMaster_Enh.CustomerAccountGroup",
+      "source_asset_key": "referencemaster.enh.customeraccountgroup",
+      "target": "SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel",
+      "target_asset_key": "saleshistory.enh.wrk.v.invoicedetaillinelevel"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimCalendar.sql",
+      "source": "Shared_DW_Wrk.v_DimCalendar",
+      "source_asset_key": "shared.dw.wrk.v.dimcalendar",
+      "target": "Shared_DW.DimCalendar",
+      "target_asset_key": "shared.dw.dimcalendar"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimProduct.sql",
+      "source": "Shared_DW_Wrk.v_DimProduct",
+      "source_asset_key": "shared.dw.wrk.v.dimproduct",
+      "target": "Shared_DW.DimProduct",
+      "target_asset_key": "shared.dw.dimproduct"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimWarehouse.sql",
+      "source": "Shared_DW_Wrk.v_DimWarehouse",
+      "source_asset_key": "shared.dw.wrk.v.dimwarehouse",
+      "target": "Shared_DW.DimWarehouse",
+      "target_asset_key": "shared.dw.dimwarehouse"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimCalendar.sql",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Calendar",
+      "source_asset_key": "supplychain.processing.warehouse.referencemaster.enh.calendar",
+      "target": "Shared_DW_Wrk.v_DimCalendar",
+      "target_asset_key": "shared.dw.wrk.v.dimcalendar"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimProduct.sql",
+      "source": "Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT",
+      "source_asset_key": "enterprise.lakehouse.itemmaster.afi.itbext",
+      "target": "Shared_DW_Wrk.v_DimProduct",
+      "target_asset_key": "shared.dw.wrk.v.dimproduct"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimProduct.sql",
+      "source": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+      "source_asset_key": "enterprise.lakehouse.masterdata.dw.dimitemmaster",
+      "target": "Shared_DW_Wrk.v_DimProduct",
+      "target_asset_key": "shared.dw.wrk.v.dimproduct"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimProduct.sql",
+      "source": "Enterprise_Lakehouse.Purchasing_AFI.VendorMaster",
+      "source_asset_key": "enterprise.lakehouse.purchasing.afi.vendormaster",
+      "target": "Shared_DW_Wrk.v_DimProduct",
+      "target_asset_key": "shared.dw.wrk.v.dimproduct"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimWarehouse.sql",
+      "source": "Enterprise_Lakehouse.Wholesale_Codis_AFI.AshleyWarehouseMaster",
+      "source_asset_key": "enterprise.lakehouse.wholesale.codis.afi.ashleywarehousemaster",
+      "target": "Shared_DW_Wrk.v_DimWarehouse",
+      "target_asset_key": "shared.dw.wrk.v.dimwarehouse"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimWarehouse.sql",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Warehouse",
+      "source_asset_key": "supplychain.processing.warehouse.referencemaster.enh.warehouse",
+      "target": "Shared_DW_Wrk.v_DimWarehouse",
+      "target_asset_key": "shared.dw.wrk.v.dimwarehouse"
+    },
+    {
+      "edge_type": "bob_wrk_view_materializes_final_table",
+      "evidence_file": "02_marts/inventory_health/00_source_wrk/staging_wrk/Staging_Wrk.v_DemandForecastSnapshotDaily.sql",
+      "source": "Staging_Wrk.v_DemandForecastSnapshotDaily",
+      "source_asset_key": "staging.wrk.v.demandforecastsnapshotdaily",
+      "target": "Staging.DemandForecastSnapshotDaily",
+      "target_asset_key": "staging.demandforecastsnapshotdaily"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/inventory_health/00_source_wrk/staging_wrk/Staging_Wrk.v_DemandForecastSnapshotDaily.sql",
+      "source": "Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily",
+      "source_asset_key": "enterprise.lakehouse.supplychain.enh.demandforecastsnapshotdaily",
+      "target": "Staging_Wrk.v_DemandForecastSnapshotDaily",
+      "target_asset_key": "staging.wrk.v.demandforecastsnapshotdaily"
+    }
+  ],
+  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "mart": "inventory_health"
+}

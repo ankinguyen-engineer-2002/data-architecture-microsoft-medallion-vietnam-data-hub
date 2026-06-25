@@ -1,0 +1,52 @@
+{
+  "value": [
+    {
+      "description": "",
+      "displayName": "temp_SCPModel",
+      "folderId": "ce15e832-d15a-4252-8221-83d1be1cf338",
+      "id": "78f37e0b-726d-41be-b015-f980cc2146c1",
+      "type": "SemanticModel",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "description": "",
+      "displayName": "SupplyChain_Gold",
+      "folderId": "ce15e832-d15a-4252-8221-83d1be1cf338",
+      "id": "b4b302e7-65d7-464d-9083-aaef9d88dfc2",
+      "type": "SemanticModel",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "description": "",
+      "displayName": "Supply Chain Control Tower",
+      "folderId": "288af0ce-f37b-4054-88d4-ab871c8acefb",
+      "id": "3eecf594-a75e-46ab-9162-63c95ee68e45",
+      "type": "SemanticModel",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "description": "v10 clone of Supply Chain Control Tower — Direct Lake on SupplyChain_Gold_Warehouse, PascalCase columns, ForecastAccuracy_DW schema",
+      "displayName": "sc_control_tower",
+      "folderId": "288af0ce-f37b-4054-88d4-ab871c8acefb",
+      "id": "f06a2361-15fd-4f91-9d37-941fefe62aaf",
+      "type": "SemanticModel",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "description": "",
+      "displayName": "test",
+      "folderId": "ce15e832-d15a-4252-8221-83d1be1cf338",
+      "id": "c98ddaea-f10c-4a50-98f9-2e14f56c8c77",
+      "type": "SemanticModel",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "description": "",
+      "displayName": "GitTest2",
+      "folderId": "ce15e832-d15a-4252-8221-83d1be1cf338",
+      "id": "c5eda8e4-8448-4af7-ac3b-b00f278d6274",
+      "type": "SemanticModel",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    }
+  ]
+}

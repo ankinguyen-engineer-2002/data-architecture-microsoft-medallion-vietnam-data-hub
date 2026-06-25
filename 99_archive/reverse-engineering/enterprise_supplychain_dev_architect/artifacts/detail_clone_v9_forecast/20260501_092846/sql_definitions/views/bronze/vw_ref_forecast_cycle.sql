@@ -1,0 +1,8 @@
+-- Source: SupplyChain_Warehouse.bronze.vw_ref_forecast_cycle
+-- Object type: VIEW
+-- Exported read-only from sys.sql_modules.
+
+
+CREATE   VIEW bronze.vw_ref_forecast_cycle AS
+SELECT *
+FROM SupplyChain_Lakehouse.dbo.ref_forecast_cycle

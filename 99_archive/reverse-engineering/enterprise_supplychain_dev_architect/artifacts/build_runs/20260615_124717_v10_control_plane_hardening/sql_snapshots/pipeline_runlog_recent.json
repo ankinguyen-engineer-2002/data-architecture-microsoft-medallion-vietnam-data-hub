@@ -1,0 +1,562 @@
+[
+  {
+    "pipeline_run_id": "8dc43c5a-cf79-45bf-9169-12e6e30cf3f2",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-06-04 02:08:18.746667",
+    "end_time_utc": "2026-06-04 03:20:28.360000",
+    "trigger_type": "Manual",
+    "error_message": "17 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "24942a8b-1750-4f96-9bfc-23fecac90952",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-29 16:15:29.480000",
+    "end_time_utc": "2026-05-29 17:27:22.313333",
+    "trigger_type": "Manual",
+    "error_message": "12 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "34fc6f12-9027-4437-9aae-6ed0b604115b",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-28 12:35:01.640000",
+    "end_time_utc": "2026-05-28 13:48:02.963333",
+    "trigger_type": "Manual",
+    "error_message": "12 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "771c140c-7fc1-46ad-bff0-fd372a68da9c",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "cancelled",
+    "start_time_utc": "2026-05-28 03:48:10.013333",
+    "end_time_utc": "2026-05-28 03:58:10.486186",
+    "trigger_type": "Manual",
+    "error_message": "Fabric job history: Cancelled after user requested cancel during live apply."
+  },
+  {
+    "pipeline_run_id": "3393c7a3-bfc6-49d3-b203-ec0467f400dc",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-27 17:09:26.540000",
+    "end_time_utc": "2026-05-27 18:10:15.591353",
+    "trigger_type": "Manual",
+    "error_message": "Fabric job history: Failed at ref/staging; invalid object Enterprise_Lakehouse.SupplyChain_DW.DimAFIWarehouses."
+  },
+  {
+    "pipeline_run_id": "7d88af27-9015-49a4-b3c2-1d625cbe17cd",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-26 07:16:09.553333",
+    "end_time_utc": "2026-05-26 08:41:05.350000",
+    "trigger_type": "Manual",
+    "error_message": "13 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "d0d12062-00f3-4a25-bab6-63ece3df534b",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "partial",
+    "start_time_utc": "2026-05-22 03:25:13.420000",
+    "end_time_utc": "2026-05-22 04:21:52.753333",
+    "trigger_type": "Manual",
+    "error_message": "21 succeeded, 1 failed"
+  },
+  {
+    "pipeline_run_id": "2be6ff60-cef0-4d6e-860d-e6982f3ecebb",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "partial",
+    "start_time_utc": "2026-05-21 09:32:00.853333",
+    "end_time_utc": "2026-05-21 10:22:13.570000",
+    "trigger_type": "Manual",
+    "error_message": "20 succeeded, 1 failed"
+  },
+  {
+    "pipeline_run_id": "67cb74d1-e5d4-4822-a94e-b8334bb769a1",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "timed_out_unknown",
+    "start_time_utc": "2026-05-21 08:32:06.623333",
+    "end_time_utc": "2026-05-21 09:32:06.623333",
+    "trigger_type": "Manual",
+    "error_message": " [Auto-reset 2026-05-22: status=running but never reported end. Check Fabric portal Activity Log for actual outcome.]"
+  },
+  {
+    "pipeline_run_id": "0bbd72d8-c803-4d76-9d76-31304f6a59cf",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "timed_out_unknown",
+    "start_time_utc": "2026-05-21 07:08:47.476667",
+    "end_time_utc": "2026-05-21 08:08:47.476667",
+    "trigger_type": "Manual",
+    "error_message": " [Auto-reset 2026-05-22: status=running but never reported end. Check Fabric portal Activity Log for actual outcome.]"
+  },
+  {
+    "pipeline_run_id": "4d5e5561-76bb-4c5d-b427-cae644cf24bd",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-21 05:07:47.913333",
+    "end_time_utc": "2026-05-21 05:55:09.026667",
+    "trigger_type": "Manual",
+    "error_message": "43 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "3804aef5-cc46-4de4-8fc7-2eb8d779f58d",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "timed_out_unknown",
+    "start_time_utc": "2026-05-21 04:35:24.670000",
+    "end_time_utc": "2026-05-21 05:35:24.670000",
+    "trigger_type": "Manual",
+    "error_message": " [Auto-reset 2026-05-22: status=running but never reported end. Check Fabric portal Activity Log for actual outcome.]"
+  },
+  {
+    "pipeline_run_id": "1a882afa-ed04-413e-ae48-84372f2345ff",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-21 02:55:25.096667",
+    "end_time_utc": "2026-05-21 04:29:56.236667",
+    "trigger_type": "Manual",
+    "error_message": "3 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "e50e1f6c-719c-4ad8-8d10-f4e31469c95a",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "timed_out_unknown",
+    "start_time_utc": "2026-05-21 02:30:35.523333",
+    "end_time_utc": "2026-05-21 03:30:35.523333",
+    "trigger_type": "Manual",
+    "error_message": " [Auto-reset 2026-05-22: status=running but never reported end. Check Fabric portal Activity Log for actual outcome.]"
+  },
+  {
+    "pipeline_run_id": "bc4f2020-a135-444a-bd5a-22df2b2a1239",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "partial",
+    "start_time_utc": "2026-05-20 03:32:59.980000",
+    "end_time_utc": "2026-05-20 04:21:45.940000",
+    "trigger_type": "Manual",
+    "error_message": "35 succeeded, 2 failed"
+  },
+  {
+    "pipeline_run_id": "06b51db9-f0f4-4be3-a03d-9850be16db6c",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "partial",
+    "start_time_utc": "2026-05-19 23:56:04.830000",
+    "end_time_utc": "2026-05-20 01:11:41.333333",
+    "trigger_type": "Manual",
+    "error_message": "24 succeeded, 3 failed"
+  },
+  {
+    "pipeline_run_id": "af53a6c0-c90c-4bad-a6ed-ed69417e4951",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-19 17:17:19.020000",
+    "end_time_utc": "2026-05-19 17:52:40.079326",
+    "trigger_type": "Manual",
+    "error_message": "TCP transport-level error from server (parallel marts capacity exhaustion)"
+  },
+  {
+    "pipeline_run_id": "30d79c0e-1eec-412d-9819-17e464b5144d",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-19 13:40:49.810000",
+    "end_time_utc": "2026-05-19 17:52:40.079326",
+    "trigger_type": "Manual",
+    "error_message": "TCP transport-level error from server (parallel marts capacity exhaustion)"
+  },
+  {
+    "pipeline_run_id": "b2cf82f0-ab5e-4828-9d07-dc8fa7a89d1a",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-19 13:32:38.800000",
+    "end_time_utc": "2026-05-19 13:40:25.236667",
+    "trigger_type": "Manual",
+    "error_message": "refresh_edw failed: dropped proc race condition"
+  },
+  {
+    "pipeline_run_id": "916e45c9-d401-4a95-8c93-d3117d239496",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "partial",
+    "start_time_utc": "2026-05-12 04:05:06.530000",
+    "end_time_utc": "2026-05-12 04:43:57.623333",
+    "trigger_type": "Manual",
+    "error_message": "17 succeeded, 2 failed"
+  },
+  {
+    "pipeline_run_id": "d2ade935-22ac-411d-9551-3b491c353db4",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "partial",
+    "start_time_utc": "2026-05-10 09:19:45.616667",
+    "end_time_utc": "2026-05-10 09:49:46.810000",
+    "trigger_type": "Manual",
+    "error_message": "26 succeeded, 4 failed"
+  },
+  {
+    "pipeline_run_id": "e0f715ae-2ce4-424d-a44e-85c2585e122c",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-10 08:38:00.190000",
+    "end_time_utc": "2026-05-19 13:40:25.236667",
+    "trigger_type": "Manual",
+    "error_message": "refresh_edw failed: dropped proc race condition"
+  },
+  {
+    "pipeline_run_id": "904da38d-1683-460d-b350-287300e70155",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-10 08:20:30.870000",
+    "end_time_utc": "2026-05-19 13:40:25.236667",
+    "trigger_type": "Manual",
+    "error_message": "refresh_edw failed: dropped proc race condition"
+  },
+  {
+    "pipeline_run_id": "b628e27c-e20c-4d08-9d5b-5e1dd5365cc3",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-10 07:33:08.586667",
+    "end_time_utc": "2026-05-19 13:40:25.236667",
+    "trigger_type": "Manual",
+    "error_message": "refresh_edw failed: dropped proc race condition"
+  },
+  {
+    "pipeline_run_id": "731cb99d-8fd4-455c-97cd-642d3b58a9e0",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-04 12:50:47.593333",
+    "end_time_utc": "2026-05-04 13:27:08.920000",
+    "trigger_type": "Manual",
+    "error_message": "16 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "affae32b-da54-422a-9aa8-d2ed056e5688",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-04 12:00:21.393333",
+    "end_time_utc": "2026-05-19 13:40:25.236667",
+    "trigger_type": "Manual",
+    "error_message": "refresh_edw failed: dropped proc race condition"
+  },
+  {
+    "pipeline_run_id": "99314383-bd11-439b-a37e-42cd3d4b9609",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "partial",
+    "start_time_utc": "2026-05-04 11:00:34.556667",
+    "end_time_utc": "2026-05-04 11:38:45.393333",
+    "trigger_type": "Manual",
+    "error_message": "16 succeeded, 5 failed"
+  },
+  {
+    "pipeline_run_id": "a35e8eb2-322e-472e-950c-2bb73a49bf70",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-04 10:00:45.970000",
+    "end_time_utc": "2026-05-04 10:32:45.973333",
+    "trigger_type": "Manual",
+    "error_message": "16 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "0b2318a7-2de9-4aa1-a0b2-245d2c8bcae2",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "partial",
+    "start_time_utc": "2026-05-04 09:00:40",
+    "end_time_utc": "2026-05-04 09:39:02.543333",
+    "trigger_type": "Manual",
+    "error_message": "16 succeeded, 3 failed"
+  },
+  {
+    "pipeline_run_id": "92d4fdad-f7da-4e5c-9e5a-66b219a351c0",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-04 08:00:33.833333",
+    "end_time_utc": "2026-05-04 08:34:44.396667",
+    "trigger_type": "Manual",
+    "error_message": "16 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "539e2b64-8b07-45d2-93ad-c88ac3d483f3",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-04 07:00:23.636667",
+    "end_time_utc": "2026-05-04 07:29:03.433333",
+    "trigger_type": "Manual",
+    "error_message": "19 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "469fa691-bac5-4b45-8bba-31010578142d",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "partial",
+    "start_time_utc": "2026-05-04 06:11:07.430000",
+    "end_time_utc": "2026-05-04 06:42:02.743333",
+    "trigger_type": "Manual",
+    "error_message": "32 succeeded, 1 failed"
+  },
+  {
+    "pipeline_run_id": "8f9ca411-f8c7-4565-8a6f-95b522f9faf8",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-04 05:40:38.446667",
+    "end_time_utc": "2026-05-04 06:10:56.723333",
+    "trigger_type": "Manual",
+    "error_message": "16 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "069b415d-7cc6-4bea-aed1-58a64af94f24",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-04 04:48:43.623333",
+    "end_time_utc": "2026-05-19 13:40:25.236667",
+    "trigger_type": "Manual",
+    "error_message": "refresh_edw failed: dropped proc race condition"
+  },
+  {
+    "pipeline_run_id": "3467ca5b-41e5-4a22-9c8f-4bf1a2ff887b",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-04 04:19:39.903333",
+    "end_time_utc": "2026-05-19 13:40:25.236667",
+    "trigger_type": "Manual",
+    "error_message": "refresh_edw failed: dropped proc race condition"
+  },
+  {
+    "pipeline_run_id": "3f31f592-3f35-435b-8083-d7fb16108bd6",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-04 04:00:07.293333",
+    "end_time_utc": "2026-05-19 13:40:25.236667",
+    "trigger_type": "Manual",
+    "error_message": "refresh_edw failed: dropped proc race condition"
+  },
+  {
+    "pipeline_run_id": "7d0c2ef2-ed12-4f1e-9768-71621d657105",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-04 03:00:20.430000",
+    "end_time_utc": "2026-05-04 03:27:06.326667",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "06ef84eb-57c3-4860-8df8-5b86cee79410",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-04 02:00:30.640000",
+    "end_time_utc": "2026-05-04 02:30:56.696667",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "ea190be5-0f11-4673-8f17-7f102e2787cd",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-04 01:00:31.056667",
+    "end_time_utc": "2026-05-04 01:29:49.693333",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "3579586c-0c5c-49c0-91ba-00367b664fd3",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-04 00:00:32",
+    "end_time_utc": "2026-05-04 00:29:02.530000",
+    "trigger_type": "Manual",
+    "error_message": "9 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "5ee0868b-1a02-499d-892d-3a9361585348",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 23:00:06.320000",
+    "end_time_utc": "2026-05-03 23:28:59.053333",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "08a5cf2e-b9ac-4291-9024-295da8603953",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 22:00:35.886667",
+    "end_time_utc": "2026-05-03 22:24:43.743333",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "262b8a8e-ae43-4e40-8df1-6df3d4b47713",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 21:00:15.493333",
+    "end_time_utc": "2026-05-03 21:30:43.193333",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "d507bb4b-07e1-4133-9153-3f5670b77165",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 20:00:25.403333",
+    "end_time_utc": "2026-05-03 20:35:03.263333",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "6334c6c3-e580-4701-860d-52e949c4c8d7",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 19:00:25.556667",
+    "end_time_utc": "2026-05-03 19:28:49.813333",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "87877b8c-212e-4cee-a039-6563e167ed81",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 18:00:23.303333",
+    "end_time_utc": "2026-05-03 18:28:47.066667",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "c52dd3ff-bc9c-440e-b2af-95b0ae885ebf",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 17:00:26.423333",
+    "end_time_utc": "2026-05-03 17:27:06.680000",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "38777963-7b2b-49eb-9caf-635fcf66a0ef",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 16:00:06.016667",
+    "end_time_utc": "2026-05-03 16:30:44.066667",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "727f5fb4-ce6f-41d8-81f5-610c1ec6a423",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 15:00:24.980000",
+    "end_time_utc": "2026-05-03 15:31:05.403333",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "8fbbbc0d-b092-42c8-8800-e547ecb19aed",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 14:00:45.590000",
+    "end_time_utc": "2026-05-03 14:28:56.010000",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "d035c1e7-d419-4460-b5bd-a1b13416db4a",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 13:00:28.383333",
+    "end_time_utc": "2026-05-03 13:30:45.230000",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "d89dd13d-7f08-40db-8bde-77916d5f82a8",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 12:00:26.116667",
+    "end_time_utc": "2026-05-03 12:28:59.376667",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "6e0f4db8-1977-4d48-8dd0-79219cd40b73",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-03 05:30:39.786667",
+    "end_time_utc": "2026-05-03 05:59:05.483333",
+    "trigger_type": "Manual",
+    "error_message": "9 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "ab3a26c2-dfcc-4aa7-b1b5-f64240b59d3e",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-02 06:15:21.173333",
+    "end_time_utc": "2026-05-02 06:46:13.170000",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "555d5f44-d4c5-4506-960e-e815c55ccc32",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "success",
+    "start_time_utc": "2026-05-02 03:54:13.340000",
+    "end_time_utc": "2026-05-02 04:25:09.986667",
+    "trigger_type": "Manual",
+    "error_message": "8 succeeded, 0 failed"
+  },
+  {
+    "pipeline_run_id": "8d707fd9-8b6c-424a-8939-9e75a3a3ce53",
+    "pipeline_name": "pl_sc_master",
+    "project": "all",
+    "status": "failed",
+    "start_time_utc": "2026-05-02 03:46:41.263333",
+    "end_time_utc": "2026-05-19 13:40:25.236667",
+    "trigger_type": "Manual",
+    "error_message": "refresh_edw failed: dropped proc race condition"
+  }
+]

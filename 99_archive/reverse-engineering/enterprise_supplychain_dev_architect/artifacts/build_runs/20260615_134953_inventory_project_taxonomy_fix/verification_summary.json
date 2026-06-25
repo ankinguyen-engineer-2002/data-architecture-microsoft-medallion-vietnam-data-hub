@@ -1,0 +1,105 @@
+{
+  "asset_projects": [
+    {
+      "project": "forecast_accuracy",
+      "canonical_layer": "DomainSilver",
+      "cnt": 8
+    },
+    {
+      "project": "forecast_accuracy",
+      "canonical_layer": "Gold",
+      "cnt": 4
+    },
+    {
+      "project": "forecast_accuracy",
+      "canonical_layer": "LogicalBronze",
+      "cnt": 4
+    },
+    {
+      "project": "forecast_accuracy",
+      "canonical_layer": "ReferenceMaster",
+      "cnt": 10
+    },
+    {
+      "project": "inventory_health",
+      "canonical_layer": "DomainSilver",
+      "cnt": 11
+    },
+    {
+      "project": "inventory_health",
+      "canonical_layer": "Gold",
+      "cnt": 4
+    },
+    {
+      "project": "inventory_health",
+      "canonical_layer": "ReferenceMaster",
+      "cnt": 1
+    },
+    {
+      "project": "shared",
+      "canonical_layer": "Gold",
+      "cnt": 3
+    },
+    {
+      "project": "shared",
+      "canonical_layer": "Staging",
+      "cnt": 1
+    }
+  ],
+  "wave_projects": [
+    {
+      "project": "forecast_accuracy",
+      "wave_number": 0,
+      "cnt": 3
+    },
+    {
+      "project": "forecast_accuracy",
+      "wave_number": 1,
+      "cnt": 4
+    },
+    {
+      "project": "forecast_accuracy",
+      "wave_number": 2,
+      "cnt": 1
+    },
+    {
+      "project": "inventory_health",
+      "wave_number": 0,
+      "cnt": 4
+    },
+    {
+      "project": "inventory_health",
+      "wave_number": 1,
+      "cnt": 7
+    }
+  ],
+  "inventory_frequency_values": [
+    {
+      "frequency": "daily",
+      "cnt": 12
+    },
+    {
+      "frequency": "weekly",
+      "cnt": 5
+    },
+    {
+      "frequency": "monthly",
+      "cnt": 4
+    }
+  ],
+  "pl_sc_master": {
+    "contains_master_ordering": true,
+    "contains_staging_project_filter": false,
+    "contains_gold_project_filter": false
+  },
+  "pl_sc_staging": {
+    "contains_master_ordering": false,
+    "contains_staging_project_filter": true,
+    "contains_gold_project_filter": false
+  },
+  "pl_sc_gold": {
+    "contains_master_ordering": false,
+    "contains_staging_project_filter": false,
+    "contains_gold_project_filter": true
+  }
+}

@@ -1,0 +1,27 @@
+-- ============================================================
+-- Meta SPs — InventoryHealth Project (NO project-specific procs)
+-- ============================================================
+-- v10 design: 1 generic Meta.usp_GenericLoad + N views.
+-- The inventory_health project does NOT define any custom stored procedures.
+-- All load orchestration uses centralized Meta.* procs already deployed
+-- to SupplyChain_Processing_Warehouse.Meta schema.
+--
+-- Central procs used (defined in forecast/etl/meta_sps.sql, deployed live):
+--   • Meta.usp_GenericLoad(@target_schema, @target_table)
+--       — reads Meta.AssetRegistry row, dispatches by load_type:
+--         overwrite | incremental | upsert | datekey | daterange | identity | cdc | scd2
+--   • Meta.usp_LogRun(@run_id, @asset_id, @status, ...)
+--   • Meta.usp_LogPipelineRun(@pipeline_run_id, @pipeline_name, @status, ...)
+--   • Meta.usp_ComputeSilverWaves         — DAG planner from depends_on
+--   • Meta.usp_RunSilverDag               — iterate waves sequentially
+--   • Meta.usp_BuildLineage               — rebuild LineageEdge from source_objects
+--   • Meta.usp_CheckDqSingle              — DQ rule runner
+--   • Meta.usp_FinalizePipeline           — close pipeline run + rebuild lineage
+--   • Meta.usp_ValidateSourceContract     — source schema contract gate
+--   • Meta.ufn_should_run                 — cron eval for smart skip
+-- ============================================================
+-- Registry rows for inventory_health → see `registry_inserts.sql`.
+-- DQ rules for inventory_health        → see `dq_rules_inserts.sql`.
+-- ============================================================
+
+-- (no DDL or DCL in this file — intentional)

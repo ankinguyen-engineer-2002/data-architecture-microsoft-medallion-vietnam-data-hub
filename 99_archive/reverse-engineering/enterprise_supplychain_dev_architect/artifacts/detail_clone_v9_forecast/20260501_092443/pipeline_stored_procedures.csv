@@ -1,0 +1,9 @@
+activity_name,pipeline,stored_procedure_name,stored_procedure_parameters
+,pl_sc_master,[bronze].[usp_refresh_edw_tables],
+,pl_sc_master,[meta].[usp_log_pipeline_run],"{""pipeline_name"": {""type"": ""String"", ""value"": ""pl_sc_master""}, ""pipeline_run_id"": {""type"": ""String"", ""value"": {""type"": ""Expression"", ""value"": ""@pipeline().RunId""}}, ""status"": {""type"": ""String"", ""value"": ""running""}}"
+,pl_sc_master,[meta].[usp_finalize_pipeline],"{""pipeline_run_id"": {""type"": ""String"", ""value"": {""type"": ""Expression"", ""value"": ""@pipeline().RunId""}}}"
+,pl_sc_bronze,[meta].[usp_generic_load],"{""target_schema"": {""type"": ""String"", ""value"": {""type"": ""Expression"", ""value"": ""@item().target_schema""}}, ""target_table"": {""type"": ""String"", ""value"": {""type"": ""Expression"", ""value"": ""@item().target_table""}}}"
+,pl_sc_silver,[meta].[usp_compute_slv_waves],
+,pl_sc_silver_wave,[meta].[usp_generic_load],"{""target_schema"": {""type"": ""String"", ""value"": {""type"": ""Expression"", ""value"": ""@item().target_schema""}}, ""target_table"": {""type"": ""String"", ""value"": {""type"": ""Expression"", ""value"": ""@item().target_table""}}}"
+,pl_sc_gold,[meta].[usp_generic_load],"{""target_schema"": {""type"": ""String"", ""value"": {""type"": ""Expression"", ""value"": ""@item().target_schema""}}, ""target_table"": {""type"": ""String"", ""value"": {""type"": ""Expression"", ""value"": ""@item().target_table""}}}"
+,pl_dq_check,[meta].[usp_check_dq_single],"{""pipeline_run_id"": {""type"": ""String"", ""value"": {""type"": ""Expression"", ""value"": ""@pipeline().parameters.pipeline_run_id""}}, ""rule_id"": {""type"": ""Int32"", ""value"": {""type"": ""Expression"", ""value"": ""@item().rule_id""}}}"

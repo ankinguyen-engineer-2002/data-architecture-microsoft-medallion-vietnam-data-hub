@@ -1,0 +1,4 @@
+-- Enterprise_Lakehouse.ItemMaster_AFI.AITMCLS
+-- Layer: Bronze/source shortcut reference for mart `inventory_health`.
+-- Status: live active source reference from current Fabric SQL module definitions.
+-- This is not a local view/table definition in this repo.

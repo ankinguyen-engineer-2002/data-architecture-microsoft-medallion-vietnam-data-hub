@@ -1,0 +1,138 @@
+table _Measures
+	lineageTag: 87ce9013-e23d-4f8f-a130-38071fd2560a
+
+	/// The Total Open Order Quantity that is allocated in CODIS
+	measure 'Open Order Qty' = CALCULATE(SUM(FactOpenOrders[OpenOrderQty]))
+		formatString: #,0
+		displayFolder: AFI Sales Data
+		lineageTag: 6cfdcd59-e868-4aa0-bfcb-4387a4e39199
+
+	/// The Total Open Order Dollar Amount that is allocated in CODIS
+	measure 'Open Order Amt' = CALCULATE(SUM(FactOpenOrders[BackOrderAmt]))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: AFI Sales Data
+		lineageTag: face394b-220d-43d4-9493-7dab90069fc8
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// The Total Past Due Qty by Current Request Date that is allocated in CODIS
+	measure 'Past Due Qty' = CALCULATE(SUM(FactOpenOrders[OpenOrderQty]), FILTER(FactOpenOrders,FactOpenOrders[FlagPastDue]="Past Due"))
+		formatString: #,0
+		displayFolder: AFI Sales Data
+		lineageTag: 18b31d08-8e4b-4d36-835f-f92f8ce81017
+
+	/// The Total Past Due Amt by Current Request Date that is allocated in CODIS
+	measure 'Past Due Amt' = CALCULATE(SUM(FactOpenOrders[OpenOrderAmt]), FILTER(FactOpenOrders,FactOpenOrders[FlagPastDue]="Past Due"))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: AFI Sales Data
+		lineageTag: 28037bcc-2388-48d7-a09b-2418f39790d9
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// The Resultant Forecast Quantity based on the Working Forecast extract from the Demand Planning Database in Logility. 
+	measure 'Wrk Resultant Qty' = CALCULATE(SUM(FactWorkingForecastCurrent[ResultantForecastQty]))
+		formatString: #,0
+		displayFolder: Working Forecast
+		lineageTag: 32ca2270-5b9f-441d-aaad-884ea89e7808
+
+	/// The Promotional Quantity based on the Working Forecast extract from the Demand Planning Database in Logility. 
+	measure 'Wrk Promo Qty' = CALCULATE(SUM(FactWorkingForecastCurrent[PromoLiftQty]))
+		formatString: #,0
+		displayFolder: Working Forecast
+		lineageTag: 88ac9836-e63c-49c7-b3d6-a618811bc3a9
+
+	/// The Total Forecast  based on the Working Forecast extract from the Demand Planning Database in Logility.  (Resultant Qty + Promo Qty)
+	measure 'Wrk Total Fcst Qty' = [Wrk Promo Qty]+[Wrk Resultant Qty]
+		formatString: #,0
+		displayFolder: Working Forecast
+		lineageTag: d2e51b6d-c889-4d38-baa4-119180bd365f
+
+	/// Orders requested in the current or future months based on the latest Logility extract.
+	measure 'Future Order Qty' = CALCULATE(SUM(FactWorkingForecastCurrent[FutureOrderQty]))
+		formatString: #,0
+		displayFolder: Working Forecast
+		lineageTag: 69068031-fa4e-4f66-bf46-a08084a5d8bf
+
+	/// Actual Demand by Current Request Date minus Load Lead Time
+	measure 'Actual Demand' = CALCULATE(SUM(FactFcstErrorCalc[ActualDemand]))
+		formatString: #,0
+		displayFolder: Forecast Accuracy
+		lineageTag: 76f07f23-de7b-43ff-8a99-964d37df3da6
+
+	/// Total Forecast Quantity forecasted on the snapshot date by fiscal month
+	measure 'Forecast Qty' = CALCULATE(SUM(FactFcstErrorCalc[TotalForecast]))
+		formatString: #,0
+		displayFolder: Forecast Accuracy
+		lineageTag: 33936e48-907c-44d8-befe-30f251f06d2d
+
+	/// Forecast Quantity minus Actual Demand Quantity
+	measure 'Fcst Error Qty' = CALCULATE(SUM(FactFcstErrorCalc[FcstError]))
+		formatString: #,0
+		displayFolder: Forecast Accuracy
+		lineageTag: d5653c86-6a91-4926-ba9d-dad6899595d5
+
+	/// Sum of Error Qty divided by Sum Actual Demand Quantity
+	measure 'Fcst Error %' = DIVIDE([Fcst Error Qty],[Actual Demand])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Forecast Accuracy
+		lineageTag: cfbcd529-7cb7-4f71-9769-b6bf17cb21c9
+
+	/// Naive Forecast Quantity
+	measure '(N) Forecast Qty' = CALCULATE(SUM(FactFcstErrorCalc[NaiveFcst]))
+		formatString: #,0
+		displayFolder: Forecast Accuracy
+		lineageTag: 50a3464f-4168-4d80-9e79-b256d1ba156d
+
+	/// Naive Forecast Quantity minus Actual Demand
+	measure '(N) Fcst Error Qty' = CALCULATE(SUM(FactFcstErrorCalc[NaiveFcstError]))
+		formatString: #,0
+		displayFolder: Forecast Accuracy
+		lineageTag: e5e9c94f-e758-402a-b22d-6dc517d1fca8
+
+	/// Sum of Absolute value of Forecast Qty - Actual Demand Quantity calculated at the Customer-Item-Warehouse level
+	measure 'ABS Fcst Error Qty' = CALCULATE(SUM(FactFcstErrorCalc[ABS_FcstError]))
+		formatString: #,0
+		displayFolder: Forecast Accuracy
+		lineageTag: 06019fec-b7b7-4651-999e-46c126d78ccf
+
+	/// Sum of Absolute value of Naive Forecast Qty - Actual Demand Quantity calculated at the Customer-Item-Warehouse level
+	measure '(N) ABS Fcst Error Qty' = CALCULATE(SUM(FactFcstErrorCalc[NaiveFcstError]))
+		formatString: #,0
+		displayFolder: Forecast Accuracy
+		lineageTag: 1da3c427-4c02-4347-af8d-6d9e7fab80cc
+
+	/// Forecast Error Quantity Squared
+	measure 'Sq Fcst Error Qty' = CALCULATE(SUM(FactFcstErrorCalc[SqFcstError]))
+		formatString: #,0
+		displayFolder: Forecast Accuracy
+		lineageTag: 964d8c76-6fe5-41fb-8054-92496cd698c0
+
+	/// Naive Forecast Error Quantity Squared
+	measure '(N) Sq Fcst Error Qty' = CALCULATE(SUM(FactFcstErrorCalc[SqFcstError]))
+		formatString: #,0
+		displayFolder: Forecast Accuracy
+		lineageTag: 47a6e998-54f6-46f9-af4a-23394dfaa154
+
+	/// Sum of Naive Forecast Error Qty divided by Sum of Actuals
+	measure '(N) Fcst Error %' = DIVIDE( [(N) Fcst Error Qty], [Actual Demand])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Forecast Accuracy
+		lineageTag: 4019fd51-1010-4477-b6fe-b074abed3c7b
+
+	column z_Column
+		isHidden
+		formatString: 0
+		lineageTag: 3c243270-8027-4aff-9558-908a58125c48
+		summarizeBy: sum
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = a79ae0d86faa4a6f8b6063bead7723c8
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

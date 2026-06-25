@@ -1,0 +1,16 @@
+{
+  "endTimeUtc": "2026-06-17T08:49:32.2320722",
+  "failureReason": {
+    "errorCode": "Failed",
+    "isRetriable": false,
+    "message": "Operation on target lk_projects failed: Failure happened on 'Source' side. 'Type=Microsoft.Data.SqlClient.SqlException,Message=ORDER BY items must appear in the select list if SELECT DISTINCT is specified.,Source=Framework Microsoft SqlClient Data Provider,'",
+    "requestId": "75b7507b-11b6-495c-9c7e-18d3eeaa4ba6"
+  },
+  "id": "d49947c6-3a8f-419a-b61a-414f3518ccf6",
+  "invokeType": "Manual",
+  "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+  "jobType": "Pipeline",
+  "rootActivityId": "742622e0-5338-4692-a8c2-4aed8cb83abf",
+  "startTimeUtc": "2026-06-17T08:48:35.4659606",
+  "status": "Failed"
+}

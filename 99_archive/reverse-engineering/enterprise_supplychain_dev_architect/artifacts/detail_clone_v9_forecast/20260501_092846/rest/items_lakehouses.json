@@ -1,0 +1,26 @@
+{
+  "value": [
+    {
+      "id": "584e7d2c-46ca-49dc-bb6c-68df6ef4f424",
+      "type": "Lakehouse",
+      "displayName": "Enterprise_Lakehouse",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "id": "62a3081e-4093-4f46-856c-f50aa58732fa",
+      "type": "Lakehouse",
+      "displayName": "SupplyChain_Lakehouse",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "id": "e3012f7c-eaba-44ff-8252-05d79661b09d",
+      "type": "Lakehouse",
+      "displayName": "StagingLakehouseForDataflows_20251008171206",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    }
+  ],
+  "count": 3
+}

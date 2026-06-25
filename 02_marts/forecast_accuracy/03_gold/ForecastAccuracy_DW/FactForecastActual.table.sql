@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Gold_Warehouse].[ForecastAccuracy_DW].[FactForecastActual]
+-- Loaded by ETL_Framework from [SupplyChain_Gold_Warehouse].[ForecastAccuracy_DW_Wrk].[v_FactForecastActual].
+-- Business/source view SQL is documented in ../ForecastAccuracy_DW_Wrk/v_FactForecastActual.sql.

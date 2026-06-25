@@ -1,0 +1,27 @@
+-- Generated from live Fabric metadata: Enterprise_Lakehouse
+CREATE TABLE [MasterData_ProductKnowledge].[Item_ENV] (
+    [ienItemNumber] varchar(8000) NULL,
+    [ienItemType] varchar(8000) NULL,
+    [ienItemClass] varchar(8000) NULL,
+    [ienEnvironmentCode] varchar(8000) NULL,
+    [usra] varchar(8000) NULL,
+    [dtea] datetime2(6) NULL,
+    [usrc] varchar(8000) NULL,
+    [dtec] datetime2(6) NULL,
+    [ienItemLevelCountryOfOrigin] varchar(8000) NULL,
+    [ienItemLevelCityOfOrigin] varchar(8000) NULL,
+    [ienItemLevelCOOReviewed] datetime2(6) NULL,
+    [ienFutureStatus] varchar(8000) NULL,
+    [ienHoldBuyCode] varchar(8000) NULL,
+    [ienForecastPlannerID] varchar(8000) NULL,
+    [ienDirectShipItemOnly] varchar(8000) NULL,
+    [ienHTSCode] varchar(8000) NULL,
+    [ienScheduleBCode] varchar(8000) NULL,
+    [ienExpressShipCode] varchar(8000) NULL,
+    [ienDeliverInPackage] bit NOT NULL,
+    [ienVBoard] bit NULL,
+    [ienCertifiedPackage] bit NOT NULL,
+    [ienRDCAssemblyRequired] bit NOT NULL,
+    [ienCustomerAssemblyOnly] bit NOT NULL,
+    [ienUniqueSerialNumbers] int NOT NULL
+);

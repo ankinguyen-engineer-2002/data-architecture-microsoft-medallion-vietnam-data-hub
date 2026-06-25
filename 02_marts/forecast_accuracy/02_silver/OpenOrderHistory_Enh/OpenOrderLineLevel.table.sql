@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Processing_Warehouse].[OpenOrderHistory_Enh].[OpenOrderLineLevel]
+-- Loaded by ETL_Framework from [SupplyChain_Processing_Warehouse].[OpenOrderHistory_Enh_Wrk].[v_OpenOrderLineLevel].
+-- Business/source view SQL is documented in ../OpenOrderHistory_Enh_Wrk/v_OpenOrderLineLevel.sql.

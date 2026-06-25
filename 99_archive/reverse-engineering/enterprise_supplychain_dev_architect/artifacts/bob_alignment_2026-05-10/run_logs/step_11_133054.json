@@ -1,0 +1,16 @@
+{
+  "step": 11,
+  "file": "11_create_audit_log.sql",
+  "db": "SupplyChain_Processing_Warehouse",
+  "started": "2026-05-10T06:30:49.318653+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "ok",
+      "first": "-- 11_create_audit_log.sql"
+    }
+  ],
+  "ended": "2026-05-10T06:30:54.240021+00:00",
+  "ok": 1,
+  "total": 1
+}

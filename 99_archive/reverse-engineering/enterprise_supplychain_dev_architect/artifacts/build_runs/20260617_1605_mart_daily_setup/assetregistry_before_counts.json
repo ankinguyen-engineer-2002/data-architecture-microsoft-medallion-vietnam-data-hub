@@ -1,0 +1,62 @@
+[
+  {
+    "project": "forecast_accuracy",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cnt": 8
+  },
+  {
+    "project": "forecast_accuracy",
+    "canonical_layer": "Gold",
+    "frequency": "daily",
+    "cnt": 4
+  },
+  {
+    "project": "forecast_accuracy",
+    "canonical_layer": "LogicalBronze",
+    "frequency": "daily",
+    "cnt": 4
+  },
+  {
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cnt": 2
+  },
+  {
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "monthly",
+    "cnt": 8
+  },
+  {
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cnt": 8
+  },
+  {
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "weekly",
+    "cnt": 3
+  },
+  {
+    "project": "inventory_health",
+    "canonical_layer": "Gold",
+    "frequency": "daily",
+    "cnt": 3
+  },
+  {
+    "project": "inventory_health",
+    "canonical_layer": "Gold",
+    "frequency": "monthly",
+    "cnt": 1
+  },
+  {
+    "project": "inventory_health",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "monthly",
+    "cnt": 1
+  }
+]

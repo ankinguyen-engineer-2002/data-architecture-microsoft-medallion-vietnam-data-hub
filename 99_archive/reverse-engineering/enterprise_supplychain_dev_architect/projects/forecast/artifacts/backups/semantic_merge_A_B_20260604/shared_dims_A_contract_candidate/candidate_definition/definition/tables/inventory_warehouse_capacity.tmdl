@@ -1,0 +1,20 @@
+table inventory_warehouse_capacity
+	isHidden
+
+	column code_warehouse
+		dataType: string
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+	column total_available_warehouse_cube
+		dataType: decimal
+		formatString: #,##0.00
+		summarizeBy: sum
+		sourceColumn: TotalAvailableWarehouseCube
+
+	partition inventory_warehouse_capacity = entity
+		mode: directLake
+		source
+			entityName: DimWarehouse
+			schemaName: Shared_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'

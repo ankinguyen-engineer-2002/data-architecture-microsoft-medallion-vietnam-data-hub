@@ -1,0 +1,11 @@
+-- ---- Staging_Wrk.v_Extord ----
+CREATE VIEW Staging_Wrk.v_Extord AS
+SELECT TRIM(XORDNO) AS OrderID,
+    TRY_CONVERT(DATE, CAST(CAST(FRZDAT AS BIGINT) AS VARCHAR(20))) AS FreezeDate,
+    TRY_CONVERT(DATE, CAST(CAST(RQSDAT AS BIGINT) AS VARCHAR(20))) AS RequestedShipDate,
+    TRIM(ORDARR) AS OrderArrangementCode,
+    TRIM(OTTYP1) AS OrderType1Code, TRIM(OTTYP2) AS OrderType2Code,
+    TRIM(OTTYP3) AS OrderType3Code, TRIM(OTTYP4) AS OrderType4Code
+FROM Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD
+
+GO

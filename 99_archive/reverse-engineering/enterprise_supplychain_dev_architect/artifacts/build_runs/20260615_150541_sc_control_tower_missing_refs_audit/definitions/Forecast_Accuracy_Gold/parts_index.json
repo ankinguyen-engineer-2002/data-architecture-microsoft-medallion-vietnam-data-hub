@@ -1,0 +1,1642 @@
+[
+  {
+    "path": "definition.pbir",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "StaticResources/SharedResources/BaseThemes/CY25SU12.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "StaticResources/RegisteredResources/ashley-furniture-logo-clipart-09360906996342833.png",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "StaticResources/RegisteredResources/clock18327070078400698.png",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "StaticResources/RegisteredResources/dashboard_(1)02457500878310115.png",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "StaticResources/RegisteredResources/dimension024276799462719212.png",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "StaticResources/RegisteredResources/idea8481489827924225.png",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "StaticResources/RegisteredResources/interpretation39237969137646556.png",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "StaticResources/RegisteredResources/question-mark6498389082948307.png",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "StaticResources/RegisteredResources/search2052855023579795.png",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "StaticResources/RegisteredResources/The_Egg_15_(gab)09951296810621202.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/version.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/report.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/reportExtensions.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/pages.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/page.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/006bc774210b9b7f7bb5/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/03c0e569110a67209f80/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/066223b71dfc9848dd64/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/066d8d79454f12eb2e7f/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/06da44861089d88c6f6f/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/0b2511b3e24bf5106132/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/0c3e673bec37bfa37568/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/0f849a31100c1238eeb4/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/17077177a4fe2e5b10a8/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/174af68496c44bea5e09/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/1bb10936496b59cc15e2/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/1e7b8aedee90557c962e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/1e7ec907c61469372fb2/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/1f2dc2ed075a7039c804/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/248ddcf9ad81ecbe1bc5/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/260179ec9611232fe6e9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/29d681493100abd99f42/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/2ed8905a5b03b7626f0d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/300ec945ee4729ee750f/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/3026c4197a637d0b6869/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/3556ac1e5a6ee1cd9c94/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/35ce28c01ec0271af504/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/3a035bfb9237dabdc4a7/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/41d5c5c6449235da5aae/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/423b81313504780a80e5/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/438b40440ec9abd5e499/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/452fc79ab56ca8250acd/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/4a1211e00b3cf502dd74/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/4bde753837d7963a5c89/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/500ecab444379f30966d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/51fb9d9beb9d875a45a2/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/54af25cadaa8ac724f4a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/5b66613c5b7177fa9d4f/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/5cf31725878b41c898b1/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/5fa2343f5011eb5f5767/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/60c82de457a13c628e65/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/629a058f16e0b0ced730/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/64ae22ec24032036f05b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/6a5ca309739f91fe7db9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/6c77f2292fd54f7544e7/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/6dea7a461be7f9e8a910/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/74f15c3fca6fa8ef87c9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/74f9b74095dcaf7dd217/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/757ebdb8c57a5c608342/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/779b5e7f7cbedd234122/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/796849cb349840712f3c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/7b8e9103380b36d4cb9f/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/7bb8dedb1b409c1d92f8/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/7d14ebfc2128d9c9ee35/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/7f3a30b0747e971a1b03/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/805d5cd24c40036e0507/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/8180974bc589e371ccb6/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/87d3ec9da74bd44a8cb0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/8a7495eb3e4b1cc37221/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/8c5de84c07b6fdfbe4dc/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/8d8d6bc23f2054359f25/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/8f3628e86fd7680513fa/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/8fee847405fe2f7dc7e8/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/91892f9fa0ad9b4372f1/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/936e4b718712560bbe52/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/9536f051df3b279b2acd/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/96abf1eb4c525fb5be7e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/9889da8c0fdefd706eac/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/992f11179aa6d66dbd33/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/9b8a2c86cdf32a8b7bef/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/9bc5c0d4cd12f4f9ce0e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/9bfc39ee0ac53625ecb5/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/9e08424bfde43e9cd256/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/a1780bc49566de31df32/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/a6c668647b63e0534479/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/a85e4b33ded4f9a2c9ca/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/adda4d095ab68c0df9d5/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/b1ffc0be5f3f64afefbe/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/b5a41fc2f14d34d9abd2/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/b91ebedd0c0cf92d9975/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/c1a76d9fadcf01ab02b6/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/c549aa93210db1cf2d40/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/c5f365993dfab2bf5226/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/c7076b43343c4e139e72/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/c71c346518858057bec7/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/ca106c77631c97b15d97/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/cf054c447d2f35c88aef/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/d0cf7be0c07f08e566f0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/d24dbb1879af4ab855b4/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/d42991726ba3d36da316/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/d4e412a17f5252c13d58/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/d6caa6c2c606ca0ce3b0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/d7a0c52c088ae98437cb/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/d800c02723331d0c31c6/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/d82902fded876a39d05b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/da31598790984cad45be/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/dd4da8f3fd64363a8428/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/e197a821aeb0aaed3e2d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/e4cdc1612d50faca232e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/e577f31fe3128bba78ff/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/e9b195e5400c584f4314/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/ea5c23928a334b9f24e6/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/ef8e027344c087ed0135/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/f29d0fa2fc1839072896/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/f83d2def094e55e0ce04/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/faaaed807ea2329038a3/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/fc27a4cc5150a9503aec/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/0d80f95e45d830662abe/visuals/fd9d4805f2d43cb7fecc/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/page.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/016e1d13c7ce6271632d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/01fcffe75d3bd370724a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/023add827e84043c041b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/037e5b8d18ba430846a2/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/04e5a17d08614bbbe2c7/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/05e7e65f3e878aa93398/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/07e741f4ba978671e15b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/0a497d9c9075bbd5c9e1/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/0e1de62b381cacb69a2a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/0ea35db96602c7c06ee4/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/10ed768c56b77ba59c08/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/11a7fad1055b16250ed3/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/13ba086b117434aed0bc/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/15a5aea0c520135c4cba/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/15e0a8614cbd37c79d29/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/16898569be0ec038c74e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/1c389cc81997b34dd94a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/1d7fd9ad3cbb54d0143a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/22ec3d947780aa17e46c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/24acdb6ca4d9c3412026/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/27813e6cb84a05a8de30/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/2c1e6fd27cca992b3e5d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/2e7ee7ae67415cb87004/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/310b33855da0e3044b9d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/329184a681ec903dba92/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/3749785ce43c88ea2073/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/39aa2e05a33d2c6050bc/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/3a1b17f369a91eea6bda/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/3a673530bc46000ea82c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/3c6d298d8d8eb1c8eb90/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/3fef20c31aa8e393de1e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/401cdf2dd70b7d210e88/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/432d5af6dc075e30c023/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/4596971b1368bbab5224/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/473ca820a6bc4b9a5197/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/4863b3e0b9960de06b45/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/4b871e8129026ea20d0c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/4bd3947409493a862e63/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/4be85ad11665609bb20b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/50878d13bb8550ec7408/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/55aaf607b8170aa9e42c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/563fcd40090e3619dd75/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/579611d04450e224bb58/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/5bc24e778869e1030e0e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/5d9e8c0c9e60cedb860e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/5eb82260126e0c8c7402/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/624d9468b610a90a30c5/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/62cb8c5d561989d3c07d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/661f8ce8d679708d984b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/6639a4348a76b01ea7b6/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/67218b6b008d617ac0ec/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/6a8c9b508b4ded279109/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/6be79c400ab72670a75c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/71450effaee2b7404593/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/7357b240261cb19d2732/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/7705606beb780755eb7c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/7950b838d20196314870/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/7b328459ecce03642e58/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/7cf44cc7e182a26c6821/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/7d27071bd8e1dc3e01d3/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/800066f049500a85ce0c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/8209364bee4dd94d0474/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/82515720986aa36070a9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/873733fe08e37165bcb0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/8a9a1d46e1c493542074/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/8b3d89d8002191d2851b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/8c81617d0589c53ed10d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/8f0038c26c2b1b4a1ced/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/90a10fc0244278324e0e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/98cd3be690da1c24aeb0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/99c335d063d2b3c1a82a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/9b5b6f3dea8ecebb67e4/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/9c0be4e77dec5a675154/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/9ced03e6714d7143643e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/a031fe44b8b33a2703eb/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/a19b7c2b25c8679364ee/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/a35c1fc1729e2d020dba/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/a3db3c2c7e8c66d90b4c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/a4697473ae1bb2288c6a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/a730f82237abc852090d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/a88c672c212e6e5cd361/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/a94aaacca090e66b1998/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/a98253cec616b603c5ae/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/abfe64c2ac90ec56657a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/ad33c6682d5d03a67b02/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/af0b4b632a92ab4306a6/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/b11cf99b0a3880eee375/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/b14854c08be042d38c05/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/b196b66bec41eeab708a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/b35a9038be5319707c60/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/b54fd311da67b33872b3/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/b61c81d8db3cd0e4e0a0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/b7e7f70052be67083529/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/b9e3bb28415d0d55b7b0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/ba12eee00aad1be8a110/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/bccda30b0bc081ac8391/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/bd587e274b8675561705/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/bd795c945d264cc887ce/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/c1b93eeed213e957a2c8/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/c2ba0283b166cd6ae6aa/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/c8f3836404ea7c7bee05/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/c9ef1d6ecce0e99c7926/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/cb065957ee0ab0cea015/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/cd7f4434cd6220a8b03c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/d1a401dc989988856d80/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/d23ec491a707b5eb2cb2/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/d52045261679ad329705/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/d5b43b1ce83e02c406ce/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/d7deb260906c41223ee0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/daf7e4e708ce020c6d86/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/e0213857cc43d36d2918/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/e5319c14edd80ae79e6b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/e54574968ed44b1dd500/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/e59202f161c9017a3404/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/e8d1918bec604eb7e8ca/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/eb991899123d0010d1ea/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/ebdd47f75d094c6e9a79/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/ed9fbe572d2662cd75c7/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/f08c91b671153947e525/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/f27d1810d068838b40b7/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/f36a60105ab458405662/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/f639b423b7d853a4e07b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/f86ffa88115c81b9081b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/fb2236813a6bea60d435/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/1a933e6911352d813eb8/visuals/fda13551435cd04034e1/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/page.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/01128e8e9ebc9892bee1/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/020d9f19a1bbf74b5827/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/025f570cb9570545d77f/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/036ae8720c5db6617009/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/0562ee536dc6b6097d63/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/0877db7604557fc0515c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/098a9e4dc2ca9794c495/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/0a6852d14b1670226e84/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/0ae474ed5c4ebe05c070/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/0c057796a98f7ab24c09/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/0c93e3dba70d9627132b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/0dc9fb6fa4189038d675/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/174dcf78f7c6916cab03/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/1a77359e98327b3955a9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/1b159bacd5aacd858469/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/1b6f7ae7f9934130d2a9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/1c42958863fa65948244/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/2152dd9ceb91b944e357/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/279c41cb69c0d08f484f/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/28178e37bb2592f8f84b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/2ba8a0ff5dff8637aa45/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/2e69ed3926598a5d8b0e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/2ef1609ead17669fa397/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/2fa23f29ff7d42a36f85/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/306e1c40da7279641d82/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/35c8389aea0cd9045a98/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/369a9f65159cffaada68/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/3b04d5ed3f0f3f10b6d8/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/3cb198b55b5ee5106a7b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/400ad08529658c27c46e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/4033201771c68b582850/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/41f09c66d55a435bc4cf/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/420460d6f4ba9eff4bec/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/42675884f57844a579de/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/432ddd979efe5de1db3a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/45ad240e480901028785/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/4ce1c249923e6e29677c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/4e4dbe251b0bd20138da/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/4ef1f8b30df04cf0d653/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/4f974f057f5c7545dd70/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/52cbc036c71b34e01560/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/53eee929cbd46d997ec0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/5691665c2c2db84a6691/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/57aafc0b04c430c5472b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/58a5ef95943290e95cc6/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/61724d4b248e1cb3edcf/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/635d0818fdea33f9552d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/6faedeb7eb56a9f892b2/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/700533ae81d79ca073fd/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/71f791baae84e5381f9a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/73acb8b572e9ca7ad1e1/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/73e04db2c02027c5e473/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/7918fcbc3ed3bd151a4d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/79fa0cf5d32ca0a0933e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/7b8fae8bd70d8e921fc7/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/7c0905446cb39fb13197/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/7cc15f7ea1a38b910fa6/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/7d8e6ff3509857d9be3a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/8138d9fc2ab8b8c33939/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/8211d24f31725aadf195/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/821f4ae4e172f9c95f0f/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/85dfe812271cfd5d816d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/88aa22b1bea932a3853c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/8a386c4e0352e8e4ab86/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/8a7631b9780239156b04/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/8b816e6d39031e59659c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/902a87531fd9fa6e1983/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/907f947e4fdb509acad7/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/913a3c3bce87af295467/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/9462ee0de52535df181e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/9cd6ad9fae3d7ba3aae9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/a1efd8342c318a2e7056/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/a2d1da9d341f0690d92c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/a6223b3806fd39232e8d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/a6c712c9e5b13958c877/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/ac84f8300b6438a2c906/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/ac92c51c5f11f81ea016/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/ad6c432c4ea4e7ce99f7/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/ae6f75020760fb467bf0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/b0856079611c1d2d448e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/b139ec6db6a7a3e56b9d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/b489614ac3fe0f281e66/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/b5249e62eb4a076dac20/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/b57e06bbe20a9a4fccdc/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/b8014fd69ae1f5aa36a6/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/b8c87b2a91630718c12a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/b8ff6627eb1621cff0ea/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/b95b49baa844b3c390cc/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/b9f87e93423f34075d45/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/bf30aba0d11cbcdb23a1/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c05e20d0e10ae3d7fa46/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c387fd99b2d6b64d07c0/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c3e770b21037f81ed819/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c51602bd840b1ae79aea/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c5300bfd7a62de6af74f/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c6c02823353e5e5ae8ca/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c7ae0050338401fd082b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c8003f0207d18c2e49c9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c8ab9005c6aa97a31d30/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c8fab49f08e514393ec4/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/c9fb1637d7bbd46efa32/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/cac6771189c544ff8c61/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/ce3027c67e4731171f01/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/d38201f1a5c87d03c831/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/d4742b11089af391949b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/d7eef36cee32e316b28c/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/df01a5d3a6054a59a353/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/e1f89100a6a8313c0022/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/e2262c6b312728dac2b3/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/e55354a6535c6fa2d207/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/e596ae02c3af5189470e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/ea0d078e01a1608c8597/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/ead0a230e5aa57b85f19/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/ee24426b410355dd2680/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/ef8159d2ce1b376d2fd9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/efb34bcc518e9c6bad5e/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/f37fb5f0eb552e7dc7b4/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/f46b9b273e1f8f06da85/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/f5c0d00567190c7da3d5/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/f5e7ad702a8e24b6ce2b/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/f7fcec1b817aa3f101dc/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/f8a5f5420c011f574d84/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/f90e4b7505d725241bae/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/fb8207062052a83ff0dd/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/4d420c835d11c1f97a63/visuals/fc12f8e42e3bb6dffd33/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/5d17ea4a6f417367c626/page.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/5d17ea4a6f417367c626/visuals/06854247ae3ce1944035/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/5d17ea4a6f417367c626/visuals/3e96127ec20d958c7259/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/5d17ea4a6f417367c626/visuals/b1bf3f61388026d5ca56/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/page.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/0450f18ce344e8ca7c87/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/05932c37be323d3487cf/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/0ddb75fe3a1950a3b248/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/17fbadb2543b2cdea40a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/2b5ae6eb533174a6ce25/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/312321805e8bffc9c8ca/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/36f5d0b0196940900198/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/3f671b93774bd5a773a9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/4413f7d651f705da658a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/4e1b936324703aa15617/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/55cb0a240cd3b7627361/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/58ca1a21fa73d2810392/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/5ac1b8360b704428f414/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/7e65e2e4bfa47e1c0484/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/85477920c94425cf8253/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/a54368fe89e42b281c61/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/aa53af0083cdb7a5c032/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/ab42e205b3fc65b0f6ad/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/b74c7e2bcd9d4354e338/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/bc8089e175b8b6c632ec/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/c672593fb7315b2a01f5/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/d6c06d9810ba4e9338cc/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/e5a98af79f50fb3d2cb1/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/f083bae3408719939bd9/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/68f200d7181eb273bbe5/visuals/ff2696e78554fded9dca/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/7cc342568af5349ca14d/page.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/7cc342568af5349ca14d/visuals/0d14a85691dc1dc0fa09/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/7cc342568af5349ca14d/visuals/2f516bb6df195134eb0a/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/7cc342568af5349ca14d/visuals/9840952121e779258a18/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/ff26c147493f324e6516/page.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/ff26c147493f324e6516/visuals/5151eff6783eb13dd1ca/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/ff26c147493f324e6516/visuals/5ab2ab1bd19a9e5c6044/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/pages/ff26c147493f324e6516/visuals/89e9f45dbfb78325306d/visual.json",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": ".platform",
+    "payloadType": "InlineBase64"
+  }
+]

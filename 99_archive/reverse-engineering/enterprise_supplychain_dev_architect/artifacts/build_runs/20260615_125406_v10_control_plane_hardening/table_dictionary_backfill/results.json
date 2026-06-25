@@ -1,0 +1,42 @@
+[
+  {
+    "asset_id": "InventoryHistory_Enh.Cogs52WWeekly",
+    "status": "success"
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+    "status": "success"
+  },
+  {
+    "asset_id": "Staging_Wrk.DemandForecastSnapshotDaily",
+    "status": "success"
+  },
+  {
+    "asset_id": "InventoryHealth_DW.FactInventoryRiskForward",
+    "status": "success"
+  },
+  {
+    "asset_id": "InventoryHealth_DW.FactInventoryHealthSnapshot",
+    "status": "success"
+  },
+  {
+    "asset_id": "InventoryHealth_DW.CogsRollingHelper",
+    "status": "success"
+  },
+  {
+    "asset_id": "Shared_DW.DimWarehouse",
+    "status": "success"
+  },
+  {
+    "asset_id": "InventoryHealth_DW.DimVendor",
+    "status": "success"
+  },
+  {
+    "asset_id": "Shared_DW.DimProduct",
+    "status": "success"
+  },
+  {
+    "asset_id": "Shared_DW.DimCalendar",
+    "status": "success"
+  }
+]

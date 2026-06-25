@@ -1,0 +1,858 @@
+{
+  "foreign_key_results": [],
+  "object_results": [
+    {
+      "object_id": 1874925851,
+      "object_name": "vw_brz_saleshistory_afi__invoicedetail",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_brz_saleshistory_afi__invoicedetail];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1778925509,
+      "object_name": "vw_brz_saleshistory_afi__invoiceheader",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_brz_saleshistory_afi__invoiceheader];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1794925566,
+      "object_name": "vw_brz_supplychain_enh_1__demandforecastsnapshotdaily",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_brz_supplychain_enh_1__demandforecastsnapshotdaily];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1890925908,
+      "object_name": "vw_brz_wholesale_codis_afi__codatan",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_brz_wholesale_codis_afi__codatan];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1906925965,
+      "object_name": "vw_brz_wholesale_codis_afi__comast",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_brz_wholesale_codis_afi__comast];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1922926022,
+      "object_name": "vw_brz_wholesale_codis_afi__extord",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_brz_wholesale_codis_afi__extord];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1938926079,
+      "object_name": "vw_brz_wholesale_codis_afi__extorit",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_brz_wholesale_codis_afi__extorit];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1730925338,
+      "object_name": "vw_ref_calendar",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_calendar];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1810925623,
+      "object_name": "vw_ref_customer_account",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_customer_account];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1746925395,
+      "object_name": "vw_ref_customer_account_group",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_customer_account_group];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1586924825,
+      "object_name": "vw_ref_customer_grouping",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_customer_grouping];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1826925680,
+      "object_name": "vw_ref_customer_shipping_location",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_customer_shipping_location];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1762925452,
+      "object_name": "vw_ref_forecast_cycle",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_forecast_cycle];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 376492520,
+      "object_name": "vw_ref_forecast_horizon",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_forecast_horizon];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1842925737,
+      "object_name": "vw_ref_item_master",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_item_master];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1714925281,
+      "object_name": "vw_ref_order_type",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_order_type];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1858925794,
+      "object_name": "vw_ref_product",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_product];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1570924768,
+      "object_name": "vw_ref_warehouse",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP VIEW [bronze].[vw_ref_warehouse];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 911446421,
+      "object_name": "vw_gld_fact_flat_forecast_actual",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "gold",
+      "statement": "DROP VIEW [gold].[vw_gld_fact_flat_forecast_actual];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 927446478,
+      "object_name": "vw_gld_fact_forecast_kpi",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "gold",
+      "statement": "DROP VIEW [gold].[vw_gld_fact_forecast_kpi];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 165015769,
+      "object_name": "vw_run_history_tz",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP VIEW [meta].[vw_run_history_tz];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 936494515,
+      "object_name": "vw_table_dictionary",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP VIEW [meta].[vw_table_dictionary];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 495444939,
+      "object_name": "vw_slv_actual_demand_monthly",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP VIEW [silver].[vw_slv_actual_demand_monthly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 511444996,
+      "object_name": "vw_slv_actual_demand_weekly",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP VIEW [silver].[vw_slv_actual_demand_weekly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 367444483,
+      "object_name": "vw_slv_forecast_demand_monthly",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP VIEW [silver].[vw_slv_forecast_demand_monthly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 351444426,
+      "object_name": "vw_slv_invoice_detail_line_level",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP VIEW [silver].[vw_slv_invoice_detail_line_level];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 527445053,
+      "object_name": "vw_slv_invoice_weekly",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP VIEW [silver].[vw_slv_invoice_weekly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 687445623,
+      "object_name": "vw_slv_naive_forecast_monthly",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP VIEW [silver].[vw_slv_naive_forecast_monthly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 383444540,
+      "object_name": "vw_slv_open_order_line_level",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP VIEW [silver].[vw_slv_open_order_line_level];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 543445110,
+      "object_name": "vw_slv_open_order_monthly",
+      "object_type": "V",
+      "object_type_desc": "VIEW",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP VIEW [silver].[vw_slv_open_order_monthly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1465212420,
+      "object_name": "usp_refresh_edw_tables",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP PROCEDURE [bronze].[usp_refresh_edw_tables];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1538924654,
+      "object_name": "usp_build_lineage",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_build_lineage];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1522924597,
+      "object_name": "usp_check_dq",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_check_dq];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1109019132,
+      "object_name": "usp_check_dq_single",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_check_dq_single];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 863446250,
+      "object_name": "usp_compute_slv_waves",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_compute_slv_waves];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 335444369,
+      "object_name": "usp_debug_loop",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_debug_loop];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 475968872,
+      "object_name": "usp_finalize_pipeline",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_finalize_pipeline];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1243971608,
+      "object_name": "usp_generic_load",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_generic_load];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 459968815,
+      "object_name": "usp_log_pipeline_run",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_log_pipeline_run];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1506924540,
+      "object_name": "usp_log_run",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_log_run];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 879446307,
+      "object_name": "usp_run_silver_dag",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_run_silver_dag];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 478064889,
+      "object_name": "usp_validate_schema_contracts",
+      "object_type": "P",
+      "object_type_desc": "SQL_STORED_PROCEDURE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP PROCEDURE [meta].[usp_validate_schema_contracts];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 380020585,
+      "object_name": "brz_saleshistory_afi__invoicedetail",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[brz_saleshistory_afi__invoicedetail];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 268020186,
+      "object_name": "brz_saleshistory_afi__invoicedetail_edw",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[brz_saleshistory_afi__invoicedetail_edw];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 316020357,
+      "object_name": "brz_saleshistory_afi__invoiceheader",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[brz_saleshistory_afi__invoiceheader];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 252020129,
+      "object_name": "brz_saleshistory_afi__invoiceheader_edw",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[brz_saleshistory_afi__invoiceheader_edw];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 348020471,
+      "object_name": "brz_supplychain_enh_1__demandforecastsnapshotdaily",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[brz_supplychain_enh_1__demandforecastsnapshotdaily];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 284020243,
+      "object_name": "brz_supplychain_enh_1__demandforecastsnapshotdaily_edw",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[brz_supplychain_enh_1__demandforecastsnapshotdaily_edw];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 364020528,
+      "object_name": "brz_wholesale_codis_afi__codatan",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[brz_wholesale_codis_afi__codatan];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 300020300,
+      "object_name": "brz_wholesale_codis_afi__comast",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[brz_wholesale_codis_afi__comast];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 396020642,
+      "object_name": "brz_wholesale_codis_afi__extord",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[brz_wholesale_codis_afi__extord];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 412020699,
+      "object_name": "brz_wholesale_codis_afi__extorit",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[brz_wholesale_codis_afi__extorit];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 946258576,
+      "object_name": "ref_calendar",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_calendar];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1406068195,
+      "object_name": "ref_customer_account",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_customer_account];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1582068822,
+      "object_name": "ref_customer_account_group",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_customer_account_group];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1502068537,
+      "object_name": "ref_customer_grouping",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_customer_grouping];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1342067967,
+      "object_name": "ref_customer_shipping_location",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_customer_shipping_location];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1518068594,
+      "object_name": "ref_forecast_cycle",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_forecast_cycle];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1422068252,
+      "object_name": "ref_forecast_horizon",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_forecast_horizon];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1550068708,
+      "object_name": "ref_item_master",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_item_master];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1486068480,
+      "object_name": "ref_order_type",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_order_type];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1534068651,
+      "object_name": "ref_product",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_product];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 236020072,
+      "object_name": "ref_product_edw",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_product_edw];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 332020414,
+      "object_name": "ref_warehouse",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "bronze",
+      "statement": "DROP TABLE [bronze].[ref_warehouse];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 556021212,
+      "object_name": "gld_fact_flat_forecast_actual",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "gold",
+      "statement": "DROP TABLE [gold].[gld_fact_flat_forecast_actual];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 572021269,
+      "object_name": "gld_fact_forecast_kpi",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "gold",
+      "statement": "DROP TABLE [gold].[gld_fact_forecast_kpi];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1426924255,
+      "object_name": "dq_results",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[dq_results];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 319444312,
+      "object_name": "dq_rules",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[dq_rules];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 270064148,
+      "object_name": "performance_baseline",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[performance_baseline];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 286064205,
+      "object_name": "pipeline_cost_log",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[pipeline_cost_log];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1458924369,
+      "object_name": "pipeline_run_log",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[pipeline_run_log];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 302064262,
+      "object_name": "schema_contracts",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[schema_contracts];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 847446193,
+      "object_name": "slv_dag_waves_runtime",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[slv_dag_waves_runtime];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1442924312,
+      "object_name": "sp_lineage",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[sp_lineage];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1378924084,
+      "object_name": "sp_registry",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[sp_registry];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 1394924141,
+      "object_name": "sp_run_history",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[sp_run_history];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 730589791,
+      "object_name": "view_definitions",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "meta",
+      "statement": "DROP TABLE [meta].[view_definitions];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 492020984,
+      "object_name": "slv_actual_demand_monthly",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP TABLE [silver].[slv_actual_demand_monthly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 476020927,
+      "object_name": "slv_actual_demand_weekly",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP TABLE [silver].[slv_actual_demand_weekly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 428020756,
+      "object_name": "slv_forecast_demand_monthly",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP TABLE [silver].[slv_forecast_demand_monthly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 460020870,
+      "object_name": "slv_invoice_detail_line_level",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP TABLE [silver].[slv_invoice_detail_line_level];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 524021098,
+      "object_name": "slv_invoice_weekly",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP TABLE [silver].[slv_invoice_weekly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 540021155,
+      "object_name": "slv_naive_forecast_monthly",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP TABLE [silver].[slv_naive_forecast_monthly];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 444020813,
+      "object_name": "slv_open_order_line_level",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP TABLE [silver].[slv_open_order_line_level];",
+      "status": "dropped"
+    },
+    {
+      "object_id": 508021041,
+      "object_name": "slv_open_order_monthly",
+      "object_type": "U",
+      "object_type_desc": "USER_TABLE",
+      "pass": 1,
+      "schema_name": "silver",
+      "statement": "DROP TABLE [silver].[slv_open_order_monthly];",
+      "status": "dropped"
+    }
+  ],
+  "remaining_object_count": 0,
+  "remaining_objects": [],
+  "started_from_object_count": 85
+}

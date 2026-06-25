@@ -1,0 +1,266 @@
+{
+  "generated_at_utc": "2026-06-24T14:34:40Z",
+  "objects": [
+    {
+      "object": "DimCustomerGrouping",
+      "object_type": "table",
+      "schema": "ForecastAccuracy_DW",
+      "source_kind": "live_metadata",
+      "target": "ForecastAccuracy_DW/Tables/DimCustomerGrouping.sql"
+    },
+    {
+      "object": "DimForecastHorizon",
+      "object_type": "table",
+      "schema": "ForecastAccuracy_DW",
+      "source_kind": "live_metadata",
+      "target": "ForecastAccuracy_DW/Tables/DimForecastHorizon.sql"
+    },
+    {
+      "object": "FactForecastActual",
+      "object_type": "table",
+      "schema": "ForecastAccuracy_DW",
+      "source_kind": "live_metadata",
+      "target": "ForecastAccuracy_DW/Tables/FactForecastActual.sql"
+    },
+    {
+      "object": "FactForecastKpi",
+      "object_type": "table",
+      "schema": "ForecastAccuracy_DW",
+      "source_kind": "live_metadata",
+      "target": "ForecastAccuracy_DW/Tables/FactForecastKpi.sql"
+    },
+    {
+      "object": "DimVendor",
+      "object_type": "table",
+      "schema": "InventoryHealth_DW",
+      "source_kind": "live_metadata",
+      "target": "InventoryHealth_DW/Tables/DimVendor.sql"
+    },
+    {
+      "object": "FactInventoryHealthFutureWeekEnding",
+      "object_type": "table",
+      "schema": "InventoryHealth_DW",
+      "source_kind": "live_metadata",
+      "target": "InventoryHealth_DW/Tables/FactInventoryHealthFutureWeekEnding.sql"
+    },
+    {
+      "object": "FactInventoryHealthSnapshot",
+      "object_type": "table",
+      "schema": "InventoryHealth_DW",
+      "source_kind": "live_metadata",
+      "target": "InventoryHealth_DW/Tables/FactInventoryHealthSnapshot.sql"
+    },
+    {
+      "object": "InventoryClassificationQtyWeekly",
+      "object_type": "table",
+      "schema": "InventoryHealth_DW",
+      "source_kind": "live_metadata",
+      "target": "InventoryHealth_DW/Tables/InventoryClassificationQtyWeekly.sql"
+    },
+    {
+      "object": "InventoryHealthSubStatusWeekly",
+      "object_type": "table",
+      "schema": "InventoryHealth_DW",
+      "source_kind": "live_metadata",
+      "target": "InventoryHealth_DW/Tables/InventoryHealthSubStatusWeekly.sql"
+    },
+    {
+      "object": "ProjectedInventoryHealthSubStatus",
+      "object_type": "table",
+      "schema": "InventoryHealth_DW",
+      "source_kind": "live_metadata",
+      "target": "InventoryHealth_DW/Tables/ProjectedInventoryHealthSubStatus.sql"
+    },
+    {
+      "object": "DimCalendar",
+      "object_type": "table",
+      "schema": "Shared_DW",
+      "source_kind": "live_metadata",
+      "target": "Shared_DW/Tables/DimCalendar.sql"
+    },
+    {
+      "object": "DimProduct",
+      "object_type": "table",
+      "schema": "Shared_DW",
+      "source_kind": "live_metadata",
+      "target": "Shared_DW/Tables/DimProduct.sql"
+    },
+    {
+      "object": "DimWarehouse",
+      "object_type": "table",
+      "schema": "Shared_DW",
+      "source_kind": "live_metadata",
+      "target": "Shared_DW/Tables/DimWarehouse.sql"
+    },
+    {
+      "object": "v_DimCustomerGrouping",
+      "object_type": "view",
+      "schema": "ForecastAccuracy_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DimCustomerGrouping.sql",
+      "source_kind": "repo_sql",
+      "target": "ForecastAccuracy_DW_Wrk/Views/v_DimCustomerGrouping.sql"
+    },
+    {
+      "object": "v_DimForecastHorizon",
+      "object_type": "view",
+      "schema": "ForecastAccuracy_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DimForecastHorizon.sql",
+      "source_kind": "repo_sql",
+      "target": "ForecastAccuracy_DW_Wrk/Views/v_DimForecastHorizon.sql"
+    },
+    {
+      "object": "v_FactForecastActual",
+      "object_type": "view",
+      "schema": "ForecastAccuracy_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastActual.sql",
+      "source_kind": "repo_sql",
+      "target": "ForecastAccuracy_DW_Wrk/Views/v_FactForecastActual.sql"
+    },
+    {
+      "object": "v_FactForecastKpi",
+      "object_type": "view",
+      "schema": "ForecastAccuracy_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastKpi.sql",
+      "source_kind": "repo_sql",
+      "target": "ForecastAccuracy_DW_Wrk/Views/v_FactForecastKpi.sql"
+    },
+    {
+      "object": "v_DimVendor",
+      "object_type": "view",
+      "schema": "InventoryHealth_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_DimVendor.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHealth_DW_Wrk/Views/v_DimVendor.sql"
+    },
+    {
+      "object": "v_FactInventoryHealthFutureWeekEnding",
+      "object_type": "view",
+      "schema": "InventoryHealth_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthFutureWeekEnding.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHealth_DW_Wrk/Views/v_FactInventoryHealthFutureWeekEnding.sql"
+    },
+    {
+      "object": "v_FactInventoryHealthSnapshot",
+      "object_type": "view",
+      "schema": "InventoryHealth_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_FactInventoryHealthSnapshot.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHealth_DW_Wrk/Views/v_FactInventoryHealthSnapshot.sql"
+    },
+    {
+      "object": "v_InventoryClassificationQtyWeekly",
+      "object_type": "view",
+      "schema": "InventoryHealth_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryClassificationQtyWeekly.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHealth_DW_Wrk/Views/v_InventoryClassificationQtyWeekly.sql"
+    },
+    {
+      "object": "v_InventoryHealthSubStatusWeekly",
+      "object_type": "view",
+      "schema": "InventoryHealth_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_InventoryHealthSubStatusWeekly.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHealth_DW_Wrk/Views/v_InventoryHealthSubStatusWeekly.sql"
+    },
+    {
+      "object": "v_ProjectedInventoryHealthSubStatus",
+      "object_type": "view",
+      "schema": "InventoryHealth_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/03_gold/InventoryHealth_DW_Wrk/v_ProjectedInventoryHealthSubStatus.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHealth_DW_Wrk/Views/v_ProjectedInventoryHealthSubStatus.sql"
+    },
+    {
+      "object": "v_DimCalendar",
+      "object_type": "view",
+      "schema": "Shared_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimCalendar.sql",
+      "source_kind": "repo_sql",
+      "target": "Shared_DW_Wrk/Views/v_DimCalendar.sql"
+    },
+    {
+      "object": "v_DimProduct",
+      "object_type": "view",
+      "schema": "Shared_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimProduct.sql",
+      "source_kind": "repo_sql",
+      "target": "Shared_DW_Wrk/Views/v_DimProduct.sql"
+    },
+    {
+      "object": "v_DimWarehouse",
+      "object_type": "view",
+      "schema": "Shared_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimWarehouse.sql",
+      "source_kind": "repo_sql",
+      "target": "Shared_DW_Wrk/Views/v_DimWarehouse.sql"
+    },
+    {
+      "object": "Usp_Refresh_ForecastAccuracy_Gold",
+      "object_type": "procedure",
+      "schema": "dbo",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/03_operations/orchestration/forecast_accuracy/sql/SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Gold.sql",
+      "source_kind": "repo_sql",
+      "target": "dbo/Stored Procedures/Usp_Refresh_ForecastAccuracy_Gold.sql"
+    },
+    {
+      "object": "Usp_Refresh_InventoryHealth_Gold",
+      "object_type": "procedure",
+      "schema": "dbo",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/03_operations/orchestration/inventory_health/sql/SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_InventoryHealth_Gold.sql",
+      "source_kind": "repo_sql",
+      "target": "dbo/Stored Procedures/Usp_Refresh_InventoryHealth_Gold.sql"
+    },
+    {
+      "object": "ForecastAccuracy_DW",
+      "object_type": "schema",
+      "schema": "ForecastAccuracy_DW",
+      "source_kind": "generated",
+      "target": "ForecastAccuracy_DW/ForecastAccuracy_DW.schema.sql"
+    },
+    {
+      "object": "ForecastAccuracy_DW_Wrk",
+      "object_type": "schema",
+      "schema": "ForecastAccuracy_DW_Wrk",
+      "source_kind": "generated",
+      "target": "ForecastAccuracy_DW_Wrk/ForecastAccuracy_DW_Wrk.schema.sql"
+    },
+    {
+      "object": "InventoryHealth_DW",
+      "object_type": "schema",
+      "schema": "InventoryHealth_DW",
+      "source_kind": "generated",
+      "target": "InventoryHealth_DW/InventoryHealth_DW.schema.sql"
+    },
+    {
+      "object": "InventoryHealth_DW_Wrk",
+      "object_type": "schema",
+      "schema": "InventoryHealth_DW_Wrk",
+      "source_kind": "generated",
+      "target": "InventoryHealth_DW_Wrk/InventoryHealth_DW_Wrk.schema.sql"
+    },
+    {
+      "object": "Shared_DW",
+      "object_type": "schema",
+      "schema": "Shared_DW",
+      "source_kind": "generated",
+      "target": "Shared_DW/Shared_DW.schema.sql"
+    },
+    {
+      "object": "Shared_DW_Wrk",
+      "object_type": "schema",
+      "schema": "Shared_DW_Wrk",
+      "source_kind": "generated",
+      "target": "Shared_DW_Wrk/Shared_DW_Wrk.schema.sql"
+    },
+    {
+      "object": "dbo",
+      "object_type": "schema",
+      "schema": "dbo",
+      "source_kind": "generated",
+      "target": "dbo/dbo.schema.sql"
+    }
+  ],
+  "project": "SupplyChain_Gold_Warehouse"
+}

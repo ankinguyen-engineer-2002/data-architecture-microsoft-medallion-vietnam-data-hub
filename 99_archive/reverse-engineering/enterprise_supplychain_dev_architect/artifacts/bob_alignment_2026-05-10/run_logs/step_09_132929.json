@@ -1,0 +1,37 @@
+{
+  "step": 9,
+  "file": "09_drop_empty_old_schemas.sql",
+  "db": "SupplyChain_Processing_Warehouse",
+  "started": "2026-05-10T06:29:24.361413+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "error",
+      "first": "DROP SCHEMA IF EXISTS Staging_WRK;",
+      "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Cannot drop schema 'Staging_WRK' because it is being referenced by object 'usp_RefreshEdwTables'. (3729) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 1,
+      "status": "ok",
+      "first": "DROP SCHEMA IF EXISTS ReferenceMaster_ENH;"
+    },
+    {
+      "i": 2,
+      "status": "ok",
+      "first": "DROP SCHEMA IF EXISTS SalesHistory_ENH;"
+    },
+    {
+      "i": 3,
+      "status": "ok",
+      "first": "DROP SCHEMA IF EXISTS ForecastHistory_ENH;"
+    },
+    {
+      "i": 4,
+      "status": "ok",
+      "first": "DROP SCHEMA IF EXISTS OpenOrderHistory_ENH;"
+    }
+  ],
+  "ended": "2026-05-10T06:29:29.862064+00:00",
+  "ok": 4,
+  "total": 5
+}

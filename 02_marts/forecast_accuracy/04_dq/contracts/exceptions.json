@@ -1,0 +1,56 @@
+{
+  "exceptions": [
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoicedetail",
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+      "disposition": "open_review",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.saleshistory_afi_enh.invoicedetail.dq.json",
+      "issues": [
+        {
+          "check": "latest_partition_null_blank_key",
+          "metric": "latest_partition_null_blank_key_rows",
+          "value": 10149
+        }
+      ],
+      "owner": "DE/source owner or business data owner"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.codatan",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.codatan",
+      "disposition": "open_review",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.codatan.dq.json",
+      "issues": [
+        {
+          "check": "latest_partition_grain_duplicate",
+          "extra_rows": 5,
+          "groups": 5
+        },
+        {
+          "check": "full_row_duplicate",
+          "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]TCP Provider: Error code 0x274C (10060) (SQLExecDirectW)')",
+          "status": "ERROR"
+        }
+      ],
+      "owner": "DE/source owner or business data owner"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.extord",
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD",
+      "disposition": "open_review",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.extord.dq.json",
+      "issues": [
+        {
+          "check": "latest_partition_grain_duplicate",
+          "extra_rows": 46,
+          "groups": 10
+        }
+      ],
+      "owner": "DE/source owner or business data owner"
+    }
+  ],
+  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "mart": "forecast_accuracy"
+}

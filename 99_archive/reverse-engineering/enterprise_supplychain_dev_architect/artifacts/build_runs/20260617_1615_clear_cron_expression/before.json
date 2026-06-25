@@ -1,0 +1,380 @@
+[
+  {
+    "asset_id": "ForecastHistory_Enh.ForecastDemandMonthly",
+    "project": "forecast_accuracy",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ForecastHistory_Enh.NaiveForecastMonthly",
+    "project": "forecast_accuracy",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "OpenOrderHistory_Enh.OpenOrderLineLevel",
+    "project": "forecast_accuracy",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "OpenOrderHistory_Enh.OpenOrderMonthly",
+    "project": "forecast_accuracy",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "SalesHistory_Enh.ActualDemandMonthly",
+    "project": "forecast_accuracy",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "SalesHistory_Enh.ActualDemandWeekly",
+    "project": "forecast_accuracy",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "SalesHistory_Enh.InvoiceDetailLineLevel",
+    "project": "forecast_accuracy",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "SalesHistory_Enh.InvoiceWeekly",
+    "project": "forecast_accuracy",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ForecastAccuracy_DW.DimCustomerGrouping",
+    "project": "forecast_accuracy",
+    "canonical_layer": "Gold",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ForecastAccuracy_DW.DimForecastHorizon",
+    "project": "forecast_accuracy",
+    "canonical_layer": "Gold",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ForecastAccuracy_DW.FactForecastActual",
+    "project": "forecast_accuracy",
+    "canonical_layer": "Gold",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ForecastAccuracy_DW.FactForecastKpi",
+    "project": "forecast_accuracy",
+    "canonical_layer": "Gold",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "Enterprise_Lakehouse.Wholesale_Codis_AFI.COMAST",
+    "project": "forecast_accuracy",
+    "canonical_layer": "LogicalBronze",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD",
+    "project": "forecast_accuracy",
+    "canonical_layer": "LogicalBronze",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORIT",
+    "project": "forecast_accuracy",
+    "canonical_layer": "LogicalBronze",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "Enterprise_Lakehouse.Wholesale_Codis_AFI.codatan",
+    "project": "forecast_accuracy",
+    "canonical_layer": "LogicalBronze",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.Calendar",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.CustomerAccount",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.CustomerAccountGroup",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.CustomerGrouping",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.CustomerShippingLocation",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.ForecastCycle",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.ForecastHorizon",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.ItemMaster",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.OrderType",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.Warehouse",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.AwdHelper",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.Cogs52WWeekly",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.ForecastSnapshotWeekly",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.HoldingTransferSnapshotDaily",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.InventorySnapshotWeekly",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.LastInvoiceWeekly",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.SafetyStockHelper",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHistory_Enh.SupplyPlanDetail",
+    "project": "inventory_health",
+    "canonical_layer": "DomainSilver",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHealth_DW.CogsRollingHelper",
+    "project": "inventory_health",
+    "canonical_layer": "Gold",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHealth_DW.DimVendor",
+    "project": "inventory_health",
+    "canonical_layer": "Gold",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHealth_DW.FactInventoryHealthSnapshot",
+    "project": "inventory_health",
+    "canonical_layer": "Gold",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "InventoryHealth_DW.FactInventoryRiskForward",
+    "project": "inventory_health",
+    "canonical_layer": "Gold",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  },
+  {
+    "asset_id": "ReferenceMaster_Enh.Vendor",
+    "project": "inventory_health",
+    "canonical_layer": "ReferenceMaster",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "scheduled_hour": 2,
+    "next_run_time": null
+  }
+]

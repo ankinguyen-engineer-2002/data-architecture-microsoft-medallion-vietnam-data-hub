@@ -1,0 +1,89 @@
+{
+  "finished_at_utc": "2026-05-01T04:07:34.426723+00:00",
+  "started_at_utc": "2026-05-01T04:07:02.896710+00:00",
+  "warehouses": [
+    {
+      "action": "created",
+      "create_response": {
+        "method": "POST",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": {
+          "description": "Supply Chain processing warehouse: Meta, Staging, ReferenceMaster, Domain Silver schemas.",
+          "displayName": "SupplyChain_Processing_Warehouse",
+          "id": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+          "type": "Warehouse",
+          "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+        },
+        "url": "https://api.fabric.microsoft.com/v1/workspaces/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/warehouses"
+      },
+      "description": "Supply Chain processing warehouse: Meta, Staging, ReferenceMaster, Domain Silver schemas.",
+      "displayName": "SupplyChain_Processing_Warehouse",
+      "item": {
+        "description": "Supply Chain processing warehouse: Meta, Staging, ReferenceMaster, Domain Silver schemas.",
+        "displayName": "SupplyChain_Processing_Warehouse",
+        "id": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+        "type": "Warehouse",
+        "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+      },
+      "logicalRole": "Processing",
+      "warehouse_details": {
+        "description": "Supply Chain processing warehouse: Meta, Staging, ReferenceMaster, Domain Silver schemas.",
+        "displayName": "SupplyChain_Processing_Warehouse",
+        "id": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+        "properties": {
+          "collationType": "Latin1_General_100_BIN2_UTF8",
+          "connectionInfo": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+          "connectionString": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+          "createdDate": "2026-05-01T04:07:05.2442242",
+          "creationMode": "New",
+          "lastUpdatedTime": "2026-05-01T04:07:12.5319569"
+        },
+        "type": "Warehouse",
+        "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+      }
+    },
+    {
+      "action": "created",
+      "create_response": {
+        "method": "POST",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": {
+          "description": "Dedicated Supply Chain Gold serving warehouse for Direct Lake semantic models.",
+          "displayName": "SupplyChain_Gold_Warehouse",
+          "id": "98e2a911-5af9-442e-9cc8-5d8dadb8b762",
+          "type": "Warehouse",
+          "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+        },
+        "url": "https://api.fabric.microsoft.com/v1/workspaces/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/warehouses"
+      },
+      "description": "Dedicated Supply Chain Gold serving warehouse for Direct Lake semantic models.",
+      "displayName": "SupplyChain_Gold_Warehouse",
+      "item": {
+        "description": "Dedicated Supply Chain Gold serving warehouse for Direct Lake semantic models.",
+        "displayName": "SupplyChain_Gold_Warehouse",
+        "id": "98e2a911-5af9-442e-9cc8-5d8dadb8b762",
+        "type": "Warehouse",
+        "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+      },
+      "logicalRole": "GoldServing",
+      "warehouse_details": {
+        "description": "Dedicated Supply Chain Gold serving warehouse for Direct Lake semantic models.",
+        "displayName": "SupplyChain_Gold_Warehouse",
+        "id": "98e2a911-5af9-442e-9cc8-5d8dadb8b762",
+        "properties": {
+          "collationType": "Latin1_General_100_BIN2_UTF8",
+          "connectionInfo": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+          "connectionString": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+          "createdDate": "2026-05-01T04:07:21.2062706",
+          "creationMode": "New",
+          "lastUpdatedTime": "2026-05-01T04:07:28.3539344"
+        },
+        "type": "Warehouse",
+        "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+      }
+    }
+  ],
+  "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+}

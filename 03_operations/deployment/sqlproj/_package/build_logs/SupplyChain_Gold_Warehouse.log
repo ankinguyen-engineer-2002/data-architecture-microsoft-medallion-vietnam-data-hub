@@ -1,0 +1,12 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Enterprise_Lakehouse_Reference -> /Users/MAC/Documents/20260413_Fabric_Refactor_Architect/03_operations/deployment/sqlproj/Enterprise_Lakehouse_Reference/bin/Release/Enterprise_Lakehouse_Reference.dacpac
+  ETL_Framework -> /Users/MAC/Documents/20260413_Fabric_Refactor_Architect/03_operations/deployment/sqlproj/ETL_Framework/bin/Release/ETL_Framework.dacpac
+  SupplyChain_Processing_Warehouse -> /Users/MAC/Documents/20260413_Fabric_Refactor_Architect/03_operations/deployment/sqlproj/SupplyChain_Processing_Warehouse/bin/Release/SupplyChain_Processing_Warehouse.dacpac
+  SupplyChain_Gold_Warehouse -> /Users/MAC/Documents/20260413_Fabric_Refactor_Architect/03_operations/deployment/sqlproj/SupplyChain_Gold_Warehouse/bin/Release/SupplyChain_Gold_Warehouse.dacpac
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.61

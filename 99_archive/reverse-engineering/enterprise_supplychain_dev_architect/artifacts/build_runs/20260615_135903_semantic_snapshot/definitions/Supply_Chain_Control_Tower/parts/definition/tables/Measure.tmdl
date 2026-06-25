@@ -1,0 +1,779 @@
+table Measure
+	lineageTag: 0732cc90-bd10-4cda-9b92-9e40c127c7fc
+
+	/// BRD variable: confirmed customer/firm demand quantity used in active demand and shippable inventory coverage logic.
+	measure 'Firm Demand Qty' = SUM ( FactInventoryRiskForward[FirmDemandQty] )
+		formatString: #,0
+		displayFolder: Forward Service
+		lineageTag: f7b2a2fa-cac2-40b3-b4bc-fd355a511121
+
+	/// BRD variable: forecast demand quantity used in active demand and shippable inventory coverage logic.
+	measure 'Net Forecast Qty' = SUM ( FactInventoryRiskForward[NetForecastQty] )
+		formatString: #,0
+		displayFolder: Forward Service
+		lineageTag: 56aa8f0c-1f3c-46ec-a58d-adef35f24a0e
+
+	/// BRD variable: confirmed inbound quantity within 14 days for shippable inventory coverage.
+	measure 'Inbound 14D Qty' = SUM ( FactInventoryRiskForward[Inbound14DQty] )
+		formatString: #,0
+		displayFolder: Forward Service
+		lineageTag: b88a17a7-67f2-4070-847c-8438a13deca9
+
+	/// BRD variable: allocated demand quantity reserved against customer orders and not yet shipped.
+	measure 'Allocated Demand Qty' = SUM ( FactInventoryRiskForward[AllocatedDemandQty] )
+		formatString: #,0
+		displayFolder: Forward Service
+		lineageTag: 24f267e0-e700-4aab-8348-71a60973d31e
+
+	/// BRD variable: shippable inventory quantity used for 14-day in-stock rate.
+	measure 'Shippable Inventory Qty' = SUM ( FactInventoryRiskForward[ShippableInventoryQty] )
+		formatString: #,0
+		displayFolder: Forward Service
+		lineageTag: 81c8f0b8-65dc-4b07-b12d-ad307678eab6
+
+	/// Source shortage signal from supply plan. BRD shortage quantity is ABS(SINegQty).
+	measure 'SI Negative Qty' = SUM ( FactInventoryRiskForward[SINegQty] )
+		formatString: #,0
+		displayFolder: Risk
+		lineageTag: b27455f1-a916-4ab0-a187-9d49d8624588
+
+	/// BRD active demand proxy: confirmed customer/firm demand plus forecast demand within the 14-day window. Confirm lifecycle/active SKU filter before final production use.
+	measure 'Active Demand Qty - 14D' = [Firm Demand Qty] + [Net Forecast Qty]
+		formatString: #,0
+		displayFolder: Forward Service
+		lineageTag: 4d03c43b-3c25-4137-9888-e253923efa74
+
+	/// BRD formula: Shortage Qty = ABS(SINegQty), evaluated at week four ending.
+	measure 'Shortage Qty - Week Four' =
+			CALCULATE (
+			    SUMX ( FactInventoryRiskForward, ABS ( FactInventoryRiskForward[SINegQty] ) ),
+			    FactInventoryRiskForward[WeekFourFlag] = TRUE ()
+			)
+		formatString: #,0
+		displayFolder: Risk
+		lineageTag: 5b42a9db-47a8-4522-a85a-ba378a686860
+
+	/// BRD formula: At Week Four Ending, Revenue at Risk = ABS(SINegQty) * FOBPrice. Data caveat: blank FOBArcPrice rows understate result.
+	measure 'Revenue at Risk - Week Four' =
+			CALCULATE (
+			    SUMX (
+			        FactInventoryRiskForward,
+			        ABS ( FactInventoryRiskForward[SINegQty] )
+			            * FactInventoryRiskForward[FOBArcPrice]
+			    ),
+			    FactInventoryRiskForward[WeekFourFlag] = TRUE ()
+			)
+		formatString: $#,0;($#,0);-
+		displayFolder: Risk
+		lineageTag: 679f87b1-55af-4285-b2d4-6bf4ce66ee6d
+
+	/// Data quality support measure for Revenue at Risk. Counts week-four rows where FOBArcPrice is blank.
+	measure 'Week Four Blank FOB Rows' =
+			CALCULATE (
+			    COUNTROWS ( FactInventoryRiskForward ),
+			    FactInventoryRiskForward[WeekFourFlag] = TRUE (),
+			    ISBLANK ( FactInventoryRiskForward[FOBArcPrice] )
+			)
+		formatString: #,0
+		displayFolder: Data Quality
+		lineageTag: 69f3c8ad-63da-43df-b31c-76e4c52d51cb
+
+	/// BRD denominator for shippable inventory in-stock rate: active Item-WH locations. Current proxy uses Active Demand Qty - 14D > 0; lifecycle active-state filter still requires confirmation.
+	measure 'Active Item-WH Count' =
+			COUNTROWS (
+			    FILTER (
+			        SUMMARIZE (
+			            FactInventoryRiskForward,
+			            FactInventoryRiskForward[ItemSKU],
+			            FactInventoryRiskForward[WarehouseCode]
+			        ),
+			        [Active Demand Qty - 14D] > 0
+			    )
+			)
+		formatString: #,0
+		displayFolder: Forward Service
+		lineageTag: 42591920-8813-49fd-8fbb-0a7837fd5cf9
+
+	/// BRD numerator for shippable inventory in-stock rate: active Item-WH locations with positive shippable inventory.
+	measure 'Positive SI Item-WH Count' =
+			COUNTROWS (
+			    FILTER (
+			        SUMMARIZE (
+			            FactInventoryRiskForward,
+			            FactInventoryRiskForward[ItemSKU],
+			            FactInventoryRiskForward[WarehouseCode]
+			        ),
+			        [Active Demand Qty - 14D] > 0
+			            && [Shippable Inventory Qty] > 0
+			    )
+			)
+		formatString: #,0
+		displayFolder: Forward Service
+		lineageTag: 59eaf177-a216-493e-b17a-687ba54dcc24
+
+	/// BRD formula: Count of active Item-WH locations with positive SI divided by count of active Item-WH locations, multiplied by 100 via percent format.
+	measure 'Shippable Inventory In-Stock Rate' = DIVIDE ( [Positive SI Item-WH Count], [Active Item-WH Count] )
+		formatString: 0.0%
+		displayFolder: Forward Service
+		lineageTag: 2042223c-b6b8-4b02-b0ac-5dc7d72c8347
+
+	/// Inventory Health snapshot on-hand quantity.
+	measure 'On Hand Qty' = SUM ( FactInventoryHealthSnapshot[OnHandQty] )
+		formatString: #,0
+		displayFolder: Snapshot\Quantity
+		lineageTag: fd20db24-9888-44df-9c18-9d73923493b2
+
+	/// Transfer in-transit quantity from snapshot.
+	measure 'Transfer In In-Transit Qty' = SUM ( FactInventoryHealthSnapshot[TransferInInTransitQty] )
+		formatString: #,0
+		displayFolder: Snapshot\Quantity
+		lineageTag: 8182d9a0-94a0-4d8d-81bd-3f4a25f0beea
+
+	/// PO in-transit quantity from snapshot.
+	measure 'PO In-Transit Qty' = SUM ( FactInventoryHealthSnapshot[POInTransitQty] )
+		formatString: #,0
+		displayFolder: Snapshot\Quantity
+		lineageTag: 699789d5-605d-46b6-a771-56f440f930b3
+
+	/// Total in-transit quantity from snapshot.
+	measure 'In Transit Qty' = SUM ( FactInventoryHealthSnapshot[InTransitQty] )
+		formatString: #,0
+		displayFolder: Snapshot\Quantity
+		lineageTag: f76f9c4d-ca24-4146-acd7-4e8d7133ead3
+
+	/// PO on-order quantity from snapshot.
+	measure 'PO On-Order Qty' = SUM ( FactInventoryHealthSnapshot[POOnOrderQty] )
+		formatString: #,0
+		displayFolder: Snapshot\Quantity
+		lineageTag: 7b11cc34-8299-4aa3-a96a-34bb2b98a7a0
+
+	/// MO on-order quantity from snapshot.
+	measure 'MO On-Order Qty' = SUM ( FactInventoryHealthSnapshot[MOOnOrderQty] )
+		formatString: #,0
+		displayFolder: Snapshot\Quantity
+		lineageTag: a7152856-8d84-4afe-8f6a-9b0a0ee6aa2c
+
+	/// Total on-order quantity from snapshot.
+	measure 'On Order Qty' = SUM ( FactInventoryHealthSnapshot[OnOrderQty] )
+		formatString: #,0
+		displayFolder: Snapshot\Quantity
+		lineageTag: 4d776612-ac97-4a38-927a-89489b31ecb9
+
+	/// On-hand + in-transit + on-order quantity.
+	measure 'Total Inventory Commitment Qty' = [On Hand Qty] + [In Transit Qty] + [On Order Qty]
+		formatString: #,0
+		displayFolder: Snapshot\Quantity
+		lineageTag: bd6a7b4b-1a42-461a-9f3a-5007590a5220
+
+	/// On-hand inventory value at cost.
+	measure 'On Hand Inventory Value at Cost' = SUM ( FactInventoryHealthSnapshot[InventoryValueAtCost] )
+		formatString: $#,0;($#,0);-
+		displayFolder: Snapshot\Value
+		lineageTag: 0310c4a7-b9a5-4cff-9b39-af5ba068876b
+
+	/// Assumption: in-transit cost value = in-transit qty x standard cost.
+	measure 'In Transit Inventory Value at Cost' = SUMX ( FactInventoryHealthSnapshot, FactInventoryHealthSnapshot[InTransitQty] * FactInventoryHealthSnapshot[StandardCost] )
+		formatString: $#,0;($#,0);-
+		displayFolder: Snapshot\Value
+		lineageTag: 6a11dc74-77bf-4ec4-a578-73f959677afc
+
+	/// Assumption: on-order cost value = on-order qty x standard cost.
+	measure 'On Order Inventory Value at Cost' = SUMX ( FactInventoryHealthSnapshot, FactInventoryHealthSnapshot[OnOrderQty] * FactInventoryHealthSnapshot[StandardCost] )
+		formatString: $#,0;($#,0);-
+		displayFolder: Snapshot\Value
+		lineageTag: 0c5abf08-b7d8-4dbc-bed0-ee90ab478151
+
+	/// On-hand + in-transit + on-order inventory commitment at cost.
+	measure 'Total Inventory Commitment at Cost' = [On Hand Inventory Value at Cost] + [In Transit Inventory Value at Cost] + [On Order Inventory Value at Cost]
+		formatString: $#,0;($#,0);-
+		displayFolder: Snapshot\Value
+		lineageTag: 2dc374c7-fe9b-4c44-8d40-f23187968928
+
+	/// Mockup-facing total inventory commitment value.
+	measure 'Total Inventory Commitment $' = [Total Inventory Commitment at Cost]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Overview\Top KPI
+		lineageTag: 034799d4-e585-4e3a-a476-3271a08f6b1b
+
+	/// Mockup-facing on-hand value.
+	measure 'On-Hand Value $' = [On Hand Inventory Value at Cost]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Overview\Top KPI
+		lineageTag: 695cbebc-ba50-4c97-b07e-996195a65d7b
+
+	/// Mockup-facing in-transit value.
+	measure 'In-Transit Value $' = [In Transit Inventory Value at Cost]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Overview\Top KPI
+		lineageTag: 02f245e4-2918-491f-8fbf-57c19eceb121
+
+	/// Mockup-facing on-order value.
+	measure 'On-Order Value $' = [On Order Inventory Value at Cost]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Overview\Top KPI
+		lineageTag: 23044e2b-25db-45bd-b470-b9f649993fcf
+
+	/// Assumption: prior comparison = fiscal week indicator minus 4.
+	measure 'Prior 4W Total Inventory Commitment $' = VAR CurrentWeek = MAX ( DimCalendar[FiscalWeekIndicator] ) RETURN CALCULATE ( [Total Inventory Commitment at Cost], FILTER ( ALL ( DimCalendar ), DimCalendar[FiscalWeekIndicator] = CurrentWeek - 4 ) )
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Overview\Prior Period
+		lineageTag: 369e82e0-01c4-42a4-b9cc-9326258fd6e5
+
+	/// Current total inventory commitment less prior four-week value.
+	measure 'Total Inventory Commitment Delta $' = [Total Inventory Commitment at Cost] - [Prior 4W Total Inventory Commitment $]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Overview\Prior Period
+		lineageTag: d999590e-c045-4d68-ba18-3ddafd947b39
+
+	/// Percent delta vs prior four-week total inventory commitment.
+	measure 'Total Inventory Commitment Delta %' = DIVIDE ( [Total Inventory Commitment Delta $], [Prior 4W Total Inventory Commitment $] )
+		formatString: 0.0%;-0.0%;-
+		displayFolder: Overview\Prior Period
+		lineageTag: 5ab647dd-1420-49ba-843d-5de6c433c864
+
+	/// Trailing 12-month COGS from snapshot.
+	measure 'Trailing 12M COGS' = SUM ( FactInventoryHealthSnapshot[Cogs12M] )
+		formatString: $#,0;($#,0);-
+		displayFolder: Turns
+		lineageTag: fff48fef-bb3b-4f6a-a580-b67286c1fc8f
+
+	/// Turns using current inventory value at cost as denominator.
+	measure 'Turns - Current Inventory Denominator' = DIVIDE ( [Trailing 12M COGS], [On Hand Inventory Value at Cost] )
+		formatString: 0.0x
+		displayFolder: Turns
+		lineageTag: da1d7a86-770a-4674-8869-cd6b2d121f0a
+
+	/// Turns using average inventory value at cost as denominator.
+	measure 'Turns - Average Inventory Denominator' = DIVIDE ( [Trailing 12M COGS], SUM ( FactInventoryHealthSnapshot[AverageInventoryValueAtCost] ) )
+		formatString: 0.0x
+		displayFolder: Turns
+		lineageTag: edc4fdf2-5df5-4e54-b8fc-e172eb70ab0d
+
+	/// Mockup-facing turns measure. Assumption: uses current inventory denominator.
+	measure 'Inventory Turns' = [Turns - Current Inventory Denominator]
+		formatString: 0.0x
+		displayFolder: Overview\Top KPI
+		lineageTag: 5b97f980-a01f-4f27-b4a7-072481568c75
+
+	/// Safety stock target quantity from snapshot.
+	measure 'Safety Stock Target Qty' = SUM ( FactInventoryHealthSnapshot[SafetyStockTargetQty] )
+		formatString: #,0
+		displayFolder: Safety Stock
+		lineageTag: 27bd3ecb-a87e-4768-a933-4f300a219389
+
+	/// Assumption: inventory position for safety stock = on-hand quantity.
+	measure 'Inventory Position Qty' = [On Hand Qty]
+		formatString: #,0
+		displayFolder: Safety Stock
+		lineageTag: d718e950-663e-4ae2-baa3-f54daeb00ce8
+
+	/// Inventory position divided by safety stock target.
+	measure 'Safety Stock Multiple' = DIVIDE ( [Inventory Position Qty], [Safety Stock Target Qty] )
+		formatString: 0.0x
+		displayFolder: Overview\Top KPI
+		lineageTag: e8d16cbe-1b03-41b2-8561-a0df88d152fc
+
+	/// Flags contexts where safety stock target is zero.
+	measure 'Safety Stock Exception Flag' = IF ( [Safety Stock Target Qty] = 0, 1, 0 )
+		formatString: 0
+		displayFolder: Safety Stock
+		lineageTag: 46980201-1306-4d4d-b168-2354a71839f4
+
+	/// Used storage cube from snapshot.
+	measure 'Used Storage Cube' = SUM ( FactInventoryHealthSnapshot[UsedStorageCube] )
+		formatString: #,0
+		displayFolder: Capacity
+		lineageTag: 2468b263-a7a1-47be-b18e-bd5db67991fe
+
+	/// Warehouse total available cube from dimension.
+	measure 'Total Available Warehouse Cube' = SUM ( DimWarehouse[TotalAvailableWarehouseCube] )
+		formatString: #,0
+		displayFolder: Capacity
+		lineageTag: 9b19b326-56c5-4bad-8530-6b070588f768
+
+	/// Used storage cube divided by total available warehouse cube.
+	measure 'Warehouse Capacity Utilization' = DIVIDE ( [Used Storage Cube], [Total Available Warehouse Cube] )
+		formatString: 0.0%
+		displayFolder: Capacity
+		lineageTag: 04b2229e-22a0-47d6-8e4f-1ea71a52b0a9
+
+	/// Assumption: capacity risk threshold is 95 percent per mockup note.
+	measure 'Warehouse Capacity Risk Flag' = IF ( [Warehouse Capacity Utilization] >= 0.95, 1, 0 )
+		formatString: 0
+		displayFolder: Capacity
+		lineageTag: 0055381f-a103-40fc-8a61-4c9be67bb577
+
+	/// On-hold quantity from snapshot.
+	measure 'On Hold Qty' = SUM ( FactInventoryHealthSnapshot[OnHoldQty] )
+		formatString: #,0
+		displayFolder: Inventory Quality\On Hold
+		lineageTag: a8025f7e-5b20-4672-bded-947bd0451c0d
+
+	/// On-hold quantity divided by on-hand quantity.
+	measure 'On Hold Ratio - Units' = DIVIDE ( [On Hold Qty], [On Hand Qty] )
+		formatString: 0.0%
+		displayFolder: Inventory Quality\On Hold
+		lineageTag: c31e73ee-8a5d-45a5-afdb-e339fcbba707
+
+	/// Assumption: on-hold cost value = on-hold qty x standard cost.
+	measure 'On Hold Value at Cost' = SUMX ( FactInventoryHealthSnapshot, FactInventoryHealthSnapshot[OnHoldQty] * FactInventoryHealthSnapshot[StandardCost] )
+		formatString: $#,0;($#,0);-
+		displayFolder: Inventory Quality\On Hold
+		lineageTag: 28aa64c6-a254-48b6-bef5-07d4ac63343f
+
+	/// On-hold value divided by on-hand inventory value at cost.
+	measure 'On Hold Ratio - Value' = DIVIDE ( [On Hold Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Inventory Quality\On Hold
+		lineageTag: 86af34f5-0e69-45cb-a82e-4e5ae688f7d7
+
+	/// Inventory value for no-movement items. Assumption: uses NoMovementFlag.
+	measure 'No Movement Inventory Value at Cost' = CALCULATE ( [On Hand Inventory Value at Cost], FactInventoryHealthSnapshot[NoMovementFlag] = TRUE () )
+		formatString: $#,0;($#,0);-
+		displayFolder: Inventory Quality\Obsolete
+		lineageTag: ef629aec-7835-4175-b35e-183c87284a33
+
+	/// Obsolete value from snapshot.
+	measure 'Obsolete Inventory Value at Cost' = SUM ( FactInventoryHealthSnapshot[ObsoleteValue] )
+		formatString: $#,0;($#,0);-
+		displayFolder: Inventory Quality\Obsolete
+		lineageTag: 97a8832c-c63f-423a-922b-e04f47a8504c
+
+	/// No-movement inventory value divided by on-hand inventory value at cost.
+	measure 'Obsolete Ratio' = DIVIDE ( [No Movement Inventory Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Inventory Quality\Obsolete
+		lineageTag: fa43f1c2-1343-4ee9-9434-5e7bdc68c685
+
+	/// Proxy for aged inventory where receipt/manufacturing completion date is unavailable: uses no-movement value.
+	measure 'Aged Inventory Value at Cost' = [No Movement Inventory Value at Cost]
+		formatString: $#,0;($#,0);-
+		displayFolder: Inventory Quality\Aged
+		lineageTag: ad12366f-6f0a-46d3-b205-13dfbaed6ec8
+
+	/// Proxy aged inventory percent using no-movement inventory value.
+	measure 'Aged Inventory %' = DIVIDE ( [Aged Inventory Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Inventory Quality\Aged
+		lineageTag: 19b9eb8f-5aae-44bc-a5c0-fbd9804d083c
+
+	/// Weeks of supply from snapshot precomputed field.
+	measure WOS = AVERAGE ( FactInventoryHealthSnapshot[WeeksOfSupply] )
+		formatString: 0.0
+		displayFolder: Inventory Health Summary
+		lineageTag: 8df74805-6870-4a28-84d9-c654e4b496fd
+
+	/// Assumption: days on hand = weeks of supply x 7.
+	measure DOH = [WOS] * 7
+		formatString: 0.0
+		displayFolder: Inventory Health Summary
+		lineageTag: f97135a0-32d4-4b82-a174-f7606d7fa1ce
+
+	/// On-hand value classified as TB Inventory.
+	measure 'TB Inventory Value at Cost' = CALCULATE ( [On Hand Inventory Value at Cost], FactInventoryHealthSnapshot[InventoryClassification] = "TB Inventory" )
+		formatString: $#,0;($#,0);-
+		displayFolder: Surplus\Classification
+		lineageTag: 0a361700-2525-4261-b337-acdecf2121b5
+
+	/// On-hand value classified as Aggressive Excess.
+	measure 'Aggressive Excess Value at Cost' = CALCULATE ( [On Hand Inventory Value at Cost], FactInventoryHealthSnapshot[InventoryClassification] = "Aggressive Excess" )
+		formatString: $#,0;($#,0);-
+		displayFolder: Surplus\Classification
+		lineageTag: 64c34df9-e9e3-4d03-bd3c-512c80ce9235
+
+	/// On-hand value classified as Excess.
+	measure 'Excess Value at Cost' = CALCULATE ( [On Hand Inventory Value at Cost], FactInventoryHealthSnapshot[InventoryClassification] = "Excess" )
+		formatString: $#,0;($#,0);-
+		displayFolder: Surplus\Classification
+		lineageTag: 9b78f0a3-6c0b-4705-b9cc-2b54c62a7a33
+
+	/// Assumption: surplus rollup = TB Inventory + Aggressive Excess + Excess.
+	measure 'Surplus Inventory Value at Cost' = [TB Inventory Value at Cost] + [Aggressive Excess Value at Cost] + [Excess Value at Cost]
+		formatString: $#,0;($#,0);-
+		displayFolder: Surplus
+		lineageTag: 1b143249-14a4-461a-b77e-1e25a70cbe5f
+
+	/// Surplus inventory value divided by on-hand inventory value at cost.
+	measure 'Percent Surplus Classification' = DIVIDE ( [Surplus Inventory Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Surplus
+		lineageTag: 5d214831-2e82-49ec-8d51-923e26ba3066
+
+	/// Assumption: shortage qty split by firm demand share of firm + forecast demand at week four.
+	measure 'Firm Demand at Risk Qty - Week Four' = CALCULATE ( SUMX ( FactInventoryRiskForward, ABS ( FactInventoryRiskForward[SINegQty] ) * DIVIDE ( FactInventoryRiskForward[FirmDemandQty], FactInventoryRiskForward[FirmDemandQty] + FactInventoryRiskForward[NetForecastQty] ) ), FactInventoryRiskForward[WeekFourFlag] = TRUE () )
+		formatString: #,0
+		displayFolder: Risk\Demand Split
+		lineageTag: 47d8e5a9-8b56-4d40-8928-80114bc04b08
+
+	/// Assumption: shortage qty split by forecast demand share of firm + forecast demand at week four.
+	measure 'Forecast Demand at Risk Qty - Week Four' = CALCULATE ( SUMX ( FactInventoryRiskForward, ABS ( FactInventoryRiskForward[SINegQty] ) * DIVIDE ( FactInventoryRiskForward[NetForecastQty], FactInventoryRiskForward[FirmDemandQty] + FactInventoryRiskForward[NetForecastQty] ) ), FactInventoryRiskForward[WeekFourFlag] = TRUE () )
+		formatString: #,0
+		displayFolder: Risk\Demand Split
+		lineageTag: 9ccb87e8-f16a-47b6-ac45-6584b8063085
+
+	/// Assumption: revenue risk split by firm demand share of firm + forecast demand at week four.
+	measure 'Firm Demand at Risk $ - Week Four' = CALCULATE ( SUMX ( FactInventoryRiskForward, ABS ( FactInventoryRiskForward[SINegQty] ) * FactInventoryRiskForward[FobArcPrice] * DIVIDE ( FactInventoryRiskForward[FirmDemandQty], FactInventoryRiskForward[FirmDemandQty] + FactInventoryRiskForward[NetForecastQty] ) ), FactInventoryRiskForward[WeekFourFlag] = TRUE () )
+		formatString: $#,0;($#,0);-
+		displayFolder: Risk\Demand Split
+		lineageTag: 0b4ad57a-e65e-43c5-9626-029e7a3bae79
+
+	/// Assumption: revenue risk split by forecast demand share of firm + forecast demand at week four.
+	measure 'Forecast Demand at Risk $ - Week Four' = CALCULATE ( SUMX ( FactInventoryRiskForward, ABS ( FactInventoryRiskForward[SINegQty] ) * FactInventoryRiskForward[FobArcPrice] * DIVIDE ( FactInventoryRiskForward[NetForecastQty], FactInventoryRiskForward[FirmDemandQty] + FactInventoryRiskForward[NetForecastQty] ) ), FactInventoryRiskForward[WeekFourFlag] = TRUE () )
+		formatString: $#,0;($#,0);-
+		displayFolder: Risk\Demand Split
+		lineageTag: 2b7e8fb8-c245-4542-9924-066b066aa440
+
+	/// Forward horizon shortage/revenue at risk value using source value field.
+	measure 'Shortage / Revenue at Risk Horizon $' = SUM ( FactInventoryRiskForward[RevenueAtRiskValue] )
+		formatString: $#,0;($#,0);-
+		displayFolder: Risk\Horizon
+		lineageTag: 8ea483b0-08d8-4530-a387-6819304c2c87
+
+	/// Forward horizon shortage quantity.
+	measure 'Shortage Horizon Qty' = SUMX ( FactInventoryRiskForward, ABS ( FactInventoryRiskForward[SINegQty] ) )
+		formatString: #,0
+		displayFolder: Risk\Horizon
+		lineageTag: 79a9ebce-315b-4f6d-bf92-4bce3254de9c
+
+	/// Current surplus/excess exposure proxy using snapshot surplus inventory value.
+	measure 'Surplus / Excess Exposure $' = [Surplus Inventory Value at Cost]
+		formatString: $#,0;($#,0);-
+		displayFolder: Risk\Horizon
+		lineageTag: c0c91848-63bb-416e-ab59-1a208a991bef
+
+	/// Surplus/excess exposure less shortage/revenue at risk horizon value.
+	measure 'Net Surplus Less Risk $' = [Surplus / Excess Exposure $] - [Shortage / Revenue at Risk Horizon $]
+		formatString: $#,0;($#,0);-
+		displayFolder: Risk\Horizon
+		lineageTag: d8b89491-86cd-4080-806d-aef06aed7f32
+
+	/// Mockup-facing top shortage value. Intended for warehouse/SKU context.
+	measure 'Top Shortage Value $' = [Revenue at Risk - Week Four]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Risk\Top Cards
+		lineageTag: eccec169-f8ef-4e72-8f08-a29309978fba
+
+	/// Mockup-facing top surplus value. Intended for warehouse/SKU context.
+	measure 'Top Surplus Value $' = [Surplus Inventory Value at Cost]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Risk\Top Cards
+		lineageTag: 65dbe43c-c8fe-453e-a1c6-9b885eef321d
+
+	/// Proxy: service rate equals shippable inventory in-stock rate.
+	measure 'Service Rate' = [Shippable Inventory In-Stock Rate]
+		formatString: 0.0%
+		displayFolder: Inventory Health Summary
+		lineageTag: e3e78428-4d1b-443b-a967-b38d4be47c82
+
+	/// Assumption: excess-to-risk = surplus value divided by week-four revenue at risk.
+	measure 'Excess to Risk %' = DIVIDE ( [Surplus Inventory Value at Cost], [Revenue at Risk - Week Four] )
+		formatString: 0.0%
+		displayFolder: Inventory Health Summary
+		lineageTag: f2e2e474-c802-4d74-9553-39907625af77
+
+	/// Assumption: in-control inventory = Sweet Spot + Over Target.
+	measure 'In Control %' = DIVIDE ( CALCULATE ( [On Hand Inventory Value at Cost], FactInventoryHealthSnapshot[InventoryClassification] IN { "Sweet Spot", "Over Target" } ), [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Inventory Health Summary
+		lineageTag: 38657094-51bf-4994-8c4f-600d4763c796
+
+	/// Proxy: process value add = service rate less on-hold value ratio.
+	measure 'Process Value Add %' = [Service Rate] - [On Hold Ratio - Value]
+		formatString: 0.0%;-0.0%;-
+		displayFolder: Inventory Health Summary
+		lineageTag: 93c54ed1-1ca9-4f6e-81eb-4f6a5815c0b6
+
+	/// Composite proxy score for summary card.
+	measure 'Inventory Health Summary Score' = DIVIDE ( [Service Rate] + [In Control %] + ( 1 - [Percent Surplus Classification] ), 3 )
+		formatString: 0.0%
+		displayFolder: Inventory Health Summary
+		lineageTag: 6ee367ce-7f17-4468-a1de-054c2d1fcbde
+
+	/// Generic placeholder delta used by color helper measures when a visual binds a specific delta measure separately.
+	measure 'KPI Delta' = BLANK ()
+		formatString: 0.0%;-0.0%;-
+		displayFolder: UI Helpers\Generic
+		lineageTag: 81ebbe0e-21a5-4028-907f-f6446de9a519
+
+	/// Conditional color helper: increase is bad.
+	measure 'KPI Delta Color - Higher Is Bad' = SWITCH ( TRUE (), [KPI Delta] > 0, "#FF1F1F", [KPI Delta] < 0, "#16A34A", "#6B7280" )
+		displayFolder: UI Helpers\Color
+		lineageTag: 68450166-01b2-4932-a04a-988b6091a81c
+
+	/// Conditional color helper: increase is good.
+	measure 'KPI Delta Color - Higher Is Good' = SWITCH ( TRUE (), [KPI Delta] > 0, "#16A34A", [KPI Delta] < 0, "#FF1F1F", "#6B7280" )
+		displayFolder: UI Helpers\Color
+		lineageTag: 91b0d07a-0042-4c9c-9f7c-aec28d354caa
+
+	/// Mockup primary navy color.
+	measure 'Color - Primary Navy' = "#07135F"
+		displayFolder: UI Helpers\Color
+		lineageTag: 41d856f0-b545-40ce-9d8a-d5e1d124466f
+
+	/// Mockup current value orange color.
+	measure 'Color - Ashley Orange' = "#FF5A00"
+		displayFolder: UI Helpers\Color
+		lineageTag: 05303097-a480-4ff1-8cb2-748a9bcac4f3
+
+	/// Mockup shortage/risk red color.
+	measure 'Color - Risk Red' = "#FF1F1F"
+		displayFolder: UI Helpers\Color
+		lineageTag: 31a1cbef-6bd2-4b86-b9c2-d052cc009918
+
+	/// Mockup watch amber color.
+	measure 'Color - Watch Amber' = "#F6B000"
+		displayFolder: UI Helpers\Color
+		lineageTag: de61d2dd-f3fb-491e-876a-635168901c3d
+
+	/// Mockup good green color.
+	measure 'Color - Good Green' = "#16A34A"
+		displayFolder: UI Helpers\Color
+		lineageTag: 85f3f089-fce8-470d-b39d-246a1cd96e70
+
+	/// Mockup prior value neutral color.
+	measure 'Color - Prior Neutral' = "#D8D0C4"
+		displayFolder: UI Helpers\Color
+		lineageTag: 03af55c8-7f55-4612-9f89-dd8b30c88787
+
+	/// Mockup grid and border gray color.
+	measure 'Color - Grid Border' = "#D9E0EA"
+		displayFolder: UI Helpers\Color
+		lineageTag: bf8c99af-c1d3-42bc-a5f5-0b7833da15b3
+
+	/// Mockup title font helper.
+	measure 'Font - Main Title' = "Segoe UI Semibold"
+		displayFolder: UI Helpers\Font
+		lineageTag: 7f649df2-6475-42de-93c9-39ade52455ef
+
+	/// Mockup body font helper.
+	measure 'Font - Body' = "Segoe UI"
+		displayFolder: UI Helpers\Font
+		lineageTag: 9cfe2af7-9783-4e8c-b3f4-4868cba4766a
+
+	/// Mockup KPI label font size helper.
+	measure 'Font Size - KPI Label' = 8
+		formatString: 0
+		displayFolder: UI Helpers\Font
+		lineageTag: 87a8b9d3-5ab4-44cb-affb-e168e7cace73
+
+	/// Mockup KPI value font size helper.
+	measure 'Font Size - KPI Value' = 28
+		formatString: 0
+		displayFolder: UI Helpers\Font
+		lineageTag: 15363446-4b44-452e-b614-2dba541951ea
+
+	/// Mockup section title font size helper.
+	measure 'Font Size - Section Title' = 12
+		formatString: 0
+		displayFolder: UI Helpers\Font
+		lineageTag: f05eb24a-eedf-42f0-b088-22296b387668
+
+	/// Placeholder AI insight text measure for mockup build.
+	measure 'Inventory Health Insight - What We Noticed' = "Inventory commitment and service metrics require review by week ending context."
+		displayFolder: AI Insights\Text
+		lineageTag: 22df83b8-5469-4ae0-8fc1-76793d3636b8
+
+	/// Placeholder AI risk text measure for mockup build.
+	measure 'Inventory Health Insight - Where The Risk Is' = "Primary risk is concentrated in shortage/revenue at risk, surplus exposure, and capacity utilization."
+		displayFolder: AI Insights\Text
+		lineageTag: c4301ba7-179c-4baa-a23c-127c6297367f
+
+	/// Placeholder AI meaning text measure for mockup build.
+	measure 'Inventory Health Insight - What This Means' = "Service pressure and trapped capital should be prioritized together."
+		displayFolder: AI Insights\Text
+		lineageTag: 581a5450-8eeb-4c69-952e-b3f57aa20dc4
+
+	/// Placeholder AI next-step text measure for mockup build.
+	measure 'Inventory Health Insight - Focus For Next Steps' = "Prioritize high-risk SKU-location combinations and validate surplus/shortage drivers."
+		displayFolder: AI Insights\Text
+		lineageTag: 64b89d2e-1fee-4c32-b473-0ab817830be8
+
+	/// Mockup bottom-line text helper.
+	measure 'Bottom Line Text' = "Service pressure in low WOS. Capital trapped in high WOS. Inventory not converting to service."
+		displayFolder: AI Insights\Text
+		lineageTag: 5227e5a5-bca6-4bbf-a647-359059fcb9e0
+
+	/// Proxy: active ATP Item-WH count uses active shippable inventory Item-WH count.
+	measure 'ATP Active Item-WH Count' = [Active Item-WH Count]
+		formatString: #,0
+		displayFolder: Forward Service\ATP
+		lineageTag: 48309c7a-ba03-4d95-aca4-99a6b9f4e26b
+
+	/// Proxy: positive ATP Item-WH count uses positive shippable inventory Item-WH count.
+	measure 'Positive ATP Item-WH Count' = [Positive SI Item-WH Count]
+		formatString: #,0
+		displayFolder: Forward Service\ATP
+		lineageTag: 19ed079c-7eed-4098-bf06-84ebdfda0502
+
+	/// Proxy: ATP day-7 field is unavailable, so this uses shippable inventory in-stock rate.
+	measure 'ATP In-Stock Rate' = [Shippable Inventory In-Stock Rate]
+		formatString: 0.0%
+		displayFolder: Overview\Top KPI
+		lineageTag: 98a142ff-93a4-4700-818f-f4d524bf0f20
+
+	/// Mockup-facing warehouse capacity risk measure.
+	measure 'Warehouse Capacity Risk' = [Warehouse Capacity Utilization]
+		formatString: 0.0%
+		displayFolder: Capacity
+		lineageTag: 52a95078-62c6-4c18-b4bb-7784c2dafbd4
+
+	/// Mockup-facing revenue at risk value.
+	measure 'Revenue at Risk $' = [Revenue at Risk - Week Four]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Risk
+		lineageTag: 5dbf7212-6c41-4ab5-bdea-7e300ddb61a0
+
+	/// Mockup-facing shortage quantity.
+	measure 'Shortage Qty' = [Shortage Qty - Week Four]
+		formatString: #,0
+		displayFolder: Risk
+		lineageTag: 888a96f2-c0c9-4ba8-ae7e-873ce47db9fd
+
+	/// Mockup-facing firm demand at risk alias.
+	measure 'Firm Demand at Risk' = [Firm Demand at Risk $ - Week Four]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Risk\Demand Split
+		lineageTag: 1057fba4-61bc-49db-9d5f-0defc0100556
+
+	/// Mockup-facing forecast demand at risk alias.
+	measure 'Forecast Demand at Risk' = [Forecast Demand at Risk $ - Week Four]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Risk\Demand Split
+		lineageTag: 85d14058-fd4e-43fb-98a8-37e18e7bcc73
+
+	/// Firm demand share of week-four revenue at risk.
+	measure 'Firm Demand at Risk %' = DIVIDE ( [Firm Demand at Risk $ - Week Four], [Revenue at Risk - Week Four] )
+		formatString: 0.0%
+		displayFolder: Risk\Demand Split
+		lineageTag: 61812f7c-c310-427b-b325-f412e77811bf
+
+	/// Forecast demand share of week-four revenue at risk.
+	measure 'Forecast Demand at Risk %' = DIVIDE ( [Forecast Demand at Risk $ - Week Four], [Revenue at Risk - Week Four] )
+		formatString: 0.0%
+		displayFolder: Risk\Demand Split
+		lineageTag: ddee57db-71d4-4569-8b44-7b6adb57f103
+
+	/// Mockup-facing surplus amount.
+	measure 'Surplus Amount $' = [Surplus Inventory Value at Cost]
+		formatString: $#,0.0,,M;($#,0.0,,M);-
+		displayFolder: Surplus
+		lineageTag: 0e4e8022-9bb7-4588-b4ad-4b02954e7401
+
+	/// Mockup-facing percent surplus measure.
+	measure 'Percent Surplus' = [Percent Surplus Classification]
+		formatString: 0.0%
+		displayFolder: Surplus
+		lineageTag: 9183c56a-7fbd-4aca-a0b1-20fb566db4b8
+
+	/// On-hand value classified as Below Target.
+	measure 'Below Target Value at Cost' = CALCULATE ( [On Hand Inventory Value at Cost], FactInventoryHealthSnapshot[InventoryClassification] = "Below Target" )
+		formatString: $#,0;($#,0);-
+		displayFolder: Surplus\Classification
+		lineageTag: bfadd7f4-9530-4ddb-8c8b-6c7e5f30645e
+
+	/// On-hand value classified as Sweet Spot.
+	measure 'Sweet Spot Value at Cost' = CALCULATE ( [On Hand Inventory Value at Cost], FactInventoryHealthSnapshot[InventoryClassification] = "Sweet Spot" )
+		formatString: $#,0;($#,0);-
+		displayFolder: Surplus\Classification
+		lineageTag: 70423779-e65f-4bb8-a7a6-6f5772f1de30
+
+	/// On-hand value classified as Over Target.
+	measure 'Over Target Value at Cost' = CALCULATE ( [On Hand Inventory Value at Cost], FactInventoryHealthSnapshot[InventoryClassification] = "Over Target" )
+		formatString: $#,0;($#,0);-
+		displayFolder: Surplus\Classification
+		lineageTag: 82e77ae8-6179-49df-911c-6facbd35970d
+
+	/// On-hand value classified as SLOB.
+	measure 'SLOB Value at Cost' = CALCULATE ( [On Hand Inventory Value at Cost], FactInventoryHealthSnapshot[InventoryClassification] = "SLOB" )
+		formatString: $#,0;($#,0);-
+		displayFolder: Surplus\Classification
+		lineageTag: edb613b3-4e25-41f9-86d7-71d0ad9a814f
+
+	/// On-hand value classified as Inactive.
+	measure 'Inactive Value at Cost' = CALCULATE ( [On Hand Inventory Value at Cost], FactInventoryHealthSnapshot[InventoryClassification] = "Inactive" )
+		formatString: $#,0;($#,0);-
+		displayFolder: Surplus\Classification
+		lineageTag: 2f7bdf5b-06e3-41e8-8139-5a92d7fa0dc0
+
+	/// TB Inventory value share.
+	measure 'TB Inventory %' = DIVIDE ( [TB Inventory Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Surplus\Classification %
+		lineageTag: bfaba7a9-7592-4129-ad10-a6067ec6e1e6
+
+	/// Aggressive Excess value share.
+	measure 'Aggressive Excess %' = DIVIDE ( [Aggressive Excess Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Surplus\Classification %
+		lineageTag: c9ff055e-0843-4d5d-9a4f-c848b847cdbd
+
+	/// Excess value share.
+	measure 'Excess %' = DIVIDE ( [Excess Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Surplus\Classification %
+		lineageTag: a901adef-023a-4b7e-9a5e-f0014f6f58ae
+
+	/// Over Target value share.
+	measure 'Over Target %' = DIVIDE ( [Over Target Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Surplus\Classification %
+		lineageTag: 467b8705-8767-4c4e-9187-34d1f16678f7
+
+	/// Sweet Spot value share.
+	measure 'Sweet Spot %' = DIVIDE ( [Sweet Spot Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Surplus\Classification %
+		lineageTag: 469cae16-bca2-44a2-807a-dd2eed6eb47b
+
+	/// Below Target value share.
+	measure 'Below Target %' = DIVIDE ( [Below Target Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Surplus\Classification %
+		lineageTag: cc95fc65-067d-416f-8925-3cbd79a569f4
+
+	/// SLOB value share.
+	measure 'SLOB %' = DIVIDE ( [SLOB Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Surplus\Classification %
+		lineageTag: d0dc9664-b9af-4587-b116-b5dabe3fe0a6
+
+	/// Inactive value share.
+	measure 'Inactive %' = DIVIDE ( [Inactive Value at Cost], [On Hand Inventory Value at Cost] )
+		formatString: 0.0%
+		displayFolder: Surplus\Classification %
+		lineageTag: a3c9b1f6-cd24-45e6-8387-243da0f58c70
+
+	/// Current value color helper.
+	measure 'Current Value Color' = [Color - Ashley Orange]
+		displayFolder: UI Helpers\Color
+		lineageTag: 0638e409-95dc-4483-9afb-b53e57f0a925
+
+	/// Prior value color helper.
+	measure 'Prior Value Color' = [Color - Prior Neutral]
+		displayFolder: UI Helpers\Color
+		lineageTag: f6bcb597-8713-40df-94b9-a636c930ac99
+
+	/// Risk color helper.
+	measure 'Risk Color' = [Color - Risk Red]
+		displayFolder: UI Helpers\Color
+		lineageTag: a9b95fe4-8b8d-4d2d-913c-c80976330e6b
+
+	/// Service good color helper.
+	measure 'Service Good Color' = [Color - Good Green]
+		displayFolder: UI Helpers\Color
+		lineageTag: 23051812-744c-4b28-afb3-50c130be327a
+
+	/// Watch color helper.
+	measure 'Watch Color' = [Color - Watch Amber]
+		displayFolder: UI Helpers\Color
+		lineageTag: 3b49f368-efcf-490d-9f8f-4e7c284fed7a
+
+	column __MeasureTable
+		isHidden
+		isNameInferred
+		sourceColumn: [__MeasureTable]
+
+	partition Measure = calculated
+		mode: import
+		source = DATATABLE("__MeasureTable", STRING, {{"Measure"}})
+

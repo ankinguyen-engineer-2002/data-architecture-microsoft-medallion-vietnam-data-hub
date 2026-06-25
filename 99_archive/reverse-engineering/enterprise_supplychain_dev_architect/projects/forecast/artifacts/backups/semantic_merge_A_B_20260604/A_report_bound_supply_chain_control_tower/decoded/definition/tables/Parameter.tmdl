@@ -1,0 +1,48 @@
+table Parameter
+	lineageTag: 3eed2326-6f51-497d-9bd2-a3b8bd64d2be
+
+	column Parameter
+		lineageTag: 8eba09e8-061c-4819-ae96-34b7ae288718
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: 60e506b2-c591-4980-9543-71328863075e
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 11c53512-cd7c-4d31-989a-ae06bae521d8
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("Pct_MAPE", NAMEOF('_Measure'[Pct_MAPE]), 0),
+				    ("Pct_MPE", NAMEOF('_Measure'[Pct_MPE]), 1)
+				}
+
+	annotation PBI_Id = 8d4054790ab94f2a8e0d07855d112cba
+

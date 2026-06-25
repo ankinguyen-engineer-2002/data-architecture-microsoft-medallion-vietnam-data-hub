@@ -1,0 +1,6 @@
+activity_name,invoked_pipeline_id,invoked_workspace_id,operation_type,parameters,pipeline,wait_on_completion
+invoke_mart,9a1e7a12-30ab-465c-a45d-b051619193ac,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0,InvokeFabricPipeline,"{""project_name"": {""type"": ""Expression"", ""value"": ""@item().project""}}",pl_sc_master,True
+invoke_bronze,1bdbaebb-7222-4e9c-a45d-3e632bba846d,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0,InvokeFabricPipeline,"{""project_name"": {""type"": ""Expression"", ""value"": ""@pipeline().parameters.project_name""}}",pl_sc_mart,True
+invoke_silver,46437ae6-3a15-4697-957d-f1f44ba10633,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0,InvokeFabricPipeline,"{""project_name"": {""type"": ""Expression"", ""value"": ""@pipeline().parameters.project_name""}}",pl_sc_mart,True
+invoke_gold,94fc130e-f327-46a9-b7ba-cd2aa328c0da,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0,InvokeFabricPipeline,"{""project_name"": {""type"": ""Expression"", ""value"": ""@pipeline().parameters.project_name""}}",pl_sc_mart,True
+exec_wave,57a09720-21a2-49b5-a472-1e19abd14f76,c8d9fc83-18b6-4e1d-8264-0b49eed36fe0,InvokeFabricPipeline,"{""wave_number"": {""type"": ""Expression"", ""value"": ""@item().wave""}}",pl_sc_silver,True

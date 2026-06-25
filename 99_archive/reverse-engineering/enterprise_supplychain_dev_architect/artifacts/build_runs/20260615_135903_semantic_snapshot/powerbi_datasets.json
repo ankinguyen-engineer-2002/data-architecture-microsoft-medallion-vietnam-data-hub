@@ -1,0 +1,132 @@
+{
+  "@odata.context": "https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1.0/myorg/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/$metadata#datasets",
+  "value": [
+    {
+      "addRowsAPIEnabled": false,
+      "configuredBy": "RoPerez@ashleyfurniture.com",
+      "createReportEmbedURL": "https://app.powerbi.com/reportEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "createdDate": "2025-10-21T18:57:40.547Z",
+      "id": "78f37e0b-726d-41be-b015-f980cc2146c1",
+      "isEffectiveIdentityRequired": false,
+      "isEffectiveIdentityRolesRequired": false,
+      "isOnPremGatewayRequired": false,
+      "isRefreshable": true,
+      "name": "temp_SCPModel",
+      "qnaEmbedURL": "https://app.powerbi.com/qnaEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "queryScaleOutSettings": {
+        "autoSyncReadOnlyReplicas": true,
+        "maxReadOnlyReplicas": 0
+      },
+      "targetStorageMode": "PremiumFiles",
+      "upstreamDatasets": [],
+      "users": [],
+      "webUrl": "https://app.powerbi.com/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/datasets/78f37e0b-726d-41be-b015-f980cc2146c1"
+    },
+    {
+      "addRowsAPIEnabled": false,
+      "configuredBy": "RoPerez@ashleyfurniture.com",
+      "createReportEmbedURL": "https://app.powerbi.com/reportEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "createdDate": "2025-11-07T16:12:01.313Z",
+      "id": "b4b302e7-65d7-464d-9083-aaef9d88dfc2",
+      "isEffectiveIdentityRequired": false,
+      "isEffectiveIdentityRolesRequired": false,
+      "isOnPremGatewayRequired": false,
+      "isRefreshable": true,
+      "name": "SupplyChain_Gold",
+      "qnaEmbedURL": "https://app.powerbi.com/qnaEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "queryScaleOutSettings": {
+        "autoSyncReadOnlyReplicas": true,
+        "maxReadOnlyReplicas": 0
+      },
+      "targetStorageMode": "PremiumFiles",
+      "upstreamDatasets": [],
+      "users": [],
+      "webUrl": "https://app.powerbi.com/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/datasets/b4b302e7-65d7-464d-9083-aaef9d88dfc2"
+    },
+    {
+      "addRowsAPIEnabled": false,
+      "configuredBy": "HHeidi@ashleyfurniture.com",
+      "createReportEmbedURL": "https://app.powerbi.com/reportEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "createdDate": "2026-03-19T02:43:09.127Z",
+      "id": "3eecf594-a75e-46ab-9162-63c95ee68e45",
+      "isEffectiveIdentityRequired": true,
+      "isEffectiveIdentityRolesRequired": true,
+      "isOnPremGatewayRequired": false,
+      "isRefreshable": true,
+      "name": "Supply Chain Control Tower",
+      "qnaEmbedURL": "https://app.powerbi.com/qnaEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "queryScaleOutSettings": {
+        "autoSyncReadOnlyReplicas": true,
+        "maxReadOnlyReplicas": 0
+      },
+      "targetStorageMode": "PremiumFiles",
+      "upstreamDatasets": [],
+      "users": [],
+      "webUrl": "https://app.powerbi.com/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/datasets/3eecf594-a75e-46ab-9162-63c95ee68e45"
+    },
+    {
+      "addRowsAPIEnabled": false,
+      "configuredBy": "HenVo@ashleyfurniture.com",
+      "createReportEmbedURL": "https://app.powerbi.com/reportEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "createdDate": "2026-05-05T08:10:05.057Z",
+      "description": "v10 clone of Supply Chain Control Tower — Direct Lake on SupplyChain_Gold_Warehouse, PascalCase columns, ForecastAccuracy_DW schema",
+      "id": "f06a2361-15fd-4f91-9d37-941fefe62aaf",
+      "isEffectiveIdentityRequired": true,
+      "isEffectiveIdentityRolesRequired": true,
+      "isOnPremGatewayRequired": false,
+      "isRefreshable": true,
+      "name": "sc_control_tower",
+      "qnaEmbedURL": "https://app.powerbi.com/qnaEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "queryScaleOutSettings": {
+        "autoSyncReadOnlyReplicas": true,
+        "maxReadOnlyReplicas": 0
+      },
+      "targetStorageMode": "PremiumFiles",
+      "upstreamDatasets": [],
+      "users": [],
+      "webUrl": "https://app.powerbi.com/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/datasets/f06a2361-15fd-4f91-9d37-941fefe62aaf"
+    },
+    {
+      "addRowsAPIEnabled": false,
+      "configuredBy": "HHeidi@ashleyfurniture.com",
+      "createReportEmbedURL": "https://app.powerbi.com/reportEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "createdDate": "2026-05-07T07:04:00.897Z",
+      "id": "c98ddaea-f10c-4a50-98f9-2e14f56c8c77",
+      "isEffectiveIdentityRequired": false,
+      "isEffectiveIdentityRolesRequired": false,
+      "isOnPremGatewayRequired": false,
+      "isRefreshable": true,
+      "name": "test",
+      "qnaEmbedURL": "https://app.powerbi.com/qnaEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "queryScaleOutSettings": {
+        "autoSyncReadOnlyReplicas": true,
+        "maxReadOnlyReplicas": 0
+      },
+      "targetStorageMode": "Abf",
+      "upstreamDatasets": [],
+      "users": [],
+      "webUrl": "https://app.powerbi.com/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/datasets/c98ddaea-f10c-4a50-98f9-2e14f56c8c77"
+    },
+    {
+      "addRowsAPIEnabled": false,
+      "configuredBy": "RoPerez@ashleyfurniture.com",
+      "createReportEmbedURL": "https://app.powerbi.com/reportEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "createdDate": "2026-05-12T20:23:02.153Z",
+      "id": "c5eda8e4-8448-4af7-ac3b-b00f278d6274",
+      "isEffectiveIdentityRequired": false,
+      "isEffectiveIdentityRolesRequired": false,
+      "isOnPremGatewayRequired": false,
+      "isRefreshable": true,
+      "name": "GitTest2",
+      "qnaEmbedURL": "https://app.powerbi.com/qnaEmbed?config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+      "queryScaleOutSettings": {
+        "autoSyncReadOnlyReplicas": true,
+        "maxReadOnlyReplicas": 0
+      },
+      "targetStorageMode": "PremiumFiles",
+      "upstreamDatasets": [],
+      "users": [],
+      "webUrl": "https://app.powerbi.com/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/datasets/c5eda8e4-8448-4af7-ac3b-b00f278d6274"
+    }
+  ]
+}

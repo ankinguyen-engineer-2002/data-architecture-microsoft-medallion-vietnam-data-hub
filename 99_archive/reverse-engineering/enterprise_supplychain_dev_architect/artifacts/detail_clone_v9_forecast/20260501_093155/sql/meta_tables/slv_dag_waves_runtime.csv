@@ -1,0 +1,9 @@
+sp_name,wave
+silver.slv_naive_forecast_monthly,2
+silver.slv_open_order_monthly,1
+silver.slv_actual_demand_weekly,1
+silver.slv_invoice_weekly,1
+silver.slv_actual_demand_monthly,1
+silver.slv_forecast_demand_monthly,0
+silver.slv_open_order_line_level,0
+silver.slv_invoice_detail_line_level,0

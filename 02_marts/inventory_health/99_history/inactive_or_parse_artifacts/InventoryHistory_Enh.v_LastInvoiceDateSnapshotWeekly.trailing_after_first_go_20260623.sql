@@ -1,0 +1,5 @@
+-- ---------------------------------------------------------------------
+-- Movement flag: DA as-of behavior + direct Mart A invoice source.
+-- ---------------------------------------------------------------------
+-- ---- InventoryHistory_Enh.v_MovementFlagHelper ----
+-- HasMovementLast17W: InvoiceDetail as movement signal per BRD §6 (only sales count for SLOB).

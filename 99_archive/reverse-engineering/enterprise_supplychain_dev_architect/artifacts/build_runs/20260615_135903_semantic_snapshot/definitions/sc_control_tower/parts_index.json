@@ -1,0 +1,98 @@
+[
+  {
+    "path": "definition.pbism",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimCustomerGrouping.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimCalendar.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimWarehouse.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimProduct.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/_Measure_ForecastAccuracy.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimForecastHorizon.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/FactForecastActual.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/FactForecastKpi.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/para_metric_table.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/Parameter.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimVendor.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/InventoryHealthSubStatusWeekly.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/InventoryClassificationQtyWeekly.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/FactInventoryHealthSnapshot.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/_Measure_InventoryHealth.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/IH Compare Period.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/IH Week Horizon.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/relationships.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/roles/All_Permission.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/expressions.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/model.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/database.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": ".platform",
+    "payloadType": "InlineBase64"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "results": [
+    {
+      "tables": [
+        {
+          "rows": [
+            {
+              "[A_cal_rows]": 21551,
+              "[A_product_rows]": 383087,
+              "[A_wh_rows]": 55,
+              "[B_cal_rows]": 21551,
+              "[B_product_rows]": 384087,
+              "[B_wh_rows]": 53,
+              "[health_date_orphans_to_A]": null,
+              "[health_sku_orphans_to_A]": 1356,
+              "[health_wh_orphans_to_A]": 19,
+              "[risk_date_orphans_to_A]": null,
+              "[risk_sku_orphans_to_A]": 1336,
+              "[risk_wh_orphans_to_A]": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

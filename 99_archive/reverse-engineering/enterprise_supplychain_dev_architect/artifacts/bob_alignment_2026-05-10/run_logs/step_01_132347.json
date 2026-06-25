@@ -1,0 +1,36 @@
+{
+  "step": 1,
+  "file": "01_create_new_schemas.sql",
+  "db": "SupplyChain_Processing_Warehouse",
+  "started": "2026-05-10T06:23:41.720934+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "ok",
+      "first": "IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'Staging_Wrk') EXEC('CREATE SCHEMA S"
+    },
+    {
+      "i": 1,
+      "status": "ok",
+      "first": "IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'ReferenceMaster_Enh') EXEC('CREATE "
+    },
+    {
+      "i": 2,
+      "status": "ok",
+      "first": "IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'SalesHistory_Enh') EXEC('CREATE SCH"
+    },
+    {
+      "i": 3,
+      "status": "ok",
+      "first": "IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'ForecastHistory_Enh') EXEC('CREATE "
+    },
+    {
+      "i": 4,
+      "status": "ok",
+      "first": "IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'OpenOrderHistory_Enh') EXEC('CREATE"
+    }
+  ],
+  "ended": "2026-05-10T06:23:47.703142+00:00",
+  "ok": 5,
+  "total": 5
+}

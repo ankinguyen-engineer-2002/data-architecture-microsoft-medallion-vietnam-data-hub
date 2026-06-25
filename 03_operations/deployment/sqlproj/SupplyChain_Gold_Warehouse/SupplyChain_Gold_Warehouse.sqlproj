@@ -1,0 +1,55 @@
+<Project DefaultTargets="Build">
+  <Sdk Name="Microsoft.Build.Sql" Version="2.2.0" />
+  <PropertyGroup>
+    <Name>SupplyChain_Gold_Warehouse</Name>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlDwUnifiedDatabaseSchemaProvider</DSP>
+    <ModelCollation>1033, CI</ModelCollation>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <SuppressMissingDependenciesErrors>True</SuppressMissingDependenciesErrors>
+    <RunSqlCodeAnalysis>False</RunSqlCodeAnalysis>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SqlServer.Dacpacs.FabricDw" Version="170.0.4" />
+    <SqlCmdVariable Include="ETL_Framework">
+      <DefaultValue>ETL_Framework</DefaultValue>
+      <Value>ETL_Framework</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="SupplyChain_Processing_Warehouse">
+      <DefaultValue>SupplyChain_Processing_Warehouse</DefaultValue>
+      <Value>SupplyChain_Processing_Warehouse</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="SupplyChain_Gold_Warehouse">
+      <DefaultValue>SupplyChain_Gold_Warehouse</DefaultValue>
+      <Value>SupplyChain_Gold_Warehouse</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="Enterprise_Lakehouse">
+      <DefaultValue>Enterprise_Lakehouse</DefaultValue>
+      <Value>Enterprise_Lakehouse</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="Staging">
+      <DefaultValue>Staging</DefaultValue>
+      <Value>Staging</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+  <ItemGroup>
+    <Build Remove="_package\**\*" />
+    <None Include="_package\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ETL_Framework\ETL_Framework.sqlproj">
+      <Name>ETL_Framework</Name>
+      <DatabaseVariableLiteralValue>ETL_Framework</DatabaseVariableLiteralValue>
+    </ProjectReference>
+    <ProjectReference Include="..\Enterprise_Lakehouse_Reference\Enterprise_Lakehouse_Reference.sqlproj">
+      <Name>Enterprise_Lakehouse_Reference</Name>
+      <DatabaseVariableLiteralValue>Enterprise_Lakehouse</DatabaseVariableLiteralValue>
+    </ProjectReference>
+    <ProjectReference Include="..\SupplyChain_Processing_Warehouse\SupplyChain_Processing_Warehouse.sqlproj">
+      <Name>SupplyChain_Processing_Warehouse</Name>
+      <DatabaseVariableLiteralValue>SupplyChain_Processing_Warehouse</DatabaseVariableLiteralValue>
+    </ProjectReference>
+  </ItemGroup>
+  <Target Name="BeforeBuild">
+    <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
+  </Target>
+</Project>

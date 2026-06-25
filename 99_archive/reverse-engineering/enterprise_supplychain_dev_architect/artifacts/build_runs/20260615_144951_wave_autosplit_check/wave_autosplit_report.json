@@ -1,0 +1,94 @@
+{
+  "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+  "processing_db": "SupplyChain_Processing_Warehouse",
+  "pipelines": {
+    "pl_sc_silver": "7dc6ecda-56cc-4797-893c-1c502863323f",
+    "pl_sc_silver_wave": "797b1a02-f973-4584-bd27-bb0151549d4b"
+  },
+  "waves_inventory_health": [
+    {
+      "wave_number": 0,
+      "cnt": 4
+    },
+    {
+      "wave_number": 1,
+      "cnt": 7
+    }
+  ],
+  "waves_forecast_accuracy": [
+    {
+      "wave_number": 0,
+      "cnt": 3
+    },
+    {
+      "wave_number": 1,
+      "cnt": 4
+    },
+    {
+      "wave_number": 2,
+      "cnt": 1
+    }
+  ],
+  "silver_wave_runtime_latest": [
+    {
+      "project": "forecast_accuracy",
+      "max_computed_at_utc": "2026-06-10 04:18:57.158387",
+      "min_computed_at_utc": "2026-06-10 04:18:54.682671",
+      "due_cnt": 8,
+      "total_cnt": 8
+    },
+    {
+      "project": "inventory_health",
+      "max_computed_at_utc": "2026-06-15 02:43:35.762827",
+      "min_computed_at_utc": "2026-06-15 02:43:35.199403",
+      "due_cnt": 9,
+      "total_cnt": 11
+    }
+  ],
+  "has_usp_ComputeSilverWaves": 1,
+  "procs_referencing_SilverDagWaveRuntime": [
+    {
+      "schema_name": "Meta",
+      "object_name": "usp_ComputeSilverWaves",
+      "type_desc": "SQL_STORED_PROCEDURE"
+    },
+    {
+      "schema_name": "Meta",
+      "object_name": "usp_DebugLoop",
+      "type_desc": "SQL_STORED_PROCEDURE"
+    },
+    {
+      "schema_name": "Meta",
+      "object_name": "usp_RunSilverDag",
+      "type_desc": "SQL_STORED_PROCEDURE"
+    },
+    {
+      "schema_name": "Meta",
+      "object_name": "v_SilverWaveRuntime",
+      "type_desc": "VIEW"
+    },
+    {
+      "schema_name": "Meta",
+      "object_name": "v_sp_registry",
+      "type_desc": "VIEW"
+    }
+  ],
+  "pipeline_signals": {
+    "pl_sc_silver": {
+      "id": "7dc6ecda-56cc-4797-893c-1c502863323f",
+      "has_pipeline_content": true,
+      "contains_SilverDagWaveRuntime": true,
+      "contains_wave_number_param": true,
+      "contains_usp_ComputeSilverWaves": true,
+      "contains_v_SilverWaveRuntime": false
+    },
+    "pl_sc_silver_wave": {
+      "id": "797b1a02-f973-4584-bd27-bb0151549d4b",
+      "has_pipeline_content": true,
+      "contains_SilverDagWaveRuntime": true,
+      "contains_wave_number_param": true,
+      "contains_usp_ComputeSilverWaves": false,
+      "contains_v_SilverWaveRuntime": false
+    }
+  }
+}

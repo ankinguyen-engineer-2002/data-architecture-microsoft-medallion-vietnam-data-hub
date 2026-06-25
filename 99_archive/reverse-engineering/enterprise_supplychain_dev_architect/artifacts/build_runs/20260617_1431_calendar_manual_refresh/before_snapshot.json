@@ -1,0 +1,19 @@
+{
+  "timestamp_local": "2026-06-17 14:33:35",
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "before": {
+    "processing": {
+      "db": "SupplyChain_Processing_Warehouse",
+      "table": "ReferenceMaster_Enh.Calendar",
+      "rows": 21551,
+      "max_LoadDT": "2026-05-05 07:50:58.576667"
+    },
+    "gold": {
+      "db": "SupplyChain_Gold_Warehouse",
+      "table": "Shared_DW.DimCalendar",
+      "rows": 21551,
+      "max_LoadDT": "2026-06-04 03:12:55.386667"
+    }
+  },
+  "after": {}
+}

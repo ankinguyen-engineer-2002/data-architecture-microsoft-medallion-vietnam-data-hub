@@ -1,0 +1,80 @@
+{
+  "approved_target_count": 8,
+  "finished_at_utc": "2026-05-01T03:59:19.989824+00:00",
+  "results": [
+    {
+      "displayName": "SC_Control_Tower",
+      "id": "a52841ee-d853-46df-b2f7-2a2cc4493d60",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "type": "SemanticModel",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_bronze",
+      "id": "1bdbaebb-7222-4e9c-a45d-3e632bba846d",
+      "returncode": 1,
+      "stderr": "ERROR: Bad Request({\"requestId\":\"98f76c9d-fc77-456d-842a-7899aa24c4fe\",\"errorCode\":\"UnknownError\",\"moreDetails\":[],\"message\":\"An unexpected error occurred while processing the request\",\"isRetriable\":false})",
+      "stdout": "",
+      "type": "DataPipeline",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_silver",
+      "id": "46437ae6-3a15-4697-957d-f1f44ba10633",
+      "returncode": 1,
+      "stderr": "ERROR: Bad Request({\"requestId\":\"0626825a-8390-4c85-9e78-c8c2deb36c2c\",\"errorCode\":\"UnknownError\",\"moreDetails\":[],\"message\":\"An unexpected error occurred while processing the request\",\"isRetriable\":false})",
+      "stdout": "",
+      "type": "DataPipeline",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_gold",
+      "id": "94fc130e-f327-46a9-b7ba-cd2aa328c0da",
+      "returncode": 1,
+      "stderr": "ERROR: Bad Request({\"requestId\":\"05916af9-9440-40da-ae2c-76d2122b80e0\",\"errorCode\":\"UnknownError\",\"moreDetails\":[],\"message\":\"An unexpected error occurred while processing the request\",\"isRetriable\":false})",
+      "stdout": "",
+      "type": "DataPipeline",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_master",
+      "id": "319a8160-3f3a-4b87-8ad6-75ac4f3ec184",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "type": "DataPipeline",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_silver_wave",
+      "id": "57a09720-21a2-49b5-a472-1e19abd14f76",
+      "returncode": 1,
+      "stderr": "ERROR: Bad Request({\"requestId\":\"53de3c05-9d48-406e-aeff-4f268673903c\",\"errorCode\":\"UnknownError\",\"moreDetails\":[],\"message\":\"An unexpected error occurred while processing the request\",\"isRetriable\":false})",
+      "stdout": "",
+      "type": "DataPipeline",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_dq_check",
+      "id": "c32dc18d-d027-4672-9872-f73404cd7c6f",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "type": "DataPipeline",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "displayName": "pl_sc_mart",
+      "id": "9a1e7a12-30ab-465c-a45d-b051619193ac",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "type": "DataPipeline",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    }
+  ],
+  "started_at_utc": "2026-05-01T03:59:07.964585+00:00",
+  "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+}

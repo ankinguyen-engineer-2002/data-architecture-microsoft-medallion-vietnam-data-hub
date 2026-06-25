@@ -1,0 +1,21 @@
+{
+  "step": 12,
+  "file": "12_enhance_usp_logrun.sql",
+  "db": "SupplyChain_Processing_Warehouse",
+  "started": "2026-05-10T06:30:54.283800+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "ok",
+      "first": "-- 12_enhance_usp_logrun.sql"
+    },
+    {
+      "i": 1,
+      "status": "ok",
+      "first": "CREATE PROCEDURE Meta.usp_LogRun"
+    }
+  ],
+  "ended": "2026-05-10T06:30:58.904051+00:00",
+  "ok": 2,
+  "total": 2
+}

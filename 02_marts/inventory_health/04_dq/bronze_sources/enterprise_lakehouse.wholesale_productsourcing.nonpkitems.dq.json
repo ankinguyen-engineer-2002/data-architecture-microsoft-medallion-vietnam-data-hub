@@ -1,0 +1,105 @@
+{
+  "asset_key": "enterprise_lakehouse.wholesale_productsourcing.nonpkitems",
+  "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 9,
+    "columns": [
+      {
+        "column_name": "npkItemNumber",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "npkFutureStatus",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "npkHoldBuyCode",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "usra",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "dtea",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "usrc",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "dtec",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "npkForecastPlannerID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "npkDirectShipItemOnly",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      }
+    ],
+    "exists": true,
+    "freshness": {},
+    "freshness_columns": [],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "full_row_duplicate_extra_rows": null,
+          "full_row_duplicate_groups": 0,
+          "max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 2.28,
+      "status": "PASS"
+    },
+    "key_columns": [],
+    "latest_partition_duplicate": {
+      "error": "No freshness column or no key columns",
+      "rows": [],
+      "status": "NOT_APPLICABLE"
+    },
+    "latest_partition_null_blank": {
+      "error": "No freshness column or no key columns",
+      "rows": [],
+      "status": "NOT_APPLICABLE"
+    },
+    "projects": [
+      "forecast_accuracy",
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems",
+    "row_count_metadata": 0,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems.sql"
+}

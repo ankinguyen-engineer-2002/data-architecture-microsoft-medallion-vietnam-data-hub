@@ -1,0 +1,10 @@
+-- ---- InventoryHistory_Enh.v_LogilityItemStatus ----  [PHASE 2 DEACTIVATED 2026-05-22]
+-- Reason: KPI #17 Inactive / #18 SLOB / #20a Lifecycle past-tracking are Phase 2
+-- conditional KPIs (Excel: "P2 conditional, chờ Robert"). Current status served via
+-- DimItemMaster.AFIItemStatus (Phase 1 path). View kept for Phase 2 reactivation;
+-- the downstream materialization LogilityItemStatusSnapshotWeekly is_active=0.
+-- A3 RESOLVED 2026-05-19: Dhivya promoted to Enterprise.SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility (38.36M rows, 53 cols, types match SC_LH).
+-- D1 FIX 2026-05-19: source has 9,128 GRAIN-CONFLICT groups (NOT true dups) at (Item,Whse,WeekEnding) — 47/53 cols identical, 6 metrics differ.
+--   Pattern: 1 row has actual data, 1 row has zero-placeholder metrics. StatusChngDate IDENTICAL across dup group → old ORDER BY was non-deterministic.
+--   New ORDER BY: prefer row where ShippableInvQty/FirmDemand/OnHandQty are non-zero (data-bearing); fallback to StatusChngDate then OnHandAmt.
+--   Root cause unfixable upstream (DE confirmed Slack 2026-05-09); v10 deterministic at-query-time dedupe.

@@ -1,0 +1,27 @@
+-- Generated from live Fabric metadata: SupplyChain_Processing_Warehouse
+CREATE TABLE [Staging].[DemandForecastSnapshotDaily] (
+    [dfcItem] varchar(8000) NOT NULL,
+    [dfcWarehouse] varchar(8000) NOT NULL,
+    [dfcFiscalMonth] decimal(6,0) NOT NULL,
+    [dfcMainPiece] varchar(8000) NOT NULL,
+    [dfcCollectiveClass] varchar(8000) NOT NULL,
+    [dfcResultantForecast] decimal(9,0) NULL,
+    [dfcPromotionalLift] decimal(9,0) NULL,
+    [dfcForcedForecast] decimal(9,0) NOT NULL,
+    [dfcValidDemandMonths] decimal(3,0) NOT NULL,
+    [dfcSnapshot] datetime2(6) NULL,
+    [dfcPermComptQty] decimal(11,2) NULL,
+    [dfcUsr25Text] varchar(8000) NULL,
+    [dfcUsr32Text] varchar(8000) NULL,
+    [dfcFCSTTypeCode] varchar(8000) NULL,
+    [dfcDerivedFCSTID] varchar(8000) NULL,
+    [dfcDerivedFCSTFctr] decimal(5,3) NULL,
+    [dfcOrderFutureQty] decimal(9,0) NULL,
+    [dfcMgmtCode] varchar(8000) NULL,
+    [usra] varchar(8000) NULL,
+    [dtea] datetime2(6) NULL,
+    [usrc] varchar(8000) NULL,
+    [dtec] datetime2(6) NULL,
+    [DfcCustomerGroups] varchar(8000) NULL,
+    [LoadDT] datetime2(6) NULL
+);

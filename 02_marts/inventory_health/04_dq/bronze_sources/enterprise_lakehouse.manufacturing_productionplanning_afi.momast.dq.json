@@ -1,0 +1,502 @@
+{
+  "asset_key": "enterprise_lakehouse.manufacturing_productionplanning_afi.momast",
+  "display": "Enterprise_Lakehouse.Manufacturing_ProductionPlanning_AFI.MOMAST",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 71,
+    "columns": [
+      {
+        "column_name": "ORDNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "ORQTY",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "QTDEV",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "QTYRC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "JOBNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "REFNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "ODUDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "FITEM",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "FITWH",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "SEQNM",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "ENGNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "VRNV",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "ITRV",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "IPMO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "TLMO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "OSTAT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "SSTDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "LATDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "ASTDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "OCODT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 20
+      },
+      {
+        "column_name": "CSTPC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 21
+      },
+      {
+        "column_name": "SETCO",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 22
+      },
+      {
+        "column_name": "LABCO",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 23
+      },
+      {
+        "column_name": "OVHCO",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 24
+      },
+      {
+        "column_name": "ISSCO",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 25
+      },
+      {
+        "column_name": "MISCO",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 26
+      },
+      {
+        "column_name": "RECCO",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 27
+      },
+      {
+        "column_name": "SCPCO",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 28
+      },
+      {
+        "column_name": "MPROR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 29
+      },
+      {
+        "column_name": "MAFLG",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 30
+      },
+      {
+        "column_name": "MDATE",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 31
+      },
+      {
+        "column_name": "PLINE",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 32
+      },
+      {
+        "column_name": "RUNSQ",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 33
+      },
+      {
+        "column_name": "SCHGP",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 34
+      },
+      {
+        "column_name": "ALTID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 35
+      },
+      {
+        "column_name": "PCSHR",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 36
+      },
+      {
+        "column_name": "PCYFL",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 37
+      },
+      {
+        "column_name": "CHGOV",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 38
+      },
+      {
+        "column_name": "FLWTM",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 39
+      },
+      {
+        "column_name": "PCMDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 40
+      },
+      {
+        "column_name": "ORAC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 41
+      },
+      {
+        "column_name": "ITAC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 42
+      },
+      {
+        "column_name": "SLHV",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 43
+      },
+      {
+        "column_name": "SLCV",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 44
+      },
+      {
+        "column_name": "RLHV",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 45
+      },
+      {
+        "column_name": "RLCV",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 46
+      },
+      {
+        "column_name": "MCHV",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 47
+      },
+      {
+        "column_name": "MCCV",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 48
+      },
+      {
+        "column_name": "OHHV",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 49
+      },
+      {
+        "column_name": "OHCV",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 50
+      },
+      {
+        "column_name": "ITCL",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 51
+      },
+      {
+        "column_name": "ROSD",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 52
+      },
+      {
+        "column_name": "BFFL",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 53
+      },
+      {
+        "column_name": "STID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 54
+      },
+      {
+        "column_name": "RTID",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 55
+      },
+      {
+        "column_name": "FDESC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 56
+      },
+      {
+        "column_name": "PLANN",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 57
+      },
+      {
+        "column_name": "DPTNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 58
+      },
+      {
+        "column_name": "QTSCP",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 59
+      },
+      {
+        "column_name": "QTSPL",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 60
+      },
+      {
+        "column_name": "RATIO",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 61
+      },
+      {
+        "column_name": "MSDQT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 62
+      },
+      {
+        "column_name": "MSNDD",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 63
+      },
+      {
+        "column_name": "MSNSD",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 64
+      },
+      {
+        "column_name": "MSOCC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 65
+      },
+      {
+        "column_name": "SNMBR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 66
+      },
+      {
+        "column_name": "ORRC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 67
+      },
+      {
+        "column_name": "ORTP",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 68
+      },
+      {
+        "column_name": "GAPS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 69
+      },
+      {
+        "column_name": "IAPS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 70
+      },
+      {
+        "column_name": "CRDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 71
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "ASTDT": 1260714,
+      "LATDT": 1260623,
+      "OCODT": 1260629,
+      "ODUDT": 1261231,
+      "SSTDT": 1260916
+    },
+    "freshness_columns": [
+      "ODUDT",
+      "SSTDT",
+      "LATDT",
+      "ASTDT",
+      "OCODT"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 0.817,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "ORDNO"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.311,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": null,
+          "latest_partition_duplicate_groups": 0,
+          "latest_partition_max_rows_per_key": null
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 0.302,
+      "status": "PASS"
+    },
+    "projects": [
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.Manufacturing_ProductionPlanning_AFI.MOMAST",
+    "row_count_metadata": 0,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.Manufacturing_ProductionPlanning_AFI.MOMAST.sql"
+}

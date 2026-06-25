@@ -1,0 +1,236 @@
+table DimBeddingAttributeExt
+	lineageTag: 7f00bf3c-48fc-4413-8f29-9cebe0eca5af
+	sourceLineageTag: [SCP_Core].[DimBeddingAttributeExt]
+
+	column ItemSKU
+		dataType: string
+		lineageTag: 361fb3e1-dfdc-4d60-b89d-4e5711453a4d
+		sourceLineageTag: ItemSKU
+		summarizeBy: none
+		sourceColumn: ItemSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsKit
+		dataType: string
+		lineageTag: 9595f8fc-9677-4944-92e8-8210d93ae4f9
+		sourceLineageTag: IsKit
+		summarizeBy: none
+		sourceColumn: IsKit
+
+		annotation SummarizationSetBy = Automatic
+
+	column CoProduced
+		dataType: string
+		lineageTag: 5c3ee686-a4f3-46b4-aefe-b29a6bd1df9c
+		sourceLineageTag: CoProduced
+		summarizeBy: none
+		sourceColumn: CoProduced
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsPurchased
+		dataType: string
+		lineageTag: fa008d7a-d056-4f49-9a64-0703c68f3dcf
+		sourceLineageTag: IsPurchased
+		summarizeBy: none
+		sourceColumn: IsPurchased
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsManufactured
+		dataType: string
+		lineageTag: f4adda4b-fd39-4a01-bbfc-3e857d007964
+		sourceLineageTag: IsManufactured
+		summarizeBy: none
+		sourceColumn: IsManufactured
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		dataType: string
+		lineageTag: 3b184ccd-5577-451d-9104-c6f3e526be48
+		sourceLineageTag: Brand
+		summarizeBy: none
+		sourceColumn: Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column Version
+		dataType: string
+		lineageTag: 084991ba-2c7f-45fa-81b5-f64d98870877
+		sourceLineageTag: Version
+		summarizeBy: none
+		sourceColumn: Version
+
+		annotation SummarizationSetBy = Automatic
+
+	column BrandVersion
+		dataType: string
+		lineageTag: 0a55f898-7050-44f7-8afc-d3f04e6e5b9a
+		sourceLineageTag: BrandVersion
+		summarizeBy: none
+		sourceColumn: BrandVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column BrandFamily
+		dataType: string
+		lineageTag: 7529bfc6-a7e3-4471-8954-d913553d7a0b
+		sourceLineageTag: BrandFamily
+		summarizeBy: none
+		sourceColumn: BrandFamily
+
+		annotation SummarizationSetBy = Automatic
+
+	column BU_Development
+		dataType: string
+		lineageTag: 827839e6-2f09-42ab-952c-999769deb0ee
+		sourceLineageTag: BU_Development
+		summarizeBy: none
+		sourceColumn: BU_Development
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrimaryBusinessUnit
+		dataType: string
+		lineageTag: 9bb044f3-29b9-4bd9-944a-69272d06ddbb
+		sourceLineageTag: PrimaryBusinessUnit
+		summarizeBy: none
+		sourceColumn: PrimaryBusinessUnit
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrimaryChannel
+		dataType: string
+		lineageTag: 8bc386ac-ee8d-4d07-94f9-b5425f81bd36
+		sourceLineageTag: PrimaryChannel
+		summarizeBy: none
+		sourceColumn: PrimaryChannel
+
+		annotation SummarizationSetBy = Automatic
+
+	column CategoryMaster
+		dataType: string
+		lineageTag: 9997d82b-9e8e-4e27-aac7-028b9a6dd7db
+		sourceLineageTag: CategoryMaster
+		summarizeBy: none
+		sourceColumn: CategoryMaster
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 7f3b03f0-2bf5-4318-b392-6a45b46c91dc
+		sourceLineageTag: Category
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransitionMap
+		dataType: string
+		lineageTag: 2cd89e74-8d26-4a63-9cce-6f5e9ae60713
+		sourceLineageTag: TransitionMap
+		summarizeBy: none
+		sourceColumn: TransitionMap
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransitionVersion
+		dataType: string
+		lineageTag: 623b8d2b-522a-4108-ad74-e7e9ad11d2cf
+		sourceLineageTag: TransitionVersion
+		summarizeBy: none
+		sourceColumn: TransitionVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarAssignment
+		dataType: string
+		lineageTag: 0a2b86ac-5389-49c9-b4da-3ebbaa3fc208
+		sourceLineageTag: CalendarAssignment
+		summarizeBy: none
+		sourceColumn: CalendarAssignment
+
+		annotation SummarizationSetBy = Automatic
+
+	column SpecialProgram
+		dataType: string
+		lineageTag: 143a35a9-3f2c-491e-b8ec-f363dbb622c0
+		sourceLineageTag: SpecialProgram
+		summarizeBy: none
+		sourceColumn: SpecialProgram
+
+		annotation SummarizationSetBy = Automatic
+
+	column JBPAtt1
+		dataType: string
+		lineageTag: 15532541-f8d3-49eb-bfc7-241a765877e0
+		sourceLineageTag: JBPAtt1
+		summarizeBy: none
+		sourceColumn: JBPAtt1
+
+		annotation SummarizationSetBy = Automatic
+
+	column JBPAtt2
+		dataType: string
+		lineageTag: 906dd9a5-7b03-4878-9636-7b3215640fb4
+		sourceLineageTag: JBPAtt2
+		summarizeBy: none
+		sourceColumn: JBPAtt2
+
+		annotation SummarizationSetBy = Automatic
+
+	column JBPAtt3
+		dataType: string
+		lineageTag: c9d30713-b5c9-4b2c-ba33-654f4bd5e0d6
+		sourceLineageTag: JBPAtt3
+		summarizeBy: none
+		sourceColumn: JBPAtt3
+
+		annotation SummarizationSetBy = Automatic
+
+	column JBPAtt4
+		dataType: string
+		lineageTag: c2279fb2-f311-4a2f-b3f0-def155fe6459
+		sourceLineageTag: JBPAtt4
+		summarizeBy: none
+		sourceColumn: JBPAtt4
+
+		annotation SummarizationSetBy = Automatic
+
+	column JBPAtt5
+		dataType: string
+		lineageTag: 7bf55692-9165-4398-9136-07ec52c91ae2
+		sourceLineageTag: JBPAtt5
+		summarizeBy: none
+		sourceColumn: JBPAtt5
+
+		annotation SummarizationSetBy = Automatic
+
+	column JBPAtt6
+		dataType: string
+		lineageTag: 66bc0642-f438-425d-b592-95c4b30b3f08
+		sourceLineageTag: JBPAtt6
+		summarizeBy: none
+		sourceColumn: JBPAtt6
+
+		annotation SummarizationSetBy = Automatic
+
+	column JBPAtt7
+		dataType: string
+		lineageTag: f4da9753-cbcd-4e7b-a504-e876eac0b935
+		sourceLineageTag: JBPAtt7
+		summarizeBy: none
+		sourceColumn: JBPAtt7
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimBeddingAttributeExt = entity
+		mode: directLake
+		source
+			entityName: DimBeddingAttributeExt
+			schemaName: SCP_Core
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

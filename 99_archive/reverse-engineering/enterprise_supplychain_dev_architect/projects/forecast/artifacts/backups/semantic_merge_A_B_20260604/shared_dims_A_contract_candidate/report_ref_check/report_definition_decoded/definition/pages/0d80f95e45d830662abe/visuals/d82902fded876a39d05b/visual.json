@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "d82902fded876a39d05b",
+  "position": {
+    "x": 37.5,
+    "y": 823.75,
+    "z": 8000,
+    "height": 180,
+    "width": 620,
+    "tabOrder": 7000
+  },
+  "visualGroup": {
+    "displayName": "Dashboard pages",
+    "groupMode": "ScaleMode"
+  }
+}

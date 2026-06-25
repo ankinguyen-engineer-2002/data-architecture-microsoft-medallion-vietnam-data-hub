@@ -1,0 +1,296 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "lk_gold",
+        "type": "Lookup",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "sqlReaderQuery": "SELECT r.physical_schema, r.physical_object, REPLACE(r.legacy_view_name, r.physical_schema + '.', '') AS view_name FROM SupplyChain_Processing_Warehouse.Meta.AssetRegistry r WHERE r.canonical_layer = 'Gold' AND r.is_active = 1 AND (r.next_run_time IS NULL OR r.next_run_time <= GETUTCDATE()) AND r.project = '@{pipeline().parameters.project_name}' ORDER BY CASE WHEN r.physical_object LIKE 'Dim%' THEN 0 ELSE 1 END, r.physical_object",
+            "partitionOption": "None"
+          },
+          "firstRowOnly": false,
+          "datasetSettings": {
+            "annotations": [],
+            "connectionSettings": {
+              "name": "SupplyChain_Lakehouse",
+              "properties": {
+                "annotations": [],
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+                  "artifactId": "62a3081e-4093-4f46-856c-f50aa58732fa",
+                  "rootFolder": "Tables"
+                },
+                "externalReferences": {
+                  "connection": "b4311980-3d3b-49be-bd11-7e2f8e424e19"
+                }
+              }
+            },
+            "type": "LakehouseTable",
+            "schema": [],
+            "typeProperties": {}
+          }
+        }
+      },
+      {
+        "name": "fe_gold",
+        "type": "ForEach",
+        "dependsOn": [
+          {
+            "activity": "lk_gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "items": {
+            "value": "@activity('lk_gold').output.value",
+            "type": "Expression"
+          },
+          "batchCount": 4,
+          "activities": [
+            {
+              "name": "log_gold_start",
+              "type": "SqlServerStoredProcedure",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.01:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 60,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "storedProcedureName": "[Meta].[usp_LogRun]",
+                "storedProcedureParameters": {
+                  "run_id": {
+                    "value": {
+                      "value": "@concat('gld::', pipeline().RunId, '::', item().physical_schema, '.', item().physical_object)",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  },
+                  "asset_id": {
+                    "value": {
+                      "value": "@concat(item().physical_schema, '.', item().physical_object)",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  },
+                  "status": {
+                    "value": "running",
+                    "type": "String"
+                  },
+                  "pipeline_run_id": {
+                    "value": {
+                      "value": "@pipeline().RunId",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  }
+                }
+              },
+              "linkedService": {
+                "name": "wh",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+                    "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+                    "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+                  }
+                }
+              }
+            },
+            {
+              "name": "exec_gold",
+              "type": "Script",
+              "dependsOn": [
+                {
+                  "activity": "log_gold_start",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ],
+              "policy": {
+                "timeout": "0.02:00:00",
+                "retry": 1,
+                "retryIntervalInSeconds": 60,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "scripts": [
+                  {
+                    "type": "NonQuery",
+                    "text": {
+                      "value": "@concat('DROP TABLE IF EXISTS ', item().physical_schema, '.', item().physical_object, '; CREATE TABLE ', item().physical_schema, '.', item().physical_object, ' AS SELECT * FROM ', item().physical_schema, '.', item().view_name)",
+                      "type": "Expression"
+                    }
+                  }
+                ]
+              },
+              "linkedService": {
+                "name": "wh_gold",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+                    "artifactId": "98e2a911-5af9-442e-9cc8-5d8dadb8b762",
+                    "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+                  }
+                }
+              }
+            },
+            {
+              "name": "log_gold_success",
+              "type": "SqlServerStoredProcedure",
+              "dependsOn": [
+                {
+                  "activity": "exec_gold",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ],
+              "policy": {
+                "timeout": "0.01:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 60,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "storedProcedureName": "[Meta].[usp_LogRun]",
+                "storedProcedureParameters": {
+                  "run_id": {
+                    "value": {
+                      "value": "@concat('gld::', pipeline().RunId, '::', item().physical_schema, '.', item().physical_object)",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  },
+                  "asset_id": {
+                    "value": {
+                      "value": "@concat(item().physical_schema, '.', item().physical_object)",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  },
+                  "status": {
+                    "value": "success",
+                    "type": "String"
+                  },
+                  "pipeline_run_id": {
+                    "value": {
+                      "value": "@pipeline().RunId",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  }
+                }
+              },
+              "linkedService": {
+                "name": "wh",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+                    "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+                    "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+                  }
+                }
+              }
+            },
+            {
+              "name": "log_gold_failed",
+              "type": "SqlServerStoredProcedure",
+              "dependsOn": [
+                {
+                  "activity": "exec_gold",
+                  "dependencyConditions": [
+                    "Failed"
+                  ]
+                }
+              ],
+              "policy": {
+                "timeout": "0.01:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 60,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "storedProcedureName": "[Meta].[usp_LogRun]",
+                "storedProcedureParameters": {
+                  "run_id": {
+                    "value": {
+                      "value": "@concat('gld::', pipeline().RunId, '::', item().physical_schema, '.', item().physical_object)",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  },
+                  "asset_id": {
+                    "value": {
+                      "value": "@concat(item().physical_schema, '.', item().physical_object)",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  },
+                  "status": {
+                    "value": "failed",
+                    "type": "String"
+                  },
+                  "pipeline_run_id": {
+                    "value": {
+                      "value": "@pipeline().RunId",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  },
+                  "error_message": {
+                    "value": "gold CTAS failed",
+                    "type": "String"
+                  }
+                }
+              },
+              "linkedService": {
+                "name": "wh",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+                    "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+                    "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "parameters": {
+      "project_name": {
+        "type": "String",
+        "defaultValue": "supplychain"
+      }
+    }
+  }
+}

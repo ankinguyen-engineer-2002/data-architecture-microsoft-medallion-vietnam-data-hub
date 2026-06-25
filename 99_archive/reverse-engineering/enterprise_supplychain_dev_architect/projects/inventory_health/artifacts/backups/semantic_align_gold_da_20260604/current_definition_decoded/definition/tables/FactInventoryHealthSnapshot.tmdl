@@ -1,0 +1,268 @@
+table FactInventoryHealthSnapshot
+	lineageTag: dc2117de-e4b9-4e37-9842-0efcb6a1ca82
+
+	column ItemSku
+		dataType: string
+		lineageTag: 6420303c-6c67-473b-b489-90655cb5368c
+		summarizeBy: none
+		sourceColumn: ItemSku
+
+	column WarehouseCode
+		dataType: string
+		lineageTag: b7561ab0-ec69-4239-8ae4-6f1e03414628
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+	column SnapshotDate
+		dataType: dateTime
+		lineageTag: d8b4e8df-55b9-4dfe-ab1c-e3887ac3d3ed
+		summarizeBy: none
+		sourceColumn: SnapshotDate
+
+	column SnapshotType
+		dataType: string
+		lineageTag: f4668220-1d7f-4c51-80da-0318ececbdfc
+		summarizeBy: none
+		sourceColumn: SnapshotType
+
+	column WeekEndingDate
+		dataType: dateTime
+		lineageTag: d9003f0f-af17-4717-b810-a58a30d597fe
+		summarizeBy: none
+		sourceColumn: WeekEndingDate
+
+	column DateKey
+		dataType: int64
+		lineageTag: 217d6929-fe91-453b-baf3-4fb44837331d
+		summarizeBy: sum
+		sourceColumn: DateKey
+
+	column FiscalMonth
+		dataType: int64
+		lineageTag: f48b7f4b-23ef-40ae-85ec-ca5acc6926a1
+		summarizeBy: sum
+		sourceColumn: FiscalMonth
+
+	column FiscalMonthYear
+		dataType: int64
+		lineageTag: 0601469b-62ac-4e33-8bdb-4e4a8e86e06f
+		summarizeBy: sum
+		sourceColumn: FiscalMonthYear
+
+	column IsLatestSnapshot
+		dataType: boolean
+		lineageTag: e4926516-4a82-4a32-9a0d-c14900ca477f
+		summarizeBy: none
+		sourceColumn: IsLatestSnapshot
+
+	column SourceSystem
+		dataType: string
+		lineageTag: b5cbf900-5242-42df-a196-8df77667a2c4
+		summarizeBy: none
+		sourceColumn: SourceSystem
+
+	column SourceTable
+		dataType: string
+		lineageTag: 2bd5fca7-aac8-401b-b376-314223460d57
+		summarizeBy: none
+		sourceColumn: SourceTable
+
+	column OnHandQty
+		dataType: decimal
+		lineageTag: c34f3cbc-6abf-490c-bf6a-c86d038ae4af
+		summarizeBy: sum
+		sourceColumn: OnHandQty
+
+	column TransferInInTransitQty
+		dataType: decimal
+		lineageTag: 6e3b9574-c946-434e-9cea-b4eb69ed428d
+		summarizeBy: sum
+		sourceColumn: TransferInInTransitQty
+
+	column POInTransitQty
+		dataType: decimal
+		lineageTag: 80d9363c-0dca-430f-ba73-5802409f0def
+		summarizeBy: sum
+		sourceColumn: POInTransitQty
+
+	column POOnOrderQty
+		dataType: decimal
+		lineageTag: 6fd3038f-9a57-4aa9-bd14-9aac00d3e4d5
+		summarizeBy: sum
+		sourceColumn: POOnOrderQty
+
+	column MOOnOrderQty
+		dataType: decimal
+		lineageTag: ed39154d-0a6d-4e23-9f4b-8159c15588c6
+		summarizeBy: sum
+		sourceColumn: MOOnOrderQty
+
+	column InTransitQty
+		dataType: decimal
+		lineageTag: 24e0481d-b3f5-4936-8c9f-ab7eedb23129
+		summarizeBy: sum
+		sourceColumn: InTransitQty
+
+	column OnOrderQty
+		dataType: decimal
+		lineageTag: e22586d1-958f-4fe7-b898-d73971fb0759
+		summarizeBy: sum
+		sourceColumn: OnOrderQty
+
+	column AwdQty
+		dataType: decimal
+		lineageTag: 4de37388-24eb-4066-8710-a26c818b96aa
+		summarizeBy: sum
+		sourceColumn: AwdQty
+
+	column AwdSource
+		dataType: string
+		lineageTag: 24248c8c-abb7-4e9f-8187-d17b6d1afc51
+		summarizeBy: none
+		sourceColumn: AwdSource
+
+	column WeeksOfSupply
+		dataType: decimal
+		lineageTag: 134b8441-a100-41c1-b213-01eeec83d0d1
+		summarizeBy: sum
+		sourceColumn: WeeksOfSupply
+
+	column SafetyStockTargetQty
+		dataType: decimal
+		lineageTag: d38d2037-02a9-463d-9f5c-02611d575088
+		summarizeBy: sum
+		sourceColumn: SafetyStockTargetQty
+
+	column SafetyStockMultiple
+		dataType: decimal
+		lineageTag: 04da36aa-3d6b-4639-98ae-388c5afa3317
+		summarizeBy: sum
+		sourceColumn: SafetyStockMultiple
+
+	column InventoryClassification
+		dataType: string
+		lineageTag: f551ad4a-b6cf-4c58-b1c5-d517c5bb3cc2
+		summarizeBy: none
+		sourceColumn: InventoryClassification
+
+	column StandardCost
+		dataType: decimal
+		lineageTag: dcab3430-1daa-43d3-bfe8-ea77bb54f887
+		summarizeBy: sum
+		sourceColumn: StandardCost
+
+	column FobArcPrice
+		dataType: decimal
+		lineageTag: bc75b928-a4fc-4780-8687-3b329322d522
+		summarizeBy: sum
+		sourceColumn: FobArcPrice
+
+	column Cubes
+		dataType: decimal
+		lineageTag: db74c07a-8abd-450b-8472-fa7245fee11c
+		summarizeBy: sum
+		sourceColumn: Cubes
+
+	column InventoryValueAtCost
+		dataType: decimal
+		lineageTag: 5f248ab4-f60c-4afc-be3a-ca0178840cfa
+		summarizeBy: sum
+		sourceColumn: InventoryValueAtCost
+
+	column InventoryValueAtRevenue
+		dataType: decimal
+		lineageTag: 8e834910-a5e4-42d3-97c0-46cc7c6d837b
+		summarizeBy: sum
+		sourceColumn: InventoryValueAtRevenue
+
+	column UsedStorageCube
+		dataType: decimal
+		lineageTag: 4200909f-e352-4ba7-805c-d118a065503e
+		summarizeBy: sum
+		sourceColumn: UsedStorageCube
+
+	column PeriodCogs
+		dataType: decimal
+		lineageTag: 66f9cef1-3417-43e3-84ba-804f1eaebfe7
+		summarizeBy: sum
+		sourceColumn: PeriodCogs
+
+	column Cogs52W
+		dataType: decimal
+		lineageTag: 1e200e76-d69c-4006-9d42-93bb049c324e
+		summarizeBy: sum
+		sourceColumn: Cogs52W
+
+	column Cogs12M
+		dataType: decimal
+		lineageTag: 3dd1ed05-644b-47b1-8c0d-8da51b598963
+		summarizeBy: sum
+		sourceColumn: Cogs12M
+
+	column AverageInventoryValueAtCost
+		dataType: decimal
+		lineageTag: 9160a253-cc03-432a-883d-212c0c3a7be2
+		summarizeBy: sum
+		sourceColumn: AverageInventoryValueAtCost
+
+	column LastInvoiceDate
+		dataType: dateTime
+		lineageTag: 3c81cc9c-01c6-4ff7-8f6e-aaad87685243
+		summarizeBy: none
+		sourceColumn: LastInvoiceDate
+
+	column LifecycleStatus
+		dataType: string
+		lineageTag: a56c8052-c7f6-4a1f-8acf-7b7b0ff39071
+		summarizeBy: none
+		sourceColumn: LifecycleStatus
+
+	column InactiveFlag
+		dataType: boolean
+		lineageTag: 9b9264b2-2c4c-42a3-8160-6db8d8013184
+		summarizeBy: none
+		sourceColumn: InactiveFlag
+
+	column SlobFlag
+		dataType: boolean
+		lineageTag: edfa14b0-6d39-4cae-b649-674e2538bd6a
+		summarizeBy: none
+		sourceColumn: SlobFlag
+
+	column NoMovementFlag
+		dataType: boolean
+		lineageTag: 0e793f33-ee54-4246-9861-72b82e6826a3
+		summarizeBy: none
+		sourceColumn: NoMovementFlag
+
+	column UnavailableFlag
+		dataType: boolean
+		lineageTag: 292c7fa2-80ec-4794-a92a-f7866c0b1420
+		summarizeBy: none
+		sourceColumn: UnavailableFlag
+
+	column OnHoldQty
+		dataType: decimal
+		lineageTag: 184c6adb-9d17-4901-a80b-2b08771e66a6
+		summarizeBy: sum
+		sourceColumn: OnHoldQty
+
+	column OnHoldFlag
+		dataType: boolean
+		lineageTag: cd7a2e8e-755a-4c53-97c4-e0068bc6c26e
+		summarizeBy: none
+		sourceColumn: OnHoldFlag
+
+	column ObsoleteValue
+		dataType: decimal
+		lineageTag: acb9d533-3576-4db3-824c-f7cd481fb967
+		summarizeBy: sum
+		sourceColumn: ObsoleteValue
+
+	partition FactInventoryHealthSnapshot-de23707e-7585-45ba-bc29-bab3324a689f = entity
+		mode: directLake
+		source
+			entityName: FactInventoryHealthSnapshot
+			schemaName: InventoryHealth_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'
+

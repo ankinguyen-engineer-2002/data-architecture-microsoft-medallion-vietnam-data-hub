@@ -1,0 +1,6 @@
+-- ---- InventoryHistory_Enh.v_LastInvoiceDateSnapshotWeekly ----
+-- Weekly grain output for Gold fact join:
+--   ItemSku + WarehouseCode + WeekEndingDate
+-- Purpose:
+--   Same as-of logic as v_LastInvoiceHelper, but does NOT depend on it.
+--   This supports future retirement of v_LastInvoiceHelper without breaking KPI joins.

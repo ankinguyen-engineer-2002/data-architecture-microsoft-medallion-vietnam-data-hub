@@ -1,0 +1,12 @@
+flowchart TD
+    Context["Đọc AGENTS + current context"]
+    Live["Scan live Fabric / SQL metadata"]
+    Sync["Sync mart SQL + DQ/catalog packages"]
+    Build["Build SQLPROJ package"]
+    Manifest["Update manifest / wrapper contract"]
+    Validate["Dry-run / compile / DQ / semantic smoke"]
+    Handoff["Chuẩn bị scheduler / BOB handoff"]
+    Log["Update context + docs"]
+
+    Context --> Live --> Sync --> Build --> Manifest --> Validate --> Handoff --> Log
+    Log --> Context

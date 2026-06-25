@@ -1,0 +1,151 @@
+name: inventory_health
+description: Inventory Health mart ad-hoc refresh order.
+workspace_id: c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+enterprise_wrk_contract:
+  target_schema_rule: "Final schema/table is the ETL target."
+  source_view_rule: "Framework source view is <target_schema>_Wrk.v_<target_table>."
+  base_schema_views: "Legacy compatibility only; do not use for new orchestration."
+pipeline:
+  name: pl_sc_mart
+  id: 20db5725-80e3-4081-9ef5-01700acdf3b3
+  api: dataPipelineExecute
+  parameters_need_verify: true
+  parameters:
+    project_name: inventory_health
+wrapper_procedures:
+  - step: 100
+    database: SupplyChain_Processing_Warehouse
+    schema: dbo
+    procedure: Usp_Refresh_InventoryHealth_Silver
+    purpose: Inventory Health Silver waves, including ReferenceMaster prerequisites.
+  - step: 200
+    database: SupplyChain_Gold_Warehouse
+    schema: dbo
+    procedure: Usp_Refresh_InventoryHealth_Gold
+    purpose: Inventory Health Gold waves, including Shared_DW prerequisites.
+sequence:
+  - step: 90
+    wave: 0
+    object: ReferenceMaster_Enh.*
+    load_type: manifest
+    purpose: Reference/master data (prereq for Silver and Shared dims)
+  - step: 100
+    wave: 0
+    object: InventoryHistory_Enh.PurchaseOrderSnapshotHistorical
+    load_type: overwrite
+    purpose: PO historical snapshot
+  - step: 110
+    wave: 0
+    object: InventoryHistory_Enh.ManufacturingOrderSnapshotDaily
+    load_type: DateKey
+    purpose: MO daily snapshot
+  - step: 120
+    wave: 0
+    object: InventoryHistory_Enh.HoldingTransferSnapshotDaily
+    load_type: DateKey
+    purpose: Holding transfer snapshot
+  - step: 130
+    wave: 0
+    object: InventoryHistory_Enh.InventorySnapshotWeekly
+    load_type: overwrite
+    purpose: Weekly inventory snapshot
+  - step: 140
+    wave: 0
+    object: InventoryHistory_Enh.ForecastSnapshotWeekly
+    load_type: overwrite
+    purpose: Weekly forecast snapshot
+  - step: 150
+    wave: 0
+    object: InventoryHistory_Enh.SupplyPlanDetail
+    load_type: overwrite
+    purpose: Supply plan detail
+  - step: 160
+    wave: 0
+    object: InventoryHistory_Enh.AtpWeekEnding
+    load_type: overwrite
+    purpose: ATP week ending
+  - step: 170
+    wave: 0
+    object: InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit
+    load_type: overwrite
+    purpose: Historical item balance with in-transit
+  - step: 300
+    wave: 1
+    object: SalesHistory_Enh.InvoiceDetailLineLevel
+    load_type: overwrite
+    purpose: Invoice detail Silver dependency
+  - step: 310
+    wave: 1
+    object: InventoryHistory_Enh.AFIStatusSnapshotWeekly
+    load_type: overwrite
+    purpose: AFI status snapshot
+  - step: 320
+    wave: 1
+    object: InventoryHistory_Enh.AwdHelper
+    load_type: overwrite
+    purpose: AWD helper
+  - step: 330
+    wave: 1
+    object: InventoryHistory_Enh.SafetyStockHelper
+    load_type: overwrite
+    purpose: Safety stock helper
+  - step: 340
+    wave: 1
+    object: InventoryHistory_Enh.LastInvoiceWeekly
+    load_type: overwrite
+    purpose: Last invoice weekly
+  - step: 350
+    wave: 1
+    object: InventoryHistory_Enh.Cogs52WWeekly
+    load_type: overwrite
+    purpose: 52-week COGS helper
+  - step: 360
+    wave: gold_shared
+    object: Shared_DW.DimCalendar
+    load_type: overwrite_or_current_manifest
+    purpose: Shared date dimension
+  - step: 370
+    wave: gold_shared
+    object: Shared_DW.DimProduct
+    load_type: overwrite_or_current_manifest
+    purpose: Shared product dimension
+  - step: 380
+    wave: gold_shared
+    object: Shared_DW.DimWarehouse
+    load_type: overwrite_or_current_manifest
+    purpose: Shared warehouse dimension
+  - step: 400
+    wave: gold_dim
+    object: InventoryHealth_DW.DimVendor
+    load_type: manifest
+    purpose: Vendor dimension
+  - step: 410
+    wave: gold_helper
+    object: InventoryHealth_DW.ProjectedInventoryHealthSubStatus
+    load_type: overwrite
+    purpose: Projected sub-status helper
+  - step: 420
+    wave: gold_helper
+    object: InventoryHealth_DW.InventoryHealthSubStatusWeekly
+    load_type: overwrite
+    purpose: Weekly inventory health sub-status
+  - step: 430
+    wave: gold_helper
+    object: InventoryHealth_DW.InventoryClassificationQtyWeekly
+    load_type: overwrite
+    purpose: Weekly inventory classification quantity
+  - step: 500
+    wave: gold_fact
+    object: InventoryHealth_DW.FactInventoryHealthFutureWeekEnding
+    load_type: overwrite
+    purpose: Future week-ending inventory health fact
+  - step: 510
+    wave: gold_fact
+    object: InventoryHealth_DW.FactInventoryHealthSnapshot
+    load_type: manifest
+    purpose: Inventory health fact
+  - step: 900
+    wave: smoke
+    object: 04_semantic/row-count/freshness/grain
+    load_type: read_only
+    purpose: Post-run validation

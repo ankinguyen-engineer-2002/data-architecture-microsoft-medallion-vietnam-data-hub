@@ -1,0 +1,40 @@
+{
+  "ok": false,
+  "results": [
+    {
+      "name": "sql.usp_LogPipelineRun_has_project_param",
+      "ok": true,
+      "details": "Meta.usp_LogPipelineRun has @project"
+    },
+    {
+      "name": "sql.TableDictionary_has_Cogs52WWeekly",
+      "ok": true,
+      "details": "Meta.TableDictionary contains InventoryHistory_Enh.Cogs52WWeekly"
+    },
+    {
+      "name": "sql.TableDictionary_has_ItemBalanceHistorical_WithInTransit",
+      "ok": true,
+      "details": "Meta.TableDictionary contains InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit"
+    },
+    {
+      "name": "pipeline.pl_sc_mart_has_usp_LogPipelineRun",
+      "ok": false,
+      "details": "pl_sc_mart is missing Meta.usp_LogPipelineRun logging"
+    },
+    {
+      "name": "pipeline.pl_sc_gold_has_usp_LogRun",
+      "ok": false,
+      "details": "pl_sc_gold does not log per-table runs (Meta.usp_LogRun not found)"
+    },
+    {
+      "name": "pipeline.pl_sc_gold_has_due_gate",
+      "ok": false,
+      "details": "pl_sc_gold lookup does not appear to include a due gate"
+    },
+    {
+      "name": "pipeline.pl_sc_silver_wave_has_due_gate",
+      "ok": false,
+      "details": "pl_sc_silver_wave does not appear to filter due-only assets"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+rule_id,asset_id,source_object,target_object,reconciliation_type,tolerance_value,severity,is_active
+recon::gold::FactForecastActual::rowcount,ForecastAccuracy_DW.FactForecastActual,SupplyChain_Warehouse.ForecastAccuracy_DW.FactForecastActual,SupplyChain_Gold_Warehouse.ForecastAccuracy.FactForecastActual,RowCount,0.0000,CRITICAL,True
+recon::gold::FactForecastKpi::rowcount,ForecastAccuracy_DW.FactForecastKpi,SupplyChain_Warehouse.ForecastAccuracy_DW.FactForecastKpi,SupplyChain_Gold_Warehouse.ForecastAccuracy.FactForecastKpi,RowCount,0.0000,CRITICAL,True
+recon::staging::InvoiceDetailEdw::rowcount,Staging_Wrk.InvoiceDetailEdw,SupplyChain_Lakehouse.dbo.brz_saleshistory_afi__invoicedetail_ver2,Staging.InvoiceDetailEdw,RowCount,0.0000,CRITICAL,True
+recon::staging::DemandForecastSnapshotDailyEdw::rowcount,Staging_Wrk.DemandForecastSnapshotDailyEdw,SupplyChain_Lakehouse.dbo.brz_supplychain_enh_1__demandforecastsnapshotdaily_ver2,Staging.DemandForecastSnapshotDailyEdw,RowCount,0.0000,CRITICAL,True
+recon::staging::InvoiceHeaderEdw::rowcount,Staging_Wrk.InvoiceHeaderEdw,SupplyChain_Lakehouse.dbo.brz_saleshistory_afi__invoiceheader_ver2,Staging.InvoiceHeaderEdw,RowCount,0.0000,CRITICAL,True
+recon::staging::ProductEdw::rowcount,Staging_Wrk.ProductEdw,SupplyChain_Lakehouse.dbo.ref_product_ver2,Staging.ProductEdw,RowCount,0.0000,CRITICAL,True

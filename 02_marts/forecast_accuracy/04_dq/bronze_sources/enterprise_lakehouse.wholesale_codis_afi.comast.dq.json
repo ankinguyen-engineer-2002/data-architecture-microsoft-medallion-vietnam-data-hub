@@ -1,0 +1,140 @@
+{
+  "asset_key": "enterprise_lakehouse.wholesale_codis_afi.comast",
+  "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.COMAST",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 15,
+    "columns": [
+      {
+        "column_name": "ACREC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "ORDNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "CUSNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "CUSPO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "ORDTE",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "MPROR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "CMEMO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "HOUSE",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "SLSNO",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "ORVAL",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "SHPNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "RQDTE",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "SHLTC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "SHINS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "CUSPD",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      }
+    ],
+    "exists": true,
+    "freshness": {},
+    "freshness_columns": [],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "full_row_duplicate_extra_rows": null,
+          "full_row_duplicate_groups": 0,
+          "max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 4.979,
+      "status": "PASS"
+    },
+    "key_columns": [],
+    "latest_partition_duplicate": {
+      "error": "No freshness column or no key columns",
+      "rows": [],
+      "status": "NOT_APPLICABLE"
+    },
+    "latest_partition_null_blank": {
+      "error": "No freshness column or no key columns",
+      "rows": [],
+      "status": "NOT_APPLICABLE"
+    },
+    "projects": [
+      "forecast_accuracy"
+    ],
+    "ref": "Enterprise_Lakehouse.Wholesale_Codis_AFI.COMAST",
+    "row_count_metadata": null,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "forecast_accuracy",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.Wholesale_Codis_AFI.COMAST.sql"
+}

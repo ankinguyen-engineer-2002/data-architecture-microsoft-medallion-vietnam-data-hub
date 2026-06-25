@@ -1,0 +1,46 @@
+{
+  "step": 6,
+  "file": "06_create_renamed_views_gold.sql",
+  "db": "SupplyChain_Gold_Warehouse",
+  "started": "2026-05-10T06:25:50.431255+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "ok",
+      "first": "-- 06_create_renamed_views_gold.sql"
+    },
+    {
+      "i": 1,
+      "status": "ok",
+      "first": "-- ---- ForecastAccuracy_DW.v_DimCustomerGrouping ----"
+    },
+    {
+      "i": 2,
+      "status": "ok",
+      "first": "-- ---- ForecastAccuracy_DW.v_DimForecastHorizon ----"
+    },
+    {
+      "i": 3,
+      "status": "ok",
+      "first": "-- ---- ForecastAccuracy_DW.v_DimProduct ----"
+    },
+    {
+      "i": 4,
+      "status": "ok",
+      "first": "-- ---- ForecastAccuracy_DW.v_DimWarehouse ----"
+    },
+    {
+      "i": 5,
+      "status": "ok",
+      "first": "-- ---- ForecastAccuracy_DW.v_FactForecastActual ----"
+    },
+    {
+      "i": 6,
+      "status": "ok",
+      "first": "-- ---- ForecastAccuracy_DW.v_FactForecastKpi ----"
+    }
+  ],
+  "ended": "2026-05-10T06:25:55.102928+00:00",
+  "ok": 7,
+  "total": 7
+}

@@ -1,0 +1,13 @@
+{
+  "latest": {
+    "endTimeUtc": null,
+    "failureReason": null,
+    "id": "75d92900-5a6f-4fb3-9a46-baeb751a8a52",
+    "invokeType": "Manual",
+    "itemId": "f36f56b8-5668-4a0c-b991-2c28302f1710",
+    "jobType": "Pipeline",
+    "rootActivityId": "b6280048-07e4-4a6c-be02-b81d844be321",
+    "startTimeUtc": "2026-06-17T08:54:17.3566667",
+    "status": "NotStarted"
+  }
+}

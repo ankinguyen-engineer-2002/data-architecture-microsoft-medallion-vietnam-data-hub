@@ -1,0 +1,32 @@
+{
+  "build_completed_at_utc": "2026-06-24T14:46:48Z",
+  "command": "dotnet build <project>.sqlproj -c Release",
+  "projects": {
+    "ETL_Framework": {
+      "status": "pass",
+      "warnings": 0,
+      "errors": 0,
+      "artifact": "ETL_Framework/bin/Release/ETL_Framework.dacpac"
+    },
+    "Enterprise_Lakehouse_Reference": {
+      "status": "pass",
+      "warnings": 0,
+      "errors": 0,
+      "artifact": "Enterprise_Lakehouse_Reference/bin/Release/Enterprise_Lakehouse_Reference.dacpac"
+    },
+    "SupplyChain_Processing_Warehouse": {
+      "status": "pass",
+      "warnings": 0,
+      "errors": 0,
+      "artifact": "SupplyChain_Processing_Warehouse/bin/Release/SupplyChain_Processing_Warehouse.dacpac"
+    },
+    "SupplyChain_Gold_Warehouse": {
+      "status": "pass",
+      "warnings": 0,
+      "errors": 0,
+      "artifact": "SupplyChain_Gold_Warehouse/bin/Release/SupplyChain_Gold_Warehouse.dacpac"
+    }
+  },
+  "overall_status": "pass",
+  "safety": "build_only_no_publish_no_live_mutation"
+}

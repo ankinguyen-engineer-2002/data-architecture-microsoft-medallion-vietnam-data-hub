@@ -1,0 +1,2989 @@
+schema_name,view_name,definition
+bronze,vw_brz_saleshistory_afi__invoicedetail,"
+    CREATE   VIEW bronze.vw_brz_saleshistory_afi__invoicedetail AS
+    SELECT * FROM bronze.brz_saleshistory_afi__invoicedetail_edw
+"
+bronze,vw_brz_saleshistory_afi__invoiceheader,"
+    CREATE   VIEW bronze.vw_brz_saleshistory_afi__invoiceheader AS
+    SELECT * FROM bronze.brz_saleshistory_afi__invoiceheader_edw
+"
+bronze,vw_brz_supplychain_enh_1__demandforecastsnapshotdaily,"
+    CREATE   VIEW bronze.vw_brz_supplychain_enh_1__demandforecastsnapshotdaily AS
+    SELECT * FROM bronze.brz_supplychain_enh_1__demandforecastsnapshotdaily_edw
+"
+bronze,vw_brz_wholesale_codis_afi__codatan,"
+CREATE   VIEW bronze.vw_brz_wholesale_codis_afi__codatan AS
+SELECT
+    TRIM(ORDNO)                                         AS id_order,
+    TRIM(ITNBR)                                         AS id_item_sku,
+    TRIM(HOUSE)                                         AS code_warehouse,
+    CAST(ITMSQ AS INT)                                  AS num_item_sequence,
+    CAST(COQTY AS DECIMAL(12,3))                        AS qty_ordered,
+    CAST(QTYSH AS DECIMAL(12,3))                        AS qty_shipped,
+    CAST(QTYBO AS DECIMAL(12,3))                        AS qty_backordered,
+    CAST(INSAM AS DECIMAL(12,2))                        AS amt_extended_selling,
+    CAST(ISLPR AS DECIMAL(12,4))                        AS amt_list_price,
+    CAST(PRICE AS DECIMAL(12,4))                        AS amt_selling_price,
+    CAST(UNITC AS DECIMAL(14,8))                        AS amt_unit_cost,
+    CAST(NEGPR AS DECIMAL(12,4))                        AS amt_negotiated_price,
+    CAST(UNTPO AS DECIMAL(12,4))                        AS amt_unit_purchase_order,
+    CAST(PRADJ AS DECIMAL(12,2))                        AS amt_price_adjustment,
+    CAST(ISCPR AS DECIMAL(14,7))                        AS amt_selling_price_current,
+    CAST(ISLPO AS DECIMAL(12,4))                        AS amt_list_price_original,
+    CAST(INSAO AS DECIMAL(12,2))                        AS amt_extended_selling_original,
+    CAST(PRICH AS DECIMAL(12,4))                        AS amt_price_history,
+    CAST(ISLPH AS DECIMAL(12,4))                        AS amt_list_price_history,
+    CAST(INSAH AS DECIMAL(12,2))                        AS amt_extended_selling_history,
+    CAST(ISCPH AS DECIMAL(14,7))                        AS amt_selling_price_history,
+    CAST(WEGHT AS DECIMAL(12,3))                        AS val_weight,
+    CAST(EXTWT AS DECIMAL(12,3))                        AS val_extended_weight,
+    CAST(EXTWO AS DECIMAL(12,3))                        AS val_extended_weight_original,
+    TRY_CONVERT(DATE, CAST(RQIDT AS VARCHAR(20)))       AS dt_requested,
+    TRY_CONVERT(DATE, CAST(MFIDT AS VARCHAR(20)))       AS dt_manufactured,
+    TRY_CAST(LSLDDTCH AS DATETIME2(6))                  AS dt_last_schedule_change,
+    TRY_CAST(PRVLDDTE AS DATETIME2(6))                   AS dt_previous_load,
+    TRY_CAST(PRLDDTCH AS DATETIME2(6))                  AS dt_prior_load_change,
+    TRY_CAST(EARLDDT AS DATETIME2(6))                    AS dt_earliest_load,
+    TRY_CAST(LATLDDT AS DATETIME2(6))                    AS dt_latest_load,
+    TRIM(CCUSNO)                                        AS id_customer,
+    TRIM(CSHPNO)                                        AS code_ship_to,
+    TRIM(MARKFOR)                                       AS name_mark_for,
+    TRIM(ITDSC)                                         AS name_item_description,
+    TRIM(ITDSI)                                         AS name_item_description_short,
+    TRIM(ITCLS)                                         AS code_item_class,
+    TRIM(ITTYP)                                         AS code_item_type,
+    TRIM(UNMSR)                                         AS code_unit_measure,
+    TRIM(RCDCD)                                         AS code_record,
+    TRIM(WHSLC)                                         AS code_wholesale,
+    TRIM(CRCOD)                                         AS code_carrier,
+    CAST(PTRCD AS VARCHAR(200))                         AS code_pattern,
+    TRIM(LSTUM)                                         AS code_last_unit_measure,
+    TRIM(TXIND)                                         AS code_tax_indicator,
+    TRIM(COREL)                                         AS code_correlation,
+    TRIM(MORDN)                                         AS code_merge_order,
+    TRIM(EXPAD)                                         AS code_expedite_ad,
+    TRIM(ARRVLMODE)                                     AS code_arrival_mode,
+    TRIM(ITMPRCSTS)                                     AS code_item_price_status,
+    CAST(NUMLDDTCHG AS INT)                             AS num_load_date_changes,
+    CAST(LPMNO AS INT)                                  AS num_last_promo,
+    CAST(PMULT AS INT)                                  AS num_price_multiple,
+    CAST(QPDPT AS INT)                                  AS num_qty_per_dept,
+    CAST(IAFLG AS VARCHAR(200))                         AS code_allocation_flag,
+    CASE WHEN CAST(NOINV AS INT) != 0 THEN 1 ELSE 0 END  AS is_no_invoice,
+    CASE WHEN CAST(UPDMC AS INT) != 0 THEN 1 ELSE 0 END  AS is_update_mc,
+    CASE WHEN CAST(UPDMP AS DECIMAL(10,3)) != 0 THEN 1 ELSE 0 END AS is_update_mp,
+    CASE WHEN CAST(ORFLG AS INT) != 0 THEN 1 ELSE 0 END  AS is_order_flag,
+    CASE WHEN CAST(RDOVR AS INT) != 0 THEN 1 ELSE 0 END  AS is_round_override,
+    CASE WHEN CAST(MDOVR AS INT) != 0 THEN 1 ELSE 0 END  AS is_method_override,
+    CASE WHEN CAST(NEGRH AS DECIMAL(10,3)) != 0 THEN 1 ELSE 0 END AS is_negotiated_history,
+    CASE WHEN CAST(MOFLG AS VARCHAR(10)) = '1' THEN 1 ELSE 0 END  AS is_merge_order_flag,
+    CASE WHEN CAST(SAFLG AS VARCHAR(10)) = '1' THEN 1 ELSE 0 END  AS is_sale_flag,
+    CAST(MRDTE AS VARCHAR(200))                         AS code_merge_date
+FROM Enterprise_Lakehouse.Wholesale_Codis_AFI.codatan
+WHERE ORDNO IS NOT NULL
+"
+bronze,vw_brz_wholesale_codis_afi__comast,"
+CREATE   VIEW bronze.vw_brz_wholesale_codis_afi__comast AS
+SELECT
+    TRIM(ACREC)                                         AS code_record_type,
+    TRIM(ORDNO)                                         AS id_order,
+    TRIM(CUSNO)                                         AS id_customer,
+    TRIM(CUSPO)                                         AS id_customer_po,
+    TRY_CONVERT(DATE, CAST(ORDTE AS VARCHAR(20)))       AS dt_order,
+    CAST(ORVAL AS DECIMAL(14,2))                        AS amt_order_value,
+    TRIM(HOUSE)                                         AS code_warehouse,
+    CAST(SLSNO AS VARCHAR(200))                         AS code_salesperson,
+    TRIM(SHPNO)                                         AS code_ship_to,
+    TRY_CONVERT(DATE, CAST(RQDTE AS VARCHAR(20)))       AS dt_requested,
+    CAST(SHLTC AS INT)                                  AS num_lead_time_days,
+    TRIM(SHINS)                                         AS name_shipping_instructions,
+    TRY_CONVERT(DATE, CAST(CUSPD AS VARCHAR(20)))       AS dt_customer_paid,
+    TRIM(MPROR)                                         AS code_priority,
+    TRIM(CMEMO)                                         AS code_memo
+FROM Enterprise_Lakehouse.Wholesale_Codis_AFI.COMAST
+WHERE ORDNO IS NOT NULL
+"
+bronze,vw_brz_wholesale_codis_afi__extord,"
+CREATE   VIEW bronze.vw_brz_wholesale_codis_afi__extord AS
+SELECT
+    TRIM(XORDNO)                                        AS id_order,
+    TRIM(CUSTNO)                                        AS id_customer,
+    TRIM([SHPTO#])                                      AS code_ship_to,
+    CAST(CSRPID AS INT)                                 AS id_csr,
+    TRIM(ORDARR)                                        AS code_order_arrangement,
+    TRIM(ORTYPE)                                        AS code_order_type,
+    TRIM(ORDUSE)                                        AS code_order_use,
+    TRIM(ORDREF)                                        AS code_order_reference,
+    CAST(ORDLNK AS INT)                                 AS num_order_link,
+    CAST(NOSETS AS INT)                                  AS num_sets,
+    TRIM(ORDUSR)                                        AS name_order_user,
+    TRIM(OTTYP1)                                        AS code_order_type_1,
+    TRIM(OTTYP2)                                        AS code_order_type_2,
+    TRIM(OTTYP3)                                        AS code_order_type_3,
+    TRIM(OTTYP4)                                        AS code_order_type_4,
+    TRY_CONVERT(DATE, CAST(RQSDAT AS VARCHAR(20)))      AS dt_requested_ship,
+    TRY_CONVERT(DATE, CAST(TKNDAT AS VARCHAR(20)))      AS dt_taken,
+    TRY_CONVERT(DATE, CAST(FRZDAT AS VARCHAR(20)))      AS dt_freeze,
+    TRY_CONVERT(DATE, CAST(HDATE AS VARCHAR(20)))       AS dt_hold,
+    TRY_CONVERT(DATE, CAST(CAPRDT AS VARCHAR(20)))      AS dt_capacity,
+    TRY_CONVERT(DATE, CAST(CBDDAT AS VARCHAR(20)))      AS dt_cbd,
+    TRY_CONVERT(DATE, CAST(DATMNT AS VARCHAR(20)))      AS dt_maintenance,
+    CAST(TIMMNT AS VARCHAR(200))                        AS code_time_maintenance,
+    TRIM(WHSE)                                          AS code_warehouse,
+    TRIM(SHPNAM)                                        AS name_ship_to,
+    TRIM(ZIPCOD)                                        AS code_zip,
+    TRIM(EXTCTY)                                        AS code_city,
+    TRIM(EXTSTE)                                        AS code_state,
+    TRIM(TERRCD)                                        AS code_territory,
+    TRIM(ARZONE)                                        AS code_ar_zone,
+    CAST(ARSEQ AS INT)                                  AS num_ar_sequence,
+    TRY_CONVERT(DATE, CAST(ARDATE AS VARCHAR(20)))      AS dt_ar,
+    CAST([TRPNO] AS INT)                                AS num_trip,
+    CAST([DROP#] AS INT)                                AS num_drop,
+    CAST([TRIP#] AS INT)                                AS num_trip_sequence,
+    TRIM(ADVTSP)                                        AS code_advance_transport,
+    TRIM(CONTAC)                                        AS name_contact,
+    TRIM([PHONE#])                                      AS code_phone,
+    TRIM(CREDVW)                                        AS code_credit_review,
+    TRIM(APVCHK)                                        AS code_approval_check,
+    TRIM(APPROV)                                        AS name_approver,
+    TRY_CAST(RCVCSH AS INT)                             AS num_received_cash,
+    TRIM(CROVRD)                                        AS code_credit_override,
+    TRY_CONVERT(DATE, CAST(CROVDT AS VARCHAR(20)))      AS dt_credit_override,
+    TRIM(CRANOV)                                        AS code_credit_analysis_override,
+    TRIM(COMMCO)                                        AS code_commission,
+    TRIM(DSCNCO)                                        AS code_discount,
+    TRIM(PRICCO)                                        AS code_price,
+    TRIM(FRGHCO)                                        AS code_freight,
+    TRIM(PRMNBR)                                        AS code_promo,
+    CAST(MNTCNT AS INT)                                 AS num_maintenance_count,
+    TRIM(USRMNT)                                        AS name_maintenance_user,
+    TRIM(HLDUSR)                                        AS name_hold_user,
+    CAST(REFNUM AS VARCHAR(200))                        AS code_reference_number
+FROM Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD
+WHERE XORDNO IS NOT NULL
+"
+bronze,vw_brz_wholesale_codis_afi__extorit,"
+CREATE   VIEW bronze.vw_brz_wholesale_codis_afi__extorit AS
+SELECT
+    TRIM(IORD)                                          AS id_order,
+    CAST(ISEQ AS INT)                                   AS num_item_sequence,
+    TRIM(IITEM)                                         AS id_item_sku,
+    CAST(IEXCID AS INT)                                 AS id_exception,
+    CAST(IGRPID AS INT)                                 AS id_group,
+    CAST(IGRPNO AS INT)                                 AS num_group,
+    CAST(ISLSN1 AS INT)                                 AS id_salesperson_1,
+    CAST(ISLSN2 AS INT)                                 AS id_salesperson_2,
+    CAST(IPRICE AS DECIMAL(14,4))                       AS amt_fob_price,
+    CAST(IDSCNT AS DECIMAL(12,2))                       AS amt_discount,
+    CAST(IDFIDC AS DECIMAL(12,2))                       AS amt_discount_fid,
+    CAST(IFRGHT AS DECIMAL(12,2))                       AS amt_freight,
+    CAST(IHDFRT AS DECIMAL(12,2))                       AS amt_handling_freight,
+    CAST(ITDSCT AS DECIMAL(14,4))                       AS pct_total_discount,
+    CAST(IFOBPR AS DECIMAL(12,2))                       AS amt_fob_price_base,
+    CAST(IREDUS AS VARCHAR(200))                        AS code_reduce,
+    CAST(ICMADJ AS DECIMAL(12,2))                       AS amt_commission_adjustment,
+    CAST(IPALLW AS DECIMAL(14,4))                       AS amt_price_allowance,
+    CAST(ICONPR AS DECIMAL(12,2))                       AS amt_contract_price,
+    CAST(ICOOPA AS DECIMAL(12,2))                       AS amt_coop_allowance,
+    CAST(IATPQY AS DECIMAL(12,3))                       AS qty_atp,
+    CAST(IATPQS AS DECIMAL(12,3))                       AS qty_atp_shipped,
+    CAST(IATPWH AS DECIMAL(12,3))                       AS qty_atp_warehouse,
+    TRIM(IDSCCD)                                        AS code_discount,
+    TRIM(IDSCSC)                                        AS code_discount_schedule,
+    TRIM(ICOMCD)                                        AS code_commission,
+    TRIM(IPRCCD)                                        AS code_price,
+    TRIM(IFRTCD)                                        AS code_freight_type,
+    TRIM(IGBCOD)                                        AS code_global,
+    TRIM(IORDST)                                        AS code_order_status,
+    CAST(IRTECD AS VARCHAR(200))                        AS code_route,
+    TRIM(IFSLSC)                                        AS code_first_sales_class,
+    TRIM(ICSLSC)                                        AS code_current_sales_class,
+    TRIM(IARVLMD)                                       AS code_arrival_mode,
+    TRIM(IPRCSTS)                                       AS code_price_status,
+    CAST(ICUS AS VARCHAR(200))                          AS id_customer,
+    TRIM(ISTATE)                                        AS code_state,
+    CAST(IWHSOP AS VARCHAR(200))                        AS code_warehouse_operation,
+    CAST(ITRIP AS INT)                                  AS num_trip,
+    CAST(IDROP AS INT)                                  AS num_drop,
+    CAST(ICNTL AS INT)                                  AS num_control,
+    CAST(IPRI AS INT)                                   AS num_priority,
+    TRIM(ISTAT)                                         AS code_status,
+    CAST(IREF AS VARCHAR(200))                          AS code_reference,
+    CAST(IORDPRTY AS INT)                               AS num_order_priority,
+    CAST(IPRGCNT AS INT)                                AS num_progress_count,
+    CAST(ISCHCNT AS INT)                                AS num_schedule_count,
+    CAST(ICNLCNT AS INT)                                AS num_cancel_count,
+    CAST(IFRZCNT AS INT)                                AS num_freeze_count,
+    CAST(ICDKCNT AS INT)                                AS num_cross_dock_count,
+    TRIM(ILNRL)                                         AS code_line_rule,
+    TRIM(IERRCM)                                        AS code_error_comment,
+    CAST(ISLCM1 AS DECIMAL(14,4))                       AS val_sales_comment_1,
+    CAST(ISLCM2 AS DECIMAL(14,4))                       AS val_sales_comment_2,
+    TRY_CONVERT(DATE, CAST(IPRMDT AS VARCHAR(20)))      AS dt_promise,
+    TRY_CONVERT(DATE, CAST(IOISDT AS VARCHAR(20)))      AS dt_original_issue,
+    TRY_CONVERT(DATE, CAST(IMRDDT AS VARCHAR(20)))      AS dt_merge,
+    TRY_CONVERT(DATE, CAST(IREDRT AS VARCHAR(20)))      AS dt_reduce,
+    TRY_CONVERT(DATE, CAST(IARDTE AS VARCHAR(20)))      AS dt_arrival,
+    CAST(IORINV AS INT)                                 AS num_original_invoice,
+    TRY_CONVERT(DATE, CAST(IORGDLV AS VARCHAR(20)))     AS dt_delivery_original,
+    TRY_CONVERT(DATE, CAST(ICNFDLV AS VARCHAR(20)))     AS dt_delivery_confirmed,
+    TRY_CONVERT(DATE, CAST(IFRZDLV AS VARCHAR(20)))     AS dt_delivery_frozen,
+    TRY_CONVERT(DATE, CAST(IFINDLV AS VARCHAR(20)))     AS dt_delivery_final,
+    CAST(IPRTY AS INT)                                  AS num_delivery_priority,
+    TRIM(IPKGID)                                        AS id_package,
+    CAST(IPKGDA AS DECIMAL(12,3))                       AS val_package_data,
+    CAST(IPKGPRC AS DECIMAL(12,2))                      AS amt_package_price,
+    TRIM(IITMSTS)                                       AS code_item_status,
+    CAST([IPKITM$] AS DECIMAL(12,2))                    AS amt_package_item,
+    CAST(IPKITMDS AS DECIMAL(12,3))                     AS val_package_item_discount,
+    TRIM(IACHORITM)                                     AS code_anchor_item,
+    TRIM(IPKGDES)                                       AS name_package_description,
+    CAST(IPDISD AS VARCHAR(200))                        AS code_price_discount,
+    CAST(IPRCDT AS VARCHAR(200))                        AS code_price_date,
+    CAST(IOCOMR AS VARCHAR(200))                        AS code_original_commission,
+    TRIM(IJOBID)                                        AS id_job
+FROM Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORIT
+WHERE IORD IS NOT NULL
+"
+bronze,vw_ref_calendar,"
+CREATE   VIEW bronze.vw_ref_calendar AS
+SELECT
+    CAST(DateKey AS INT)                                 AS sk_date,
+    CAST(MapicsDate AS INT)                              AS id_mapics_date,
+    CAST(DateID AS DATE)                                 AS dt_date,
+    CAST(DateTimeID AS DATE)                             AS dt_datetime,
+    CAST(CalendarDate AS DATE)                           AS dt_calendar,
+    TRIM(CalendarDateName)                               AS name_calendar_date,
+    CAST(CalendarDateIndicator AS INT)                   AS num_cal_date_indicator,
+    CAST(CalendarDayOfWeek AS INT)                       AS num_cal_day_of_week,
+    TRIM(CalendarDayOfWeekName)                          AS name_cal_day_of_week,
+    CAST(CalendarDayOfMonth AS INT)                      AS num_cal_day_of_month,
+    CAST(CalendarDayOfYear AS INT)                       AS num_cal_day_of_year,
+    CAST(CalendarWeek AS INT)                            AS num_cal_week,
+    CAST(CalendarWeekIndicator AS INT)                   AS num_cal_week_indicator,
+    CAST(CalendarWeekYear AS INT)                        AS num_cal_week_year,
+    TRIM(CalendarWeekYearName)                           AS name_cal_week_year,
+    CAST(CalendarWeekFirstDate AS DATE)                  AS dt_cal_week_first,
+    CAST(CalendarWeekLastDate AS DATE)                   AS dt_cal_week_last,
+    CAST(CalendarWeekOfMonth AS INT)                     AS num_cal_week_of_month,
+    CAST(CalendarMonth AS INT)                           AS num_cal_month,
+    CAST(CalendarMonthIndicator AS INT)                  AS num_cal_month_indicator,
+    CAST(CalendarMonthYear AS INT)                       AS num_cal_month_year,
+    TRIM(CalendarMonthName)                              AS name_cal_month,
+    TRIM(CalendarMonthYearName)                          AS name_cal_month_year,
+    CAST(CalendarMonthFirstDate AS DATE)                 AS dt_cal_month_first,
+    CAST(CalendarMonthLastDate AS DATE)                  AS dt_cal_month_last,
+    CAST(CalendarQuarter AS INT)                         AS num_cal_quarter,
+    TRIM(CalendarQuarterName)                            AS name_cal_quarter,
+    CAST(CalendarQuarterIndicator AS INT)                AS num_cal_quarter_indicator,
+    CAST(CalendarQuarterYear AS INT)                     AS num_cal_quarter_year,
+    TRIM(CalendarQuarterYearName)                        AS name_cal_quarter_year,
+    CAST(CalendarSemester AS INT)                        AS num_cal_semester,
+    CAST(CalendarSemesterYear AS INT)                    AS num_cal_semester_year,
+    CAST(CalendarYear AS INT)                            AS num_cal_year,
+    TRIM(CalendarYearName)                               AS name_cal_year,
+    CAST(CalendarYearIndicator AS INT)                   AS num_cal_year_indicator,
+    CAST(FiscalDate AS DATE)                             AS dt_fiscal,
+    TRIM(FiscalDateName)                                 AS name_fiscal_date,
+    CAST(FiscalDateIndicator AS INT)                     AS num_fsc_date_indicator,
+    CAST(FiscalDayOfWeek AS INT)                         AS num_fsc_day_of_week,
+    TRIM(FiscalDayOfWeekName)                            AS name_fsc_day_of_week,
+    CAST(FiscalDayOfMonth AS INT)                        AS num_fsc_day_of_month,
+    CAST(FiscalDayOfYear AS INT)                         AS num_fsc_day_of_year,
+    CAST(FiscalWeek AS INT)                              AS num_fsc_week,
+    CAST(FiscalWeekIndicator AS INT)                     AS num_fsc_week_indicator,
+    CAST(FiscalWeekYear AS INT)                          AS num_fsc_week_year,
+    TRIM(FiscalWeekYearName)                             AS name_fsc_week_year,
+    CAST(FiscalWeekFirstDate AS DATE)                    AS dt_fsc_week_first,
+    CAST(FiscalWeekLastDate AS DATE)                     AS dt_fsc_week_last,
+    CAST(FiscalWeekOfMonth AS INT)                       AS num_fsc_week_of_month,
+    CAST(FiscalMonth AS INT)                             AS num_fsc_month,
+    CAST(FiscalMonthIndicator AS INT)                    AS num_fsc_month_indicator,
+    CAST(FiscalMonthYear AS INT)                         AS num_fsc_month_year,
+    TRIM(FiscalMonthName)                                AS name_fsc_month,
+    TRIM(FiscalMonthYearName)                            AS name_fsc_month_year,
+    CAST(FiscalMonthFirstDate AS DATE)                   AS dt_fsc_month_first,
+    CAST(FiscalMonthLastDate AS DATE)                    AS dt_fsc_month_last,
+    CAST(FiscalQuarter AS INT)                           AS num_fsc_quarter,
+    TRIM(FiscalQuarterName)                              AS name_fsc_quarter,
+    CAST(FiscalQuarterIndicator AS INT)                  AS num_fsc_quarter_indicator,
+    CAST(FiscalQuarterYear AS INT)                       AS num_fsc_quarter_year,
+    TRIM(FiscalQuarterYearName)                          AS name_fsc_quarter_year,
+    MIN(CAST(FiscalMonthFirstDate AS DATE)) OVER (PARTITION BY FiscalYear, FiscalQuarter) AS dt_fsc_quarter_first,
+    MAX(CAST(FiscalMonthLastDate AS DATE)) OVER (PARTITION BY FiscalYear, FiscalQuarter)  AS dt_fsc_quarter_last,
+    CAST(FiscalSemester AS INT)                          AS num_fsc_semester,
+    CAST(FiscalSemesterYear AS INT)                      AS num_fsc_semester_year,
+    CAST(FiscalYear AS INT)                              AS num_fsc_year,
+    TRIM(FiscalYearName)                                 AS name_fsc_year,
+    CAST(FiscalYearIndicator AS INT)                     AS num_fsc_year_indicator,
+    CAST(FiscalYearFirstDate AS DATE)                    AS dt_fsc_year_first,
+    CAST(FiscalYearLastDate AS DATE)                     AS dt_fsc_year_last,
+    TRIM(HolidayIndicator)                               AS code_holiday_indicator,
+    TRIM(HolidayName)                                    AS name_holiday,
+    TRIM(WorkingDayIndicator)                            AS code_working_day,
+    TRIM(WeekdayWeekend)                                 AS code_weekday_weekend
+FROM Enterprise_Lakehouse.MasterData_DW.DimDate
+WHERE DateKey IS NOT NULL
+"
+bronze,vw_ref_customer_account,"
+CREATE   VIEW bronze.vw_ref_customer_account AS
+SELECT
+    TRIM(cmaCustomerNumber)                              AS id_customer,
+    TRIM(cmaCustomerName)                                AS name_customer,
+    TRIM(cmaDBAName)                                     AS name_dba,
+    TRIM(cmaContact)                                     AS name_contact,
+    TRIM(cmaPhone)                                       AS code_phone,
+    TRIM(cmaFaxtn)                                       AS code_fax,
+    TRIM(cmaEmail)                                       AS code_email,
+    TRIM(cmaPrimaryTerritory)                             AS code_territory,
+    CAST(cmaCreditTerritoryID AS VARCHAR(200))            AS id_credit_territory,
+    CAST(cmaDeductTerritoryID AS VARCHAR(200))            AS id_deduct_territory,
+    TRIM(cmaCustomerChannelID)                            AS code_customer_channel,
+    TRIM(cmaCustomerClassCode)                            AS code_customer_class,
+    CAST(cmaCreditLimitAmount AS DECIMAL(14,2))          AS amt_credit_limit,
+    TRIM(cmaTermsCode)                                   AS code_terms,
+    CAST(cmaTermsDays AS INT)                            AS num_terms_days,
+    CAST(cmaPercentAvailableCredit AS DECIMAL(10,2))     AS pct_available_credit,
+    TRIM(cmaCreditAuthorizationCode)                      AS code_credit_authorization,
+    TRIM(cmaMinimumFreightCode)                           AS code_minimum_freight,
+    CAST(cmaMinPreapprovalAmount AS DECIMAL(14,2))       AS amt_min_preapproval,
+    TRIM(cmaCreditAddessCode)                             AS code_credit_address,
+    CAST(cmaLateChargePercent AS DECIMAL(10,4))          AS pct_late_charge,
+    CASE WHEN cmaCancelBackOrders = 1 THEN 1 ELSE 0 END AS is_cancel_backorders,
+    CASE WHEN cmaAllowPartialShipment = 1 THEN 1 ELSE 0 END AS is_allow_partial_shipment,
+    CASE WHEN cmaAllowAllowanceCredits = 1 THEN 1 ELSE 0 END AS is_allow_allowance_credits,
+    CASE WHEN TRIM(cmaDocumentationHold) = 'Y' THEN 1 ELSE 0 END AS is_documentation_hold,
+    CASE WHEN TRIM(cmaPARSByPurchaser) = 'Y' THEN 1 ELSE 0 END AS is_pars_by_purchaser,
+    CASE WHEN TRIM(cma10DigitScheduleB) = 'Y' THEN 1 ELSE 0 END AS is_10_digit_schedule_b,
+    CASE WHEN cmaInheritBlocking = 1 THEN 1 ELSE 0 END AS is_inherit_blocking,
+    TRIM(cmaLanguageCode)                                AS code_language,
+    CAST(cmaStatementCode AS INT)                        AS code_statement,
+    TRIM(cmaItemCrossReferenceCode)                      AS code_item_cross_reference,
+    TRIM(cmaCurrencyCode)                                AS code_currency,
+    TRIM(cmaRFCTaxIdNumber)                              AS code_tax_id,
+    CAST(cmaAppcd AS INT)                                AS code_app,
+    TRIM(cmaHomestoreFacingWhse)                          AS code_homestore_facing_warehouse,
+    TRIM(cmaTypeOfInsurance)                              AS code_insurance_type,
+    CASE WHEN cmaInsExpirationDate < CAST('1900-01-01' AS DATETIME2(6)) THEN NULL
+        ELSE CAST(cmaInsExpirationDate AS DATETIME2(6)) END AS dt_insurance_expiration,
+    CAST(cmaInsCoverageRequested AS DECIMAL(14,2))       AS amt_insurance_coverage_requested,
+    CAST(cmaInsCoverageApproved AS DECIMAL(14,2))        AS amt_insurance_coverage_approved,
+    TRIM(cmaInsuranceStatus)                             AS code_insurance_status,
+    TRIM(acrec)                                          AS code_record_status,
+    CAST(cmaBillingAddressID AS INT)                      AS id_billing_address,
+    TRIM(cmaMemo)                                         AS name_memo,
+    CAST(cmaChgCustAr AS INT)                            AS num_change_customer_ar,
+    CAST(cmaChgCust AS INT)                              AS num_change_customer,
+    CAST(cmaChgCustExt AS INT)                           AS num_change_customer_ext,
+    CAST(cmaCommAudit AS INT)                            AS num_commission_audit,
+    CASE WHEN cmaTerritoryChangeDate < CAST('1900-01-01' AS DATETIME2(6)) THEN NULL
+        ELSE CAST(cmaTerritoryChangeDate AS DATETIME2(6)) END AS dt_territory_change,
+    CASE WHEN cmaLastStatusChangeDate < CAST('1900-01-01' AS DATETIME2(6)) THEN NULL
+        ELSE CAST(cmaLastStatusChangeDate AS DATETIME2(6)) END AS dt_last_status_change,
+    TRIM(usra)                                           AS name_created_by,
+    CASE WHEN dtea < CAST('1900-01-01' AS DATETIME2(6)) THEN NULL
+        ELSE CAST(dtea AS DATETIME2(6)) END              AS ts_created,
+    TRIM(usrc)                                           AS name_modified_by,
+    CASE WHEN dtec < CAST('1900-01-01' AS DATETIME2(6)) THEN NULL
+        ELSE CAST(dtec AS DATETIME2(6)) END              AS ts_modified
+FROM Enterprise_Lakehouse.Customers.AccountMaster
+WHERE cmaCustomerNumber IS NOT NULL
+"
+bronze,vw_ref_customer_account_group,"
+CREATE   VIEW bronze.vw_ref_customer_account_group AS
+SELECT
+    TRIM(CAST(CustomerNumber AS VARCHAR(200)))            AS id_customer,
+    UPPER(TRIM(CustomerGroup))                           AS code_customer_group,
+    TRIM(CustomerGroupLevel3)                            AS name_customer_group_level3,
+    TRIM(BusinessTypeCode)                               AS name_business_type,
+    TRIM(usra)                                           AS name_created_by,
+    TRY_CAST(dtea AS DATETIME2(6))                       AS ts_created,
+    TRIM(usrc)                                           AS name_modified_by,
+    TRY_CAST(dtec AS DATETIME2(6))                       AS ts_modified
+FROM Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping
+WHERE CustomerNumber IS NOT NULL
+"
+bronze,vw_ref_customer_grouping,"
+CREATE   VIEW bronze.vw_ref_customer_grouping AS
+SELECT DISTINCT
+    UPPER(TRIM(CAST(CustomerGroup AS VARCHAR(50)))) AS code_customer_group
+FROM Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping
+WHERE CustomerGroup IS NOT NULL
+"
+bronze,vw_ref_customer_shipping_location,"
+CREATE   VIEW bronze.vw_ref_customer_shipping_location AS
+SELECT
+    TRIM(cslCustomerNumber)                                          AS id_customer,
+    TRIM(cslShiptoNumber)                                            AS code_ship_to,
+    CAST(cslMapicsSequenceNumber AS INT)                             AS num_mapics_sequence,
+    TRIM(cslName)                                                    AS name_ship_to,
+    TRIM(csmShpa1)                                                   AS name_address_1,
+    TRIM(csmShpa2)                                                   AS name_address_2,
+    TRIM(csmShpa3)                                                   AS name_address_3,
+    TRIM(csmShpzp)                                                   AS code_zip,
+    TRIM(csmShpst)                                                   AS code_state,
+    TRIM(csmShpco)                                                   AS code_country,
+    TRIM(csmCounty)                                                  AS code_county,
+    TRIM(csmPhone)                                                   AS code_phone,
+    TRIM(csmFaxTn)                                                   AS code_fax,
+    TRIM(csmContact)                                                 AS name_contact,
+    TRIM(csmWebsite)                                                 AS code_website,
+    TRIM(csmEmail)                                                   AS code_email,
+    TRIM(csmCsPhone)                                                 AS code_cs_phone,
+    TRIM(csmcsFax)                                                   AS code_cs_fax,
+    TRIM(csmcsContact)                                               AS name_cs_contact,
+    TRIM(csmcsEmail)                                                 AS code_cs_email,
+    TRIM(cslCommissionCode)                                          AS code_commission,
+    TRIM(cslFreightCode)                                             AS code_freight,
+    TRIM(cslPriceCode)                                               AS code_price,
+    TRIM(cslDiscountCode)                                            AS code_discount,
+    CAST(cslCommissionSplit AS DECIMAL(10,4))                        AS pct_commission_split,
+    TRIM(cslDefaultWarehouse)                                        AS code_default_warehouse,
+    TRIM(cslShippingTerritory)                                       AS code_shipping_territory,
+    TRIM(cslBusinessType)                                            AS code_business_type,
+    TRIM(cslShipType)                                                AS code_ship_type,
+    TRIM(cslTranscomPrimaryID)                                       AS id_transcom_primary,
+    TRIM(cslTranscomAlternateID)                                     AS id_transcom_alternate,
+    TRIM(cslComment1)                                                AS name_comment_1,
+    TRIM(cslComment2)                                                AS name_comment_2,
+    TRIM(cslMemo)                                                    AS name_memo,
+    TRIM(csmDirections)                                              AS name_directions,
+    TRIM(csmCrossStreet)                                             AS name_cross_street,
+    TRIM(cslCrmID)                                                   AS id_crm,
+    cslBuyerAddressID                                                AS id_buyer_address,
+    cslPartyLocationID                                               AS id_party_location,
+    cslRouteAddressID                                                AS id_route_address,
+    cslReturnAddressID                                               AS id_return_address,
+    TRIM(cslReturnAddressName)                                       AS name_return_address,
+    TRIM(csmMsa_Fips)                                                AS code_msa_fips,
+    csmRMCityNumber                                                  AS code_rm_city,
+    TRIM(cslTaxExempt)                                               AS code_tax_exempt,
+    CAST(cslCustomerSegment AS INT)                                  AS num_customer_segment,
+    TRIM(cslDefaultOrderType1)                                       AS code_default_order_type_1,
+    TRIM(cslDefaultOrderType2)                                       AS code_default_order_type_2,
+    TRIM(cslDefaultOrderType3)                                       AS code_default_order_type_3,
+    TRIM(cslDefaultOrderType4)                                       AS code_default_order_type_4,
+    CAST(csmShled AS INT)                                            AS num_ship_lead_days,
+    TRIM(cslDeliveryUnitOfMeasure)                                   AS code_delivery_uom,
+    CAST(cslDeliveryUnitOfMeasureFence AS DECIMAL(10,2))             AS val_delivery_uom_fence,
+    TRIM(cslExpressShippingMethod)                                   AS code_express_shipping_method,
+    CAST(cslExpressHandlingCharge AS DECIMAL(10,3))                  AS pct_express_handling_charge,
+    CAST(cslExpressMinimum AS DECIMAL(10,2))                         AS amt_express_minimum,
+    CAST(cslExpressMaximum AS DECIMAL(10,2))                         AS amt_express_maximum,
+    TRIM(cslExpressServiceContractNumber)                            AS code_express_service_contract,
+    CASE WHEN cslBlockRepOrderEntry = 1 THEN 1 ELSE 0 END           AS is_block_rep_order_entry,
+    TRIM(cslAllowFax)                                                AS code_allow_fax,
+    TRIM(cslDirectConsumer)                                          AS code_direct_consumer,
+    TRIM(cslDirectIncludeShipto)                                     AS code_direct_include_shipto,
+    TRIM(cslExportsLCLConsolidationFlag)                             AS code_exports_lcl_consolidation,
+    TRIM(cslExportsDocumentCountry)                                  AS code_exports_document_country,
+    TRIM(cslExportsProductOnPallets)                                 AS code_exports_product_on_pallets,
+    TRIM(cslExportsAppointmentsRequired)                             AS code_exports_appointments_required,
+    cslHasDock                                                       AS code_has_dock,
+    TRIM(cslUseNegotiatedFreightRate)                                AS code_use_negotiated_freight_rate,
+    TRIM(cslUseStandardFreightRate)                                  AS code_use_standard_freight_rate,
+    TRIM(cslDoNotRepriceOrders)                                      AS code_do_not_reprice_orders,
+    TRIM(cslPricingUseOfflineFiles)                                  AS code_pricing_use_offline_files,
+    TRIM(cslDefaultLanguage)                                         AS code_default_language,
+    CAST(cslTerritoryEffectivityDate AS DATETIME2(6))                AS dt_territory_effectivity,
+    TRIM(cslHasDockUserDate)                                         AS name_has_dock_user_date,
+    CAST(cslLastStatusChangeDate AS DATETIME2(6))                    AS dt_last_status_change,
+    TRIM(acrec)                                                      AS code_record_status,
+    csmAppcd                                                         AS code_app,
+    CAST(csmChgAddr AS INT)                                          AS num_change_address,
+    CAST(csmChgShip AS INT)                                          AS num_change_ship,
+    CAST(csmChgShipExt AS INT)                                       AS num_change_ship_ext,
+    CAST(csmChgCust AS INT)                                          AS num_change_customer,
+    CAST(commAudit AS INT)                                           AS num_commission_audit,
+    CAST(commAudit2 AS INT)                                          AS num_commission_audit_2,
+    TRIM(usra)                                                       AS name_created_by,
+    CAST(dtea AS DATETIME2(6))                                       AS ts_created,
+    TRIM(usrc)                                                       AS name_modified_by,
+    CAST(dtec AS DATETIME2(6))                                       AS ts_modified
+FROM Enterprise_Lakehouse.Customers.ShippingLocations
+WHERE cslCustomerNumber IS NOT NULL
+"
+bronze,vw_ref_forecast_cycle,"
+CREATE   VIEW bronze.vw_ref_forecast_cycle AS
+SELECT *
+FROM SupplyChain_Lakehouse.dbo.ref_forecast_cycle
+"
+bronze,vw_ref_forecast_horizon,"
+CREATE   VIEW bronze.vw_ref_forecast_horizon AS
+SELECT 'Lag-0' AS code_horizon, 1 AS num_rank UNION ALL
+SELECT 'Lag-1', 2 UNION ALL
+SELECT 'Lag-2', 3 UNION ALL
+SELECT 'Lag-3', 4 UNION ALL
+SELECT 'Lag-4', 5 UNION ALL
+SELECT '>Lag-4', 6 UNION ALL
+SELECT 'Actual demand', 7 UNION ALL
+SELECT 'Naive forecast', 8
+"
+bronze,vw_ref_item_master,"
+CREATE   VIEW bronze.vw_ref_item_master AS
+SELECT
+    CAST(RowID AS BIGINT)                                AS sk_item,
+    TRIM(ItemSKU)                                        AS id_item_sku,
+    TRIM(ItemKey)                                        AS id_item_key,
+    TRIM(Item)                                           AS id_item,
+    TRIM(ItemCode)                                       AS code_item,
+    TRIM(FrameNumber)                                    AS code_frame,
+    TRIM(SeriesNumber)                                   AS code_series,
+    TRIM(ExtSeriesNumber)                                AS code_ext_series,
+    CAST(ProductHeightMeters AS DECIMAL(10,2))           AS val_product_height_meters,
+    CAST(ProductWidthMeters AS DECIMAL(10,2))            AS val_product_width_meters,
+    CAST(ProductDepthMeters AS DECIMAL(10,2))            AS val_product_depth_meters,
+    CAST(CartonHeightMeters AS DECIMAL(10,2))            AS val_carton_height_meters,
+    CAST(CartonWidthMeters AS DECIMAL(10,2))             AS val_carton_width_meters,
+    CAST(CartonDepthMeters AS DECIMAL(10,2))             AS val_carton_depth_meters,
+    CAST(ProductHeightInches AS DECIMAL(10,2))           AS val_product_height_inches,
+    CAST(ProductWidthInches AS DECIMAL(10,2))            AS val_product_width_inches,
+    CAST(ProductDepthInches AS DECIMAL(10,2))            AS val_product_depth_inches,
+    CAST(CartonHeightInches AS DECIMAL(10,2))            AS val_carton_height_inches,
+    CAST(CartonWidthInches AS DECIMAL(10,2))             AS val_carton_width_inches,
+    CAST(CartonDepthInches AS DECIMAL(10,2))             AS val_carton_depth_inches,
+    CAST(Cubes AS DECIMAL(10,2))                         AS val_cubes,
+    CAST(Seats AS DECIMAL(10,2))                         AS num_seats,
+    CAST(SuppWeightNetWeightLbs AS DECIMAL(10,2))        AS val_net_weight_lbs,
+    CAST(UnitWeightLbs AS DECIMAL(10,2))                 AS val_unit_weight_lbs,
+    CAST(QtyInBox AS INT)                                AS num_qty_in_box,
+    TRIM(UOM)                                            AS code_uom,
+    TRIM(UPC)                                            AS code_upc,
+    TRIM(ItemDescription)                                AS name_item_description,
+    TRIM(SeriesName)                                     AS name_series,
+    TRIM(SeriesColor)                                    AS name_series_color,
+    TRIM(Colors)                                         AS name_color,
+    TRIM(ItemDescriptionSeries)                          AS name_item_description_series,
+    TRIM(SHItemDescriptionSeries)                        AS name_sh_item_description_series,
+    TRIM(SHSeriesDescription)                            AS name_sh_series_description,
+    TRIM(ItemDescriptionSeriesItemColor)                  AS name_item_desc_series_color,
+    TRIM(ItemName)                                       AS name_item,
+    TRIM(ItemConsumerDescription)                        AS name_item_consumer_description,
+    TRIM(SeriesDescription)                              AS name_series_description,
+    TRIM(FriendlyDimensions)                             AS name_friendly_dimensions,
+    TRIM(ChildStyleDescription)                          AS name_child_style,
+    TRIM(ParentStyleDescription)                         AS name_parent_style,
+    TRIM(RetailTypeDescription)                          AS name_retail_type,
+    TRIM(Lifestyle)                                      AS name_lifestyle,
+    CAST(MerchandisingCategory AS VARCHAR(200))          AS name_merchandising_category,
+    CAST(PricePoint AS VARCHAR(200))                     AS name_price_point,
+    TRIM(ItemGrouping)                                   AS name_item_grouping,
+    CAST(SeriesGrouping AS VARCHAR(200))                 AS name_series_grouping,
+    TRIM(AssociationCode)                                AS code_association,
+    TRIM(ItemClassCode)                                  AS code_item_class,
+    TRIM(ItemClassName)                                  AS name_item_class,
+    TRIM(ItemClass)                                      AS name_item_class_full,
+    TRIM(ItemStyleCode)                                  AS code_item_style,
+    TRIM(ItemStyleGroup)                                 AS name_item_style_group,
+    TRIM(ItemStyle)                                      AS name_item_style,
+    TRIM(ItemType)                                       AS code_item_type,
+    TRIM(CollectiveClass)                                AS name_collective_class,
+    TRIM(ProductLine)                                    AS name_product_line,
+    TRIM(RetailCategoryCode)                             AS code_retail_category,
+    TRIM(RetailCategoryDescription)                      AS name_retail_category,
+    TRIM(RetailCategoryName)                             AS name_retail_category_full,
+    TRIM(RetailDepartmentName)                           AS name_retail_department,
+    TRIM(RetailCategoryGroup)                            AS name_retail_category_group,
+    TRIM(RetailCategoryChargeType)                       AS code_retail_charge_type,
+    TRIM(RetailBrandName)                                AS name_retail_brand,
+    TRIM(SalesClassCode)                                 AS code_sales_class,
+    TRIM(SalesClassDescription)                          AS name_sales_class_description,
+    TRIM(SalesClass)                                     AS name_sales_class,
+    TRIM(AFISalesCategoryCode)                           AS code_afi_sales_category,
+    TRIM(AFISalesCategory)                               AS name_afi_sales_category,
+    TRIM(AFISalesDivisionCode)                           AS code_afi_sales_division,
+    TRIM(AFISalesDivision)                               AS name_afi_sales_division,
+    TRIM(AFIFinanceDivision)                             AS name_afi_finance_division,
+    TRIM(AFIFinanceDivisionCode)                         AS code_afi_finance_division,
+    TRIM(Division)                                       AS name_division,
+    TRIM(DiscountClassCode)                              AS code_discount_class,
+    TRIM(DiscountClassDescription)                       AS name_discount_class_description,
+    TRIM(DiscountClass)                                  AS name_discount_class,
+    TRIM(CommissionClassCode)                            AS code_commission_class,
+    TRIM(CommissionClassDescription)                     AS name_commission_class_description,
+    TRIM(CommissionClass)                                AS name_commission_class,
+    TRIM(FreightClassCode)                               AS code_freight_class,
+    TRIM(FreightClassDescription)                        AS name_freight_class_description,
+    TRIM(FreightClass)                                   AS name_freight_class,
+    TRIM(ResponsibleOffice)                              AS code_responsible_office,
+    TRIM(ResponsibleOfficeName)                          AS name_responsible_office,
+    TRIM(ImportDomesticCode)                             AS code_import_domestic,
+    TRIM(CountryofOrigin)                                AS name_country_of_origin,
+    TRIM(CEXCode)                                        AS code_cex,
+    TRIM(PrimaryVendor)                                  AS code_primary_vendor,
+    TRIM(MasterGroupCode)                                AS code_master_group,
+    TRIM(AFIItemStatus)                                  AS code_afi_item_status,
+    TRIM(SellableItemFlag)                               AS code_sellable_item,
+    TRIM(ManufacturingStatus)                            AS code_manufacturing_status,
+    ManufacturingStatusChangeDate                        AS dt_manufacturing_status_change,
+    TRIM(MarketingItemStatus)                            AS code_marketing_item_status,
+    TRIM(MarketingStatusDescription)                     AS name_marketing_status,
+    TRIM(PreviousStatusCode)                             AS code_previous_status,
+    StatusCodeChangeDate                                 AS dt_status_code_change,
+    CASE WHEN TRIM(MainPieceItem) = 'True' THEN 1 ELSE 0 END AS is_main_piece,
+    CASE WHEN TRIM(StandAloneFlag) = 'True' THEN 1 ELSE 0 END AS is_standalone,
+    CAST(KeyItem AS INT)                                 AS num_key_item,
+    CAST(CommodityItem AS INT)                           AS num_commodity_item,
+    CAST(F123ProductFlag AS INT)                         AS is_f123_product,
+    CAST(HSCoreProductFlag AS INT)                       AS is_hs_core_product,
+    CAST(HSProprietaryProductFlag AS INT)                AS is_hs_proprietary_product,
+    CAST(HSExclusiveFlag AS INT)                         AS is_hs_exclusive,
+    CAST(BerklineProductFlag AS INT)                     AS is_berkline_product,
+    CAST(BenchcraftProductFlag AS INT)                   AS is_benchcraft_product,
+    CAST(NewMillenniumProductFlag AS INT)                AS is_new_millennium_product,
+    CAST(BardiniProductFlag AS INT)                      AS is_bardini_product,
+    CAST(ShanghaiStore AS INT)                           AS is_shanghai_store,
+    CAST(DefaultGroup AS INT)                            AS num_default_group,
+    CAST(NewItemFlag AS INT)                             AS is_new_item,
+    CAST(DiscontinuedFlag AS INT)                        AS is_discontinued,
+    TRIM(DiscontinuedYearPeriod)                         AS code_discontinued_period,
+    TRIM(CommonCarrierFlag)                              AS code_common_carrier,
+    TRIM(ExpressShipFlag)                                AS code_express_ship,
+    DiscontinuedDate                                     AS dt_discontinued,
+    SeriesDateArchived                                   AS dt_series_archived,
+    CAST(SeriesDiscontinuedFlag AS INT)                  AS is_series_discontinued,
+    TRIM(ConsumerChoiceFlag)                             AS code_consumer_choice,
+    TRIM(EligibleForProtectionPlan)                      AS code_eligible_protection_plan,
+    TRIM(IsProtectionPlan)                               AS code_is_protection_plan,
+    TRIM(ItemIsRTA)                                      AS code_item_is_rta,
+    CAST(FOBArcPrice AS DECIMAL(14,2))                   AS amt_fob_arc_price,
+    CAST(CurrentUnitCost AS DECIMAL(14,8))               AS amt_current_unit_cost,
+    TRIM(GoodBetterBestForPricePoint)                    AS code_good_better_best,
+    CAST(GBBSortId AS INT)                               AS num_gbb_sort,
+    TRIM(ItemPricePointRating)                           AS name_price_point_rating,
+    CAST(DivisionRanking AS VARCHAR(200))                AS code_division_ranking,
+    CAST(GroupPriceIncr AS VARCHAR(200))                  AS val_group_price_incr,
+    TRIM(GroupPricePointType)                             AS code_group_price_point_type,
+    TRIM(MarketIntroducedAt)                             AS name_market_introduced_at,
+    MarketBeginDate                                      AS dt_market_begin,
+    MarketEndDate                                        AS dt_market_end,
+    TRIM(Showroom)                                       AS name_showroom,
+    TRIM(InitialInvoicePeriod)                           AS code_initial_invoice_period,
+    CAST(InitialInvoiceQty AS INT)                       AS qty_initial_invoice,
+    TRIM(ItemForecastPlannerID)                          AS id_item_forecast_planner,
+    TRIM(PrimaryChannelSku)                              AS id_primary_channel_sku,
+    TRIM(PrimarySeriesName)                              AS name_primary_series,
+    TRIM(PrimarySeriesNumber)                            AS code_primary_series,
+    TRIM(ERetailChannelSku)                              AS id_eretail_channel_sku,
+    TRIM(ERetailSeriesName)                              AS name_eretail_series,
+    TRIM(ERetailSeriesNumber)                            AS code_eretail_series,
+    TRIM(ItemTableShapeType)                             AS name_table_shape,
+    TRIM(ItemBedSizeType)                                AS name_bed_size,
+    TRIM(ItemBedStyleType)                               AS name_bed_style,
+    TRIM(ItemGeneralColor)                               AS name_general_color,
+    TRIM(SofaTableSeriesFlag)                            AS code_sofa_table_series,
+    TRIM(ReclinerSeriesFlag)                             AS code_recliner_series,
+    TRIM(PowerMotionSeriesFlag)                          AS code_power_motion_series,
+    TRIM(WedgeSeriesFlag)                                AS code_wedge_series,
+    TRIM(DiningSeriesFlag)                               AS code_dining_series,
+    TRIM(ItemThirdPartyItem)                             AS code_item_third_party,
+    TRIM(SeriesThirdParty)                               AS code_series_third_party,
+    TRIM(ItemHomeStoreProductLine)                       AS name_homestore_product_line,
+    TRIM(ItemEcomMerchantNotes)                          AS name_ecom_merchant_notes,
+    TRIM(ItemAmazonBrandOwner)                           AS name_amazon_brand_owner,
+    TRIM(ItemSupplierDirectShipOnly)                     AS code_supplier_direct_ship_only,
+    TRIM(ItemImage)                                      AS code_item_image,
+    TRIM(TrendArrow)                                     AS code_trend_arrow,
+    TRIM(ItemMerchGridOverridePhoto)                     AS code_merch_grid_override_photo,
+    TRIM(ExclusiveComment)                               AS name_exclusive_comment,
+    TRIM(SeriesImage)                                    AS code_series_image,
+    TRIM(SeriesPrimary)                                  AS code_series_primary,
+    TRIM(SeriesMainImage)                                AS code_series_main_image,
+    TRIM(Knockout)                                       AS code_knockout,
+    TRIM(Scene7ImageSet)                                 AS code_scene7_image_set,
+    TRIM(FluffAFI)                                       AS code_fluff_afi,
+    TRIM(MfgWarranty)                                    AS code_mfg_warranty,
+    TRIM(Material)                                       AS name_material,
+    TRIM(SeriesFeatures)                                 AS name_series_features
+FROM Enterprise_Lakehouse.MasterData_DW.DimItemMaster
+WHERE ItemSKU IS NOT NULL
+"
+bronze,vw_ref_order_type,"
+CREATE   VIEW bronze.vw_ref_order_type AS
+SELECT
+    TRIM(OTCODE)                                    AS code_order_type,
+    TRIM(OTDES1)                                    AS name_order_type,
+    TRIM(OTDES2)                                    AS name_order_type_short,
+    TRIM(OORDCL)                                    AS code_order_class,
+    CAST(OOTCAT AS INT)                             AS num_order_category,
+    CASE WHEN TRIM(OROUTE) = 'Y' THEN 1 ELSE 0 END    AS is_route_eligible,
+    CASE WHEN TRIM(OADCHG) = 'Y' THEN 1 ELSE 0 END    AS is_additional_charge,
+    CASE WHEN TRIM(OARFLG) = 'Y' THEN 1 ELSE 0 END    AS is_auto_replenish,
+    CASE WHEN TRIM(OWNEXP) = 'Y' THEN 1 ELSE 0 END    AS is_will_notify_expedite,
+    CASE WHEN TRIM(OMINEXC) = 'Y' THEN 1 ELSE 0 END   AS is_minimum_exception,
+    TRIM(OREQMNT)                                  AS code_requirement_type,
+    CASE WHEN TRIM(OFDESCH) = 'Y' THEN 1 ELSE 0 END   AS is_force_delivery_schedule,
+    CASE WHEN TRIM(OFDRIMS) = 'Y' THEN 1 ELSE 0 END   AS is_force_delivery_rims,
+    TRIM(OTRPTYP)                                   AS code_transport_type,
+    CAST(OZNLTIM AS INT)                            AS num_zone_lead_time_days,
+    CASE WHEN TRIM(OSPECHND) = 'Y' THEN 1 ELSE 0 END  AS is_special_handling,
+    CASE WHEN TRIM(OAUTORSCH) = 'Y' THEN 1 ELSE 0 END AS is_auto_reschedule,
+    CASE WHEN TRIM(OUSRDFN) = 'Y' THEN 1 ELSE 0 END   AS is_user_defined,
+    TRIM(OTUSER)                                    AS name_modified_by,
+    TRY_CONVERT(DATE, CAST(OTDATE AS VARCHAR(20)))  AS dt_modified
+FROM Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP
+WHERE OTCODE IS NOT NULL
+"
+bronze,vw_ref_product,"
+    CREATE   VIEW bronze.vw_ref_product AS
+    SELECT * FROM bronze.ref_product_edw
+"
+bronze,vw_ref_warehouse,"
+CREATE   VIEW bronze.vw_ref_warehouse AS
+SELECT
+    CAST(AFIWarehousesKey AS INT)            AS sk_warehouse,
+    TRIM(WarehouseCode)                      AS code_warehouse,
+    TRIM(IntransitWarehouse)                 AS code_intransit_warehouse,
+    TRIM(ContainerDirectWarehouse)           AS code_container_direct,
+    CAST(ControlledWarehouse AS INT)         AS is_controlled_warehouse,
+    TRIM(WarehouseLocation)                  AS name_warehouse_location,
+    TRIM(WarehouseOrderGroup)                AS name_warehouse_order_group,
+    CAST(FinanceInventoryReportFlag AS INT)  AS is_finance_inventory_report
+FROM Enterprise_Lakehouse.SupplyChain_DW.DimAFIWarehouses
+WHERE AFIWarehousesKey IS NOT NULL
+"
+dbo,vw_dq_forecast_accuracy,"-- ============================================================================
+-- VIEW: vw_data_quality_checks
+-- Returns 13 DQ checks, each as one row: check_id, check_name, is_pass (1/0)
+-- ============================================================================
+
+CREATE     VIEW dbo.vw_dq_forecast_accuracy
+AS
+
+-- ================================================================
+-- DQ_01: Actual qty — Gold KPI vs Silver Actual Demand
+-- ================================================================
+SELECT
+    'DQ_01' AS check_id,
+    'Actual qty: Gold KPI vs Silver Actual Demand' AS check_name,
+    CASE WHEN mismatch.cnt = 0 THEN 1 ELSE 0 END AS is_pass
+FROM (
+    SELECT COUNT(*) AS cnt
+    FROM (
+        SELECT
+            TRIM(id_item_sku)                AS id_item_sku,
+            TRIM(code_warehouse)             AS code_warehouse,
+            --TRIM(code_customer_group)        AS code_customer_group,
+            CAST(dt_fsc_month_first AS DATE) AS dt_fsc_month_first,
+            CAST(dt_fsc_month_last AS DATE)  AS dt_fsc_month_last,
+            SUM(qty_demand)                  AS qty_actual_slv
+        FROM SupplyChain_Lakehouse.dbo.slv_actual_demand_monthly
+        GROUP BY TRIM(id_item_sku), TRIM(code_warehouse), --TRIM(code_customer_group),
+                 CAST(dt_fsc_month_first AS DATE), CAST(dt_fsc_month_last AS DATE)
+    ) s
+    FULL OUTER JOIN (
+        SELECT
+            id_item_sku, code_warehouse, --code_customer_group,
+            dt_fsc_month_first, dt_fsc_month_last,
+            MAX(qty_actual) AS qty_actual_kpi
+        FROM SupplyChain_Lakehouse.dbo.gld_forecast_kpi_metric
+        GROUP BY id_item_sku, code_warehouse, --code_customer_group,
+                 dt_fsc_month_first, dt_fsc_month_last
+    ) k
+        ON  ISNULL(s.id_item_sku, '')         = ISNULL(k.id_item_sku, '')
+        AND ISNULL(s.code_warehouse, '')      = ISNULL(k.code_warehouse, '')
+        --AND ISNULL(s.code_customer_group, '') = ISNULL(k.code_customer_group, '')
+        AND s.dt_fsc_month_first              = k.dt_fsc_month_first
+        AND s.dt_fsc_month_last               = k.dt_fsc_month_last
+    WHERE ISNULL(s.qty_actual_slv, 0) <> ISNULL(k.qty_actual_kpi, 0)
+) mismatch
+
+UNION ALL
+
+-- ================================================================
+-- DQ_02: Naive forecast qty — Gold KPI vs Silver Naive
+-- ================================================================
+SELECT
+    'DQ_02',
+    'Naive forecast qty: Gold KPI vs Silver Naive',
+    CASE WHEN mismatch.cnt = 0 THEN 1 ELSE 0 END
+FROM (
+    SELECT COUNT(*) AS cnt
+    FROM (
+        SELECT
+            TRIM(id_item_sku)                AS id_item_sku,
+            TRIM(code_warehouse)             AS code_warehouse,
+            --TRIM(code_customer_group)        AS code_customer_group,
+            CAST(dt_fsc_month_first AS DATE) AS dt_fsc_month_first,
+            CAST(dt_fsc_month_last AS DATE)  AS dt_fsc_month_last,
+            SUM(qty_demand)                  AS qty_naive_slv
+        FROM SupplyChain_Lakehouse.dbo.slv_naive_forecast_monthly
+        GROUP BY TRIM(id_item_sku), TRIM(code_warehouse), --TRIM(code_customer_group),
+                 CAST(dt_fsc_month_first AS DATE), CAST(dt_fsc_month_last AS DATE)
+    ) s
+    FULL OUTER JOIN (
+        SELECT
+            id_item_sku, code_warehouse, --code_customer_group,
+            dt_fsc_month_first, dt_fsc_month_last,
+            MAX(qty_naive_forecast) AS qty_naive_kpi
+        FROM SupplyChain_Lakehouse.dbo.gld_forecast_kpi_metric
+        GROUP BY id_item_sku, code_warehouse, --code_customer_group,
+                 dt_fsc_month_first, dt_fsc_month_last
+    ) k
+        ON  ISNULL(s.id_item_sku, '')         = ISNULL(k.id_item_sku, '')
+        AND ISNULL(s.code_warehouse, '')      = ISNULL(k.code_warehouse, '')
+        --AND ISNULL(s.code_customer_group, '') = ISNULL(k.code_customer_group, '')
+        AND s.dt_fsc_month_first              = k.dt_fsc_month_first
+        AND s.dt_fsc_month_last               = k.dt_fsc_month_last
+    WHERE ISNULL(s.qty_naive_slv, 0) <> ISNULL(k.qty_naive_kpi, 0)
+) mismatch
+
+UNION ALL
+
+-- ================================================================
+-- DQ_03: Duplicate qty_actual per key in Gold KPI
+-- ================================================================
+SELECT
+    'DQ_03',
+    'No duplicate qty_actual per key in Gold KPI',
+    CASE WHEN dup.cnt = 0 THEN 1 ELSE 0 END
+FROM (
+    SELECT COUNT(*) AS cnt
+    FROM (
+        SELECT id_item_sku, code_warehouse, --code_customer_group,
+               dt_fsc_month_first, dt_fsc_month_last
+        FROM SupplyChain_Lakehouse.dbo.gld_forecast_kpi_metric
+        GROUP BY id_item_sku, code_warehouse, --code_customer_group,
+                 dt_fsc_month_first, dt_fsc_month_last
+        HAVING COUNT(DISTINCT qty_actual) > 1
+    ) t
+) dup
+
+UNION ALL
+
+-- ================================================================
+-- DQ_04: Gold Flat (Naive) vs Silver Naive — rows & qty
+-- ================================================================
+SELECT
+    'DQ_04',
+    'Gold Flat (Naive) vs Silver Naive: rows & qty',
+    CASE
+        WHEN g.total_rows = s.total_rows
+         AND ABS(ISNULL(g.total_qty, 0) - ISNULL(s.total_qty, 0)) < 0.01
+        THEN 1 ELSE 0
+    END
+FROM (
+    SELECT COUNT(*) AS total_rows, SUM(qty) AS total_qty
+    FROM SupplyChain_Lakehouse.dbo.gld_flat_forecast_actual
+    WHERE code_horizon = 'Naive forecast'
+       OR name_version = 'Naive Forecast'
+) g
+CROSS JOIN (
+    SELECT COUNT(*) AS total_rows, SUM(qty_demand) AS total_qty
+    FROM SupplyChain_Lakehouse.dbo.slv_naive_forecast_monthly
+) s
+
+UNION ALL
+
+-- ================================================================
+-- DQ_05: Gold Flat (Actual) vs Silver Actual — qty
+-- ================================================================
+SELECT
+    'DQ_05',
+    'Gold Flat (Actual) vs Silver Actual: qty',
+    CASE
+        WHEN ABS(ISNULL(g.total_qty, 0) - ISNULL(s.total_qty, 0)) < 0.001
+        THEN 1 ELSE 0
+    END
+FROM (
+    SELECT SUM(qty) AS total_qty
+    FROM SupplyChain_Lakehouse.dbo.gld_flat_forecast_actual
+    WHERE code_horizon = 'Actual demand'
+) g
+CROSS JOIN (
+    SELECT SUM(qty_demand) AS total_qty
+    FROM SupplyChain_Lakehouse.dbo.slv_actual_demand_monthly
+) s
+
+UNION ALL
+
+-- ================================================================
+-- DQ_06: Gold Flat (Forecast) vs Silver Forecast — rows & qty
+-- ================================================================
+SELECT
+    'DQ_06',
+    'Gold Flat (Forecast) vs Silver Forecast: rows & qty',
+    CASE
+        WHEN g.total_rows = s.total_rows
+         AND ABS(ISNULL(g.total_qty, 0) - ISNULL(s.total_qty, 0)) < 0.01
+        THEN 1 ELSE 0
+    END
+FROM (
+    SELECT COUNT(*) AS total_rows, SUM(qty) AS total_qty
+    FROM SupplyChain_Lakehouse.dbo.gld_flat_forecast_actual
+    WHERE code_status = 'Forecast'
+) g
+CROSS JOIN (
+    SELECT COUNT(*) AS total_rows, SUM(qty_forecast) AS total_qty
+    FROM SupplyChain_Lakehouse.dbo.slv_forecast_demand_monthly
+) s
+
+UNION ALL
+
+-- ================================================================
+-- DQ_07: Open Order — Bronze vs Silver
+-- ================================================================
+SELECT
+    'DQ_07',
+    'Open Order: Bronze vs Silver (rows, open qty, backorder qty)',
+    CASE
+        WHEN b.total_rows = s.total_rows
+         AND b.sum_qty_open = s.sum_qty_open
+         AND b.sum_qty_backorder = s.sum_qty_backorder
+        THEN 1 ELSE 0
+    END
+FROM (
+    SELECT
+        COUNT(*)                                           AS total_rows,
+        SUM(CAST(T1.qty_ordered - T1.qty_shipped AS INT)) AS sum_qty_open,
+        SUM(CAST(T1.qty_backordered AS INT))               AS sum_qty_backorder
+    FROM SupplyChain_Lakehouse.dbo.brz_wholesale_codis_afi__codatan T1
+    INNER JOIN SupplyChain_Lakehouse.dbo.brz_wholesale_codis_afi__comast T3
+        ON T1.id_order = T3.id_order
+    WHERE (T1.qty_backordered <> 0 OR T1.qty_ordered <> 0)
+      AND T1.amt_selling_price <> 0
+      AND T3.code_record_type <> 'X'
+      AND T1.qty_ordered >= 0
+) b
+CROSS JOIN (
+    SELECT
+        COUNT(*)            AS total_rows,
+        SUM(qty_open_order) AS sum_qty_open,
+        SUM(qty_backorder)  AS sum_qty_backorder
+    FROM SupplyChain_Lakehouse.dbo.slv_open_order_line_level
+) s
+
+UNION ALL
+
+-- ================================================================
+-- DQ_08: Invoice Detail — Silver vs Bronze source
+-- ================================================================
+SELECT
+    'DQ_08',
+    'Invoice Detail: Silver vs Bronze source (rows, qty, amt)',
+    CASE
+        WHEN t.total_rows = s.total_rows
+         AND ISNULL(t.total_qty, 0) = ISNULL(s.total_qty, 0)
+         AND ABS(ISNULL(t.total_amt, 0) - ISNULL(s.total_amt, 0)) < 0.01
+        THEN 1 ELSE 0
+    END
+FROM (
+    SELECT COUNT(*) AS total_rows, SUM(qty_shipped) AS total_qty, SUM(amt_net_sales) AS total_amt
+    FROM SupplyChain_Lakehouse.dbo.slv_invoice_detail_line_level
+) t
+CROSS JOIN (
+    SELECT COUNT(*) AS total_rows, SUM(INV.qty_shipped) AS total_qty, SUM(INV.amt_net_sales) AS total_amt
+    FROM SupplyChain_Lakehouse.dbo.brz_saleshistory_afi__invoicedetail_ver2 AS INV
+    LEFT JOIN SupplyChain_Lakehouse.dbo.brz_saleshistory_afi__invoiceheader_ver2 AS IH
+        ON INV.id_invoice = IH.id_invoice
+        AND INV.dt_invoice = IH.dt_invoice
+        AND INV.dt_order   = IH.dt_order
+        AND INV.id_order   = IH.id_order
+    WHERE INV.id_invoice IS NOT NULL
+      AND INV.dt_invoice >= '2023-01-01'
+) s
+
+UNION ALL
+
+-- ================================================================
+-- DQ_09: Forecast Demand — Bronze vs Silver total qty
+-- ================================================================
+SELECT
+    'DQ_09',
+    'Forecast Demand: Bronze vs Silver total qty',
+    CASE
+        WHEN ABS(ISNULL(b.total_qty, 0) - ISNULL(s.total_qty, 0)) < 0.01
+        THEN 1 ELSE 0
+    END
+FROM (
+    SELECT SUM(qty_resultant_forecast + qty_promotional_lift) AS total_qty
+    FROM SupplyChain_Lakehouse.dbo.brz_supplychain_enh_1__demandforecastsnapshotdaily_ver2 AS f
+    INNER JOIN SupplyChain_Lakehouse.dbo.ref_forecast_cycle AS c
+        ON CAST(f.ts_snapshot AS DATE) = c.dt_forecast_snapshot
+    WHERE
+        DATEFROMPARTS(CAST(f.num_fiscal_month / 100 AS INT), CAST(f.num_fiscal_month % 100 AS INT), 1)
+            >= DATEADD(MONTH, -36, DATEADD(YEAR, DATEDIFF(YEAR, 0, DATEADD(MONTH, -6, GETDATE())), 0))
+        AND DATEFROMPARTS(CAST(f.num_fiscal_month / 100 AS INT), CAST(f.num_fiscal_month % 100 AS INT), 1)
+            <= DATEADD(MONTH, 12, DATEADD(YEAR, DATEDIFF(YEAR, 0, DATEADD(MONTH, 6, GETDATE())), 0))
+) b
+CROSS JOIN (
+    SELECT SUM(qty_forecast) AS total_qty
+    FROM SupplyChain_Lakehouse.dbo.slv_forecast_demand_monthly
+) s
+
+UNION ALL
+
+-- ================================================================
+-- DQ_10: Null customer_group in slv_actual_demand_monthly
+-- ================================================================
+SELECT
+    'DQ_10',
+    'No null customer_group in slv_actual_demand_monthly',
+    CASE WHEN SUM(CASE WHEN code_customer_group IS NULL THEN 1 ELSE 0 END) = 0
+         THEN 1 ELSE 0 END
+FROM SupplyChain_Lakehouse.dbo.slv_actual_demand_monthly
+
+UNION ALL
+
+-- ================================================================
+-- DQ_11: Null customer_group in slv_invoice_detail_line_level
+-- ================================================================
+SELECT
+    'DQ_11',
+    'No null customer_group in slv_invoice_detail_line_level',
+    CASE WHEN SUM(CASE WHEN code_customer_group IS NULL THEN 1 ELSE 0 END) = 0
+         THEN 1 ELSE 0 END
+FROM SupplyChain_Lakehouse.dbo.slv_invoice_detail_line_level
+
+UNION ALL
+
+-- ================================================================
+-- DQ_12: Null customer_group in slv_forecast_demand_monthly
+-- ================================================================
+SELECT
+    'DQ_12',
+    'No null customer_group in slv_forecast_demand_monthly',
+    CASE WHEN SUM(CASE WHEN code_customer_group IS NULL THEN 1 ELSE 0 END) = 0
+         THEN 1 ELSE 0 END
+FROM SupplyChain_Lakehouse.dbo.slv_forecast_demand_monthly
+
+UNION ALL
+
+-- ================================================================
+-- DQ_13: Actual Demand = Invoice + Open Order (qty match)
+-- ================================================================
+SELECT
+    'DQ_13',
+    'Actual Demand = Invoice + Open Order (qty match)',
+    CASE
+        WHEN ABS(ISNULL(t.target_invoice_qty, 0)   - ISNULL(si.source_invoice_qty, 0))   < 0.01
+         AND ABS(ISNULL(t.target_open_order_qty, 0) - ISNULL(so.source_open_order_qty, 0)) < 0.01
+        THEN 1 ELSE 0
+    END
+FROM (
+    SELECT
+        SUM(CASE WHEN code_status = 'Invoice'   THEN qty_demand ELSE 0 END) AS target_invoice_qty,
+        SUM(CASE WHEN code_status = 'Open Order' THEN qty_demand ELSE 0 END) AS target_open_order_qty
+    FROM SupplyChain_Lakehouse.dbo.slv_actual_demand_monthly
+) t
+CROSS JOIN (
+    SELECT SUM(INV.qty_shipped) AS source_invoice_qty
+    FROM SupplyChain_Lakehouse.dbo.slv_invoice_detail_line_level AS INV
+    INNER JOIN SupplyChain_Lakehouse.dbo.ref_calendar AS CAL
+        ON CAL.dt_date = DATEADD(DAY, -INV.num_lead_time_days, INV.dt_current_request)
+    CROSS JOIN (
+        SELECT TOP 1 num_fsc_year
+        FROM SupplyChain_Lakehouse.dbo.ref_calendar
+        WHERE dt_date = CAST(GETDATE() AS DATE)
+        ORDER BY dt_date DESC
+    ) CF
+    WHERE INV.qty_shipped > 0
+      AND CAL.num_fsc_year BETWEEN CF.num_fsc_year - 3 AND CF.num_fsc_year + 1
+) si
+CROSS JOIN (
+    SELECT SUM(OO.qty_open_order) AS source_open_order_qty
+    FROM SupplyChain_Lakehouse.dbo.slv_open_order_line_level AS OO
+    INNER JOIN SupplyChain_Lakehouse.dbo.ref_calendar AS CAL
+        ON CAL.dt_date = DATEADD(DAY, -OO.num_lead_time_days, OO.dt_current_request)
+    CROSS JOIN (
+        SELECT TOP 1 num_fsc_year
+        FROM SupplyChain_Lakehouse.dbo.ref_calendar
+        WHERE dt_date = CAST(GETDATE() AS DATE)
+        ORDER BY dt_date DESC
+    ) CF
+    WHERE OO.code_allocation_flag = '2'
+      AND CAL.num_fsc_year BETWEEN CF.num_fsc_year - 3 AND CF.num_fsc_year + 1
+) so;
+"
+gold,vw_gld_fact_flat_forecast_actual,"
+CREATE   VIEW gold.vw_gld_fact_flat_forecast_actual AS
+
+/* ── Actual Demand ── */
+SELECT
+    id_item_sku,
+    code_warehouse,
+    code_customer_group,
+    dt_fsc_month_first,
+    dt_fsc_month_last,
+    CAST('Actual demand' AS VARCHAR(20)) AS code_horizon,
+    code_status,
+    name_version,
+    CAST(qty_demand AS FLOAT) AS qty
+FROM silver.slv_actual_demand_monthly
+
+UNION ALL
+
+/* ── Forecast Demand ── */
+SELECT
+    id_item_sku,
+    code_warehouse,
+    code_customer_group,
+    dt_fsc_month_first,
+    dt_fsc_month_last,
+    code_horizon,
+    code_status,
+    code_version AS name_version,
+    CAST(qty_forecast AS FLOAT) AS qty
+FROM silver.slv_forecast_demand_monthly
+
+UNION ALL
+
+/* ── Naive Forecast ── */
+SELECT
+    id_item_sku,
+    code_warehouse,
+    code_customer_group,
+    dt_fsc_month_first,
+    dt_fsc_month_last,
+    CAST('Naive forecast' AS VARCHAR(20)) AS code_horizon,
+    code_status,
+    name_version,
+    CAST(qty_demand AS FLOAT) AS qty
+FROM silver.slv_naive_forecast_monthly
+"
+gold,vw_gld_fact_forecast_kpi,"
+CREATE   VIEW gold.vw_gld_fact_forecast_kpi AS
+WITH
+forecast AS (
+    SELECT
+        UPPER(TRIM(DFC.id_item_sku))          AS id_item_sku,
+        UPPER(TRIM(DFC.code_warehouse))       AS code_warehouse,
+        CAST(DFC.dt_fsc_month_first AS DATE)  AS dt_fsc_month_first,
+        CAST(DFC.dt_fsc_month_last AS DATE)   AS dt_fsc_month_last,
+        TRIM(DFC.code_horizon)                AS code_horizon,
+        CAST(DFC.dt_snapshot AS DATE)         AS dt_snapshot,
+        CAST(SUM(DFC.qty_forecast) AS FLOAT)  AS qty_forecast
+    FROM silver.slv_forecast_demand_monthly AS DFC
+    WHERE DFC.code_horizon IN ('Lag-0','Lag-1','Lag-2','Lag-3','Lag-4','>Lag-4')
+    GROUP BY
+        UPPER(TRIM(DFC.id_item_sku)),
+        UPPER(TRIM(DFC.code_warehouse)),
+        CAST(DFC.dt_fsc_month_first AS DATE),
+        CAST(DFC.dt_fsc_month_last AS DATE),
+        TRIM(DFC.code_horizon),
+        CAST(DFC.dt_snapshot AS DATE)
+),
+
+actuals AS (
+    SELECT
+        UPPER(TRIM(id_item_sku))              AS id_item_sku,
+        UPPER(TRIM(code_warehouse))           AS code_warehouse,
+        CAST(dt_fsc_month_first AS DATE)      AS dt_fsc_month_first,
+        CAST(dt_fsc_month_last AS DATE)       AS dt_fsc_month_last,
+        CAST(SUM(qty_demand) AS FLOAT)        AS qty_actual
+    FROM silver.slv_actual_demand_monthly
+    GROUP BY
+        UPPER(TRIM(id_item_sku)),
+        UPPER(TRIM(code_warehouse)),
+        CAST(dt_fsc_month_first AS DATE),
+        CAST(dt_fsc_month_last AS DATE)
+),
+
+naive AS (
+    SELECT
+        UPPER(TRIM(id_item_sku))              AS id_item_sku,
+        UPPER(TRIM(code_warehouse))           AS code_warehouse,
+        CAST(dt_fsc_month_first AS DATE)      AS dt_fsc_month_first,
+        CAST(dt_fsc_month_last AS DATE)       AS dt_fsc_month_last,
+        CAST(SUM(qty_demand) AS FLOAT)        AS qty_naive_forecast
+    FROM silver.slv_naive_forecast_monthly
+    GROUP BY
+        UPPER(TRIM(id_item_sku)),
+        UPPER(TRIM(code_warehouse)),
+        CAST(dt_fsc_month_first AS DATE),
+        CAST(dt_fsc_month_last AS DATE)
+),
+
+dimkeys AS (
+    SELECT id_item_sku, code_warehouse, dt_fsc_month_first, dt_fsc_month_last
+    FROM forecast
+    UNION
+    SELECT id_item_sku, code_warehouse, dt_fsc_month_first, dt_fsc_month_last
+    FROM actuals
+    UNION
+    SELECT id_item_sku, code_warehouse, dt_fsc_month_first, dt_fsc_month_last
+    FROM naive
+),
+
+spine AS (
+    SELECT
+        K.id_item_sku, K.code_warehouse,
+        K.dt_fsc_month_first, K.dt_fsc_month_last,
+        H.code_horizon
+    FROM dimkeys K
+    CROSS JOIN bronze.ref_forecast_horizon H
+)
+
+SELECT
+    SP.id_item_sku,
+    SP.code_warehouse,
+    SP.dt_fsc_month_first,
+    SP.dt_fsc_month_last,
+    SP.code_horizon,
+    FC.dt_snapshot,
+
+    /* ── Quantities ── */
+    CAST(FC.qty_forecast AS FLOAT)                       AS qty_forecast,
+    CAST(ACT.qty_actual AS FLOAT)                        AS qty_actual,
+    CAST(NF.qty_naive_forecast AS FLOAT)                 AS qty_naive_forecast,
+
+    /* ── Forecast Error ── */
+    CAST(COALESCE(FC.qty_forecast, 0) - COALESCE(ACT.qty_actual, 0) AS FLOAT)
+        AS qty_fcst_error,
+    CAST(ABS(COALESCE(FC.qty_forecast, 0) - COALESCE(ACT.qty_actual, 0)) AS FLOAT)
+        AS qty_abs_fcst_error,
+
+    /* ── Naive Forecast Error ── */
+    CAST(COALESCE(NF.qty_naive_forecast, 0) - COALESCE(ACT.qty_actual, 0) AS FLOAT)
+        AS qty_naive_fcst_error,
+    CAST(ABS(COALESCE(NF.qty_naive_forecast, 0) - COALESCE(ACT.qty_actual, 0)) AS FLOAT)
+        AS qty_abs_naive_fcst_error,
+
+    /* ── NEW: 5 extra KPI columns (match v8 notebook) ── */
+    CAST(POWER(COALESCE(FC.qty_forecast, 0) - COALESCE(ACT.qty_actual, 0), 2) AS FLOAT)
+        AS qty_squared_fcst_error,
+    CAST(POWER(COALESCE(NF.qty_naive_forecast, 0) - COALESCE(ACT.qty_actual, 0), 2) AS FLOAT)
+        AS qty_squared_naive_fcst_error,
+    CAST(CASE
+        WHEN ACT.qty_actual IS NOT NULL AND FC.qty_forecast IS NOT NULL THEN 1
+        ELSE 0
+    END AS INT) AS valid_obs_flag,
+    CAST(CASE
+        WHEN ACT.qty_actual IS NOT NULL AND ACT.qty_actual <> 0 THEN 1
+        ELSE 0
+    END AS INT) AS valid_actual_nonzero_flag,
+    CAST(CASE
+        WHEN ACT.qty_actual IS NOT NULL AND ACT.qty_actual <> 0
+            THEN ABS((COALESCE(FC.qty_forecast, 0) - ACT.qty_actual) / ACT.qty_actual)
+        ELSE NULL
+    END AS FLOAT) AS abs_pct_error
+
+FROM spine AS SP
+
+LEFT JOIN forecast AS FC
+    ON  SP.id_item_sku        = FC.id_item_sku
+    AND SP.code_warehouse     = FC.code_warehouse
+    AND SP.dt_fsc_month_first = FC.dt_fsc_month_first
+    AND SP.dt_fsc_month_last  = FC.dt_fsc_month_last
+    AND SP.code_horizon       = FC.code_horizon
+
+LEFT JOIN actuals AS ACT
+    ON  SP.id_item_sku        = ACT.id_item_sku
+    AND SP.code_warehouse     = ACT.code_warehouse
+    AND SP.dt_fsc_month_first = ACT.dt_fsc_month_first
+    AND SP.dt_fsc_month_last  = ACT.dt_fsc_month_last
+
+LEFT JOIN naive AS NF
+    ON  SP.id_item_sku        = NF.id_item_sku
+    AND SP.code_warehouse     = NF.code_warehouse
+    AND SP.dt_fsc_month_first = NF.dt_fsc_month_first
+    AND SP.dt_fsc_month_last  = NF.dt_fsc_month_last
+"
+meta,vw_run_history_tz,"
+CREATE   VIEW meta.vw_run_history_tz AS
+SELECT
+    run_id, pipeline_run_id, sp_name, status, rows_affected,
+    load_type, duration_seconds, error_message,
+    -- UTC (source of truth)
+    start_time          AS start_utc,
+    end_time            AS end_utc,
+    -- CST (Enterprise/US team)
+    start_cst,
+    end_cst,
+    -- VN (UTC+7)
+    DATEADD(HOUR, 7, start_time) AS start_vn,
+    DATEADD(HOUR, 7, end_time)   AS end_vn
+FROM meta.sp_run_history
+"
+meta,vw_table_dictionary,"
+CREATE   VIEW meta.vw_table_dictionary AS
+SELECT
+    'EDW-Fabric' AS [ServerName],
+    'SupplyChain_Warehouse' AS [DatabaseName],
+    target_schema AS [SchemaName],
+    target_table AS [TableName],
+    'Table' AS [ObjectType],
+    primary_key AS [PrimaryKey],
+    CAST(NULL AS VARCHAR(500)) AS [AlternateKey],
+    'Delta' AS [StorageType],
+    CAST(NULL AS VARCHAR(750)) AS [RowSToreClusteredKey],
+    CAST(NULL AS VARCHAR(500)) AS [AdditionalIndexes],
+    CAST(NULL AS VARCHAR(500)) AS [DistributionKey],
+    CAST(NULL AS VARCHAR(25)) AS [IndexType],
+    project AS [SourceSystem],
+    CAST(NULL AS VARCHAR(100)) AS [SourceServer],
+    CAST(NULL AS VARCHAR(200)) AS [SourceDatabase],
+    source_objects AS [SourceObject],
+    CAST(NULL AS VARCHAR(100)) AS [SourceObjectAlias],
+    CAST(NULL AS VARCHAR(100)) AS [SourcePlatform],
+    view_name AS [ReplicatedSource],
+    'Fabric Pipeline' AS [ETLTool],
+    sp_name AS [PackageName],
+    CAST(NULL AS VARCHAR(400)) AS [TFSPath],
+    CAST(NULL AS VARCHAR(100)) AS [JobName],
+    CAST(NULL AS VARCHAR(50)) AS [JobServer],
+    CASE frequency
+        WHEN 'daily' THEN 24
+        WHEN 'hourly' THEN 1
+        WHEN 'weekly' THEN 168
+        WHEN 'monthly' THEN 720
+        ELSE 24
+    END AS [RefreshRate],
+    frequency AS [RefreshDescription],
+    load_type AS [UpdateMethod],
+    CAST(NULL AS VARCHAR(8000)) AS [ExtractQuery],
+    CAST(NULL AS VARCHAR(8000)) AS [UpdateQuery],
+    CAST(NULL AS VARCHAR(500)) AS [AdditionaNotes],
+    CAST(NULL AS DECIMAL(12)) AS [InvalidCount],
+    CAST(rows_loaded AS DECIMAL(12)) AS [RowCount],
+    CAST(NULL AS DATETIME2(6)) AS [CreateDate],
+    meta.ufn_utc_to_cst(last_load_date) AS [Modified],
+    CAST(NULL AS VARCHAR(100)) AS [CreatedBy],
+    CAST(NULL AS VARCHAR(100)) AS [ModifiedBy],
+    meta.ufn_utc_to_cst(last_load_date) AS [LastAudit],
+    CAST(NULL AS VARCHAR(500)) AS [ErrorMsg],
+    CAST(NULL AS DATETIME2(6)) AS [CreatedDate],
+    CAST(NULL AS DATETIME2(6)) AS [Created],
+    CAST(NULL AS VARCHAR(15)) AS [SourceObjectType],
+    CAST(NULL AS VARCHAR(200)) AS [PartitionKey],
+    CAST(NULL AS INT) AS [ColumnStatsCount],
+    CAST(NULL AS INT) AS [ColumnCount],
+    CAST(NULL AS DATETIME2(6)) AS [ColumnStatsLastUpdated],
+    CAST(NULL AS DECIMAL(12)) AS [DeletedRows],
+    CAST(NULL AS VARCHAR(250)) AS [DataLake],
+    CAST(NULL AS VARCHAR(500)) AS [DataLakeFolder],
+    CAST(NULL AS VARCHAR(500)) AS [DataLakeFolderArchive],
+    CAST(NULL AS INT) AS [ReplicatedSourceExpiryHours],
+    CAST(NULL AS INT) AS [ReplicatedSourceArchiveExpiryHours],
+    CAST(NULL AS VARCHAR(500)) AS [StageDataLakeFolder],
+    meta.ufn_utc_to_cst(last_load_date) AS [LastBatchStartDate],
+    CAST(NULL AS VARCHAR(500)) AS [LibraryList],
+    date_key AS [DateKey],
+    date_range_days AS [DateRangeDays],
+    CAST(NULL AS VARCHAR(100)) AS [OperationKey],
+    CAST(NULL AS VARCHAR(8000)) AS [PII],
+    CAST(NULL AS BIT) AS [ValidKeyValues],
+    CAST(NULL AS VARCHAR(8000)) AS [SelectColumn],
+    CAST(NULL AS VARCHAR(30)) AS [DataBricksClusterVersion],
+    CAST(NULL AS VARCHAR(30)) AS [DataBricksNodeType],
+    CAST(NULL AS VARCHAR(10)) AS [DataBricksClusterRange],
+    layer AS [v9_Layer],
+    execution_order AS [v9_ExecutionOrder],
+    depends_on AS [v9_DependsOn],
+    watermark_column AS [v9_WatermarkColumn],
+    last_watermark_value AS [v9_LastWatermarkValue],
+    is_active AS [v9_IsActive]
+FROM meta.sp_registry
+"
+queryinsights,exec_requests_history,"CREATE VIEW queryinsights.exec_requests_history AS (
+            SELECT
+                t1.distributed_statement_id AS distributed_statement_id,
+                t1.database_name,
+                t1.submit_time,
+                t1.TIMESTAMP AS start_time,
+                t2.TIMESTAMP AS end_time,
+                CASE
+                    WHEN t2.distributed_request_id != '00000000-0000-0000-0000-000000000000'
+                    AND t2.distributed_request_id IS NOT NULL THEN 1
+                    ELSE 0
+                END AS is_distributed,
+                CASE
+                    WHEN t2.result_cache_hit > 0 THEN 'SELECT'
+                    ELSE t1.statement_type
+                END AS statement_type,
+                GREATEST(
+                    DATEDIFF_BIG(MILLISECOND, t1.submit_time, t2.TIMESTAMP),
+                    DATEDIFF_BIG(MILLISECOND, t1.TIMESTAMP, t2.TIMESTAMP),
+                    10
+                ) AS total_elapsed_time_ms,
+                t1.login_name,
+                t2.row_count,
+                t2.query_status AS status,
+                t1.session_id,
+                t1.connection_id,
+                t1.program_name,
+                t1.batch_id,
+                t1.root_batch_id,
+                CASE
+                    WHEN obfuscated_query_text_hash NOT LIKE '0x%[^A-Za-z1-9]'
+                    AND obfuscated_query_text_hash != '0x' THEN obfuscated_query_text_hash
+                    ELSE query_text_hash
+                END AS query_hash,
+                t1.label,
+                t2.result_cache_hit,
+                t2.sql_pool_name,
+                t2.error_code,
+                t2.error_severity,
+                t2.error_state,
+                (
+                    CAST(t2.cpu_time_fe_ms * 1.0 / 1000 AS BIGINT) + t2.cpu_time_be_ms
+                ) AS allocated_cpu_time_ms,
+                CAST(
+                    t2.data_scanned_remote_storage_bytes * 1.0 / (1024 * 1024) AS DECIMAL(18, 3)
+                ) AS data_scanned_remote_storage_mb,
+                CAST(
+                    t2.data_scanned_memory_bytes * 1.0 / (1024 * 1024) AS DECIMAL(18, 3)
+                ) AS data_scanned_memory_mb,
+                CAST(
+                    t2.data_scanned_disk_bytes * 1.0 / (1024 * 1024) AS DECIMAL(18, 3)
+                ) AS data_scanned_disk_mb,
+                COALESCE(t1.command_lob, t1.statement) AS command
+            FROM
+                queryinsights.fabric_query_starting AS t1
+                JOIN queryinsights.fabric_query_completed AS t2 ON t1.distributed_statement_id = t2.distributed_statement_id
+                AND t1.database_name = t2.database_name
+                AND t1.batch_id = t2.batch_id
+            WHERE
+                t1.submit_time > DATEADD(DAY, -30, GETDATE())
+        );"
+queryinsights,exec_sessions_history,"CREATE VIEW queryinsights.exec_sessions_history AS SELECT session_id, connection_id, login_time as session_start_time, logout_time as session_end_time, program_name, login_name, status, context_info, total_elapsed_time as total_query_elapsed_time_ms, last_request_start_time, last_request_end_time, is_user_process, prev_error, group_id, database_id, authenticating_database_id, open_transaction_count, text_size, language, date_format, date_first, quoted_identifier, arithabort, ansi_null_dflt_on, ansi_defaults, ansi_warnings, ansi_padding, ansi_nulls, concat_null_yields_null, transaction_isolation_level, lock_timeout, deadlock_priority, original_security_id, database_name from queryinsights.fabric_sessions AS t1 WHERE t1.TIMESTAMP > DATEADD(DAY, -30, GETDATE())"
+queryinsights,frequently_run_queries,"CREATE VIEW queryinsights.frequently_run_queries AS (SELECT t.database_name, COUNT(*) AS number_of_runs, MIN(t.duration) AS min_run_total_elapsed_time_ms, MAX(t.duration) AS max_run_total_elapsed_time_ms, AVG(t.duration) AS avg_total_elapsed_time_ms, COUNT(CASE WHEN t.status = 'Succeeded' THEN 1 ELSE NULL END) AS number_of_successful_runs, COUNT(CASE WHEN t.status = 'Failed' THEN 1 ELSE NULL END) AS number_of_failed_runs, COUNT(CASE WHEN t.status = 'Canceled' THEN 1 ELSE NULL END) AS number_of_canceled_runs, MAX(last_run_elapsed_time) AS last_run_total_elapsed_time_ms,  MAX(t.submit_time) AS last_run_start_time, MAX(last_run_statement_id) AS last_dist_statement_id, t.query_hash, MAX(last_run_statement) AS last_run_command FROM(SELECT     query_hash,    DATEDIFF_BIG(MILLISECOND, t1.submit_time, t2.TIMESTAMP) AS duration,    t1.TIMESTAMP, t1.submit_time, t2.query_status as status,    FIRST_VALUE(t1.distributed_statement_id) OVER (PARTITION BY t1.query_hash ORDER BY t1.submit_time DESC) AS last_run_statement_id,    FIRST_VALUE(t1.session_id) OVER (PARTITION BY t1.query_hash ORDER BY t1.submit_time DESC) AS last_run_session_id,    FIRST_VALUE(COALESCE(t1.command_lob, t1.statement)) OVER (PARTITION BY t1.query_hash ORDER BY t1.submit_time DESC) AS last_run_statement, FIRST_VALUE(DATEDIFF_BIG(MILLISECOND, t1.submit_time, t2.TIMESTAMP)) OVER (PARTITION BY t1.query_hash ORDER BY t1.submit_time DESC) AS last_run_elapsed_time, t1.database_name FROM ( SELECT CASE WHEN obfuscated_query_text_hash NOT LIKE '0x%[^A-Za-z1-9]' AND obfuscated_query_text_hash != '0x' THEN obfuscated_query_text_hash ELSE query_text_hash END AS query_hash,    session_id, TIMESTAMP, submit_time, statement, command_lob, distributed_statement_id, database_name, batch_id FROM queryinsights.fabric_query_starting WHERE queryinsights.fabric_query_starting.TIMESTAMP >= CURRENT_TIMESTAMP - 30) AS t1 JOIN     queryinsights.fabric_query_completed AS t2 ON t1.distributed_statement_id = t2.distributed_statement_id     AND t1.database_name = t2.database_name     AND t1.batch_id = t2.batch_id WHERE t2.TIMESTAMP >= CURRENT_TIMESTAMP - 30 AND distributed_request_id IS NOT NULL AND distributed_request_id <> CAST(0x0 AS UNIQUEIDENTIFIER)) AS t GROUP BY query_hash, database_name)"
+queryinsights,long_running_queries,"CREATE VIEW queryinsights.long_running_queries AS (SELECT t.database_name, MAX(median_elapsed_time) AS median_total_elapsed_time_ms, MAX(last_run_elapsed_time) AS last_run_total_elapsed_time_ms, MAX(t.submit_time) AS last_run_start_time,  MAX(last_run_statement_id) AS last_dist_statement_id,  MAX(last_run_session_id) AS last_run_session_id, COUNT(*) AS number_of_runs, t.query_hash, MAX(last_run_statement) AS last_run_command FROM(SELECT  query_hash,    GREATEST(0,DATEDIFF_BIG(MILLISECOND, t1.submit_time, t2.TIMESTAMP)) AS duration,    t1.TIMESTAMP, t1.submit_time,   FIRST_VALUE(t1.distributed_statement_id) OVER (PARTITION BY t1.query_hash ORDER BY t1.submit_time DESC) AS last_run_statement_id, FIRST_VALUE(GREATEST(0,DATEDIFF_BIG(MILLISECOND, t1.submit_time, t2.TIMESTAMP))) OVER (PARTITION BY t1.query_hash ORDER BY t1.submit_time DESC) AS last_run_elapsed_time,    FIRST_VALUE(t1.session_id) OVER (PARTITION BY query_hash ORDER BY t1.submit_time DESC) AS last_run_session_id,    FIRST_VALUE(COALESCE(t1.command_lob, t1.statement)) OVER (PARTITION BY query_hash ORDER BY t1.submit_time DESC) AS last_run_statement, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY GREATEST(0,DATEDIFF_BIG(MILLISECOND, t1.submit_time, t2.TIMESTAMP))) OVER (PARTITION BY query_hash) AS median_elapsed_time, t2.database_name FROM ( SELECT CASE WHEN obfuscated_query_text_hash NOT LIKE '0x%[^A-Za-z1-9]' AND obfuscated_query_text_hash != '0x' THEN obfuscated_query_text_hash ELSE query_text_hash END AS query_hash,    session_id, TIMESTAMP, submit_time, statement, command_lob, distributed_statement_id, database_name, batch_id FROM queryinsights.fabric_query_starting WHERE queryinsights.fabric_query_starting.TIMESTAMP >= CURRENT_TIMESTAMP - 30) AS t1 JOIN     queryinsights.fabric_query_completed AS t2 ON t1.distributed_statement_id = t2.distributed_statement_id     AND t1.database_name = t2.database_name     AND t1.batch_id = t2.batch_id WHERE t2.TIMESTAMP >= CURRENT_TIMESTAMP - 30 AND distributed_request_id IS NOT NULL AND distributed_request_id <> CAST(0x0 AS UNIQUEIDENTIFIER)) AS t GROUP BY query_hash, database_name)"
+queryinsights,sql_pool_insights,"CREATE VIEW queryinsights.sql_pool_insights AS SELECT sql_pool_name, metric_timestamp AS timestamp, max_resource_percentage, is_optimized_for_reads, current_workspace_capacity, is_pool_under_pressure from queryinsights.fabric_workloadinsights AS t1 WHERE t1.TIMESTAMP > DATEADD(DAY, -30, GETDATE())"
+SCP_Core_Wrk,v_DimCustomerMaster,"CREATE         VIEW [SCP_Core_Wrk].[v_DimCustomerMaster] AS (
+
+-- SCP_Core_Wrk.[DimCustomerMaster]
+SELECT RTRIM([CSL].[cslCustomerNumber]) AS [Account Number]
+      ,RTRIM([CSL].[cslShiptoNumber]	) AS [ShipTo Number]
+	  ,[CMA].[cmaCustomerName] AS [Customer Name]
+	  ,[CSL].[cslName] AS [ShipTo Name]
+      ,TRIM(Case When [CSL].[cslShiptoNumber] is Null or [CSL].[cslShiptoNumber] = ''
+		Then [CSL].[cslCustomerNumber]
+	Else
+		RTRIM(cslCustomerNumber) + '-' + LTRIM(cslShiptoNumber)End)  as [Account And ShipTo Number]
+      ,[CSL].[cslCommissionCode] AS [Commission Code]
+	  ,[CSL].[cslFreightCode] AS [Freight Code]
+	  ,[CSL].[cslPriceCode] AS [Price Code]
+	  ,[CSL].[cslDefaultWarehouse] AS [Default Warehouse]
+	  ,RTRIM([CSL].[csmshpa3]) AS [ShipTo City]
+	  ,RTRIM([CSL].[csmshpst]) AS [ShipTo State]
+	  ,RTRIM([CSL].[csmshpco]) AS [ShipTo Country]
+	  ,[CSL].[cslBusinessType] AS [Business Type Code]
+	  -- waiting for [Wholesale_Marketing].[BusinessType]
+	      --,RTRIM(isnull(btyBtdesc,'')) as [Business Type]
+	      --,btyRptBusType as [Reporting Business Type]
+	  ,CASE 
+        WHEN [CSL].[cslBusinessType] = '  ' THEN 'Unassigned'
+        WHEN [CSL].[cslBusinessType] = '0A' THEN 'Other'
+        WHEN [CSL].[cslBusinessType] = '1A' THEN 'Primary'
+        WHEN [CSL].[cslBusinessType] = '1C' THEN 'Corporate Online Selling'
+        WHEN [CSL].[cslBusinessType] = '1D' THEN 'e-Retail'
+        WHEN [CSL].[cslBusinessType] = '1E' THEN 'Ashley Home Stores'
+        WHEN [CSL].[cslBusinessType] = '1F' THEN 'Marketing Specialist'
+        WHEN [CSL].[cslBusinessType] = '1G' THEN 'Interior Design'
+        WHEN [CSL].[cslBusinessType] = '1H' THEN 'Hybrid - Homestore and Primary'
+        WHEN [CSL].[cslBusinessType] = '2A' THEN 'RTA / Unfinished'
+        WHEN [CSL].[cslBusinessType] = '2S' THEN 'Sleep Shops'
+        WHEN [CSL].[cslBusinessType] = '3A' THEN 'International Primary'
+        WHEN [CSL].[cslBusinessType] = '3B' THEN 'Distributors'
+        WHEN [CSL].[cslBusinessType] = '3C' THEN 'International Homestore'
+        WHEN [CSL].[cslBusinessType] = '3D' THEN 'International Rental'
+        WHEN [CSL].[cslBusinessType] = '3E' THEN 'International Distributor'
+        WHEN [CSL].[cslBusinessType] = '3F' THEN 'International e-Retail'
+        WHEN [CSL].[cslBusinessType] = '4A' THEN 'Government'
+        WHEN [CSL].[cslBusinessType] = '4B' THEN 'Warehouse Clubs'
+        WHEN [CSL].[cslBusinessType] = '4C' THEN 'Employee Incentive Programs'
+        WHEN [CSL].[cslBusinessType] = '5A' THEN 'Mail Order Catalogs'
+        WHEN [CSL].[cslBusinessType] = '6A' THEN 'Rental'
+        WHEN [CSL].[cslBusinessType] = '7A' THEN 'Mass Merchants'
+        WHEN [CSL].[cslBusinessType] = '8A' THEN 'Decorators'
+        WHEN [CSL].[cslBusinessType] = '9A' THEN 'GOB Accounts'
+        ELSE 'Other'
+    END AS [Business Type],
+    CASE 
+        WHEN [CSL].[cslBusinessType] = '  ' THEN 'Other'
+        WHEN [CSL].[cslBusinessType] IN ('0A') THEN 'Other'
+        WHEN [CSL].[cslBusinessType] IN ('1A', '1F', '1G', '1H', '2A', '2S', '3B', '4A', '4B', '5A', '8A', '9A') THEN 'Primary'
+        WHEN [CSL].[cslBusinessType] IN ('1C', '1E', '4C') THEN 'Ashley HomeStores'
+        WHEN [CSL].[cslBusinessType] = '1D' THEN 'e-Retail'
+        WHEN [CSL].[cslBusinessType] IN ('3A', '3C', '3D', '3E', '3F') THEN 'International'
+        WHEN [CSL].[cslBusinessType] = '6A' THEN 'Rental'
+        WHEN [CSL].[cslBusinessType] = '7A' THEN 'Mass Merchants'
+        ELSE 'Other'
+    END AS [Reporting Business Type]
+	  ,CASE 
+			-- Waiting on CustomerGrouping in Bronze
+			WHEN [CG].[CustomerGroup] IS NOT NULL
+			  THEN [CG].[CustomerGroup]
+			WHEN [CSL].[cslCustomerNumber] = '6000100' THEN 'AFICONS' --SAMPLE ACCOUNT
+			WHEN [CSL].[cslCustomerNumber] IN ('1913400','8888000','8888300','8888600','9946600','9955000','9955100','9956600','9966100','9974000','9977400','9983800','9985500','9989200')
+				THEN 'HSENT'
+			WHEN [CSL].[cslCustomerNumber] = '4444400' --ASHCOMM
+				THEN 'HSENT' 
+			WHEN [CSL].[cslBusinessType] IN ('1C','1E','4C') --'Ashley HomeStores'
+					AND [CSL].[cslCommissionCode] <> '006'
+				THEN 'HSLIC'
+			WHEN [CSL].[cslBusinessType] = '1H'-- = 'Hybrid - Homestore and Primary'
+				THEN 'HSLIC'
+			WHEN [CSL].[cslCustomerNumber] = '109200'
+				THEN 'NFM'
+			WHEN [CSL].[cslCustomerNumber] = '3061700' --Payless in E-Retail should be AFICONS
+				THEN 'AFICONS'
+            WHEN [CSL].[cslBusinessType] = '1D' -- 'E-Retail'
+				THEN 'ECOMM'
+			WHEN [CSL].[cslBusinessType] = '6A' -- 'Rental'
+				THEN 'MASSRENT'
+			WHEN [CSL].[cslBusinessType] = '7A' -- 'Mass Merchants'
+				THEN 'MASSRENT'
+			WHEN [CSL].[cslBusinessType] IN ('3A','3C','3D','3E','3F') -- 'International'
+				THEN 'INT'
+--			WHEN [DC].[Customer Account Number] = '4031300'
+--					AND [DC].[Customer Shipto Number] IN ('','1','15','17','28','42','5','ECR') 
+--				THEN 'RHDTC'
+--			WHEN [DC].[Customer Account Number] = '4031300'
+--					AND [DC].[Customer Shipto Number] IN ('AM01','AM15','AM17','AM28','AM42','AM05','AMEC')
+--				THEN 'RHAMZ'
+--			WHEN [DC].[Customer Account Number] = '4031300'
+--					AND [DC].[Customer Shipto Name] LIKE 'AMAZON.COM%'
+--				THEN 'RHAMZ'
+			WHEN [CSL].[cslCustomerNumber] = '4031300'
+				THEN 'RHCUST'
+			WHEN [CSL].[cslCustomerNumber] = '3824800'
+				THEN 'AFI DIST'
+			ELSE 'AFICONS'
+		END AS [Customer Group]
+	  ,CASE
+			WHEN [CSL].[cslCustomerNumber] IN ('9946600','9955000','9966100','9981000'
+			                                       ,'9977400','9985500','9955100','9956600'
+									                           ,'9983800','9989200','9974000'
+									                           )  -- DSG Accounts
+				THEN 'AGR RED'
+			WHEN [CSL].[cslCustomerNumber] IN ('8888300','8888400','8888000','8888600','1913400')
+				THEN 'AGR YELL'
+			WHEN [CSL].[cslCustomerNumber] = '4444400'
+				THEN 'ASHCOMM'
+			WHEN [CSL].[cslCustomerNumber] = '3824800'
+				THEN 'AFI DIST'
+			WHEN [CSL].[cslCustomerNumber] IN ('3804400','3671000','3586300','269400'
+									  )  -- Aaron's Rental Accts
+				THEN 'AARONS RENTAL'
+
+			ELSE CONCAT(RTRIM([CMA].[cmaCustomerName]), ' - ', RTRIM([CSL].[cslCustomerNumber]))
+		END AS [Account Group]
+  FROM [Enterprise_Lakehouse].[Customers].[ShippingLocations] AS CSL
+  LEFT JOIN [Enterprise_Lakehouse].[Customers].[AccountMaster]  AS CMA  
+    ON [CMA].[cmaCustomerNumber] = [CSL].[cslCustomerNumber]
+  LEFT JOIN [Enterprise_Lakehouse].[Wholesale_ProductSourcing_AFI].[CustomerGrouping] AS CG
+    ON [CSL].[cslCustomerNumber] = [CG].[CustomerNumber]
+
+UNION
+
+SELECT 'AFICONS' AS [Account Number]
+      ,'AFICONS' AS [ShipTo Number]
+      ,'AFICONS' AS [Customer Name]
+      ,'AFICONS' AS [ShipTo Name]
+      ,'AFICONS' AS [Account And ShipTo Number]
+      ,'' AS [Commission Code]
+      ,'' AS [Freight Code]
+      ,'' AS [Price Code]
+      ,'' AS [Default Warehouse]
+      ,'' AS [ShipTo City]
+      ,'' AS [ShipTo State]
+      ,'' AS [ShipTo Country]
+      ,'' AS [Business Type Code]
+      ,'' AS [Business Type]
+      ,'' AS [Reporting Business Type]
+      ,'AFICONS' AS [Customer Group]
+      ,'AFICONS' AS [Account Group]
+
+UNION 
+
+SELECT 'ECOMM' AS [Account Number]
+      ,'ECOMM' AS [ShipTo Number]
+      ,'ECOMM' AS [Customer Name]
+      ,'ECOMM' AS [ShipTo Name]
+      ,'ECOMM' AS [Account And ShipTo Number]
+      ,'' AS [Commission Code]
+      ,'' AS [Freight Code]
+      ,'' AS [Price Code]
+      ,'' AS [Default Warehouse]
+      ,'' AS [ShipTo City]
+      ,'' AS [ShipTo State]
+      ,'' AS [ShipTo Country]
+      ,'' AS [Business Type Code]
+      ,'' AS [Business Type]
+      ,'' AS [Reporting Business Type]
+      ,'ECOMM' AS [Customer Group]
+      ,'ECOMM' AS [Account Group]
+
+UNION 
+
+SELECT 'HSENT' AS [Account Number]
+      ,'HSENT' AS [ShipTo Number]
+      ,'HSENT' AS [Customer Name]
+      ,'HSENT' AS [ShipTo Name]
+      ,'HSENT' AS [Account And ShipTo Number]
+      ,'' AS [Commission Code]
+      ,'' AS [Freight Code]
+      ,'' AS [Price Code]
+      ,'' AS [Default Warehouse]
+      ,'' AS [ShipTo City]
+      ,'' AS [ShipTo State]
+      ,'' AS [ShipTo Country]
+      ,'' AS [Business Type Code]
+      ,'' AS [Business Type]
+      ,'' AS [Reporting Business Type]
+      ,'HSENT' AS [Customer Group]
+      ,'HSENT' AS [Account Group]
+
+UNION 
+
+SELECT 'HSLIC' AS [Account Number]
+      ,'HSLIC' AS [ShipTo Number]
+      ,'HSLIC' AS [Customer Name]
+      ,'HSLIC' AS [ShipTo Name]
+      ,'HSLIC' AS [Account And ShipTo Number]
+      ,'' AS [Commission Code]
+      ,'' AS [Freight Code]
+      ,'' AS [Price Code]
+      ,'' AS [Default Warehouse]
+      ,'' AS [ShipTo City]
+      ,'' AS [ShipTo State]
+      ,'' AS [ShipTo Country]
+      ,'' AS [Business Type Code]
+      ,'' AS [Business Type]
+      ,'' AS [Reporting Business Type]
+      ,'HSLIC' AS [Customer Group]
+      ,'HSLIC' AS [Account Group]
+
+UNION 
+
+SELECT 'INT' AS [Account Number]
+      ,'INT' AS [ShipTo Number]
+      ,'INT' AS [Customer Name]
+      ,'INT' AS [ShipTo Name]
+      ,'INT' AS [Account And ShipTo Number]
+      ,'' AS [Commission Code]
+      ,'' AS [Freight Code]
+      ,'' AS [Price Code]
+      ,'' AS [Default Warehouse]
+      ,'' AS [ShipTo City]
+      ,'' AS [ShipTo State]
+      ,'' AS [ShipTo Country]
+      ,'' AS [Business Type Code]
+      ,'' AS [Business Type]
+      ,'' AS [Reporting Business Type]
+      ,'INT' AS [Customer Group]
+      ,'INT' AS [Account Group]
+
+UNION 
+
+SELECT 'MASSRENT' AS [Account Number]
+      ,'MASSRENT' AS [ShipTo Number]
+      ,'MASSRENT' AS [Customer Name]
+      ,'MASSRENT' AS [ShipTo Name]
+      ,'MASSRENT' AS [Account And ShipTo Number]
+      ,'' AS [Commission Code]
+      ,'' AS [Freight Code]
+      ,'' AS [Price Code]
+      ,'' AS [Default Warehouse]
+      ,'' AS [ShipTo City]
+      ,'' AS [ShipTo State]
+      ,'' AS [ShipTo Country]
+      ,'' AS [Business Type Code]
+      ,'' AS [Business Type]
+      ,'' AS [Reporting Business Type]
+      ,'MASSRENT' AS [Customer Group]
+      ,'MASSRENT' AS [Account Group]
+
+UNION 
+
+SELECT 'MFRM' AS [Account Number]
+      ,'MFRM' AS [ShipTo Number]
+      ,'MFRM' AS [Customer Name]
+      ,'MFRM' AS [ShipTo Name]
+      ,'MFRM' AS [Account And ShipTo Number]
+      ,'' AS [Commission Code]
+      ,'' AS [Freight Code]
+      ,'' AS [Price Code]
+      ,'' AS [Default Warehouse]
+      ,'' AS [ShipTo City]
+      ,'' AS [ShipTo State]
+      ,'' AS [ShipTo Country]
+      ,'' AS [Business Type Code]
+      ,'' AS [Business Type]
+      ,'' AS [Reporting Business Type]
+      ,'MFRM' AS [Customer Group]
+      ,'MFRM' AS [Account Group]
+
+UNION 
+
+SELECT 'NFM' AS [Account Number]
+      ,'NFM' AS [ShipTo Number]
+      ,'NFM' AS [Customer Name]
+      ,'NFM' AS [ShipTo Name]
+      ,'NFM' AS [Account And ShipTo Number]
+      ,'' AS [Commission Code]
+      ,'' AS [Freight Code]
+      ,'' AS [Price Code]
+      ,'' AS [Default Warehouse]
+      ,'' AS [ShipTo City]
+      ,'' AS [ShipTo State]
+      ,'' AS [ShipTo Country]
+      ,'' AS [Business Type Code]
+      ,'' AS [Business Type]
+      ,'' AS [Reporting Business Type]
+      ,'NFM' AS [Customer Group]
+      ,'NFM' AS [Account Group]
+
+UNION 
+
+SELECT 'RHCUST' AS [Account Number]
+      ,'RHCUST' AS [ShipTo Number]
+      ,'RHCUST' AS [Customer Name]
+      ,'RHCUST' AS [ShipTo Name]
+      ,'RHCUST' AS [Account And ShipTo Number]
+      ,'' AS [Commission Code]
+      ,'' AS [Freight Code]
+      ,'' AS [Price Code]
+      ,'' AS [Default Warehouse]
+      ,'' AS [ShipTo City]
+      ,'' AS [ShipTo State]
+      ,'' AS [ShipTo Country]
+      ,'' AS [Business Type Code]
+      ,'' AS [Business Type]
+      ,'' AS [Reporting Business Type]
+      ,'RHCUST' AS [Customer Group]
+      ,'RHCUST' AS [Account Group]
+
+
+  )"
+SCP_Core_Wrk,v_DimFcstSnapshotDates,"CREATE         VIEW [SCP_Core_Wrk].[v_DimFcstSnapshotDates] AS (
+-- Create Forecast Date table for relating forecast cycles, snapshot date, lags, and Actuals
+
+SELECT DISTINCT
+       [DD1].[FcstCycle]
+      ,[DD1].[FcstPeriod]
+      ,[DD1].[FcstSnapshotDate]
+      ,[DD].[FiscalMonthLastDate] AS [ActualsMonthEnd]
+      ,[DD].[FiscalMonthYear]     AS [ActualsFiscalPeriod]
+      ,[DD1].[SortFcstPeriod]
+  FROM [Enterprise_Lakehouse].[MasterData_DW].[DimDate] AS DD
+
+      -- Join table of forecast snapshot dates and Lag Periods
+
+      INNER JOIN (
+                     -- Create Lag-0 table relating Snapshot date to relevant Month End Actuals
+                     SELECT [C].[CycleName]                AS [FcstCycle]
+                           ,[C].[FcstSnapshot]         AS [FcstSnapshotDate]
+                           ,[DD].[FiscalMonthIndicator] AS [SnapshotIndicator]
+                           ,'Lag-0'                     AS [FcstPeriod]
+                           ,'0'                         AS [SortFcstPeriod]
+                       FROM [SupplyChain_Warehouse].[SCP_Core].[DimFcstConsensusCycleDates]                        AS C
+                           LEFT JOIN [Enterprise_Lakehouse].[MasterData_DW].[DimDate] AS DD
+                               ON [C].[FcstSnapshot] = [DD].[DateID]
+                     UNION
+
+                     -- Append Lag-1 table relating Snapshot date to relevant Month End Actuals
+                     SELECT [C].[CycleName]                AS [FcstCycle]
+                           ,[C].[FcstSnapshot]         AS [FcstSnapshotDate]
+                           ,[DD].[FiscalMonthIndicator] + 1 AS [SnapshotIndicator]
+                           ,'Lag-1'                         AS [FcstPeriod]
+                           ,'1'                             AS [SortFcstPeriod]
+                       FROM [SupplyChain_Warehouse].[SCP_Core].[DimFcstConsensusCycleDates]                        AS C
+                           LEFT JOIN [Enterprise_Lakehouse].[MasterData_DW].[DimDate] AS DD
+                               ON [C].[FcstSnapshot] = [DD].[DateID] 
+
+                     UNION
+
+                     -- Append Lag-2 table relating Snapshot date to relevant Month End Actuals
+                     SELECT [C].[CycleName]                AS [FcstCycle]
+                           ,[C].[FcstSnapshot]         AS [FcstSnapshotDate]
+                           ,[DD].[FiscalMonthIndicator] + 2 AS [SnapshotIndicator]
+                           ,'Lag-2'                         AS [FcstPeriod]
+                           ,'2'                             AS [SortFcstPeriod]
+                       FROM [SupplyChain_Warehouse].[SCP_Core].[DimFcstConsensusCycleDates]                        AS C
+                           LEFT JOIN [Enterprise_Lakehouse].[MasterData_DW].[DimDate] AS DD
+                               ON [C].[FcstSnapshot] = [DD].[DateID] 
+
+                     UNION
+
+                     -- Append Lag-3 table relating Snapshot date to relevant Month End Actuals
+                     SELECT [C].[CycleName]                AS [FcstCycle]
+                           ,[C].[FcstSnapshot]         AS [FcstSnapshotDate]
+                           ,[DD].[FiscalMonthIndicator] + 3 AS [SnapshotIndicator]
+                           ,'Lag-3'                         AS [FcstPeriod]
+                           ,'3'                             AS [SortFcstPeriod]
+                       FROM [SupplyChain_Warehouse].[SCP_Core].[DimFcstConsensusCycleDates]                        AS C
+                           LEFT JOIN [Enterprise_Lakehouse].[MasterData_DW].[DimDate] AS DD
+                               ON [C].[FcstSnapshot] = [DD].[DateID] 
+
+                     UNION
+
+                     -- Append Lag-4 table relating Snapshot date to relevant Month End Actuals
+                     SELECT [C].[CycleName]                AS [FcstCycle]
+                           ,[C].[FcstSnapshot]         AS [FcstSnapshotDate]
+                           ,[DD].[FiscalMonthIndicator] + 4 AS [SnapshotIndicator]
+                           ,'Lag-4'                         AS [FcstPeriod]
+                           ,'4'                             AS [SortFcstPeriod]
+                       FROM [SupplyChain_Warehouse].[SCP_Core].[DimFcstConsensusCycleDates]                        AS C
+                           LEFT JOIN [Enterprise_Lakehouse].[MasterData_DW].[DimDate] AS DD
+                               ON [C].[FcstSnapshot] = [DD].[DateID] 
+
+                 )               AS DD1
+          ON [DD].[FiscalMonthIndicator] = [DD1].[SnapshotIndicator]
+
+
+  )"
+SCP_Core_Wrk,v_DimFiscalCalendar,"CREATE     VIEW [SCP_Core_Wrk].[v_DimFiscalCalendar] AS (SELECT [DateID] AS [Transaction Date]
+      ,[DateKey] AS [Integer Date]
+      ,[MapicsDate] AS [Mapics Date]
+	  ,[CalendarDayOfWeekName] AS [Day of Week]
+	  ,[FiscalWeek] AS [Fiscal Week Num]
+	  ,CONCAT('FW ', RIGHT(CONCAT('00',[FiscalWeek]),2)) AS [FW Desc]
+	  ,[FiscalWeekYear] AS [Fiscal Year Week Num]
+	  ,[FiscalMonth] AS [Fiscal Month Num]
+	  ,CONCAT('FM ', RIGHT(CONCAT('00',[FiscalMonth]),2)) AS [FM Desc]
+	  ,FORMAT(CONVERT(DATE,CONCAT([FiscalMonthYear],'01')), 'MMM') AS [Fiscal Month Name]
+	  ,[FiscalMonthYear] AS [Fiscal Year Month Num]
+	  ,FORMAT(CONVERT(DATE,CONCAT([FiscalMonthYear],'01')), 'MMM yyyy') AS [Fiscal Month Year Desc]
+	  ,CONVERT(DATE,CONCAT([FiscalMonthYear],'01')) AS [Fiscal Month (calendar start)]
+	  ,[FiscalQuarter] AS [Fiscal Quarter Num]
+	  ,CONCAT('FQ ', RIGHT(CONCAT('00',[FiscalQuarter]),2)) AS [FQ Desc]
+	  ,[FiscalSemesterYear] AS [Fiscal Year Half Num]
+	  ,[FiscalSemester] AS [Fiscal Half Num]  
+	  ,CONCAT('FH ', RIGHT(CONCAT('00',[FiscalSemester]),2)) AS [FH Desc]
+	  ,[FiscalYear] AS [Fiscal Year]
+	  ,CONCAT('FY ', [FiscalYear]) AS [FY Desc]
+	  ,CONVERT(DATE,[FiscalWeekFirstDate]) AS [Fiscal Week Start]
+	  ,CONVERT(DATE, [FiscalWeekLastDate]) AS [Fiscal Week End]
+	  ,CONVERT(DATE,[FiscalMonthFirstDate]) AS [Fiscal Month Start]
+	  ,CONVERT(DATE,[FiscalMonthLastDate]) AS [Fiscal Month End]
+	  ,CONVERT(DATE,[FiscalYearFirstDate]) AS [Fiscal Year Start]
+	  ,CONVERT(DATE,[FiscalYearLastDate]) AS [Fiscal Year End]
+	  ,[HolidayIndicator] AS [Holiday Indicator]
+	  ,[HolidayName] AS [Holiday Name]
+	  ,[WeekdayWeekend]
+	  ,[CalendarWeek] AS [Calendar Week Num]
+	  ,[CalendarMonth] AS [Calendar Month Num]
+	  ,[CalendarQuarter] AS [Calendar Quarter Num]
+	  ,[CalendarYear] AS [Calendar Year]
+	  ,[FiscalDateIndicator] AS [Fiscal Day Indicator]
+      ,[FiscalWeekIndicator] AS [Fiscal Week Indicator]
+      ,[FiscalMonthIndicator] AS [Fiscal Month Indicator]
+      ,[FiscalQuarterIndicator] AS [Fiscal Quarter Indicator]
+      ,[FiscalYearIndicator] AS [Fiscal Year Indicator]
+  FROM [Enterprise_Lakehouse].[MasterData_DW].[DimDate]
+  WHERE [FiscalYearIndicator] BETWEEN -5 AND 5)"
+SCP_Core_Wrk,v_DimSCPItemMaster,"CREATE       VIEW [SCP_CORE_WRK].[v_DimSCPItemMaster] AS (SELECT RTRIM([DIM].[ItemSKU]) AS [Item SKU]
+      ,[DIM].[ItemDescription] AS [Item Description]
+      ,CONCAT(RTRIM([DIM].[ItemSKU]),' - ',[DIM].[ItemDescription]) AS [Item SKU Description]
+      ,[DIM].[ItemCode] AS [Item Code]
+      ,[DIM].[SeriesNumber] AS [Series Number]
+      ,[DIM].[ExtSeriesNumber] AS [Ext Series Number]
+      ,[EXT].[SERIES] AS [Planning Series]
+      ,[DIM].[SeriesName] AS [Series Name]
+      ,[DIM].[SeriesColor] AS [Series Color]
+      ,[DIM].[Colors] AS [Colors]
+      ,[DIM].[FrameNumber] AS [Frame Number]
+      ,[DIM].[SeriesDescription] AS [Series Description]
+      ,RTRIM(COALESCE([IPK].[ienForecastPlannerID],[NPK].[npkForecastPlannerID])) AS [Item Forecast Planner ID]
+      ,[DIM].[ItemForecastPlannerID] AS [Item Forecast Planner ID (Dim)]
+      ,[DIM].[AFIItemStatus] AS [AFI Item Status]
+      ,RTRIM(COALESCE([IPK].[ienFutureStatus],[NPK].[npkFutureStatus])) AS [Future Status]
+      ,[DIM].[ItemName] AS [Item Name]
+      ,[DIM].[ItemClass] AS [Item Class]
+      ,[DIM].[ItemClassCode] AS [Item Class Code]
+      ,[DIM].[ItemClassName] AS [Item Class Name]
+      ,[DIM].[CollectiveClass] AS [Collective Class]
+      ,[DIM].[AFISalesDivision] AS [AFI Sales Division]
+      ,[DIM].[ItemGrouping] AS [Item Grouping]
+      ,[DIM].[AssociationCode] AS [Association Code]
+      ,[DIM].[Showroom] AS [Showroom]
+      ,[DIM].[ProductLine] AS [Product Line]
+      --,RTRIM([GDC].[GDICS]) AS [General Description]
+      ,RTRIM(COALESCE([IPK].[ienHoldBuyCode],[NPK].[npkHoldBuyCode])) AS [Hold Buy Code]
+      ,[DIM].[ItemImage] AS [Item Image]
+      ,[Image URL] = 
+		CASE DIM.[ItemImage]
+			WHEN '' THEN NULL
+			WHEN NULL THEN NULL
+            ELSE CONCAT('http://www.ashleydirect.com/graphics/',DIM.[ItemImage])
+        END
+      ,[DIM].[QtyInBox] AS [Quantity In Box]
+      ,[DIM].[UOM] AS [UOM]
+      ,[DIM].[Cubes] AS [Cubes]
+      ,[DIM].[Seats] AS [Seats]
+      ,[DIM].[ProductHeightMeters] AS [Product Height Meters]
+      ,[DIM].[ProductWidthMeters] AS [Product Width Meters]
+      ,[DIM].[ProductDepthMeters] AS [Product Depth Meters]
+      ,[DIM].[CartonHeightMeters] AS [Carton Height Meters]
+      ,[DIM].[CartonWidthMeters] AS [Carton Width Meters]
+      ,[DIM].[CartonDepthMeters] AS [Carton Depth Meters]
+      ,[DIM].[ProductHeightInches] AS [Product Height Inches]
+      ,[DIM].[ProductWidthInches] AS [Product Width Inches]
+      ,[DIM].[ProductDepthInches] AS [Product Depth Inches]
+      ,[DIM].[CartonHeightInches] AS [Carton Height Inches]
+      ,[DIM].[CartonWidthInches] AS [Carton Width Inches]
+      ,[DIM].[CartonDepthInches] AS [Carton Depth Inches]
+      ,[DIM].[ItemDescriptionSeries] AS [Item Description Series]
+      ,[DIM].[SHItemDescriptionSeries] AS [SH Item Description Series]
+      ,[DIM].[SHSeriesDescription] AS [SH Series Description]
+      ,[DIM].[ItemDescriptionSeriesItemColor] AS [Item Description Series Item Color]
+      ,[DIM].[ChildStyleDescription] AS [Child Style Description]
+      ,[DIM].[ParentStyleDescription] AS [Parent Style Description]
+      ,[DIM].[ItemConsumerDescription] AS [Item Consumer Description]
+      ,[DIM].[RetailTypeDescription] AS [Retail Type Description]
+      ,[DIM].[MainPieceItem] AS [Main Piece Item]
+      ,[DIM].[RetailCategoryCode] AS [Retail Category Code]
+      ,[DIM].[RetailCategoryDescription] AS [Retail Category Description]
+      ,[DIM].[RetailCategoryName] AS [Retail Category Name]
+      ,[DIM].[RetailDepartmentName] AS [Retail Department Name]
+      ,[DIM].[RetailCategoryGroup] AS [Retail Category Group]
+      ,[DIM].[RetailCategoryChargeType] AS [Retail Category Charge Type]
+      ,[DIM].[AFIFinanceDivision] AS [AFI Finance Division]
+      ,[DIM].[AFIFinanceDivisionCode] AS [AFI Finance Division Code]
+      ,[DIM].[AFISalesCategoryCode] AS [AFI Sales Category Code]
+      ,[DIM].[AFISalesCategory] AS [AFI Sales Category]
+      ,[DIM].[ItemStyleCode] AS [Item Style Code]
+      ,[DIM].[ItemStyleGroup] AS [Item Style Group]
+      ,[DIM].[ItemStyle] AS [Item Style]
+      ,[DIM].[Division] AS [Division]
+      ,[DIM].[AFISalesDivisionCode] AS [AFI Sales Division Code]
+      ,[DIM].[KeyItem] AS [Key Item]
+      ,[DIM].[ItemType] AS [Item Type]
+      ,[DIM].[SellableItemFlag] AS [Sellable Item Flag]
+      ,[DIM].[ManufacturingStatus] AS [Manufacturing Status]
+      ,[DIM].[ResponsibleOffice] AS [Responsible Office]
+      ,[DIM].[ResponsibleOfficeName] AS [Responsible Office Name]
+      ,[DIM].[ImportDomesticCode] AS [Import Domestic Code]
+      ,[DIM].[CountryofOrigin] AS [Country Of Origin]
+      ,[DIM].[PrimaryVendor] AS [Primary Vendor]
+      ,[DIM].[ManufacturingStatusChangeDate] AS [Manufacturing Status Change Date]
+      ,[DIM].[NewItemFlag] AS [New Item Flag]
+      ,[DIM].[DiscontinuedFlag] AS [Discontinued Flag]
+      ,[DIM].[DiscontinuedYearPeriod] AS [Discontinued Year Period]
+      ,[DIM].[CommonCarrierFlag] AS [Common Carrier Flag]
+      ,[DIM].[ExpressShipFlag] AS [Express Ship Flag]
+      ,[DIM].[DiscontinuedDate] AS [Discontinued Date]
+      ,[DIM].[SeriesDateArchived] AS [Series Date Archived]
+      ,[DIM].[SeriesDiscontinuedFlag] AS [Series Discontinued Flag]
+      ,[DIM].[PreviousStatusCode] AS [Previous Status Code]
+      ,[DIM].[StatusCodeChangeDate] AS [Status Code Change Date]
+      ,[DIM].[CurrentUnitCost] AS [Current Unit Cost]
+      ,[DIM].[CEXCode] AS [CEX Code]
+      ,[DIM].[MarketIntroducedAt] AS [Market Introduced At]
+      ,[DIM].[MerchandisingCategory] AS [Merchandising Category]
+      ,[DIM].[PricePoint] AS [Price Point]
+      ,[DIM].[SeriesGrouping] AS [Series Grouping]
+      ,[DIM].[MasterGroupCode] AS [Master Group Code]
+      ,[DIM].[MarketingItemStatus] AS [Marketing Item Status]
+      ,[DIM].[MarketingStatusDescription] AS [Marketing Status Description]
+      ,[DIM].[Lifestyle] AS [Lifestyle]
+      ,[DIM].[CommodityItem] AS [Commodity Item]
+      ,[DIM].[F123ProductFlag] AS [F123 Product Flag]
+      ,[DIM].[HSCoreProductFlag] AS [HS Core Product Flag]
+      ,[DIM].[HSProprietaryProductFlag] AS [HS Proprietary Product Flag]
+      ,[DIM].[HSExclusiveFlag] AS [HS Exclusive Flag]
+      ,[DIM].[BerklineProductFlag] AS [Berkline Product Flag]
+      ,[DIM].[BenchcraftProductFlag] AS [Benchcraft Product Flag]
+      ,[DIM].[NewMillenniumProductFlag] AS [New Millennium Product Flag]
+      ,[DIM].[BardiniProductFlag] AS [Bardini Product Flag]
+      ,[DIM].[ShanghaiStore] AS [Shanghai Store]
+      ,[DIM].[DefaultGroup] AS [Default Group]
+      ,[DIM].[GoodBetterBestForPricePoint] AS [Good Better Best For Price Point]
+      ,[DIM].[GBBSortId] AS [GBB Sort Id]
+      ,[DIM].[InitialInvoicePeriod] AS [Initial Invoice Period]
+      ,[DIM].[InitialInvoiceQty] AS [Initial Invoice Qty]
+      ,[DIM].[MarketBeginDate] AS [Market Begin Date]
+      ,[DIM].[MarketEndDate] AS [Market End Date]
+      ,[DIM].[FOBArcPrice] AS [FOB Arc Price]
+      ,[DIM].[DivisionRanking] AS [Division Ranking]
+      ,[DIM].[TrendArrow] AS [Trend Arrow]
+      ,[DIM].[ItemMerchGridOverridePhoto] AS [Item Merch Grid Override Photo]
+      ,[DIM].[GroupPriceIncr] AS [Group Price Incr]
+      ,[DIM].[GroupPricePointType] AS [Group Price Point Type]
+      ,[DIM].[ExclusiveComment] AS [Exclusive Comment]
+      ,[DIM].[SeriesImage] AS [Series Image]
+      ,[DIM].[SofaTableSeriesFlag] AS [Sofa Table Series Flag]
+      ,[DIM].[ReclinerSeriesFlag] AS [Recliner Series Flag]
+      ,[DIM].[PowerMotionSeriesFlag] AS [Power Motion Series Flag]
+      ,[DIM].[WedgeSeriesFlag] AS [Wedge Series Flag]
+      ,[DIM].[DiningSeriesFlag] AS [Dining Series Flag]
+      ,[DIM].[ItemThirdPartyItem] AS [Item Third Party Item]
+      ,[DIM].[SeriesThirdParty] AS [Series Third Party]
+      ,[DIM].[ItemHomeStoreProductLine] AS [Item Home Store Product Line]
+      ,[DIM].[ItemEcomMerchantNotes] AS [Item Ecom Merchant Notes]
+      ,[DIM].[ItemAmazonBrandOwner] AS [Item Amazon Brand Owner]
+      ,[DIM].[ItemSupplierDirectShipOnly] AS [Item Supplier Direct Ship Only]
+      ,[DIM].[ConsumerChoiceFlag] AS [Consumer Choice Flag]
+      ,[DIM].[EligibleForProtectionPlan] AS [Eligible For Protection Plan]
+      ,[DIM].[IsProtectionPlan] AS [Is Protection Plan]
+      ,[DIM].[FriendlyDimensions] AS [Friendly Dimensions]
+      ,[DIM].[Knockout] AS [Knockout]
+      ,[DIM].[Scene7ImageSet] AS [Scene7 Image Set]
+      ,[DIM].[FluffAFI] AS [Fluff AFI]
+      ,[DIM].[SeriesPrimary] AS [Series Primary]
+      ,[DIM].[SeriesMainImage] AS [Series Main Image]
+      ,[DIM].[StandAloneFlag] AS [Stand Alone Flag]
+      ,[DIM].[SuppWeightNetWeightLbs] AS [Supp Weight Net Weight Lbs]
+      ,[DIM].[UnitWeightLbs] AS [Unit Weight Lbs]
+      ,[DIM].[UPC] AS [UPC]
+      ,[DIM].[RetailBrandName] AS [Retail Brand Name]
+      ,[DIM].[MfgWarranty] AS [Mfg Warranty]
+      ,[DIM].[Material] AS [Material]
+      ,[DIM].[SeriesFeatures] AS [Series Features]
+      ,[DIM].[ItemIsRTA] AS [Item Is RTA]
+      ,[DIM].[PrimaryChannelSku] AS [Primary Channel Sku]
+      ,[DIM].[PrimarySeriesName] AS [Primary Series Name]
+      ,[DIM].[PrimarySeriesNumber] AS [Primary Series Number]
+      ,[DIM].[ERetailChannelSku] AS [E Retail Channel Sku]
+      ,[DIM].[ERetailSeriesName] AS [E Retail Series Name]
+      ,[DIM].[ERetailSeriesNumber] AS [E Retail Series Number]
+      ,[DIM].[ItemTableShapeType] AS [Item Table Shape Type]
+      ,[DIM].[ItemBedSizeType] AS [Item Bed Size Type]
+      ,[DIM].[ItemBedStyleType] AS [Item Bed Style Type]
+      ,[DIM].[ItemGeneralColor] AS [Item General Color]
+      ,[DIM].[ItemPricePointRating] AS [Item Price Point Rating]
+      ,CASE
+            WHEN [DIM].[ItemClassCode] IN ('MATT','UESW','USKE','UTRK','WVBC',
+                                            'WVCD','WVCS','WVCU','WVHC','WVHD',
+                                            'WVUP','WVWB','ZACK','ZAMK',       -- #'ZBIS' Removed Purchased Beds
+                                            'ZDCK','ZDLK','ZDMK','ZJBK','ZJFK',
+                                            'ZJIK','ZJLK',                     -- # Resident Home Bedding Kits
+                                            'ZKBK','ZMCK','ZMLK','ZUCK','ZUMK',
+                                            'ZXCK','ZXLK','ZXMK',
+                                            'WVVG','WVVF'
+                                            )
+                THEN 'PART'
+            ELSE ''
+        END AS [Part Flag]
+      ,CASE
+            WHEN [DIM].[ItemClassCode] LIKE 'Z__K' AND RIGHT(RTRIM([DIM].[ItemSKU]),2) = 'UN'
+                THEN 'UN'
+            WHEN [DIM].[ItemClassCode] IN ('WVVG','WVVF') AND RIGHT(RTRIM([DIM].[ItemSKU]),2) = 'UN'
+                THEN 'UN'
+            ELSE ''
+        END AS [Kit Flag]
+  FROM [Enterprise_Lakehouse].[MasterData_DW].[DimItemMaster] AS DIM
+  
+  LEFT JOIN [Enterprise_Lakehouse].[ItemMaster_AFI].[ITMEXT] AS EXT
+    ON [DIM].[ItemSKU] = [EXT].[ITNBR]  
+  
+  --LEFT JOIN [MasterData_ItemMaster_AFI].[GENDESC] AS GDC
+  --ON [EXT].[GDESCD] = [GDC].[GDCODE]
+
+  LEFT JOIN [Enterprise_Lakehouse].[MasterData_ProductKnowledge].[Item_ENV] AS IPK
+    ON [DIM].[ItemSKU] = [IPK].[ienItemNumber]
+	  AND [IPK].[ienEnvironmentCode] = 'AFI'
+
+  LEFT JOIN [Enterprise_Lakehouse].[Wholesale_ProductSourcing].[NonPkItems] AS NPK
+    ON [DIM].[ItemSKU] = [NPK].[npkItemNumber]
+
+
+  WHERE [DIM].[ItemSupplierDirectShipOnly] = 'False'
+
+
+
+
+)"
+SCP_Core_Wrk,v_DimVendorMaster,"CREATE   VIEW [SCP_CORE_WRK].[v_DimVendorMaster] AS (
+
+/****** SCP_Core.DimVendorMaster ******/
+
+SELECT V.VendorNumber
+	  ,V.VendorName
+	  ,V.[Office]
+      ,[VendorOfficeLocation] = 
+			CASE 
+				WHEN V.[Office] = 'ACROS' THEN 'CHINA'
+				WHEN V.[Office] = 'AMLO' THEN 'MALAYSIA'
+				WHEN V.[Office] = 'CINRO' THEN 'INDIA'
+				WHEN V.[Office] = 'CVRO' THEN 'VIETNAM'
+				WHEN V.[Office] = 'RKD' THEN 'USA'
+				WHEN V.[Office] = 'WBOC' THEN 'CHINA'
+				WHEN V.[Office] = 'ACLO' THEN 'CAMBODIA'
+				WHEN V.[Office] = 'ABLO' THEN 'BANGLADESH'
+				WHEN V.[Office] = 'THAI' THEN 'THAILAND'
+				WHEN V.[Office] = 'MYAN' THEN 'MAYANMAR'
+				WHEN V.[Office] = 'ATLO' THEN 'TAIWAN R.O.C'
+				WHEN V.[Office] = 'CIRO' THEN 'INDONESIA'
+				WHEN V.[Office] = 'CANA' THEN 'CANADA'
+				WHEN V.[Office] = 'MXCO' THEN 'MEXICO'
+				WHEN V.[Office] = 'MILLE' THEN 'VIETNAM'
+				WHEN V.[Office] = 'WANEK' THEN 'VIETNAM'
+				WHEN V.[Office] = 'LAOS' THEN 'LAOS'
+				WHEN V.[Office] = 'SGPR' THEN 'SINGAPORE'
+				WHEN V.[Office] = 'SLKA' THEN 'SRI LANKA'
+				WHEN V.[Office] = 'TRKY' THEN 'TURKEY'
+
+				ELSE 'N/A'
+			END				
+	  ,V.[VendorDesc]
+	  ,V.Country
+	  ,A.[LEAD_TIME] AS [LeadTime] 
+	  ,[VendorActive] = 
+			CASE
+				WHEN [A].[Active] = '1'
+					THEN 'Yes'
+				ELSE 'No'
+			END
+	  ,[Vendor Import Domestic Flag] = 
+			CASE 
+				WHEN [A].[ProductOrigin] = 'I' OR [A].[ProductOrigin] IS NULL THEN 'Import'
+				WHEN [A].[ProductOrigin] = 'D' THEN 'Domestic'
+				ELSE 'N/A'
+			END
+FROM (
+
+SELECT RTRIM(V.[VNDNR]) AS [VendorNumber]
+		,RTRIM(V.[VNAME]) AS [VendorName]
+		,V.[VNAMA] AS [Office]
+		,CONCAT(RTRIM(V.[VNAME]),' - ',RTRIM(V.[VNDNR])) AS [VendorDesc]
+		,V.[VCNTR] AS [Country]
+	FROM [Enterprise_Lakehouse].[Wholesale_Purchasing_AFI].[VENNAM] AS V
+	WHERE [VNAMA] IN ('ACROS','AMLO','CINRO','CVRO','RKD','WBOC','ACLO'
+                      ,'ABLO','THAI','MYAN', 'ATLO', 'CANA', 'CIRO','MXCO'
+					  ,'MILLE', 'WANEK','LAOS','SLKA','SGPR','TRKY'
+					  )
+
+
+	) AS V
+	LEFT JOIN [Enterprise_Lakehouse].[Wholesale_Purchasing_AFI].[EXTVNDR] AS A
+	 ON V.VendorNumber = A.[VEND_NUM]
+
+	 )"
+SCP_Core_Wrk,v_DimWarehouseMaster,"CREATE         VIEW [SCP_Core_Wrk].[v_DimWarehouseMaster] AS (
+SELECT RTRIM(S.[WarehouseCode]) AS [Warehouse Code]
+      ,RTRIM(S.[WarehouseLocation]) AS [Warehouse Location]
+      ,CASE RTRIM(S.[WarehouseCode])
+           WHEN '1' THEN '1-RKD'
+           WHEN '15' THEN '15-LEE'
+           WHEN '17' THEN '17-ADV'
+           WHEN '28' THEN '28-MES'
+           WHEN '42' THEN '42-SPW'
+           WHEN '5' THEN '5-RED'
+           WHEN 'ECR' THEN 'ECR-ECR'
+           WHEN '335' THEN '335-ASH'
+           WHEN 'C' THEN 'C-ENT'
+           WHEN 'CNW' THEN 'CNW-CUS'
+           WHEN 'C35' THEN 'C35-ASH'
+           WHEN 'AF' THEN 'AF-CND'
+           WHEN 'C99' THEN 'C99-CND'
+           WHEN 'IOR' THEN 'IOR-CND'
+           WHEN '12' THEN '12-RIP'
+           WHEN '101' THEN '101-CHP'
+           WHEN '151' THEN '151-POT'
+           WHEN '19' THEN '19-SLT'
+           WHEN '201' THEN '201-VRM'
+           WHEN '20' THEN '20-VRF'
+           WHEN '3' THEN '3-WHT'
+           WHEN '49' THEN '49-COL'
+           WHEN '55' THEN '55-SDS'
+           WHEN '1A' THEN '1-RKD'
+           WHEN '15A' THEN '15-LEE'
+           WHEN '17A' THEN '17-ADV'
+           WHEN '28A' THEN '28-MES'
+           WHEN '42A' THEN '42-SPW'
+           WHEN '5A' THEN '5-RED'
+           WHEN 'ECA' THEN 'ECR-ECR'
+           WHEN '19A' THEN '19-SLT'
+           ELSE NULL
+       END AS [WH Desc]
+      ,CASE RTRIM(S.[WarehouseCode])
+           WHEN '1' THEN 'AFI'
+           WHEN '15' THEN 'AFI'
+           WHEN '17' THEN 'AFI'
+           WHEN '28' THEN 'AFI'
+           WHEN '42' THEN 'AFI'
+           WHEN '5' THEN 'AFI'
+           WHEN 'ECR' THEN 'AFI'
+           WHEN '335' THEN 'ASH'
+           WHEN 'C' THEN 'C.DIR'
+           WHEN 'CNW' THEN 'C.DIR'
+           WHEN 'C35' THEN 'C.DIR'
+           WHEN 'AF' THEN 'C.DIR'
+           WHEN 'C99' THEN 'C.DIR'
+           WHEN 'IOR' THEN 'C.DIR'
+           WHEN '12' THEN 'PROD'
+           WHEN '101' THEN 'PROD'
+           WHEN '151' THEN 'PROD'
+           WHEN '19' THEN 'PROD'
+           WHEN '201' THEN 'PROD'
+           WHEN '20' THEN 'PROD'
+           WHEN '3' THEN 'PROD'
+           WHEN '49' THEN 'CXD'
+           WHEN '55' THEN 'SDS'
+           WHEN '1A' THEN 'AFI'
+           WHEN '15A' THEN 'AFI'
+           WHEN '17A' THEN 'AFI'
+           WHEN '28A' THEN 'AFI'
+           WHEN '42A' THEN 'AFI'
+           WHEN '5A' THEN 'AFI'
+           WHEN 'ECA' THEN 'AFI'
+           WHEN '19A' THEN 'AFI'
+           ELSE NULL
+       END AS [WH Group]
+      ,CONCAT(RTRIM(S.[WarehouseCode]),' - ', S.[WarehouseLocation]) AS [Warehouse Name]
+      --,S.[WarehouseOrderGroup]
+      ,RTRIM(S.[IntransitWarehouse]) AS [IntransitWarehouse]
+      --,S.[ContainerDirectWarehouse]
+      --,S.[ControlledWarehouse]
+      --,S.[AFIWarehousesKey]	 
+  FROM [Enterprise_Lakehouse].[SupplyChain_DW].[DimAFIWarehouses] AS S
+  WHERE [S].[WarehouseCode] NOT IN ('', '10','109','14','16','18','2','21','213','215','232','242','50','52','55','6','60','7','70','8','9','N/A','P','R','W') 
+
+  )"
+SCP_Core_Wrk,v_FactAFISales_CurReqQty," CREATE             VIEW [SCP_Core_Wrk].[v_FactAFISales_CurReqQty] AS (
+
+ SELECT RTRIM([DC].[Account And ShipTo Number]) AS [AccountAndShipToNumber]
+      ,RTRIM([ID].[ItemSKU]) AS [ItemSKU]
+      ,RTRIM([ID].[Warehouse]) AS [Warehouse]
+      ,[DD].[Fiscal Week End] AS [CurReqWkEnd]
+      ,SUM([ID].[QuantityShipped]) AS [OrderQty]
+      ,SUM([ID].[NetSales]) AS [OrderAmt]
+			,'Invoiced' AS [OrderStatus]
+FROM [Enterprise_Lakehouse].[SalesHistory_AFI].[InvoiceDetail] AS ID 
+LEFT JOIN [SupplyChain_Warehouse].[SCP_Core].[DimCustomerMaster] AS DC
+  on [ID].[CustomerNumber] = [DC].[Account Number]
+    AND [ID].[ShiptoNumber] = [DC].[ShipTo Number]
+INNER JOIN [SupplyChain_Warehouse].[SCP_Core].[DimFiscalCalendar] AS DD
+  ON [ID].[CurrentRequestDate] = [DD].[Transaction Date]
+
+WHERE [ID].[QuantityShipped] > 0
+
+
+
+GROUP BY [DC].[Account And ShipTo Number]
+        ,[ID].[ItemSKU]
+        ,[ID].[Warehouse]
+        ,[DD].[Fiscal Week End]
+
+UNION
+
+SELECT RTRIM([OO].[Account And ShipTo Number]) AS [AccountAndShipToNumber]
+      ,RTRIM([OO].[ItemSKU]) AS [ItemSKU]
+      ,RTRIM([OO].[Warehouse]) AS [Warehouse]
+      ,[DD].[Fiscal Week End] AS [CurReqWkEnd]
+      ,SUM([OO].[OpenOrderQty]) AS [OrderQty]
+      ,SUM([OO].[OpenOrderAmt]) AS [OrderAmt]
+			,'Open' AS [OrderStatus]
+FROM [SupplyChain_Warehouse].[SCP_Core].[FactOpenOrders] AS OO 
+
+INNER JOIN [SupplyChain_Warehouse].[SCP_Core].[DimFiscalCalendar] AS DD
+  ON [OO].[CurrentRequestDate] = [DD].[Transaction Date]
+
+WHERE [OO].[InventoryAllocatedFlag] = '2'
+
+
+GROUP BY [OO].[Account And ShipTo Number]
+        ,[OO].[ItemSKU]
+        ,[OO].[Warehouse]
+        ,[DD].[Fiscal Week End]
+
+)
+"
+SCP_Core_Wrk,v_FactFcstErrorCalc,"CREATE               VIEW [SCP_Core_Wrk].[v_FactFcstErrorCalc] AS (
+
+SELECT [FC].[Customer Group]                                                 AS [CustomerGroup]
+      ,[FC].[ItemSKU]
+      ,[FC].[Warehouse]
+      ,[FC].[FiscalMonthYear]
+      ,[FC].[ActualsMonthEnd]                                                AS [FiscalMonthEnd]
+      ,[FC].[SortFcstPeriod]
+      ,[FC].[FcstPeriod]
+      ,[FC].[TotalForecast]
+      ,ISNULL([ACT].[ActualDemand], 0)                                       AS [ActualDemand]
+      ,[FC].[TotalForecast] - ISNULL([ACT].[ActualDemand], 0)                AS [FcstError]
+      ,ABS([FC].[TotalForecast] - ISNULL([ACT].[ActualDemand], 0))           AS [ABS_FcstError]
+      ,SQUARE([FC].[TotalForecast] - ISNULL([ACT].[ActualDemand], 0))        AS [SqFcstError]
+      ,ISNULL([NF].[NaiveFcst], 0)                                           AS [NaiveFcst]
+      ,(ISNULL([NF].[NaiveFcst], 0) - ISNULL([ACT].[ActualDemand], 0))       AS [NaiveFcstError]
+      ,ABS(ISNULL([NF].[NaiveFcst], 0) - ISNULL([ACT].[ActualDemand], 0))    AS [ABS_NaiveFcstError]
+      ,SQUARE(ISNULL([NF].[NaiveFcst], 0) - ISNULL([ACT].[ActualDemand], 0)) AS [SqNaiveFcstError]
+      ,[FC].[SnapshotDate]
+      ,[FC].[FcstCycle]
+  FROM (
+           -- Get all of the Lag forecasts for the last completed month using the FcstAccuracySnapshotDates table
+           SELECT [DFC].[dfcItem]                                                AS [ItemSKU]
+                 ,[DFC].[dfcWarehouse]                                           AS [Warehouse]
+                 ,[DFC].[dfcCustomergroups]                                      AS [Customer Group]
+                 ,[DFC].[dfcFiscalMonth]                                         AS [FiscalMonthYear]
+                 ,[SD].[ActualsMonthEnd]
+                 ,[SD].[SortFcstPeriod]
+                 ,[SD].[FcstPeriod]
+                 ,SUM([DFC].[dfcResultantForecast] + [DFC].[dfcPromotionalLift]) AS [TotalForecast]
+                 ,CONVERT(DATE, [DFC].[dfcSnapshot])                             AS [SnapshotDate]
+                 ,[SD].[FcstCycle]
+             FROM [Enterprise_Lakehouse].[SupplyChain_Enh_1].[DemandForecastSnapshotDaily] AS DFC
+                 INNER JOIN [SupplyChain_Warehouse].[SCP_Core].[DimFcstSnapshotDates]      AS SD
+                     ON [DFC].[dfcFiscalMonth] = [SD].[ActualsFiscalPeriod]
+                    AND [DFC].[dfcSnapshot] = [SD].[FcstSnapshotDate]
+            WHERE [DFC].[dfcFiscalMonth] = (
+                                               SELECT DISTINCT
+                                                      [FiscalMonthYear]
+                                                 FROM [Enterprise_Lakehouse].[MasterData_DW].[DimDate]
+                                                WHERE [FiscalMonthIndicator] = -1
+                                           )
+            GROUP BY CONVERT(DATE, [DFC].[dfcSnapshot])
+                    ,[DFC].[dfcItem]
+                    ,[DFC].[dfcWarehouse]
+                    ,[DFC].[dfcCustomergroups]
+                    ,[DFC].[dfcFiscalMonth]
+                    ,[SD].[ActualsMonthEnd]
+                    ,[SD].[SortFcstPeriod]
+                    ,[SD].[FcstPeriod]
+                    ,[SD].[FcstCycle]
+       )          AS FC
+      LEFT JOIN (
+                    -- Get ActualDemand by Customer Group
+
+                    -- This field is Current Request Date minus load lead time from AFISales schemas
+                    SELECT [A].[Customer Group]
+                          ,[A].[ItemSKU]
+                          ,[A].[Warehouse]
+                          ,[A].[ActualsMonthEnd]
+                          ,SUM([A].[OrderQty]) AS [ActualDemand]
+                      FROM (
+                               SELECT RTRIM([DC].[Customer Group]) AS [Customer Group]
+                                     ,RTRIM([ID].[ItemSKU])        AS [ItemSKU]
+                                     ,RTRIM([ID].[Warehouse])      AS [Warehouse]
+                                     ,[DD].[Fiscal Month End]      AS [ActualsMonthEnd]
+                                     ,SUM([ID].[QuantityShipped])  AS [OrderQty]
+                                 FROM [Enterprise_Lakehouse].[SalesHistory_AFI].[InvoiceDetail]           AS ID
+                                     INNER JOIN [Enterprise_Lakehouse].[SalesHistory_AFI].[InvoiceHeader] AS IH
+                                         ON [ID].[InvoiceNumber] = [IH].[InvoiceNumber]
+                                        AND [ID].[InvoiceDate] = [IH].[InvoiceDate]
+                                        AND [ID].[OrderDate] = [IH].[OrderDate]
+                                        AND [ID].[OrderNumber] = [IH].[OrderNumber]
+
+                                     LEFT JOIN [SupplyChain_Warehouse].[SCP_Core].[DimCustomerMaster]     AS DC
+                                         ON [ID].[CustomerNumber] = [DC].[Account Number]
+                                        AND [ID].[ShiptoNumber] = [DC].[ShipTo Number]
+
+                                     INNER JOIN [SupplyChain_Warehouse].[SCP_Core].[DimFiscalCalendar]    AS DD
+                                         ON DATEADD(
+                                                       DAY
+                                                      ,-[IH].[LeadTime]
+                                                      ,[ID].[CurrentRequestDate]
+                                                   ) = [DD].[Transaction Date]
+                                WHERE [ID].[QuantityShipped] > 0
+                                  AND [DD].[Fiscal Month Indicator] = -1
+                                GROUP BY RTRIM([DC].[Customer Group])
+                                        ,RTRIM([ID].[ItemSKU])
+                                        ,RTRIM([ID].[Warehouse])
+                                        ,[DD].[Fiscal Month End]
+                               UNION
+                               SELECT [DC].[Customer Group]    AS [Customer Group]
+                                     ,RTRIM([OO].[ItemSKU])    AS [ItemSKU]
+                                     ,RTRIM([OO].[Warehouse])  AS [Warehouse]
+                                     ,[DD].[Fiscal Month End]  AS [ActualsMonthEnd]
+                                     ,SUM([OO].[OpenOrderQty]) AS [OrderQty]
+                                 FROM [SupplyChain_Warehouse].[SCP_Core].[FactOpenOrders]              AS OO
+                                     INNER JOIN [SupplyChain_Warehouse].[SCP_Core].[DimFiscalCalendar] AS DD
+                                         ON DATEADD(
+                                                       DAY
+                                                      ,-[OO].[LoadLeadTime]
+                                                      ,[OO].[CurrentRequestDate]
+                                                   ) = [DD].[Transaction Date]
+
+                                     LEFT JOIN [SupplyChain_Warehouse].[SCP_Core].[DimCustomerMaster]  AS DC
+                                         ON [OO].[Account And ShipTo Number] = [DC].[Account And ShipTo Number]
+                                WHERE [OO].[InventoryAllocatedFlag] = '2'
+                                  AND [DD].[Fiscal Month Indicator] = -1
+                                GROUP BY [DC].[Customer Group]
+                                        ,RTRIM([OO].[ItemSku])
+                                        ,RTRIM([OO].[Warehouse])
+                                        ,[DD].[Fiscal Month End]
+                           ) AS A
+                     GROUP BY [A].[Customer Group]
+                             ,[A].[ItemSKU]
+                             ,[A].[Warehouse]
+                             ,[A].[ActualsMonthEnd]
+                ) AS ACT
+          ON [FC].[Customer Group] = [ACT].[Customer Group]
+         AND [FC].[ItemSKU] = [ACT].[ItemSKU]
+         AND [FC].[Warehouse] = [ACT].[Warehouse]
+         AND [FC].[ActualsMonthEnd] = [ACT].[ActualsMonthEnd]
+
+      LEFT JOIN (
+                    -- Get the Naive Forecast
+                    -- Preceding months Actuals (controlled for 4-4-5 Fiscal calendar)
+                    SELECT [N].[ItemSKU]                            AS [ItemSKU]
+                          ,[N].[Warehouse]                          AS [Warehouse]
+                          ,[N].[Customer Group]
+                          ,[D2].[FiscalMonthYear]
+                          ,CAST([N].[Qty] * [D2].[NumWeeks] AS INT) AS [NaiveFcst]
+                      FROM (
+                               SELECT [ACT].[ItemSKU]
+                                     ,[ACT].[Warehouse]
+                                     ,[CUS].[Customer Group]
+                                     ,[DD].[FiscalMonthIndicator]
+                                     ,[D2].[FiscalMonthYear]
+                                     ,SUM([ACT].[OrderQty]) / [D2].[NumWeeks] AS [Qty]
+                                 FROM [SupplyChain_Warehouse].[SCP_Core].[FactAFISales_CurReqQty]     AS ACT
+                                     LEFT JOIN [Enterprise_Lakehouse].[MasterData_DW].[DimDate]       AS DD
+                                         ON [ACT].[CurReqWkEnd] = [DD].[DateID]
+
+                                     LEFT JOIN [SupplyChain_Warehouse].[SCP_Core].[DimCustomerMaster] AS CUS
+                                         ON [ACT].[AccountAndShipToNumber] = [CUS].[Account And ShipTo Number]
+
+                                     INNER JOIN (
+                                                    SELECT [FiscalMonthYear]
+                                                          ,[FiscalMonthLastDate]
+                                                          ,COUNT(DISTINCT [FiscalWeekLastDate]) AS [NumWeeks]
+                                                      FROM [Enterprise_Lakehouse].[MasterData_DW].[DimDate]
+                                                     WHERE [FiscalMonthIndicator] = -2 -- Pull Two Months ago Actuals
+                                                     GROUP BY [FiscalMonthYear]
+                                                             ,[FiscalMonthLastDate]
+                                                )                                                     AS D2
+                                         ON [DD].[FiscalMonthLastDate] = [D2].[FiscalMonthLastDate]
+                                WHERE [ACT].[Warehouse] NOT IN ( 'C', 'CNW', 'C35', '55' )
+                                GROUP BY [ACT].[ItemSKU]
+                                        ,[ACT].[Warehouse]
+                                        ,[CUS].[Customer Group]
+                                        ,[DD].[FiscalMonthIndicator]
+                                        ,[D2].[NumWeeks]
+                                        ,[D2].[FiscalMonthYear]
+                           )           AS N
+                          INNER JOIN (
+
+                                         -- Join last completed month's date and numweeks
+                                         SELECT [FiscalMonthYear]
+                                               ,[FiscalMonthLastDate]
+                                               ,[FiscalMonthIndicator]
+                                               ,COUNT(DISTINCT [FiscalWeekLastDate]) AS [NumWeeks]
+                                           FROM [Enterprise_Lakehouse].[MasterData_DW].[DimDate]
+                                          WHERE [FiscalMonthIndicator] = -1
+                                          GROUP BY [FiscalMonthYear]
+                                                  ,[FiscalMonthLastDate]
+                                                  ,[FiscalMonthIndicator]
+                                     ) AS D2
+                              ON ([N].[FiscalMonthIndicator] + 1) = [D2].[FiscalMonthIndicator]
+                ) AS NF
+          ON [ACT].[ItemSKU] = [NF].[ItemSKU]
+         AND [FC].[Warehouse] = [NF].[Warehouse]
+         AND [FC].[FiscalMonthYear] = [NF].[FiscalMonthYear]
+         AND [FC].[Customer Group] = [NF].[Customer Group]
+ WHERE (
+           [FC].[TotalForecast] > 0
+      OR   ISNULL([ACT].[ActualDemand], 0) > 0
+      OR   ISNULL([NF].[NaiveFcst], 0) > 0
+       )
+
+) "
+SCP_Core_Wrk,v_FactOpenOrders,"CREATE           VIEW [SCP_CORE_WRK].[v_FactOpenOrders] AS (
+SELECT  cast(str(CASE WHEN T3.ORDTE=0 Then 19990101 Else T3.ORDTE End) AS date)  as [OrderTakenDate],
+        T1.[Ordno] AS [OrderNumber], 
+        T1.[itmsq] AS [ItemSequenceNumber],
+        T1.CCusno as [AccountNumber], 
+        T1.CSHPNO as  [ShipToNumber],
+        RTRIM(CASE 
+            WHEN T1.CSHPNO IS NULL OR CAST(T1.CSHPNO AS VARCHAR(50)) = ''
+                THEN CAST(T1.CCusno AS VARCHAR(50))
+            ELSE
+                RTRIM(CAST(T1.CCusno AS VARCHAR(50))) + '-' + LTRIM(CAST(T1.CSHPNO AS VARCHAR(50)))
+            END) AS [Account And ShipTo Number], 
+        --C.[Store Address ID] as idsStoreAddressID,
+        --C.[Shipto AddressID] as idsRouteAddressID, 
+		--[M].[City],
+		--[M].[State Code],
+		--[M].[Country Code],
+	    RTRIM(T1.Itnbr) as [ItemSKU], 
+		--AFISalesDivisionCode as  idsDivision, 
+		--M.[Msa Fips Code] as idsMsaFips,
+		RTRIM(T1.HOUSE) as [Warehouse]	,	
+		[IM].AFIItemStatus as [ItemStatus],
+		 CAST(T1.COQTY - T1.Qtysh AS INT) as [OpenOrderQty],
+		 CAST(T1.QTYBO AS INT) as [BackOrderQty],
+		--((T1.INSAM/case when T1.QTYBO > 0 then T1.QTYBO else T1.COQTY end) - T2.IFRGHT) * case when T1.QTYBO > 0 then T1.QTYBO else T1.COQTY end as idsOpenOrderAmt, 
+		CAST(((T1.INSAM/
+            CASE 
+                WHEN T1.QTYBO > 0 
+                    THEN T1.QTYBO 
+                ELSE (CASE 
+                            WHEN T1.COQTY > 0 
+                                THEN T1.COQTY 
+                            ELSE 1 
+                        END)
+                END) - T2.IFRGHT) 
+                * CASE 
+                        WHEN T1.QTYBO > 0 
+                            THEN T1.QTYBO
+                    ELSE (CASE 
+                            WHEN T1.COQTY > 0 
+                                THEN  T1.COQTY 
+                            ELSE 1 
+                          END) 
+                    END AS DEC(13,2)
+            ) AS [OpenOrderAmt],
+		CAST(Case when T1.QTYBO > 0 Then ((T1.INSAM/T1.QTYBO) - T2.IFRGHT) * T1.QTYBO else 0 END AS DEC(13,2)) as [BackOrderAmt], 
+		 T4.ORDARR as [OrderArrival],
+		 cast(str(CASE WHEN T2.Iprmdt=0 Then NULL Else T2.Iprmdt End) AS date) as [OriginalPromiseDate],
+		 cast(str(CASE WHEN T1.Rqidt=0  Then NULL Else T1.Rqidt  End) AS date) as [CurrentPromiseDate],
+		 cast(str(CASE WHEN T4.Frzdat=0 Then NULL Else T4.Frzdat End) AS date) as [OriginalRequestDate],
+		 cast(str(CASE WHEN T4.Rqsdat=0 Then NULL Else T4.Rqsdat End) AS date) as [CurrentRequestDate],
+		[PrimaryOrderType]=  OT1.OTDES1,
+		[SecondaryOrderType]= OT2.OTDES1,
+		[3rdOrderType]=OT3.OTDES1,
+		[4thOrderType]=OT4.OTDES1,
+		T1.[IAFLG] AS [InventoryAllocatedFlag],
+		cast(str(CASE WHEN T1.MFIDT=0  Then NULL Else T1.MFIDT  End) AS date) AS [CurrentLoadDate],
+		T1.[NUMLDDTCHG] AS [CountofLoadDateChanges],
+		T3.[SHLTC] AS [LoadLeadTime],
+		T3.[SHINS] AS [ShippingInstructions],
+		case T1.itdsi  when T1.itdsc then '' else T1.itdsi end as [CustomerSKUNo],
+		--C.[Account Exception Flag],
+		 T2.IFRGHT as [OrderFreight]
+		,CASE 
+            WHEN DATEADD(DAY, 7, cast(str(CASE WHEN T4.Rqsdat=0 Then NULL Else T4.Rqsdat End) AS date)) < CONVERT(DATE, GETDATE())
+                THEN 'Past Due'
+            ELSE 'Future Ord'
+        END AS [FlagPastDue]
+		-- ST.[RegionCode_RepID_Category] as [RegionCode_RepID_Cat]
+  FROM  [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[codatan] AS T1 
+        LEFT JOIN  [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[EXTORIT] AS T2  
+          ON (T1.ORDNO = T2.IORD AND T1.ITMSQ = T2.ISEQ)
+		JOIN [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[COMAST]AS T3   
+          ON (T1.ORDNO = T3.ORDNO)
+		JOIN [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[EXTORD] AS T4  
+          ON (T1.ORDNO = T4.XORDNO)
+        --LEFT Join AFISales_DW.DimCustomers C  on C.[Customer Account Number] = T1.CCusno AND  C.[Customer Shipto Number]=T1.CSHPNO		
+        --LEFT JOIN AFISales_DW.DimGeographicLocations M ON [Shipto AddressID] = [Address ID]
+        JOIN [Enterprise_Lakehouse].[MasterData_DW].[DimItemMaster] AS IM 
+          ON ItemSku=T1.Itnbr
+	    Left Join [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[AAORDTYP] AS ot1  
+          ON ot1.OTCODE=T4.[OTTYP1]
+	    Left Join [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[AAORDTYP] AS ot2  
+          ON ot2.OTCODE=T4.[OTTYP2]
+		Left Join [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[AAORDTYP] AS ot3  
+          ON ot3.OTCODE=T4.[OTTYP3]
+		Left JOIN [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[AAORDTYP] AS ot4  
+          ON ot4.OTCODE=T4.[OTTYP4]
+
+  WHERE (T1.QTYBO <> 0 or T1.COQTY <> 0) and Price <> 0 and T3.ACREC <> 'X' AND T1.COQTY >= 0
+  )"
+SCP_Core_Wrk,v_FactWorkingForecastCurrent,"
+CREATE         VIEW [SCP_Core_Wrk].[v_FactWorkingForecastCurrent] AS (
+
+SELECT RTRIM([DFC].[DfcCustomerGroups] ) AS [CustomerGroup]
+      ,RTRIM([DFC].[dfcItem]     ) AS [ItemSKU]
+      ,RTRIM([DFC].[dfcWarehouse]) AS [Warehouse]
+      ,ISNULL([DD].[FiscalMonthLastDate],CONVERT(DATE, LEFT([DFC].[dfcFiscalMonth],4)+'-'+RIGHT([DFC].[dfcFiscalMonth],2)+'-15')) AS [FiscalMonthLastDate]
+      ,[DFC].[dfcResultantForecast] AS [ResultantForecastQty]
+      ,[DFC].[dfcPromotionalLift] AS [PromoLiftQty]
+      ,[DFC].[dfcOrderFutureQty] AS [FutureOrderQty]
+      ,CONVERT(DATE, [DFC].[dtea]) AS [SnapshotDate]
+  FROM [Enterprise_Lakehouse].[Wholesale_DemandPlanning_AFI].[DemandForecast]  AS DFC
+  LEFT JOIN (
+SELECT DISTINCT [FiscalMonthYear], [FiscalMonthLastDate]
+  FROM [Enterprise_Lakehouse].[MasterData_DW].[DimDate]
+  ) AS DD
+  ON [DFC].[dfcFiscalMonth] = [DD].[FiscalMonthYear]
+
+);"
+SCP_Core_Wrk,v_FiscalCalendar,"CREATE   VIEW [SCP_Core_Wrk].[v_FiscalCalendar] AS (SELECT [DateID] AS [Transaction Date]
+      ,[DateKey] AS [Integer Date]
+      ,[MapicsDate] AS [Mapics Date]
+	  ,[CalendarDayOfWeekName] AS [Day of Week]
+	  ,[FiscalWeek] AS [Fiscal Week Num]
+	  ,CONCAT('FW ', RIGHT(CONCAT('00',[FiscalWeek]),2)) AS [FW Desc]
+	  ,[FiscalWeekYear] AS [Fiscal Year Week Num]
+	  ,[FiscalMonth] AS [Fiscal Month Num]
+	  ,CONCAT('FM ', RIGHT(CONCAT('00',[FiscalMonth]),2)) AS [FM Desc]
+	  ,FORMAT(CONVERT(DATE,CONCAT([FiscalMonthYear],'01')), 'MMM') AS [Fiscal Month Name]
+	  ,[FiscalMonthYear] AS [Fiscal Year Month Num]
+	  ,FORMAT(CONVERT(DATE,CONCAT([FiscalMonthYear],'01')), 'MMM yyyy') AS [Fiscal Month Year Desc]
+	  ,CONVERT(DATE,CONCAT([FiscalMonthYear],'01')) AS [Fiscal Month (calendar start)]
+	  ,[FiscalQuarter] AS [Fiscal Quarter Num]
+	  ,CONCAT('FQ ', RIGHT(CONCAT('00',[FiscalQuarter]),2)) AS [FQ Desc]
+	  ,[FiscalSemesterYear] AS [Fiscal Year Half Num]
+	  ,[FiscalSemester] AS [Fiscal Half Num]  
+	  ,CONCAT('FH ', RIGHT(CONCAT('00',[FiscalSemester]),2)) AS [FH Desc]
+	  ,[FiscalYear] AS [Fiscal Year]
+	  ,CONCAT('FY ', [FiscalYear]) AS [FY Desc]
+	  ,CONVERT(DATE,[FiscalWeekFirstDate]) AS [Fiscal Week Start]
+	  ,CONVERT(DATE, [FiscalWeekLastDate]) AS [Fiscal Week End]
+	  ,CONVERT(DATE,[FiscalMonthFirstDate]) AS [Fiscal Month Start]
+	  ,CONVERT(DATE,[FiscalMonthLastDate]) AS [Fiscal Month End]
+	  ,CONVERT(DATE,[FiscalYearFirstDate]) AS [Fiscal Year Start]
+	  ,CONVERT(DATE,[FiscalYearLastDate]) AS [Fiscal Year End]
+	  ,[HolidayIndicator] AS [Holiday Indicator]
+	  ,[HolidayName] AS [Holiday Name]
+	  ,[WeekdayWeekend]
+	  ,[CalendarWeek] AS [Calendar Week Num]
+	  ,[CalendarMonth] AS [Calendar Month Num]
+	  ,[CalendarQuarter] AS [Calendar Quarter Num]
+	  ,[CalendarYear] AS [Calendar Year]
+	  ,[FiscalDateIndicator] AS [Fiscal Day Indicator]
+      ,[FiscalWeekIndicator] AS [Fiscal Week Indicator]
+      ,[FiscalMonthIndicator] AS [Fiscal Month Indicator]
+      ,[FiscalQuarterIndicator] AS [Fiscal Quarter Indicator]
+      ,[FiscalYearIndicator] AS [Fiscal Year Indicator]
+  FROM [Enterprise_Lakehouse].[MasterData_DW].[DimDate]
+  WHERE [FiscalYearIndicator] BETWEEN -5 AND 5)"
+SCP_Core_Wrk,v_WorkingForecastCurrent,"
+CREATE       VIEW [SCP_Core_Wrk].[v_WorkingForecastCurrent] AS (
+
+SELECT RTRIM([DFC].[DfcCustomerGroups] ) AS [CustomerGroup]
+      ,RTRIM([DFC].[dfcItem]     ) AS [ItemSKU]
+      ,RTRIM([DFC].[dfcWarehouse]) AS [Warehouse]
+      ,ISNULL([DD].[FiscalMonthLastDate],CONVERT(DATE, LEFT([DFC].[dfcFiscalMonth],4)+'-'+RIGHT([DFC].[dfcFiscalMonth],2)+'-15')) AS [FiscalMonthLastDate]
+      ,[DFC].[dfcResultantForecast] AS [ResultantForecastQty]
+      ,[DFC].[dfcPromotionalLift] AS [PromoLiftQty]
+      ,[DFC].[dfcOrderFutureQty] AS [FutureOrderQty]
+      ,CONVERT(DATE, [DFC].[dtea]) AS [SnapshotDate]
+  FROM [Enterprise_Lakehouse].[Wholesale_DemandPlanning_AFI].[DemandForecast]  AS DFC
+  LEFT JOIN (
+SELECT DISTINCT [FiscalMonthYear], [FiscalMonthLastDate]
+  FROM [Enterprise_Lakehouse].[MasterData_DW].[DimDate]
+  ) AS DD
+  ON [DFC].[dfcFiscalMonth] = [DD].[FiscalMonthYear]
+
+);"
+silver,vw_slv_actual_demand_monthly,"
+CREATE   VIEW silver.vw_slv_actual_demand_monthly AS
+WITH current_fiscal AS (
+    SELECT TOP 1 num_fsc_year FROM bronze.ref_calendar WHERE dt_date = CAST(GETDATE() AS DATE)
+)
+SELECT
+    INV.id_item_sku, INV.code_warehouse,
+    CASE WHEN CAL.dt_fsc_month_first < '2025-04-01' THEN 'AFICONS' ELSE INV.code_customer_group END AS code_customer_group,
+    CAL.dt_fsc_month_first, CAL.dt_fsc_month_last,
+    SUM(INV.qty_shipped) AS qty_demand,
+    SUM(INV.amt_net_sales) AS amt_demand,
+    'Invoice' AS code_status, 'Actual Demand' AS name_version
+FROM silver.slv_invoice_detail_line_level AS INV
+INNER JOIN bronze.ref_calendar AS CAL
+    ON CAL.dt_date = DATEADD(DAY, -INV.num_lead_time_days, INV.dt_current_request)
+CROSS JOIN current_fiscal AS CF
+WHERE INV.qty_shipped > 0
+    AND CAL.num_fsc_year BETWEEN CF.num_fsc_year - 3 AND CF.num_fsc_year + 1
+GROUP BY INV.id_item_sku, INV.code_warehouse,
+    CASE WHEN CAL.dt_fsc_month_first < '2025-04-01' THEN 'AFICONS' ELSE INV.code_customer_group END,
+    CAL.dt_fsc_month_first, CAL.dt_fsc_month_last
+
+UNION ALL
+
+SELECT
+    OO.id_item_sku, OO.code_warehouse,
+    CASE WHEN CAL.dt_fsc_month_first < '2025-04-01' THEN 'AFICONS' ELSE CG.code_customer_group END AS code_customer_group,
+    CAL.dt_fsc_month_first, CAL.dt_fsc_month_last,
+    SUM(OO.qty_open_order) AS qty_demand,
+    SUM(OO.amt_open_order) AS amt_demand,
+    'Open Order' AS code_status, 'Actual Demand' AS name_version
+FROM silver.slv_open_order_line_level AS OO
+INNER JOIN bronze.ref_calendar AS CAL
+    ON CAL.dt_date = DATEADD(DAY, -OO.num_lead_time_days, OO.dt_current_request)
+LEFT JOIN bronze.ref_customer_account_group AS CG ON CG.id_customer = OO.id_customer
+CROSS JOIN current_fiscal AS CF
+WHERE OO.code_allocation_flag = '2'
+    AND CAL.num_fsc_year BETWEEN CF.num_fsc_year - 3 AND CF.num_fsc_year + 1
+GROUP BY OO.id_item_sku, OO.code_warehouse,
+    CASE WHEN CAL.dt_fsc_month_first < '2025-04-01' THEN 'AFICONS' ELSE CG.code_customer_group END,
+    CAL.dt_fsc_month_first, CAL.dt_fsc_month_last
+"
+silver,vw_slv_actual_demand_weekly,"
+CREATE   VIEW silver.vw_slv_actual_demand_weekly AS
+WITH current_fiscal AS (
+    SELECT TOP 1 num_fsc_year FROM bronze.ref_calendar WHERE dt_date = CAST(GETDATE() AS DATE)
+)
+SELECT
+    INV.id_item_sku, INV.code_warehouse,
+    CASE WHEN CAL.dt_fsc_week_first < '2025-04-01' THEN 'AFICONS' ELSE INV.code_customer_group END AS code_customer_group,
+    CAL.dt_fsc_week_first, CAL.dt_fsc_week_last,
+    SUM(INV.qty_shipped) AS qty_demand, SUM(INV.amt_net_sales) AS amt_demand,
+    'Invoice' AS code_status, 'Actual Demand' AS name_version
+FROM silver.slv_invoice_detail_line_level AS INV
+INNER JOIN bronze.ref_calendar AS CAL
+    ON CAL.dt_date = DATEADD(DAY, -INV.num_lead_time_days, INV.dt_current_request)
+CROSS JOIN current_fiscal AS CF
+WHERE INV.qty_shipped > 0
+    AND CAL.num_fsc_year BETWEEN CF.num_fsc_year - 3 AND CF.num_fsc_year + 1
+GROUP BY INV.id_item_sku, INV.code_warehouse,
+    CASE WHEN CAL.dt_fsc_week_first < '2025-04-01' THEN 'AFICONS' ELSE INV.code_customer_group END,
+    CAL.dt_fsc_week_first, CAL.dt_fsc_week_last
+
+UNION ALL
+
+SELECT
+    OO.id_item_sku, OO.code_warehouse,
+    CASE WHEN CAL.dt_fsc_week_first < '2025-04-01' THEN 'AFICONS' ELSE CG.code_customer_group END AS code_customer_group,
+    CAL.dt_fsc_week_first, CAL.dt_fsc_week_last,
+    SUM(OO.qty_open_order) AS qty_demand, SUM(OO.amt_open_order) AS amt_demand,
+    'Open Order' AS code_status, 'Actual Demand' AS name_version
+FROM silver.slv_open_order_line_level AS OO
+INNER JOIN bronze.ref_calendar AS CAL
+    ON CAL.dt_date = DATEADD(DAY, -OO.num_lead_time_days, OO.dt_current_request)
+LEFT JOIN bronze.ref_customer_account_group AS CG ON CG.id_customer = OO.id_customer
+CROSS JOIN current_fiscal AS CF
+WHERE OO.code_allocation_flag = '2'
+    AND CAL.num_fsc_year BETWEEN CF.num_fsc_year - 3 AND CF.num_fsc_year + 1
+GROUP BY OO.id_item_sku, OO.code_warehouse,
+    CASE WHEN CAL.dt_fsc_week_first < '2025-04-01' THEN 'AFICONS' ELSE CG.code_customer_group END,
+    CAL.dt_fsc_week_first, CAL.dt_fsc_week_last
+"
+silver,vw_slv_forecast_demand_monthly,"
+CREATE   VIEW silver.vw_slv_forecast_demand_monthly AS
+WITH RawForecast AS (
+    SELECT 
+        f.id_item_sku, f.code_warehouse,
+        UPPER(f.code_customer_group) AS code_customer_group,
+        DATEFROMPARTS(CAST(f.num_fiscal_month / 100 AS INT), CAST(f.num_fiscal_month % 100 AS INT), 1) AS dt_fiscal_month,
+        CAST(f.ts_snapshot AS DATE) AS dt_snapshot,
+        f.qty_resultant_forecast, f.qty_promotional_lift
+    FROM bronze.brz_supplychain_enh_1__demandforecastsnapshotdaily AS f
+    INNER JOIN bronze.ref_forecast_cycle AS c
+        ON CAST(f.ts_snapshot AS DATE) = c.dt_forecast_snapshot
+),
+CalculatedForecast AS (
+    SELECT 
+        FC.id_item_sku, FC.code_warehouse, FC.code_customer_group,
+        CAL.dt_fsc_month_first, CAL.dt_fsc_month_last, FC.dt_snapshot,
+        CASE 
+            WHEN (YEAR(FC.dt_fiscal_month)*12 + MONTH(FC.dt_fiscal_month)) - (YEAR(FC.dt_snapshot)*12 + MONTH(FC.dt_snapshot)) = 0 THEN 'Lag-0'
+            WHEN (YEAR(FC.dt_fiscal_month)*12 + MONTH(FC.dt_fiscal_month)) - (YEAR(FC.dt_snapshot)*12 + MONTH(FC.dt_snapshot)) = 1 THEN 'Lag-1'
+            WHEN (YEAR(FC.dt_fiscal_month)*12 + MONTH(FC.dt_fiscal_month)) - (YEAR(FC.dt_snapshot)*12 + MONTH(FC.dt_snapshot)) = 2 THEN 'Lag-2'
+            WHEN (YEAR(FC.dt_fiscal_month)*12 + MONTH(FC.dt_fiscal_month)) - (YEAR(FC.dt_snapshot)*12 + MONTH(FC.dt_snapshot)) = 3 THEN 'Lag-3'
+            WHEN (YEAR(FC.dt_fiscal_month)*12 + MONTH(FC.dt_fiscal_month)) - (YEAR(FC.dt_snapshot)*12 + MONTH(FC.dt_snapshot)) = 4 THEN 'Lag-4'
+            WHEN (YEAR(FC.dt_fiscal_month)*12 + MONTH(FC.dt_fiscal_month)) - (YEAR(FC.dt_snapshot)*12 + MONTH(FC.dt_snapshot)) > 4 THEN '>Lag-4'
+        END AS code_horizon,
+        CAST(SUM(FC.qty_resultant_forecast + FC.qty_promotional_lift) AS FLOAT) AS qty_forecast,
+        CAST(CONCAT('V ', FORMAT(FC.dt_snapshot, 'yyyy.MM')) AS VARCHAR(20)) AS code_version,
+        'Forecast' AS code_status
+    FROM RawForecast AS FC
+    INNER JOIN bronze.ref_calendar AS CAL ON CAL.dt_date = FC.dt_fiscal_month
+    WHERE FC.dt_fiscal_month >= DATEADD(MONTH, -36, DATETRUNC(YEAR, DATEADD(MONTH, -6, CAST(GETDATE() AS DATE))))
+      AND FC.dt_fiscal_month <= DATEADD(MONTH, 12, DATETRUNC(YEAR, DATEADD(MONTH, 6, CAST(GETDATE() AS DATE))))
+    GROUP BY FC.id_item_sku, FC.code_warehouse, FC.code_customer_group,
+        CAL.dt_fsc_month_first, CAL.dt_fsc_month_last, FC.dt_snapshot, FC.dt_fiscal_month
+)
+SELECT 
+    CAST(TRIM(id_item_sku) AS VARCHAR(50)) AS id_item_sku,
+    CAST(TRIM(code_warehouse) AS VARCHAR(10)) AS code_warehouse,
+    CAST(TRIM(code_customer_group) AS VARCHAR(50)) AS code_customer_group,
+    CAST(dt_fsc_month_first AS DATE) AS dt_fsc_month_first,
+    CAST(dt_fsc_month_last AS DATE) AS dt_fsc_month_last,
+    CAST(dt_snapshot AS DATE) AS dt_snapshot,
+    CAST(TRIM(code_horizon) AS VARCHAR(10)) AS code_horizon,
+    CAST(qty_forecast AS FLOAT) AS qty_forecast,
+    CAST(TRIM(code_version) AS VARCHAR(20)) AS code_version,
+    CAST(TRIM(code_status) AS VARCHAR(20)) AS code_status
+FROM CalculatedForecast
+"
+silver,vw_slv_invoice_detail_line_level,"
+CREATE   VIEW silver.vw_slv_invoice_detail_line_level AS
+SELECT
+    INV.id_invoice, INV.id_invoice_extended, INV.id_order, INV.num_item_sequence,
+    INV.id_customer, INV.code_ship_to,
+    UPPER(RTRIM(
+        CASE WHEN INV.code_ship_to IS NULL OR TRIM(INV.code_ship_to) = ''
+            THEN TRIM(INV.id_customer)
+            ELSE CONCAT(TRIM(INV.id_customer), '-', TRIM(INV.code_ship_to))
+        END
+    )) AS id_account_ship_to,
+    INV.id_item_sku, INV.code_warehouse,
+    UPPER(CG.code_customer_group) AS code_customer_group,
+    IH.num_lead_time_days,
+    INV.qty_shipped, INV.qty_ordered, INV.qty_backordered,
+    INV.amt_invoice, INV.amt_net_sales, INV.amt_price, INV.amt_standard_price,
+    INV.amt_contract_price, INV.amt_discount, INV.amt_price_adjustment, INV.amt_freight,
+    INV.dt_invoice, INV.dt_order, INV.dt_request, INV.dt_current_request,
+    INV.dt_current_promise, INV.dt_original_request, INV.dt_original_promise,
+    INV.dt_promised_delivery, INV.dt_delivery, INV.dt_actual_delivery,
+    INV.code_order_type, INV.code_order_type_3, INV.code_credit,
+    INV.code_item_class, INV.code_order_item_status
+FROM bronze.brz_saleshistory_afi__invoicedetail AS INV
+LEFT JOIN bronze.brz_saleshistory_afi__invoiceheader AS IH
+    ON INV.id_invoice = IH.id_invoice AND INV.dt_invoice = IH.dt_invoice
+    AND INV.dt_order = IH.dt_order AND INV.id_order = IH.id_order
+LEFT JOIN bronze.ref_customer_account_group AS CG
+    ON CG.id_customer = INV.id_customer
+"
+silver,vw_slv_invoice_weekly,"
+CREATE   VIEW silver.vw_slv_invoice_weekly AS
+WITH current_fiscal AS (
+    SELECT TOP 1 num_fsc_year FROM bronze.ref_calendar WHERE dt_date = CAST(GETDATE() AS DATE)
+)
+SELECT
+    INV.id_account_ship_to, INV.id_item_sku, INV.code_warehouse, INV.code_customer_group,
+    CAL.dt_fsc_week_first, CAL.dt_fsc_week_last,
+    SUM(INV.qty_shipped) AS qty_shipped,
+    SUM(INV.amt_net_sales) AS amt_net_sales,
+    SUM(INV.amt_invoice) AS amt_invoice,
+    SUM(INV.amt_freight) AS amt_freight,
+    COUNT(*) AS num_invoice_lines,
+    COUNT(DISTINCT INV.id_invoice) AS num_distinct_invoices
+FROM silver.slv_invoice_detail_line_level AS INV
+INNER JOIN bronze.ref_calendar AS CAL ON CAL.dt_date = INV.dt_invoice
+CROSS JOIN current_fiscal AS CF
+WHERE INV.qty_shipped > 0 AND CAL.num_fsc_year >= CF.num_fsc_year - 3
+GROUP BY INV.id_account_ship_to, INV.id_item_sku, INV.code_warehouse,
+    INV.code_customer_group, CAL.dt_fsc_week_first, CAL.dt_fsc_week_last
+"
+silver,vw_slv_naive_forecast_monthly,"
+CREATE   VIEW silver.vw_slv_naive_forecast_monthly AS
+WITH
+month_weeks AS (
+    SELECT dt_fsc_month_first, COUNT(DISTINCT dt_fsc_week_first) AS num_weeks
+    FROM bronze.ref_calendar GROUP BY dt_fsc_month_first
+),
+actuals_monthly AS (
+    SELECT id_item_sku, code_warehouse, code_customer_group,
+        dt_fsc_month_first, dt_fsc_month_last, SUM(qty_demand) AS qty_actual
+    FROM silver.slv_actual_demand_monthly
+    GROUP BY id_item_sku, code_warehouse, code_customer_group, dt_fsc_month_first, dt_fsc_month_last
+),
+actuals_with_lag AS (
+    SELECT A.id_item_sku, A.code_warehouse, A.code_customer_group,
+        A.dt_fsc_month_first, A.dt_fsc_month_last, A.qty_actual, MW.num_weeks,
+        LAG(A.qty_actual) OVER (PARTITION BY A.id_item_sku, A.code_warehouse, A.code_customer_group ORDER BY A.dt_fsc_month_first) AS qty_actual_prior,
+        LAG(MW.num_weeks) OVER (PARTITION BY A.id_item_sku, A.code_warehouse, A.code_customer_group ORDER BY A.dt_fsc_month_first) AS num_weeks_prior
+    FROM actuals_monthly AS A
+    INNER JOIN month_weeks AS MW ON MW.dt_fsc_month_first = A.dt_fsc_month_first
+),
+current_fiscal AS (
+    SELECT TOP 1 num_fsc_year FROM bronze.ref_calendar WHERE dt_date = CAST(GETDATE() AS DATE)
+)
+SELECT
+    L.id_item_sku, L.code_warehouse, L.code_customer_group,
+    L.dt_fsc_month_first, L.dt_fsc_month_last,
+    CAST(L.qty_actual_prior / L.num_weeks_prior * L.num_weeks AS INT) AS qty_demand,
+    'Naive Forecast' AS code_status, 'Naive Forecast' AS name_version
+FROM actuals_with_lag AS L
+INNER JOIN bronze.ref_calendar AS CAL ON CAL.dt_date = L.dt_fsc_month_first
+CROSS JOIN current_fiscal AS CF
+WHERE L.qty_actual_prior IS NOT NULL
+    AND L.num_weeks_prior > 0
+    AND L.code_warehouse NOT IN ('C', 'CNW', 'C35', '55')
+    AND CAL.num_fsc_month_year >= (CF.num_fsc_year - 3) * 100
+    AND CAL.num_fsc_month_year <= (CF.num_fsc_year + 1) * 100 + 1299
+"
+silver,vw_slv_open_order_line_level,"
+CREATE   VIEW silver.vw_slv_open_order_line_level AS
+SELECT
+    T1.id_order, T1.num_item_sequence, T1.id_customer, T1.code_ship_to,
+    UPPER(RTRIM(
+        CASE WHEN T1.code_ship_to IS NULL OR TRIM(T1.code_ship_to) = ''
+            THEN TRIM(T1.id_customer)
+            ELSE CONCAT(TRIM(T1.id_customer), '-', TRIM(T1.code_ship_to))
+        END
+    )) AS id_account_ship_to,
+    T1.id_item_sku, T1.code_warehouse,
+    IM.code_afi_item_status,
+    CAST(T1.qty_ordered - T1.qty_shipped AS INT) AS qty_open_order,
+    CAST(T1.qty_backordered AS INT) AS qty_backorder,
+    CAST(
+        (T1.amt_extended_selling
+         / CASE WHEN T1.qty_backordered > 0 THEN T1.qty_backordered
+                WHEN T1.qty_ordered > 0 THEN T1.qty_ordered ELSE 1 END
+         - COALESCE(T2.amt_freight, 0))
+        * CASE WHEN T1.qty_backordered > 0 THEN T1.qty_backordered
+               WHEN T1.qty_ordered > 0 THEN T1.qty_ordered ELSE 1 END
+        AS DECIMAL(13,2)) AS amt_open_order,
+    CAST(CASE WHEN T1.qty_backordered > 0
+        THEN (T1.amt_extended_selling / T1.qty_backordered - COALESCE(T2.amt_freight, 0)) * T1.qty_backordered
+        ELSE 0 END AS DECIMAL(13,2)) AS amt_backorder,
+    T3.dt_order AS dt_order_taken,
+    T2.dt_promise AS dt_original_promise,
+    T1.dt_requested AS dt_current_promise,
+    T4.dt_freeze AS dt_original_request,
+    T4.dt_requested_ship AS dt_current_request,
+    T1.dt_manufactured AS dt_current_load,
+    OT1.name_order_type AS name_primary_order_type,
+    OT2.name_order_type AS name_secondary_order_type,
+    OT3.name_order_type AS name_3rd_order_type,
+    OT4.name_order_type AS name_4th_order_type,
+    T4.code_order_arrangement AS code_order_arrival,
+    T1.code_allocation_flag,
+    T1.num_load_date_changes,
+    T3.num_lead_time_days,
+    T3.name_shipping_instructions,
+    CASE WHEN T1.name_item_description_short = T1.name_item_description THEN ''
+         ELSE T1.name_item_description_short END AS name_customer_sku,
+    COALESCE(T2.amt_freight, 0) AS amt_order_freight,
+    CASE WHEN DATEADD(DAY, 7, T4.dt_requested_ship) < CAST(GETDATE() AS DATE)
+         THEN 'Past Due' ELSE 'Future Ord' END AS code_past_due_flag
+FROM bronze.brz_wholesale_codis_afi__codatan AS T1
+LEFT JOIN bronze.brz_wholesale_codis_afi__extorit AS T2
+    ON T1.id_order = T2.id_order AND T1.num_item_sequence = T2.num_item_sequence
+INNER JOIN bronze.brz_wholesale_codis_afi__comast AS T3
+    ON T1.id_order = T3.id_order
+INNER JOIN bronze.brz_wholesale_codis_afi__extord AS T4
+    ON T1.id_order = T4.id_order
+INNER JOIN bronze.ref_item_master AS IM
+    ON IM.id_item_sku = T1.id_item_sku
+LEFT JOIN bronze.ref_order_type AS OT1 ON OT1.code_order_type = T4.code_order_type_1
+LEFT JOIN bronze.ref_order_type AS OT2 ON OT2.code_order_type = T4.code_order_type_2
+LEFT JOIN bronze.ref_order_type AS OT3 ON OT3.code_order_type = T4.code_order_type_3
+LEFT JOIN bronze.ref_order_type AS OT4 ON OT4.code_order_type = T4.code_order_type_4
+WHERE (T1.qty_backordered <> 0 OR T1.qty_ordered <> 0)
+    AND T1.amt_selling_price <> 0
+    AND T3.code_record_type <> 'X'
+    AND T1.qty_ordered >= 0
+"
+silver,vw_slv_open_order_monthly,"
+CREATE   VIEW silver.vw_slv_open_order_monthly AS
+WITH current_fiscal AS (
+    SELECT TOP 1 num_fsc_year FROM bronze.ref_calendar WHERE dt_date = CAST(GETDATE() AS DATE)
+)
+SELECT
+    OO.id_item_sku, OO.code_warehouse,
+    UPPER(CG.code_customer_group) AS code_customer_group,
+    CAL.dt_fsc_month_first, CAL.dt_fsc_month_last,
+    SUM(OO.qty_open_order) AS qty_open_order, SUM(OO.qty_backorder) AS qty_backorder,
+    SUM(OO.amt_open_order) AS amt_open_order, SUM(OO.amt_backorder) AS amt_backorder,
+    COUNT(*) AS num_order_lines,
+    COUNT(DISTINCT OO.id_order) AS num_distinct_orders,
+    SUM(CASE WHEN OO.code_past_due_flag = 'Past Due' THEN OO.qty_open_order ELSE 0 END) AS qty_past_due,
+    SUM(CASE WHEN OO.code_past_due_flag = 'Past Due' THEN OO.amt_open_order ELSE 0 END) AS amt_past_due
+FROM silver.slv_open_order_line_level AS OO
+INNER JOIN bronze.ref_calendar AS CAL ON CAL.dt_date = OO.dt_current_request
+LEFT JOIN bronze.ref_customer_account_group AS CG ON CG.id_customer = OO.id_customer
+CROSS JOIN current_fiscal AS CF
+WHERE CAL.num_fsc_year BETWEEN CF.num_fsc_year - 3 AND CF.num_fsc_year + 1
+GROUP BY OO.id_item_sku, OO.code_warehouse,
+    UPPER(CG.code_customer_group), CAL.dt_fsc_month_first, CAL.dt_fsc_month_last
+"
+sys,dm_db_external_tables_log_status,"CREATE   VIEW sys.dm_db_external_tables_log_status
+AS
+SELECT f.sql_object_id AS object_id,IIF(t.latest_manifest_version > -1, t.latest_manifest_version, NULL ) AS latest_log_version, IIF(t.latest_checkpoint_version > -1, t.latest_checkpoint_version, NULL ) AS latest_checkpoint_version, t.last_update_time AS last_update_time_utc, t.is_blocked
+FROM sys.externaldeltatables t
+JOIN sys.manageddeltatables f
+ON t.table_id = f.table_id and f.drop_commit_time <= '1900-01-01T00:00:00'
+JOIN sys.objects o
+ON f.sql_object_id = o.object_id;"
+sys,external_delta_tables,"CREATE   VIEW sys.external_delta_tables
+AS
+SELECT t.table_id, t.is_blocked, t.relative_path, IIF(t.latest_manifest_version > -1, t.latest_manifest_version, NULL ) AS latest_manifest_version, IIF(t.latest_checkpoint_version > -1, t.latest_checkpoint_version, NULL ) AS latest_checkpoint_version, IIF(t.latest_checksum_version > -1, t.latest_checksum_version, NULL ) AS latest_checksum_version, t.latest_etag, t.last_update_time 
+FROM sys.externaldeltatables t
+JOIN sys.manageddeltatables f
+ON t.table_id = f.table_id and f.drop_commit_time <= '1900-01-01T00:00:00'
+"
+sys,managed_delta_table_checkpoints,"CREATE   VIEW sys.managed_delta_table_checkpoints
+AS
+SELECT f.delta_log_commit_sequence_id, f.part, f.file_guid, f.version, f.source_table_guid, p.source_database_guid, t.table_guid, p.checkpoint_file_name, p.manifest_root 
+FROM sys.manageddeltatables t
+JOIN sys.manageddeltatablecheckpoints f
+ON t.table_id = f.table_id and t.drop_commit_time <= '1900-01-01T00:00:00'
+OUTER APPLY OpenRowSet(TABLE DW_PHYSICAL_CHECKPOINT_FILES, t.sql_object_id, f.delta_log_commit_sequence_id, f.part, f.source_table_guid, f.source_database_guid) p
+"
+sys,managed_delta_table_forks,"CREATE   VIEW sys.managed_delta_table_forks
+AS
+SELECT f.commit_sequence_id, f.fork_guid, f.source_table_guid, f.source_database_guid, f.xdes_ts, f.commit_time, t.table_guid, UPPER(CAST(f.fork_guid AS NVARCHAR(40))) as folder_name
+FROM sys.manageddeltatables t
+JOIN sys.manageddeltatableforks f
+ON t.table_id = f.table_id and t.drop_commit_time <= '1900-01-01T00:00:00'
+"
+sys,managed_delta_table_log_files,"CREATE   VIEW sys.managed_delta_table_log_files
+AS
+SELECT lf.commit_sequence_id, lf.file_guid, lf.xdes_ts, lf.append_only, lf.rows_inserted, lf.commit_time, lf.source_table_guid, p.source_database_guid,p.manifest_file_name, p.manifest_root, t.table_guid 
+FROM sys.manageddeltatablelogfiles lf 
+JOIN sys.manageddeltatables t 
+ON lf.table_id = t.table_id and t.drop_commit_time <= '1900-01-01T00:00:00'
+OUTER APPLY OpenRowSet(TABLE DW_PHYSICAL_METADATA_MANIFEST_FILES, t.sql_object_id, lf.commit_sequence_id, lf.source_table_guid, lf.source_database_guid) p
+"
+sys,managed_delta_tables,"CREATE   VIEW sys.managed_delta_tables
+AS
+SELECT t.table_id, t.sql_object_id AS object_id, t.table_guid, t.fork_guid, t.delta_log_feature_status, p.manifest_root, s.system_task_consideration_bitmask, IIF(t.drop_commit_time > '1900-01-01T00:00:00', t.drop_commit_time, NULL ) AS drop_commit_time
+FROM sys.manageddeltatables t
+OUTER APPLY OpenRowSet(TABLE DW_PHYSICAL_TABLE_VALUES, t.sql_object_id, t.drop_commit_time) p
+OUTER APPLY OpenRowSet(TABLE DW_SYSTEM_TASK_CONSIDERATION_BITMASK, t.sql_object_id) s
+"
+sys,sys_dw_schemas,"CREATE   VIEW sys.sys_dw_schemas
+AS
+SELECT s.*, i.* 
+FROM sys.schemas s
+OUTER APPLY OpenRowSet(TABLE DW_SCHEMAS, s.schema_id) i
+"

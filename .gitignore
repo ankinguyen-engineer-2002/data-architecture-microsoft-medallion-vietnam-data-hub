@@ -10,6 +10,10 @@ __pycache__/
 venv/
 .python-version
 
+# === Node / VS Code extensions ===
+node_modules/
+*.vsix
+
 # === Editor / IDE ===
 *.swp
 *.swo
@@ -51,9 +55,9 @@ _external_refs/
 01_Architect_v9_April/
 
 # === Archive ===
-docs/archive/
+01_docs/99_archive/
 .claude.md
-_local_archive/
+_local_99_archive/
 
 # === Build run artifacts (keep scripts, ignore outputs) ===
 Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/items_*.json
@@ -65,7 +69,7 @@ Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/v10_*.json
 Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/build_v10_full_results_*.json
 Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/delete_targets_manifest.json
 Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/protected_items_manifest.json
-Enterprise_SupplyChain_Dev_architect/tools/__pycache__/
+Enterprise_SupplyChain_Dev_architect/05_tools/__pycache__/
 
 # === Bob alignment — keep scripts/README/RESULTS, ignore run logs + backup snapshots ===
 Enterprise_SupplyChain_Dev_architect/artifacts/bob_alignment_*/run_logs/
@@ -74,7 +78,7 @@ Enterprise_SupplyChain_Dev_architect/artifacts/bob_alignment_*/*_fix_*/
 
 # === Work folder info ===
 Enterprise_SupplyChain_Dev_architect/.work-folder-info
-lineage_explorer/.streamlit/secrets.toml
+03_operations/apps/lineage_explorer/.streamlit/secrets.toml
 
 # Fabric stubs (VS Code Fabric extension cache — appears in any synced workspace folder)
 **/.stubs/
@@ -86,11 +90,17 @@ lineage_explorer/.streamlit/secrets.toml
 # Azure CLI local state (keep out of repo)
 .azure/
 .azure_user/
+99_archive/local-state/
+99_archive/external_refs/
 
 # Run artifacts / exports (keep scripts/docs, ignore outputs)
-docs/runbook/artifacts/
+01_docs/runbook/artifacts/
 Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/
 Enterprise_SupplyChain_Dev_architect/projects/*/artifacts/backups/semantic_*/
+
+# SQL project local build outputs
+**/bin/
+**/obj/
 
 # === Project source bundles archived for reference (not committed) ===
 Enterprise_SupplyChain_Dev_architect/projects/*/_source_v1/

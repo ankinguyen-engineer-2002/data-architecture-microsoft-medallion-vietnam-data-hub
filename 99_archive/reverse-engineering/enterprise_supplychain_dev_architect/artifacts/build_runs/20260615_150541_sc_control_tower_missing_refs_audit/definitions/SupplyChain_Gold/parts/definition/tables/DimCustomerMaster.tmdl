@@ -1,0 +1,164 @@
+table DimCustomerMaster
+	lineageTag: 98553808-e62c-447b-b93c-19954da7992c
+	sourceLineageTag: [SCP_Core].[DimCustomerMaster]
+
+	column 'Account Number'
+		dataType: string
+		lineageTag: fc5f9ff9-3b23-4233-a820-a93df585116a
+		sourceLineageTag: Account Number
+		summarizeBy: none
+		sourceColumn: Account Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ShipTo Number'
+		dataType: string
+		lineageTag: d1990130-7cc2-42d8-8d1b-256eb387d695
+		sourceLineageTag: ShipTo Number
+		summarizeBy: none
+		sourceColumn: ShipTo Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Name'
+		dataType: string
+		lineageTag: 9419123e-d69d-4b41-8797-5764332d4022
+		sourceLineageTag: Customer Name
+		summarizeBy: none
+		sourceColumn: Customer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ShipTo Name'
+		dataType: string
+		lineageTag: c7534d85-a3a6-44e0-81ab-7f099347868a
+		sourceLineageTag: ShipTo Name
+		summarizeBy: none
+		sourceColumn: ShipTo Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account And ShipTo Number'
+		dataType: string
+		lineageTag: c06a3b76-bc53-4ef9-bfae-965d580605a0
+		sourceLineageTag: Account And ShipTo Number
+		summarizeBy: none
+		sourceColumn: Account And ShipTo Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Commission Code'
+		dataType: string
+		lineageTag: 34db2dc7-28e3-42f8-9f37-53a6a896bdef
+		sourceLineageTag: Commission Code
+		summarizeBy: none
+		sourceColumn: Commission Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Freight Code'
+		dataType: string
+		lineageTag: 0f7d775f-aa93-4da9-a396-55608014dc6a
+		sourceLineageTag: Freight Code
+		summarizeBy: none
+		sourceColumn: Freight Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Price Code'
+		dataType: string
+		lineageTag: a37f1e75-7b8f-448d-b47f-8bd4142c79f7
+		sourceLineageTag: Price Code
+		summarizeBy: none
+		sourceColumn: Price Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Warehouse'
+		dataType: string
+		lineageTag: bc5f4be5-1ca3-4cde-83cb-4064aad097da
+		sourceLineageTag: Default Warehouse
+		summarizeBy: none
+		sourceColumn: Default Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ShipTo City'
+		dataType: string
+		lineageTag: 5af6e9ea-36e8-47bd-a1a4-995896c362f7
+		sourceLineageTag: ShipTo City
+		summarizeBy: none
+		sourceColumn: ShipTo City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ShipTo State'
+		dataType: string
+		lineageTag: 0ab8ce7a-05c5-4818-91b8-1af8a590a2c3
+		sourceLineageTag: ShipTo State
+		summarizeBy: none
+		sourceColumn: ShipTo State
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ShipTo Country'
+		dataType: string
+		lineageTag: 86eca849-81bc-402d-94c2-8146aa246451
+		sourceLineageTag: ShipTo Country
+		summarizeBy: none
+		sourceColumn: ShipTo Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Business Type Code'
+		dataType: string
+		lineageTag: 41dfd570-c82f-45a0-943c-5f1cad53547e
+		sourceLineageTag: Business Type Code
+		summarizeBy: none
+		sourceColumn: Business Type Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Business Type'
+		dataType: string
+		lineageTag: 66d71a30-0cd9-49b6-ac37-06106dd8a7eb
+		sourceLineageTag: Business Type
+		summarizeBy: none
+		sourceColumn: Business Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Reporting Business Type'
+		dataType: string
+		lineageTag: b47f7a5d-718a-42be-aa31-fd19d9274965
+		sourceLineageTag: Reporting Business Type
+		summarizeBy: none
+		sourceColumn: Reporting Business Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Group'
+		dataType: string
+		lineageTag: dc713ea1-8dbe-44c6-8b59-599efc824aab
+		sourceLineageTag: Customer Group
+		summarizeBy: none
+		sourceColumn: Customer Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Group'
+		dataType: string
+		lineageTag: 9e66b495-23d1-4902-a631-6a1b70718ffa
+		sourceLineageTag: Account Group
+		summarizeBy: none
+		sourceColumn: Account Group
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCustomerMaster = entity
+		mode: directLake
+		source
+			entityName: DimCustomerMaster
+			schemaName: SCP_Core
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

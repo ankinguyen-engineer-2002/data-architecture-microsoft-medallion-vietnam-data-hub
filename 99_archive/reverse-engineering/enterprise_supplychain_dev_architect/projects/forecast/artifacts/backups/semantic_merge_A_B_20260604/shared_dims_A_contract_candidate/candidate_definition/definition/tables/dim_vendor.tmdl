@@ -1,0 +1,19 @@
+table dim_vendor
+
+	column code_vendor
+		dataType: string
+		isKey
+		summarizeBy: none
+		sourceColumn: VendorNumber
+
+	column name_vendor
+		dataType: string
+		summarizeBy: none
+		sourceColumn: VendorName
+
+	partition dim_vendor = entity
+		mode: directLake
+		source
+			entityName: DimVendor
+			schemaName: Shared_DW
+			expressionSource: 'DirectLake - SupplyChain_Gold_Warehouse'

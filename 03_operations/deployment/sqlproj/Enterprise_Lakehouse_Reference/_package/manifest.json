@@ -1,0 +1,335 @@
+{
+  "generated_at_utc": "2026-06-24T14:34:40Z",
+  "objects": [
+    {
+      "object": "WarehouseMaster",
+      "object_type": "table",
+      "schema": "CustomerOrders_AFI",
+      "source_kind": "live_metadata",
+      "target": "CustomerOrders_AFI/Tables/WarehouseMaster.sql"
+    },
+    {
+      "object": "AccountMaster",
+      "object_type": "table",
+      "schema": "Customers",
+      "source_kind": "live_metadata",
+      "target": "Customers/Tables/AccountMaster.sql"
+    },
+    {
+      "object": "ShippingLocations",
+      "object_type": "table",
+      "schema": "Customers",
+      "source_kind": "live_metadata",
+      "target": "Customers/Tables/ShippingLocations.sql"
+    },
+    {
+      "object": "ItemBalance",
+      "object_type": "table",
+      "schema": "Inventory_Enh_History",
+      "source_kind": "live_metadata",
+      "target": "Inventory_Enh_History/Tables/ItemBalance.sql"
+    },
+    {
+      "object": "AITMCLS",
+      "object_type": "table",
+      "schema": "ItemMaster_AFI",
+      "source_kind": "live_metadata",
+      "target": "ItemMaster_AFI/Tables/AITMCLS.sql"
+    },
+    {
+      "object": "ITBEXT",
+      "object_type": "table",
+      "schema": "ItemMaster_AFI",
+      "source_kind": "live_metadata",
+      "target": "ItemMaster_AFI/Tables/ITBEXT.sql"
+    },
+    {
+      "object": "ITEMBL",
+      "object_type": "table",
+      "schema": "ItemMaster_AFI",
+      "source_kind": "live_metadata",
+      "target": "ItemMaster_AFI/Tables/ITEMBL.sql"
+    },
+    {
+      "object": "ITMEXT",
+      "object_type": "table",
+      "schema": "ItemMaster_AFI",
+      "source_kind": "live_metadata",
+      "target": "ItemMaster_AFI/Tables/ITMEXT.sql"
+    },
+    {
+      "object": "ITMRVA",
+      "object_type": "table",
+      "schema": "ItemMaster_AFI",
+      "source_kind": "live_metadata",
+      "target": "ItemMaster_AFI/Tables/ITMRVA.sql"
+    },
+    {
+      "object": "TFRDTL",
+      "object_type": "table",
+      "schema": "Manufacturing_Inventory_AFI",
+      "source_kind": "live_metadata",
+      "target": "Manufacturing_Inventory_AFI/Tables/TFRDTL.sql"
+    },
+    {
+      "object": "TFRHDR",
+      "object_type": "table",
+      "schema": "Manufacturing_Inventory_AFI",
+      "source_kind": "live_metadata",
+      "target": "Manufacturing_Inventory_AFI/Tables/TFRHDR.sql"
+    },
+    {
+      "object": "MOMAST",
+      "object_type": "table",
+      "schema": "Manufacturing_ProductionPlanning_AFI",
+      "source_kind": "live_metadata",
+      "target": "Manufacturing_ProductionPlanning_AFI/Tables/MOMAST.sql"
+    },
+    {
+      "object": "DimDate",
+      "object_type": "table",
+      "schema": "MasterData_DW",
+      "source_kind": "live_metadata",
+      "target": "MasterData_DW/Tables/DimDate.sql"
+    },
+    {
+      "object": "DimItemMaster",
+      "object_type": "table",
+      "schema": "MasterData_DW",
+      "source_kind": "live_metadata",
+      "target": "MasterData_DW/Tables/DimItemMaster.sql"
+    },
+    {
+      "object": "Item_ENV",
+      "object_type": "table",
+      "schema": "MasterData_ProductKnowledge",
+      "source_kind": "live_metadata",
+      "target": "MasterData_ProductKnowledge/Tables/Item_ENV.sql"
+    },
+    {
+      "object": "VendorMaster",
+      "object_type": "table",
+      "schema": "Purchasing_AFI",
+      "source_kind": "live_metadata",
+      "target": "Purchasing_AFI/Tables/VendorMaster.sql"
+    },
+    {
+      "object": "InvoiceDetail",
+      "object_type": "table",
+      "schema": "SalesHistory_AFI_Enh",
+      "source_kind": "live_metadata",
+      "target": "SalesHistory_AFI_Enh/Tables/InvoiceDetail.sql"
+    },
+    {
+      "object": "InvoiceHeader",
+      "object_type": "table",
+      "schema": "SalesHistory_AFI_Enh",
+      "source_kind": "live_metadata",
+      "target": "SalesHistory_AFI_Enh/Tables/InvoiceHeader.sql"
+    },
+    {
+      "object": "ATPWeekEnding",
+      "object_type": "table",
+      "schema": "SupplyChain_Enh",
+      "source_kind": "live_metadata",
+      "target": "SupplyChain_Enh/Tables/ATPWeekEnding.sql"
+    },
+    {
+      "object": "CurFcStSnapshotWeekly",
+      "object_type": "table",
+      "schema": "SupplyChain_Enh",
+      "source_kind": "live_metadata",
+      "target": "SupplyChain_Enh/Tables/CurFcStSnapshotWeekly.sql"
+    },
+    {
+      "object": "DemandForecastSnapshotDaily",
+      "object_type": "table",
+      "schema": "SupplyChain_Enh",
+      "source_kind": "live_metadata",
+      "target": "SupplyChain_Enh/Tables/DemandForecastSnapshotDaily.sql"
+    },
+    {
+      "object": "DemandFulfillmentCommonContainer_Logility",
+      "object_type": "table",
+      "schema": "SupplyChain_Enh",
+      "source_kind": "live_metadata",
+      "target": "SupplyChain_Enh/Tables/DemandFulfillmentCommonContainer_Logility.sql"
+    },
+    {
+      "object": "DemandInventorySnapshotDaily",
+      "object_type": "table",
+      "schema": "SupplyChain_Enh",
+      "source_kind": "live_metadata",
+      "target": "SupplyChain_Enh/Tables/DemandInventorySnapshotDaily.sql"
+    },
+    {
+      "object": "PurchaseOrderSnapshot",
+      "object_type": "table",
+      "schema": "SupplyChain_Enh",
+      "source_kind": "live_metadata",
+      "target": "SupplyChain_Enh/Tables/PurchaseOrderSnapshot.sql"
+    },
+    {
+      "object": "SupplyPlanDetailSnapshotDaily",
+      "object_type": "table",
+      "schema": "SupplyChain_Enh",
+      "source_kind": "live_metadata",
+      "target": "SupplyChain_Enh/Tables/SupplyPlanDetailSnapshotDaily.sql"
+    },
+    {
+      "object": "AAORDTYP",
+      "object_type": "table",
+      "schema": "Wholesale_Codis_AFI",
+      "source_kind": "live_metadata",
+      "target": "Wholesale_Codis_AFI/Tables/AAORDTYP.sql"
+    },
+    {
+      "object": "AshleyWarehouseMaster",
+      "object_type": "table",
+      "schema": "Wholesale_Codis_AFI",
+      "source_kind": "live_metadata",
+      "target": "Wholesale_Codis_AFI/Tables/AshleyWarehouseMaster.sql"
+    },
+    {
+      "object": "COMAST",
+      "object_type": "table",
+      "schema": "Wholesale_Codis_AFI",
+      "source_kind": "live_metadata",
+      "target": "Wholesale_Codis_AFI/Tables/COMAST.sql"
+    },
+    {
+      "object": "EXTORD",
+      "object_type": "table",
+      "schema": "Wholesale_Codis_AFI",
+      "source_kind": "live_metadata",
+      "target": "Wholesale_Codis_AFI/Tables/EXTORD.sql"
+    },
+    {
+      "object": "EXTORIT",
+      "object_type": "table",
+      "schema": "Wholesale_Codis_AFI",
+      "source_kind": "live_metadata",
+      "target": "Wholesale_Codis_AFI/Tables/EXTORIT.sql"
+    },
+    {
+      "object": "codatan",
+      "object_type": "table",
+      "schema": "Wholesale_Codis_AFI",
+      "source_kind": "live_metadata",
+      "target": "Wholesale_Codis_AFI/Tables/codatan.sql"
+    },
+    {
+      "object": "NonPkItems",
+      "object_type": "table",
+      "schema": "Wholesale_ProductSourcing",
+      "source_kind": "live_metadata",
+      "target": "Wholesale_ProductSourcing/Tables/NonPkItems.sql"
+    },
+    {
+      "object": "CustomerGrouping",
+      "object_type": "table",
+      "schema": "Wholesale_ProductSourcing_AFI",
+      "source_kind": "live_metadata",
+      "target": "Wholesale_ProductSourcing_AFI/Tables/CustomerGrouping.sql"
+    },
+    {
+      "object": "CustomerOrders_AFI",
+      "object_type": "schema",
+      "schema": "CustomerOrders_AFI",
+      "source_kind": "generated",
+      "target": "CustomerOrders_AFI/CustomerOrders_AFI.schema.sql"
+    },
+    {
+      "object": "Customers",
+      "object_type": "schema",
+      "schema": "Customers",
+      "source_kind": "generated",
+      "target": "Customers/Customers.schema.sql"
+    },
+    {
+      "object": "Inventory_Enh_History",
+      "object_type": "schema",
+      "schema": "Inventory_Enh_History",
+      "source_kind": "generated",
+      "target": "Inventory_Enh_History/Inventory_Enh_History.schema.sql"
+    },
+    {
+      "object": "ItemMaster_AFI",
+      "object_type": "schema",
+      "schema": "ItemMaster_AFI",
+      "source_kind": "generated",
+      "target": "ItemMaster_AFI/ItemMaster_AFI.schema.sql"
+    },
+    {
+      "object": "Manufacturing_Inventory_AFI",
+      "object_type": "schema",
+      "schema": "Manufacturing_Inventory_AFI",
+      "source_kind": "generated",
+      "target": "Manufacturing_Inventory_AFI/Manufacturing_Inventory_AFI.schema.sql"
+    },
+    {
+      "object": "Manufacturing_ProductionPlanning_AFI",
+      "object_type": "schema",
+      "schema": "Manufacturing_ProductionPlanning_AFI",
+      "source_kind": "generated",
+      "target": "Manufacturing_ProductionPlanning_AFI/Manufacturing_ProductionPlanning_AFI.schema.sql"
+    },
+    {
+      "object": "MasterData_DW",
+      "object_type": "schema",
+      "schema": "MasterData_DW",
+      "source_kind": "generated",
+      "target": "MasterData_DW/MasterData_DW.schema.sql"
+    },
+    {
+      "object": "MasterData_ProductKnowledge",
+      "object_type": "schema",
+      "schema": "MasterData_ProductKnowledge",
+      "source_kind": "generated",
+      "target": "MasterData_ProductKnowledge/MasterData_ProductKnowledge.schema.sql"
+    },
+    {
+      "object": "Purchasing_AFI",
+      "object_type": "schema",
+      "schema": "Purchasing_AFI",
+      "source_kind": "generated",
+      "target": "Purchasing_AFI/Purchasing_AFI.schema.sql"
+    },
+    {
+      "object": "SalesHistory_AFI_Enh",
+      "object_type": "schema",
+      "schema": "SalesHistory_AFI_Enh",
+      "source_kind": "generated",
+      "target": "SalesHistory_AFI_Enh/SalesHistory_AFI_Enh.schema.sql"
+    },
+    {
+      "object": "SupplyChain_Enh",
+      "object_type": "schema",
+      "schema": "SupplyChain_Enh",
+      "source_kind": "generated",
+      "target": "SupplyChain_Enh/SupplyChain_Enh.schema.sql"
+    },
+    {
+      "object": "Wholesale_Codis_AFI",
+      "object_type": "schema",
+      "schema": "Wholesale_Codis_AFI",
+      "source_kind": "generated",
+      "target": "Wholesale_Codis_AFI/Wholesale_Codis_AFI.schema.sql"
+    },
+    {
+      "object": "Wholesale_ProductSourcing",
+      "object_type": "schema",
+      "schema": "Wholesale_ProductSourcing",
+      "source_kind": "generated",
+      "target": "Wholesale_ProductSourcing/Wholesale_ProductSourcing.schema.sql"
+    },
+    {
+      "object": "Wholesale_ProductSourcing_AFI",
+      "object_type": "schema",
+      "schema": "Wholesale_ProductSourcing_AFI",
+      "source_kind": "generated",
+      "target": "Wholesale_ProductSourcing_AFI/Wholesale_ProductSourcing_AFI.schema.sql"
+    }
+  ],
+  "project": "Enterprise_Lakehouse_Reference"
+}

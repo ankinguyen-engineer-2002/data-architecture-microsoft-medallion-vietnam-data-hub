@@ -1,0 +1,127 @@
+{
+  "step": 2,
+  "file": "02_transfer_tables.sql",
+  "db": "SupplyChain_Processing_Warehouse",
+  "started": "2026-05-10T06:24:00.867043+00:00",
+  "batches": [
+    {
+      "i": 0,
+      "status": "ok",
+      "first": "ALTER SCHEMA Staging_Wrk TRANSFER Staging_WRK.InvoiceDetailEdw;"
+    },
+    {
+      "i": 1,
+      "status": "ok",
+      "first": "ALTER SCHEMA Staging_Wrk TRANSFER Staging_WRK.InvoiceHeaderEdw;"
+    },
+    {
+      "i": 2,
+      "status": "ok",
+      "first": "ALTER SCHEMA Staging_Wrk TRANSFER Staging_WRK.ProductEdw;"
+    },
+    {
+      "i": 3,
+      "status": "ok",
+      "first": "ALTER SCHEMA Staging_Wrk TRANSFER Staging_WRK.DemandForecastSnapshotDailyEdw;"
+    },
+    {
+      "i": 4,
+      "status": "ok",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.Calendar;"
+    },
+    {
+      "i": 5,
+      "status": "ok",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.CustomerAccount;"
+    },
+    {
+      "i": 6,
+      "status": "ok",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.CustomerAccountGroup;"
+    },
+    {
+      "i": 7,
+      "status": "ok",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.CustomerGrouping;"
+    },
+    {
+      "i": 8,
+      "status": "ok",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.CustomerShippingLocation;"
+    },
+    {
+      "i": 9,
+      "status": "ok",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.ForecastCycle;"
+    },
+    {
+      "i": 10,
+      "status": "ok",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.ForecastHorizon;"
+    },
+    {
+      "i": 11,
+      "status": "ok",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.ItemMaster;"
+    },
+    {
+      "i": 12,
+      "status": "ok",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.OrderType;"
+    },
+    {
+      "i": 13,
+      "status": "error",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.Product;",
+      "error": "('42000', \"[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Cannot find the object 'Product', because it does not exist or you do not have permission. (15151) (SQLExecDirectW)\")"
+    },
+    {
+      "i": 14,
+      "status": "ok",
+      "first": "ALTER SCHEMA ReferenceMaster_Enh TRANSFER ReferenceMaster_ENH.Warehouse;"
+    },
+    {
+      "i": 15,
+      "status": "ok",
+      "first": "ALTER SCHEMA SalesHistory_Enh TRANSFER SalesHistory_ENH.ActualDemandMonthly;"
+    },
+    {
+      "i": 16,
+      "status": "ok",
+      "first": "ALTER SCHEMA SalesHistory_Enh TRANSFER SalesHistory_ENH.ActualDemandWeekly;"
+    },
+    {
+      "i": 17,
+      "status": "ok",
+      "first": "ALTER SCHEMA SalesHistory_Enh TRANSFER SalesHistory_ENH.InvoiceDetailLineLevel;"
+    },
+    {
+      "i": 18,
+      "status": "ok",
+      "first": "ALTER SCHEMA SalesHistory_Enh TRANSFER SalesHistory_ENH.InvoiceWeekly;"
+    },
+    {
+      "i": 19,
+      "status": "ok",
+      "first": "ALTER SCHEMA ForecastHistory_Enh TRANSFER ForecastHistory_ENH.ForecastDemandMonthly;"
+    },
+    {
+      "i": 20,
+      "status": "ok",
+      "first": "ALTER SCHEMA ForecastHistory_Enh TRANSFER ForecastHistory_ENH.NaiveForecastMonthly;"
+    },
+    {
+      "i": 21,
+      "status": "ok",
+      "first": "ALTER SCHEMA OpenOrderHistory_Enh TRANSFER OpenOrderHistory_ENH.OpenOrderLineLevel;"
+    },
+    {
+      "i": 22,
+      "status": "ok",
+      "first": "ALTER SCHEMA OpenOrderHistory_Enh TRANSFER OpenOrderHistory_ENH.OpenOrderMonthly;"
+    }
+  ],
+  "ended": "2026-05-10T06:24:11.062407+00:00",
+  "ok": 22,
+  "total": 23
+}

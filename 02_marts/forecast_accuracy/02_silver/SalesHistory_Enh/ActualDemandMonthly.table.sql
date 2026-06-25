@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Processing_Warehouse].[SalesHistory_Enh].[ActualDemandMonthly]
+-- Loaded by ETL_Framework from [SupplyChain_Processing_Warehouse].[SalesHistory_Enh_Wrk].[v_ActualDemandMonthly].
+-- Business/source view SQL is documented in ../SalesHistory_Enh_Wrk/v_ActualDemandMonthly.sql.

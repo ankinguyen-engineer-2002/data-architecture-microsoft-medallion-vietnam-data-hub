@@ -1,0 +1,93 @@
+table DimVendorMaster
+	lineageTag: c437dcf6-dbde-427f-a327-8dbff5aec137
+	sourceLineageTag: [SCP_Core].[DimVendorMaster]
+
+	column VendorNumber
+		dataType: string
+		lineageTag: f84094bb-a896-43a6-9ae0-dee453b14e71
+		sourceLineageTag: VendorNumber
+		summarizeBy: none
+		sourceColumn: VendorNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column VendorName
+		dataType: string
+		lineageTag: 2d746dec-6f1e-41a6-b0cf-190c34af124c
+		sourceLineageTag: VendorName
+		summarizeBy: none
+		sourceColumn: VendorName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Office
+		dataType: string
+		lineageTag: 682faedb-82b8-4466-b8d6-6ca82212b5a3
+		sourceLineageTag: Office
+		summarizeBy: none
+		sourceColumn: Office
+
+		annotation SummarizationSetBy = Automatic
+
+	column VendorOfficeLocation
+		dataType: string
+		lineageTag: b02ec9ed-cbe5-481a-81c2-9a879796d1a6
+		sourceLineageTag: VendorOfficeLocation
+		summarizeBy: none
+		sourceColumn: VendorOfficeLocation
+
+		annotation SummarizationSetBy = Automatic
+
+	column VendorDesc
+		dataType: string
+		lineageTag: 70bf8510-1d0e-40fe-b482-07a13dd17fc0
+		sourceLineageTag: VendorDesc
+		summarizeBy: none
+		sourceColumn: VendorDesc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 0a05e971-da2a-47e7-8939-d5535de023d3
+		sourceLineageTag: Country
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column LeadTime
+		dataType: int64
+		formatString: 0
+		lineageTag: 0202c6cd-2e5b-4e35-acae-160f0be880ba
+		sourceLineageTag: LeadTime
+		summarizeBy: sum
+		sourceColumn: LeadTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column VendorActive
+		dataType: string
+		lineageTag: d94e2471-3019-4691-b557-f3c8c470af30
+		sourceLineageTag: VendorActive
+		summarizeBy: none
+		sourceColumn: VendorActive
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vendor Import Domestic Flag'
+		dataType: string
+		lineageTag: 74085a96-e72e-47b7-8883-31d7079f3b10
+		sourceLineageTag: Vendor Import Domestic Flag
+		summarizeBy: none
+		sourceColumn: Vendor Import Domestic Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimVendorMaster = entity
+		mode: directLake
+		source
+			entityName: DimVendorMaster
+			schemaName: SCP_Core
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

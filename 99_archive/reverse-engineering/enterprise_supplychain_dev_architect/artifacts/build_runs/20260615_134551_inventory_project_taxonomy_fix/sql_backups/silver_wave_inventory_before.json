@@ -1,0 +1,112 @@
+[
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.ForecastSnapshotWeekly",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "ForecastSnapshotWeekly",
+    "wave_number": 0,
+    "dependency_count": 0,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.199403"
+  },
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.InventorySnapshotWeekly",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "InventorySnapshotWeekly",
+    "wave_number": 0,
+    "dependency_count": 0,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.199403"
+  },
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "ItemBalanceHistorical_WithInTransit",
+    "wave_number": 0,
+    "dependency_count": 0,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.199403"
+  },
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.SupplyPlanDetail",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "SupplyPlanDetail",
+    "wave_number": 0,
+    "dependency_count": 0,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.199403"
+  },
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "AFIStatusSnapshotWeekly",
+    "wave_number": 1,
+    "dependency_count": 1,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.762827"
+  },
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.AwdHelper",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "AwdHelper",
+    "wave_number": 1,
+    "dependency_count": 2,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.762827"
+  },
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.Cogs52WWeekly",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "Cogs52WWeekly",
+    "wave_number": 1,
+    "dependency_count": 1,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.762827"
+  },
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.HoldingTransferSnapshotDaily",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "HoldingTransferSnapshotDaily",
+    "wave_number": 1,
+    "dependency_count": 0,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.762827"
+  },
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.LastInvoiceWeekly",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "LastInvoiceWeekly",
+    "wave_number": 1,
+    "dependency_count": 1,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.762827"
+  },
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "ManufacturingOrderSnapshotDaily",
+    "wave_number": 1,
+    "dependency_count": 0,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.762827"
+  },
+  {
+    "project": "inventory_health",
+    "asset_id": "InventoryHistory_Enh.SafetyStockHelper",
+    "physical_schema": "InventoryHistory_Enh",
+    "physical_object": "SafetyStockHelper",
+    "wave_number": 1,
+    "dependency_count": 1,
+    "is_active": true,
+    "computed_at_utc": "2026-06-15 02:43:35.762827"
+  }
+]

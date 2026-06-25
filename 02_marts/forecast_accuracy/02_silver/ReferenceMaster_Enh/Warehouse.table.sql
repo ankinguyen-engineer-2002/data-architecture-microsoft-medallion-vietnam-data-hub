@@ -1,0 +1,3 @@
+-- Physical final table contract: [SupplyChain_Processing_Warehouse].[ReferenceMaster_Enh].[Warehouse]
+-- Loaded by ETL_Framework from [SupplyChain_Processing_Warehouse].[ReferenceMaster_Enh_Wrk].[v_Warehouse].
+-- Business/source view SQL is documented in ../ReferenceMaster_Enh_Wrk/v_Warehouse.sql.

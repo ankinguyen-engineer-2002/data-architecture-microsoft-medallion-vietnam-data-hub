@@ -1,0 +1,31 @@
+-- ---- Shared_DW.v_DimProduct ----
+-- ACTIVE NOTE: current shared product dimension for Forecast Accuracy and Inventory Health.
+-- Live definition is intentionally not fully inlined here because it is a 207-column
+-- backward-compatible view sourcing ReferenceMaster_Enh.ItemMaster plus Enterprise sources.
+-- Historical note: this replaced the old Staging_Wrk.ProductEdw path after EDW Exit.
+--      17 direct + 42 alias + 30 NULL stub + 118 bonus cols. 0 DAX/relationship impact verified.
+-- 2026-05-25 FIX: ItemSKU in EL.DimItemMaster stored CHAR(15) padded — added RTRIM in live view
+--      ALTER (column line: `RTRIM([ItemSKU]) AS [ItemSKU]`) to prevent Power BI Vertipaq join miss
+--      against FactForecastKpi/Actual (which have trimmed key). 381K rows UPDATE'd in materialized table.
+-- 2026-05-29 FIX: Fabric Explorer metadata refresh failed on case-variant duplicate columns
+--      `CexCode` / `CEXCode`. Keep semantic-compatible NULL stub `CexCode`; expose raw EL
+--      bonus column as `CEXCodeSource` in view/table to preserve data without metadata collision.
+-- 2026-05-29 CONSOLIDATION: final physical table/view moved to Shared_DW.DimProduct
+-- so Forecast Accuracy and Inventory Health use one canonical product dimension.
+-- Physical key spelling is ItemSKU; physical price spelling is FOBArcPrice. Do not add
+-- case-variant aliases such as ItemSku/FobArcPrice because Fabric Explorer metadata
+-- refresh fails when columns differ only by capitalization.
+-- Full live definition is captured at:
+-- projects/forecast/artifacts/backups/shared_dimproduct_20260529/Shared_DW__v_DimProduct__create.sql
+
+-- (Live def too large to inline here; see snapshot file above. Skeleton:)
+-- CREATE VIEW Shared_DW.v_DimProduct AS
+-- SELECT [ItemSKU], [Item], [SeriesName], ... 17 direct cols
+--      , [ItemDescription] AS [ItemDescriptionName], ... 42 alias cols
+--      , CAST(NULL AS VARCHAR(50)) AS [SKProduct], ... 30 NULL stub cols
+--      , [<all-bonus-cols>], ... 118 bonus cols
+-- FROM Enterprise_Lakehouse.MasterData_DW.DimItemMaster
+-- LEFT JOIN Enterprise_Lakehouse.Purchasing_AFI.VendorMaster
+-- LEFT JOIN Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT
+
+GO

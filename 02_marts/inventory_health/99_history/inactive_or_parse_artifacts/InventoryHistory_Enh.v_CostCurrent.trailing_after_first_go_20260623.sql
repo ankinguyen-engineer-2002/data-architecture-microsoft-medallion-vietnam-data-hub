@@ -1,0 +1,5 @@
+-- ---- InventoryHistory_Enh.v_InventoryCurrent ----
+-- ITEMBL on-hand snapshot. Daily reload via datekey load_type (registry).
+-- H3 FIX (2026-05-17): FG-only filter (ItemClassCode like Z%K) — 99.98% match vs 32% w/o
+-- B3 FIX (2026-05-17): exclude direct-to-customer/RP warehouses
+-- BLOCKED: Enterprise_Lakehouse.ItemMaster_AFI.ITEMBL needs full DE US load — flag in registry is_active=0 initially.

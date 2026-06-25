@@ -1,0 +1,97 @@
+table FactInvTransactionsWeekly
+	lineageTag: 2cda9057-41f5-4ed5-83c4-91a436529326
+	sourceLineageTag: [SCP_Core].[FactInvTransactionsWeekly]
+
+	column ItemSKU
+		dataType: string
+		lineageTag: 5a5b3cd3-44df-4b3a-91cb-9b11c001e393
+		sourceLineageTag: ItemSKU
+		summarizeBy: none
+		sourceColumn: ItemSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column Warehouse
+		dataType: string
+		lineageTag: 025987d7-7a27-4954-9389-30c944b4cf69
+		sourceLineageTag: Warehouse
+		summarizeBy: none
+		sourceColumn: Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemFlag
+		dataType: string
+		lineageTag: b8bf8c68-b96b-4a75-acbf-43c5eddaa543
+		sourceLineageTag: ItemFlag
+		summarizeBy: none
+		sourceColumn: ItemFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalWeekLastDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 96507fae-1063-4edb-865f-aedcf46cc7d8
+		sourceLineageTag: FiscalWeekLastDate
+		summarizeBy: none
+		sourceColumn: FiscalWeekLastDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransactionCode
+		dataType: string
+		lineageTag: 5da24437-7482-4322-b1e4-7064cfce0f54
+		sourceLineageTag: TransactionCode
+		summarizeBy: none
+		sourceColumn: TransactionCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransactionCodeDesc
+		dataType: string
+		lineageTag: 1a09cb2a-8faa-43c5-8e3a-9812f9ecb462
+		sourceLineageTag: TransactionCodeDesc
+		summarizeBy: none
+		sourceColumn: TransactionCodeDesc
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransactionType
+		dataType: string
+		lineageTag: 636b9349-4de3-4c34-bbe9-b04a36a421c7
+		sourceLineageTag: TransactionType
+		summarizeBy: none
+		sourceColumn: TransactionType
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransactionQty
+		dataType: double
+		lineageTag: f218cece-26b1-4531-baf7-8ede8a1dede0
+		sourceLineageTag: TransactionQty
+		summarizeBy: sum
+		sourceColumn: TransactionQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NetChangeQty
+		dataType: double
+		lineageTag: 7b50dc7b-c812-4cb4-82a0-77c1b76d9ece
+		sourceLineageTag: NetChangeQty
+		summarizeBy: sum
+		sourceColumn: NetChangeQty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactInvTransactionsWeekly = entity
+		mode: directLake
+		source
+			entityName: FactInvTransactionsWeekly
+			schemaName: SCP_Core
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

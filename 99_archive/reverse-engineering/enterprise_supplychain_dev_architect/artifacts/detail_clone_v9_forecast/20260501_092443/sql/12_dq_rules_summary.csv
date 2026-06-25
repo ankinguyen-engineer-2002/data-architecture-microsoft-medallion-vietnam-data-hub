@@ -1,0 +1,16 @@
+layer,check_type,severity,is_active,rule_count
+BRZ,completeness,CRITICAL,1,8
+BRZ,row_count,CRITICAL,1,2
+BRZ,row_count,WARNING,1,1
+GLD,completeness,CRITICAL,1,2
+GLD,freshness,WARNING,0,6
+GLD,row_count,CRITICAL,1,2
+GLD,uniqueness,WARNING,0,3
+REF,completeness,CRITICAL,1,4
+REF,row_count,CRITICAL,1,2
+REF,row_count,WARNING,1,1
+SLV,completeness,CRITICAL,1,3
+SLV,freshness,WARNING,0,6
+SLV,row_count,CRITICAL,1,2
+SLV,row_count,WARNING,1,3
+SLV,uniqueness,WARNING,0,9

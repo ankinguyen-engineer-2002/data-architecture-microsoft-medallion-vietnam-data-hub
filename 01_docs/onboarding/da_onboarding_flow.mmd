@@ -1,0 +1,13 @@
+flowchart TD
+    Idea["Business request"]
+    Scope["Xác định mart / table scope"]
+    Source["Liệt kê active Bronze sources"]
+    Grain["Định nghĩa grain, key, date logic, freshness"]
+    SQL["Chuẩn bị Bronze / Silver / Gold SQL"]
+    DQ["Định nghĩa DQ checks và known exceptions"]
+    Semantic["Mô tả semantic/report impact"]
+    Package["Update 02_marts/&lt;mart_name&gt; package"]
+    Review["Review với DE"]
+    Handoff["DE đóng gói runtime + CI/CD handoff"]
+
+    Idea --> Scope --> Source --> Grain --> SQL --> DQ --> Semantic --> Package --> Review --> Handoff

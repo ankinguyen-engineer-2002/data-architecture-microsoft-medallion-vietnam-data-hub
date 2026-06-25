@@ -1,0 +1,409 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "log_start",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[Meta].[usp_LogPipelineRun]",
+          "storedProcedureParameters": {
+            "pipeline_run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "pipeline_name": {
+              "value": "pl_sc_mart",
+              "type": "String"
+            },
+            "status": {
+              "value": "running",
+              "type": "String"
+            },
+            "project": {
+              "value": {
+                "value": "@pipeline().parameters.project_name",
+                "type": "Expression"
+              },
+              "type": "String"
+            }
+          }
+        },
+        "linkedService": {
+          "name": "wh",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "invoke_staging",
+        "type": "InvokePipeline",
+        "policy": {
+          "timeout": "0.06:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "waitOnCompletion": true,
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "10221fb2-6e30-4911-9d95-d8dd67440d84",
+          "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+          "parameters": {
+            "project_name": {
+              "value": "@pipeline().parameters.project_name",
+              "type": "Expression"
+            }
+          }
+        },
+        "externalReferences": {
+          "connection": "3bee8b0e-bc72-484d-9008-4a7c0acd92d0"
+        },
+        "dependsOn": [
+          {
+            "activity": "log_start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "invoke_silver",
+        "type": "InvokePipeline",
+        "policy": {
+          "timeout": "0.06:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "waitOnCompletion": true,
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "7dc6ecda-56cc-4797-893c-1c502863323f",
+          "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+          "parameters": {
+            "project_name": {
+              "value": "@pipeline().parameters.project_name",
+              "type": "Expression"
+            }
+          }
+        },
+        "dependsOn": [
+          {
+            "activity": "invoke_staging",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "externalReferences": {
+          "connection": "3bee8b0e-bc72-484d-9008-4a7c0acd92d0"
+        }
+      },
+      {
+        "name": "invoke_gold",
+        "type": "InvokePipeline",
+        "policy": {
+          "timeout": "0.06:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "waitOnCompletion": true,
+          "operationType": "InvokeFabricPipeline",
+          "pipelineId": "50ff6263-659d-4b09-9e45-b42a3434e093",
+          "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+          "parameters": {
+            "project_name": {
+              "value": "@pipeline().parameters.project_name",
+              "type": "Expression"
+            }
+          }
+        },
+        "dependsOn": [
+          {
+            "activity": "invoke_silver",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "externalReferences": {
+          "connection": "3bee8b0e-bc72-484d-9008-4a7c0acd92d0"
+        }
+      },
+      {
+        "name": "log_success",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "invoke_gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[Meta].[usp_LogPipelineRun]",
+          "storedProcedureParameters": {
+            "pipeline_run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "pipeline_name": {
+              "value": "pl_sc_mart",
+              "type": "String"
+            },
+            "status": {
+              "value": "success",
+              "type": "String"
+            },
+            "project": {
+              "value": {
+                "value": "@pipeline().parameters.project_name",
+                "type": "Expression"
+              },
+              "type": "String"
+            }
+          }
+        },
+        "linkedService": {
+          "name": "wh",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "log_failed_staging",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "invoke_staging",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[Meta].[usp_LogPipelineRun]",
+          "storedProcedureParameters": {
+            "pipeline_run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "pipeline_name": {
+              "value": "pl_sc_mart",
+              "type": "String"
+            },
+            "status": {
+              "value": "failed",
+              "type": "String"
+            },
+            "notes": {
+              "value": "invoke_staging failed",
+              "type": "String"
+            },
+            "project": {
+              "value": {
+                "value": "@pipeline().parameters.project_name",
+                "type": "Expression"
+              },
+              "type": "String"
+            }
+          }
+        },
+        "linkedService": {
+          "name": "wh",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "log_failed_silver",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "invoke_silver",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[Meta].[usp_LogPipelineRun]",
+          "storedProcedureParameters": {
+            "pipeline_run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "pipeline_name": {
+              "value": "pl_sc_mart",
+              "type": "String"
+            },
+            "status": {
+              "value": "failed",
+              "type": "String"
+            },
+            "notes": {
+              "value": "invoke_silver failed",
+              "type": "String"
+            },
+            "project": {
+              "value": {
+                "value": "@pipeline().parameters.project_name",
+                "type": "Expression"
+              },
+              "type": "String"
+            }
+          }
+        },
+        "linkedService": {
+          "name": "wh",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "log_failed_gold",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "invoke_gold",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "storedProcedureName": "[Meta].[usp_LogPipelineRun]",
+          "storedProcedureParameters": {
+            "pipeline_run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "pipeline_name": {
+              "value": "pl_sc_mart",
+              "type": "String"
+            },
+            "status": {
+              "value": "failed",
+              "type": "String"
+            },
+            "notes": {
+              "value": "invoke_gold failed",
+              "type": "String"
+            },
+            "project": {
+              "value": {
+                "value": "@pipeline().parameters.project_name",
+                "type": "Expression"
+              },
+              "type": "String"
+            }
+          }
+        },
+        "linkedService": {
+          "name": "wh",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      }
+    ],
+    "parameters": {
+      "project_name": {
+        "type": "String",
+        "defaultValue": "supplychain"
+      }
+    }
+  }
+}

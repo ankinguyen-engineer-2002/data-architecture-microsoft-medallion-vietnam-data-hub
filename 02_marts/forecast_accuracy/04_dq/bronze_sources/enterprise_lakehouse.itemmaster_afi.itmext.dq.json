@@ -1,0 +1,553 @@
+{
+  "asset_key": "enterprise_lakehouse.itemmaster_afi.itmext",
+  "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 80,
+    "columns": [
+      {
+        "column_name": "ITNBR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "CUBES",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "MFPUS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "LSTLB",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "UPCCD",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "ISCLS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "PATEN",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "QTYCR",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "NBSEAT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "NMFC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "HTSNO",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "UPCCK#",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "UPCPRX",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "SERIES",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "GDESCD",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "CEX",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "CEX2",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "UUCBIM",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "UUCCIM",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "UUSAIM",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 20
+      },
+      {
+        "column_name": "UU40IM",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 21
+      },
+      {
+        "column_name": "SSCHDB",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 22
+      },
+      {
+        "column_name": "SPRDCR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 23
+      },
+      {
+        "column_name": "SPRCLS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 24
+      },
+      {
+        "column_name": "ORDEREDINT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 25
+      },
+      {
+        "column_name": "LINTRCPTDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 26
+      },
+      {
+        "column_name": "FRTUNIT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 27
+      },
+      {
+        "column_name": "FRTNAT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 28
+      },
+      {
+        "column_name": "SETUPTM",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 29
+      },
+      {
+        "column_name": "PREPTM",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 30
+      },
+      {
+        "column_name": "ASSMCUBES",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 31
+      },
+      {
+        "column_name": "SERCOLNUM",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 32
+      },
+      {
+        "column_name": "VENALERT",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 33
+      },
+      {
+        "column_name": "CRTLIN",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 34
+      },
+      {
+        "column_name": "CRTWIN",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 35
+      },
+      {
+        "column_name": "CRTHIN",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 36
+      },
+      {
+        "column_name": "PRDLIN",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 37
+      },
+      {
+        "column_name": "PRDWIN",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 38
+      },
+      {
+        "column_name": "PRDHIN",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 39
+      },
+      {
+        "column_name": "PRDLMM",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 40
+      },
+      {
+        "column_name": "PRDWMM",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 41
+      },
+      {
+        "column_name": "PRDHMM",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 42
+      },
+      {
+        "column_name": "OTHERMM",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 43
+      },
+      {
+        "column_name": "OTHERIN",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 44
+      },
+      {
+        "column_name": "PRDDDES",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 45
+      },
+      {
+        "column_name": "PRDDCOM",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 46
+      },
+      {
+        "column_name": "PMFPUS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 47
+      },
+      {
+        "column_name": "EIMMSCUSRC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 48
+      },
+      {
+        "column_name": "ITSCDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 49
+      },
+      {
+        "column_name": "EIMMSCTMEC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 50
+      },
+      {
+        "column_name": "EIMUSRA",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 51
+      },
+      {
+        "column_name": "EIMPGMA",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 52
+      },
+      {
+        "column_name": "EIMDTEA",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 53
+      },
+      {
+        "column_name": "EIMTMEA",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 54
+      },
+      {
+        "column_name": "EIMUSRC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 55
+      },
+      {
+        "column_name": "EIMPGMC",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 56
+      },
+      {
+        "column_name": "EIMDTEC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 57
+      },
+      {
+        "column_name": "EIMTMEC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 58
+      },
+      {
+        "column_name": "ITMUPCAD",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 59
+      },
+      {
+        "column_name": "ITMITCLS",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 60
+      },
+      {
+        "column_name": "ITMWEGHT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 61
+      },
+      {
+        "column_name": "ITMB2CQCD",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 62
+      },
+      {
+        "column_name": "ITMB2Z93R",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 63
+      },
+      {
+        "column_name": "ITMOBDT",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 64
+      },
+      {
+        "column_name": "ITMCQTY",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 65
+      },
+      {
+        "column_name": "ITMUC1A",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 66
+      },
+      {
+        "column_name": "ITMUC1B",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 67
+      },
+      {
+        "column_name": "ITMUC1C",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 68
+      },
+      {
+        "column_name": "ITMUC3A",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 69
+      },
+      {
+        "column_name": "ITMUC3B",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 70
+      },
+      {
+        "column_name": "ITMUC3C",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 71
+      },
+      {
+        "column_name": "ITMUC5A",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 72
+      },
+      {
+        "column_name": "ITMUC5B",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 73
+      },
+      {
+        "column_name": "ITMUT20",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 74
+      },
+      {
+        "column_name": "ITMUDA",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 75
+      },
+      {
+        "column_name": "ITMUNA",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 76
+      },
+      {
+        "column_name": "ITMUNB",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 77
+      },
+      {
+        "column_name": "ITMUNC",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 78
+      },
+      {
+        "column_name": "ITMUQA",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 79
+      },
+      {
+        "column_name": "ITMUAA",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 80
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "ITMOBDT": 0,
+      "ITSCDT": 20260623,
+      "LINTRCPTDT": 20210515
+    },
+    "freshness_columns": [
+      "LINTRCPTDT",
+      "ITSCDT",
+      "ITMOBDT"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 25.075,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "ITNBR"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.783,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": null,
+          "latest_partition_duplicate_groups": 0,
+          "latest_partition_max_rows_per_key": null
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 1.431,
+      "status": "PASS"
+    },
+    "projects": [
+      "forecast_accuracy",
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT",
+    "row_count_metadata": null,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "forecast_accuracy",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT.sql"
+}

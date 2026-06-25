@@ -1,0 +1,1 @@
+('42S22', "[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'pipeline_start_time'. (207) (SQLExecDirectW)")

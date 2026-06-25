@@ -1,0 +1,33 @@
+{
+  "value": [
+    {
+      "id": "78f37e0b-726d-41be-b015-f980cc2146c1",
+      "type": "SemanticModel",
+      "displayName": "temp_SCPModel",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "id": "b4b302e7-65d7-464d-9083-aaef9d88dfc2",
+      "type": "SemanticModel",
+      "displayName": "SupplyChain_Gold",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "id": "3eecf594-a75e-46ab-9162-63c95ee68e45",
+      "type": "SemanticModel",
+      "displayName": "Supply Chain Control Tower",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+    },
+    {
+      "id": "a52841ee-d853-46df-b2f7-2a2cc4493d60",
+      "type": "SemanticModel",
+      "displayName": "SC_Control_Tower",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "38cdbf44-d108-4e00-98ae-69c2f5aa60b7"
+    }
+  ]
+}

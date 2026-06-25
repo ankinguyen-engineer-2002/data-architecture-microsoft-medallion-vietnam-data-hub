@@ -1,0 +1,29 @@
+{
+  "before": {
+    "part_count": 26
+  },
+  "after": {
+    "part_count": 18,
+    "removed_paths": [
+      "definition/tables/CogsRollingHelper.tmdl",
+      "definition/tables/DimCalendar.tmdl",
+      "definition/tables/DimProduct.tmdl",
+      "definition/tables/DimVendor.tmdl",
+      "definition/tables/DimWarehouse.tmdl",
+      "definition/tables/FactInventoryHealthSnapshot.tmdl",
+      "definition/tables/FactInventoryRiskForward.tmdl",
+      "definition/tables/Measure.tmdl"
+    ],
+    "removed_model_refs": [
+      "ref table DimCalendar",
+      "ref table DimProduct",
+      "ref table DimWarehouse",
+      "ref table DimVendor",
+      "ref table CogsRollingHelper",
+      "ref table FactInventoryHealthSnapshot",
+      "ref table FactInventoryRiskForward",
+      "ref table Measure"
+    ],
+    "removed_relationship_blocks": 7
+  }
+}

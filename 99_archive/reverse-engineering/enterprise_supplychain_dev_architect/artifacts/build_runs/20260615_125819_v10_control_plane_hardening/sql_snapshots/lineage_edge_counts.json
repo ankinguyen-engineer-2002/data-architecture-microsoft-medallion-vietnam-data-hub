@@ -1,0 +1,10 @@
+[
+  {
+    "edge_type": "direct",
+    "cnt": 102
+  },
+  {
+    "edge_type": "semantic",
+    "cnt": 10
+  }
+]

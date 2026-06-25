@@ -1,0 +1,5 @@
+-- ProcessingSeed.ForecastCycle
+-- Database: SupplyChain_Processing_Warehouse
+-- Mart: forecast_accuracy
+-- Status: live source object referenced by current Fabric SQL code.
+-- This object has no local CREATE VIEW definition in sys.sql_modules.

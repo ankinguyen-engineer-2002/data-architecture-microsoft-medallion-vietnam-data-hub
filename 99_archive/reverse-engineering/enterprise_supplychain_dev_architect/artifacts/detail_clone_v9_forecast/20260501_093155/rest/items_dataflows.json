@@ -1,0 +1,149 @@
+{
+  "value": [
+    {
+      "id": "cee16a32-1159-44ee-b42e-3e4eb13a4fbc",
+      "type": "Dataflow",
+      "displayName": "SharepointDaily",
+      "description": "Data from various Sharepoint locations that require a once daily refresh. ",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "a07c9d59-e4ae-45e5-9823-ed996c3221ec"
+    },
+    {
+      "id": "d5deec58-80e8-427d-b192-f3463ea53bfc",
+      "type": "Dataflow",
+      "displayName": "temp_SCPDim",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "a07c9d59-e4ae-45e5-9823-ed996c3221ec"
+    },
+    {
+      "id": "30eeee86-c9e0-4b4e-9f00-e18c25a6511c",
+      "type": "Dataflow",
+      "displayName": "SundayWeekly_TempADW",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "a07c9d59-e4ae-45e5-9823-ed996c3221ec"
+    },
+    {
+      "id": "4f1f0cd8-b3db-46e8-855a-d47e9084f8aa",
+      "type": "Dataflow",
+      "displayName": "df_AFISales_DW__DimCustomers",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "8df4e3b4-d3b8-4501-81c8-7f9bf2c2ed04",
+      "type": "Dataflow",
+      "displayName": "df_Wholesale_ProductSourcing_AFI__CustomerGrouping",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "011998c1-068f-49f4-b159-8e84b366ebc0",
+      "type": "Dataflow",
+      "displayName": "df_Wholesale_SalesHistory_AFI__InvoiceDetail",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "6aaddbd3-b090-4069-a63a-29b389885130",
+      "type": "Dataflow",
+      "displayName": "df_Enterprise_DW__DimDate",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "d3de230a-e35d-472d-b4a3-07a5f6f05f2e",
+      "type": "Dataflow",
+      "displayName": "df_AFISales_DW__FactOpenOrders",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "3c8d651e-5bca-4a55-bd44-f5610280c0f9",
+      "type": "Dataflow",
+      "displayName": "remove_df_SupplyChain_Enh__DemandForecastSnapshot",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "ca397c4c-9edb-489a-861b-03bc7b7ff7a1",
+      "type": "Dataflow",
+      "displayName": "df_SupplyChain_DW__DimCurrentProductDetails",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "9e6421a4-c877-410a-afa2-56fd5cf5c6e5",
+      "type": "Dataflow",
+      "displayName": "df_AFISales_DW__DimAshleyWarehouseMaster",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "5199478e-cb5d-4ae4-8a64-ada3a1eda090"
+    },
+    {
+      "id": "9cff9a25-4817-46ed-af14-6036aeadddd0",
+      "type": "Dataflow",
+      "displayName": "OneTimeForecastSnapshotLoad",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "849a6a28-6d1d-4372-88cf-f746cc3529bf"
+    },
+    {
+      "id": "1f6122ab-b21a-44bf-b4c3-c80de8a21d39",
+      "type": "Dataflow",
+      "displayName": "TempActualsLoad",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "849a6a28-6d1d-4372-88cf-f746cc3529bf"
+    },
+    {
+      "id": "7b906c80-6984-4c29-90f1-f3660368f21d",
+      "type": "Dataflow",
+      "displayName": "df_brz_SalesHistory_AFI_InvoiceDetail",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "384a34f4-082c-42b9-a2ef-dfc9b951c6c7",
+      "type": "Dataflow",
+      "displayName": "df_ref_product",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "cebf159d-9a83-41dc-92d0-69ee875c6698",
+      "type": "Dataflow",
+      "displayName": "df_brz_SalesHistory_AFI_InvoiceHeader",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "25b26466-673b-48d8-9233-90e5079e041c",
+      "type": "Dataflow",
+      "displayName": "df_brz_SupplyChain_Enh_1_DemandForecastSnapshotDaily_copy1",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    },
+    {
+      "id": "880eb520-7e27-4250-9392-b37e691c0555",
+      "type": "Dataflow",
+      "displayName": "df_ref_forecast_cycle",
+      "description": "",
+      "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+      "folderId": "6de6bfe9-b343-4485-b267-bd8d59d3417a"
+    }
+  ],
+  "count": 18
+}

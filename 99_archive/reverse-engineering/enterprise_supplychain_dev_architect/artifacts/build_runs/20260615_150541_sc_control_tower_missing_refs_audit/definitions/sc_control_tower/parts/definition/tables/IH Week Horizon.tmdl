@@ -1,0 +1,43 @@
+/// Disconnected Inventory Health week-horizon table used by _Measure_InventoryHealth horizon measures and visuals.
+table 'IH Week Horizon'
+	lineageTag: 69f26d31-3849-4338-befc-ba38baf376bb
+
+	column 'Horizon Label'
+		lineageTag: 015c565d-74bc-4001-9558-4da3d67929a6
+		isNameInferred
+		sourceColumn: [Horizon Label]
+		sortByColumn: Sort
+
+	column 'Week Offset'
+		lineageTag: 20039880-8e41-4ce0-aa1d-53424e0d6062
+		isNameInferred
+		sourceColumn: [Week Offset]
+
+	column Sort
+		lineageTag: ef726acb-7a61-4637-bbaa-67fbbb5105af
+		isNameInferred
+		sourceColumn: [Sort]
+
+	partition 'IH Week Horizon' = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Horizon Label", STRING,
+				    "Week Offset", INTEGER,
+				    "Sort", INTEGER,
+				    {
+				        { "W-8", -8, 1 },
+				        { "W-7", -7, 2 },
+				        { "W-6", -6, 3 },
+				        { "W-5", -5, 4 },
+				        { "W-4", -4, 5 },
+				        { "W-3", -3, 6 },
+				        { "W-2", -2, 7 },
+				        { "W-1", -1, 8 },
+				        { "W0", 0, 9 },
+				        { "W+1", 1, 10 },
+				        { "W+2", 2, 11 },
+				        { "W+4", 4, 12 }
+				    }
+				)
+

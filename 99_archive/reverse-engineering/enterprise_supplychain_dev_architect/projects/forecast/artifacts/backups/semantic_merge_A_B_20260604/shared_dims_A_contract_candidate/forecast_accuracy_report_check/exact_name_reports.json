@@ -1,0 +1,18 @@
+[
+  {
+    "workspaceId": "f0e1bc90-35c4-4e31-bc00-ff4a225152b7",
+    "workspaceName": "Supply Chain Analytics-Premium",
+    "id": "36dde727-c9b8-449d-afda-9cd931e112d3",
+    "reportType": "PowerBIReport",
+    "format": "PBIR",
+    "name": "Forecast Accuracy",
+    "webUrl": "https://app.powerbi.com/groups/f0e1bc90-35c4-4e31-bc00-ff4a225152b7/reports/36dde727-c9b8-449d-afda-9cd931e112d3",
+    "embedUrl": "https://app.powerbi.com/reportEmbed?reportId=36dde727-c9b8-449d-afda-9cd931e112d3&groupId=f0e1bc90-35c4-4e31-bc00-ff4a225152b7&w=2&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtQy1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+    "isFromPbix": true,
+    "isOwnedByMe": true,
+    "datasetId": "f06a2361-15fd-4f91-9d37-941fefe62aaf",
+    "datasetWorkspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+    "users": [],
+    "subscriptions": []
+  }
+]

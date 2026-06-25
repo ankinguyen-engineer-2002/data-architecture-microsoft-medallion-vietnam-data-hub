@@ -1,0 +1,23 @@
+{
+  "results": [
+    {
+      "tables": [
+        {
+          "rows": [
+            {
+              "[CogsRollingHelper]": 66241,
+              "[DimCalendar]": 21551,
+              "[DimProduct]": 384087,
+              "[DimVendor]": 86620,
+              "[DimWarehouse]": 53,
+              "[FactInventoryHealthSnapshot]": 2843229,
+              "[FactInventoryRiskForward]": 3781955,
+              "[fact_flat_forecast_actual]": 51017232,
+              "[fact_forecast_kpi]": 37223804
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

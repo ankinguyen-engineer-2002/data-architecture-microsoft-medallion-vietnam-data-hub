@@ -1,0 +1,34 @@
+relationship DimCalendar_to_FactHealth
+	fromColumn: FactInventoryHealthSnapshot.DateKey
+	toColumn: DimCalendar.DateKey
+	crossFilteringBehavior: oneDirection
+
+relationship DimCalendar_to_FactRisk
+	fromColumn: FactInventoryRiskForward.DateKey
+	toColumn: DimCalendar.DateKey
+	crossFilteringBehavior: oneDirection
+
+relationship DimProduct_to_FactHealth
+	fromColumn: FactInventoryHealthSnapshot.ItemSku
+	toColumn: DimProduct.ItemSKU
+	crossFilteringBehavior: oneDirection
+
+relationship DimProduct_to_FactRisk
+	fromColumn: FactInventoryRiskForward.ItemSku
+	toColumn: DimProduct.ItemSKU
+	crossFilteringBehavior: oneDirection
+
+relationship DimWarehouse_to_FactHealth
+	fromColumn: FactInventoryHealthSnapshot.WarehouseCode
+	toColumn: DimWarehouse.WarehouseCode
+	crossFilteringBehavior: oneDirection
+
+relationship DimWarehouse_to_FactRisk
+	fromColumn: FactInventoryRiskForward.WarehouseCode
+	toColumn: DimWarehouse.WarehouseCode
+	crossFilteringBehavior: oneDirection
+
+relationship DimVendor_to_DimProduct
+	fromColumn: DimProduct.PrimaryVendorNumber
+	toColumn: DimVendor.VendorNumber
+	crossFilteringBehavior: oneDirection

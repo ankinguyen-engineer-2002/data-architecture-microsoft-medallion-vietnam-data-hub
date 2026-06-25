@@ -1,0 +1,13 @@
+{
+  "capacityAssignmentProgress": "Completed",
+  "capacityId": "30d06c17-b0f4-4709-9a20-e29c96e8863e",
+  "capacityRegion": "East US",
+  "description": "*IT*",
+  "displayName": "Enterprise SupplyChain-Dev",
+  "id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+  "oneLakeEndpoints": {
+    "blobEndpoint": "https://eastus-onelake.blob.fabric.microsoft.com",
+    "dfsEndpoint": "https://eastus-onelake.dfs.fabric.microsoft.com"
+  },
+  "type": "Workspace"
+}

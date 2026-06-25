@@ -1,0 +1,3 @@
+-- ---- InventoryHistory_Enh.v_AtpWeekEnding ----
+-- H2 FIX (2026-05-17): UNPIVOT only APAT01-43 (APWK columns don't exist as series).
+-- Derive WeekEndingDate = BaseWeekEnding (APWK01) + (WeekNumber - 1) weeks.

@@ -1,0 +1,1026 @@
+/// Product/item dimension used across Control Tower reporting. Contains SKU and product attributes for filtering, grouping, drilldown, and cross-domain analysis.
+table dim_product
+	lineageTag: 9f038250-a1b5-48c1-891a-0ef984fd8d0b
+	sourceLineageTag: [dbo].[dim_product]
+
+	/// Product surrogate key from the product dimension source.
+	column sk_product
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c12cd3f-261b-4c70-9951-4567152e2c88
+		sourceLineageTag: sk_product
+		summarizeBy: sum
+		sourceColumn: sk_product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Item SKU identifier used to join product-related facts and analyze metrics at SKU level.
+	column id_item_sku
+		dataType: string
+		lineageTag: b0697ec4-6951-4ed9-bc98-f4d1aad667e5
+		sourceLineageTag: id_item_sku
+		summarizeBy: none
+		sourceColumn: id_item_sku
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Source item identifier used for item-level reference and integration.
+	column id_item
+		dataType: string
+		lineageTag: 9c60f8bf-967b-4955-8c0e-1b2729b6f581
+		sourceLineageTag: id_item
+		summarizeBy: none
+		sourceColumn: id_item
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Supply Chain Planning item identifier used for planning-aligned product analysis.
+	column id_scp_item
+		dataType: string
+		lineageTag: c9bacc6e-5932-445e-81bc-782082f042da
+		sourceLineageTag: id_scp_item
+		summarizeBy: none
+		sourceColumn: id_scp_item
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Item description used for report display, search, and drilldown.
+	column name_item_description
+		dataType: string
+		lineageTag: e3adab51-e723-46a4-a64a-01f44c45ae77
+		sourceLineageTag: name_item_description
+		summarizeBy: none
+		sourceColumn: name_item_description
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_color
+		dataType: string
+		lineageTag: 8816d2a0-dbbb-4fba-aa7d-79fbd960d869
+		sourceLineageTag: name_color
+		summarizeBy: none
+		sourceColumn: name_color
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_qty_in_box
+		dataType: int64
+		formatString: 0
+		lineageTag: f958e2f3-3024-40cb-9400-6a043a41072d
+		sourceLineageTag: num_qty_in_box
+		summarizeBy: sum
+		sourceColumn: num_qty_in_box
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_uom
+		dataType: string
+		lineageTag: cbb34760-d875-40c5-b14d-f756f49dd15b
+		sourceLineageTag: code_uom
+		summarizeBy: none
+		sourceColumn: code_uom
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_series
+		dataType: string
+		lineageTag: 3fcc472e-da5f-4950-8d27-d7469cfce92a
+		sourceLineageTag: code_series
+		summarizeBy: none
+		sourceColumn: code_series
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_ext_series
+		dataType: string
+		lineageTag: 2a1caad1-812b-4a9d-8c6b-0df6c23f5ee3
+		sourceLineageTag: code_ext_series
+		summarizeBy: none
+		sourceColumn: code_ext_series
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_item_ext_series
+		dataType: string
+		lineageTag: 3c0e736d-688f-40d6-b8c6-696c34004887
+		sourceLineageTag: code_item_ext_series
+		summarizeBy: none
+		sourceColumn: code_item_ext_series
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Product series name used for product grouping and analysis.
+	column name_series
+		dataType: string
+		lineageTag: 4ebf2e46-ddfd-4bd3-8a0e-1dfe5362d437
+		sourceLineageTag: name_series
+		summarizeBy: none
+		sourceColumn: name_series
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_series_color
+		dataType: string
+		lineageTag: dc582e9c-724c-43ea-a1c1-f24a7acedeec
+		sourceLineageTag: name_series_color
+		summarizeBy: none
+		sourceColumn: name_series_color
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_series_description
+		dataType: string
+		lineageTag: 88caecaf-b789-4826-96e9-dd1cdeb75fed
+		sourceLineageTag: name_series_description
+		summarizeBy: none
+		sourceColumn: name_series_description
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_item_desc_series
+		dataType: string
+		lineageTag: 2efb423a-e7e9-42a4-8e17-546ddacf7e68
+		sourceLineageTag: name_item_desc_series
+		summarizeBy: none
+		sourceColumn: name_item_desc_series
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_sh_item_desc_series
+		dataType: string
+		lineageTag: 4f7a39a5-028d-47b0-9d5f-a05a0142b27b
+		sourceLineageTag: name_sh_item_desc_series
+		summarizeBy: none
+		sourceColumn: name_sh_item_desc_series
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_sh_series_description
+		dataType: string
+		lineageTag: 5359eaa7-289f-44c1-b241-db3b96e4a78a
+		sourceLineageTag: name_sh_series_description
+		summarizeBy: none
+		sourceColumn: name_sh_series_description
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_item_desc_series_color
+		dataType: string
+		lineageTag: fe4307aa-515a-4495-949e-e67135d8cbda
+		sourceLineageTag: name_item_desc_series_color
+		summarizeBy: none
+		sourceColumn: name_item_desc_series_color
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_item_class
+		dataType: string
+		lineageTag: 4a2589a1-9c5e-4a6a-89a2-42efedf2f388
+		sourceLineageTag: code_item_class
+		summarizeBy: none
+		sourceColumn: code_item_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_item_class
+		dataType: string
+		lineageTag: 14d8d783-5932-4609-afb8-1030f39e67f6
+		sourceLineageTag: name_item_class
+		summarizeBy: none
+		sourceColumn: name_item_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_item_class_full
+		dataType: string
+		lineageTag: e86c2c37-b6c8-4e57-b813-f6e3f95b6219
+		sourceLineageTag: name_item_class_full
+		summarizeBy: none
+		sourceColumn: name_item_class_full
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_item
+		dataType: string
+		lineageTag: 98be5dc9-ad3a-4f36-bce6-8282024eb81f
+		sourceLineageTag: code_item
+		summarizeBy: none
+		sourceColumn: code_item
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_item_grouping
+		dataType: string
+		lineageTag: 747a53b9-5e23-43b2-b1da-63bef5db34d1
+		sourceLineageTag: name_item_grouping
+		summarizeBy: none
+		sourceColumn: name_item_grouping
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_item_style
+		dataType: string
+		lineageTag: 5009a9d9-4c82-4928-934d-549f044235fc
+		sourceLineageTag: code_item_style
+		summarizeBy: none
+		sourceColumn: code_item_style
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_item_style_group
+		dataType: string
+		lineageTag: 004277fc-eaf2-47d4-8718-d7764f83833e
+		sourceLineageTag: name_item_style_group
+		summarizeBy: none
+		sourceColumn: name_item_style_group
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_item_style
+		dataType: string
+		lineageTag: 4793e8e0-61ad-44a0-9101-5cc4f63c6456
+		sourceLineageTag: name_item_style
+		summarizeBy: none
+		sourceColumn: name_item_style
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Product line used to group and filter product performance across Control Tower reporting.
+	column name_product_line
+		dataType: string
+		lineageTag: 27367b21-9df7-461d-8c73-f59fd7e7feb1
+		sourceLineageTag: name_product_line
+		summarizeBy: none
+		sourceColumn: name_product_line
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_retail_category
+		dataType: string
+		lineageTag: bf2c233f-c5a5-450e-88cc-2177554feae6
+		sourceLineageTag: code_retail_category
+		summarizeBy: none
+		sourceColumn: code_retail_category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Retail category used for product hierarchy analysis.
+	column name_retail_category
+		dataType: string
+		lineageTag: 0579e8ec-890f-46aa-9bb5-a5ad4b89e580
+		sourceLineageTag: name_retail_category
+		summarizeBy: none
+		sourceColumn: name_retail_category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Merchandising category used for commercial product grouping and analysis.
+	column name_merchandising_category
+		dataType: string
+		lineageTag: b01823a1-dbd6-4fe4-b92f-3c5f75371899
+		sourceLineageTag: name_merchandising_category
+		summarizeBy: none
+		sourceColumn: name_merchandising_category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_child_style
+		dataType: string
+		lineageTag: ae7d431a-d98e-4581-94ae-f40df09ee603
+		sourceLineageTag: name_child_style
+		summarizeBy: none
+		sourceColumn: name_child_style
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_parent_style
+		dataType: string
+		lineageTag: e0715196-8427-4906-be2f-7b3935648d76
+		sourceLineageTag: name_parent_style
+		summarizeBy: none
+		sourceColumn: name_parent_style
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_price_point
+		dataType: string
+		lineageTag: 55bae64c-027d-41d9-b955-e2fb69f13f14
+		sourceLineageTag: name_price_point
+		summarizeBy: none
+		sourceColumn: name_price_point
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_association
+		dataType: string
+		lineageTag: ce5afa3a-47f3-4b93-9c75-85c15f31b5cb
+		sourceLineageTag: code_association
+		summarizeBy: none
+		sourceColumn: code_association
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_sales_class
+		dataType: string
+		lineageTag: 5a989d6f-5c9c-4e65-b3ba-07e072dd6cd6
+		sourceLineageTag: code_sales_class
+		summarizeBy: none
+		sourceColumn: code_sales_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_sales_class_description
+		dataType: string
+		lineageTag: 5f3dcc2d-81cf-4e5f-8a0a-dd935ea29bc2
+		sourceLineageTag: name_sales_class_description
+		summarizeBy: none
+		sourceColumn: name_sales_class_description
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_sales_class
+		dataType: string
+		lineageTag: 46113eb9-3594-408e-adb9-7d83be2aaf3c
+		sourceLineageTag: name_sales_class
+		summarizeBy: none
+		sourceColumn: name_sales_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_afi_sales_category
+		dataType: string
+		lineageTag: 94b29438-350f-4a4d-950e-37290757ad5f
+		sourceLineageTag: code_afi_sales_category
+		summarizeBy: none
+		sourceColumn: code_afi_sales_category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_afi_sales_category
+		dataType: string
+		lineageTag: 622eac35-b508-4201-9936-f26782b0baac
+		sourceLineageTag: name_afi_sales_category
+		summarizeBy: none
+		sourceColumn: name_afi_sales_category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_afi_sales_division
+		dataType: string
+		lineageTag: 885372c7-8cb9-42ed-afab-d1a885a1ca1a
+		sourceLineageTag: code_afi_sales_division
+		summarizeBy: none
+		sourceColumn: code_afi_sales_division
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_afi_sales_division
+		dataType: string
+		lineageTag: f43ceb77-d9bb-4d3c-b68c-52571c849a58
+		sourceLineageTag: name_afi_sales_division
+		summarizeBy: none
+		sourceColumn: name_afi_sales_division
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_afi_finance_division
+		dataType: string
+		lineageTag: e8f82f02-578a-4398-a821-77abcc2e48bc
+		sourceLineageTag: name_afi_finance_division
+		summarizeBy: none
+		sourceColumn: name_afi_finance_division
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_discount_class
+		dataType: string
+		lineageTag: cdc19236-af02-4b72-9984-e38376789dd1
+		sourceLineageTag: code_discount_class
+		summarizeBy: none
+		sourceColumn: code_discount_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_discount_class_description
+		dataType: string
+		lineageTag: 902c942f-8b3a-4440-b372-95f9caf2109c
+		sourceLineageTag: name_discount_class_description
+		summarizeBy: none
+		sourceColumn: name_discount_class_description
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_discount_class
+		dataType: string
+		lineageTag: ae22542e-0ff6-4aef-8fc3-82b80e997c4f
+		sourceLineageTag: name_discount_class
+		summarizeBy: none
+		sourceColumn: name_discount_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_commission_class
+		dataType: string
+		lineageTag: 18338685-85ae-4af5-b5f6-d329764da154
+		sourceLineageTag: code_commission_class
+		summarizeBy: none
+		sourceColumn: code_commission_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_commission_class_description
+		dataType: string
+		lineageTag: f1075193-5734-4976-90ac-c975c39377a0
+		sourceLineageTag: name_commission_class_description
+		summarizeBy: none
+		sourceColumn: name_commission_class_description
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_commission_class
+		dataType: string
+		lineageTag: b44eb567-9123-4e16-8ac4-0a578f0de57f
+		sourceLineageTag: name_commission_class
+		summarizeBy: none
+		sourceColumn: name_commission_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_freight_class
+		dataType: string
+		lineageTag: 48f20c14-898d-454e-b20b-68c6b5e08931
+		sourceLineageTag: code_freight_class
+		summarizeBy: none
+		sourceColumn: code_freight_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_freight_class_description
+		dataType: string
+		lineageTag: ecae697a-21b3-4fff-a497-7867e9d0e1ed
+		sourceLineageTag: name_freight_class_description
+		summarizeBy: none
+		sourceColumn: name_freight_class_description
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_freight_class
+		dataType: string
+		lineageTag: efe15e36-0c6b-4be8-bde5-c1f83db7d686
+		sourceLineageTag: name_freight_class
+		summarizeBy: none
+		sourceColumn: name_freight_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_collective_class
+		dataType: string
+		lineageTag: a1e27243-ca4d-4454-9bb7-acdbcbca7b87
+		sourceLineageTag: code_collective_class
+		summarizeBy: none
+		sourceColumn: code_collective_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_collective_class
+		dataType: string
+		lineageTag: cda966fb-ca2e-49a2-ad57-4f649eac2a3e
+		sourceLineageTag: name_collective_class
+		summarizeBy: none
+		sourceColumn: name_collective_class
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_responsible_office
+		dataType: string
+		lineageTag: 3a7535e0-8774-427c-8012-c84c27efc847
+		sourceLineageTag: code_responsible_office
+		summarizeBy: none
+		sourceColumn: code_responsible_office
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_import_domestic
+		dataType: string
+		lineageTag: 38e09cb5-c307-4ac2-85ba-0208a3262487
+		sourceLineageTag: code_import_domestic
+		summarizeBy: none
+		sourceColumn: code_import_domestic
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_country_of_origin
+		dataType: string
+		lineageTag: 14913008-ead4-43cc-a462-bf1405a307bb
+		sourceLineageTag: name_country_of_origin
+		summarizeBy: none
+		sourceColumn: name_country_of_origin
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_cex
+		dataType: string
+		lineageTag: 87cb43fa-639f-4997-8a85-d2b3689f6a0a
+		sourceLineageTag: code_cex
+		summarizeBy: none
+		sourceColumn: code_cex
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_afi_item_status
+		dataType: string
+		lineageTag: baf14331-fd04-479c-b552-cf2994a3706e
+		sourceLineageTag: code_afi_item_status
+		summarizeBy: none
+		sourceColumn: code_afi_item_status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_manufacturing_status
+		dataType: string
+		lineageTag: d9f8ec6b-8165-44f7-94e8-4d87968b1b35
+		sourceLineageTag: code_manufacturing_status
+		summarizeBy: none
+		sourceColumn: code_manufacturing_status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_current_scp_manufacturing_status
+		dataType: string
+		lineageTag: 3481b0ae-1a66-4079-a329-1f84c99fc307
+		sourceLineageTag: code_current_scp_manufacturing_status
+		summarizeBy: none
+		sourceColumn: code_current_scp_manufacturing_status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_marketing_item_status
+		dataType: string
+		lineageTag: 594420bf-a841-418c-97c8-438178a00116
+		sourceLineageTag: code_marketing_item_status
+		summarizeBy: none
+		sourceColumn: code_marketing_item_status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_marketing_status
+		dataType: string
+		lineageTag: a655048b-4c70-4760-86f5-f8614537cd2d
+		sourceLineageTag: name_marketing_status
+		summarizeBy: none
+		sourceColumn: name_marketing_status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Current product status code used to filter active or relevant items in reporting.
+	column code_current_status
+		dataType: string
+		lineageTag: 4b7598e9-2dd5-444a-93c6-4ee5c421c011
+		sourceLineageTag: code_current_status
+		summarizeBy: none
+		sourceColumn: code_current_status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_manufacturing_status_change
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 00615591-86ef-425b-b45a-7a1406bbe369
+		sourceLineageTag: dt_manufacturing_status_change
+		summarizeBy: none
+		sourceColumn: dt_manufacturing_status_change
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_main_piece
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 69e9375d-b217-4e92-93ea-eab32900a8ba
+		sourceLineageTag: is_main_piece
+		summarizeBy: none
+		sourceColumn: is_main_piece
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_commodity_item
+		dataType: int64
+		formatString: 0
+		lineageTag: a0e5f0b3-5bac-41a2-9bb0-0e9d7e62d617
+		sourceLineageTag: num_commodity_item
+		summarizeBy: sum
+		sourceColumn: num_commodity_item
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_sellable_item
+		dataType: string
+		lineageTag: f9f2defb-bd5c-470c-978d-7f4598c641c9
+		sourceLineageTag: code_sellable_item
+		summarizeBy: none
+		sourceColumn: code_sellable_item
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_f123_product
+		dataType: int64
+		formatString: 0
+		lineageTag: b976907b-e76b-40a9-aa93-e293ef680804
+		sourceLineageTag: is_f123_product
+		summarizeBy: sum
+		sourceColumn: is_f123_product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_hs_core_product
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ab4e6ee-e534-4abe-a573-7846f5c1b116
+		sourceLineageTag: is_hs_core_product
+		summarizeBy: sum
+		sourceColumn: is_hs_core_product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_hs_proprietary_product
+		dataType: int64
+		formatString: 0
+		lineageTag: 52400290-e8d1-45a8-aa19-d6079b255e86
+		sourceLineageTag: is_hs_proprietary_product
+		summarizeBy: sum
+		sourceColumn: is_hs_proprietary_product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_hs_exclusive
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e0245d4-1499-412a-abbd-d558fa138c68
+		sourceLineageTag: is_hs_exclusive
+		summarizeBy: sum
+		sourceColumn: is_hs_exclusive
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_berkline_product
+		dataType: int64
+		formatString: 0
+		lineageTag: 371c3272-40e0-4097-9de9-0ade58409a3c
+		sourceLineageTag: is_berkline_product
+		summarizeBy: sum
+		sourceColumn: is_berkline_product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_benchcraft_product
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c60c481-adee-4935-9477-dae67bd6d053
+		sourceLineageTag: is_benchcraft_product
+		summarizeBy: sum
+		sourceColumn: is_benchcraft_product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_new_millennium_product
+		dataType: int64
+		formatString: 0
+		lineageTag: ec696392-3824-49b8-ace1-40cd8cf7f9e2
+		sourceLineageTag: is_new_millennium_product
+		summarizeBy: sum
+		sourceColumn: is_new_millennium_product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_bardini_product
+		dataType: int64
+		formatString: 0
+		lineageTag: ab400f41-c3e0-41aa-bc92-365be1ed923c
+		sourceLineageTag: is_bardini_product
+		summarizeBy: sum
+		sourceColumn: is_bardini_product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_shanghai_store
+		dataType: int64
+		formatString: 0
+		lineageTag: 89fd02dd-d3a9-4507-aa94-733d06a5530a
+		sourceLineageTag: is_shanghai_store
+		summarizeBy: sum
+		sourceColumn: is_shanghai_store
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_default_group
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a87b015-3d3c-4f3c-a695-6bf51d646080
+		sourceLineageTag: num_default_group
+		summarizeBy: sum
+		sourceColumn: num_default_group
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_market_introduced_at
+		dataType: string
+		lineageTag: 76c9553f-a066-4496-bda2-fa3819a9f939
+		sourceLineageTag: name_market_introduced_at
+		summarizeBy: none
+		sourceColumn: name_market_introduced_at
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_market_begin
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8804486d-4620-4220-a9ce-4fefc02fa40a
+		sourceLineageTag: dt_market_begin
+		summarizeBy: none
+		sourceColumn: dt_market_begin
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_market_end
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9ccfd7a0-494a-4d17-911a-5064d07b0a64
+		sourceLineageTag: dt_market_end
+		summarizeBy: none
+		sourceColumn: dt_market_end
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column amt_fob_price
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 191cadff-2b37-4934-aa5a-bb07873cae49
+		sourceLineageTag: amt_fob_price
+		summarizeBy: sum
+		sourceColumn: amt_fob_price
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column code_good_better_best
+		dataType: string
+		lineageTag: 2b74fbb9-ff73-4c1e-b4db-faf87f30261b
+		sourceLineageTag: code_good_better_best
+		summarizeBy: none
+		sourceColumn: code_good_better_best
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_gbb_sort
+		dataType: int64
+		formatString: 0
+		lineageTag: dc68b775-ef57-485b-8c40-c5b235f37767
+		sourceLineageTag: num_gbb_sort
+		summarizeBy: sum
+		sourceColumn: num_gbb_sort
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_primary_vendor
+		dataType: string
+		lineageTag: 7ac9ecfe-8f9a-49a0-877a-0ef19af52a6b
+		sourceLineageTag: code_primary_vendor
+		summarizeBy: none
+		sourceColumn: code_primary_vendor
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_primary_vendor
+		dataType: string
+		lineageTag: 36af5786-f0be-44ec-bd42-aa190f1f714e
+		sourceLineageTag: name_primary_vendor
+		summarizeBy: none
+		sourceColumn: name_primary_vendor
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_initial_invoice_period
+		dataType: string
+		lineageTag: 5b2fc562-dd17-4442-85fb-b267dd688b22
+		sourceLineageTag: code_initial_invoice_period
+		summarizeBy: none
+		sourceColumn: code_initial_invoice_period
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column qty_initial_invoice
+		dataType: int64
+		formatString: 0
+		lineageTag: f27e51fc-d57b-488b-ac64-fcee22783628
+		sourceLineageTag: qty_initial_invoice
+		summarizeBy: sum
+		sourceColumn: qty_initial_invoice
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Forecast planner assignment for the item. Used for planner-level filtering and accountability views.
+	column id_item_forecast_planner
+		dataType: string
+		lineageTag: 4b5b8103-b082-46b0-b17d-224b9cb5bfe9
+		sourceLineageTag: id_item_forecast_planner
+		summarizeBy: none
+		sourceColumn: id_item_forecast_planner
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column code_main_piece
+		dataType: string
+		lineageTag: b2c26d0f-ca89-49ea-aad6-0883743bbf58
+		sourceLineageTag: code_main_piece
+		summarizeBy: none
+		sourceColumn: code_main_piece
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product = entity
+		mode: directLake
+		source
+			entityName: dim_product
+			schemaName: dbo
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+
+	changedProperty = IsHidden
+

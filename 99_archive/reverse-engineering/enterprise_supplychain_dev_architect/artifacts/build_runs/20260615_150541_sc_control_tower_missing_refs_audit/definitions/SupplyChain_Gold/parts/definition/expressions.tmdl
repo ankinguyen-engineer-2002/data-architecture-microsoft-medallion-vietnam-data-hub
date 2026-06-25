@@ -1,0 +1,11 @@
+expression 'DirectLake - SupplyChain_Warehouse' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/e146ffe2-d907-46a7-9b7e-3e739a31b24e", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: 18151b27-c65e-4d9b-b236-3e66a5e9d13a
+
+	annotation PBI_IncludeFutureArtifacts = False
+
+	annotation PBI_RemovedChildren = [{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[SCP_Core].[DimFcstConsensusCycleDates]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[fact_forecast_kpi]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[fact_flat_forecast_actual]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[SCP_Core].[DimFcstSnapshotDates]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[dim_product]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[dim_warehouse]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[dim_customer_grouping]"}},"objectType":"Table"}]
+

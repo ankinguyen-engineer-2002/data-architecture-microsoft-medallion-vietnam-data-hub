@@ -1,0 +1,16 @@
+HTTP/2 202 
+cache-control: no-store, must-revalidate, no-cache
+pragma: no-cache
+content-type: application/json; charset=utf-8
+location: https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1/03_operations/49b2f052-4081-46e3-bc26-988b7085a4cf
+retry-after: 20
+x-ms-operation-id: 49b2f052-4081-46e3-bc26-988b7085a4cf
+strict-transport-security: max-age=31536000; includeSubDomains
+x-frame-options: deny
+x-content-type-options: nosniff
+requestid: a57ba678-c37f-41c5-81e1-310e55d3c1fd
+access-control-expose-headers: RequestId,Location,Retry-After,x-ms-operation-id
+request-redirected: true
+home-cluster-uri: https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/
+date: Thu, 04 Jun 2026 03:38:50 GMT
+

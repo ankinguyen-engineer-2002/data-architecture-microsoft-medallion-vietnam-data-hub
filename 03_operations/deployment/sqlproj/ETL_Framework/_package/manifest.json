@@ -1,0 +1,83 @@
+{
+  "generated_at_utc": "2026-06-24T14:34:40Z",
+  "objects": [
+    {
+      "object": "AuditLog",
+      "object_type": "table",
+      "schema": "DW_Developer",
+      "source_kind": "live_metadata",
+      "target": "DW_Developer/Tables/AuditLog.sql"
+    },
+    {
+      "object": "EnvironmentControl",
+      "object_type": "table",
+      "schema": "DW_Developer",
+      "source_kind": "live_metadata",
+      "target": "DW_Developer/Tables/EnvironmentControl.sql"
+    },
+    {
+      "object": "FabricLoad",
+      "object_type": "table",
+      "schema": "DW_Developer",
+      "source_kind": "live_metadata",
+      "target": "DW_Developer/Tables/FabricLoad.sql"
+    },
+    {
+      "object": "Source_EDW_AggCheck",
+      "object_type": "table",
+      "schema": "DW_Developer",
+      "source_kind": "live_metadata",
+      "target": "DW_Developer/Tables/Source_EDW_AggCheck.sql"
+    },
+    {
+      "object": "Source_EDW_CountCheck",
+      "object_type": "table",
+      "schema": "DW_Developer",
+      "source_kind": "live_metadata",
+      "target": "DW_Developer/Tables/Source_EDW_CountCheck.sql"
+    },
+    {
+      "object": "TableDictionary",
+      "object_type": "table",
+      "schema": "DW_Developer",
+      "source_kind": "live_metadata",
+      "target": "DW_Developer/Tables/TableDictionary.sql"
+    },
+    {
+      "object": "TableDictionary_Security",
+      "object_type": "table",
+      "schema": "DW_Developer",
+      "source_kind": "live_metadata",
+      "target": "DW_Developer/Tables/TableDictionary_Security.sql"
+    },
+    {
+      "object": "TableDictionary_UpdateLog",
+      "object_type": "table",
+      "schema": "DW_Developer",
+      "source_kind": "live_metadata",
+      "target": "DW_Developer/Tables/TableDictionary_UpdateLog.sql"
+    },
+    {
+      "object": "TableDictionary_UpdateLog_RadarSync",
+      "object_type": "table",
+      "schema": "DW_Developer",
+      "source_kind": "live_metadata",
+      "target": "DW_Developer/Tables/TableDictionary_UpdateLog_RadarSync.sql"
+    },
+    {
+      "object": "fn_GetDate",
+      "object_type": "function",
+      "schema": "DW_Developer",
+      "source_kind": "live_module",
+      "target": "DW_Developer/Functions/fn_GetDate.sql"
+    },
+    {
+      "object": "DW_Developer",
+      "object_type": "schema",
+      "schema": "DW_Developer",
+      "source_kind": "generated",
+      "target": "DW_Developer/DW_Developer.schema.sql"
+    }
+  ],
+  "project": "ETL_Framework"
+}

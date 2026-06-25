@@ -1,0 +1,46 @@
+table Parameter
+	lineageTag: bccb10d1-fc59-4bdd-a406-db0a4005799f
+
+	column Parameter
+		lineageTag: c3780651-b6d7-4bfb-8774-ba592ee932b8
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		lineageTag: 03449013-3d3c-4c90-842b-ae81c8b226b0
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		formatString: 0
+		lineageTag: 8fe4eeb7-dd50-49c0-a25a-29fda7b496c3
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("Pct_MAPE", NAMEOF('_Measure_ForecastAccuracy'[Pct_MAPE]), 0),
+				    ("Pct_MPE", NAMEOF('_Measure_ForecastAccuracy'[Pct_MPE]), 1)
+				}
+
+	annotation PBI_Id = 8d4054790ab94f2a8e0d07855d112cba
+

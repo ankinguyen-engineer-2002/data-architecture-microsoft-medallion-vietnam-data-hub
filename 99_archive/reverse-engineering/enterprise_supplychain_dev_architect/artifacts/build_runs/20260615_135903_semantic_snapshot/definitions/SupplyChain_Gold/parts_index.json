@@ -1,0 +1,74 @@
+[
+  {
+    "path": "definition.pbism",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimFiscalCalendar.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimSCPItemMaster.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/FactOpenOrders.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/_Measures.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimVendorMaster.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimWarehouseMaster.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimCustomerMaster.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/DimBeddingAttributeExt.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/FactFcstErrorCalc.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/FactAFISales_CurReqQty.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/FactInvTransactionsWeekly.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/tables/FactWorkingForecastCurrent.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/relationships.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/expressions.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/model.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": "definition/database.tmdl",
+    "payloadType": "InlineBase64"
+  },
+  {
+    "path": ".platform",
+    "payloadType": "InlineBase64"
+  }
+]

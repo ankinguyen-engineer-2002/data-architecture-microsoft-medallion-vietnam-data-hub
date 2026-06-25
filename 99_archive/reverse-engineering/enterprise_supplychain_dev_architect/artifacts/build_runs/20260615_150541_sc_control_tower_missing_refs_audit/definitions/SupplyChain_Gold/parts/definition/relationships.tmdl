@@ -1,0 +1,40 @@
+relationship 8d735045-201a-cf2f-7a5d-93d3a2630ee3
+	relyOnReferentialIntegrity
+	fromColumn: FactOpenOrders.ItemSKU
+	toColumn: DimSCPItemMaster.'Item SKU'
+
+relationship 15bcc4ea-71a3-83d3-8dfa-464ee660d5ed
+	relyOnReferentialIntegrity
+	fromColumn: FactOpenOrders.CurrentRequestDate
+	toColumn: DimFiscalCalendar.'Transaction Date'
+
+relationship ddc01bab-7cc6-0e87-2490-4d9872ba8205
+	relyOnReferentialIntegrity
+	fromColumn: FactOpenOrders.Warehouse
+	toColumn: DimWarehouseMaster.'Warehouse Code'
+
+relationship 197019ba-f703-5f34-ee01-52f59e11e0eb
+	relyOnReferentialIntegrity
+	fromColumn: FactOpenOrders.'Account And ShipTo Number'
+	toColumn: DimCustomerMaster.'Account And ShipTo Number'
+
+relationship 98cc7364-4eb0-ba42-47c7-2352446ae35c
+	fromColumn: DimSCPItemMaster.'Item SKU'
+	toColumn: DimBeddingAttributeExt.ItemSKU
+
+relationship d3ef6359-2b6d-9627-6e51-c186fa76ce37
+	fromColumn: FactFcstErrorCalc.CustomerGroup
+	toColumn: DimCustomerMaster.'Account And ShipTo Number'
+
+relationship ceb8341c-d255-4b41-118d-86e3fbf5625b
+	fromColumn: FactFcstErrorCalc.ItemSKU
+	toColumn: DimSCPItemMaster.'Item SKU'
+
+relationship a41e4bc2-4e78-5387-2b49-022036360a00
+	fromColumn: FactFcstErrorCalc.Warehouse
+	toColumn: DimWarehouseMaster.'Warehouse Code'
+
+relationship 2a935bc4-3f6f-3cb6-a1f3-8debb1f05e82
+	fromColumn: FactFcstErrorCalc.FiscalMonthEnd
+	toColumn: DimFiscalCalendar.'Transaction Date'
+

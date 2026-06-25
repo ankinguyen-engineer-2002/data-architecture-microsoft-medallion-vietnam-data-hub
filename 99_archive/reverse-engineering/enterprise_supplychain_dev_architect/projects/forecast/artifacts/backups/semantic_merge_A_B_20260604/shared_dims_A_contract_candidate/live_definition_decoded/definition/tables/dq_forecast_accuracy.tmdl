@@ -1,0 +1,43 @@
+/// Data quality table for forecast accuracy processing. Used to surface validation checks, exceptions, or quality status related to forecast accuracy data.
+table dq_forecast_accuracy
+	lineageTag: 7d6b5ec8-c725-4443-8b94-faafe0c41236
+	sourceLineageTag: [dbo].[dq_forecast_accuracy]
+
+	/// Identifier for the data quality check.
+	column check_id
+		dataType: string
+		lineageTag: ba5fd867-7b77-4d81-8a24-3e7ec89268f0
+		sourceLineageTag: check_id
+		summarizeBy: none
+		sourceColumn: check_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name or description of the data quality check.
+	column check_name
+		dataType: string
+		lineageTag: 053e38e2-b94e-404d-9f20-82c2cc333432
+		sourceLineageTag: check_name
+		summarizeBy: none
+		sourceColumn: check_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Pass/fail flag for the data quality check.
+	column is_pass
+		dataType: int64
+		formatString: 0
+		lineageTag: 59c1e341-c9a4-40d5-9e06-54fb453e6256
+		sourceLineageTag: is_pass
+		summarizeBy: sum
+		sourceColumn: is_pass
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dq_forecast_accuracy = entity
+		mode: directLake
+		source
+			entityName: dq_forecast_accuracy
+			schemaName: dbo
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

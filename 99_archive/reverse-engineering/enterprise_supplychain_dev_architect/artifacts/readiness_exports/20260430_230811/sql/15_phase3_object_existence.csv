@@ -1,0 +1,8 @@
+object_name,exists_flag
+meta.schema_contracts,1
+meta.performance_baseline,1
+meta.pipeline_cost_log,1
+meta.usp_validate_schema_contracts,1
+meta.usp_check_dq_single,1
+meta.usp_compute_slv_waves,1
+meta.usp_finalize_pipeline,1

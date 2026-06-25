@@ -1,0 +1,142 @@
+%%{init: {
+  "theme": "base",
+  "flowchart": { "curve": "linear", "nodeSpacing": 18, "rankSpacing": 28 },
+  "themeVariables": {
+    "fontFamily": "Inter, Segoe UI, Arial",
+    "fontSize": "14px",
+    "primaryTextColor": "#0b1220",
+    "lineColor": "#334155",
+    "background": "#ffffff"
+  }
+} }%%
+
+flowchart TB
+  %% Legend: nested subgraphs are used to visually emphasize the end-to-end flow,
+  %% not to imply physical containment.
+
+  classDef az fill:#e0f2fe,stroke:#0284c7,stroke-width:1px,color:#0b1220;
+  classDef dbx fill:#fff7ed,stroke:#f97316,stroke-width:1px,color:#0b1220;
+  classDef fab fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#0b1220;
+
+  classDef layer fill:#ffffff,stroke:#334155,stroke-width:1px,color:#0b1220;
+  classDef box fill:#ffffff,stroke:#475569,stroke-width:1px,color:#0b1220;
+  classDef note fill:#fffbeb,stroke:#f59e0b,stroke-width:1px,color:#0b1220;
+  classDef danger fill:#fff1f2,stroke:#e11d48,stroke-width:1px,color:#0b1220;
+  classDef control fill:#ecfdf5,stroke:#10b981,stroke-width:1px,color:#0b1220;
+  classDef hub fill:#1d4ed8,stroke:#1d4ed8,stroke-width:1px,color:#ffffff;
+  classDef orch fill:#0f172a,stroke:#0f172a,stroke-width:1px,color:#ffffff;
+  classDef spacer fill:transparent,stroke:transparent,stroke-width:0px,color:transparent;
+
+  subgraph AZ["<b>L0 — Azure Foundation (Enterprise Platform)</b>"]
+    direction TB
+    style AZ fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+
+    %% Top row (requested): Identity/Security/Ops + Note + Orchestrator
+    subgraph AZ_TOP["<b>Foundation + Orchestration</b>"]
+      direction LR
+      subgraph AZ_GOV["Identity / Security / Ops (typical)"]
+        direction TB
+        ID["Entra ID (RBAC/PIM)"]:::box
+        NET["Network (VNet/PE/DNS)"]:::box
+        KV["Key Vault"]:::box
+        MON["Monitor/Logs/Alerts"]:::box
+      end
+      style AZ_GOV fill:#f0f9ff,stroke:#38bdf8,stroke-width:1px
+
+      NOTE["Note:\nNested boxes show flow emphasis."]:::note
+
+      subgraph ORC["System-of-Record Orchestration"]
+        direction TB
+        ORCH["SQL Server Agent Jobs\n(system-of-record)\nSchedule • Retry • Alert • Job History\nCross-system steps (PowerShell / SQL / API calls)"]:::orch
+      end
+      style ORC fill:#f0f9ff,stroke:#38bdf8,stroke-width:1px
+
+      %% Keep NOTE visually adjacent to the Orchestrator (invisible spacing links)
+      ID ~~~ NOTE
+      NOTE ~~~ ORCH
+    end
+    style AZ_TOP fill:#e0f2fe,stroke:#0284c7,stroke-width:0px
+
+    subgraph AZ_DATA["Data Estate (global)"]
+      direction LR
+      SRC["External systems\n(POS / ERP / WMS / IoT / Partners)"]:::box
+      LAND["Landing\n(ADLS / files / events)"]:::box
+      EDW["Azure Databases / EDW\n(multi-domain)"]:::box
+      SRC --> LAND
+      SRC --> EDW
+    end
+    style AZ_DATA fill:#f0f9ff,stroke:#38bdf8,stroke-width:1px
+
+    %% Orchestrator manages jobs across the platform (dashed edges = triggers/controls)
+    ORCH -.-> LAND
+    ORCH -.-> EDW
+
+    subgraph DBX["<b>L1 — Databricks (core compute)</b>"]
+      direction TB
+      style DBX fill:#fff7ed,stroke:#f97316,stroke-width:2px
+
+      DBX_ING["Ingestion triggers\n(file-ready checks / event triggers)"]:::box
+      DBX_JOBS["Databricks Jobs / Workflows\n(job runs + retries at job level)"]:::layer
+      DBX_ETL["Streaming + Batch processing\nTransform + curate (Delta)"]:::layer
+      DBX_OUT["Curated outputs\n(domain-ready datasets)"]:::box
+
+      LAND --> DBX_ING
+      EDW --> DBX_ING
+      DBX_ING --> DBX_JOBS --> DBX_ETL --> DBX_OUT
+
+      ORCH -.-> DBX_JOBS
+
+      subgraph FAB["<b>L2 — Microsoft Fabric (analytics + serving)</b>"]
+        direction LR
+        style FAB fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px
+
+        %% Left panel: hub + job entrypoints (kept compact)
+        subgraph FAB_LEFT["EnterpriseData (hub) + Fabric entrypoints"]
+          direction TB
+          HUB["EnterpriseData workspace\n(shared curated surfaces)"]:::hub
+          FAB_JOBS["Fabric jobs\n(pipeline runs / refresh / SQL execution)\n(should be triggered by L0, not self-scheduled)"]:::layer
+        end
+        style FAB_LEFT fill:#f5f3ff,stroke:#c4b5fd,stroke-width:1px
+
+        ORCH -.-> FAB_JOBS
+
+        %% Right panel: domain workspaces (explicit names; keep layout simple)
+        subgraph DOM["Domain workspaces (explicit)"]
+          direction LR
+
+          subgraph WS_SC["Enterprise SupplyChain workspace"]
+            direction TB
+            SC_CP["VN Control Plane (SupplyChain)\nWaves • Due gate • Run logs"]:::control
+            SC_PIPE["Fabric Data Pipeline(s)\n(business ETL executor)"]:::layer
+            SC_ETL["Domain ETL framework\n(metadata-driven T-SQL patterns)"]:::box
+            SC_CP --> SC_PIPE --> SC_ETL
+          end
+          style WS_SC fill:#ede9fe,stroke:#8b5cf6,stroke-width:1px
+
+          RETAIL["Retail workspace\nDomain ETL framework\n(enterprise pattern / framework)"]:::box
+          WHOLESALE["Wholesale workspace\nDomain ETL framework\n(enterprise pattern / framework)"]:::box
+          SALES["Sales workspace\nDomain ETL framework\n(enterprise pattern / framework)"]:::box
+          FINANCE["Finance workspace\nDomain ETL framework\n(enterprise pattern / framework)"]:::box
+        end
+        style DOM fill:#f5f3ff,stroke:#a78bfa,stroke-width:1px
+
+        %% Branch from EnterpriseData to each domain workspace
+        HUB --> WS_SC
+        HUB --> RETAIL
+        HUB --> WHOLESALE
+        HUB --> SALES
+        HUB --> FINANCE
+
+        %% Fabric jobs can trigger SupplyChain domain pipeline as an executor
+        FAB_JOBS -.-> SC_PIPE
+      end
+
+      DBX_OUT --> HUB
+    end
+
+    subgraph BAD["❌ Anti-pattern to avoid"]
+      direction TB
+      BAD1["Dueling schedulers:\nFabric pipelines schedule/retry/alert independently\nwhile SQL Agent also schedules the same workload"]:::danger
+    end
+    style BAD fill:#fff1f2,stroke:#e11d48,stroke-width:1px
+  end

@@ -1,0 +1,315 @@
+{
+  "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoiceheader",
+  "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader",
+  "dq": {
+    "all_history_grain_duplicate": {
+      "error": "Final all-source pass uses latest-partition duplicate scan; full-history duplicate scan is not run for every large source table.",
+      "rows": [],
+      "status": "SKIPPED"
+    },
+    "column_count": 40,
+    "columns": [
+      {
+        "column_name": "CustomerNumber",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 1
+      },
+      {
+        "column_name": "ShiptoNumber",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 2
+      },
+      {
+        "column_name": "InvoiceNumber",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 3
+      },
+      {
+        "column_name": "OrderNumber",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 4
+      },
+      {
+        "column_name": "PurchaseOrder",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 5
+      },
+      {
+        "column_name": "Warehouse",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 6
+      },
+      {
+        "column_name": "InvoiceAmount",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 7
+      },
+      {
+        "column_name": "ShiptoName",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 8
+      },
+      {
+        "column_name": "ShiptoAddress1",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 9
+      },
+      {
+        "column_name": "ShiptoAddress2",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 10
+      },
+      {
+        "column_name": "ShiptoCity",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 11
+      },
+      {
+        "column_name": "ShiptoState",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 12
+      },
+      {
+        "column_name": "ShiptoZipCode",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 13
+      },
+      {
+        "column_name": "ShiptoSalesman",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 14
+      },
+      {
+        "column_name": "PostingMonth",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 15
+      },
+      {
+        "column_name": "OrderArrivalCode",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 16
+      },
+      {
+        "column_name": "AdvertisingFlag",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 17
+      },
+      {
+        "column_name": "OrderType",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 18
+      },
+      {
+        "column_name": "RequestDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 19
+      },
+      {
+        "column_name": "OrderDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 20
+      },
+      {
+        "column_name": "InvoiceDate",
+        "data_type": "date",
+        "is_nullable": "NO",
+        "ordinal_position": 21
+      },
+      {
+        "column_name": "LeadTime",
+        "data_type": "int",
+        "is_nullable": "NO",
+        "ordinal_position": 22
+      },
+      {
+        "column_name": "TripNumber",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 23
+      },
+      {
+        "column_name": "TaxAmount",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 24
+      },
+      {
+        "column_name": "DropNumber",
+        "data_type": "decimal",
+        "is_nullable": "NO",
+        "ordinal_position": 25
+      },
+      {
+        "column_name": "OrderTypePrimary",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 26
+      },
+      {
+        "column_name": "OrderTypeSecondary",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 27
+      },
+      {
+        "column_name": "OrderTypeUsrDefine3",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 28
+      },
+      {
+        "column_name": "OrderTypeUsrDefine4",
+        "data_type": "varchar",
+        "is_nullable": "NO",
+        "ordinal_position": 29
+      },
+      {
+        "column_name": "ShipInstructions",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 30
+      },
+      {
+        "column_name": "ShipWeight",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 31
+      },
+      {
+        "column_name": "TermsDiscount",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 32
+      },
+      {
+        "column_name": "TripCreatedDate",
+        "data_type": "date",
+        "is_nullable": "YES",
+        "ordinal_position": 33
+      },
+      {
+        "column_name": "CreditCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 34
+      },
+      {
+        "column_name": "CurrencyCode",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 35
+      },
+      {
+        "column_name": "PromotionNumber",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 36
+      },
+      {
+        "column_name": "CreditApprovalNBR",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 37
+      },
+      {
+        "column_name": "SoldtoName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 38
+      },
+      {
+        "column_name": "ShiptoCountryName",
+        "data_type": "varchar",
+        "is_nullable": "YES",
+        "ordinal_position": 39
+      },
+      {
+        "column_name": "Sequence",
+        "data_type": "decimal",
+        "is_nullable": "YES",
+        "ordinal_position": 40
+      }
+    ],
+    "exists": true,
+    "freshness": {
+      "InvoiceDate": "2026-06-23",
+      "OrderDate": "2026-06-22",
+      "RequestDate": "2028-09-28",
+      "TripCreatedDate": "2026-06-22"
+    },
+    "freshness_columns": [
+      "InvoiceDate",
+      "OrderDate",
+      "RequestDate",
+      "TripCreatedDate"
+    ],
+    "full_row_duplicate": {
+      "error": null,
+      "rows": [
+        {
+          "latest_full_row_duplicate_extra_rows": null,
+          "latest_full_row_duplicate_groups": 0,
+          "latest_full_row_max_rows_per_full_row": null
+        }
+      ],
+      "seconds": 41.404,
+      "status": "PASS"
+    },
+    "key_columns": [
+      "InvoiceNumber"
+    ],
+    "latest_partition_duplicate": {
+      "error": null,
+      "seconds": 0.402,
+      "status": "PASS",
+      "value": [
+        {
+          "latest_partition_duplicate_extra_rows": null,
+          "latest_partition_duplicate_groups": 0,
+          "latest_partition_max_rows_per_key": null
+        }
+      ]
+    },
+    "latest_partition_null_blank": {
+      "error": null,
+      "rows": [
+        {
+          "latest_partition_null_blank_key_rows": 0
+        }
+      ],
+      "seconds": 0.278,
+      "status": "PASS"
+    },
+    "projects": [
+      "forecast_accuracy",
+      "inventory_health"
+    ],
+    "ref": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader",
+    "row_count_metadata": null,
+    "status": "PASS"
+  },
+  "dq_status": "PASS",
+  "layer": "bronze",
+  "mart": "inventory_health",
+  "path": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader.sql"
+}

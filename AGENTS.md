@@ -1,92 +1,157 @@
-# AGENTS.md — Project Instructions
-> SupplyChain Warehouse v9 — Microsoft Fabric, Pure T-SQL, Metadata-Driven
-> Last updated: 2026-04-26 | Score: 8.2/10 | Enterprise mapping: ~91%
+# AGENTS.md — Fabric SupplyChain Operating Repo
+> Current target: BOB-aligned Microsoft Fabric ETL operating repository  
+> Last updated: 2026-06-23 ICT
 
-## Who I Am
-- Name: Aric Nguyen
-- Role: Data Engineer, DataHub VN team — Global Supply Chain Analytics at Ashley Furniture Industries
-- Language: Vietnamese (primary communication), English (docs/code)
-- Skills: T-SQL, PySpark, Microsoft Fabric, Azure, pipeline orchestration, data warehouse architecture
-- Working style: Iterative — builds, hits constraints, adapts
+## Startup Acknowledgment
 
-## Project Overview
-Warehouse-native medallion architecture on Microsoft Fabric. Pure T-SQL, no Notebooks/PySpark.
-- ~91 objects: 4 schemas (bronze/silver/gold/meta), 28 data tables + 4 _edw supplement tables, 11 meta tables, 30 views, 11 SPs, 3 functions
-- 7 pipelines: multi-mart architecture (ForEach projects -> pl_sc_mart -> bronze->silver->gold). DQ gates deactivated
-- 1 generic SP handles 8 load patterns for all 28 tables
-- Auto-trigger: daily 2AM UTC+7
-- 11 meta tables: 8 core + 3 Phase 3 (performance_baseline, pipeline_cost_log, schema_contracts)
-- Pipeline runtime: ~20 min (multi-mart, DQ off) or ~27 min (DQ on)
+On loading this rule, reply exactly once before processing the first request:
 
-## Connection Details
+`Super Rule v1.0 loaded. Enforcing §0 Zero-Hallucination → §1 Workflow → §3 Challenge-Mode → §4 Communication. Ready.`
 
-| Resource | ID/Endpoint |
-|----------|-------------|
+## Operating Principles
+
+- Primary language with Aric: Vietnamese. Keep object names, paths, API names, SQL, DAX, errors, and technical terms in English.
+- No hallucination. For technical claims, prefer verified repo artifacts, live Fabric/Power BI/SQL evidence, Microsoft docs, BOB guide docs, and exported definitions.
+- Challenge-mode is mandatory for architecture, ETL, schema, semantic, operational, or cloud decisions. Do not rubber-stamp proposed changes.
+- Preserve the business product surface unless Aric explicitly changes scope:
+  - keep Bronze/Silver/Gold layers
+  - keep existing business views/tables
+  - keep 04_semantic/report contracts
+  - replace or operate the framework/runtime, not the business logic
+- Destructive operations need explicit same-conversation approval:
+  - file/folder delete
+  - `DROP`, `TRUNCATE`, destructive `ALTER`, destructive `MERGE`
+  - force/reset/clean/overwrite actions
+  - Fabric/Power BI/cloud deletes or unclear production mutations
+
+## Current Architecture Source Of Truth
+
+Use these first, in order:
+
+1. `00_CONTEXT/current.md` — current working state and latest actions.
+2. `01_docs/Enterprise_Framework_Migration_Master_Plan.md` — Phase 1 BOB migration plan and status.
+3. `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1h/phase1_done_handoff_20260623.md` — Phase 1 completion handoff.
+4. `01_docs/runbook/artifacts/20260622_phase1a_baseline/phase1h/phase1h_final_cleanup_audit_20260623.txt` — final Phase 1 cleanup/audit evidence.
+5. `01_docs/bob-framework/source/` — BOB guide docs and email-derived architecture summary.
+6. `02_marts/` and `03_operations/orchestration/` — current mart definitions and ad-hoc run manifests.
+7. `99_archive/architectures/` — old v8/v9/v10 knowledge archive; useful history, not current source of truth.
+
+## Context Logging
+
+Every assistant run must be resumable.
+
+- Always read `AGENTS.md` and `00_CONTEXT/current.md` at the start of a technical turn.
+- Append/update `00_CONTEXT/current.md` after meaningful changes:
+  - repo edits
+  - tool/script execution
+  - live Fabric/Power BI/SQL mutation
+  - important decision or blocker
+- `00_CONTEXT/` owns project context now.
+  - Each dated chunk covers at most four calendar days.
+  - `00_CONTEXT/current.md` mirrors the latest active chunk and is the default append target.
+  - `00_CONTEXT/_source/CONTEXT_full_before_split_20260623.md` preserves the pre-split full file.
+- Keep context entries short but complete:
+  - timestamp ICT
+  - scope lock
+  - user instruction
+  - commands/actions/evidence
+  - files changed/live changes
+  - blocker/risk
+  - next concrete step
+
+## Fabric Scope Lock
+
+| Resource | Current value |
+|---|---|
 | Tenant | `5a9d9cfd-c32e-4ac1-a9ed-fe83df4f9e4d` |
-| Workspace DEV | `c8d9fc83-18b6-4e1d-8264-0b49eed36fe0` |
-| Warehouse | `e146ffe2-d907-46a7-9b7e-3e739a31b24e` |
-| SQL Endpoint | `7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com` |
-| Semantic Model | `a52841ee-d853-46df-b2f7-2a2cc4493d60` |
-| Database | `SupplyChain_Warehouse` |
+| Workspace DEV | `Enterprise SupplyChain-Dev` / `c8d9fc83-18b6-4e1d-8264-0b49eed36fe0` |
+| Source Lakehouse | `Enterprise_Lakehouse` / `584e7d2c-46ca-49dc-bb6c-68df6ef4f424` |
+| Processing Warehouse | `SupplyChain_Processing_Warehouse` / `c0262cef-b8a7-495f-bccc-53b098c7948c` |
+| Gold Warehouse | `SupplyChain_Gold_Warehouse` / `98e2a911-5af9-442e-9cc8-5d8dadb8b762` |
+| Local ETL Framework | `ETL_Framework` / `d4eb02f9-c29e-4f0d-9870-43b5970b349f` |
+| SQL endpoint | `7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com` |
+| Current semantic model | `sc_control_tower` / `f06a2361-15fd-4f91-9d37-941fefe62aaf` |
+| Legacy report-bound model | `Supply Chain Control Tower` / `3eecf594-...` |
 
-### Pipeline IDs
-| Pipeline | ID |
-|----------|-----|
-| pl_sc_master | `319a8160-3f3a-4b87-8ad6-75ac4f3ec184` |
-| pl_sc_mart | `9a1e7a12-30ab-465c-a45d-b051619193ac` |
-| pl_bronze_forecast | `1bdbaebb-7222-4e9c-a45d-3e632bba846d` |
-| pl_silver_forecast | `46437ae6-3a15-4697-957d-f1f44ba10633` |
-| pl_silver_wave_forecast | `57a09720-21a2-49b5-a472-1e19abd14f76` |
-| pl_gold_forecast | `94fc130e-f327-46a9-b7ba-cd2aa328c0da` |
-| pl_dq_check | `c32dc18d-d027-4672-9872-f73404cd7c6f` |
+## Current Runtime Contract
 
-### Token Commands
+[Verified] Phase 1 is complete as of 2026-06-23.
+
+- Primary runtime/load framework:
+  - `Enterprise SupplyChain-Dev.ETL_Framework`
+  - schema `DW_Developer`
+  - `TableDictionary`, `AuditLog`, `TableDictionary_UpdateLog`
+  - BOB loader/wrapper procedures including `usp_IncrementalTableLoad`
+- Medallion layers remain:
+  - Bronze/source: `Enterprise_Lakehouse`
+  - Silver/processing: `SupplyChain_Processing_Warehouse`
+  - Gold/serving: `SupplyChain_Gold_Warehouse`
+  - Analytics: shared 04_semantic/report layer
+- Canonical Enterprise/BOB curated warehouse pattern:
+  - Bronze/source docs list source lakehouse shortcuts and source tables.
+  - Silver/Gold final schemas hold physical final tables.
+  - Silver/Gold `_Wrk` schemas hold `v_<TableName>` work/source views.
+  - `ETL_Framework` loader procedures derive `_Wrk.v_<TableName>` from final `SchemaName` + `TableName`.
+  - Base-schema `v_*` views have been removed from active Silver/Gold curated schemas and must not be reintroduced.
+  - `_LOAD` is transient loader work surface.
+- `SupplyChain_Processing_Warehouse.Meta.usp_GenericLoad` is fallback/rollback only, not the target primary runtime.
+- Do not rerun full curated refresh packs unless Aric explicitly requests it.
+
+## Live Pipeline IDs
+
+| Pipeline | ID | Notes |
+|---|---|---|
+| `pl_sc_master` | `f36f56b8-5668-4a0c-b991-2c28302f1710` | top-level orchestrator; schedules exist but were disabled in the 2026-06-15 audit |
+| `pl_sc_mart` | `20db5725-80e3-4081-9ef5-01700acdf3b3` | per-project router |
+| `pl_sc_staging` | `10221fb2-6e30-4911-9d95-d8dd67440d84` | staging/reference load |
+| `pl_sc_silver` | `7dc6ecda-56cc-4797-893c-1c502863323f` | project-aware silver dispatcher |
+| `pl_sc_silver_wave` | `797b1a02-f973-4584-bd27-bb0151549d4b` | wave executor |
+| `pl_sc_gold` | `50ff6263-659d-4b09-9e45-b42a3434e093` | project-filtered Gold publisher |
+| `pl_dq_check` | `3c7c61f6-c184-41e5-8309-f9ac3260d38d` | on-demand DQ gate |
+
+## Auth And Tooling
+
 ```bash
-# Warehouse (pyodbc / sqlcmd)
+# Validate identity
+az account show
+
+# Warehouse / pyodbc token
 az account get-access-token --resource https://database.windows.net/ --query accessToken -o tsv
 
-# Fabric REST API
+# Fabric REST token
 az account get-access-token --resource https://api.fabric.microsoft.com --query accessToken -o tsv
 
-# Power BI API
+# Power BI REST token
 az account get-access-token --resource https://analysis.windows.net/powerbi/api --query accessToken -o tsv
 
-# OneLake (ADLS Gen2)
+# OneLake token
 az account get-access-token --resource https://storage.azure.com/ --query accessToken -o tsv
 ```
 
-## Connectivity Workflow (API-first — no wandering)
+Preferred tool order:
 
-Canonical reference: `docs/runbook/connectivity_playbook.md`.
+1. Repo artifacts and exported definitions.
+2. Fabric/Power BI MCP tools if available.
+3. `az rest` for Fabric/Power BI REST.
+4. `pyodbc` with Entra token for Warehouse SQL endpoint.
+5. Python scripts in `03_operations/tools/` for repeatable ad-hoc workflows.
 
-- Default auth: `az login` interactive (no Service Principal unless automation requires it).
-- REST ops: prefer `az rest --resource ... --url ...` (Fabric / Power BI / Azure).
-- SQL endpoint: prefer `pyodbc` + Entra access token (ODBC attr `1256` with length-prefix + UTF-16LE). Canonical code: `lineage_explorer/export_lineage_data.py`.
-- Modeling/TMDL: use Fabric `getDefinition`/`updateDefinition`; keep `definition/relationships.tmdl` as a separate part in payloads.
-- MCP-first when available (Fabric/PowerBI/Modeling/Microsoft docs) → fallback to REST → fallback to Python.
+## Manual Refresh Rule
 
-## Mandatory Context Logging (anti-amnesia)
+- Use `03_operations/orchestration/*/manifest.yaml` for dependency order.
+- Default scripts must run dry-run first.
+- Live execution requires explicit `--execute` and a current Aric approval.
+- Order is always:
+  1. `forecast_accuracy` Silver wrapper, then Gold wrapper
+  2. `inventory_health` Silver wrapper, then Gold wrapper
+  3. Silver wrappers include `ReferenceMaster_Enh` prerequisite Wave 00
+  4. Gold wrappers include `Shared_DW` prerequisite Wave 00
+  5. DQ/parity/semantic smoke after publish
 
-Every AI assistant run MUST be auditable and resumable across chat sessions.
+## Persistence Rule
 
-1) Always read this file (`AGENTS.md`) at the start of every prompt/turn.
+After major work, propose only the next useful persistence target, for example:
 
-2) Context file rule (SINGLE FILE):
+`Propose persisting to 01_docs/decisions/ADR-XXX.md: "<concise content, <=3 lines>". Confirm? (y/n)`
 
-- If `CONTEXT.md` exists at repo root: DO NOT create a new context file. Always append/update `CONTEXT.md`.
-- If `CONTEXT.md` does not exist: create it at repo root (only once), then keep appending/updating it.
-- Do not create additional context files under `docs/runbook/` (legacy pattern). If any legacy context files exist, treat them as read-only history and consolidate into `CONTEXT.md`.
-- Goal: persist the working state so a future session can continue without missing intent, decisions, evidence, and actions.
-
-3) Update cadence (do NOT wait until the end of the user prompt):
-
-- Append/update the context file after any meaningful change (repo file edits, tool outputs, command executions, decisions, live Fabric mutations).
-- During long work, append at least once every ~15–30 seconds of active progress (best-effort within the constraints of the chat/tooling runtime).
-
-4) Minimum content to record per update (short but complete):
-
-- Timestamp (ICT) + scope lock (workspace/item/db).
-- User instructions received since last update (verbatim or tight paraphrase).
-- Actions executed (commands run, scripts, REST calls) + where artifacts/evidence saved.
-- Files changed in repo (paths) and any live Fabric changes (what/where).
-- Current blockers/risks + next concrete step (1–3 bullets).
+Do not write new project memory/ADR/runbook rules without explicit approval unless the user directly requested that file update.

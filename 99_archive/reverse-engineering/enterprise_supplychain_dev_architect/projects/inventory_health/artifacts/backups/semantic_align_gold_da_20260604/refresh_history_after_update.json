@@ -1,0 +1,48 @@
+{
+  "@odata.context": "https://wabi-us-north-central-c-primary-redirect.analysis.windows.net/v1.0/myorg/groups/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/$metadata#refreshes",
+  "value": [
+    {
+      "requestId": "fae53450-4bec-4871-bc0d-2f75a24b739e",
+      "id": 1393047585,
+      "refreshType": "ViaApi",
+      "startTime": "2026-06-04T03:17:38.333Z",
+      "endTime": "2026-06-04T03:17:43.107Z",
+      "status": "Completed",
+      "refreshAttempts": [
+        {
+          "attemptId": 1,
+          "startTime": "2026-06-04T03:17:38.4272536Z",
+          "endTime": "2026-06-04T03:17:41.8879252Z",
+          "type": "Data",
+          "executionMetrics": []
+        },
+        {
+          "attemptId": 1,
+          "startTime": "2026-06-04T03:17:42.0754397Z",
+          "endTime": "2026-06-04T03:17:42.2004455Z",
+          "type": "Query",
+          "executionMetrics": []
+        }
+      ]
+    },
+    {
+      "requestId": "1e45df19-76d3-498f-915e-96d8728b56d3",
+      "id": 1393046213,
+      "refreshType": "DirectLakeFraming",
+      "startTime": "2026-06-04T03:15:13.117Z",
+      "endTime": "2026-06-04T03:15:15.273Z",
+      "status": "Completed",
+      "refreshAttempts": []
+    },
+    {
+      "requestId": "1d203fd8-9448-41f7-b0c9-ef8a5c1c1d1a",
+      "id": 1393046192,
+      "refreshType": "DirectLakeFraming",
+      "startTime": "2026-06-04T03:15:03.123Z",
+      "endTime": "2026-06-04T03:15:03.183Z",
+      "serviceExceptionJson": "{\"errorCode\":\"DirectLake_TableNotFound\",\"errorDescription\":\"A direct lake table 'FactInventoryRiskForward' is not found.\"}",
+      "status": "Failed",
+      "refreshAttempts": []
+    }
+  ]
+}

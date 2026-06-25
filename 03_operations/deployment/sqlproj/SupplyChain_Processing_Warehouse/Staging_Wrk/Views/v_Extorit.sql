@@ -1,0 +1,6 @@
+-- ---- Staging_Wrk.v_Extorit ----
+CREATE VIEW Staging_Wrk.v_Extorit AS
+SELECT TRIM(IORD) AS OrderID, CAST(ISEQ AS INT) AS ItemSequenceNum,
+    CAST(IFRGHT AS DECIMAL(12,2)) AS AmtFreight,
+    TRY_CONVERT(DATE, CAST(CAST(IPRMDT AS BIGINT) AS VARCHAR(20))) AS PromiseDate
+FROM Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORIT

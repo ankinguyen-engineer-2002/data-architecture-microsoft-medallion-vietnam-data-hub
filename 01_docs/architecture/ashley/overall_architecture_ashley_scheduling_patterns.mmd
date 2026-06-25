@@ -1,0 +1,42 @@
+%%{init: {
+  "theme": "base",
+  "flowchart": { "curve": "linear", "nodeSpacing": 40, "rankSpacing": 50 },
+  "themeVariables": {
+    "fontFamily": "Inter, Segoe UI, Arial",
+    "fontSize": "14px",
+    "primaryTextColor": "#0b1220",
+    "lineColor": "#334155",
+    "background": "#ffffff"
+  }
+} }%%
+
+flowchart LR
+  classDef good fill:#ecfdf5,stroke:#10b981,stroke-width:2px,color:#0b1220;
+  classDef bad fill:#fff1f2,stroke:#e11d48,stroke-width:2px,color:#0b1220;
+  classDef box fill:#ffffff,stroke:#475569,stroke-width:1px,color:#0b1220;
+  classDef orch fill:#0f172a,stroke:#0f172a,stroke-width:1px,color:#ffffff;
+  classDef layer fill:#ffffff,stroke:#334155,stroke-width:1px,color:#0b1220;
+
+  subgraph BAD["❌ Anti-pattern: Dueling schedulers (split brain)"]
+    direction TB
+    style BAD fill:#fff1f2,stroke:#e11d48,stroke-width:2px
+    A0["SQL Server Agent\n(system-of-record)"]:::orch
+    A1["Fabric Pipeline\n(also schedules same workload)"]:::layer
+    A2["Same ETL workload"]:::box
+    A0 --> A2
+    A1 --> A2
+    A3["Result:\n- retries/alerts split\n- history split\n- unclear ownership\n- harder incident response"]:::bad
+    A2 --> A3
+  end
+
+  subgraph GOOD["✅ Preferred: Single scheduler + domain runtime engine"]
+    direction TB
+    style GOOD fill:#ecfdf5,stroke:#10b981,stroke-width:2px
+    B0["SQL Server Agent\n(system-of-record)"]:::orch
+    B1["ONE domain entrypoint\n(trigger a single run)"]:::box
+    B2["VN Control Plane runtime\n(waves • due gate • per-asset logs)"]:::good
+    B3["Executors\n(SQL procs / Spark jobs / Fabric activities)"]:::box
+    B0 --> B1 --> B2 --> B3
+    B4["Result:\n- one place owns schedule/retry/alert\n- domain keeps runtime intelligence\n- clear contract between teams"]:::good
+    B3 --> B4
+  end

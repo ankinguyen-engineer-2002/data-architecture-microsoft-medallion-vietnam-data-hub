@@ -1,0 +1,302 @@
+table FactOpenOrders
+	lineageTag: 6a216e39-a758-4f05-b04c-420a79daa2c3
+	sourceLineageTag: [SCP_Core].[FactOpenOrders]
+
+	column OrderTakenDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d84ea069-0ed8-45d7-9814-21bcf59d29d7
+		sourceLineageTag: OrderTakenDate
+		summarizeBy: none
+		sourceColumn: OrderTakenDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderNumber
+		dataType: string
+		lineageTag: 9f85c609-3769-4c6c-9bd0-62e20df7cf72
+		sourceLineageTag: OrderNumber
+		summarizeBy: none
+		sourceColumn: OrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemSequenceNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 0751cb97-1c96-4ea2-bac6-b8cac1420f92
+		sourceLineageTag: ItemSequenceNumber
+		summarizeBy: sum
+		sourceColumn: ItemSequenceNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountNumber
+		dataType: string
+		lineageTag: c0b8f627-6d4c-4f95-ae1d-8999105df665
+		sourceLineageTag: AccountNumber
+		summarizeBy: none
+		sourceColumn: AccountNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShipToNumber
+		dataType: string
+		lineageTag: d19aa9fc-445d-44b3-a432-0faa7f294118
+		sourceLineageTag: ShipToNumber
+		summarizeBy: none
+		sourceColumn: ShipToNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemSKU
+		dataType: string
+		lineageTag: f97ec3c2-54cd-4798-8004-75d457aa6fa4
+		sourceLineageTag: ItemSKU
+		summarizeBy: none
+		sourceColumn: ItemSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column LoadLeadTime
+		dataType: int64
+		formatString: 0
+		lineageTag: 80a1514d-93f2-4cb4-b756-65cd974b5d1a
+		sourceLineageTag: LoadLeadTime
+		summarizeBy: sum
+		sourceColumn: LoadLeadTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShippingInstructions
+		dataType: string
+		lineageTag: 403be567-4189-48dd-bf8b-9e77ca9856f4
+		sourceLineageTag: ShippingInstructions
+		summarizeBy: none
+		sourceColumn: ShippingInstructions
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerSKUNo
+		dataType: string
+		lineageTag: e1e808f1-a18f-4c76-82f1-0c8e15453339
+		sourceLineageTag: CustomerSKUNo
+		summarizeBy: none
+		sourceColumn: CustomerSKUNo
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderFreight
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 9d541edc-e3cd-47df-95aa-7504a8711a06
+		sourceLineageTag: OrderFreight
+		summarizeBy: sum
+		sourceColumn: OrderFreight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column SecondaryOrderType
+		dataType: string
+		lineageTag: 40721674-791f-4daf-8b6d-d85e2becbd09
+		sourceLineageTag: SecondaryOrderType
+		summarizeBy: none
+		sourceColumn: SecondaryOrderType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 3rdOrderType
+		dataType: string
+		lineageTag: 7df92145-93bb-43e5-a8b6-1469d17d3e36
+		sourceLineageTag: 3rdOrderType
+		summarizeBy: none
+		sourceColumn: 3rdOrderType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 4thOrderType
+		dataType: string
+		lineageTag: 73c9d416-08d6-47d4-b9aa-3aee701cff22
+		sourceLineageTag: 4thOrderType
+		summarizeBy: none
+		sourceColumn: 4thOrderType
+
+		annotation SummarizationSetBy = Automatic
+
+	column InventoryAllocatedFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: daa7c5e1-ab04-49dc-9dcc-060c268a2050
+		sourceLineageTag: InventoryAllocatedFlag
+		summarizeBy: sum
+		sourceColumn: InventoryAllocatedFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrentLoadDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3b521df1-8285-48a6-882b-5f122ce08d1c
+		sourceLineageTag: CurrentLoadDate
+		summarizeBy: none
+		sourceColumn: CurrentLoadDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountofLoadDateChanges
+		dataType: int64
+		formatString: 0
+		lineageTag: 7305f03b-f830-4511-bef8-0a73369d2339
+		sourceLineageTag: CountofLoadDateChanges
+		summarizeBy: sum
+		sourceColumn: CountofLoadDateChanges
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderArrival
+		dataType: string
+		lineageTag: 1cbc8f3d-47b4-4f29-90cb-a775f75efa81
+		sourceLineageTag: OrderArrival
+		summarizeBy: none
+		sourceColumn: OrderArrival
+
+		annotation SummarizationSetBy = Automatic
+
+	column OriginalPromiseDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 95d8ca78-4dd1-49cc-a4b6-c72a5e9aedf5
+		sourceLineageTag: OriginalPromiseDate
+		summarizeBy: none
+		sourceColumn: OriginalPromiseDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrentPromiseDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 65be45e8-1db4-4c79-9499-24197afa1c35
+		sourceLineageTag: CurrentPromiseDate
+		summarizeBy: none
+		sourceColumn: CurrentPromiseDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column OriginalRequestDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 56829201-0034-439b-a4b6-fad676179ba1
+		sourceLineageTag: OriginalRequestDate
+		summarizeBy: none
+		sourceColumn: OriginalRequestDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrentRequestDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: debf5c9e-564d-4a79-8df1-2a458cd1c08d
+		sourceLineageTag: CurrentRequestDate
+		summarizeBy: none
+		sourceColumn: CurrentRequestDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrimaryOrderType
+		dataType: string
+		lineageTag: 1c233fa3-5720-49e9-a67f-de91366c6e87
+		sourceLineageTag: PrimaryOrderType
+		summarizeBy: none
+		sourceColumn: PrimaryOrderType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Warehouse
+		dataType: string
+		lineageTag: 90ffe6fd-0dd9-4e1b-9f0d-7eb1100a6a3b
+		sourceLineageTag: Warehouse
+		summarizeBy: none
+		sourceColumn: Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemStatus
+		dataType: string
+		lineageTag: 766f632e-2798-4593-813b-25adc75c77e6
+		sourceLineageTag: ItemStatus
+		summarizeBy: none
+		sourceColumn: ItemStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column OpenOrderQty
+		dataType: int64
+		formatString: 0
+		lineageTag: cdb0ce86-23c8-4f0c-b583-e0686208edbc
+		sourceLineageTag: OpenOrderQty
+		summarizeBy: sum
+		sourceColumn: OpenOrderQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column BackOrderQty
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c394f07-dfbc-4223-90db-d50bcf230ee6
+		sourceLineageTag: BackOrderQty
+		summarizeBy: sum
+		sourceColumn: BackOrderQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column OpenOrderAmt
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: abb3837a-1a64-481f-8c7b-f9786a8e4e72
+		sourceLineageTag: OpenOrderAmt
+		summarizeBy: sum
+		sourceColumn: OpenOrderAmt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column BackOrderAmt
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f2fcbd21-4fa9-4184-a9a5-5aa087dfeea1
+		sourceLineageTag: BackOrderAmt
+		summarizeBy: sum
+		sourceColumn: BackOrderAmt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column FlagPastDue
+		dataType: string
+		lineageTag: 216bf8b0-af91-480e-a90c-b5efad6ee914
+		sourceLineageTag: FlagPastDue
+		summarizeBy: none
+		sourceColumn: FlagPastDue
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account And ShipTo Number'
+		dataType: string
+		lineageTag: d6ce841e-0e13-4808-8cdd-e6b09ba1afb4
+		sourceLineageTag: Account And ShipTo Number
+		summarizeBy: none
+		sourceColumn: Account And ShipTo Number
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactOpenOrders = entity
+		mode: directLake
+		source
+			entityName: FactOpenOrders
+			schemaName: SCP_Core
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

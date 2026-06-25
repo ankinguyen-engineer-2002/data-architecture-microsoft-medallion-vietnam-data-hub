@@ -1,0 +1,634 @@
+/// TMDL (Tabular Model Definition Language) — Power BI semantic model for Inventory Health
+/// Built on top of SupplyChain_Gold_Warehouse via DirectLake. v10 schema-rewritten from
+/// deliverable v1 (`gold` → `InventoryHealth_DW` on 2026-05-18).
+///
+/// Workspace: SupplyChain Dev (c8d9fc83-18b6-4e1d-8264-0b49eed36fe0)
+/// Warehouse: SupplyChain_Gold_Warehouse (98e2a911-...)
+/// Schema:    InventoryHealth_DW + Shared_DW shared dimensions
+///
+/// 5 conformed dims + 2 fact tables (snapshot health + risk forward) + 30 measures.
+/// Fact/vendor tables live in InventoryHealth_DW. Shared conformed dimensions bind
+/// directly to Shared_DW so Forecast Accuracy and Inventory Health use one physical
+/// product/date/warehouse contract where the grain is shared.
+///
+/// To deploy:
+///   1. Open Power BI Desktop → "New report" → "Direct Lake on OneLake"
+///   2. Point to workspace > SupplyChain_Gold_Warehouse
+///   3. Select 6 tables: DimCalendar (consolidated 2026-05-22, was DimDate),
+///      DimProduct (consolidated 2026-05-29, was DimItem), DimWarehouse,
+///      DimVendor, CogsRollingHelper (hidden),
+///      FactInventoryHealthSnapshot, FactInventoryRiskForward
+///   NOTE 2026-05-22: DimCalendar binds to the shared Gold DimCalendar
+///   (single shared physical date dim across both marts — was duplicated as
+///   InventoryHealth_DW.DimDate, now consolidated to 1).
+///   NOTE 2026-05-22: DimRuleVersion removed (over-engineering). When BRD updates,
+///      create a NEW semantic model version (sc_inventory_health_control_tower_v2)
+///      rather than versioning via dim. Side-by-side comparison via Power BI app
+///      package multi-model selection if ever needed.
+///   4. Apply this TMDL via Tabular Editor (or use as reference and define manually)
+
+model InventoryHealth
+    culture: en-US
+    defaultPowerBIDataSourceVersion: powerBI_V3
+
+/// ═══════════════════════════════════════════════════════
+/// TABLE: DimCalendar (consolidated 2026-05-22 — was DimDate)
+/// ═══════════════════════════════════════════════════════
+/// 2026-05-22 CONSOLIDATION: Rebind from InventoryHealth_DW.DimDate (subset 10 cols)
+/// to Shared_DW.DimCalendar (75 cols) — single shared date dim used by
+/// both marts. Eliminates physical duplication; mart B uses the conformed DimCalendar
+/// via cross-schema DirectLake bind. Column display names preserved using sourceColumn
+/// aliases so existing inv_health DAX measures + reports keep working unchanged.
+/// IsCurrentDate / IsCurrentWeek / IsMonthEnd flag columns NOT re-added — compute in
+/// report-level DAX when needed (e.g. IsCurrentDate = IF(CalendarDate=TODAY(),1,0)).
+table DimCalendar
+    lineageTag: dim-calendar
+
+    column DateKey
+        sourceColumn: DateSK
+        dataType: int64
+        isKey
+        summarizeBy: none
+
+    column CalendarDate
+        sourceColumn: Date
+        dataType: dateTime
+        formatString: yyyy-mm-dd
+        summarizeBy: none
+
+    column WeekEndingDate
+        sourceColumn: FSCWeekLast
+        dataType: dateTime
+        formatString: yyyy-mm-dd
+        summarizeBy: none
+
+    column FiscalWeek
+        sourceColumn: FSCWeekNum
+        dataType: int64
+
+    column FiscalWeekIndicator
+        sourceColumn: FSCWeekIndicatorNum
+        dataType: int64
+
+    column FiscalMonth
+        sourceColumn: FSCMonthNum
+        dataType: int64
+
+    column FiscalMonthYear
+        sourceColumn: FSCMonthYearNum
+        dataType: int64
+
+    partition DimCalendar-prt = entity
+        mode: directLake
+        source = entity
+            entityName: DimCalendar
+            schemaName: Shared_DW
+
+
+/// ═══════════════════════════════════════════════════════
+/// TABLE: DimProduct (consolidated 2026-05-29 — was DimItem)
+/// ═══════════════════════════════════════════════════════
+/// Shared_DW.DimProduct is sourced from Enterprise_Lakehouse.MasterData_DW.DimItemMaster
+/// and augmented with vendor display name + unavailable flag. Inventory keeps its
+/// semantic display columns, but the physical key uses the canonical ItemSKU spelling
+/// to avoid Fabric case-duplicate metadata issues.
+table DimProduct
+    lineageTag: dim-product
+
+    column ItemSKU
+        sourceColumn: ItemSKU
+        dataType: string
+        isKey
+        summarizeBy: none
+
+    column ItemDescription
+        dataType: string
+
+    column ItemClassCode
+        dataType: string
+
+    column ItemClassName
+        dataType: string
+
+    column CategoryName
+        dataType: string
+
+    column CategoryCode
+        dataType: string
+
+    column CollectiveClass
+        dataType: string
+
+    column SeriesNumber
+        dataType: string
+
+    column SeriesName
+        dataType: string
+
+    column AfiItemStatus
+        dataType: string
+
+    column LifecycleStatus
+        dataType: string
+
+    column PrimaryVendorNumber
+        dataType: string
+
+    column PrimaryVendorName
+        sourceColumn: PrimaryVendorDisplayName
+        dataType: string
+
+    column Cubes
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: none
+
+    column FOBArcPrice
+        sourceColumn: FOBArcPrice
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: none
+
+    column IsFinishedGoodsItem
+        dataType: int64
+        summarizeBy: none
+
+    column DiscontinuedFlag
+        dataType: int64
+        summarizeBy: none
+
+    column NewItemFlag
+        dataType: int64
+        summarizeBy: none
+
+    column UnavailableFlag
+        dataType: int64
+        summarizeBy: none
+
+    column StatusCodeChangeDate
+        dataType: dateTime
+        formatString: yyyy-mm-dd
+        summarizeBy: none
+
+    partition DimProduct-prt = entity
+        mode: directLake
+        source = entity
+            entityName: DimProduct
+            schemaName: Shared_DW
+
+
+/// ═══════════════════════════════════════════════════════
+/// TABLE: DimWarehouse
+/// ═══════════════════════════════════════════════════════
+table DimWarehouse
+    lineageTag: dim-warehouse
+
+    column WarehouseCode
+        dataType: string
+        isKey
+        summarizeBy: none
+
+    column WarehouseName
+        dataType: string
+
+    column WarehouseType
+        dataType: string
+
+    column SellableWarehouseFlag
+        dataType: int64
+        summarizeBy: none
+
+    column IntransitWarehouseCode
+        dataType: string
+
+    column IsFinishedGoodsWarehouse
+        dataType: int64
+        summarizeBy: none
+
+    column IsManufacturingWarehouse
+        dataType: int64
+        summarizeBy: none
+
+    column TotalAvailableWarehouseCube
+        dataType: decimal
+        formatString: 0.00
+        summarizeBy: sum
+
+    partition DimWarehouse-prt = entity
+        mode: directLake
+        source = entity
+            entityName: DimWarehouse
+            schemaName: Shared_DW
+
+
+/// ═══════════════════════════════════════════════════════
+/// TABLE: DimVendor
+/// ═══════════════════════════════════════════════════════
+table DimVendor
+    lineageTag: dim-vendor
+
+    column VendorNumber
+        dataType: string
+        isKey
+        summarizeBy: none
+
+    column VendorName
+        dataType: string
+
+    partition DimVendor-prt = entity
+        mode: directLake
+        source = entity
+            entityName: DimVendor
+            schemaName: InventoryHealth_DW
+
+
+/// ═══════════════════════════════════════════════════════
+/// TABLE: CogsRollingHelper (hidden weekly helper)
+/// ═══════════════════════════════════════════════════════
+/// Hidden helper used by Inventory Health measures for period COGS and rolling
+/// COGS windows. The live DA Gold contract uses WeekEndingDate and Cogs52W.
+table CogsRollingHelper
+    isHidden
+    lineageTag: cogs-rolling-helper
+
+    column ItemSku
+        dataType: string
+        summarizeBy: none
+
+    column WarehouseCode
+        dataType: string
+        summarizeBy: none
+
+    column WeekEndingDate
+        dataType: dateTime
+        summarizeBy: none
+
+    column PeriodCogs
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: none
+
+    column PeriodShippedQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: none
+
+    column Cogs12M
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: none
+
+    column Cogs52W
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: none
+
+    partition CogsRollingHelper-prt = entity
+        mode: directLake
+        source = entity
+            entityName: CogsRollingHelper
+            schemaName: InventoryHealth_DW
+
+
+/// ═══════════════════════════════════════════════════════
+/// DimRuleVersion DROPPED 2026-05-22 — see header NOTE
+/// ═══════════════════════════════════════════════════════
+
+
+/// ═══════════════════════════════════════════════════════
+/// TABLE: FactInventoryHealthSnapshot (current + weekly trend)
+/// ═══════════════════════════════════════════════════════
+table FactInventoryHealthSnapshot
+    lineageTag: fact-inv-health
+
+    column ItemSku
+        dataType: string
+
+    column WarehouseCode
+        dataType: string
+
+    column SnapshotDate
+        dataType: dateTime
+
+    column SnapshotType
+        dataType: string
+
+    column WeekEndingDate
+        dataType: dateTime
+
+    column DateKey
+        dataType: int64
+        summarizeBy: none
+
+    column FiscalMonth
+        dataType: int64
+
+    column FiscalMonthYear
+        dataType: int64
+
+    column IsLatestSnapshot
+        dataType: int64
+        summarizeBy: none
+
+    column OnHandQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column TransferInInTransitQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column POOnOrderQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column POInTransitQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column MOOnOrderQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column InTransitQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column OnOrderQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column AwdQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: average
+
+    column AwdSource
+        dataType: string
+
+    column WeeksOfSupply
+        dataType: decimal
+        formatString: 0.00
+        summarizeBy: average
+
+    column SafetyStockTargetQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column SafetyStockMultiple
+        dataType: decimal
+        formatString: 0.00
+        summarizeBy: average
+
+    column InventoryClassification
+        dataType: string
+
+    column StandardCost
+        dataType: decimal
+        formatString: $#,##0.0000
+        summarizeBy: average
+
+    column FobArcPrice
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: average
+
+    column Cubes
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: average
+
+    column InventoryValueAtCost
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: sum
+
+    column InventoryValueAtRevenue
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: sum
+
+    column UsedStorageCube
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column PeriodCogs
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: sum
+
+    column Cogs52W
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: sum
+
+    column AverageInventoryValueAtCost
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: average
+
+    column ObsoleteValue
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: sum
+
+    column LastInvoiceDate
+        dataType: dateTime
+
+    column LifecycleStatus
+        dataType: string
+
+    column InactiveFlag
+        dataType: int64
+        summarizeBy: none
+
+    column SlobFlag
+        dataType: int64
+        summarizeBy: none
+
+    column NoMovementFlag
+        dataType: int64
+        summarizeBy: none
+
+    column UnavailableFlag
+        dataType: int64
+        summarizeBy: none
+
+    column OnHoldFlag
+        dataType: int64
+        summarizeBy: none
+
+    column OnHoldQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    // RuleVersionKey column DROPPED 2026-05-22 (DimRuleVersion removed)
+
+    partition FactInventoryHealthSnapshot-prt = entity
+        mode: directLake
+        source = entity
+            entityName: FactInventoryHealthSnapshot
+            schemaName: InventoryHealth_DW
+
+
+/// ═══════════════════════════════════════════════════════
+/// TABLE: FactInventoryRiskForward (forward projection)
+/// ═══════════════════════════════════════════════════════
+table FactInventoryRiskForward
+    lineageTag: fact-risk-forward
+
+    column ItemSku
+        dataType: string
+
+    column WarehouseCode
+        dataType: string
+
+    column WeekEndingDate
+        dataType: dateTime
+
+    column DateKey
+        dataType: int64
+        summarizeBy: none
+
+    column BeginningBalanceQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column FirmDemandQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column NetForecastQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column FirmPurchaseOrderQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column PlannedPurchaseOrderQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column OnOrderTransferInQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column ShippableInventoryQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column SafetyStockTargetQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column MonthsOfSupply
+        dataType: decimal
+        formatString: 0.00
+        summarizeBy: average
+
+    column ExpectedDemand14DQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column Inbound14DQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column AllocatedDemandQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column ShippableInStockFlag
+        dataType: int64
+        summarizeBy: none
+
+    column SINegQty
+        dataType: decimal
+        formatString: 0.0000
+        summarizeBy: sum
+
+    column RevenueAtRiskValue
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: sum
+
+    column WeekFourFlag
+        dataType: int64
+        summarizeBy: none
+
+    column FobArcPrice
+        dataType: decimal
+        formatString: $#,##0.00
+        summarizeBy: average
+
+    // RuleVersionKey column DROPPED 2026-05-22 (DimRuleVersion removed)
+
+    partition FactInventoryRiskForward-prt = entity
+        mode: directLake
+        source = entity
+            entityName: FactInventoryRiskForward
+            schemaName: InventoryHealth_DW
+
+
+/// ═══════════════════════════════════════════════════════
+/// RELATIONSHIPS
+/// ═══════════════════════════════════════════════════════
+
+relationship DimCalendar_to_FactHealth
+    fromColumn: FactInventoryHealthSnapshot.DateKey
+    toColumn:   DimCalendar.DateKey
+    crossFilteringBehavior: oneDirection
+
+relationship DimCalendar_to_FactRisk
+    fromColumn: FactInventoryRiskForward.DateKey
+    toColumn:   DimCalendar.DateKey
+    crossFilteringBehavior: oneDirection
+
+relationship DimProduct_to_FactHealth
+    fromColumn: FactInventoryHealthSnapshot.ItemSku
+    toColumn:   DimProduct.ItemSKU
+    crossFilteringBehavior: oneDirection
+
+relationship DimProduct_to_FactRisk
+    fromColumn: FactInventoryRiskForward.ItemSku
+    toColumn:   DimProduct.ItemSKU
+    crossFilteringBehavior: oneDirection
+
+relationship DimWarehouse_to_FactHealth
+    fromColumn: FactInventoryHealthSnapshot.WarehouseCode
+    toColumn:   DimWarehouse.WarehouseCode
+    crossFilteringBehavior: oneDirection
+
+relationship DimWarehouse_to_FactRisk
+    fromColumn: FactInventoryRiskForward.WarehouseCode
+    toColumn:   DimWarehouse.WarehouseCode
+    crossFilteringBehavior: oneDirection
+
+relationship DimVendor_to_DimProduct
+    fromColumn: DimProduct.PrimaryVendorNumber
+    toColumn:   DimVendor.VendorNumber
+    crossFilteringBehavior: oneDirection
+
+// DimRuleVersion_to_FactHealth + DimRuleVersion_to_FactRisk relationships DROPPED 2026-05-22

@@ -1,0 +1,556 @@
+{
+  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "mart": "forecast_accuracy",
+  "sources": [
+    {
+      "asset_key": "enterprise_lakehouse.customerorders_afi.warehousemaster",
+      "column_count": 29,
+      "display": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.customerorders_afi.warehousemaster.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [
+        "Warehouse"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.customerorders_afi.warehousemaster.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.customers.accountmaster",
+      "column_count": 53,
+      "display": "Enterprise_Lakehouse.Customers.AccountMaster",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.customers.accountmaster.dq.json",
+      "freshness": {
+        "cmaInsExpirationDate": "2010-12-31 00:00:00",
+        "cmaLastStatusChangeDate": "2026-06-22 15:40:43",
+        "cmaTerritoryChangeDate": "2026-06-22 00:00:00"
+      },
+      "freshness_columns": [
+        "cmaTerritoryChangeDate",
+        "cmaLastStatusChangeDate",
+        "cmaInsExpirationDate"
+      ],
+      "key_columns": [
+        "cmaCustomerNumber"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.customers.accountmaster.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.customers.shippinglocations",
+      "column_count": 87,
+      "display": "Enterprise_Lakehouse.Customers.ShippingLocations",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.customers.shippinglocations.dq.json",
+      "freshness": {
+        "cslLastStatusChangeDate": "2026-06-22 16:35:12",
+        "cslTerritoryEffectivityDate": "2026-06-22 00:00:00"
+      },
+      "freshness_columns": [
+        "cslLastStatusChangeDate",
+        "cslTerritoryEffectivityDate"
+      ],
+      "key_columns": [
+        "cslCustomerNumber",
+        "cslShiptoNumber"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.customers.shippinglocations.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.aitmcls",
+      "column_count": 6,
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.AITMCLS",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.aitmcls.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.aitmcls.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.itemmaster_afi.itmext",
+      "column_count": 80,
+      "display": "Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.itmext.dq.json",
+      "freshness": {
+        "ITMOBDT": 0,
+        "ITSCDT": 20260623,
+        "LINTRCPTDT": 20210515
+      },
+      "freshness_columns": [
+        "LINTRCPTDT",
+        "ITSCDT",
+        "ITMOBDT"
+      ],
+      "key_columns": [
+        "ITNBR"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.itemmaster_afi.itmext.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimdate",
+      "column_count": 72,
+      "display": "Enterprise_Lakehouse.MasterData_DW.DimDate",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.masterdata_dw.dimdate.dq.json",
+      "freshness": {
+        "CalendarDate": "2028-12-31",
+        "CalendarMonthFirstDate": "2028-12-01",
+        "CalendarWeekFirstDate": "2028-12-31",
+        "CalendarWeekLastDate": "2028-12-31",
+        "MapicsDate": 1281231
+      },
+      "freshness_columns": [
+        "MapicsDate",
+        "CalendarDate",
+        "CalendarWeekFirstDate",
+        "CalendarWeekLastDate",
+        "CalendarMonthFirstDate"
+      ],
+      "key_columns": [
+        "MapicsDate",
+        "CalendarDate",
+        "CalendarWeekFirstDate",
+        "CalendarWeekLastDate",
+        "CalendarMonthFirstDate"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.masterdata_dw.dimdate.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_dw.dimitemmaster",
+      "column_count": 173,
+      "display": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.masterdata_dw.dimitemmaster.dq.json",
+      "freshness": {
+        "DiscontinuedDate": "2026-06-22",
+        "ManufacturingStatusChangeDate": "2026-06-22",
+        "MarketBeginDate": "2026-07-01",
+        "MarketEndDate": "2026-08-01",
+        "StatusCodeChangeDate": "2026-06-22"
+      },
+      "freshness_columns": [
+        "ManufacturingStatusChangeDate",
+        "DiscontinuedDate",
+        "StatusCodeChangeDate",
+        "MarketBeginDate",
+        "MarketEndDate"
+      ],
+      "key_columns": [
+        "ItemSKU"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.masterdata_dw.dimitemmaster.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.masterdata_productknowledge.item_env",
+      "column_count": 24,
+      "display": "Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.masterdata_productknowledge.item_env.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.masterdata_productknowledge.item_env.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoicedetail",
+      "column_count": 80,
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.saleshistory_afi_enh.invoicedetail.dq.json",
+      "freshness": {
+        "InvoiceDate": "2026-06-23",
+        "OrderDate": "2026-06-22",
+        "OriginalInvoiceDate": "2026-06-11",
+        "OriginalOrderDate": "2026-06-08",
+        "RequestDate": "2028-09-28"
+      },
+      "freshness_columns": [
+        "InvoiceDate",
+        "OrderDate",
+        "RequestDate",
+        "OriginalInvoiceDate",
+        "OriginalOrderDate"
+      ],
+      "key_columns": [
+        "InvoiceNumber",
+        "ItemSequence",
+        "LineReleaseNumber",
+        "OriginalSequenceNumber",
+        "ItemSKU"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.saleshistory_afi_enh.invoicedetail.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.saleshistory_afi_enh.invoiceheader",
+      "column_count": 40,
+      "display": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.saleshistory_afi_enh.invoiceheader.dq.json",
+      "freshness": {
+        "InvoiceDate": "2026-06-23",
+        "OrderDate": "2026-06-22",
+        "RequestDate": "2028-09-28",
+        "TripCreatedDate": "2026-06-22"
+      },
+      "freshness_columns": [
+        "InvoiceDate",
+        "OrderDate",
+        "RequestDate",
+        "TripCreatedDate"
+      ],
+      "key_columns": [
+        "InvoiceNumber"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.saleshistory_afi_enh.invoiceheader.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.aaordtyp",
+      "column_count": 20,
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.aaordtyp.dq.json",
+      "freshness": {
+        "OTDATE": 20210317
+      },
+      "freshness_columns": [
+        "OTDATE"
+      ],
+      "key_columns": [
+        "OTDATE"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.aaordtyp.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.codatan",
+      "column_count": 66,
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.codatan",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.codatan.dq.json",
+      "freshness": {
+        "EARLDDT": "2039-11-01 00:00:00",
+        "LATLDDT": "2065-01-01 00:00:00",
+        "MFIDT": 20391101,
+        "RQIDT": 20391225
+      },
+      "freshness_columns": [
+        "RQIDT",
+        "MFIDT",
+        "EARLDDT",
+        "LATLDDT"
+      ],
+      "key_columns": [
+        "ITNBR"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.codatan.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.comast",
+      "column_count": 15,
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.COMAST",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.comast.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.comast.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.extord",
+      "column_count": 54,
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD",
+      "dq_status": "REVIEW",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.extord.dq.json",
+      "freshness": {
+        "ARDATE": 0,
+        "CAPRDT": 0,
+        "CROVDT": 20261015,
+        "HDATE": 20260623
+      },
+      "freshness_columns": [
+        "HDATE",
+        "CAPRDT",
+        "CROVDT",
+        "ARDATE"
+      ],
+      "key_columns": [
+        "WHSE",
+        "CUSTNO",
+        "HDATE",
+        "ARDATE"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": true,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.extord.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_codis_afi.extorit",
+      "column_count": 77,
+      "display": "Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORIT",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.extorit.dq.json",
+      "freshness": {
+        "IMRDDT": 0,
+        "IOISDT": 20251218,
+        "IPRCDT": 0,
+        "IPRMDT": 20391225
+      },
+      "freshness_columns": [
+        "IPRMDT",
+        "IMRDDT",
+        "IPRCDT",
+        "IOISDT"
+      ],
+      "key_columns": [
+        "IORD",
+        "ISEQ"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_codis_afi.extorit.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing.nonpkitems",
+      "column_count": 9,
+      "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_productsourcing.nonpkitems.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": 0,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_productsourcing.nonpkitems.dq.sql"
+    },
+    {
+      "asset_key": "enterprise_lakehouse.wholesale_productsourcing_afi.customergrouping",
+      "column_count": 8,
+      "display": "Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping",
+      "dq_status": "PASS",
+      "evidence_file": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_productsourcing_afi.customergrouping.dq.json",
+      "freshness": {},
+      "freshness_columns": [],
+      "key_columns": [
+        "CustomerNumber",
+        "CustomerGroup"
+      ],
+      "layer": "bronze",
+      "mart": "forecast_accuracy",
+      "review_required": false,
+      "row_count_metadata": null,
+      "rule_set": [
+        "table_exists",
+        "schema_snapshot",
+        "freshness_observed",
+        "latest_partition_null_blank_key",
+        "latest_partition_grain_duplicate",
+        "full_row_duplicate"
+      ],
+      "source_system": "Enterprise_Lakehouse",
+      "sql_rerun_template": "02_marts/forecast_accuracy/04_dq/bronze_sources/enterprise_lakehouse.wholesale_productsourcing_afi.customergrouping.dq.sql"
+    }
+  ]
+}

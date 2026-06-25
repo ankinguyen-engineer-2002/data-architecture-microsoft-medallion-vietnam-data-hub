@@ -1,0 +1,36 @@
+[
+  {
+    "asset_id": "ReferenceMaster_Enh.Calendar",
+    "project": "forecast_accuracy",
+    "canonical_layer": "ReferenceMaster",
+    "physical_schema": "ReferenceMaster_Enh",
+    "physical_object": "Calendar",
+    "legacy_view_name": "ReferenceMaster_Enh.v_Calendar",
+    "load_type": "overwrite",
+    "frequency": "daily",
+    "cron_expression": "0 2 * * *",
+    "source_objects": "[\"Enterprise_Lakehouse.MasterData_DW.DimDate\"]",
+    "depends_on": "",
+    "is_active": true,
+    "access_mode": "DirectShortcut",
+    "physical_workspace": "Enterprise SupplyChain-Dev",
+    "physical_item": "SupplyChain_Processing_Warehouse"
+  },
+  {
+    "asset_id": "Shared_DW.DimCalendar",
+    "project": "shared",
+    "canonical_layer": "Gold",
+    "physical_schema": "Shared_DW",
+    "physical_object": "DimCalendar",
+    "legacy_view_name": "Shared_DW.v_DimCalendar",
+    "load_type": "overwrite",
+    "frequency": "daily",
+    "cron_expression": null,
+    "source_objects": "[\"ReferenceMaster_Enh.Calendar\"]",
+    "depends_on": "",
+    "is_active": true,
+    "access_mode": "GoldPublish",
+    "physical_workspace": "SupplyChain DA",
+    "physical_item": "SupplyChain_Gold_Warehouse"
+  }
+]

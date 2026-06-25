@@ -1,0 +1,186 @@
+table FactFcstErrorCalc
+	lineageTag: c5f01e0e-84b3-4629-ba79-7c3d578cc5f5
+	sourceLineageTag: [SCP_Core].[FactFcstErrorCalc]
+
+	column CustomerGroup
+		dataType: string
+		lineageTag: e2260da3-059a-48cd-9e82-e0224350c6ab
+		sourceLineageTag: CustomerGroup
+		summarizeBy: none
+		sourceColumn: CustomerGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemSKU
+		dataType: string
+		lineageTag: c1c361d3-0269-44a7-acad-77046367a007
+		sourceLineageTag: ItemSKU
+		summarizeBy: none
+		sourceColumn: ItemSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column Warehouse
+		dataType: string
+		lineageTag: 661edebe-481b-4fa7-aeb5-b4f5a09fdca5
+		sourceLineageTag: Warehouse
+		summarizeBy: none
+		sourceColumn: Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalMonthYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 57733830-ec19-44f5-ae8f-daadb28b08bf
+		sourceLineageTag: FiscalMonthYear
+		summarizeBy: sum
+		sourceColumn: FiscalMonthYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalMonthEnd
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5fec5d99-0b7a-493c-a3c7-bf5fc0c5fb58
+		sourceLineageTag: FiscalMonthEnd
+		summarizeBy: none
+		sourceColumn: FiscalMonthEnd
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortFcstPeriod
+		dataType: int64
+		formatString: 0
+		lineageTag: 63050412-03b5-4785-a2a5-49c4585888d5
+		sourceLineageTag: SortFcstPeriod
+		summarizeBy: sum
+		sourceColumn: SortFcstPeriod
+
+		annotation SummarizationSetBy = Automatic
+
+	column FcstPeriod
+		dataType: string
+		lineageTag: e3655419-7585-447a-ab62-427672bb79f2
+		sourceLineageTag: FcstPeriod
+		summarizeBy: none
+		sourceColumn: FcstPeriod
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalForecast
+		dataType: int64
+		formatString: 0
+		lineageTag: 04aa3f3c-039d-481b-b055-7258555d9da4
+		sourceLineageTag: TotalForecast
+		summarizeBy: sum
+		sourceColumn: TotalForecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActualDemand
+		dataType: int64
+		formatString: 0
+		lineageTag: c29cf12d-5da8-4f16-84b1-be783602022a
+		sourceLineageTag: ActualDemand
+		summarizeBy: sum
+		sourceColumn: ActualDemand
+
+		annotation SummarizationSetBy = Automatic
+
+	column FcstError
+		dataType: int64
+		formatString: 0
+		lineageTag: 9287f36f-d946-45f0-bb65-05aa5dcfc03a
+		sourceLineageTag: FcstError
+		summarizeBy: sum
+		sourceColumn: FcstError
+
+		annotation SummarizationSetBy = Automatic
+
+	column ABS_FcstError
+		dataType: int64
+		formatString: 0
+		lineageTag: d3da7654-96a5-4408-a88d-a3cbefeeaeb2
+		sourceLineageTag: ABS_FcstError
+		summarizeBy: sum
+		sourceColumn: ABS_FcstError
+
+		annotation SummarizationSetBy = Automatic
+
+	column SqFcstError
+		dataType: int64
+		formatString: 0
+		lineageTag: 833f4f3a-670d-4d85-8360-be3873b6cc52
+		sourceLineageTag: SqFcstError
+		summarizeBy: sum
+		sourceColumn: SqFcstError
+
+		annotation SummarizationSetBy = Automatic
+
+	column NaiveFcst
+		dataType: int64
+		formatString: 0
+		lineageTag: ba1cfbd6-bf0a-454f-be56-9dbb4aab2855
+		sourceLineageTag: NaiveFcst
+		summarizeBy: sum
+		sourceColumn: NaiveFcst
+
+		annotation SummarizationSetBy = Automatic
+
+	column NaiveFcstError
+		dataType: int64
+		formatString: 0
+		lineageTag: 88870e14-5e26-4ffc-925e-0c6a48584b34
+		sourceLineageTag: NaiveFcstError
+		summarizeBy: sum
+		sourceColumn: NaiveFcstError
+
+		annotation SummarizationSetBy = Automatic
+
+	column ABS_NaiveFcstError
+		dataType: int64
+		formatString: 0
+		lineageTag: 7bd76d35-a60b-4989-9a3c-7d7dfe07db27
+		sourceLineageTag: ABS_NaiveFcstError
+		summarizeBy: sum
+		sourceColumn: ABS_NaiveFcstError
+
+		annotation SummarizationSetBy = Automatic
+
+	column SqNaiveFcstError
+		dataType: int64
+		formatString: 0
+		lineageTag: aa9e5760-61af-41a2-9b66-0cb13ed9d13c
+		sourceLineageTag: SqNaiveFcstError
+		summarizeBy: sum
+		sourceColumn: SqNaiveFcstError
+
+		annotation SummarizationSetBy = Automatic
+
+	column SnapshotDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6df5ec30-1d69-4888-9e6d-99ec78948d78
+		sourceLineageTag: SnapshotDate
+		summarizeBy: none
+		sourceColumn: SnapshotDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column FcstCycle
+		dataType: string
+		lineageTag: f6536823-b92e-474e-b559-06fa5ffaf1fc
+		sourceLineageTag: FcstCycle
+		summarizeBy: none
+		sourceColumn: FcstCycle
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactFcstErrorCalc = entity
+		mode: directLake
+		source
+			entityName: FactFcstErrorCalc
+			schemaName: SCP_Core
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

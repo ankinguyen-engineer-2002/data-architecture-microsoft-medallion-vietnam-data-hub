@@ -1,0 +1,701 @@
+{
+  "generated_at_utc": "2026-06-24T14:34:40Z",
+  "objects": [
+    {
+      "object": "ForecastDemandMonthly",
+      "object_type": "table",
+      "schema": "ForecastHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "ForecastHistory_Enh/Tables/ForecastDemandMonthly.sql"
+    },
+    {
+      "object": "NaiveForecastMonthly",
+      "object_type": "table",
+      "schema": "ForecastHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "ForecastHistory_Enh/Tables/NaiveForecastMonthly.sql"
+    },
+    {
+      "object": "AFIStatusSnapshotWeekly",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/AFIStatusSnapshotWeekly.sql"
+    },
+    {
+      "object": "AtpWeekEnding",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/AtpWeekEnding.sql"
+    },
+    {
+      "object": "AwdHelper",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/AwdHelper.sql"
+    },
+    {
+      "object": "Cogs52WWeekly",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/Cogs52WWeekly.sql"
+    },
+    {
+      "object": "ForecastSnapshotWeekly",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/ForecastSnapshotWeekly.sql"
+    },
+    {
+      "object": "HoldingTransferSnapshotDaily",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/HoldingTransferSnapshotDaily.sql"
+    },
+    {
+      "object": "InventorySnapshotWeekly",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/InventorySnapshotWeekly.sql"
+    },
+    {
+      "object": "ItemBalanceHistorical_WithInTransit",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/ItemBalanceHistorical_WithInTransit.sql"
+    },
+    {
+      "object": "LastInvoiceWeekly",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/LastInvoiceWeekly.sql"
+    },
+    {
+      "object": "ManufacturingOrderSnapshotDaily",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/ManufacturingOrderSnapshotDaily.sql"
+    },
+    {
+      "object": "PurchaseOrderSnapshotHistorical",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/PurchaseOrderSnapshotHistorical.sql"
+    },
+    {
+      "object": "SafetyStockHelper",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/SafetyStockHelper.sql"
+    },
+    {
+      "object": "SupplyPlanDetail",
+      "object_type": "table",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "InventoryHistory_Enh/Tables/SupplyPlanDetail.sql"
+    },
+    {
+      "object": "OpenOrderLineLevel",
+      "object_type": "table",
+      "schema": "OpenOrderHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "OpenOrderHistory_Enh/Tables/OpenOrderLineLevel.sql"
+    },
+    {
+      "object": "OpenOrderMonthly",
+      "object_type": "table",
+      "schema": "OpenOrderHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "OpenOrderHistory_Enh/Tables/OpenOrderMonthly.sql"
+    },
+    {
+      "object": "ForecastCycle",
+      "object_type": "table",
+      "schema": "ProcessingSeed",
+      "source_kind": "live_metadata",
+      "target": "ProcessingSeed/Tables/ForecastCycle.sql"
+    },
+    {
+      "object": "ForecastHorizon",
+      "object_type": "table",
+      "schema": "ProcessingSeed",
+      "source_kind": "live_metadata",
+      "target": "ProcessingSeed/Tables/ForecastHorizon.sql"
+    },
+    {
+      "object": "Calendar",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/Calendar.sql"
+    },
+    {
+      "object": "CustomerAccount",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/CustomerAccount.sql"
+    },
+    {
+      "object": "CustomerAccountGroup",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/CustomerAccountGroup.sql"
+    },
+    {
+      "object": "CustomerGrouping",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/CustomerGrouping.sql"
+    },
+    {
+      "object": "CustomerShippingLocation",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/CustomerShippingLocation.sql"
+    },
+    {
+      "object": "ForecastCycle",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/ForecastCycle.sql"
+    },
+    {
+      "object": "ForecastHorizon",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/ForecastHorizon.sql"
+    },
+    {
+      "object": "ItemMaster",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/ItemMaster.sql"
+    },
+    {
+      "object": "OrderType",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/OrderType.sql"
+    },
+    {
+      "object": "Vendor",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/Vendor.sql"
+    },
+    {
+      "object": "Warehouse",
+      "object_type": "table",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "live_metadata",
+      "target": "ReferenceMaster_Enh/Tables/Warehouse.sql"
+    },
+    {
+      "object": "ActualDemandMonthly",
+      "object_type": "table",
+      "schema": "SalesHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "SalesHistory_Enh/Tables/ActualDemandMonthly.sql"
+    },
+    {
+      "object": "ActualDemandWeekly",
+      "object_type": "table",
+      "schema": "SalesHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "SalesHistory_Enh/Tables/ActualDemandWeekly.sql"
+    },
+    {
+      "object": "InvoiceDetailLineLevel",
+      "object_type": "table",
+      "schema": "SalesHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "SalesHistory_Enh/Tables/InvoiceDetailLineLevel.sql"
+    },
+    {
+      "object": "InvoiceWeekly",
+      "object_type": "table",
+      "schema": "SalesHistory_Enh",
+      "source_kind": "live_metadata",
+      "target": "SalesHistory_Enh/Tables/InvoiceWeekly.sql"
+    },
+    {
+      "object": "DemandForecastSnapshotDaily",
+      "object_type": "table",
+      "schema": "Staging",
+      "source_kind": "live_metadata",
+      "target": "Staging/Tables/DemandForecastSnapshotDaily.sql"
+    },
+    {
+      "object": "v_Codatan",
+      "object_type": "view",
+      "schema": "Staging_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/00_source_wrk/staging_wrk/Staging_Wrk.v_Codatan.sql",
+      "source_kind": "repo_sql",
+      "target": "Staging_Wrk/Views/v_Codatan.sql"
+    },
+    {
+      "object": "v_Comast",
+      "object_type": "view",
+      "schema": "Staging_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/00_source_wrk/staging_wrk/Staging_Wrk.v_Comast.sql",
+      "source_kind": "repo_sql",
+      "target": "Staging_Wrk/Views/v_Comast.sql"
+    },
+    {
+      "object": "v_Extord",
+      "object_type": "view",
+      "schema": "Staging_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/00_source_wrk/staging_wrk/Staging_Wrk.v_Extord.sql",
+      "source_kind": "repo_sql",
+      "target": "Staging_Wrk/Views/v_Extord.sql"
+    },
+    {
+      "object": "v_Extorit",
+      "object_type": "view",
+      "schema": "Staging_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/00_source_wrk/staging_wrk/Staging_Wrk.v_Extorit.sql",
+      "source_kind": "repo_sql",
+      "target": "Staging_Wrk/Views/v_Extorit.sql"
+    },
+    {
+      "object": "v_ForecastDemandMonthly",
+      "object_type": "view",
+      "schema": "ForecastHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_ForecastDemandMonthly.sql",
+      "source_kind": "repo_sql",
+      "target": "ForecastHistory_Enh_Wrk/Views/v_ForecastDemandMonthly.sql"
+    },
+    {
+      "object": "v_NaiveForecastMonthly",
+      "object_type": "view",
+      "schema": "ForecastHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_NaiveForecastMonthly.sql",
+      "source_kind": "repo_sql",
+      "target": "ForecastHistory_Enh_Wrk/Views/v_NaiveForecastMonthly.sql"
+    },
+    {
+      "object": "v_OpenOrderLineLevel",
+      "object_type": "view",
+      "schema": "OpenOrderHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderLineLevel.sql",
+      "source_kind": "repo_sql",
+      "target": "OpenOrderHistory_Enh_Wrk/Views/v_OpenOrderLineLevel.sql"
+    },
+    {
+      "object": "v_OpenOrderMonthly",
+      "object_type": "view",
+      "schema": "OpenOrderHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/OpenOrderHistory_Enh_Wrk/v_OpenOrderMonthly.sql",
+      "source_kind": "repo_sql",
+      "target": "OpenOrderHistory_Enh_Wrk/Views/v_OpenOrderMonthly.sql"
+    },
+    {
+      "object": "v_Calendar",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_Calendar.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_Calendar.sql"
+    },
+    {
+      "object": "v_CustomerAccount",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccount.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_CustomerAccount.sql"
+    },
+    {
+      "object": "v_CustomerAccountGroup",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccountGroup.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_CustomerAccountGroup.sql"
+    },
+    {
+      "object": "v_CustomerGrouping",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerGrouping.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_CustomerGrouping.sql"
+    },
+    {
+      "object": "v_CustomerShippingLocation",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerShippingLocation.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_CustomerShippingLocation.sql"
+    },
+    {
+      "object": "v_ForecastCycle",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ForecastCycle.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_ForecastCycle.sql"
+    },
+    {
+      "object": "v_ForecastHorizon",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ForecastHorizon.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_ForecastHorizon.sql"
+    },
+    {
+      "object": "v_ItemMaster",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_ItemMaster.sql"
+    },
+    {
+      "object": "v_OrderType",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_OrderType.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_OrderType.sql"
+    },
+    {
+      "object": "v_Warehouse",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/ReferenceMaster_Enh_Wrk/v_Warehouse.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_Warehouse.sql"
+    },
+    {
+      "object": "v_ActualDemandMonthly",
+      "object_type": "view",
+      "schema": "SalesHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandMonthly.sql",
+      "source_kind": "repo_sql",
+      "target": "SalesHistory_Enh_Wrk/Views/v_ActualDemandMonthly.sql"
+    },
+    {
+      "object": "v_ActualDemandWeekly",
+      "object_type": "view",
+      "schema": "SalesHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_ActualDemandWeekly.sql",
+      "source_kind": "repo_sql",
+      "target": "SalesHistory_Enh_Wrk/Views/v_ActualDemandWeekly.sql"
+    },
+    {
+      "object": "v_InvoiceDetailLineLevel",
+      "object_type": "view",
+      "schema": "SalesHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
+      "source_kind": "repo_sql",
+      "target": "SalesHistory_Enh_Wrk/Views/v_InvoiceDetailLineLevel.sql"
+    },
+    {
+      "object": "v_InvoiceWeekly",
+      "object_type": "view",
+      "schema": "SalesHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/02_silver/SalesHistory_Enh_Wrk/v_InvoiceWeekly.sql",
+      "source_kind": "repo_sql",
+      "target": "SalesHistory_Enh_Wrk/Views/v_InvoiceWeekly.sql"
+    },
+    {
+      "object": "v_DemandForecastSnapshotDaily",
+      "object_type": "view",
+      "schema": "Staging_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/00_source_wrk/staging_wrk/Staging_Wrk.v_DemandForecastSnapshotDaily.sql",
+      "source_kind": "repo_sql",
+      "target": "Staging_Wrk/Views/v_DemandForecastSnapshotDaily.sql"
+    },
+    {
+      "object": "v_AFIStatusSnapshotWeekly",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AFIStatusSnapshotWeekly.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_AFIStatusSnapshotWeekly.sql"
+    },
+    {
+      "object": "v_AtpWeekEnding",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AtpWeekEnding.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_AtpWeekEnding.sql"
+    },
+    {
+      "object": "v_AwdHelper",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_AwdHelper.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_AwdHelper.sql"
+    },
+    {
+      "object": "v_Cogs52WWeekly",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_Cogs52WWeekly.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_Cogs52WWeekly.sql"
+    },
+    {
+      "object": "v_ForecastSnapshotWeekly",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ForecastSnapshotWeekly.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_ForecastSnapshotWeekly.sql"
+    },
+    {
+      "object": "v_HoldingTransferSnapshotDaily",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_HoldingTransferSnapshotDaily.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_HoldingTransferSnapshotDaily.sql"
+    },
+    {
+      "object": "v_InventorySnapshotWeekly",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_InventorySnapshotWeekly.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_InventorySnapshotWeekly.sql"
+    },
+    {
+      "object": "v_ItemBalanceHistorical_WithInTransit",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ItemBalanceHistorical_WithInTransit.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_ItemBalanceHistorical_WithInTransit.sql"
+    },
+    {
+      "object": "v_LastInvoiceWeekly",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_LastInvoiceWeekly.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_LastInvoiceWeekly.sql"
+    },
+    {
+      "object": "v_ManufacturingOrderSnapshotDaily",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ManufacturingOrderSnapshotDaily.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_ManufacturingOrderSnapshotDaily.sql"
+    },
+    {
+      "object": "v_PurchaseOrderSnapshotHistorical",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_PurchaseOrderSnapshotHistorical.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_PurchaseOrderSnapshotHistorical.sql"
+    },
+    {
+      "object": "v_SafetyStockHelper",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_SafetyStockHelper.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_SafetyStockHelper.sql"
+    },
+    {
+      "object": "v_SupplyPlanDetail",
+      "object_type": "view",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_SupplyPlanDetail.sql",
+      "source_kind": "repo_sql",
+      "target": "InventoryHistory_Enh_Wrk/Views/v_SupplyPlanDetail.sql"
+    },
+    {
+      "object": "v_Calendar",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_Calendar.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_Calendar.sql"
+    },
+    {
+      "object": "v_CustomerAccountGroup",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_CustomerAccountGroup.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_CustomerAccountGroup.sql"
+    },
+    {
+      "object": "v_ItemMaster",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_ItemMaster.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_ItemMaster.sql"
+    },
+    {
+      "object": "v_Vendor",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_Vendor.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_Vendor.sql"
+    },
+    {
+      "object": "v_Warehouse",
+      "object_type": "view",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk/v_Warehouse.sql",
+      "source_kind": "repo_sql",
+      "target": "ReferenceMaster_Enh_Wrk/Views/v_Warehouse.sql"
+    },
+    {
+      "object": "v_InvoiceDetailLineLevel",
+      "object_type": "view",
+      "schema": "SalesHistory_Enh_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/inventory_health/02_silver/SalesHistory_Enh_Wrk/v_InvoiceDetailLineLevel.sql",
+      "source_kind": "repo_sql",
+      "target": "SalesHistory_Enh_Wrk/Views/v_InvoiceDetailLineLevel.sql"
+    },
+    {
+      "object": "Usp_Refresh_ForecastAccuracy_Silver",
+      "object_type": "procedure",
+      "schema": "dbo",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/03_operations/orchestration/forecast_accuracy/sql/SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Silver.sql",
+      "source_kind": "repo_sql",
+      "target": "dbo/Stored Procedures/Usp_Refresh_ForecastAccuracy_Silver.sql"
+    },
+    {
+      "object": "Usp_Refresh_InventoryHealth_Silver",
+      "object_type": "procedure",
+      "schema": "dbo",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/03_operations/orchestration/inventory_health/sql/SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_InventoryHealth_Silver.sql",
+      "source_kind": "repo_sql",
+      "target": "dbo/Stored Procedures/Usp_Refresh_InventoryHealth_Silver.sql"
+    },
+    {
+      "object": "ForecastHistory_Enh",
+      "object_type": "schema",
+      "schema": "ForecastHistory_Enh",
+      "source_kind": "generated",
+      "target": "ForecastHistory_Enh/ForecastHistory_Enh.schema.sql"
+    },
+    {
+      "object": "ForecastHistory_Enh_Wrk",
+      "object_type": "schema",
+      "schema": "ForecastHistory_Enh_Wrk",
+      "source_kind": "generated",
+      "target": "ForecastHistory_Enh_Wrk/ForecastHistory_Enh_Wrk.schema.sql"
+    },
+    {
+      "object": "InventoryHistory_Enh",
+      "object_type": "schema",
+      "schema": "InventoryHistory_Enh",
+      "source_kind": "generated",
+      "target": "InventoryHistory_Enh/InventoryHistory_Enh.schema.sql"
+    },
+    {
+      "object": "InventoryHistory_Enh_Wrk",
+      "object_type": "schema",
+      "schema": "InventoryHistory_Enh_Wrk",
+      "source_kind": "generated",
+      "target": "InventoryHistory_Enh_Wrk/InventoryHistory_Enh_Wrk.schema.sql"
+    },
+    {
+      "object": "OpenOrderHistory_Enh",
+      "object_type": "schema",
+      "schema": "OpenOrderHistory_Enh",
+      "source_kind": "generated",
+      "target": "OpenOrderHistory_Enh/OpenOrderHistory_Enh.schema.sql"
+    },
+    {
+      "object": "OpenOrderHistory_Enh_Wrk",
+      "object_type": "schema",
+      "schema": "OpenOrderHistory_Enh_Wrk",
+      "source_kind": "generated",
+      "target": "OpenOrderHistory_Enh_Wrk/OpenOrderHistory_Enh_Wrk.schema.sql"
+    },
+    {
+      "object": "ProcessingSeed",
+      "object_type": "schema",
+      "schema": "ProcessingSeed",
+      "source_kind": "generated",
+      "target": "ProcessingSeed/ProcessingSeed.schema.sql"
+    },
+    {
+      "object": "ReferenceMaster_Enh",
+      "object_type": "schema",
+      "schema": "ReferenceMaster_Enh",
+      "source_kind": "generated",
+      "target": "ReferenceMaster_Enh/ReferenceMaster_Enh.schema.sql"
+    },
+    {
+      "object": "ReferenceMaster_Enh_Wrk",
+      "object_type": "schema",
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source_kind": "generated",
+      "target": "ReferenceMaster_Enh_Wrk/ReferenceMaster_Enh_Wrk.schema.sql"
+    },
+    {
+      "object": "SalesHistory_Enh",
+      "object_type": "schema",
+      "schema": "SalesHistory_Enh",
+      "source_kind": "generated",
+      "target": "SalesHistory_Enh/SalesHistory_Enh.schema.sql"
+    },
+    {
+      "object": "SalesHistory_Enh_Wrk",
+      "object_type": "schema",
+      "schema": "SalesHistory_Enh_Wrk",
+      "source_kind": "generated",
+      "target": "SalesHistory_Enh_Wrk/SalesHistory_Enh_Wrk.schema.sql"
+    },
+    {
+      "object": "Staging",
+      "object_type": "schema",
+      "schema": "Staging",
+      "source_kind": "generated",
+      "target": "Staging/Staging.schema.sql"
+    },
+    {
+      "object": "Staging_Wrk",
+      "object_type": "schema",
+      "schema": "Staging_Wrk",
+      "source_kind": "generated",
+      "target": "Staging_Wrk/Staging_Wrk.schema.sql"
+    },
+    {
+      "object": "dbo",
+      "object_type": "schema",
+      "schema": "dbo",
+      "source_kind": "generated",
+      "target": "dbo/dbo.schema.sql"
+    }
+  ],
+  "project": "SupplyChain_Processing_Warehouse"
+}

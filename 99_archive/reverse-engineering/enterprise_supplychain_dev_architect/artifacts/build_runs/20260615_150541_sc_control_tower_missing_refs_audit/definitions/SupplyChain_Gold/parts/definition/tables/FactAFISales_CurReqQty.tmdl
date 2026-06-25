@@ -1,0 +1,78 @@
+table FactAFISales_CurReqQty
+	lineageTag: 097be2f9-5f75-4b5f-b568-a8f3b7fbc7f5
+	sourceLineageTag: [SCP_Core].[FactAFISales_CurReqQty]
+
+	column AccountAndShipToNumber
+		dataType: string
+		lineageTag: 370310b9-e0b6-4aae-99b3-31bb92865b02
+		sourceLineageTag: AccountAndShipToNumber
+		summarizeBy: none
+		sourceColumn: AccountAndShipToNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemSKU
+		dataType: string
+		lineageTag: 6a267319-788b-4ca6-94e3-358b2ff5244e
+		sourceLineageTag: ItemSKU
+		summarizeBy: none
+		sourceColumn: ItemSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column Warehouse
+		dataType: string
+		lineageTag: f5760ad4-95bc-461b-b1ac-f80426b4e09c
+		sourceLineageTag: Warehouse
+		summarizeBy: none
+		sourceColumn: Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurReqWkEnd
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d6dc7554-2238-444a-bf42-5276fff50f6e
+		sourceLineageTag: CurReqWkEnd
+		summarizeBy: none
+		sourceColumn: CurReqWkEnd
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderQty
+		dataType: int64
+		formatString: 0
+		lineageTag: ef7f4fc2-2df6-4c57-94c0-7e9b55479a1a
+		sourceLineageTag: OrderQty
+		summarizeBy: sum
+		sourceColumn: OrderQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderAmt
+		dataType: double
+		lineageTag: 08758f43-376c-4aba-8771-7f2bd823ad33
+		sourceLineageTag: OrderAmt
+		summarizeBy: sum
+		sourceColumn: OrderAmt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OrderStatus
+		dataType: string
+		lineageTag: a1b07b8f-c1dd-4c49-9317-5d89dfb0b3c3
+		sourceLineageTag: OrderStatus
+		summarizeBy: none
+		sourceColumn: OrderStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactAFISales_CurReqQty = entity
+		mode: directLake
+		source
+			entityName: FactAFISales_CurReqQty
+			schemaName: SCP_Core
+			expressionSource: 'DirectLake - SupplyChain_Warehouse'
+

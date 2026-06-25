@@ -1,0 +1,379 @@
+// ============================================================
+// InventoryHealth_Measures.dax — 30 KPI measures
+// Power BI semantic model: Inventory Health
+// All measures defined on FactInventoryHealthSnapshot or FactInventoryRiskForward
+// Filter context note: most "current dashboard" measures filter IsLatestSnapshot=1
+//                       so they don't double-count Weekly trend rows.
+// ============================================================
+
+
+// ── Section 1: Base supply quantities (KPI #1-#5, #30 Total Commitment) ─
+
+Total On Hand Qty =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[OnHandQty]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+Transfer InTransit Qty =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[TransferInInTransitQty]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+PO In Transit Qty =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[POInTransitQty]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+PO On Order Qty =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[POOnOrderQty]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+MO On Order Qty =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[MOOnOrderQty]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+In Transit Qty =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InTransitQty]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+On Order Qty =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[OnOrderQty]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+Total Inventory Commitment Qty =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[OnHandQty])
+      + SUM(FactInventoryHealthSnapshot[InTransitQty])
+      + SUM(FactInventoryHealthSnapshot[OnOrderQty]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+
+// ── Section 2: Demand & coverage (KPI #6-#8, #25) ──────────
+
+Allocated Demand Qty =
+    SUM(FactInventoryRiskForward[AllocatedDemandQty])
+
+Forecast Demand Qty 13W =
+    SUM(FactInventoryRiskForward[NetForecastQty])
+
+AWD =
+    -- M5 FIX (2026-05-17): weighted weekly demand at item-WAREHOUSE grain.
+    -- Old DISTINCTCOUNT(ItemSku) divides by item count → wrong for multi-WH items.
+    -- New: COUNTROWS(SUMMARIZE Item+WH) for proper Item×WH combo count.
+    DIVIDE(
+        CALCULATE(
+            SUM(FactInventoryHealthSnapshot[AwdQty]),
+            FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+        ),
+        CALCULATE(
+            COUNTROWS(
+                SUMMARIZE(
+                    FactInventoryHealthSnapshot,
+                    FactInventoryHealthSnapshot[ItemSku],
+                    FactInventoryHealthSnapshot[WarehouseCode]
+                )
+            ),
+            FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+        )
+    )
+
+Weeks Of Supply =
+    DIVIDE(
+        [Total On Hand Qty],
+        CALCULATE(
+            SUM(FactInventoryHealthSnapshot[AwdQty]),
+            FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+        )
+    )
+
+Safety Stock Target =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[SafetyStockTargetQty]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+Safety Stock Multiple =
+    DIVIDE(
+        [Total On Hand Qty],
+        [Safety Stock Target]
+    )
+
+
+// ── Section 3: Financial KPI (KPI #9-#12, #22 Turns) ───────
+
+Inventory Value at Cost =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InventoryValueAtCost]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+Inventory Value at Revenue =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InventoryValueAtRevenue]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+Used Storage Cube =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[UsedStorageCube]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+Weighted Standard Cost =
+    DIVIDE(
+        [Inventory Value at Cost],
+        [Total On Hand Qty]
+    )
+
+Standard Selling Price Avg =
+    AVERAGE(DimItem[FobArcPrice])
+
+Total COGS =
+    SUM(FactInventoryHealthSnapshot[PeriodCogs])
+
+// M3 FIX (2026-05-17): renamed Cogs52W → Cogs52M (helper grain is monthly: 52 PRECEDING rows = 52 months, ~4.3 yrs)
+COGS 52M Trailing =
+    SUM(FactInventoryHealthSnapshot[Cogs52M])
+
+Average Inventory Value at Cost =
+    AVERAGE(FactInventoryHealthSnapshot[AverageInventoryValueAtCost])
+
+Inventory Turns =
+    DIVIDE(
+        [COGS 52M Trailing],
+        [Average Inventory Value at Cost]
+    )
+
+
+// ── Section 4: Risk & In-Stock (KPI #19, #23, #24) ─────────
+
+Revenue at Risk =
+    CALCULATE(
+        SUM(FactInventoryRiskForward[RevenueAtRiskValue]),
+        FactInventoryRiskForward[WeekFourFlag] = 1
+    )
+
+SI Neg Qty =
+    SUM(FactInventoryRiskForward[SINegQty])
+
+Active SKU Count =
+    -- SKUs not in Inactive lifecycle
+    CALCULATE(
+        DISTINCTCOUNT(FactInventoryHealthSnapshot[ItemSku]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[InactiveFlag] = 0
+    )
+
+Active SKU-WH Count =
+    CALCULATE(
+        COUNTROWS(
+            SUMMARIZE(
+                FactInventoryHealthSnapshot,
+                FactInventoryHealthSnapshot[ItemSku],
+                FactInventoryHealthSnapshot[WarehouseCode]
+            )
+        ),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[InactiveFlag] = 0
+    )
+
+ATP In Stock Count =
+    CALCULATE(
+        COUNTROWS(
+            SUMMARIZE(
+                FactInventoryRiskForward,
+                FactInventoryRiskForward[ItemSku],
+                FactInventoryRiskForward[WarehouseCode]
+            )
+        ),
+        FactInventoryRiskForward[ATPInStockFlag] = 1
+    )
+
+ATP In Stock Rate =
+    DIVIDE(
+        [ATP In Stock Count],
+        [Active SKU-WH Count]
+    )
+
+Shippable In Stock Count =
+    CALCULATE(
+        COUNTROWS(
+            SUMMARIZE(
+                FactInventoryRiskForward,
+                FactInventoryRiskForward[ItemSku],
+                FactInventoryRiskForward[WarehouseCode]
+            )
+        ),
+        FactInventoryRiskForward[ShippableInStockFlag] = 1
+    )
+
+Shippable In Stock Rate =
+    DIVIDE(
+        [Shippable In Stock Count],
+        [Active SKU-WH Count]
+    )
+
+
+// ── Section 5: Lifecycle / Status / Hold (KPI #17, #18, #20, #21, #24, #27) ─
+
+Inactive Item Count =
+    CALCULATE(
+        DISTINCTCOUNT(FactInventoryHealthSnapshot[ItemSku]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[InactiveFlag] = 1
+    )
+
+SLOB Item Count =
+    CALCULATE(
+        DISTINCTCOUNT(FactInventoryHealthSnapshot[ItemSku]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[SlobFlag] = 1
+    )
+
+SLOB Value =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[ObsoleteValue]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[SlobFlag] = 1
+    )
+
+Obsolete Ratio =
+    DIVIDE(
+        [SLOB Value],
+        [Inventory Value at Cost]
+    )
+
+On Hold Qty =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[OnHoldQty]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+On Hold Ratio =
+    DIVIDE(
+        [On Hold Qty],
+        [Total On Hand Qty]
+    )
+
+No Movement Item Count =
+    CALCULATE(
+        DISTINCTCOUNT(FactInventoryHealthSnapshot[ItemSku]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[NoMovementFlag] = 1
+    )
+
+Unavailable Item Count =
+    CALCULATE(
+        DISTINCTCOUNT(FactInventoryHealthSnapshot[ItemSku]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[UnavailableFlag] = 1
+    )
+
+
+// ── Section 6: Classification distribution ───────────────
+
+Inactive Inventory Value =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InventoryValueAtCost]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[InventoryClassification] = "Inactive"
+    )
+
+Below Target Inventory Value =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InventoryValueAtCost]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[InventoryClassification] = "Below Target"
+    )
+
+Sweet Spot Inventory Value =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InventoryValueAtCost]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[InventoryClassification] = "Sweet Spot"
+    )
+
+Over Target Inventory Value =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InventoryValueAtCost]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[InventoryClassification] = "Over Target"
+    )
+
+Excess Inventory Value =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InventoryValueAtCost]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[InventoryClassification] = "Excess"
+    )
+
+Aggressive Excess Inventory Value =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InventoryValueAtCost]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[InventoryClassification] = "Aggressive Excess"
+    )
+
+TB Inventory Value =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InventoryValueAtCost]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1,
+        FactInventoryHealthSnapshot[InventoryClassification] = "TB Inventory"
+    )
+
+
+// ── Section 7: Trend (Weekly) — use these in time-series visuals ───
+
+Weekly Trend On Hand =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[OnHandQty]),
+        FactInventoryHealthSnapshot[SnapshotType] = "Weekly"
+    )
+
+Weekly Trend Inventory Value =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[InventoryValueAtCost]),
+        FactInventoryHealthSnapshot[SnapshotType] = "Weekly"
+    )
+
+Weekly Trend Used Cube =
+    CALCULATE(
+        SUM(FactInventoryHealthSnapshot[UsedStorageCube]),
+        FactInventoryHealthSnapshot[SnapshotType] = "Weekly"
+    )
+
+
+// ── Section 8: Capacity (Phase 2) ─────────────────────────
+
+Total Available Warehouse Cube =
+    SUM(DimWarehouse[TotalAvailableWarehouseCube])
+
+Capacity Utilization Pct =
+    DIVIDE(
+        [Used Storage Cube],
+        [Total Available Warehouse Cube]
+    )
+
+
+// ── Section 9: Convenience flags ──────────────────────────
+
+Latest Snapshot Date =
+    CALCULATE(
+        MAX(FactInventoryHealthSnapshot[SnapshotDate]),
+        FactInventoryHealthSnapshot[IsLatestSnapshot] = 1
+    )
+
+Active Rule Version =
+    SELECTEDVALUE(DimRuleVersion[RuleName], "InventoryHealth_BRD_v1")
