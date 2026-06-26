@@ -53,10 +53,7 @@ export async function layoutGraph(nodes: LineageNode[], edges: LineageEdge[]): P
       return {
         id: node.id,
         width: widthFor(lineage),
-        height: 72,
-        layoutOptions: {
-          "elk.layered.layering.layerConstraint": String(layerRank[lineage.layer] ?? 9)
-        }
+        height: 72
       };
     }),
     edges: edges.map((edge) => ({
@@ -65,20 +62,51 @@ export async function layoutGraph(nodes: LineageNode[], edges: LineageEdge[]): P
       targets: [edge.target]
     }))
   };
-  const result = await elk.layout(graph);
-  const positions = new Map((result.children ?? []).map((child) => [child.id, child]));
-  return flowNodes.map((node) => {
-    const pos = positions.get(node.id);
-    return {
-      ...node,
-      position: { x: pos?.x ?? 0, y: pos?.y ?? 0 },
-      style: { width: pos?.width ?? widthFor(node.data.lineage as LineageNode), height: pos?.height ?? 72 }
-    };
-  });
+  try {
+    const result = await elk.layout(graph);
+    const positions = new Map((result.children ?? []).map((child) => [child.id, child]));
+    return flowNodes.map((node) => {
+      const pos = positions.get(node.id);
+      return {
+        ...node,
+        position: { x: pos?.x ?? 0, y: pos?.y ?? 0 },
+        style: { width: pos?.width ?? widthFor(node.data.lineage as LineageNode), height: pos?.height ?? 72 }
+      };
+    });
+  } catch (error) {
+    console.error("ELK layout failed; using deterministic layer fallback.", error);
+    return fallbackLayout(flowNodes);
+  }
 }
 
 function widthFor(node: LineageNode): number {
   if (node.layer === "Semantic") return 260;
   if (node.display_name.length > 34) return 280;
   return 236;
+}
+
+function fallbackLayout(nodes: Node[]): Node[] {
+  const layerCounts = new Map<string, number>();
+  return nodes
+    .slice()
+    .sort((left, right) => {
+      const a = left.data.lineage as LineageNode;
+      const b = right.data.lineage as LineageNode;
+      return (
+        (layerRank[a.layer] ?? 9) - (layerRank[b.layer] ?? 9) ||
+        (a.wave ?? 99) - (b.wave ?? 99) ||
+        a.full_name.localeCompare(b.full_name)
+      );
+    })
+    .map((node) => {
+      const lineage = node.data.lineage as LineageNode;
+      const layerIndex = layerRank[lineage.layer] ?? 4;
+      const rowIndex = layerCounts.get(lineage.layer) ?? 0;
+      layerCounts.set(lineage.layer, rowIndex + 1);
+      return {
+        ...node,
+        position: { x: layerIndex * 360, y: rowIndex * 118 },
+        style: { width: widthFor(lineage), height: 72 }
+      };
+    });
 }

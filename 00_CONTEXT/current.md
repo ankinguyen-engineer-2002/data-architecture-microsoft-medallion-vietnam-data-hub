@@ -1,5 +1,35 @@
 # Context 2026-06-24 to 2026-06-25
 
+## 2026-06-26 00:00:00 ICT — Fixed blank lineage graph after preview deploy
+
+**Scope lock:**
+- GitHub Pages UI fix only.
+- Fixture preview snapshot; no live Fabric/SQL/Power BI mutation.
+- No credentials persisted.
+
+**User symptom:**
+- Pages deployed successfully, but the UI showed no lineage graph.
+
+**Root cause evidence:**
+- Production screenshot showed summary cards loaded `13` nodes and `16` edges, but graph canvas was blank.
+- Project-path `lineage_snapshot.json` returned `HTTP 200`; root-path snapshot returned `404`.
+- Direct ELK reproduction failed with:
+  - `UnsupportedConfigurationException`
+  - `layer constraint set to FIRST_SEPARATE, but has at least one incoming edge`
+- The graph layout code incorrectly passed numeric layer ranks as `elk.layered.layering.layerConstraint`, which ELK interpreted as special constraints.
+
+**Fix:**
+- Removed invalid per-node ELK layer constraint in `site/src/graph/layout.ts`.
+- Added deterministic Bronze/Silver/Gold/Semantic fallback layout if ELK rejects a graph.
+
+**Verification:**
+- Direct ELK fixture layout returned `ok 13 nodes positioned`.
+- Frontend `npm run typecheck && npm run build` passed.
+- `git diff --check` passed.
+
+**Next concrete step:**
+- Push the UI fix and rerun `Build Lineage Portal` with `scan_mode=fixture`, then screenshot production again.
+
 ## 2026-06-26 00:00:00 ICT — Deployed lineage portal preview to GitHub Pages
 
 **Scope lock:**
