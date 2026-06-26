@@ -10,6 +10,7 @@ import { DetailPanel } from "./panels/DetailPanel";
 import { Sidebar } from "./panels/Sidebar";
 import { CommandPalette } from "./panels/CommandPalette";
 import { Legend } from "./panels/Legend";
+import { ErrorBoundary } from "./ErrorBoundary";
 import type { LineageEdge, LineageNode, Snapshot } from "./types";
 
 const nodeTypes = { lineageTable: LineageTableNode };
@@ -18,7 +19,9 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 export function App() {
   return (
     <ReactFlowProvider>
-      <LineagePortal />
+      <ErrorBoundary>
+        <LineagePortal />
+      </ErrorBoundary>
     </ReactFlowProvider>
   );
 }
