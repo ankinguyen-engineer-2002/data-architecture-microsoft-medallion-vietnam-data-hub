@@ -1,5 +1,8 @@
-import type { Edge, Node } from "@xyflow/react";
+import { MarkerType, Position, type Edge, type Node } from "@xyflow/react";
+import ELK from "elkjs/lib/elk.bundled.js";
 import type { LineageEdge, LineageNode } from "../types";
+
+const elk = new ELK();
 
 const roleRank: Record<string, number> = {
   business: 0,
@@ -11,8 +14,10 @@ const roleRank: Record<string, number> = {
 export function toFlowNodes(nodes: LineageNode[]): Node[] {
   return nodes.map((node) => ({
     id: node.id,
-    type: "default",
+    type: "lineageTable",
     position: { x: 0, y: 0 },
+    sourcePosition: Position.Right,
+    targetPosition: Position.Left,
     data: {
       label: node.display_name,
       lineage: node
@@ -29,30 +34,84 @@ export function toFlowEdges(edges: LineageEdge[]): Edge[] {
     type: "bezier",
     animated: edge.relationship_type === "semantic_binding",
     className: `lineage-edge rel-${edge.relationship_type}`,
-    data: edge
+    data: edge,
+    markerEnd: {
+      type: MarkerType.ArrowClosed,
+      width: 18,
+      height: 18
+    },
+    style: {
+      strokeWidth: 2.4
+    }
   }));
 }
 
-export async function layoutGraph(nodes: LineageNode[], _edges: LineageEdge[]): Promise<Node[]> {
+export async function layoutGraph(nodes: LineageNode[], edges: LineageEdge[]): Promise<Node[]> {
   const flowNodes = toFlowNodes(nodes);
+  const orderedNodes = flowNodes.slice().sort(compareNodes);
+  const nodeById = new Map(orderedNodes.map((node) => [node.id, node]));
+  const elkGraph = {
+    id: "lineage-root",
+    layoutOptions: {
+      "elk.algorithm": "layered",
+      "elk.direction": "RIGHT",
+      "elk.spacing.nodeNode": "42",
+      "elk.layered.spacing.nodeNodeBetweenLayers": "88",
+      "elk.layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+      "elk.layered.crossingMinimization.strategy": "LAYER_SWEEP",
+      "elk.edgeRouting": "SPLINES"
+    },
+    children: orderedNodes.map((node) => {
+      const lineage = node.data.lineage as LineageNode;
+      return {
+        id: node.id,
+        width: widthFor(lineage),
+        height: 86
+      };
+    }),
+    edges: edges
+      .filter((edge) => nodeById.has(edge.source) && nodeById.has(edge.target))
+      .map((edge) => ({
+        id: edge.id,
+        sources: [edge.source],
+        targets: [edge.target]
+      }))
+  };
+
+  try {
+    const layout = await elk.layout(elkGraph);
+    const positions = new Map((layout.children ?? []).map((child) => [child.id, { x: child.x ?? 0, y: child.y ?? 0 }]));
+    return orderedNodes.map((node) => {
+      const lineage = node.data.lineage as LineageNode;
+      const position = positions.get(node.id) ?? { x: 0, y: 0 };
+      return {
+        ...node,
+        position: { x: position.x + 70, y: position.y + 118 },
+        style: { width: widthFor(lineage), height: 86 }
+      };
+    });
+  } catch {
+    return fallbackLaneLayout(orderedNodes);
+  }
+}
+
+function fallbackLaneLayout(flowNodes: Node[]): Node[] {
   const laneGroups = groupByLane(flowNodes);
   const laneIndex = new Map(laneGroups.map((lane, index) => [lane.key, index]));
   const laneOffsets = new Map<string, number>();
 
   return flowNodes
-    .slice()
-    .sort(compareNodes)
     .map((node) => {
       const lineage = node.data.lineage as LineageNode;
       const laneKey = laneKeyFor(lineage);
-      const x = (laneIndex.get(laneKey) ?? 0) * 480;
+      const x = 70 + (laneIndex.get(laneKey) ?? 0) * 430;
       const offset = laneOffsets.get(laneKey) ?? 0;
-      const y = 96 + offset;
-      laneOffsets.set(laneKey, offset + 150);
+      const y = 118 + offset;
+      laneOffsets.set(laneKey, offset + 108);
       return {
         ...node,
         position: { x, y },
-        style: { width: widthFor(lineage), height: 82 }
+        style: { width: widthFor(lineage), height: 86 }
       };
     });
 }
@@ -61,7 +120,7 @@ export function graphLanes(nodes: LineageNode[]): Array<{ key: string; label: st
   return groupByLane(toFlowNodes(nodes)).map((lane, index) => ({
     key: lane.key,
     label: lane.label,
-    x: index * 480,
+    x: 70 + index * 430,
     count: lane.nodes.length
   }));
 }
@@ -101,8 +160,8 @@ function laneKeyFor(node: LineageNode): string {
 }
 
 function widthFor(node: LineageNode): number {
-  if (node.layer === "Semantic") return 320;
-  if ((node.role ?? "") === "support") return 300;
-  if (node.display_name.length > 34) return 360;
-  return 320;
+  if (node.layer === "Semantic") return 300;
+  if ((node.role ?? "") === "support") return 290;
+  if (node.display_name.length > 34) return 340;
+  return 300;
 }

@@ -1588,3 +1588,525 @@
 **Current handoff:**
 - DA onboarding now explains the practical table-edit and wave-registration workflow.
 - Next step is commit/push after final doc verification.
+
+## 2026-06-26 13:39:30 ICT — Lineage portal rebuild context and governance correction
+
+**Scope lock:**
+- Repo/UI/automation work for `05_tools/06_lineage_portal/`.
+- Target hosting remains GitHub Pages through GitHub Actions.
+- No live Fabric SQL DDL/DML, no ETL refresh, no Power BI semantic/report mutation.
+- Repo is public unless Aric explicitly asks to make it private again; Pages output is public.
+
+**User instructions captured from chat:**
+- Build a lineage tool on GitHub Pages, not Streamlit and not localhost.
+- Automation must be durable: when Aric asks to scan/update marts later, GitHub Actions should rescan/remap/redraw, not be a one-off local artifact.
+- Source of truth for mart-scoped lineage must be `02_marts/*/05_catalog`, not full workspace inventory.
+- Lineage should follow each mart only; current marts are `forecast_accuracy` and `inventory_health`.
+- Graph must show `table/entity -> table/entity`, not `_Wrk` view nodes or layer-view nodes.
+- `_Wrk`/`v_*` work views must be collapsed out because they make lineage too noisy.
+- UI should be dark, modern, spacious, with soft curved flow lines similar to data lineage/mindmap examples.
+- User explicitly requested applying this stack as the new target:
+  - Next.js 15 static export for GitHub Pages
+  - React Flow as the core canvas
+  - ELKJS auto-layout
+  - Tailwind CSS v4 / shadcn-style components
+  - Lucide icons
+  - Motion/Framer Motion-ready stack
+  - cmdk/TanStack Table dependencies available for future command palette/table views
+  - Linear/Vercel/Raycast/Atlan-style dark design language
+  - palette: `#09090B`, `#111113`, `#18181B`, `#27272A`, `#4F8CFF`, `#22C55E`, `#F59E0B`, `#EF4444`
+
+**Governance correction / assistant deviation noted:**
+- Aric flagged that the assistant was not following `AGENTS.md`/context tightly enough.
+- Required behavior from here:
+  - Always read `AGENTS.md` and `00_CONTEXT/current.md` at the start of technical turns.
+  - Keep `00_CONTEXT/current.md` updated after meaningful changes, not only at the end.
+  - Do not delete generated folders/files or old Vite files without explicit approval.
+  - For technical claims, use repo evidence or official docs; call out [Verified] / [Likely] / [Need-verify] when summarizing decisions.
+  - For destructive operations, ask explicit same-conversation approval.
+
+**Secrets/security note:**
+- Aric pasted an app/client secret in chat during lineage setup.
+- The secret value must not be written into repo/context/logs.
+- Recommendation remains: rotate the Service Principal secret in Entra ID and update GitHub secret `FABRIC_CLIENT_SECRET`.
+
+**Implemented lineage scanner/automation state before UI rebuild:**
+- `05_tools/06_lineage_portal/scanner/` contains the lineage snapshot builder/scanner.
+- The scanner can build fixture or live snapshots.
+- GitHub workflow: `.github/workflows/lineage-portal.yml`
+  - supports `workflow_dispatch` input `scan_mode=fixture|live`;
+  - scheduled every two hours;
+  - builds snapshot into `site/public/lineage_snapshot.json`;
+  - runs secret scan against generated snapshot;
+  - builds the static site;
+  - deploys to GitHub Pages.
+- GitHub Actions secrets configured earlier:
+  - `FABRIC_TENANT_ID`
+  - `FABRIC_CLIENT_ID`
+  - `FABRIC_CLIENT_SECRET`
+  - `FABRIC_WORKSPACE_ID`
+  - `FABRIC_WORKSPACE_NAME`
+  - `FABRIC_SQL_SERVER`
+  - `FABRIC_SEMANTIC_MODEL_ID`
+  - `FABRIC_SEMANTIC_MODEL_NAME`
+- Live scan had succeeded in prior runs after SQL alias quoting fixes.
+- Public snapshot after view-collapse showed:
+  - `nodes`: `85`
+  - `edges`: `117`
+  - `views`: `0`
+  - `_Wrk/v_*`: `0`
+  - layers: Bronze/Silver/Gold/Semantic
+  - marts: `forecast_accuracy`, `inventory_health`, `shared`
+
+**Implemented UI rebuild in current working tree:**
+- Migrated the frontend direction from Vite-style build to Next.js static export:
+  - added `05_tools/06_lineage_portal/site/next.config.mjs`
+  - added `05_tools/06_lineage_portal/site/postcss.config.mjs`
+  - added `05_tools/06_lineage_portal/site/app/layout.tsx`
+  - added `05_tools/06_lineage_portal/site/app/page.tsx`
+  - added `05_tools/06_lineage_portal/site/app/globals.css`
+  - updated `package.json`, `package-lock.json`, `tsconfig.json`
+- Updated GitHub Pages workflow to upload `05_tools/06_lineage_portal/site/out` instead of Vite `dist`.
+- Added `NEXT_PUBLIC_BASE_PATH=/data-architecture-microsoft-medallion-vietnam-data-hub` to the GitHub Actions build step for Pages path compatibility.
+- Added custom React Flow table node:
+  - `05_tools/06_lineage_portal/site/src/graph/LineageTableNode.tsx`
+  - node style shows layer badge, schema, table/display name, wave, row count when available.
+- Updated `05_tools/06_lineage_portal/site/src/graph/layout.ts`:
+  - uses React Flow custom node type `lineageTable`;
+  - uses Bezier curved edges with arrow markers;
+  - uses ELKJS layered `RIGHT` layout as primary auto-layout;
+  - keeps lane layout fallback only if ELKJS fails.
+- Updated `05_tools/06_lineage_portal/site/src/App.tsx`:
+  - `use client` for Next app router;
+  - fetches snapshot from `NEXT_PUBLIC_BASE_PATH`;
+  - default graph is mart-scoped clean path;
+  - support/shared/unclassified nodes are hidden by default;
+  - hidden support paths are collapsed into direct visible table flows;
+  - clicking a table highlights upstream/downstream neighborhood and dims unrelated nodes;
+  - removed MiniMap because it was blocking/covering useful semantic nodes in the current layout.
+- Updated `05_tools/06_lineage_portal/site/src/styles/app.css`:
+  - Linear-style dark palette;
+  - sidebar + large React Flow canvas + bottom properties panel;
+  - modern data-asset nodes;
+  - subdued grid background;
+  - curved/highlighted flow lines;
+  - visible counters reflect currently visible graph, not the full workspace.
+
+**Verification already executed locally:**
+- Python scanner/unit tests:
+  - `PYTHONPATH=05_tools/06_lineage_portal python3 -m unittest discover -s 05_tools/06_lineage_portal/tests -v`
+  - result: `10` tests, `OK`
+- Next static build:
+  - `npm run build`
+  - result: Next.js `15.5.19`, static export succeeded, `out/` produced.
+- TypeScript:
+  - `npm run typecheck`
+  - result: passed after running build first so `.next/types` exists.
+- npm audit:
+  - initial audit found moderate `postcss <8.5.10` advisory through Next transitive dependency;
+  - added `overrides.postcss=^8.5.10`;
+  - final `npm audit --omit=dev` returned `found 0 vulnerabilities`.
+- Playwright screenshot from static export:
+  - `/tmp/lineage_next_final.png`
+  - verified visually: dark modern UI, left sidebar, large React Flow canvas, table-to-table lineage, no `_Wrk` view nodes, ELK left-to-right layout, bottom properties panel.
+
+**Current working tree / handoff risks:**
+- Modified files:
+  - `.github/workflows/lineage-portal.yml`
+  - `05_tools/06_lineage_portal/site/package-lock.json`
+  - `05_tools/06_lineage_portal/site/package.json`
+  - `05_tools/06_lineage_portal/site/src/App.tsx`
+  - `05_tools/06_lineage_portal/site/src/graph/layout.ts`
+  - `05_tools/06_lineage_portal/site/src/styles/app.css`
+  - `05_tools/06_lineage_portal/site/tsconfig.json`
+- New intended source files:
+  - `05_tools/06_lineage_portal/site/app/`
+  - `05_tools/06_lineage_portal/site/next-env.d.ts`
+  - `05_tools/06_lineage_portal/site/next.config.mjs`
+  - `05_tools/06_lineage_portal/site/postcss.config.mjs`
+  - `05_tools/06_lineage_portal/site/src/graph/LineageTableNode.tsx`
+- Generated/untracked build artifacts currently present:
+  - `05_tools/06_lineage_portal/site/.next/`
+  - `05_tools/06_lineage_portal/site/out/`
+  - `05_tools/06_lineage_portal/site/tsconfig.tsbuildinfo`
+- Do not delete the generated artifacts without explicit Aric approval because destructive operations require same-conversation approval.
+- Next step after this context entry:
+  1. Check `.gitignore` and decide whether to ignore `.next/`, `out/`, `tsconfig.tsbuildinfo` without deleting existing files.
+  2. Commit only source/workflow/package/context changes.
+  3. Push to GitHub.
+  4. Trigger `Build Lineage Portal` with `scan_mode=live`.
+  5. Verify Pages snapshot and screenshot from the deployed URL.
+
+## 2026-06-26 13:48:00 ICT — Full chat-history note for lineage portal request
+
+**Purpose of this entry:**
+- Aric explicitly asked to save the full chat history/prompt context into the latest context note and not miss anything.
+- This is a detailed reconstruction of the lineage-portal conversation and decisions so a future assistant can resume without relying on hidden chat state.
+- Secret values are intentionally redacted. Do not write plaintext credentials/secrets/API keys into repo files.
+
+**Initial connection/Fabric app prompt:**
+- Aric asked whether the assistant remembered the app connection added into Fabric workspace `Enterprise Supply Chain Dev`.
+- Aric described the old goal as reading warehouses and bringing data back to make a web lineage tool, previously Streamlit-oriented.
+- Aric shared an image of the Entra app registration:
+  - Display name: `Fabric Pipeline Alert`
+  - Application/client ID shown in the image: `616bb922-8969-4ff8-8dcf-3667c0ae8e19`
+  - Object ID shown in the image: `99c8e68c-cc19-404f-a300-2a77f442a198`
+  - Directory/tenant ID shown in the image: `5a9d9cfd-c32e-4ac1-a9ed-fe83df4f9e4d`
+  - Supported account types: `My organization only`
+- Aric pasted a client secret value and secret id:
+  - secret value: `[REDACTED_SECRET_VALUE]`
+  - secret id: `16332087-c1bd-4059-86e3-32c8f903367d`
+- Aric asked to try connecting and see whether data in that workspace could be read.
+- Security handling required:
+  - Do not persist the secret value in repo/context.
+  - Rotate the pasted secret in Entra ID.
+  - Update GitHub Actions secret `FABRIC_CLIENT_SECRET` after rotation.
+
+**Context correction prompt from Aric:**
+- Aric said the repo now uses the new infrastructure and told the assistant to read the latest `00_CONTEXT` and `AGENTS.md` carefully.
+- Aric explicitly said there is no old `meta` anymore.
+- This meant the assistant must stop assuming old metadata tables/patterns and follow the current Phase 1 Enterprise ETL runtime/context.
+
+**Original lineage tool goal prompt from Aric:**
+- Goal: build a beautiful, standard lineage tool hosted on GitHub Pages.
+- Explicitly do not use Streamlit even though Streamlit supports nice visualization, because it is hard to manage.
+- Requirement 1:
+  - Build an automatic mart scanner.
+  - The scanner output should present and organize full scanned content similar to `02_marts`, but realtime/live instead of relying only on local repo files that may be stale.
+  - It should include layer, ETL code, full table names, and similar mart catalog detail.
+  - Store the tool somewhere under `05_tools`.
+- Requirement 2:
+  - After scanning, build a classification/pre-lineage tool based on the `02_marts` structure.
+  - It must classify into layers:
+    - Bronze
+    - Silver waves: `wave 1, 2, 3, 4...`; waves need to be inferred automatically because more marts may be added later.
+    - Gold waves: `wave 1, 2, 3, 4...`
+    - one semantic model: `sc_control_tower`
+- Requirement 3:
+  - Host on GitHub Pages.
+  - Use the Fabric app/connection to scan.
+  - UI/UX should use a proper framework and beautiful Python/design-oriented libraries if needed.
+  - The result should look like a solution architect/data architect textbook-quality lineage.
+- Requirement 4:
+  - Aric provided an Azure OpenAI Python snippet for future tool assistance/switchable APIs.
+  - Endpoint in snippet: `https://agr-dev-openai.openai.azure.com/`
+  - API version: `2024-02-01`
+  - model: `gpt-5`
+  - API key: `[REDACTED_API_KEY]`
+  - Do not persist the plaintext API key in repo/context.
+  - Aric said later more APIs may be added and switched between to help tools process/classify more accurately.
+- Aric asked for a plan.
+
+**Plan/hosting decision prompts from Aric:**
+- Aric selected `option A`.
+- Aric said he did not want localhost.
+- Aric wanted GitHub Actions plus GitHub Pages for UI/UX.
+- Aric said if this was OK then finalize that direction.
+- Aric then said to implement.
+- Aric later asked what the next step was and asked to see the deployed UI.
+- Aric reported the deploy succeeded but he could not see data or lineage.
+- Aric then said to continue.
+
+**First UI/lineage feedback with screenshots from Aric:**
+- Aric shared screenshots showing current portal problems:
+  - Mart filter had too many categories such as `All marts`, `forecast_accuracy`, `shared`, `unresolved`.
+  - Layer filter showed `All layers`, `Bronze`, `Gold`, `Semantic`, `Silver`; Aric said layer order/numbering was not right.
+  - The lineage graph was very hard to read.
+  - The graph had not enough data.
+  - Aric provided reference screenshots showing desired lineage styles:
+    - soft lineage flow like metadata/data catalog products;
+    - curved lines;
+    - open spacing;
+    - dark/modern look;
+    - user-friendly lineage similar to DataHub/OpenMetadata/Purview-style examples.
+- Aric said the mart classification was wrong and affected the UI.
+- Aric said there were only two marts, so filters/classification should not create misleading buckets.
+- Aric said layers need correct ordered numbering.
+- Aric said the current lineage looked extremely hard to read.
+- Aric said the interface should be dark and more beautiful/friendly.
+
+**Automation durability prompt from Aric:**
+- Aric told the assistant to run the full flow and fix all automation.
+- Aric said that in the future he wants to simply say to scan/update new marts, and the system should automatically run, map, and draw the new mart.
+- Aric emphasized the tool must not be a one-time run.
+- Aric told the assistant to finish and report; he wanted a full final answer before giving feedback.
+
+**Lineage scope correction prompts from Aric:**
+- Aric said the lineage was too hard to see, cramped, and did not look like his examples, which had soft curved and spacious lines.
+- Aric said the assistant misunderstood scanning:
+  - There are three layers, but the lineage should follow only the two marts.
+  - If more marts are added later, it should follow marts.
+  - Nobody asked to scan all Bronze.
+- Aric repeated:
+  - scan result should be like `02_marts`;
+  - 3 layers;
+  - only contain what is in that mart;
+  - automatically classify layer and related metadata.
+- Aric said lineage needs soft curved mindmap-like lines, not rigid lines.
+- Aric said UX was not good and hard to use.
+- Aric said the website colors/features still looked old/ancient and not modern/trendy.
+
+**React Flow prompt from Aric:**
+- Aric said he thought the system should apply React Flow to build a beautiful automated lineage platform.
+- Aric explicitly recommended:
+  - React Flow as the number one choice.
+  - Website: `https://reactflow.dev`
+  - Demo: `https://reactflow.dev/examples`
+  - GitHub: `https://github.com/xyflow/xyflow`
+- Aric said if building a Data Lineage Platform manually, React Flow is the top choice.
+- Important implementation note:
+  - The portal already had `@xyflow/react`, but it was initially used too primitively.
+  - The correct direction is custom React Flow nodes, curved edges, focus/highlight mode, and clean viewport.
+
+**Major design stack prompt from Aric:**
+- Aric then asked to apply this stack to change the whole UI/system:
+  - If choosing only one stack, choose:
+    - `Linear Design System + shadcn/ui + React Flow + Tailwind + Framer Motion`
+  - Aric described this as the 2026 top design stack for a Data Platform.
+- Theme:
+  - Dark First
+  - Background: `#09090B`
+  - Surface: `#111113`
+  - Card: `#18181B`
+  - Border: `rgba(255,255,255,.06)`
+  - Primary: `#4F8CFF`
+  - Accent: `#22C55E`
+  - Warning: `#F59E0B`
+  - Error: `#EF4444`
+- Typography:
+  - `Geist` or `Inter`
+- Component library:
+  - `shadcn/ui`
+  - URL: `https://ui.shadcn.com/`
+  - Components expected later: Sidebar, Dialog, Popover, Sheet, Command, Table, Dropdown, Tabs, Toast.
+- Icons:
+  - Lucide icons
+  - URL: `https://lucide.dev/`
+  - Do not use Heroicons.
+- Styling:
+  - Tailwind CSS
+  - URL: `https://tailwindcss.com/`
+- Animation:
+  - Framer Motion / Motion
+  - URL: `https://motion.dev/`
+  - desired effects: fade, scale, hover, slide, spring.
+- React Flow:
+  - central UI/canvas.
+  - URL: `https://reactflow.dev/`
+  - Demos: `https://reactflow.dev/examples`
+- Layout requested by Aric:
+  - Header
+  - Sidebar
+  - React Flow Canvas
+  - Details
+  - Properties
+  - ASCII layout:
+    - top Header
+    - left Sidebar
+    - right React Flow Canvas
+    - bottom Details / Properties area
+- Auto layout:
+  - ELKJS
+  - URL: `https://eclipse.dev/elk/`
+  - React Flow + ELKJS should be used for beautiful auto layout so nodes do not need manual dragging.
+- Data table:
+  - TanStack Table
+  - URL: `https://tanstack.com/table`
+  - desired because it is enterprise-grade and fast.
+- Command palette:
+  - `cmdk`
+  - URL: `https://cmdk.paco.me/`
+  - should feel like Cmd+K in Linear/Raycast/Cursor.
+- Font:
+  - Geist: `https://vercel.com/font`
+  - or Inter: `https://rsms.me/inter/`
+- Additional color style:
+  - Background: `#09090B`
+  - Card: `#18181B`
+  - Border: `#27272A`
+  - Hover: `#2A2A2E`
+  - Blue: `#4F8CFF`
+  - Green: `#22C55E`
+  - Yellow: `#EAB308`
+  - Red: `#EF4444`
+- Layout inspiration:
+  - Linear: `https://linear.app/`
+  - Vercel: `https://vercel.com/`
+  - Atlan: `https://atlan.com/`
+  - DataHub demo: `https://demo.datahubproject.io/`
+  - OpenMetadata sandbox: `https://sandbox.open-metadata.org/`
+- UI inspiration:
+  - Mobbin: `https://mobbin.com/`
+  - Godly: `https://godly.website/`
+  - Landbook: `https://land-book.com/`
+  - Awwwards: `https://www.awwwards.com/`
+- Desired React Flow node style:
+  - Instead of default nodes, use data-asset cards like:
+    - ItemBalance title with icon
+    - divider
+    - system/source
+    - columns count
+    - last updated info
+  - Hover behavior:
+    - light glow
+    - shadow
+    - brighter border
+    - scale `1.02`
+    - transition around `150ms`
+  - Effects should be restrained and enterprise-friendly.
+- Desired edge style:
+  - Not straight rigid line.
+  - SmoothStep/curved edge.
+  - Animated when filtering.
+  - Highlight upstream/downstream when selecting a node.
+  - Edge colors should represent status such as active/warning/stale later.
+- Full target stack table:
+  - Framework: Next.js 15
+  - UI: shadcn/ui
+  - Styling: Tailwind CSS v4
+  - Flow: React Flow
+  - Auto Layout: ELKJS
+  - Animation: Motion / Framer Motion
+  - Icons: Lucide
+  - Table: TanStack Table
+  - Command Palette: cmdk
+  - Charts: Tremor or Recharts
+  - Fonts: Geist
+  - Theme: next-themes
+- Desired final product:
+  - UX should feel like Linear.
+  - Functionality should feel like Atlan/DataHub.
+  - Graphical lineage experience should be React Flow.
+  - Should feel like a modern enterprise Data Lineage platform, comparable in professionalism to Microsoft Purview, Databricks Unity Catalog, Atlan, or DataHub, but smoother and more visual through React Flow.
+
+**Assistant implementation state after design-stack prompt:**
+- Assistant acknowledged and decided to migrate the frontend target to Next.js static export because GitHub Pages needs static hosting.
+- Assistant noted that scanner/live process remains GitHub Actions; UI consumes `lineage_snapshot.json`.
+- Assistant checked official docs/internet briefly for:
+  - Next static export / GitHub Pages compatibility.
+  - React Flow custom node/layout capabilities.
+  - Tailwind/Next compatibility.
+- Files changed/added in working tree:
+  - `.github/workflows/lineage-portal.yml`
+  - `05_tools/06_lineage_portal/site/package.json`
+  - `05_tools/06_lineage_portal/site/package-lock.json`
+  - `05_tools/06_lineage_portal/site/tsconfig.json`
+  - `05_tools/06_lineage_portal/site/next.config.mjs`
+  - `05_tools/06_lineage_portal/site/postcss.config.mjs`
+  - `05_tools/06_lineage_portal/site/app/layout.tsx`
+  - `05_tools/06_lineage_portal/site/app/page.tsx`
+  - `05_tools/06_lineage_portal/site/app/globals.css`
+  - `05_tools/06_lineage_portal/site/src/App.tsx`
+  - `05_tools/06_lineage_portal/site/src/graph/layout.ts`
+  - `05_tools/06_lineage_portal/site/src/graph/LineageTableNode.tsx`
+  - `05_tools/06_lineage_portal/site/src/styles/app.css`
+- Packages installed/updated:
+  - `next@15`
+  - `tailwindcss@^4`
+  - `@tailwindcss/postcss`
+  - `motion`
+  - `cmdk`
+  - `@tanstack/react-table`
+  - `next-themes`
+  - `class-variance-authority`
+  - `clsx`
+  - `tailwind-merge`
+  - `@types/node`
+  - existing `@xyflow/react`, `elkjs`, `lucide-react`, `react`, `react-dom` retained.
+- Vite packages were removed from dependencies, but old Vite files were not deleted yet:
+  - `index.html`
+  - `vite-env.d.ts`
+  - `vite.config.ts`
+  - This is intentional until Aric approves cleanup/deletion.
+
+**Current UI behavior in working tree:**
+- Next.js app router static export.
+- `App.tsx` is a client component.
+- Snapshot is fetched from `NEXT_PUBLIC_BASE_PATH/lineage_snapshot.json`.
+- GitHub Actions sets `NEXT_PUBLIC_BASE_PATH=/data-architecture-microsoft-medallion-vietnam-data-hub`.
+- Default mart is the first mart from `mart_registry`.
+- Default graph hides `support` and `unclassified` nodes.
+- Hidden support paths are collapsed into direct visible edges.
+- Work views `_Wrk` and `v_*` are already removed by scanner snapshot simplification before UI.
+- React Flow node type: `lineageTable`.
+- ELKJS layered layout direction: left-to-right.
+- Bezier curved edges with arrow markers.
+- Click a node to highlight connected upstream/downstream neighborhood and dim unrelated nodes.
+- Sidebar contains search, mart filter, layer filter, show shared/support toggle, and visible counters.
+- Canvas is large and dark.
+- Properties panel is at the bottom.
+
+**Verification evidence from this chat segment:**
+- Local scanner tests passed:
+  - `10` tests, `OK`.
+- Next build passed:
+  - Next.js `15.5.19`.
+  - static export produced `out/index.html`, `out/404.html`, `out/lineage_snapshot.json`.
+- Typecheck passed after build:
+  - `npm run typecheck`.
+- npm audit:
+  - initial moderate vulnerability came from `postcss <8.5.10` via Next transitive dependency.
+  - Added package override for `postcss`.
+  - final audit returned `found 0 vulnerabilities`.
+- Playwright screenshot from static export:
+  - `/tmp/lineage_next_final.png`.
+  - visual state: dark Linear-style UI, left sidebar, large React Flow canvas, ELK left-to-right graph, table-to-table path, no visible `_Wrk` view nodes, bottom properties panel.
+
+**Latest user correction prompt:**
+- Aric said: "lưu hết lịch sử chat này vfo context mới nhất, tôi thấy bro đang ko tuân theo context vs agents.md"
+- Assistant appended a governance/context correction entry.
+- Aric then clarified: "note đầy đủ lịch sử chat cả prompt của tôi nhé, ko được sót 1 tí gì"
+- This current entry is the expanded detailed chat-history note.
+
+**Important resume instructions for next assistant turn:**
+- Do not continue implementation before reading `AGENTS.md` and this `00_CONTEXT/current.md` section.
+- Do not claim deployment is complete until:
+  - source changes are committed and pushed;
+  - GitHub Action live run succeeds;
+  - deployed Pages URL is checked;
+  - deployed `lineage_snapshot.json` is checked;
+  - screenshot from deployed URL is checked.
+- Do not delete `.next/`, `out/`, `tsconfig.tsbuildinfo`, or old Vite files without explicit Aric approval.
+- Do not write plaintext secrets/API keys into repo.
+
+## 2026-06-26 14:05:57 ICT — Pre-deploy lineage portal CI hygiene and verification
+
+**Scope lock:**
+- Repo/source hygiene and local verification only.
+- No live Fabric SQL DDL/DML, no ETL refresh, no Power BI/Fabric mutation.
+- No deletion of generated artifacts.
+
+**User instruction:**
+- Continue building the unfinished lineage portal based on `AGENTS.md` and latest context.
+
+**Actions executed:**
+- Re-read `AGENTS.md` and latest `00_CONTEXT/current.md`.
+- Added `.gitignore` entries for generated Next artifacts without deleting local files:
+  - `05_tools/06_lineage_portal/site/.next/`
+  - `05_tools/06_lineage_portal/site/out/`
+  - `05_tools/06_lineage_portal/site/tsconfig.tsbuildinfo`
+- Fixed GitHub Actions order for Next static export:
+  - `npm run build` now runs before `npm run typecheck`;
+  - this is required because `next-env.d.ts` references generated `.next/types`.
+- Kept old Vite files untouched because deletion requires explicit Aric approval.
+
+**Verification executed after the CI hygiene fix:**
+- Scanner tests:
+  - `PYTHONPATH=05_tools/06_lineage_portal python3 -m unittest discover -s 05_tools/06_lineage_portal/tests -v`
+  - result: `10` tests, `OK`.
+- Frontend static build:
+  - `npm run build`
+  - result: Next.js `15.5.19` static export succeeded.
+- Frontend typecheck:
+  - `npm run typecheck`
+  - result: passed.
+- npm audit:
+  - `npm audit --omit=dev`
+  - result: `found 0 vulnerabilities`.
+- Static UI screenshot:
+  - served `05_tools/06_lineage_portal/site/out` locally on port `4180`;
+  - screenshot captured to `/tmp/lineage_next_predeploy.png`;
+  - visual check: dark Linear-style UI, sidebar, React Flow canvas, table-to-table graph, bottom Properties panel.
+
+**Current handoff:**
+- Next step is commit/push, then trigger GitHub Actions `Build Lineage Portal` with `scan_mode=live`, then verify deployed Pages URL and snapshot.
