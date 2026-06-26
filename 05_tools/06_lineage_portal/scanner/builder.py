@@ -63,83 +63,118 @@ def build_snapshot(
             "evidence": evidence,
         }
 
-    # Final table nodes from Enterprise ETL TableDictionary.
-    for row in sql_scan.get("table_dictionary", []):
-        if row.get("SchemaName") and row.get("TableName"):
-            node = tabledict_node(row)
-            add_node(node)
-            source_ref = parse_replicated_source(row.get("ReplicatedSource"), node["database"])
-            if source_ref:
-                view_id = stable_node_id(source_ref.database or node["database"], source_ref.schema, source_ref.object_name)
-                add_edge(view_id, node["id"], "loads", "verified", "DW_Developer.TableDictionary.ReplicatedSource")
-
-    # Live object nodes and SQL definitions.
+    object_meta = {
+        stable_node_id(str(row.get("database_name") or ""), str(row.get("schema_name") or ""), str(row.get("object_name") or "")): row
+        for rows in sql_scan.get("objects", {}).values()
+        for row in rows
+    }
     modules_by_id: dict[str, str] = {}
-    for database, rows in sql_scan.get("objects", {}).items():
+    module_meta_by_id: dict[str, dict[str, Any]] = {}
+    for database, rows in sql_scan.get("modules", {}).items():
         for row in rows:
-            schema = str(row.get("schema_name") or "")
-            obj = str(row.get("object_name") or "")
-            type_desc = str(row.get("type_desc") or "")
-            if not schema or not obj:
-                continue
-            node_id = stable_node_id(database, schema, obj)
+            node_id = stable_node_id(database, str(row.get("schema_name") or ""), str(row.get("object_name") or ""))
+            modules_by_id[node_id] = str(row.get("definition") or "")
+            module_meta_by_id[node_id] = row
+
+    relevant_module_ids: set[str] = set()
+
+    if catalog.business_marts:
+        for asset in catalog.assets:
+            database, schema, object_name = asset_ref_parts(asset)
+            node_id = stable_node_id(database, schema, object_name)
+            meta = object_meta.get(node_id, {})
             add_node(
                 {
                     "id": node_id,
-                    "display_name": obj,
+                    "display_name": object_name,
                     "full_name": node_id,
                     "workspace": workspace_name,
                     "database": database,
                     "schema": schema,
-                    "object_name": obj,
-                    "object_type": type_desc,
-                    "layer": classify_layer(database, schema, type_desc),
-                    "mart": classify_with_catalog(catalog, schema, obj),
-                    "wave": None,
-                    "load_method": nodes.get(node_id, {}).get("load_method", ""),
-                    "source_sql": nodes.get(node_id, {}).get("source_sql", ""),
-                    "row_count": nodes.get(node_id, {}).get("row_count"),
-                    "last_modified": str(row.get("modify_date") or ""),
-                    "status": "active",
-                    "evidence": sorted(set(nodes.get(node_id, {}).get("evidence", []) + ["sys.objects"])),
+                    "object_name": object_name,
+                    "object_type": str(meta.get("type_desc") or asset.get("object_type") or "CATALOG_ASSET"),
+                    "layer": layer_from_catalog(str(asset.get("layer") or ""), database, schema),
+                    "mart": asset.get("mart") or classify_with_catalog(catalog, schema, object_name),
+                    "wave": catalog.wave_for(schema, object_name),
+                    "load_method": "",
+                    "source_sql": "",
+                    "row_count": None,
+                    "last_modified": str(meta.get("modify_date") or ""),
+                    "status": "active" if meta else "catalog",
+                    "evidence": ["02_marts/05_catalog/assets.json"],
                 }
             )
+            if node_id in modules_by_id:
+                relevant_module_ids.add(node_id)
 
-    for database, rows in sql_scan.get("modules", {}).items():
-        for row in rows:
-            schema = str(row.get("schema_name") or "")
-            obj = str(row.get("object_name") or "")
-            definition = str(row.get("definition") or "")
-            node_id = stable_node_id(database, schema, obj)
-            modules_by_id[node_id] = definition
-            if node_id in nodes:
-                nodes[node_id]["source_sql"] = definition
-            for ref in extract_object_refs(definition, default_database=database):
-                ref_db = ref.database or database
-                source_id = stable_node_id(ref_db, ref.schema, ref.object_name)
-                if source_id not in nodes:
-                    add_node(
-                        {
-                            "id": source_id,
-                            "display_name": ref.object_name,
-                            "full_name": source_id,
-                            "workspace": workspace_name,
-                            "database": ref_db,
-                            "schema": ref.schema,
-                            "object_name": ref.object_name,
-                            "object_type": "REFERENCE",
-                            "layer": classify_layer(ref_db, ref.schema, "REFERENCE"),
-                            "mart": classify_with_catalog(catalog, ref.schema, ref.object_name),
-                            "wave": None,
-                            "load_method": "",
-                            "source_sql": "",
-                            "row_count": None,
-                            "last_modified": "",
-                            "status": "referenced",
-                            "evidence": ["sys.sql_modules dependency parse"],
-                        }
+        for edge in catalog.edges:
+            source_id = catalog_ref_to_node_id(str(edge.get("source") or ""))
+            target_id = catalog_ref_to_node_id(str(edge.get("target") or ""))
+            if source_id and target_id:
+                add_edge(source_id, target_id, str(edge.get("edge_type") or "catalog_edge"), "catalog", str(edge.get("evidence_file") or "02_marts/05_catalog/lineage_edges.json"))
+
+    # Final table nodes from Enterprise ETL TableDictionary.
+    for row in sql_scan.get("table_dictionary", []):
+        if row.get("SchemaName") and row.get("TableName"):
+            node = tabledict_node(row)
+            if not include_contract_node(node, catalog):
+                continue
+            if catalog.business_marts and node["id"] not in nodes:
+                continue
+            add_node(node)
+            source_ref = parse_replicated_source(row.get("ReplicatedSource"), node["database"])
+            if source_ref:
+                view_id = stable_node_id(source_ref.database or node["database"], source_ref.schema, source_ref.object_name)
+                view_node = node_from_ref(
+                    workspace_name=workspace_name,
+                    database=source_ref.database or node["database"],
+                    schema=source_ref.schema,
+                    object_name=source_ref.object_name,
+                    object_type=object_type_for(view_id, object_meta, "VIEW"),
+                    status="active" if view_id in object_meta else "referenced",
+                    evidence=["DW_Developer.TableDictionary.ReplicatedSource"],
+                    catalog=catalog,
+                )
+                view_node["mart"] = node.get("mart")
+                view_node["role"] = node.get("role")
+                view_node["wave"] = node.get("wave")
+                add_node(view_node)
+                relevant_module_ids.add(view_id)
+                add_edge(view_id, node["id"], "loads", "verified", "DW_Developer.TableDictionary.ReplicatedSource")
+
+    parsed_modules: set[str] = set()
+    while relevant_module_ids:
+        node_id = relevant_module_ids.pop()
+        if node_id in parsed_modules:
+            continue
+        parsed_modules.add(node_id)
+        definition = modules_by_id.get(node_id, "")
+        if not definition:
+            continue
+        if node_id in nodes:
+            nodes[node_id]["source_sql"] = definition
+            nodes[node_id]["evidence"] = sorted(set(nodes[node_id].get("evidence", []) + ["sys.sql_modules"]))
+        module_meta = module_meta_by_id.get(node_id, {})
+        default_database = str(module_meta.get("database_name") or node_id.split(".", 1)[0])
+        for ref in extract_object_refs(definition, default_database=default_database):
+            ref_db = ref.database or default_database
+            source_id = stable_node_id(ref_db, ref.schema, ref.object_name)
+            if source_id not in nodes:
+                add_node(
+                    node_from_ref(
+                        workspace_name=workspace_name,
+                        database=ref_db,
+                        schema=ref.schema,
+                        object_name=ref.object_name,
+                        object_type=object_type_for(source_id, object_meta, "REFERENCE"),
+                        status="active" if source_id in object_meta else "referenced",
+                        evidence=["sys.sql_modules dependency parse"],
+                        catalog=catalog,
                     )
-                add_edge(source_id, node_id, "uses", "parsed", f"sys.sql_modules:{node_id}")
+                )
+            add_edge(source_id, node_id, "uses", "parsed", f"sys.sql_modules:{node_id}")
+            if source_id in modules_by_id:
+                relevant_module_ids.add(source_id)
 
     # Collapse _Wrk view dependencies to final table edges when TableDictionary maps them.
     for row in sql_scan.get("table_dictionary", []):
@@ -247,6 +282,101 @@ def build_snapshot(
 
 def classify_with_catalog(catalog: MartCatalog, schema: str, object_name: str) -> str:
     return catalog.classify_object(schema, object_name) or classify_mart(schema, object_name)
+
+
+def asset_ref_parts(asset: dict[str, Any]) -> tuple[str, str, str]:
+    schema = str(asset.get("schema") or "")
+    object_name = str(asset.get("object") or "")
+    display = str(asset.get("display") or "")
+    database = database_for_schema(schema, display)
+    return database, schema, object_name
+
+
+def catalog_ref_to_node_id(raw: str) -> str:
+    if not raw:
+        return ""
+    parts = [part.strip().strip("[]") for part in raw.split(".") if part.strip()]
+    if len(parts) >= 3 and parts[0] in {SOURCE_DATABASE, PROCESSING_DATABASE, GOLD_DATABASE, ETL_DATABASE, "SemanticModel"}:
+        return stable_node_id(parts[0], parts[-2], parts[-1])
+    if len(parts) >= 2:
+        schema, object_name = parts[-2], parts[-1]
+        return stable_node_id(database_for_schema(schema, raw), schema, object_name)
+    return ""
+
+
+def database_for_schema(schema: str, display: str = "") -> str:
+    if display.startswith(f"{SOURCE_DATABASE}."):
+        return SOURCE_DATABASE
+    if display.startswith(f"{PROCESSING_DATABASE}."):
+        return PROCESSING_DATABASE
+    if display.startswith(f"{GOLD_DATABASE}."):
+        return GOLD_DATABASE
+    if display.startswith("SemanticModel."):
+        return "SemanticModel"
+    if schema.endswith("_DW") or schema.endswith("_DW_Wrk") or schema == "Shared_DW" or schema == "Shared_DW_Wrk":
+        return GOLD_DATABASE
+    if schema.endswith("_Enh") or schema.endswith("_Enh_Wrk") or schema in {"Staging", "Staging_Wrk", "ReferenceMaster_Enh", "ReferenceMaster_Enh_Wrk", "ProcessingSeed"}:
+        return PROCESSING_DATABASE
+    if schema == "Semantic":
+        return "SemanticModel"
+    return SOURCE_DATABASE
+
+
+def layer_from_catalog(raw_layer: str, database: str, schema: str) -> str:
+    normalized = raw_layer.lower()
+    if normalized == "bronze":
+        return "Bronze"
+    if normalized in {"silver", "source_wrk"}:
+        return "Silver" if database != SOURCE_DATABASE else "Bronze"
+    if normalized == "gold":
+        return "Gold"
+    if normalized == "semantic":
+        return "Semantic"
+    return classify_layer(database, schema, "")
+
+
+def include_contract_node(node: dict[str, Any], catalog: MartCatalog) -> bool:
+    if not catalog.business_marts:
+        return True
+    role = catalog.role_for(str(node.get("schema") or ""), str(node.get("object_name") or ""))
+    return role in {"business", "support"}
+
+
+def node_from_ref(
+    *,
+    workspace_name: str,
+    database: str,
+    schema: str,
+    object_name: str,
+    object_type: str,
+    status: str,
+    evidence: list[str],
+    catalog: MartCatalog,
+) -> dict[str, Any]:
+    node_id = stable_node_id(database, schema, object_name)
+    return {
+        "id": node_id,
+        "display_name": object_name,
+        "full_name": node_id,
+        "workspace": workspace_name,
+        "database": database,
+        "schema": schema,
+        "object_name": object_name,
+        "object_type": object_type,
+        "layer": classify_layer(database, schema, object_type),
+        "mart": classify_with_catalog(catalog, schema, object_name),
+        "wave": None,
+        "load_method": "",
+        "source_sql": "",
+        "row_count": None,
+        "last_modified": "",
+        "status": status,
+        "evidence": evidence,
+    }
+
+
+def object_type_for(node_id: str, object_meta: dict[str, dict[str, Any]], fallback: str) -> str:
+    return str(object_meta.get(node_id, {}).get("type_desc") or fallback)
 
 
 def enrich_node(node: dict[str, Any], catalog: MartCatalog) -> dict[str, Any]:

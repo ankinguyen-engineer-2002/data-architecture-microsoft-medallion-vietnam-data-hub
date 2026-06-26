@@ -26,9 +26,8 @@ export function toFlowEdges(edges: LineageEdge[]): Edge[] {
     id: edge.id,
     source: edge.source,
     target: edge.target,
-    type: "smoothstep",
+    type: "bezier",
     animated: edge.relationship_type === "semantic_binding",
-    label: compactEdgeLabel(edge.relationship_type),
     className: `lineage-edge rel-${edge.relationship_type}`,
     data: edge
   }));
@@ -43,16 +42,17 @@ export async function layoutGraph(nodes: LineageNode[], _edges: LineageEdge[]): 
   return flowNodes
     .slice()
     .sort(compareNodes)
-    .map((node) => {
+    .map((node, index, sorted) => {
       const lineage = node.data.lineage as LineageNode;
       const laneKey = laneKeyFor(lineage);
-      const x = (laneIndex.get(laneKey) ?? 0) * 330;
-      const y = laneOffsets.get(laneKey) ?? 0;
-      laneOffsets.set(laneKey, y + 112);
+      const x = (laneIndex.get(laneKey) ?? 0) * 480;
+      const laneSize = sorted.filter((item) => laneKeyFor(item.data.lineage as LineageNode) === laneKey).length;
+      const y = (laneOffsets.get(laneKey) ?? 0) - ((laneSize - 1) * 76);
+      laneOffsets.set(laneKey, y + 150);
       return {
         ...node,
         position: { x, y },
-        style: { width: widthFor(lineage), height: 72 }
+        style: { width: widthFor(lineage), height: 82 }
       };
     });
 }
@@ -61,7 +61,7 @@ export function graphLanes(nodes: LineageNode[]): Array<{ key: string; label: st
   return groupByLane(toFlowNodes(nodes)).map((lane, index) => ({
     key: lane.key,
     label: lane.label,
-    x: index * 330,
+    x: index * 480,
     count: lane.nodes.length
   }));
 }
@@ -101,15 +101,8 @@ function laneKeyFor(node: LineageNode): string {
 }
 
 function widthFor(node: LineageNode): number {
-  if (node.layer === "Semantic") return 250;
-  if ((node.role ?? "") === "support") return 230;
-  if (node.display_name.length > 34) return 278;
-  return 248;
-}
-
-function compactEdgeLabel(raw: string): string {
-  if (raw === "transforms_to") return "transform";
-  if (raw === "semantic_binding") return "binds";
-  if (raw === "belongs_to_model") return "";
-  return raw.replaceAll("_", " ");
+  if (node.layer === "Semantic") return 320;
+  if ((node.role ?? "") === "support") return 300;
+  if (node.display_name.length > 34) return 360;
+  return 320;
 }

@@ -9,13 +9,7 @@ type Props = {
 
 export function DetailPanel({ node, edges, onClose }: Props) {
   if (!node) {
-    return (
-      <aside className="detail-panel empty">
-        <GitBranch size={28} />
-        <h2>Select a node</h2>
-        <p>Inspect live-derived table contracts, view SQL, semantic bindings, and scan evidence.</p>
-      </aside>
-    );
+    return null;
   }
 
   const upstream = edges.filter((edge) => edge.target === node.id);

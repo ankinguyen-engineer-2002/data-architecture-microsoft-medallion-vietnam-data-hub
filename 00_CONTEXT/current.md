@@ -39,6 +39,32 @@
 **Next concrete step:**
 - Commit/push changes, run `Build Lineage Portal` with `scan_mode=live`, inspect generated live snapshot and production Pages UI.
 
+## 2026-06-26 00:00:00 ICT — Re-scoped lineage portal to mart catalog graphs
+
+**Scope lock:**
+- Lineage portal scanner/UI only.
+- Live deployment through GitHub Actions.
+
+**User correction:**
+- Lineage should match `02_marts` mart contracts, not scan/render the whole workspace inventory.
+- Flow should be mart-scoped, modern, wider, and use soft curved lineage edges.
+
+**Changes implemented:**
+- `scanner/mart_catalog.py` now loads `assets.json`, `lineage_edges.json`, and `run_order.json` from every `02_marts/*/05_catalog`.
+- `scanner/builder.py` now builds graph nodes/edges from mart catalog first and only enriches from live Fabric/SQL metadata.
+- Full workspace `sys.objects` remains scan evidence only; it is no longer rendered wholesale as lineage.
+- UI graph uses wider spacing, larger nodes, bezier edges, modern dark/glass styling, and floating detail panel.
+
+**Verification:**
+- Python tests passed (`9` tests).
+- Fixture snapshot now emits mart-scoped graph: `138` nodes / `197` edges from current `02_marts` catalogs.
+- Frontend `npm run typecheck && npm run build` passed.
+- `npm audit --omit=dev` returned `found 0 vulnerabilities`.
+- `git diff --check` passed.
+
+**Next concrete step:**
+- Push and redeploy live through `Build Lineage Portal` with `scan_mode=live`, then screenshot production.
+
 ## 2026-06-26 00:00:00 ICT — Fixed blank lineage graph after preview deploy
 
 **Scope lock:**

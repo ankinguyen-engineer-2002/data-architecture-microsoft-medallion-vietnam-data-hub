@@ -22,6 +22,8 @@ class MartCatalog:
     object_to_mart: dict[str, str]
     object_to_role: dict[str, str]
     object_to_wave: dict[str, int]
+    assets: list[dict[str, Any]]
+    edges: list[dict[str, Any]]
 
     def classify_object(self, schema: str, object_name: str) -> str | None:
         key = object_key(schema, object_name)
@@ -48,7 +50,7 @@ class MartCatalog:
 
 
 def empty_catalog() -> MartCatalog:
-    return MartCatalog(business_marts=[], object_to_mart={}, object_to_role={}, object_to_wave={})
+    return MartCatalog(business_marts=[], object_to_mart={}, object_to_role={}, object_to_wave={}, assets=[], edges=[])
 
 
 def load_mart_catalog(repo_root: Path) -> MartCatalog:
@@ -60,20 +62,26 @@ def load_mart_catalog(repo_root: Path) -> MartCatalog:
     object_to_mart: dict[str, str] = {}
     object_to_role: dict[str, str] = {}
     object_to_wave: dict[str, int] = {}
+    all_assets: list[dict[str, Any]] = []
+    all_edges: list[dict[str, Any]] = []
 
     for mart_dir in sorted(path for path in marts_root.iterdir() if path.is_dir()):
         catalog_dir = mart_dir / "05_catalog"
         assets_path = catalog_dir / "assets.json"
+        edges_path = catalog_dir / "lineage_edges.json"
         run_order_path = catalog_dir / "run_order.json"
         if not assets_path.exists():
             continue
         mart_id = mart_dir.name
         assets = json.loads(assets_path.read_text(encoding="utf-8")).get("assets", [])
+        edges = _load_json(edges_path).get("edges", [])
         run_order = _load_json(run_order_path).get("sequence", [])
         display_name = mart_id.replace("_", " ").title()
         schema_prefixes: set[str] = set()
 
         for asset in assets:
+            asset = {**asset, "mart": mart_id}
+            all_assets.append(asset)
             schema = str(asset.get("schema") or "")
             object_name = str(asset.get("object") or "")
             if not schema or not object_name:
@@ -102,6 +110,9 @@ def load_mart_catalog(repo_root: Path) -> MartCatalog:
                 if "_" in schema:
                     schema_prefixes.add(schema.split("_", 1)[0])
 
+        for edge in edges:
+            all_edges.append({**edge, "mart": mart_id})
+
         business_marts.append(
             {
                 "id": mart_id,
@@ -116,6 +127,8 @@ def load_mart_catalog(repo_root: Path) -> MartCatalog:
         object_to_mart=object_to_mart,
         object_to_role=object_to_role,
         object_to_wave=object_to_wave,
+        assets=all_assets,
+        edges=all_edges,
     )
 
 

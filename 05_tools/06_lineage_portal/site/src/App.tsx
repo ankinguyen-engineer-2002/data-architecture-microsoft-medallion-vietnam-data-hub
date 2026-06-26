@@ -134,8 +134,8 @@ function LineagePortal() {
       )}
 
       <section className="workspace">
-        <div className="graph-card">
-          <div className="lane-ruler" style={{ width: `${Math.max(lanes.length * 330, 960)}px` }}>
+        <div className={`graph-card ${selected ? "with-detail" : ""}`}>
+          <div className="lane-ruler" style={{ width: `${Math.max(lanes.length * 480, 1280)}px` }}>
             {lanes.map((lane) => (
               <div className="lane-marker" key={lane.key} style={{ left: lane.x }}>
                 <span>{lane.label}</span>
@@ -154,8 +154,8 @@ function LineagePortal() {
             <MiniMap pannable zoomable />
             <Controls />
           </ReactFlow>
+          <DetailPanel node={selected} edges={snapshot.edges} onClose={() => setSelected(null)} />
         </div>
-        <DetailPanel node={selected} edges={snapshot.edges} onClose={() => setSelected(null)} />
       </section>
     </main>
   );
@@ -163,6 +163,7 @@ function LineagePortal() {
 
 function lineageClosure(snapshot: Snapshot, mart: string): Set<string> {
   const included = new Set<string>();
+  const nodeById = new Map(snapshot.nodes.map((node) => [node.id, node]));
   const forward = new Map<string, string[]>();
   const backward = new Map<string, string[]>();
   for (const edge of snapshot.edges) {
@@ -177,7 +178,10 @@ function lineageClosure(snapshot: Snapshot, mart: string): Set<string> {
     if (!nodeId || included.has(nodeId)) continue;
     included.add(nodeId);
     for (const next of [...(forward.get(nodeId) ?? []), ...(backward.get(nodeId) ?? [])]) {
-      if (!included.has(next)) queue.push(next);
+      const node = nodeById.get(next);
+      const role = node?.role ?? "business";
+      const allowed = node?.mart === mart || role === "support" || role === "semantic" || node?.object_type === "SEMANTIC_MODEL";
+      if (allowed && !included.has(next)) queue.push(next);
     }
   }
   return included;
