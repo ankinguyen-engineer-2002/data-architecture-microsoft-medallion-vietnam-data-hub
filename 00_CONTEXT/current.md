@@ -21,6 +21,7 @@
 **Fix:**
 - Removed invalid per-node ELK layer constraint in `site/src/graph/layout.ts`.
 - Added deterministic Bronze/Silver/Gold/Semantic fallback layout if ELK rejects a graph.
+- Added React Flow provider-driven `fitView` after async layout and raised `minZoom` so deployed lineage is visible/readable instead of tiny at the bottom of the canvas.
 
 **Verification:**
 - Direct ELK fixture layout returned `ok 13 nodes positioned`.

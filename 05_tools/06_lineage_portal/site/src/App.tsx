@@ -1,11 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
-import { Background, Controls, MiniMap, ReactFlow, type Edge, type Node } from "@xyflow/react";
+import { Background, Controls, MiniMap, ReactFlow, ReactFlowProvider, useReactFlow, type Edge, type Node } from "@xyflow/react";
 import { AlertTriangle, Boxes, Download, GitBranch, Search } from "lucide-react";
 import { layoutGraph, toFlowEdges } from "./graph/layout";
 import { DetailPanel } from "./panels/DetailPanel";
 import type { LineageNode, Snapshot } from "./types";
 
 export function App() {
+  return (
+    <ReactFlowProvider>
+      <LineagePortal />
+    </ReactFlowProvider>
+  );
+}
+
+function LineagePortal() {
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
   const [flowNodes, setFlowNodes] = useState<Node[]>([]);
   const [flowEdges, setFlowEdges] = useState<Edge[]>([]);
@@ -14,6 +22,7 @@ export function App() {
   const [mart, setMart] = useState("all");
   const [layer, setLayer] = useState("all");
   const [unresolvedOnly, setUnresolvedOnly] = useState(false);
+  const { fitView } = useReactFlow();
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}lineage_snapshot.json`)
@@ -44,6 +53,14 @@ export function App() {
     layoutGraph(filteredNodes, filteredEdges).then(setFlowNodes);
     setFlowEdges(toFlowEdges(filteredEdges));
   }, [snapshot, filteredNodes, filteredEdges]);
+
+  useEffect(() => {
+    if (flowNodes.length === 0) return;
+    const frame = requestAnimationFrame(() => {
+      fitView({ padding: 0.08, duration: 250, maxZoom: 0.72 });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [flowEdges.length, flowNodes.length, fitView]);
 
   const marts = useMemo(() => snapshot?.marts.map((item) => item.mart).sort() ?? [], [snapshot]);
   const layers = useMemo(() => snapshot?.layers.map((item) => item.layer).sort() ?? [], [snapshot]);
@@ -103,7 +120,7 @@ export function App() {
             nodes={flowNodes}
             edges={flowEdges}
             fitView
-            minZoom={0.15}
+            minZoom={0.32}
             onNodeClick={(_: React.MouseEvent, node: Node) => setSelected((node.data.lineage as LineageNode) ?? null)}
           >
             <Background color="#d8dee9" gap={18} />
