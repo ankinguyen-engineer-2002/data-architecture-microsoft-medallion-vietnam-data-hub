@@ -254,6 +254,8 @@ def build_snapshot(
 
     node_list = sorted(nodes.values(), key=lambda n: (str(n.get("layer")), str(n.get("mart")), str(n.get("full_name"))))
     edge_list = sorted(edges.values(), key=lambda e: (e["source"], e["target"], e["relationship_type"]))
+    if catalog.business_marts:
+        node_list, edge_list = simplify_to_table_graph(node_list, edge_list)
     warnings.extend(assign_waves(node_list, edge_list))
     for node in node_list:
         lane_order, lane_label = lane_for(str(node.get("layer") or ""), str(node.get("role") or ""), node.get("wave"), str(node.get("schema") or ""))
@@ -282,6 +284,60 @@ def build_snapshot(
 
 def classify_with_catalog(catalog: MartCatalog, schema: str, object_name: str) -> str:
     return catalog.classify_object(schema, object_name) or classify_mart(schema, object_name)
+
+
+def simplify_to_table_graph(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    hidden = {node["id"] for node in nodes if is_work_view_node(node)}
+    visible_ids = {node["id"] for node in nodes if node["id"] not in hidden}
+    adjacency: dict[str, list[dict[str, Any]]] = {}
+    for edge in edges:
+        adjacency.setdefault(edge["source"], []).append(edge)
+
+    simplified: dict[tuple[str, str, str], dict[str, Any]] = {}
+
+    def add_simplified(source: str, target: str, evidence: str, confidence: str = "collapsed") -> None:
+        if source == target:
+            return
+        key = (source, target, "transforms_to")
+        simplified[key] = {
+            "id": f"{source}::transforms_to::{target}",
+            "source": source,
+            "target": target,
+            "relationship_type": "transforms_to",
+            "confidence": confidence,
+            "evidence": evidence,
+        }
+
+    for edge in edges:
+        source = edge["source"]
+        target = edge["target"]
+        if source in visible_ids and target in visible_ids:
+            simplified[(source, target, edge["relationship_type"])] = edge
+            continue
+        if source not in visible_ids:
+            continue
+        stack = [(target, [edge.get("evidence", "")])]
+        seen: set[str] = set()
+        while stack:
+            current, evidence_chain = stack.pop()
+            if current in seen:
+                continue
+            seen.add(current)
+            if current in visible_ids:
+                add_simplified(source, current, " -> ".join(item for item in evidence_chain if item))
+                continue
+            for next_edge in adjacency.get(current, []):
+                stack.append((next_edge["target"], evidence_chain + [next_edge.get("evidence", "")]))
+
+    visible_nodes = [node for node in nodes if node["id"] in visible_ids]
+    return visible_nodes, sorted(simplified.values(), key=lambda e: (e["source"], e["target"], e["relationship_type"]))
+
+
+def is_work_view_node(node: dict[str, Any]) -> bool:
+    schema = str(node.get("schema") or "")
+    object_name = str(node.get("object_name") or "")
+    object_type = str(node.get("object_type") or "").lower()
+    return schema.endswith("_Wrk") or object_name.startswith("v_") or object_type == "wrk_view"
 
 
 def asset_ref_parts(asset: dict[str, Any]) -> tuple[str, str, str]:

@@ -65,6 +65,33 @@
 **Next concrete step:**
 - Push and redeploy live through `Build Lineage Portal` with `scan_mode=live`, then screenshot production.
 
+## 2026-06-26 00:00:00 ICT — Collapsed `_Wrk` views out of lineage graph
+
+**Scope lock:**
+- Lineage portal scanner/UI only.
+- Live deployment through GitHub Actions.
+
+**User correction:**
+- Business lineage should show table/entity -> table/entity flow.
+- `_Wrk` views are implementation detail and made the graph too dense, laggy, and hard to read.
+
+**Changes implemented:**
+- Added scanner simplification step:
+  - hides nodes where schema ends `_Wrk`, object starts `v_`, or catalog object_type is `wrk_view`;
+  - collapses paths through hidden view nodes into direct `transforms_to` edges between visible tables/entities.
+- Added regression test ensuring catalog snapshots do not emit work view nodes.
+- UI edges remain curved `bezier`; graph styling kept modern dark/glass.
+
+**Verification:**
+- Python tests passed (`10` tests).
+- Fixture mart-scoped snapshot now emits `88` nodes / `124` edges / `0` view nodes.
+- Frontend `npm run typecheck && npm run build` passed.
+- `npm audit --omit=dev` returned `found 0 vulnerabilities`.
+- `git diff --check` passed.
+
+**Next concrete step:**
+- Commit/push and redeploy live; verify production snapshot has no `_Wrk/v_*` nodes.
+
 ## 2026-06-26 00:00:00 ICT — Fixed blank lineage graph after preview deploy
 
 **Scope lock:**
