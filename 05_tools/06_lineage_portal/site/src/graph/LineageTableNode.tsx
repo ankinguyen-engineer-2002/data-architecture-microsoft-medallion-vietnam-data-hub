@@ -1,5 +1,4 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
-import { motion } from "motion/react";
 import { Box, Database, GitBranch } from "lucide-react";
 import type { LineageNode } from "../types";
 
@@ -16,10 +15,7 @@ export function LineageTableNode({ data, selected }: NodeProps) {
   const rowCount = lineage.row_count == null ? null : compactNumber(lineage.row_count);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.92 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+    <div
       className={`table-node ${selected ? "is-selected" : ""} layer-${lineage.layer.toLowerCase()} role-${role.toLowerCase()}`}
       title={`${lineage.display_name} · ${lineage.layer}${lineage.wave != null ? ` · Wave ${lineage.wave}` : ""} · ${lineage.schema || lineage.database}`}
     >
@@ -40,7 +36,7 @@ export function LineageTableNode({ data, selected }: NodeProps) {
         {rowCount && <span>{rowCount} rows</span>}
       </div>
       <Handle className="table-handle" type="source" position={Position.Right} />
-    </motion.div>
+    </div>
   );
 }
 

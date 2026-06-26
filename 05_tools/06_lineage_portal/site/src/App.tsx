@@ -2,14 +2,11 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Background, Controls, ReactFlow, ReactFlowProvider, type Edge, type Node } from "@xyflow/react";
-import { AlertTriangle, Boxes, Database, Download, GitBranch, Search } from "lucide-react";
-import { motion } from "motion/react";
+import { Search } from "lucide-react";
 import { layoutGraph, toFlowEdges } from "./graph/layout";
 import { LineageTableNode } from "./graph/LineageTableNode";
 import { DetailPanel } from "./panels/DetailPanel";
 import { Sidebar } from "./panels/Sidebar";
-import { CommandPalette } from "./panels/CommandPalette";
-import { Legend } from "./panels/Legend";
 import { ErrorBoundary } from "./ErrorBoundary";
 import type { LineageEdge, LineageNode, Snapshot } from "./types";
 
@@ -40,17 +37,22 @@ function LineagePortal() {
 
   useEffect(() => {
     fetch(`${basePath}/lineage_snapshot.json`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error(`Snapshot fetch failed: ${response.status}`);
+        return response.json();
+      })
       .then((data: Snapshot) => {
         setSnapshot(data);
         setLoading(false);
         const firstMart = data.mart_registry?.[0]?.id;
         if (firstMart) setMart(firstMart);
       })
-      .catch(() => setLoading(false));
+      .catch((err) => {
+        console.error("Lineage snapshot error:", err);
+        setLoading(false);
+      });
   }, []);
 
-  // Keyboard shortcuts
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -146,10 +148,7 @@ function LineagePortal() {
 
   const handleSelectNode = useCallback((nodeId: string) => {
     const node = snapshot?.nodes.find((n) => n.id === nodeId);
-    if (node) {
-      setSelected(node);
-      setQuery("");
-    }
+    if (node) setSelected(node);
   }, [snapshot]);
 
   const handleDownload = useCallback(() => {
@@ -159,42 +158,17 @@ function LineagePortal() {
     link.click();
   }, []);
 
-  // Loading state
   if (loading) {
     return (
       <main className="app-shell">
         <div className="loading-skeleton">
-          <motion.div
-            className="skeleton-bar skeleton-title"
-            animate={{ opacity: [0.4, 0.8, 0.4] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-          />
-          <motion.div
-            className="skeleton-bar skeleton-subtitle"
-            animate={{ opacity: [0.4, 0.8, 0.4] }}
-            transition={{ repeat: Infinity, duration: 2, delay: 0.15 }}
-          />
+          <div className="skeleton-bar skeleton-title" />
+          <div className="skeleton-bar skeleton-subtitle" />
           <div className="skeleton-grid">
-            <motion.div
-              className="skeleton-card"
-              animate={{ opacity: [0.3, 0.7, 0.3] }}
-              transition={{ repeat: Infinity, duration: 2, delay: 0.3 }}
-            />
-            <motion.div
-              className="skeleton-card"
-              animate={{ opacity: [0.3, 0.7, 0.3] }}
-              transition={{ repeat: Infinity, duration: 2, delay: 0.45 }}
-            />
-            <motion.div
-              className="skeleton-card"
-              animate={{ opacity: [0.3, 0.7, 0.3] }}
-              transition={{ repeat: Infinity, duration: 2, delay: 0.6 }}
-            />
-            <motion.div
-              className="skeleton-card"
-              animate={{ opacity: [0.3, 0.7, 0.3] }}
-              transition={{ repeat: Infinity, duration: 2, delay: 0.75 }}
-            />
+            <div className="skeleton-card" />
+            <div className="skeleton-card" />
+            <div className="skeleton-card" />
+            <div className="skeleton-card" />
           </div>
         </div>
       </main>
@@ -202,18 +176,23 @@ function LineagePortal() {
   }
 
   if (!snapshot) {
-    return <main className="loading">Failed to load lineage snapshot.</main>;
+    return (
+      <main className="app-shell">
+        <div className="empty-graph">
+          <h2>Failed to load lineage snapshot</h2>
+          <p>Check that lineage_snapshot.json is deployed alongside this page.</p>
+        </div>
+      </main>
+    );
   }
 
   const visibleWarnings = snapshot.warnings.length;
   const totalNodeCount = snapshot.nodes.filter((n) => {
     const role = n.role ?? "business";
-    if (!showSupport && ["support", "unclassified"].includes(role)) return false;
-    return true;
+    return !showSupport || !["support", "unclassified"].includes(role);
   }).length;
 
-  // Compute lane groups for column headers
-  const laneGroups = useMemo(() => {
+  const laneGroups = (() => {
     const groups = new Map<string, { label: string; order: number; x: number }>();
     for (const node of flowNodes) {
       const lineage = node.data.lineage as LineageNode;
@@ -227,27 +206,11 @@ function LineagePortal() {
       }
     }
     return [...groups.values()].sort((a, b) => a.order - b.order);
-  }, [flowNodes]);
+  })();
 
   return (
     <main className="app-shell">
-      <CommandPalette
-        nodes={filteredNodes}
-        marts={marts}
-        onSelectNode={handleSelectNode}
-        onSetMart={setMart}
-        onSetLayer={setLayer}
-        onToggleSupport={() => setShowSupport((prev) => !prev)}
-        showSupport={showSupport}
-        onDownload={handleDownload}
-      />
-
-      <motion.header
-        className="topbar"
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-      >
+      <header className="topbar">
         <div>
           <span className="eyebrow">Enterprise ETL</span>
           <h1>Supply Chain Data Flow</h1>
@@ -255,21 +218,15 @@ function LineagePortal() {
         </div>
         <div className="topbar-actions">
           <button className="download-button" onClick={handleDownload}>
-            <Download size={16} />
             Snapshot JSON
           </button>
         </div>
-      </motion.header>
+      </header>
 
       {snapshot.warnings.length > 0 && (
-        <motion.section
-          className="warning-band"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          transition={{ delay: 0.2, duration: 0.3 }}
-        >
+        <section className="warning-band">
           {snapshot.warnings.map((warning) => <span key={warning}>{warning}</span>)}
-        </motion.section>
+        </section>
       )}
 
       <section className={`workspace ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
@@ -294,14 +251,9 @@ function LineagePortal() {
         />
 
         <div className={`graph-card ${selected ? "with-detail" : ""}`}>
-          {/* Lane column headers */}
           <div className="lane-headers">
             {laneGroups.map((group) => (
-              <div
-                key={group.label}
-                className="lane-header"
-                style={{ left: group.x + 12 }}
-              >
+              <div key={group.label} className="lane-header" style={{ left: group.x + 12 }}>
                 <span className={`lane-header-badge lane-${group.label.split(" ")[0].toLowerCase()}`}>
                   {group.label}
                 </span>
@@ -310,19 +262,14 @@ function LineagePortal() {
           </div>
 
           {filteredNodes.length === 0 ? (
-            <motion.div
-              className="empty-graph"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-            >
+            <div className="empty-graph">
               <Search size={42} />
               <h2>No tables match</h2>
               <p>Try adjusting the mart, layer, or search filters to see lineage.</p>
               <button className="download-button" onClick={() => { setQuery(""); setMart("all"); setLayer("all"); }}>
                 Reset all filters
               </button>
-            </motion.div>
+            </div>
           ) : (
             <ReactFlow
               nodes={flowNodes}
@@ -340,7 +287,12 @@ function LineagePortal() {
             </ReactFlow>
           )}
 
-          <Legend />
+          <div className="legend">
+            <div className="legend-item"><span className="legend-dot" style={{ background: "#f59e0b" }} /><span className="legend-label">Bronze</span><span className="legend-desc">Source / raw data</span></div>
+            <div className="legend-item"><span className="legend-dot" style={{ background: "#4f8cff" }} /><span className="legend-label">Silver</span><span className="legend-desc">Cleaned &amp; transformed</span></div>
+            <div className="legend-item"><span className="legend-dot" style={{ background: "#eab308" }} /><span className="legend-label">Gold</span><span className="legend-desc">Star schema / serving</span></div>
+            <div className="legend-item"><span className="legend-dot" style={{ background: "#22c55e" }} /><span className="legend-label">Semantic</span><span className="legend-desc">Power BI model</span></div>
+          </div>
         </div>
 
         <DetailPanel
@@ -399,9 +351,7 @@ function walkLineage(
 function collapseEdgesThroughHiddenNodes(edges: LineageEdge[], visibleNodeIds: Set<string>): LineageEdge[] {
   const direct = new Map<string, LineageEdge>();
   const outgoing = new Map<string, LineageEdge[]>();
-  for (const edge of edges) {
-    outgoing.set(edge.source, [...(outgoing.get(edge.source) ?? []), edge]);
-  }
+  for (const edge of edges) outgoing.set(edge.source, [...(outgoing.get(edge.source) ?? []), edge]);
   for (const edge of edges) {
     if (!visibleNodeIds.has(edge.source)) continue;
     if (visibleNodeIds.has(edge.target)) {
@@ -413,10 +363,7 @@ function collapseEdgesThroughHiddenNodes(edges: LineageEdge[], visibleNodeIds: S
       const relationship = target.startsWith("SemanticModel.") ? "semantic_binding" : "transforms_to";
       const id = `ui-collapse:${edge.source}->${target}:${relationship}`;
       direct.set(edgeKey(edge.source, target, relationship), {
-        id,
-        source: edge.source,
-        target,
-        relationship_type: relationship,
+        id, source: edge.source, target, relationship_type: relationship,
         confidence: edge.confidence,
         evidence: `Collapsed hidden support path from ${edge.target}`
       });
@@ -433,10 +380,7 @@ function downstreamVisibleTargets(start: string, outgoing: Map<string, LineageEd
     const nodeId = queue.shift();
     if (!nodeId || visited.has(nodeId)) continue;
     visited.add(nodeId);
-    if (visibleNodeIds.has(nodeId)) {
-      targets.push(nodeId);
-      continue;
-    }
+    if (visibleNodeIds.has(nodeId)) { targets.push(nodeId); continue; }
     for (const edge of outgoing.get(nodeId) ?? []) {
       if (!visited.has(edge.target)) queue.push(edge.target);
     }
@@ -474,17 +418,13 @@ function lineageClosure(snapshot: Snapshot, mart: string): Set<string> {
   return included;
 }
 
-function laneKeyFor(node: LineageNode): string {
-  return `${laneOrderFor(node)}:${laneLabelFor(node)}`;
-}
-
+function laneKeyFor(node: LineageNode): string { return `${laneOrderFor(node)}:${laneLabelFor(node)}`; }
 function laneLabelFor(node: LineageNode): string {
   if (node.layer === "Bronze") return "Bronze";
   if (node.layer === "Semantic") return "Semantic";
   if (node.wave == null) return node.layer;
   return `${node.layer} W${String(node.wave).padStart(2, "0")}`;
 }
-
 function laneOrderFor(node: LineageNode): number {
   if (node.layer === "Bronze") return 0;
   if (node.layer === "Silver") return 100 + (node.wave ?? 0);
