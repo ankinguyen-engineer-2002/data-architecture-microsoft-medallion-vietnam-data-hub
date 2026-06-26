@@ -1,5 +1,34 @@
 # Context 2026-06-24 to 2026-06-25
 
+## 2026-06-26 00:00:00 ICT — Prepared GitHub Pages preview deployment mode
+
+**Scope lock:**
+- Repo/GitHub deployment preparation only.
+- No live Fabric/SQL/Power BI mutation.
+- No credentials persisted.
+
+**User instruction:**
+- Continue next step and deploy/show the lineage portal UI.
+
+**Actions executed:**
+- Checked GitHub auth, remote, repo visibility, existing secrets, and Pages state.
+- Repo is public; GitHub Pages was not enabled yet (`GET /pages` returned `404`).
+- Existing repo secrets use older names: `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `FABRIC_SERVER`.
+- Updated `.github/workflows/lineage-portal.yml`:
+  - manual `scan_mode=fixture` for safe UI preview without live credentials;
+  - manual/scheduled `scan_mode=live` for Fabric scan;
+  - fallback support for older secret names.
+- Updated `05_tools/06_lineage_portal/README.md` with preview/live secret behavior.
+
+**Verification:**
+- `git diff --check` passed.
+- Python unit tests passed (`7` tests).
+- Fixture snapshot generation passed.
+- Frontend `npm run typecheck && npm run build` passed.
+
+**Next concrete step:**
+- Commit/push workflow changes, enable GitHub Pages with Actions build type, trigger fixture deployment, then trigger live deployment only after confirming public metadata exposure and rotated/current secrets.
+
 ## 2026-06-26 00:00:00 ICT — Implemented GitHub Actions + GitHub Pages lineage portal MVP
 
 **Scope lock:**

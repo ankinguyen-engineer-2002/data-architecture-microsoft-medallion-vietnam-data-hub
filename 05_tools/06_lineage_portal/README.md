@@ -18,7 +18,10 @@ The browser app never receives Fabric, SQL, Power BI, or OpenAI credentials.
 | `site/` | Static Vite/React GitHub Pages app. |
 | `tests/` | Fixture-based scanner tests. |
 
-## Required GitHub Secrets
+## Required GitHub Secrets For Live Scan
+
+Manual preview runs can use `scan_mode=fixture` without Fabric credentials.
+Scheduled runs and manual `scan_mode=live` runs need credentials.
 
 | Secret | Purpose |
 |---|---|
@@ -30,6 +33,9 @@ The browser app never receives Fabric, SQL, Power BI, or OpenAI credentials.
 | `FABRIC_SQL_SERVER` | Fabric SQL endpoint host. |
 | `FABRIC_SEMANTIC_MODEL_ID` | `sc_control_tower` semantic model id. |
 | `FABRIC_SEMANTIC_MODEL_NAME` | Usually `sc_control_tower`. |
+
+The workflow also accepts the older repo secret names as fallbacks:
+`AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, and `FABRIC_SERVER`.
 
 Optional future enrichment secrets:
 

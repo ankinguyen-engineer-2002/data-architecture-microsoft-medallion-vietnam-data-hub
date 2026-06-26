@@ -2,6 +2,15 @@ name: Build Lineage Portal
 
 on:
   workflow_dispatch:
+    inputs:
+      scan_mode:
+        description: "Snapshot source for this run"
+        type: choice
+        required: true
+        default: fixture
+        options:
+          - fixture
+          - live
   schedule:
     - cron: "17 */2 * * *"
 
@@ -40,15 +49,21 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install --upgrade pip pyodbc
 
+      - name: Build fixture lineage snapshot
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.scan_mode == 'fixture' }}
+        working-directory: 05_tools/06_lineage_portal
+        run: python -m scanner.cli --fixture tests/fixtures/minimal_live_input.json --out site/public/lineage_snapshot.json
+
       - name: Build live lineage snapshot
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.scan_mode == 'live' }}
         working-directory: 05_tools/06_lineage_portal
         env:
-          FABRIC_TENANT_ID: ${{ secrets.FABRIC_TENANT_ID }}
-          FABRIC_CLIENT_ID: ${{ secrets.FABRIC_CLIENT_ID }}
-          FABRIC_CLIENT_SECRET: ${{ secrets.FABRIC_CLIENT_SECRET }}
+          FABRIC_TENANT_ID: ${{ secrets.FABRIC_TENANT_ID || secrets.AZURE_TENANT_ID }}
+          FABRIC_CLIENT_ID: ${{ secrets.FABRIC_CLIENT_ID || secrets.AZURE_CLIENT_ID }}
+          FABRIC_CLIENT_SECRET: ${{ secrets.FABRIC_CLIENT_SECRET || secrets.AZURE_CLIENT_SECRET }}
           FABRIC_WORKSPACE_ID: ${{ secrets.FABRIC_WORKSPACE_ID }}
           FABRIC_WORKSPACE_NAME: ${{ secrets.FABRIC_WORKSPACE_NAME }}
-          FABRIC_SQL_SERVER: ${{ secrets.FABRIC_SQL_SERVER }}
+          FABRIC_SQL_SERVER: ${{ secrets.FABRIC_SQL_SERVER || secrets.FABRIC_SERVER }}
           FABRIC_SEMANTIC_MODEL_ID: ${{ secrets.FABRIC_SEMANTIC_MODEL_ID }}
           FABRIC_SEMANTIC_MODEL_NAME: ${{ secrets.FABRIC_SEMANTIC_MODEL_NAME }}
         run: python -m scanner.cli --out site/public/lineage_snapshot.json
