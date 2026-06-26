@@ -1,4 +1,4 @@
-# AGENTS.md — Fabric SupplyChain Operating Repo
+# CLAUDE.md — Fabric SupplyChain Operating Repo
 > Current target: Enterprise ETL-aligned Microsoft Fabric ETL operating repository  
 > Last updated: 2026-06-23 ICT
 
@@ -40,7 +40,7 @@ Use these first, in order:
 
 Every assistant run must be resumable.
 
-- Always read `AGENTS.md` and `00_CONTEXT/current.md` at the start of a technical turn.
+- Always read `CLAUDE.md` and `00_CONTEXT/current.md` at the start of a technical turn.
 - Append/update `00_CONTEXT/current.md` after meaningful changes:
   - repo edits
   - tool/script execution

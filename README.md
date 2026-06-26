@@ -335,7 +335,7 @@ python3 05_tools/04_operating_package/build_operating_package.py --repo-root .
 Nếu hai tài liệu nói khác nhau, dùng thứ tự này:
 
 ```text
-1. AGENTS.md
+1. CLAUDE.md
 2. 00_CONTEXT/current.md
 3. 01_docs/architecture/current/final_enterprise_etl_runtime_architecture.md
 4. 01_docs/Enterprise_Framework_Migration_Master_Plan.md

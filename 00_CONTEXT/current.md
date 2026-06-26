@@ -1,4 +1,141 @@
-# Context 2026-06-24 to 2026-06-25
+# Context 2026-06-24 to 2026-06-26
+
+## 2026-06-26 18:00:00 ICT — Full UX upgrade for lineage portal
+
+**Scope lock:**
+- Lineage portal frontend only (`05_tools/06_lineage_portal/site/`).
+- No live Fabric/SQL/Power BI mutation.
+- No scanner/backend changes.
+
+**User instruction:**
+- Nâng cấp full UX lineage portal vì "UX chưa được xịn xò với thân thiện lắm".
+
+**Changes implemented:**
+
+1. **Cmd+K Command Palette** (`panels/CommandPalette.tsx` — NEW):
+   - `cmdk`-based search with Cmd+K / Ctrl+K toggle.
+   - Search all tables, switch mart/layer, toggle support nodes, download snapshot.
+   - Dark glass-morphism styling with layer badges on each result.
+   - Escape to close.
+
+2. **Sidebar nâng cấp** (`panels/Sidebar.tsx` — NEW, extracted from App.tsx):
+   - Collapse/expand toggle with `motion` animation (Cmd+B shortcut).
+   - Layer chips instead of plain select (clickable badges with counts).
+   - Custom select wrapper with chevron.
+   - Search badge showing match count (e.g., "12/88").
+   - Sidebar footer showing Cmd+K hint.
+
+3. **Motion animations across all components:**
+   - `motion/react` imports in all components.
+   - DetailPanel slides in from right, slides out on close.
+   - Sidebar collapses/expands with smooth width animation.
+   - Loading skeleton with pulse animation.
+   - Empty state fades in.
+   - Topbar fades in on load.
+   - Warning band animates open.
+   - Node cards scale in on mount.
+   - Legend fades in with delay.
+
+4. **Lane column headers** — computed from layout positions, showing "Bronze", "Silver W00", "Gold W30", "Semantic" above each column with left-border color coding.
+
+5. **Color Legend** (`panels/Legend.tsx` — NEW):
+   - Bottom-left overlay showing Bronze/Silver/Gold/Semantic with colors and descriptions.
+
+6. **Keyboard shortcuts:**
+   - `Cmd+K` → Command palette
+   - `Cmd+B` → Toggle sidebar
+   - `Escape` → Close panel / clear search
+
+7. **Loading skeleton** — Animated pulse skeleton with title, subtitle, and 4 cards.
+
+8. **Empty state** — When filters return 0 nodes, shows search icon + message + "Reset all filters" button.
+
+9. **Node hover tooltip** — `title` attribute on table node showing layer, wave, schema.
+
+10. **Enhanced CSS** — Smooth transitions on hover states, edge glow effects, polished typography, layer chip active states, command palette dark theme.
+
+**Files changed:**
+- `05_tools/06_lineage_portal/site/src/App.tsx` — rewritten with all new components
+- `05_tools/06_lineage_portal/site/src/styles/app.css` — full rewrite with ~200 new lines
+- `05_tools/06_lineage_portal/site/src/graph/LineageTableNode.tsx` — motion animation + tooltip
+- `05_tools/06_lineage_portal/site/src/panels/DetailPanel.tsx` — motion slide-in
+- `05_tools/06_lineage_portal/site/src/panels/CommandPalette.tsx` — NEW
+- `05_tools/06_lineage_portal/site/src/panels/Sidebar.tsx` — NEW
+- `05_tools/06_lineage_portal/site/src/panels/Legend.tsx` — NEW
+
+**Verification:**
+- `npm run build` passed (Next.js 15.5.19, static export).
+- `npm run typecheck` passed (0 errors).
+- `npm audit --omit=dev` returned `found 0 vulnerabilities`.
+- Python scanner tests: `10 tests, OK`.
+- Python compile: passed.
+
+**Current handoff:**
+- UX upgrade is complete and ready for deploy.
+- Commit/push + trigger `Build Lineage Portal` with `scan_mode=live` to deploy.
+- Deployed URL: `https://ankinguyen-engineer-2002.github.io/data-architecture-microsoft-medallion-vietnam-data-hub/`
+
+## 2026-06-26 17:15:00 ICT — Renamed AGENTS.md to CLAUDE.md for Claude Code compatibility
+
+**Scope lock:**
+- Repo file rename and reference update only.
+- No live Fabric/SQL/Power BI mutation.
+
+**User instruction:**
+- Đọc và scan toàn bộ repo, tập trung `00_CONTEXT/`, đọc `AGENTS.md` sau đó sửa thành `CLAUDE.md`.
+
+**Actions executed:**
+- Read all files in `00_CONTEXT/` (current.md, all dated chunks, README.md).
+- Read `AGENTS.md` complete (renamed to `CLAUDE.md`).
+- Scanned repo structure and key architecture docs.
+- Renamed `AGENTS.md` → `CLAUDE.md`.
+- Updated self-reference inside `CLAUDE.md`: title + context logging rule.
+- Updated references in active operating files:
+  - `README.md` (source-of-truth order)
+  - `00_CONTEXT/README.md` (sync rule)
+  - `01_docs/runbook/connectivity_playbook.md`
+  - `01_docs/decisions/ADR-009-repo-operating-model.md`
+  - `01_docs/onboarding/de_onboarding.md`
+  - `00_CONTEXT/current.md` (forward-looking resume instructions)
+- Left historical references in dated context chunks and plan documents as-is (accurate historical record).
+
+**Current handoff:**
+- `CLAUDE.md` is now the canonical agent instruction file.
+- All active docs reference `CLAUDE.md`.
+- Historical context chunks correctly document the era when the file was named `AGENTS.md`.
+
+## 2026-06-26 16:33:03 ICT — Configured Claude Code with AI Box fallback model
+
+**Scope lock:**
+- Local Claude Code / VS Code / shell configuration only.
+- No repo business logic, Fabric, SQL, Power BI, or cloud mutation.
+- No API key persisted into repo context.
+
+**User instruction:**
+- Configure Claude Code to use existing AI Box API because current setup returned `403`.
+
+**Root cause evidence:**
+- AI Box `/v1/models` listed authorized models: `deepseek-v4-pro[1m]`, `deepseek-v4-flash[1m]`, `kimi-k2.6`.
+- Direct AI Box `/v1/messages` probe returned `200` for `deepseek-v4-pro[1m]` and `403` for `deepseek-v4-pro`.
+- Claude Code 2.1.181 stripped `[1m]` from explicit `--model deepseek-v4-pro[1m]` and `deepseek-v4-flash[1m]`, causing the same `403`.
+- Claude Code `--bare -p --model kimi-k2.6` returned `pong`.
+
+**Changes implemented:**
+- Backed up and updated local user config files outside repo:
+  - `~/.zshrc`
+  - `~/.claude/settings.json`
+  - VS Code/Cursor User `settings.json` where present
+- Removed generic `ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN` shell routing for this Foundry setup.
+- Set Claude Code default primary/subagent model to `kimi-k2.6`.
+
+**Verification:**
+- New interactive `zsh` env showed Foundry vars set and generic Anthropic gateway vars unset.
+- VS Code `claudeCode.environmentVariables` contained AI Box Foundry vars and `kimi-k2.6` defaults.
+- `zsh -ic 'claude --bare -p --no-session-persistence "Reply with exactly: pong"'` returned `pong`.
+
+**Risk / next concrete step:**
+- DeepSeek models still require AI Box to provide a Claude-Code-compatible alias/base-model without bracket stripping, or Claude Code/AI Box gateway support for preserving `[1m]`.
+- Reload VS Code / Claude Code extension to pick up updated user settings.
 
 ## 2026-06-26 00:00:00 ICT — Upgraded lineage portal automation and dark lane UI
 
@@ -1619,7 +1756,7 @@
 **Governance correction / assistant deviation noted:**
 - Aric flagged that the assistant was not following `AGENTS.md`/context tightly enough.
 - Required behavior from here:
-  - Always read `AGENTS.md` and `00_CONTEXT/current.md` at the start of technical turns.
+  - Always read `CLAUDE.md` and `00_CONTEXT/current.md` at the start of technical turns.
   - Keep `00_CONTEXT/current.md` updated after meaningful changes, not only at the end.
   - Do not delete generated folders/files or old Vite files without explicit approval.
   - For technical claims, use repo evidence or official docs; call out [Verified] / [Likely] / [Need-verify] when summarizing decisions.
@@ -2059,7 +2196,7 @@
 - This current entry is the expanded detailed chat-history note.
 
 **Important resume instructions for next assistant turn:**
-- Do not continue implementation before reading `AGENTS.md` and this `00_CONTEXT/current.md` section.
+- Do not continue implementation before reading `CLAUDE.md` and this `00_CONTEXT/current.md` section.
 - Do not claim deployment is complete until:
   - source changes are committed and pushed;
   - GitHub Action live run succeeds;
