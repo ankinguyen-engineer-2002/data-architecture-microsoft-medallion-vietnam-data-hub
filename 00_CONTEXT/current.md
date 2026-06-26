@@ -1,5 +1,36 @@
 # Context 2026-06-24 to 2026-06-25
 
+## 2026-06-26 00:00:00 ICT — Deployed lineage portal preview to GitHub Pages
+
+**Scope lock:**
+- GitHub Pages preview deployment only.
+- Used fixture snapshot, not live Fabric scan.
+- No live Fabric/SQL/Power BI mutation.
+- No credentials persisted.
+
+**User instruction:**
+- Continue next step and show the deployed UI.
+
+**Actions executed:**
+- Pushed lineage portal commits to `origin/main`.
+- Enabled GitHub Pages with `build_type=workflow`.
+- Triggered `Build Lineage Portal` workflow manually with `scan_mode=fixture`.
+- Workflow run `28214683199` completed successfully.
+- Opened the deployed Pages URL in the local default browser.
+
+**Evidence:**
+- Pages URL:
+  - `https://ankinguyen-engineer-2002.github.io/data-architecture-microsoft-medallion-vietnam-data-hub/`
+- `curl -I` returned `HTTP/2 200`.
+- `lineage_snapshot.json` loaded from Pages and returned fixture lineage JSON.
+- Pages API reports:
+  - `build_type=workflow`
+  - `https_enforced=true`
+  - `public=true`
+
+**Risk / next concrete step:**
+- Repo/Pages are public. Do not run `scan_mode=live` until Aric confirms live metadata/SQL definitions are safe to publish and rotated/current secrets are set.
+
 ## 2026-06-26 00:00:00 ICT — Prepared GitHub Pages preview deployment mode
 
 **Scope lock:**
