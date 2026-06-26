@@ -91,7 +91,7 @@ class SqlReader:
                     DateKey,
                     DateRangeDays,
                     Modified,
-                    RowCount
+                    [RowCount] AS RowCount
                 FROM DW_Developer.TableDictionary
                 ORDER BY SchemaName, TableName
                 """
