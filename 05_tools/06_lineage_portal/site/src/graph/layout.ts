@@ -42,13 +42,13 @@ export async function layoutGraph(nodes: LineageNode[], _edges: LineageEdge[]): 
   return flowNodes
     .slice()
     .sort(compareNodes)
-    .map((node, index, sorted) => {
+    .map((node) => {
       const lineage = node.data.lineage as LineageNode;
       const laneKey = laneKeyFor(lineage);
       const x = (laneIndex.get(laneKey) ?? 0) * 480;
-      const laneSize = sorted.filter((item) => laneKeyFor(item.data.lineage as LineageNode) === laneKey).length;
-      const y = (laneOffsets.get(laneKey) ?? 0) - ((laneSize - 1) * 76);
-      laneOffsets.set(laneKey, y + 150);
+      const offset = laneOffsets.get(laneKey) ?? 0;
+      const y = 96 + offset;
+      laneOffsets.set(laneKey, offset + 150);
       return {
         ...node,
         position: { x, y },
