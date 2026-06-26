@@ -2110,3 +2110,29 @@
 
 **Current handoff:**
 - Next step is commit/push, then trigger GitHub Actions `Build Lineage Portal` with `scan_mode=live`, then verify deployed Pages URL and snapshot.
+
+## 2026-06-26 14:14:52 ICT — Removed canvas overlay clutter before redeploy
+
+**Scope lock:**
+- Lineage portal frontend UX cleanup only.
+- No live Fabric SQL DDL/DML, no ETL refresh, no Power BI/Fabric mutation.
+
+**Finding from deployed screenshot:**
+- The first deployed Next/React Flow build worked, but canvas caption/lane markers overlapped top-row nodes.
+- This also conflicted with Aric's earlier instruction that he does not need layer-view UI in the graph.
+
+**Actions executed:**
+- Removed the visible canvas caption from `App.tsx`.
+- Removed lane ruler/lane marker rendering from `App.tsx`.
+- Removed corresponding CSS from `app.css`.
+- Adjusted ELK/fallback layout offsets in `layout.ts` to reserve simpler canvas padding without overlay labels.
+
+**Verification:**
+- Scanner tests passed: `10` tests, `OK`.
+- `npm run build` passed with Next.js `15.5.19`.
+- `npm run typecheck` passed.
+- `npm audit --omit=dev` returned `found 0 vulnerabilities`.
+- Static export screenshot captured to `/tmp/lineage_next_predeploy_clean.png`; visual check shows no caption/lane label overlap.
+
+**Current handoff:**
+- Commit/push this small UX patch, trigger live GitHub Actions deploy again, then verify deployed Pages URL/snapshot/screenshot.

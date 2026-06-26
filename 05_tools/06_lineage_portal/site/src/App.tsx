@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Background, Controls, ReactFlow, ReactFlowProvider, useReactFlow, type Edge, type Node } from "@xyflow/react";
-import { AlertTriangle, Boxes, Database, Download, GitBranch, Layers3, Search, Sparkles } from "lucide-react";
-import { graphLanes, layoutGraph, toFlowEdges } from "./graph/layout";
+import { AlertTriangle, Boxes, Database, Download, GitBranch, Layers3, Search } from "lucide-react";
+import { layoutGraph, toFlowEdges } from "./graph/layout";
 import { LineageTableNode } from "./graph/LineageTableNode";
 import { DetailPanel } from "./panels/DetailPanel";
 import type { LineageEdge, LineageNode, Snapshot } from "./types";
@@ -106,7 +106,6 @@ function LineagePortal() {
     const order = ["Bronze", "Silver", "Gold", "Semantic"];
     return (snapshot?.layers.map((item) => item.layer) ?? []).sort((a, b) => order.indexOf(a) - order.indexOf(b));
   }, [snapshot]);
-  const lanes = useMemo(() => graphLanes(filteredNodes), [filteredNodes]);
   const activeMartLabel = mart === "all" ? "All business marts" : marts.find((item) => item.id === mart)?.display_name ?? mart;
 
   if (!snapshot) {
@@ -172,18 +171,6 @@ function LineagePortal() {
         </aside>
 
         <div className={`graph-card ${selected ? "with-detail" : ""}`}>
-          <div className="canvas-caption">
-            <Sparkles size={16} />
-            <span>Clean path: work views and support assets collapse into direct table flows.</span>
-          </div>
-          <div className="lane-ruler" style={{ width: `${Math.max(lanes.length * 560, 1280)}px` }}>
-            {lanes.map((lane) => (
-              <div className="lane-marker" key={lane.key} style={{ left: lane.x }}>
-                <span>{lane.label}</span>
-                <strong>{lane.count}</strong>
-              </div>
-            ))}
-          </div>
           <ReactFlow
             nodes={flowNodes}
             edges={flowEdges}

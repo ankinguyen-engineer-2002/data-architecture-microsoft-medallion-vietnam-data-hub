@@ -86,7 +86,7 @@ export async function layoutGraph(nodes: LineageNode[], edges: LineageEdge[]): P
       const position = positions.get(node.id) ?? { x: 0, y: 0 };
       return {
         ...node,
-        position: { x: position.x + 70, y: position.y + 118 },
+        position: { x: position.x + 36, y: position.y + 36 },
         style: { width: widthFor(lineage), height: 86 }
       };
     });
@@ -104,9 +104,9 @@ function fallbackLaneLayout(flowNodes: Node[]): Node[] {
     .map((node) => {
       const lineage = node.data.lineage as LineageNode;
       const laneKey = laneKeyFor(lineage);
-      const x = 70 + (laneIndex.get(laneKey) ?? 0) * 430;
+      const x = 36 + (laneIndex.get(laneKey) ?? 0) * 430;
       const offset = laneOffsets.get(laneKey) ?? 0;
-      const y = 118 + offset;
+      const y = 36 + offset;
       laneOffsets.set(laneKey, offset + 108);
       return {
         ...node,
@@ -114,15 +114,6 @@ function fallbackLaneLayout(flowNodes: Node[]): Node[] {
         style: { width: widthFor(lineage), height: 86 }
       };
     });
-}
-
-export function graphLanes(nodes: LineageNode[]): Array<{ key: string; label: string; x: number; count: number }> {
-  return groupByLane(toFlowNodes(nodes)).map((lane, index) => ({
-    key: lane.key,
-    label: lane.label,
-    x: 70 + index * 430,
-    count: lane.nodes.length
-  }));
 }
 
 function groupByLane(nodes: Node[]): Array<{ key: string; label: string; order: number; nodes: Node[] }> {

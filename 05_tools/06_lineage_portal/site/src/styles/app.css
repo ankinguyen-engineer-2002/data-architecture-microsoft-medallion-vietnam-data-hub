@@ -252,65 +252,6 @@ h1 {
   padding-right: 0;
 }
 
-.canvas-caption {
-  position: absolute;
-  z-index: 5;
-  top: 14px;
-  left: 22px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  max-width: min(620px, calc(100% - 44px));
-  min-height: 36px;
-  border: 1px solid rgba(45, 212, 191, 0.22);
-  border-radius: 8px;
-  background: rgba(24, 24, 27, 0.92);
-  color: #d4d4d8;
-  padding: 7px 11px;
-  font-size: 0.82rem;
-  font-weight: 750;
-  pointer-events: none;
-}
-
-.lane-ruler {
-  position: absolute;
-  z-index: 4;
-  top: 60px;
-  left: 22px;
-  height: 42px;
-  pointer-events: none;
-}
-
-.lane-marker {
-  position: absolute;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  width: 300px;
-  min-height: 38px;
-  border: 1px solid rgba(79, 140, 255, 0.22);
-  border-radius: 8px;
-  background: rgba(24, 24, 27, 0.92);
-  color: #fafafa;
-  padding: 7px 10px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
-}
-
-.lane-marker span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 0.76rem;
-  font-weight: 800;
-}
-
-.lane-marker strong {
-  color: #22c55e;
-  font-size: 0.78rem;
-}
-
 .react-flow {
   background: transparent;
   width: 100%;
