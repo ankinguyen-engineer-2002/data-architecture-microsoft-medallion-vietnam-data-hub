@@ -27,7 +27,11 @@ function LineagePortal() {
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}lineage_snapshot.json`)
       .then((response) => response.json())
-      .then((data: Snapshot) => setSnapshot(data));
+      .then((data: Snapshot) => {
+        setSnapshot(data);
+        const firstMart = data.mart_registry?.[0]?.id;
+        if (firstMart) setMart(firstMart);
+      });
   }, []);
 
   const filteredNodes = useMemo(() => {
@@ -164,7 +168,7 @@ function lineageClosure(snapshot: Snapshot, mart: string): Set<string> {
     backward.set(edge.target, [...(backward.get(edge.target) ?? []), edge.source]);
   }
   const queue = snapshot.nodes
-    .filter((node) => node.mart === mart || node.role === "support" || node.object_type === "SEMANTIC_MODEL")
+    .filter((node) => node.mart === mart || node.object_type === "SEMANTIC_MODEL")
     .map((node) => node.id);
   while (queue.length > 0) {
     const nodeId = queue.shift();
