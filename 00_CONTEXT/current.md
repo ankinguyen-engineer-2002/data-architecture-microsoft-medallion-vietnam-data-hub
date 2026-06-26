@@ -1,5 +1,90 @@
 # Context 2026-06-24 to 2026-06-25
 
+## 2026-06-26 00:00:00 ICT — Chose GitHub Actions + GitHub Pages lineage portal architecture
+
+**Scope lock:**
+- Planning/design only.
+- No live Fabric/SQL/Power BI mutation.
+- No GitHub Pages deployment yet.
+- No credential persisted to repo.
+
+**User instruction:**
+- Build a beautiful, professional lineage tool for GitHub Pages, not Streamlit and not localhost.
+- Scanner must read current live Fabric/Enterprise ETL infrastructure rather than stale repo-local `02_marts`.
+- UI should classify and render Bronze -> Silver waves -> Gold waves -> single semantic model `sc_control_tower`.
+- Optional Azure OpenAI/API providers may help classification/enrichment later, but credentials must be switchable and protected.
+
+**Decision:**
+- Option A approved:
+  - GitHub Actions runs the live scanner.
+  - GitHub Pages hosts the static UI/UX.
+  - Browser reads only sanitized JSON snapshot artifacts.
+  - Browser never receives Fabric SQL/Fabric REST/Power BI/OpenAI credentials.
+
+**Design artifact added:**
+- `01_docs/plans/2026-06-26-github-pages-lineage-portal-design.md`
+
+**Key design constraints captured:**
+- Primary live scan sources:
+  - Fabric REST workspace item inventory.
+  - `ETL_Framework.DW_Developer.TableDictionary`.
+  - Processing/Gold final tables and `_Wrk` views.
+  - `Enterprise_Lakehouse` table inventory.
+  - `sc_control_tower` semantic model definition.
+- Legacy `Meta.AssetRegistry` / `Meta.LineageEdge` are explicitly non-goals for current runtime lineage.
+- Azure OpenAI is optional enrichment only, not authoritative lineage classification.
+- The Azure OpenAI key shared in chat must be rotated and stored only as GitHub Actions secret before implementation.
+
+**Next concrete step:**
+- Review/approve the design spec, then create implementation plan for `05_tools/06_lineage_portal/` and `.github/workflows/lineage-portal.yml`.
+
+## 2026-06-26 00:00:00 ICT — Tested Fabric Pipeline Alert Service Principal read access
+
+**Scope lock:**
+- Read-only Service Principal connectivity probe.
+- No Fabric/SQL/Power BI mutation.
+- No secret persisted to repo.
+
+**User instruction:**
+- Use the app registration/secret for `Fabric Pipeline Alert` to see whether it can read the current `Enterprise SupplyChain-Dev` infrastructure.
+- User corrected scope: current runtime is Enterprise ETL / `DW_Developer.TableDictionary` + `_Wrk` views, not legacy `Meta.*`.
+
+**Actions executed:**
+- Ran a temporary read-only probe from `/private/tmp/fabric_sp_probe.py`.
+- Requested Service Principal tokens for:
+  - `https://database.windows.net/.default`
+  - `https://api.fabric.microsoft.com/.default`
+- Queried Fabric REST workspace items for `Enterprise SupplyChain-Dev`.
+- Queried SQL endpoint read-only for:
+  - `ETL_Framework`
+  - `SupplyChain_Processing_Warehouse`
+  - `SupplyChain_Gold_Warehouse`
+  - `Enterprise_Lakehouse`
+
+**Evidence:**
+- Token acquisition succeeded for both database and Fabric REST.
+- Fabric REST workspace item listing succeeded:
+  - `151` items visible.
+  - Counts include `6` Warehouses, `4` Lakehouses, `4` SQL endpoints, `6` semantic models, `17` data pipelines, `83` notebooks.
+- SQL endpoint read access succeeded:
+  - `ETL_Framework`: `9` tables, `1` view, `0` visible procs.
+  - `SupplyChain_Processing_Warehouse`: `58` tables, `43` views, `0` visible procs.
+  - `SupplyChain_Gold_Warehouse`: `15` tables, `13` views, `0` visible procs.
+  - `Enterprise_Lakehouse`: `419` tables.
+- `ETL_Framework.DW_Developer.TableDictionary` read succeeded:
+  - `66` rows total.
+  - `50` rows with `_Wrk.v_*` references.
+- `_Wrk` view discovery succeeded in Processing and Gold.
+- `DW_Developer.AuditLog` table is visible, but the quick probe used a stale column assumption (`ProcedureName`) and hit `Invalid column name 'ProcedureName'`.
+
+**Risk / interpretation:**
+- The Service Principal can read current workspace inventory and core warehouse/table/view metadata.
+- `sys.procedures` returned `0` visible procedures for Processing/Gold under this Service Principal; do not conclude wrapper procs are absent without checking with owner/user identity or explicit proc visibility grants.
+- The provided client secret appeared in interactive tool output during an earlier TTY attempt; rotate the secret in Azure Portal before treating it as clean.
+
+**Next concrete step:**
+- If this app will power a current Enterprise ETL lineage/status reader, grant/verify least-privilege read visibility for wrapper proc definitions if needed, and update the reader to use `DW_Developer.TableDictionary`, `_Wrk` views, and workspace items instead of legacy `Meta.*`.
+
 ## 2026-06-24 08:35:35 (ICT) — Removed repo-native Lineage Workbench visual experiment
 
 **Scope lock:**
