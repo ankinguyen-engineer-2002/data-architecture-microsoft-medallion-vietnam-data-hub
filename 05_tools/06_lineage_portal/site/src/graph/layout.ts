@@ -1,8 +1,5 @@
 import { MarkerType, Position, type Edge, type Node } from "@xyflow/react";
-import ELK from "elkjs/lib/elk.bundled.js";
 import type { LineageEdge, LineageNode } from "../types";
-
-const elk = new ELK();
 
 const roleRank: Record<string, number> = {
   business: 0,
@@ -32,7 +29,7 @@ export function toFlowEdges(edges: LineageEdge[]): Edge[] {
     source: edge.source,
     target: edge.target,
     type: "bezier",
-    animated: edge.relationship_type === "semantic_binding",
+    animated: true,
     className: `lineage-edge rel-${edge.relationship_type}`,
     data: edge,
     markerEnd: {
@@ -46,72 +43,29 @@ export function toFlowEdges(edges: LineageEdge[]): Edge[] {
   }));
 }
 
-export async function layoutGraph(nodes: LineageNode[], edges: LineageEdge[]): Promise<Node[]> {
+export async function layoutGraph(nodes: LineageNode[], _edges: LineageEdge[]): Promise<Node[]> {
   const flowNodes = toFlowNodes(nodes);
-  const orderedNodes = flowNodes.slice().sort(compareNodes);
-  const nodeById = new Map(orderedNodes.map((node) => [node.id, node]));
-  const elkGraph = {
-    id: "lineage-root",
-    layoutOptions: {
-      "elk.algorithm": "layered",
-      "elk.direction": "RIGHT",
-      "elk.spacing.nodeNode": "42",
-      "elk.layered.spacing.nodeNodeBetweenLayers": "88",
-      "elk.layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
-      "elk.layered.crossingMinimization.strategy": "LAYER_SWEEP",
-      "elk.edgeRouting": "SPLINES"
-    },
-    children: orderedNodes.map((node) => {
-      const lineage = node.data.lineage as LineageNode;
-      return {
-        id: node.id,
-        width: widthFor(lineage),
-        height: 86
-      };
-    }),
-    edges: edges
-      .filter((edge) => nodeById.has(edge.source) && nodeById.has(edge.target))
-      .map((edge) => ({
-        id: edge.id,
-        sources: [edge.source],
-        targets: [edge.target]
-      }))
-  };
-
-  try {
-    const layout = await elk.layout(elkGraph);
-    const positions = new Map((layout.children ?? []).map((child) => [child.id, { x: child.x ?? 0, y: child.y ?? 0 }]));
-    return orderedNodes.map((node) => {
-      const lineage = node.data.lineage as LineageNode;
-      const position = positions.get(node.id) ?? { x: 0, y: 0 };
-      return {
-        ...node,
-        position: { x: position.x + 36, y: position.y + 36 },
-        style: { width: widthFor(lineage), height: 86 }
-      };
-    });
-  } catch {
-    return fallbackLaneLayout(orderedNodes);
-  }
+  return architecturalLaneLayout(flowNodes);
 }
 
-function fallbackLaneLayout(flowNodes: Node[]): Node[] {
+function architecturalLaneLayout(flowNodes: Node[]): Node[] {
+  const orderedNodes = flowNodes.slice().sort(compareNodes);
   const laneGroups = groupByLane(flowNodes);
   const laneIndex = new Map(laneGroups.map((lane, index) => [lane.key, index]));
-  const laneOffsets = new Map<string, number>();
+  const laneRow = new Map<string, number>();
 
-  return flowNodes
-    .map((node) => {
+  return orderedNodes.map((node) => {
       const lineage = node.data.lineage as LineageNode;
       const laneKey = laneKeyFor(lineage);
-      const x = 36 + (laneIndex.get(laneKey) ?? 0) * 430;
-      const offset = laneOffsets.get(laneKey) ?? 0;
-      const y = 36 + offset;
-      laneOffsets.set(laneKey, offset + 108);
+      const row = laneRow.get(laneKey) ?? 0;
+      laneRow.set(laneKey, row + 1);
       return {
         ...node,
-        position: { x, y },
-        style: { width: widthFor(lineage), height: 86 }
+        position: {
+          x: 48 + (laneIndex.get(laneKey) ?? 0) * 450,
+          y: 56 + row * 122
+        },
+        style: { width: widthFor(lineage), height: 92 }
       };
     });
 }
@@ -124,8 +78,8 @@ function groupByLane(nodes: Node[]): Array<{ key: string; label: string; order: 
     if (!groups.has(key)) {
       groups.set(key, {
         key,
-        label: lineage.lane_label ?? lineage.layer,
-        order: lineage.lane_order ?? 900,
+        label: laneLabelFor(lineage),
+        order: laneOrderFor(lineage),
         nodes: []
       });
     }
@@ -138,16 +92,30 @@ function compareNodes(left: Node, right: Node): number {
   const a = left.data.lineage as LineageNode;
   const b = right.data.lineage as LineageNode;
   return (
-    (a.lane_order ?? 900) - (b.lane_order ?? 900) ||
+    laneOrderFor(a) - laneOrderFor(b) ||
     (roleRank[a.role ?? "business"] ?? 9) - (roleRank[b.role ?? "business"] ?? 9) ||
-    (a.wave ?? 99) - (b.wave ?? 99) ||
     a.schema.localeCompare(b.schema) ||
     a.display_name.localeCompare(b.display_name)
   );
 }
 
 function laneKeyFor(node: LineageNode): string {
-  return `${node.lane_order ?? 900}:${node.lane_label ?? node.layer}`;
+  return `${laneOrderFor(node)}:${laneLabelFor(node)}`;
+}
+
+function laneLabelFor(node: LineageNode): string {
+  if (node.layer === "Bronze") return "Bronze";
+  if (node.layer === "Semantic") return "Semantic";
+  if (node.wave == null) return node.layer;
+  return `${node.layer} W${String(node.wave).padStart(2, "0")}`;
+}
+
+function laneOrderFor(node: LineageNode): number {
+  if (node.layer === "Bronze") return 0;
+  if (node.layer === "Silver") return 100 + (node.wave ?? 0);
+  if (node.layer === "Gold") return 200 + (node.wave ?? 0);
+  if (node.layer === "Semantic") return 400;
+  return 900 + (node.wave ?? 0);
 }
 
 function widthFor(node: LineageNode): number {

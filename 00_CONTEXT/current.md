@@ -2176,3 +2176,35 @@
 
 **Current handoff:**
 - Commit/push the UX patch, trigger live GitHub Actions deploy, then verify deployed Pages URL/snapshot/screenshot.
+
+## 2026-06-26 14:41:12 ICT — Switched lineage layout to deterministic layer/wave columns
+
+**Scope lock:**
+- Lineage portal frontend layout only.
+- No live Fabric SQL DDL/DML, no ETL refresh, no Power BI/Fabric mutation.
+
+**User feedback captured:**
+- When the graph has invisible layer columns, each layer/wave must be one clear vertical column.
+- If there is a wave, each `Layer + Wave` should be its own vertical column.
+- If there is no wave, the layer should be a single vertical column.
+- Boxes inside the same layer/wave column must share the same x-axis and stack vertically; they must not split into 2-3 uneven sub-columns.
+
+**Actions executed:**
+- Replaced ELK primary layout with deterministic architecture layout:
+  - `Bronze` column;
+  - `Silver W00`, `Silver W01`, `Silver W02`, ... columns;
+  - `Gold W00`, `Gold W10`, `Gold W30`, ... columns;
+  - `Semantic` column.
+- Every table in the same lane now uses the same x position and increments only on y.
+- Kept animated Bezier edges.
+- Resulting bundle became smaller because ELK is no longer imported into the runtime bundle.
+
+**Verification:**
+- Scanner tests passed: `10` tests, `OK`.
+- `npm run build` passed with Next.js `15.5.19`.
+- `npm run typecheck` passed.
+- `npm audit --omit=dev` returned `found 0 vulnerabilities`.
+- Static screenshot captured to `/tmp/lineage_lane_columns.png`; visual check shows table cards aligned in single vertical columns per layer/wave.
+
+**Current handoff:**
+- Commit/push this deterministic lane layout and trigger live GitHub Actions deployment.
