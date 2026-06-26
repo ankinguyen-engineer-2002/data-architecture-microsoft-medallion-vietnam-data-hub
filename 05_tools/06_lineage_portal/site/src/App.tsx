@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Background, Controls, ReactFlow, ReactFlowProvider, useReactFlow, type Edge, type Node } from "@xyflow/react";
-import { AlertTriangle, Boxes, Database, Download, GitBranch, Layers3, Search } from "lucide-react";
+import { Background, Controls, ReactFlow, ReactFlowProvider, type Edge, type Node } from "@xyflow/react";
+import { AlertTriangle, Boxes, Database, Download, GitBranch, Search } from "lucide-react";
 import { layoutGraph, toFlowEdges } from "./graph/layout";
 import { LineageTableNode } from "./graph/LineageTableNode";
 import { DetailPanel } from "./panels/DetailPanel";
@@ -31,7 +31,6 @@ function LineagePortal() {
   const [mart, setMart] = useState("all");
   const [layer, setLayer] = useState("all");
   const [showSupport, setShowSupport] = useState(false);
-  const { fitView } = useReactFlow();
 
   useEffect(() => {
     fetch(`${basePath}/lineage_snapshot.json`)
@@ -72,7 +71,13 @@ function LineagePortal() {
       setFlowNodes(
         nodes.map((node) => ({
           ...node,
-          className: [node.className, selected && !highlighted?.nodes.has(node.id) ? "is-dim" : "", highlighted?.nodes.has(node.id) ? "is-highlight" : ""]
+          className: [
+            node.className,
+            selected && !highlighted?.nodes.has(node.id) ? "is-dim" : "",
+            highlighted?.selected === node.id ? "is-selected-focus" : "",
+            highlighted?.upstream.has(node.id) ? "is-upstream" : "",
+            highlighted?.downstream.has(node.id) ? "is-downstream" : ""
+          ]
             .filter(Boolean)
             .join(" ")
         }))
@@ -81,20 +86,17 @@ function LineagePortal() {
     setFlowEdges(
       toFlowEdges(filteredEdges).map((edge) => ({
         ...edge,
-        className: [edge.className, selected && !highlighted?.edges.has(edge.id) ? "is-dim" : "", highlighted?.edges.has(edge.id) ? "is-highlight" : ""]
+        className: [
+          edge.className,
+          selected && !highlighted?.edges.has(edge.id) ? "is-dim" : "",
+          highlighted?.upstreamEdges.has(edge.id) ? "is-upstream" : "",
+          highlighted?.downstreamEdges.has(edge.id) ? "is-downstream" : ""
+        ]
           .filter(Boolean)
           .join(" ")
       }))
     );
   }, [snapshot, filteredNodes, filteredEdges, selected]);
-
-  useEffect(() => {
-    if (flowNodes.length === 0) return;
-    const frame = requestAnimationFrame(() => {
-      fitView({ padding: 0.08, duration: 250, maxZoom: 0.95 });
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [flowEdges.length, flowNodes.length, fitView]);
 
   const marts = useMemo(() => {
     if (snapshot?.mart_registry?.length) return snapshot.mart_registry;
@@ -175,57 +177,68 @@ function LineagePortal() {
             nodes={flowNodes}
             edges={flowEdges}
             nodeTypes={nodeTypes}
-            fitView
-            minZoom={0.42}
+            defaultViewport={{ x: 18, y: 46, zoom: 0.72 }}
+            minZoom={0.22}
             maxZoom={1.35}
             defaultEdgeOptions={{ type: "bezier" }}
             onNodeClick={(_: React.MouseEvent, node: Node) => setSelected((node.data.lineage as LineageNode) ?? null)}
+            onPaneClick={() => setSelected(null)}
           >
             <Background color="#1f2a44" gap={26} />
             <Controls />
           </ReactFlow>
         </div>
 
-        <aside className="properties-panel">
-          {selected ? (
-            <DetailPanel node={selected} edges={filteredEdges} onClose={() => setSelected(null)} />
-          ) : (
-            <div className="empty-detail">
-              <Layers3 size={20} />
-              <h2>Properties</h2>
-              <p>Select a table to inspect upstream, downstream, row count, wave, and captured SQL evidence.</p>
-            </div>
-          )}
-        </aside>
+        {selected && (
+          <aside className="properties-panel">
+            <DetailPanel node={selected} nodes={filteredNodes} edges={filteredEdges} onClose={() => setSelected(null)} />
+          </aside>
+        )}
       </section>
     </main>
   );
 }
 
-function lineageNeighborhood(startId: string, edges: LineageEdge[]): { nodes: Set<string>; edges: Set<string> } {
+function lineageNeighborhood(startId: string, edges: LineageEdge[]) {
   const nodes = new Set<string>([startId]);
-  const edgeIds = new Set<string>();
+  const upstream = new Set<string>();
+  const downstream = new Set<string>();
+  const upstreamEdges = new Set<string>();
+  const downstreamEdges = new Set<string>();
   const forward = new Map<string, LineageEdge[]>();
   const backward = new Map<string, LineageEdge[]>();
   for (const edge of edges) {
     forward.set(edge.source, [...(forward.get(edge.source) ?? []), edge]);
     backward.set(edge.target, [...(backward.get(edge.target) ?? []), edge]);
   }
+  walkLineage(startId, backward, "source", upstream, upstreamEdges);
+  walkLineage(startId, forward, "target", downstream, downstreamEdges);
+  for (const nodeId of [...upstream, ...downstream]) nodes.add(nodeId);
+  return { selected: startId, nodes, upstream, downstream, edges: new Set([...upstreamEdges, ...downstreamEdges]), upstreamEdges, downstreamEdges };
+}
+
+function walkLineage(
+  startId: string,
+  graph: Map<string, LineageEdge[]>,
+  nextKey: "source" | "target",
+  nodes: Set<string>,
+  edgeIds: Set<string>
+): void {
   const queue = [startId];
+  const visited = new Set<string>([startId]);
   while (queue.length > 0) {
     const nodeId = queue.shift();
     if (!nodeId) continue;
-    for (const edge of [...(forward.get(nodeId) ?? []), ...(backward.get(nodeId) ?? [])]) {
+    for (const edge of graph.get(nodeId) ?? []) {
+      const next = edge[nextKey];
       edgeIds.add(edge.id);
-      for (const next of [edge.source, edge.target]) {
-        if (!nodes.has(next)) {
-          nodes.add(next);
-          queue.push(next);
-        }
+      nodes.add(next);
+      if (!visited.has(next)) {
+        visited.add(next);
+        queue.push(next);
       }
     }
   }
-  return { nodes, edges: edgeIds };
 }
 
 function collapseEdgesThroughHiddenNodes(edges: LineageEdge[], visibleNodeIds: Set<string>): LineageEdge[] {

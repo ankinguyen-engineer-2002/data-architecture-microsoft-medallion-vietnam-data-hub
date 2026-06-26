@@ -2136,3 +2136,43 @@
 
 **Current handoff:**
 - Commit/push this small UX patch, trigger live GitHub Actions deploy again, then verify deployed Pages URL/snapshot/screenshot.
+
+## 2026-06-26 14:33:21 ICT — Applied second UI feedback pass for readability and focus
+
+**Scope lock:**
+- Lineage portal frontend UX only.
+- No live Fabric SQL DDL/DML, no ETL refresh, no Power BI/Fabric mutation.
+
+**User feedback captured:**
+- UI/UX is better than before but still not excellent/modern enough compared with the framework/library references.
+- It was not clear which table belongs to which layer or wave.
+- Lineage was okay but still too cramped.
+- Theme/font still felt outdated.
+- Properties panel at the bottom was hard to read and was hidden/covered too much.
+- When clicking a table, related upstream/downstream lineage and boxes should change color strongly to emphasize the selected lineage path.
+
+**Actions executed:**
+- Node cards now show explicit layer label and wave badge:
+  - layer short code + full layer text;
+  - `Wave n` / `Wave n/a` badge.
+- Increased node width for readability.
+- Removed forced full-graph fit on initial load; default viewport now opens at a more readable zoom and lets users pan horizontally.
+- Moved selected-table Properties from bottom panel to a right-side sheet that only appears after selecting a node.
+- Added click-on-canvas behavior to close the Properties sheet.
+- Reworked selection highlighting:
+  - selected node: blue focus ring;
+  - upstream nodes/edges: amber highlight;
+  - downstream nodes/edges: green highlight;
+  - unrelated nodes/edges: much stronger dimming.
+- Updated detail panel upstream/downstream lists to show readable table display names plus layer/wave, instead of raw node ids only.
+- Updated font stack to prefer `Geist` then `Inter`.
+
+**Verification:**
+- Scanner tests passed: `10` tests, `OK`.
+- `npm run build` passed with Next.js `15.5.19`.
+- `npm run typecheck` passed.
+- `npm audit --omit=dev` returned `found 0 vulnerabilities`.
+- Static export screenshot captured to `/tmp/lineage_feedback_zoom_readable.png`; visual check shows readable node cards with layer/wave and no left clipping.
+
+**Current handoff:**
+- Commit/push the UX patch, trigger live GitHub Actions deploy, then verify deployed Pages URL/snapshot/screenshot.

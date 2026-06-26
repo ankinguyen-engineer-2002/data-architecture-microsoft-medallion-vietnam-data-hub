@@ -3,15 +3,17 @@ import type { LineageEdge, LineageNode } from "../types";
 
 type Props = {
   node: LineageNode | null;
+  nodes: LineageNode[];
   edges: LineageEdge[];
   onClose: () => void;
 };
 
-export function DetailPanel({ node, edges, onClose }: Props) {
+export function DetailPanel({ node, nodes, edges, onClose }: Props) {
   if (!node) {
     return null;
   }
 
+  const nodeById = new Map(nodes.map((item) => [item.id, item]));
   const upstream = edges.filter((edge) => edge.target === node.id);
   const downstream = edges.filter((edge) => edge.source === node.id);
 
@@ -44,13 +46,18 @@ export function DetailPanel({ node, edges, onClose }: Props) {
         </div>
       </div>
 
-      <section>
-        <h3>Edges</h3>
-        <div className="edge-list">
-          <strong>Upstream</strong>
-          {upstream.length ? upstream.map((edge) => <p key={edge.id}>{edge.source}</p>) : <p>None detected</p>}
-          <strong>Downstream</strong>
-          {downstream.length ? downstream.map((edge) => <p key={edge.id}>{edge.target}</p>) : <p>None detected</p>}
+      <section className="lineage-columns">
+        <div>
+          <h3>Upstream</h3>
+          <div className="edge-list upstream-list">
+            {upstream.length ? upstream.map((edge) => <EdgeItem key={edge.id} node={nodeById.get(edge.source)} fallback={edge.source} />) : <p>None detected</p>}
+          </div>
+        </div>
+        <div>
+          <h3>Downstream</h3>
+          <div className="edge-list downstream-list">
+            {downstream.length ? downstream.map((edge) => <EdgeItem key={edge.id} node={nodeById.get(edge.target)} fallback={edge.target} />) : <p>None detected</p>}
+          </div>
         </div>
       </section>
 
@@ -70,5 +77,14 @@ export function DetailPanel({ node, edges, onClose }: Props) {
         </ul>
       </section>
     </aside>
+  );
+}
+
+function EdgeItem({ node, fallback }: { node?: LineageNode; fallback: string }) {
+  return (
+    <p className={`edge-item layer-${node?.layer.toLowerCase() ?? "unknown"}`}>
+      <strong>{node?.display_name ?? fallback}</strong>
+      {node && <span>{node.layer} · {node.wave == null ? "Wave n/a" : `Wave ${node.wave}`}</span>}
+    </p>
   );
 }

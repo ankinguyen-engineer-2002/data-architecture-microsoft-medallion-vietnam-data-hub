@@ -1,5 +1,5 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
-import { Box, Database, Layers3 } from "lucide-react";
+import { Box, Database, GitBranch } from "lucide-react";
 import type { LineageNode } from "../types";
 
 const layerShort: Record<string, string> = {
@@ -18,7 +18,10 @@ export function LineageTableNode({ data, selected }: NodeProps) {
     <div className={`table-node ${selected ? "is-selected" : ""} layer-${lineage.layer.toLowerCase()} role-${role.toLowerCase()}`}>
       <Handle className="table-handle" type="target" position={Position.Left} />
       <div className="node-topline">
-        <span className="node-layer">{layerShort[lineage.layer] ?? lineage.layer.slice(0, 2).toUpperCase()}</span>
+        <span className={`node-layer layer-${lineage.layer.toLowerCase()}`}>
+          {layerShort[lineage.layer] ?? lineage.layer.slice(0, 2).toUpperCase()}
+          <em>{lineage.layer}</em>
+        </span>
         <span className="node-schema">{lineage.schema || lineage.database}</span>
       </div>
       <div className="node-title-row">
@@ -26,7 +29,7 @@ export function LineageTableNode({ data, selected }: NodeProps) {
         <strong>{lineage.display_name}</strong>
       </div>
       <div className="node-meta">
-        <span><Layers3 size={13} /> {lineage.wave == null ? "wave n/a" : `wave ${lineage.wave}`}</span>
+        <span className="node-wave"><GitBranch size={13} /> {lineage.wave == null ? "Wave n/a" : `Wave ${lineage.wave}`}</span>
         {rowCount && <span>{rowCount} rows</span>}
       </div>
       <Handle className="table-handle" type="source" position={Position.Right} />

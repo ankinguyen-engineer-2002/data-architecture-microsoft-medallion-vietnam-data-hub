@@ -151,8 +151,8 @@ function laneKeyFor(node: LineageNode): string {
 }
 
 function widthFor(node: LineageNode): number {
-  if (node.layer === "Semantic") return 300;
-  if ((node.role ?? "") === "support") return 290;
-  if (node.display_name.length > 34) return 340;
-  return 300;
+  if (node.layer === "Semantic") return 330;
+  if ((node.role ?? "") === "support") return 320;
+  if (node.display_name.length > 34) return 380;
+  return 330;
 }
