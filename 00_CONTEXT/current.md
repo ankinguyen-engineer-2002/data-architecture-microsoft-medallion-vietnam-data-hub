@@ -2208,3 +2208,40 @@
 
 **Current handoff:**
 - Commit/push this deterministic lane layout and trigger live GitHub Actions deployment.
+
+## 2026-06-26 14:49:42 ICT — Deployed deterministic layer/wave column lineage layout
+
+**Scope lock:**
+- GitHub Actions/Pages deploy verification only.
+- Live scan reads Fabric metadata; no Fabric SQL DDL/DML, no ETL refresh, no Power BI/Fabric mutation.
+
+**Actions executed:**
+- Committed deterministic layer/wave layout:
+  - commit `8bf7e6ec fix: align lineage nodes by layer wave columns`
+- Pushed `main` to GitHub.
+- Triggered GitHub Actions workflow:
+  - workflow: `Build Lineage Portal`
+  - run id: `28224485185`
+  - mode: `scan_mode=live`
+
+**Verification:**
+- GitHub Actions completed successfully:
+  - head SHA: `8bf7e6ec490f81f71132f3699841a78f0af46ab3`
+  - job duration: about `5m14s`
+  - steps passed: live scan, secret scan, Node install, Next build, typecheck, Pages upload/deploy.
+- Pages URL returned `HTTP 200`:
+  - `https://ankinguyen-engineer-2002.github.io/data-architecture-microsoft-medallion-vietnam-data-hub/?v=8bf7e6ec`
+- Public snapshot check:
+  - nodes: `85`
+  - edges: `117`
+  - views: `0`
+  - `_Wrk/v_*`: `0`
+  - marts: `forecast_accuracy`, `inventory_health`, `shared`
+  - warning remains: `Semantic model definition was not available; semantic edges are incomplete.`
+- Deployed screenshot captured:
+  - `/tmp/lineage_pages_8bf7e6ec.png`
+  - visual check: table boxes align into deterministic vertical layer/wave columns, with animated curved edges and modern dark theme.
+
+**Current handoff:**
+- Deployed UI is live at the Pages URL above.
+- Remaining known issue: semantic model definition REST access still unavailable, so semantic edges are incomplete until that endpoint/permission path is fixed.
