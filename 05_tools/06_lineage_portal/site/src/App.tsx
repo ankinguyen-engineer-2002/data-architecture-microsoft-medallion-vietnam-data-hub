@@ -38,10 +38,12 @@ function LineagePortal() {
     if (!snapshot) return [];
     const needle = query.trim().toLowerCase();
     const includedIds = mart === "all" ? null : lineageClosure(snapshot, mart);
+    const connectedIds = new Set(snapshot.edges.flatMap((edge) => [edge.source, edge.target]));
     return snapshot.nodes.filter((node) => {
       const role = node.role ?? "business";
       if (!showUnclassified && role === "unclassified") return false;
       if (includedIds && !includedIds.has(node.id)) return false;
+      if (!needle && node.object_type !== "SEMANTIC_MODEL" && !connectedIds.has(node.id)) return false;
       if (layer !== "all" && node.layer !== layer) return false;
       if (!needle) return true;
       return `${node.display_name} ${node.full_name} ${node.schema}`.toLowerCase().includes(needle);
