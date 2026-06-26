@@ -59,7 +59,10 @@ def main() -> int:
     sql_scan = reader.scan_all()
     semantic_definition = None
     if not args.skip_semantic:
-        semantic_definition = get_semantic_definition(cfg.workspace_id, cfg.semantic_model_id, fabric_token)
+        try:
+            semantic_definition = get_semantic_definition(cfg.workspace_id, cfg.semantic_model_id, fabric_token)
+        except Exception as exc:
+            print(f"warning: semantic model definition scan skipped: {exc}")
 
     snapshot = build_snapshot(
         workspace_id=cfg.workspace_id,
