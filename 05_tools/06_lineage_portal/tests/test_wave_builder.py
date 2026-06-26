@@ -21,6 +21,19 @@ class WaveBuilderTests(unittest.TestCase):
         self.assertEqual(warnings, [])
         self.assertEqual(waves, {"a": 0, "b": 1, "c": 2})
 
+    def test_preserves_catalog_wave(self) -> None:
+        nodes = [
+            {"id": "shared_dim", "layer": "Gold", "wave": 0},
+            {"id": "fact", "layer": "Gold", "wave": 30},
+        ]
+        edges = [{"source": "shared_dim", "target": "fact"}]
+
+        warnings = assign_waves(nodes, edges)
+        waves = {node["id"]: node["wave"] for node in nodes}
+
+        self.assertEqual(warnings, [])
+        self.assertEqual(waves, {"shared_dim": 0, "fact": 30})
+
 
 if __name__ == "__main__":
     unittest.main()

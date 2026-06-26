@@ -15,6 +15,9 @@ export type LineageNode = {
   row_count: number | null;
   last_modified: string;
   status: string;
+  role?: "business" | "support" | "semantic" | "unclassified" | string;
+  lane_order?: number;
+  lane_label?: string;
   evidence?: string[];
 };
 
@@ -34,6 +37,7 @@ export type Snapshot = {
   edges: LineageEdge[];
   layers: Array<{ layer: string; node_count: number }>;
   marts: Array<{ mart: string; node_count: number }>;
+  mart_registry?: Array<{ id: string; display_name: string; catalog_path: string; schema_prefixes?: string[] }>;
   warnings: string[];
   scan_evidence: Record<string, unknown>;
 };

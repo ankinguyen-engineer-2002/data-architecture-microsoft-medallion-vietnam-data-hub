@@ -1,14 +1,11 @@
-import ELK from "elkjs/lib/elk.bundled.js";
 import type { Edge, Node } from "@xyflow/react";
 import type { LineageEdge, LineageNode } from "../types";
 
-const elk = new ELK();
-
-const layerRank: Record<string, number> = {
-  Bronze: 0,
-  Silver: 1,
-  Gold: 2,
-  Semantic: 3
+const roleRank: Record<string, number> = {
+  business: 0,
+  semantic: 1,
+  support: 2,
+  unclassified: 3
 };
 
 export function toFlowNodes(nodes: LineageNode[]): Node[] {
@@ -20,7 +17,7 @@ export function toFlowNodes(nodes: LineageNode[]): Node[] {
       label: node.display_name,
       lineage: node
     },
-    className: `lineage-node layer-${node.layer.toLowerCase()}`
+    className: `lineage-node layer-${node.layer.toLowerCase()} role-${(node.role ?? "business").toLowerCase()}`
   }));
 }
 
@@ -31,82 +28,88 @@ export function toFlowEdges(edges: LineageEdge[]): Edge[] {
     target: edge.target,
     type: "smoothstep",
     animated: edge.relationship_type === "semantic_binding",
-    label: edge.relationship_type.replaceAll("_", " "),
+    label: compactEdgeLabel(edge.relationship_type),
     className: `lineage-edge rel-${edge.relationship_type}`,
     data: edge
   }));
 }
 
-export async function layoutGraph(nodes: LineageNode[], edges: LineageEdge[]): Promise<Node[]> {
+export async function layoutGraph(nodes: LineageNode[], _edges: LineageEdge[]): Promise<Node[]> {
   const flowNodes = toFlowNodes(nodes);
-  const graph = {
-    id: "root",
-    layoutOptions: {
-      "elk.algorithm": "layered",
-      "elk.direction": "RIGHT",
-      "elk.spacing.nodeNode": "54",
-      "elk.layered.spacing.nodeNodeBetweenLayers": "92",
-      "elk.layered.nodePlacement.strategy": "NETWORK_SIMPLEX"
-    },
-    children: flowNodes.map((node) => {
-      const lineage = node.data.lineage as LineageNode;
-      return {
-        id: node.id,
-        width: widthFor(lineage),
-        height: 72
-      };
-    }),
-    edges: edges.map((edge) => ({
-      id: edge.id,
-      sources: [edge.source],
-      targets: [edge.target]
-    }))
-  };
-  try {
-    const result = await elk.layout(graph);
-    const positions = new Map((result.children ?? []).map((child) => [child.id, child]));
-    return flowNodes.map((node) => {
-      const pos = positions.get(node.id);
-      return {
-        ...node,
-        position: { x: pos?.x ?? 0, y: pos?.y ?? 0 },
-        style: { width: pos?.width ?? widthFor(node.data.lineage as LineageNode), height: pos?.height ?? 72 }
-      };
-    });
-  } catch (error) {
-    console.error("ELK layout failed; using deterministic layer fallback.", error);
-    return fallbackLayout(flowNodes);
-  }
-}
+  const laneGroups = groupByLane(flowNodes);
+  const laneIndex = new Map(laneGroups.map((lane, index) => [lane.key, index]));
+  const laneOffsets = new Map<string, number>();
 
-function widthFor(node: LineageNode): number {
-  if (node.layer === "Semantic") return 260;
-  if (node.display_name.length > 34) return 280;
-  return 236;
-}
-
-function fallbackLayout(nodes: Node[]): Node[] {
-  const layerCounts = new Map<string, number>();
-  return nodes
+  return flowNodes
     .slice()
-    .sort((left, right) => {
-      const a = left.data.lineage as LineageNode;
-      const b = right.data.lineage as LineageNode;
-      return (
-        (layerRank[a.layer] ?? 9) - (layerRank[b.layer] ?? 9) ||
-        (a.wave ?? 99) - (b.wave ?? 99) ||
-        a.full_name.localeCompare(b.full_name)
-      );
-    })
+    .sort(compareNodes)
     .map((node) => {
       const lineage = node.data.lineage as LineageNode;
-      const layerIndex = layerRank[lineage.layer] ?? 4;
-      const rowIndex = layerCounts.get(lineage.layer) ?? 0;
-      layerCounts.set(lineage.layer, rowIndex + 1);
+      const laneKey = laneKeyFor(lineage);
+      const x = (laneIndex.get(laneKey) ?? 0) * 330;
+      const y = laneOffsets.get(laneKey) ?? 0;
+      laneOffsets.set(laneKey, y + 112);
       return {
         ...node,
-        position: { x: layerIndex * 360, y: rowIndex * 118 },
+        position: { x, y },
         style: { width: widthFor(lineage), height: 72 }
       };
     });
+}
+
+export function graphLanes(nodes: LineageNode[]): Array<{ key: string; label: string; x: number; count: number }> {
+  return groupByLane(toFlowNodes(nodes)).map((lane, index) => ({
+    key: lane.key,
+    label: lane.label,
+    x: index * 330,
+    count: lane.nodes.length
+  }));
+}
+
+function groupByLane(nodes: Node[]): Array<{ key: string; label: string; order: number; nodes: Node[] }> {
+  const groups = new Map<string, { key: string; label: string; order: number; nodes: Node[] }>();
+  for (const node of nodes) {
+    const lineage = node.data.lineage as LineageNode;
+    const key = laneKeyFor(lineage);
+    if (!groups.has(key)) {
+      groups.set(key, {
+        key,
+        label: lineage.lane_label ?? lineage.layer,
+        order: lineage.lane_order ?? 900,
+        nodes: []
+      });
+    }
+    groups.get(key)?.nodes.push(node);
+  }
+  return [...groups.values()].sort((left, right) => left.order - right.order || left.label.localeCompare(right.label));
+}
+
+function compareNodes(left: Node, right: Node): number {
+  const a = left.data.lineage as LineageNode;
+  const b = right.data.lineage as LineageNode;
+  return (
+    (a.lane_order ?? 900) - (b.lane_order ?? 900) ||
+    (roleRank[a.role ?? "business"] ?? 9) - (roleRank[b.role ?? "business"] ?? 9) ||
+    (a.wave ?? 99) - (b.wave ?? 99) ||
+    a.schema.localeCompare(b.schema) ||
+    a.display_name.localeCompare(b.display_name)
+  );
+}
+
+function laneKeyFor(node: LineageNode): string {
+  return `${node.lane_order ?? 900}:${node.lane_label ?? node.layer}`;
+}
+
+function widthFor(node: LineageNode): number {
+  if (node.layer === "Semantic") return 250;
+  if ((node.role ?? "") === "support") return 230;
+  if (node.display_name.length > 34) return 278;
+  return 248;
+}
+
+function compactEdgeLabel(raw: string): string {
+  if (raw === "transforms_to") return "transform";
+  if (raw === "semantic_binding") return "binds";
+  if (raw === "belongs_to_model") return "";
+  return raw.replaceAll("_", " ");
 }

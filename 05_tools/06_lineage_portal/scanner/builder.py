@@ -20,6 +20,7 @@ from .config import (
     SOURCE_DATABASE,
 )
 from .dependency_parser import ObjectRef, extract_object_refs
+from .mart_catalog import MartCatalog, empty_catalog
 from .semantic_reader import extract_semantic_table_sources
 from .snapshot_writer import now_utc
 from .wave_builder import assign_waves, layer_summary, mart_summary
@@ -38,13 +39,16 @@ def build_snapshot(
     semantic_definition: dict[str, Any] | None = None,
     semantic_model_name: str = "sc_control_tower",
     generated_at_utc: str | None = None,
+    mart_catalog: MartCatalog | None = None,
 ) -> dict[str, Any]:
     nodes: dict[str, dict[str, Any]] = {}
     edges: dict[tuple[str, str, str], dict[str, Any]] = {}
     warnings: list[str] = []
+    catalog = mart_catalog or empty_catalog()
 
     def add_node(node: dict[str, Any]) -> None:
-        nodes[node["id"]] = {**nodes.get(node["id"], {}), **node}
+        enriched = enrich_node(node, catalog)
+        nodes[enriched["id"]] = {**nodes.get(enriched["id"], {}), **enriched}
 
     def add_edge(source: str, target: str, rel: str, confidence: str, evidence: str) -> None:
         if source == target:
@@ -90,7 +94,7 @@ def build_snapshot(
                     "object_name": obj,
                     "object_type": type_desc,
                     "layer": classify_layer(database, schema, type_desc),
-                    "mart": classify_mart(schema, obj),
+                    "mart": classify_with_catalog(catalog, schema, obj),
                     "wave": None,
                     "load_method": nodes.get(node_id, {}).get("load_method", ""),
                     "source_sql": nodes.get(node_id, {}).get("source_sql", ""),
@@ -125,7 +129,7 @@ def build_snapshot(
                             "object_name": ref.object_name,
                             "object_type": "REFERENCE",
                             "layer": classify_layer(ref_db, ref.schema, "REFERENCE"),
-                            "mart": classify_mart(ref.schema, ref.object_name),
+                            "mart": classify_with_catalog(catalog, ref.schema, ref.object_name),
                             "wave": None,
                             "load_method": "",
                             "source_sql": "",
@@ -147,6 +151,10 @@ def build_snapshot(
         if not source_ref:
             continue
         view_id = stable_node_id(source_ref.database or target_db, source_ref.schema, source_ref.object_name)
+        if view_id in nodes and target_id in nodes:
+            nodes[view_id]["mart"] = nodes[target_id].get("mart", nodes[view_id].get("mart"))
+            nodes[view_id]["role"] = nodes[target_id].get("role", nodes[view_id].get("role"))
+            nodes[view_id]["wave"] = nodes[target_id].get("wave", nodes[view_id].get("wave"))
         view_sql = modules_by_id.get(view_id, "")
         if view_sql and target_id in nodes:
             nodes[target_id]["source_sql"] = view_sql
@@ -168,6 +176,7 @@ def build_snapshot(
             "object_type": "SEMANTIC_MODEL",
             "layer": "Semantic",
             "mart": "shared",
+            "role": "semantic",
             "wave": 0,
             "load_method": "Direct Lake",
             "source_sql": "",
@@ -191,7 +200,8 @@ def build_snapshot(
                     "object_name": semantic_row["semantic_table"],
                     "object_type": "SEMANTIC_TABLE",
                     "layer": "Semantic",
-                    "mart": classify_mart(semantic_row["source_schema"], semantic_row["source_table"]),
+                    "mart": classify_with_catalog(catalog, semantic_row["source_schema"], semantic_row["source_table"]),
+                    "role": "semantic",
                     "wave": 0,
                     "load_method": "Direct Lake",
                     "source_sql": "",
@@ -210,6 +220,10 @@ def build_snapshot(
     node_list = sorted(nodes.values(), key=lambda n: (str(n.get("layer")), str(n.get("mart")), str(n.get("full_name"))))
     edge_list = sorted(edges.values(), key=lambda e: (e["source"], e["target"], e["relationship_type"]))
     warnings.extend(assign_waves(node_list, edge_list))
+    for node in node_list:
+        lane_order, lane_label = lane_for(str(node.get("layer") or ""), str(node.get("role") or ""), node.get("wave"), str(node.get("schema") or ""))
+        node["lane_order"] = lane_order
+        node["lane_label"] = lane_label
 
     return {
         "generated_at_utc": generated_at_utc or now_utc(),
@@ -218,6 +232,7 @@ def build_snapshot(
         "edges": edge_list,
         "layers": layer_summary(node_list),
         "marts": mart_summary(node_list),
+        "mart_registry": catalog.business_marts,
         "warnings": sorted(set(warnings)),
         "scan_evidence": {
             "workspace_item_count": len(workspace_items or []),
@@ -227,7 +242,63 @@ def build_snapshot(
             "source_object_count": len(sql_scan.get("objects", {}).get(SOURCE_DATABASE, [])),
             "semantic_model": semantic_model_name,
         },
+}
+
+
+def classify_with_catalog(catalog: MartCatalog, schema: str, object_name: str) -> str:
+    return catalog.classify_object(schema, object_name) or classify_mart(schema, object_name)
+
+
+def enrich_node(node: dict[str, Any], catalog: MartCatalog) -> dict[str, Any]:
+    schema = str(node.get("schema") or "")
+    object_name = str(node.get("object_name") or "")
+    layer = str(node.get("layer") or "Unknown")
+    mart = str(catalog.classify_object(schema, object_name) or node.get("mart") or classify_mart(schema, object_name))
+    role = str(node.get("role") or catalog.role_for(schema, object_name, mart if mart not in {"shared", "unresolved"} else None))
+    wave = node.get("wave")
+    catalog_wave = catalog.wave_for(schema, object_name)
+    if catalog_wave is not None:
+        wave = catalog_wave
+    lane_order, lane_label = lane_for(layer, role, wave, schema)
+    return {
+        **node,
+        "mart": mart,
+        "role": role,
+        "wave": wave,
+        "lane_order": lane_order,
+        "lane_label": lane_label,
     }
+
+
+def lane_for(layer: str, role: str, wave: Any, schema: str) -> tuple[int, str]:
+    if layer == "Bronze":
+        return 10, "01 Bronze Sources"
+    if layer == "Silver":
+        number = safe_int(wave, 0)
+        return 200 + number, f"02 Silver W{number:02d}"
+    if layer == "Gold":
+        number = safe_int(wave, 0)
+        if role == "support" or schema == "Shared_DW":
+            return 300, "03 Gold W00 Shared"
+        if number >= 30:
+            return 330, "03 Gold W30 Facts"
+        if number >= 20:
+            return 320, "03 Gold W20 Helpers"
+        if number >= 10:
+            return 310, "03 Gold W10 Dimensions"
+        return 300 + number, f"03 Gold W{number:02d}"
+    if layer == "Semantic":
+        return 400, "04 Semantic sc_control_tower"
+    return 900, "Needs Classification"
+
+
+def safe_int(raw: Any, fallback: int) -> int:
+    if isinstance(raw, int):
+        return raw
+    if raw is None:
+        return fallback
+    text = str(raw)
+    return int(text) if text.isdigit() else fallback
 
 
 def parse_replicated_source(raw: Any, default_database: str) -> ObjectRef | None:

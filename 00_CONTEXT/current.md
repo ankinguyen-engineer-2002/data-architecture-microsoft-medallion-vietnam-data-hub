@@ -1,5 +1,44 @@
 # Context 2026-06-24 to 2026-06-25
 
+## 2026-06-26 00:00:00 ICT — Upgraded lineage portal automation and dark lane UI
+
+**Scope lock:**
+- Repo/GitHub Pages lineage portal automation and UI.
+- No local Fabric/SQL/Power BI mutation.
+- Live scan to be executed through GitHub Actions only.
+
+**User instruction:**
+- Fix the tool so future `02_marts/<mart>` additions auto-map/auto-render; run full automation, not a one-off preview.
+
+**Changes implemented:**
+- Added `scanner/mart_catalog.py`:
+  - discovers marts from `02_marts/*/05_catalog`;
+  - reads `assets.json` and `run_order.json`;
+  - classifies business mart vs shared/support objects;
+  - maps future marts without frontend hard-coding.
+- Snapshot builder now emits:
+  - `mart_registry` with business marts only;
+  - `role` (`business`, `support`, `semantic`, `unclassified`);
+  - `lane_order` and `lane_label` for deterministic lineage lanes.
+- `_Wrk.v_<Table>` nodes inherit mart/wave from final tables via `DW_Developer.TableDictionary`.
+- Wave inference preserves catalog/run-order waves such as `gold_shared`, `gold_dim`, `gold_helper`, `gold_fact`.
+- Frontend now:
+  - uses `mart_registry`, so dropdown excludes `shared` and `unresolved`;
+  - shows dark lineage canvas;
+  - lays nodes by deterministic lanes instead of ELK;
+  - keeps upstream/downstream closure when filtering one mart.
+
+**Verification:**
+- Python unit tests passed (`9` tests).
+- Fixture snapshot generation passed.
+- Fixture snapshot `mart_registry` contained `forecast_accuracy,inventory_health` only.
+- Frontend `npm run typecheck && npm run build` passed.
+- `npm audit --omit=dev` returned `found 0 vulnerabilities`.
+- `git diff --check` passed.
+
+**Next concrete step:**
+- Commit/push changes, run `Build Lineage Portal` with `scan_mode=live`, inspect generated live snapshot and production Pages UI.
+
 ## 2026-06-26 00:00:00 ICT — Fixed blank lineage graph after preview deploy
 
 **Scope lock:**
