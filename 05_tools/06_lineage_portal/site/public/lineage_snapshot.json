@@ -1,0 +1,457 @@
+{
+  "edges": [
+    {
+      "confidence": "parsed",
+      "evidence": "sys.sql_modules:SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "id": "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA::transforms_to::SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster",
+      "relationship_type": "transforms_to",
+      "source": "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+      "target": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster"
+    },
+    {
+      "confidence": "parsed",
+      "evidence": "sys.sql_modules:SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "id": "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA::uses::SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "relationship_type": "uses",
+      "source": "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+      "target": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster"
+    },
+    {
+      "confidence": "parsed",
+      "evidence": "sys.sql_modules:SupplyChain_Processing_Warehouse.ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
+      "id": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly::transforms_to::SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+      "relationship_type": "transforms_to",
+      "source": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly",
+      "target": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly"
+    },
+    {
+      "confidence": "parsed",
+      "evidence": "sys.sql_modules:SupplyChain_Processing_Warehouse.ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
+      "id": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly::uses::SupplyChain_Processing_Warehouse.ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
+      "relationship_type": "uses",
+      "source": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly",
+      "target": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly"
+    },
+    {
+      "confidence": "verified",
+      "evidence": "sc_control_tower TMDL table",
+      "id": "SemanticModel.sc_control_tower.DimProduct::belongs_to_model::SemanticModel.sc_control_tower.Model",
+      "relationship_type": "belongs_to_model",
+      "source": "SemanticModel.sc_control_tower.DimProduct",
+      "target": "SemanticModel.sc_control_tower.Model"
+    },
+    {
+      "confidence": "verified",
+      "evidence": "sc_control_tower TMDL table",
+      "id": "SemanticModel.sc_control_tower.FactForecastKpi::belongs_to_model::SemanticModel.sc_control_tower.Model",
+      "relationship_type": "belongs_to_model",
+      "source": "SemanticModel.sc_control_tower.FactForecastKpi",
+      "target": "SemanticModel.sc_control_tower.Model"
+    },
+    {
+      "confidence": "verified",
+      "evidence": "sc_control_tower TMDL partition",
+      "id": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi::semantic_binding::SemanticModel.sc_control_tower.FactForecastKpi",
+      "relationship_type": "semantic_binding",
+      "source": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi",
+      "target": "SemanticModel.sc_control_tower.FactForecastKpi"
+    },
+    {
+      "confidence": "verified",
+      "evidence": "DW_Developer.TableDictionary.ReplicatedSource",
+      "id": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW_Wrk.v_FactForecastKpi::loads::SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi",
+      "relationship_type": "loads",
+      "source": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "target": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi"
+    },
+    {
+      "confidence": "verified",
+      "evidence": "sc_control_tower TMDL partition",
+      "id": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct::semantic_binding::SemanticModel.sc_control_tower.DimProduct",
+      "relationship_type": "semantic_binding",
+      "source": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct",
+      "target": "SemanticModel.sc_control_tower.DimProduct"
+    },
+    {
+      "confidence": "verified",
+      "evidence": "DW_Developer.TableDictionary.ReplicatedSource",
+      "id": "SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct::loads::SupplyChain_Gold_Warehouse.Shared_DW.DimProduct",
+      "relationship_type": "loads",
+      "source": "SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct",
+      "target": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct"
+    },
+    {
+      "confidence": "parsed",
+      "evidence": "sys.sql_modules:SupplyChain_Gold_Warehouse.ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "id": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly::transforms_to::SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi",
+      "relationship_type": "transforms_to",
+      "source": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+      "target": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi"
+    },
+    {
+      "confidence": "parsed",
+      "evidence": "sys.sql_modules:SupplyChain_Gold_Warehouse.ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "id": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly::uses::SupplyChain_Gold_Warehouse.ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "relationship_type": "uses",
+      "source": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+      "target": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW_Wrk.v_FactForecastKpi"
+    },
+    {
+      "confidence": "verified",
+      "evidence": "DW_Developer.TableDictionary.ReplicatedSource",
+      "id": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly::loads::SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+      "relationship_type": "loads",
+      "source": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
+      "target": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly"
+    },
+    {
+      "confidence": "parsed",
+      "evidence": "sys.sql_modules:SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct",
+      "id": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster::transforms_to::SupplyChain_Gold_Warehouse.Shared_DW.DimProduct",
+      "relationship_type": "transforms_to",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster",
+      "target": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct"
+    },
+    {
+      "confidence": "parsed",
+      "evidence": "sys.sql_modules:SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct",
+      "id": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster::uses::SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct",
+      "relationship_type": "uses",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster",
+      "target": "SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct"
+    },
+    {
+      "confidence": "verified",
+      "evidence": "DW_Developer.TableDictionary.ReplicatedSource",
+      "id": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster::loads::SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster",
+      "relationship_type": "loads",
+      "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "target": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster"
+    }
+  ],
+  "generated_at_utc": "2026-06-26T00:00:00Z",
+  "layers": [
+    {
+      "layer": "Bronze",
+      "node_count": 2
+    },
+    {
+      "layer": "Gold",
+      "node_count": 4
+    },
+    {
+      "layer": "Semantic",
+      "node_count": 3
+    },
+    {
+      "layer": "Silver",
+      "node_count": 4
+    }
+  ],
+  "marts": [
+    {
+      "mart": "forecast_accuracy",
+      "node_count": 5
+    },
+    {
+      "mart": "shared",
+      "node_count": 6
+    },
+    {
+      "mart": "unresolved",
+      "node_count": 2
+    }
+  ],
+  "nodes": [
+    {
+      "database": "Enterprise_Lakehouse",
+      "display_name": "ITMRVA",
+      "evidence": [
+        "sys.objects"
+      ],
+      "full_name": "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+      "id": "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+      "last_modified": "2026-06-25T00:00:00",
+      "layer": "Bronze",
+      "load_method": "",
+      "mart": "unresolved",
+      "object_name": "ITMRVA",
+      "object_type": "USER_TABLE",
+      "row_count": null,
+      "schema": "ItemMaster_AFI",
+      "source_sql": "",
+      "status": "active",
+      "wave": null,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "Enterprise_Lakehouse",
+      "display_name": "CurFcstSnapshotWeekly",
+      "evidence": [
+        "sys.objects"
+      ],
+      "full_name": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly",
+      "id": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly",
+      "last_modified": "2026-06-25T00:00:00",
+      "layer": "Bronze",
+      "load_method": "",
+      "mart": "unresolved",
+      "object_name": "CurFcstSnapshotWeekly",
+      "object_type": "USER_TABLE",
+      "row_count": null,
+      "schema": "SupplyChain_Enh",
+      "source_sql": "",
+      "status": "active",
+      "wave": null,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "display_name": "FactForecastKpi",
+      "evidence": [
+        "ETL_Framework.DW_Developer.TableDictionary",
+        "sys.objects"
+      ],
+      "full_name": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi",
+      "id": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi",
+      "last_modified": "2026-06-25T00:00:00",
+      "layer": "Gold",
+      "load_method": "overwrite",
+      "mart": "forecast_accuracy",
+      "object_name": "FactForecastKpi",
+      "object_type": "USER_TABLE",
+      "row_count": 300,
+      "schema": "ForecastAccuracy_DW",
+      "source_sql": "CREATE VIEW ForecastAccuracy_DW_Wrk.v_FactForecastKpi AS SELECT ItemSKU FROM SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+      "status": "active",
+      "wave": 1,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "display_name": "v_FactForecastKpi",
+      "evidence": [
+        "sys.objects"
+      ],
+      "full_name": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "id": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW_Wrk.v_FactForecastKpi",
+      "last_modified": "2026-06-25T00:00:00",
+      "layer": "Gold",
+      "load_method": "",
+      "mart": "forecast_accuracy",
+      "object_name": "v_FactForecastKpi",
+      "object_type": "VIEW",
+      "row_count": null,
+      "schema": "ForecastAccuracy_DW_Wrk",
+      "source_sql": "CREATE VIEW ForecastAccuracy_DW_Wrk.v_FactForecastKpi AS SELECT ItemSKU FROM SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+      "status": "active",
+      "wave": 0,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "display_name": "DimProduct",
+      "evidence": [
+        "ETL_Framework.DW_Developer.TableDictionary",
+        "sys.objects"
+      ],
+      "full_name": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct",
+      "id": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct",
+      "last_modified": "2026-06-25T00:00:00",
+      "layer": "Gold",
+      "load_method": "overwrite",
+      "mart": "shared",
+      "object_name": "DimProduct",
+      "object_type": "USER_TABLE",
+      "row_count": 400,
+      "schema": "Shared_DW",
+      "source_sql": "CREATE VIEW Shared_DW_Wrk.v_DimProduct AS SELECT ItemSKU FROM SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster",
+      "status": "active",
+      "wave": 1,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "display_name": "v_DimProduct",
+      "evidence": [
+        "sys.objects"
+      ],
+      "full_name": "SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct",
+      "id": "SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct",
+      "last_modified": "2026-06-25T00:00:00",
+      "layer": "Gold",
+      "load_method": "",
+      "mart": "shared",
+      "object_name": "v_DimProduct",
+      "object_type": "VIEW",
+      "row_count": null,
+      "schema": "Shared_DW_Wrk",
+      "source_sql": "CREATE VIEW Shared_DW_Wrk.v_DimProduct AS SELECT ItemSKU FROM SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster",
+      "status": "active",
+      "wave": 0,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SemanticModel",
+      "display_name": "FactForecastKpi",
+      "evidence": [
+        "Fabric semantic model TMDL"
+      ],
+      "full_name": "SemanticModel.sc_control_tower.FactForecastKpi",
+      "id": "SemanticModel.sc_control_tower.FactForecastKpi",
+      "last_modified": "",
+      "layer": "Semantic",
+      "load_method": "Direct Lake",
+      "mart": "forecast_accuracy",
+      "object_name": "FactForecastKpi",
+      "object_type": "SEMANTIC_TABLE",
+      "row_count": null,
+      "schema": "sc_control_tower",
+      "source_sql": "",
+      "status": "active",
+      "wave": 0,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SemanticModel",
+      "display_name": "DimProduct",
+      "evidence": [
+        "Fabric semantic model TMDL"
+      ],
+      "full_name": "SemanticModel.sc_control_tower.DimProduct",
+      "id": "SemanticModel.sc_control_tower.DimProduct",
+      "last_modified": "",
+      "layer": "Semantic",
+      "load_method": "Direct Lake",
+      "mart": "shared",
+      "object_name": "DimProduct",
+      "object_type": "SEMANTIC_TABLE",
+      "row_count": null,
+      "schema": "sc_control_tower",
+      "source_sql": "",
+      "status": "active",
+      "wave": 0,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SemanticModel",
+      "display_name": "sc_control_tower",
+      "evidence": [
+        "Fabric semantic model definition"
+      ],
+      "full_name": "SemanticModel.sc_control_tower.Model",
+      "id": "SemanticModel.sc_control_tower.Model",
+      "last_modified": "",
+      "layer": "Semantic",
+      "load_method": "Direct Lake",
+      "mart": "shared",
+      "object_name": "Model",
+      "object_type": "SEMANTIC_MODEL",
+      "row_count": null,
+      "schema": "sc_control_tower",
+      "source_sql": "",
+      "status": "active",
+      "wave": 0,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "display_name": "ForecastDemandMonthly",
+      "evidence": [
+        "ETL_Framework.DW_Developer.TableDictionary",
+        "sys.objects"
+      ],
+      "full_name": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+      "id": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+      "last_modified": "2026-06-25T00:00:00",
+      "layer": "Silver",
+      "load_method": "overwrite",
+      "mart": "forecast_accuracy",
+      "object_name": "ForecastDemandMonthly",
+      "object_type": "USER_TABLE",
+      "row_count": 200,
+      "schema": "ForecastHistory_Enh",
+      "source_sql": "CREATE VIEW ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly AS SELECT ItemSKU FROM Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly",
+      "status": "active",
+      "wave": 1,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "display_name": "v_ForecastDemandMonthly",
+      "evidence": [
+        "sys.objects"
+      ],
+      "full_name": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
+      "id": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
+      "last_modified": "2026-06-25T00:00:00",
+      "layer": "Silver",
+      "load_method": "",
+      "mart": "forecast_accuracy",
+      "object_name": "v_ForecastDemandMonthly",
+      "object_type": "VIEW",
+      "row_count": null,
+      "schema": "ForecastHistory_Enh_Wrk",
+      "source_sql": "CREATE VIEW ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly AS SELECT ItemSKU FROM Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly",
+      "status": "active",
+      "wave": 0,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "display_name": "ItemMaster",
+      "evidence": [
+        "ETL_Framework.DW_Developer.TableDictionary",
+        "sys.objects"
+      ],
+      "full_name": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster",
+      "id": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster",
+      "last_modified": "2026-06-25T00:00:00",
+      "layer": "Silver",
+      "load_method": "overwrite",
+      "mart": "shared",
+      "object_name": "ItemMaster",
+      "object_type": "USER_TABLE",
+      "row_count": 100,
+      "schema": "ReferenceMaster_Enh",
+      "source_sql": "CREATE VIEW ReferenceMaster_Enh_Wrk.v_ItemMaster AS SELECT ItemNumber FROM Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+      "status": "active",
+      "wave": 1,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "display_name": "v_ItemMaster",
+      "evidence": [
+        "sys.objects"
+      ],
+      "full_name": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "id": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster",
+      "last_modified": "2026-06-25T00:00:00",
+      "layer": "Silver",
+      "load_method": "",
+      "mart": "shared",
+      "object_name": "v_ItemMaster",
+      "object_type": "VIEW",
+      "row_count": null,
+      "schema": "ReferenceMaster_Enh_Wrk",
+      "source_sql": "CREATE VIEW ReferenceMaster_Enh_Wrk.v_ItemMaster AS SELECT ItemNumber FROM Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+      "status": "active",
+      "wave": 0,
+      "workspace": "Enterprise SupplyChain-Dev"
+    }
+  ],
+  "scan_evidence": {
+    "gold_object_count": 4,
+    "processing_object_count": 4,
+    "semantic_model": "sc_control_tower",
+    "source_object_count": 2,
+    "table_dictionary_rows": 4,
+    "workspace_item_count": 1
+  },
+  "warnings": [],
+  "workspace": {
+    "id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+    "name": "Enterprise SupplyChain-Dev"
+  }
+}

@@ -102,6 +102,9 @@ Enterprise_SupplyChain_Dev_architect/projects/*/artifacts/backups/semantic_*/
 **/bin/
 **/obj/
 
+# Lineage portal local frontend build output
+05_tools/06_lineage_portal/site/dist/
+
 # === Project source bundles archived for reference (not committed) ===
 Enterprise_SupplyChain_Dev_architect/projects/*/_source_v1/
 Enterprise_SupplyChain_Dev_architect/projects/*/_source_*/

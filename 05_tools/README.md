@@ -13,6 +13,7 @@ Các tool ở đây phục vụ audit, sync, build operating package và bảo t
 | `03_mart_sync/` | Script sync/export mart layer từ live Fabric về repo. |
 | `04_operating_package/` | Generator tạo DQ/catalog/lineage/run-order package. |
 | `05_sqlproj/` | Generator hỗ trợ SQLPROJ package. |
+| `06_lineage_portal/` | GitHub Actions scanner + GitHub Pages lineage portal cho Enterprise ETL runtime. |
 
 ## Script Chính
 
@@ -25,6 +26,7 @@ Các tool ở đây phục vụ audit, sync, build operating package và bảo t
 | `03_mart_sync/sync_live_mart_layers.py` | Export/sync live mart layer về repo. |
 | `04_operating_package/build_operating_package.py` | Build `04_dq/contracts`, `04_dq/runs`, `05_catalog`, `03_operations/operating_registry`. |
 | `05_sqlproj/build_sqlproj_package.py` | Build/generate SQLPROJ package từ repo/live metadata. |
+| `06_lineage_portal/scanner/cli.py` | Build live/static lineage snapshot cho GitHub Pages portal. |
 
 ## Ghi Chú An Toàn
 

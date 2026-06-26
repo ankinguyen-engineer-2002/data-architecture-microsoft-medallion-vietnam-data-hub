@@ -1,5 +1,78 @@
 # Context 2026-06-24 to 2026-06-25
 
+## 2026-06-26 00:00:00 ICT — Implemented GitHub Actions + GitHub Pages lineage portal MVP
+
+**Scope lock:**
+- Repo implementation only.
+- No live Fabric/SQL/Power BI mutation.
+- No live GitHub Pages deployment executed from local session.
+- No credentials persisted.
+
+**User instruction:**
+- Implement approved Option A: scanner runs in GitHub Actions; UI/UX hosted on GitHub Pages; no Streamlit and no local-host operating model.
+
+**Files added/updated:**
+- Added implementation plan:
+  - `01_docs/plans/2026-06-26-github-pages-lineage-portal-implementation.md`
+- Added scanner + tests + fixture:
+  - `05_tools/06_lineage_portal/scanner/`
+  - `05_tools/06_lineage_portal/tests/`
+  - `05_tools/06_lineage_portal/tests/fixtures/minimal_live_input.json`
+- Added static site:
+  - `05_tools/06_lineage_portal/site/`
+  - Vite/React/TypeScript + React Flow + ELK layout.
+  - fixture-generated `site/public/lineage_snapshot.json`.
+- Added workflow:
+  - `.github/workflows/lineage-portal.yml`
+- Updated docs:
+  - `05_tools/README.md`
+  - `05_tools/06_lineage_portal/README.md`
+
+**Implemented behavior:**
+- Scanner supports:
+  - live mode via Service Principal env vars / GitHub secrets;
+  - fixture mode for tests and static sample build;
+  - deterministic fixture timestamp for repeatable sample snapshot generation;
+  - Fabric REST item inventory;
+  - Fabric SQL endpoint reads via `pyodbc` token;
+  - `DW_Developer.TableDictionary`;
+  - Processing/Gold objects and `_Wrk` view SQL modules;
+  - `sc_control_tower` semantic TMDL source extraction;
+  - deterministic layer/mart classification and wave inference.
+- GitHub Pages UI supports:
+  - Bronze/Silver/Gold/Semantic lineage map;
+  - ELK layered graph layout;
+  - mart/layer/search/unresolved filters;
+  - node detail drawer with SQL/evidence/upstream/downstream;
+  - snapshot JSON download.
+- GitHub Actions workflow supports:
+  - manual/scheduled runs;
+  - ODBC driver setup;
+  - scanner snapshot generation;
+  - snapshot secret grep;
+  - frontend typecheck/build;
+  - Pages artifact deploy.
+
+**Verification:**
+- Python unit tests passed:
+  - `PYTHONPATH=05_tools/06_lineage_portal python3 -m unittest discover -s 05_tools/06_lineage_portal/tests -v`
+  - `7` tests passed.
+- Fixture snapshot generation passed:
+  - `cd 05_tools/06_lineage_portal && PYTHONPATH=. python3 -m scanner.cli --fixture tests/fixtures/minimal_live_input.json --out site/public/lineage_snapshot.json`
+- Frontend checks passed:
+  - `npm run typecheck`
+  - `npm run build`
+  - `npm audit --omit=dev` returned `found 0 vulnerabilities`.
+- Secret grep for the pasted Fabric SP secret and Azure OpenAI key returned no repo hits.
+
+**Current handoff / required setup:**
+- Before running the workflow live:
+  - rotate the pasted Service Principal secret and Azure OpenAI key;
+  - configure GitHub Pages source as GitHub Actions;
+  - add repo secrets listed in `05_tools/06_lineage_portal/README.md`;
+  - consider whether repo/Pages visibility can expose live SQL definitions and lineage metadata.
+- First live workflow run may reveal whether the Service Principal needs additional metadata visibility for wrapper stored procedures.
+
 ## 2026-06-26 00:00:00 ICT — Chose GitHub Actions + GitHub Pages lineage portal architecture
 
 **Scope lock:**
