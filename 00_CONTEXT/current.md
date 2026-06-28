@@ -2425,3 +2425,66 @@
 **Current handoff:**
 - Deployed UI is live at the Pages URL above.
 - Remaining known issue: semantic model definition REST access still unavailable, so semantic edges are incomplete until that endpoint/permission path is fixed.
+
+## 2026-06-28 11:27:35 ICT — Fixed semantic reader, synced DA changes, rebuilt lineage snapshot
+
+**Scope lock:**
+- Scanner code fix, repo SQL sync from live Fabric, lineage snapshot rebuild.
+- No live Fabric/SQL mutation (read-only scan + repo write).
+
+**User instruction:**
+- Fix tool đọc semantic trên live Fabric để update lineage.
+- Scan lại 3 layer 2 mart, sync DA changes về repo.
+- Dùng Fabric REST API, Python, MCP.
+
+**Semantic reader root cause & fix:**
+- `fabric_rest.get_semantic_definition` polled PBI redirect URL (`wabi-us-north-central-c-primary-redirect.analysis.windows.net`) which is unreachable from GitHub Actions.
+- Fix: always poll Fabric API operation endpoint (`https://api.fabric.microsoft.com/v1/operations/{op_id}`) and result endpoint.
+- Added `az` CLI token support (`FABRIC_USE_AZ_CLI=true`) for local development.
+- Added `sourceLineageTag` fallback parser in `semantic_reader.py` for TMDL tables without Direct Lake partition source.
+
+**Scanner changes:**
+- `scanner/fabric_rest.py` — LRO polling: always use Fabric API endpoint, drop PBI Location URL dependency.
+- `scanner/auth.py` — added `az_cli_token()` function.
+- `scanner/config.py` — added `use_az_cli` flag.
+- `scanner/cli.py` — dual auth path (SP credentials or az CLI).
+- `scanner/semantic_reader.py` — added `extract_lineage_tag_source()` fallback.
+
+**Live scan result (post-fix):**
+- 911 nodes, 1127 edges, 12 semantic bindings, 0 warnings.
+- Semantic model `sc_control_tower` fully parsed: 12 Gold tables → semantic bindings.
+- 17 semantic nodes total (12 business tables + 1 model + 4 artifacts).
+
+**DA changes synced (live Fabric → repo):**
+- 44 `_Wrk` view SQL files updated.
+- 5 new view files created (previously missing from repo).
+- 2 files unchanged (already in sync).
+- 1 new source table discovered: `Staging_Wrk.v_DemandForecastSnapshotDaily`.
+- Key DA logic changes (real business logic, not just headers):
+  - `OpenOrderHistory_Enh_Wrk.v_OpenOrderLineLevel`: +1,127 chars (rewritten)
+  - `SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel`: +1,626 chars (columns added/removed)
+  - `InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding`: +823 chars
+  - `ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly`: +292 chars
+  - `InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot`: -115 chars
+  - `InventoryHistory_Enh_Wrk.v_Cogs52WWeekly`: -104 chars
+  - `InventoryHistory_Enh_Wrk.v_LastInvoiceWeekly`: -104 chars
+  - `InventoryHistory_Enh_Wrk.v_PurchaseOrderSnapshotHistorical`: +115 chars
+  - `Shared_DW_Wrk.v_DimWarehouse`: +1,456 chars (new file, full view SQL)
+
+**Deploy:**
+- Commit `3f92d4b8`: fix semantic reader + sync 44 DA SQL views.
+- Push to `origin/main`.
+- Workflow `Build Lineage Portal` triggered with `scan_mode=fixture` (snapshot already embedded).
+- Workflow run: `28311545405` (queued).
+
+**Verification:**
+- Python: 10/10 tests pass.
+- TypeScript: 0 type errors.
+- Next.js build: OK (62.6 kB).
+- Semantic edges: 12 bindings, 0 warnings (previously had incomplete warning).
+
+**Current handoff:**
+- Semantic reader is fixed and verified with live Fabric data.
+- Repo SQL is synced with live Fabric as of 2026-06-28.
+- Lineage portal is deploying with complete semantic edges.
+- Next: monitor workflow run `28311545405` for deployment completion.
