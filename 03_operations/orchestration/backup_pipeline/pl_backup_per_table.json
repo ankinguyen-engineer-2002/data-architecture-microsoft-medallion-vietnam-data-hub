@@ -1,0 +1,29 @@
+{
+  "name": "pl_backup_per_table",
+  "id": "ba5fb8be-9d35-46dc-baf4-13c0c6035bab",
+  "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+  "type": "DataPipeline",
+  "api": "dataPipelineExecute",
+  "description": "Backup per-table refresh: 45 tables in linear topological chain. Each activity = 1 table calling usp_RefreshCuratedTableFromView or usp_IncrementalTableLoad. Sequence: Forecast Silver W00→W03 → Forecast Gold W01→W30 → Inventory Silver W00→W02 → Inventory Gold W01→W30.",
+  "wave_algorithm": "topological_kahn_catalog_floor",
+  "activity_count": 45,
+  "estimated_runtime": "~27 minutes (if data not fresh)",
+  "trigger": "Manual only",
+  "order": [
+    "Forecast Silver W00: ReferenceMaster_Enh (11 tables)",
+    "Forecast Silver W01: InvoiceDetailLineLevel, OpenOrderLineLevel",
+    "Forecast Silver W02: ActualDemandMonthly, ActualDemandWeekly, InvoiceWeekly, ForecastDemandMonthly, OpenOrderMonthly",
+    "Forecast Silver W03: NaiveForecastMonthly",
+    "Forecast Gold W01: Shared_DW (3 tables: DimCalendar, DimProduct, DimWarehouse)",
+    "Forecast Gold W10: ForecastAccuracy_DW dims (DimCustomerGrouping, DimForecastHorizon)",
+    "Forecast Gold W30: ForecastAccuracy_DW facts (FactForecastActual, FactForecastKpi)",
+    "Inventory Silver W00: InventoryHistory_Enh seeds (InventorySnapshotWeekly, AtpWeekEnding)",
+    "Inventory Silver W01: PurchaseOrderSnapshotHistorical, ManufacturingOrderSnapshotDaily(INC), HoldingTransferSnapshotDaily(INC), ForecastSnapshotWeekly, SupplyPlanDetail, ItemBalanceHistorical_WithInTransit, SafetyStockHelper, InvoiceDetailLineLevel",
+    "Inventory Silver W02: AFIStatusSnapshotWeekly, AwdHelper, LastInvoiceWeekly, Cogs52WWeekly",
+    "Inventory Gold W01: Shared_DW (3 tables, deduped from Forecast)",
+    "Inventory Gold W10: DimVendor",
+    "Inventory Gold W20: ProjectedInventoryHealthSubStatus, InventoryHealthSubStatusWeekly",
+    "Inventory Gold W21: InventoryClassificationQtyWeekly",
+    "Inventory Gold W30: FactInventoryHealthFutureWeekEnding, FactInventoryHealthSnapshot"
+  ]
+}
