@@ -1,135 +1,31 @@
 {
   "default_mode": "dry_run",
-  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "generated_at_utc": "2026-06-28T05:30:00Z",
   "manifest": "03_operations/orchestration/forecast_accuracy/manifest.json",
   "mart": "forecast_accuracy",
+  "wave_algorithm": "topological_kahn_catalog_floor",
   "pipeline": {
-    "api": "dataPipelineExecute",
-    "id": "20db5725-80e3-4081-9ef5-01700acdf3b3",
-    "name": "pl_sc_mart",
-    "parameters": {
-      "project_name": "forecast_accuracy"
-    },
-    "parameters_need_verify": true
+    "api": "wrapper_sp",
+    "name": "Usp_Refresh_ForecastAccuracy_Silver + Usp_Refresh_ForecastAccuracy_Gold"
   },
-  "post_run_checks": [],
+  "post_run_checks": ["semantic_smoke", "row_count_freshness"],
   "sequence": [
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "ReferenceMaster_Enh.*",
-      "purpose": "Reference/master data",
-      "resolved_asset_key": null,
-      "step": 100,
-      "wave": 0
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "SalesHistory_Enh.InvoiceDetailLineLevel",
-      "purpose": "Invoice detail silver",
-      "resolved_asset_key": "saleshistory.enh.invoicedetaillinelevel",
-      "step": 200,
-      "wave": 1
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "OpenOrderHistory_Enh.OpenOrderLineLevel",
-      "purpose": "Open order line silver",
-      "resolved_asset_key": "openorderhistory.enh.openorderlinelevel",
-      "step": 210,
-      "wave": 1
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "SalesHistory_Enh.ActualDemandMonthly",
-      "purpose": "Actual demand aggregate",
-      "resolved_asset_key": "saleshistory.enh.actualdemandmonthly",
-      "step": 300,
-      "wave": 2
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "ForecastHistory_Enh.ForecastDemandMonthly",
-      "purpose": "Forecast demand aggregate",
-      "resolved_asset_key": "forecasthistory.enh.forecastdemandmonthly",
-      "step": 310,
-      "wave": 2
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite_or_current_manifest",
-      "object": "Shared_DW.DimCalendar",
-      "purpose": "Shared date dimension",
-      "resolved_asset_key": null,
-      "step": 350,
-      "wave": "gold_shared"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite_or_current_manifest",
-      "object": "Shared_DW.DimProduct",
-      "purpose": "Shared product dimension",
-      "resolved_asset_key": null,
-      "step": 360,
-      "wave": "gold_shared"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite_or_current_manifest",
-      "object": "Shared_DW.DimWarehouse",
-      "purpose": "Shared warehouse dimension",
-      "resolved_asset_key": null,
-      "step": 370,
-      "wave": "gold_shared"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "ForecastAccuracy_DW.DimCustomerGrouping",
-      "purpose": "Forecast mart dimension",
-      "resolved_asset_key": "forecastaccuracy.dw.dimcustomergrouping",
-      "step": 400,
-      "wave": "gold_dim"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "ForecastAccuracy_DW.DimForecastHorizon",
-      "purpose": "Forecast mart dimension",
-      "resolved_asset_key": "forecastaccuracy.dw.dimforecasthorizon",
-      "step": 410,
-      "wave": "gold_dim"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "ForecastAccuracy_DW.FactForecastActual",
-      "purpose": "Forecast actual fact",
-      "resolved_asset_key": "forecastaccuracy.dw.factforecastactual",
-      "step": 500,
-      "wave": "gold_fact"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "ForecastAccuracy_DW.FactForecastKpi",
-      "purpose": "Forecast KPI fact",
-      "resolved_asset_key": "forecastaccuracy.dw.factforecastkpi",
-      "step": 510,
-      "wave": "gold_fact"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "read_only",
-      "object": "04_semantic/row-count/freshness",
-      "purpose": "Post-run validation",
-      "resolved_asset_key": null,
-      "step": 900,
-      "wave": "smoke"
-    }
+    { "step": 100, "wave": 0, "object": "ReferenceMaster_Enh.*", "load_type": "overwrite", "purpose": "Reference/master data prerequisites" },
+    { "step": 200, "wave": 1, "object": "SalesHistory_Enh.InvoiceDetailLineLevel", "load_type": "overwrite", "purpose": "Invoice detail line-level foundation" },
+    { "step": 210, "wave": 1, "object": "OpenOrderHistory_Enh.OpenOrderLineLevel", "load_type": "overwrite", "purpose": "Open order line-level foundation" },
+    { "step": 300, "wave": 2, "object": "SalesHistory_Enh.ActualDemandMonthly", "load_type": "overwrite", "purpose": "Actual demand monthly (depends on W01)" },
+    { "step": 310, "wave": 2, "object": "SalesHistory_Enh.ActualDemandWeekly", "load_type": "overwrite", "purpose": "Actual demand weekly (depends on W01)" },
+    { "step": 320, "wave": 2, "object": "SalesHistory_Enh.InvoiceWeekly", "load_type": "overwrite", "purpose": "Invoice weekly aggregate (depends on W01)" },
+    { "step": 330, "wave": 2, "object": "ForecastHistory_Enh.ForecastDemandMonthly", "load_type": "overwrite", "purpose": "Forecast demand monthly (depends on W01)" },
+    { "step": 340, "wave": 2, "object": "OpenOrderHistory_Enh.OpenOrderMonthly", "load_type": "overwrite", "purpose": "Open order monthly (depends on W01)" },
+    { "step": 400, "wave": 3, "object": "ForecastHistory_Enh.NaiveForecastMonthly", "load_type": "overwrite", "purpose": "Naive forecast (depends on W02 ForecastDemandMonthly)" },
+    { "step": 500, "wave": "gold_shared", "object": "Shared_DW.DimCalendar", "load_type": "overwrite", "purpose": "Shared date dimension (Gold W01)" },
+    { "step": 510, "wave": "gold_shared", "object": "Shared_DW.DimProduct", "load_type": "overwrite", "purpose": "Shared product dimension (Gold W01)" },
+    { "step": 520, "wave": "gold_shared", "object": "Shared_DW.DimWarehouse", "load_type": "overwrite", "purpose": "Shared warehouse dimension (Gold W01)" },
+    { "step": 600, "wave": "gold_dim", "object": "ForecastAccuracy_DW.DimCustomerGrouping", "load_type": "overwrite", "purpose": "Forecast customer grouping dim (Gold W10)" },
+    { "step": 610, "wave": "gold_dim", "object": "ForecastAccuracy_DW.DimForecastHorizon", "load_type": "overwrite", "purpose": "Forecast horizon dim (Gold W10)" },
+    { "step": 700, "wave": "gold_fact", "object": "ForecastAccuracy_DW.FactForecastActual", "load_type": "overwrite", "purpose": "Forecast actual fact (Gold W30)" },
+    { "step": 710, "wave": "gold_fact", "object": "ForecastAccuracy_DW.FactForecastKpi", "load_type": "overwrite", "purpose": "Forecast KPI fact (Gold W30)" },
+    { "step": 900, "wave": "smoke", "object": "04_semantic/row-count/freshness", "load_type": "read_only", "purpose": "Post-run validation" }
   ]
 }

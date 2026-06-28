@@ -1,64 +1,45 @@
 {
   "name": "main",
-    "description": "Full SupplyChain all-mart refresh order. Runs the two active marts with mart-local wave dependencies.",
+  "description": "Full SupplyChain all-mart refresh order — 4 wrapper SPs in topological wave order.",
   "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
   "pipeline": {
-    "name": "pl_sc_master",
-    "id": "f36f56b8-5668-4a0c-b991-2c28302f1710",
-    "api": "dataPipelineExecute"
+    "api": "wrapper_sp",
+    "description": "Direct SP execution via pyodbc/az token. Replacement for pl_sc_master pipeline in CI/CD context."
   },
   "default_mode": "dry_run",
+  "wave_algorithm": "topological_kahn_catalog_floor",
   "wrapper_procedures": [
-        {
-            "step": 10,
-            "database": "SupplyChain_Processing_Warehouse",
-            "schema": "dbo",
-            "procedure": "Usp_Refresh_ForecastAccuracy_Silver",
-            "purpose": "Forecast Accuracy Silver waves, including ReferenceMaster Wave 00."
-        },
-        {
-            "step": 20,
-            "database": "SupplyChain_Gold_Warehouse",
-            "schema": "dbo",
-            "procedure": "Usp_Refresh_ForecastAccuracy_Gold",
-            "purpose": "Forecast Accuracy Gold waves, including Shared_DW Wave 00."
-        },
-        {
-            "step": 30,
-            "database": "SupplyChain_Processing_Warehouse",
-            "schema": "dbo",
-            "procedure": "Usp_Refresh_InventoryHealth_Silver",
-            "purpose": "Inventory Health Silver waves, including ReferenceMaster Wave 00."
-        },
-        {
-            "step": 40,
-            "database": "SupplyChain_Gold_Warehouse",
-            "schema": "dbo",
-            "procedure": "Usp_Refresh_InventoryHealth_Gold",
-            "purpose": "Inventory Health Gold waves, including Shared_DW Wave 00."
-        }
-    ],
-  "sequence": [
-        {
-            "step": 10,
-            "type": "project",
-            "project": "forecast_accuracy",
-            "purpose": "Forecast Accuracy mart, Silver then Gold."
-        },
-        {
-            "step": 20,
-            "type": "project",
-            "project": "inventory_health",
-            "purpose": "Inventory Health mart, Silver then Gold."
-        },
     {
-      "step": 90,
-      "type": "smoke",
-      "purpose": "Run row-count/freshness/DQ/semantic smoke after refresh."
+      "step": 10,
+      "database": "SupplyChain_Processing_Warehouse",
+      "schema": "dbo",
+      "procedure": "Usp_Refresh_ForecastAccuracy_Silver",
+      "purpose": "Forecast Accuracy Silver W00→W01→W02→W03, including ReferenceMaster W00."
+    },
+    {
+      "step": 20,
+      "database": "SupplyChain_Gold_Warehouse",
+      "schema": "dbo",
+      "procedure": "Usp_Refresh_ForecastAccuracy_Gold",
+      "purpose": "Forecast Accuracy Gold W01→W10→W30, including Shared_DW W01."
+    },
+    {
+      "step": 30,
+      "database": "SupplyChain_Processing_Warehouse",
+      "schema": "dbo",
+      "procedure": "Usp_Refresh_InventoryHealth_Silver",
+      "purpose": "Inventory Health Silver W00→W01→W02, including ReferenceMaster W00."
+    },
+    {
+      "step": 40,
+      "database": "SupplyChain_Gold_Warehouse",
+      "schema": "dbo",
+      "procedure": "Usp_Refresh_InventoryHealth_Gold",
+      "purpose": "Inventory Health Gold W01→W10→W20→W21→W30, including Shared_DW W01."
     }
   ],
   "post_run_checks": [
-    "Enterprise ETL AuditLog has Process Complete or actionable Error for triggered path",
+    "Enterprise ETL AuditLog has Process Complete for all 4 SPs",
     "TableDictionary Modified/RowCount updated for loaded targets",
     "No grain duplicates on critical snapshot grains",
     "Gold row counts are non-zero and within expected tolerance",

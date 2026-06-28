@@ -1,243 +1,39 @@
 {
   "default_mode": "dry_run",
-  "generated_at_utc": "2026-06-24T07:55:34Z",
+  "generated_at_utc": "2026-06-28T05:30:00Z",
   "manifest": "03_operations/orchestration/inventory_health/manifest.json",
   "mart": "inventory_health",
+  "wave_algorithm": "topological_kahn_catalog_floor",
   "pipeline": {
-    "api": "dataPipelineExecute",
-    "id": "20db5725-80e3-4081-9ef5-01700acdf3b3",
-    "name": "pl_sc_mart",
-    "parameters": {
-      "project_name": "inventory_health"
-    },
-    "parameters_need_verify": true
+    "api": "wrapper_sp",
+    "name": "Usp_Refresh_InventoryHealth_Silver + Usp_Refresh_InventoryHealth_Gold"
   },
-  "post_run_checks": [],
+  "post_run_checks": ["semantic_smoke", "row_count_freshness"],
   "sequence": [
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "ReferenceMaster_Enh.*",
-      "purpose": "Reference/master data (prereq for Silver and Shared dims)",
-      "resolved_asset_key": null,
-      "step": 90,
-      "wave": 0
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
-      "purpose": "PO historical snapshot",
-      "resolved_asset_key": "inventoryhistory.enh.purchaseordersnapshothistorical",
-      "step": 100,
-      "wave": 0
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "DateKey",
-      "object": "InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
-      "purpose": "MO daily snapshot",
-      "resolved_asset_key": "inventoryhistory.enh.manufacturingordersnapshotdaily",
-      "step": 110,
-      "wave": 0
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "DateKey",
-      "object": "InventoryHistory_Enh.HoldingTransferSnapshotDaily",
-      "purpose": "Holding transfer snapshot",
-      "resolved_asset_key": "inventoryhistory.enh.holdingtransfersnapshotdaily",
-      "step": 120,
-      "wave": 0
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.InventorySnapshotWeekly",
-      "purpose": "Weekly inventory snapshot",
-      "resolved_asset_key": "inventoryhistory.enh.inventorysnapshotweekly",
-      "step": 130,
-      "wave": 0
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.ForecastSnapshotWeekly",
-      "purpose": "Weekly forecast snapshot",
-      "resolved_asset_key": "inventoryhistory.enh.forecastsnapshotweekly",
-      "step": 140,
-      "wave": 0
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.SupplyPlanDetail",
-      "purpose": "Supply plan detail",
-      "resolved_asset_key": "inventoryhistory.enh.supplyplandetail",
-      "step": 150,
-      "wave": 0
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.AtpWeekEnding",
-      "purpose": "ATP week ending",
-      "resolved_asset_key": "inventoryhistory.enh.atpweekending",
-      "step": 160,
-      "wave": 0
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
-      "purpose": "Historical item balance with in-transit",
-      "resolved_asset_key": "inventoryhistory.enh.itembalancehistorical.withintransit",
-      "step": 170,
-      "wave": 0
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "SalesHistory_Enh.InvoiceDetailLineLevel",
-      "purpose": "Invoice detail Silver dependency",
-      "resolved_asset_key": "saleshistory.enh.invoicedetaillinelevel",
-      "step": 300,
-      "wave": 1
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.AFIStatusSnapshotWeekly",
-      "purpose": "AFI status snapshot",
-      "resolved_asset_key": "inventoryhistory.enh.afistatussnapshotweekly",
-      "step": 310,
-      "wave": 1
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.AwdHelper",
-      "purpose": "AWD helper",
-      "resolved_asset_key": "inventoryhistory.enh.awdhelper",
-      "step": 320,
-      "wave": 1
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.SafetyStockHelper",
-      "purpose": "Safety stock helper",
-      "resolved_asset_key": "inventoryhistory.enh.safetystockhelper",
-      "step": 330,
-      "wave": 1
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.LastInvoiceWeekly",
-      "purpose": "Last invoice weekly",
-      "resolved_asset_key": "inventoryhistory.enh.lastinvoiceweekly",
-      "step": 340,
-      "wave": 1
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHistory_Enh.Cogs52WWeekly",
-      "purpose": "52-week COGS helper",
-      "resolved_asset_key": "inventoryhistory.enh.cogs52wweekly",
-      "step": 350,
-      "wave": 1
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite_or_current_manifest",
-      "object": "Shared_DW.DimCalendar",
-      "purpose": "Shared date dimension",
-      "resolved_asset_key": "shared.dw.dimcalendar",
-      "step": 360,
-      "wave": "gold_shared"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite_or_current_manifest",
-      "object": "Shared_DW.DimProduct",
-      "purpose": "Shared product dimension",
-      "resolved_asset_key": "shared.dw.dimproduct",
-      "step": 370,
-      "wave": "gold_shared"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite_or_current_manifest",
-      "object": "Shared_DW.DimWarehouse",
-      "purpose": "Shared warehouse dimension",
-      "resolved_asset_key": "shared.dw.dimwarehouse",
-      "step": 380,
-      "wave": "gold_shared"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "InventoryHealth_DW.DimVendor",
-      "purpose": "Vendor dimension",
-      "resolved_asset_key": "inventoryhealth.dw.dimvendor",
-      "step": 400,
-      "wave": "gold_dim"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHealth_DW.ProjectedInventoryHealthSubStatus",
-      "purpose": "Projected sub-status helper",
-      "resolved_asset_key": "inventoryhealth.dw.projectedinventoryhealthsubstatus",
-      "step": 410,
-      "wave": "gold_helper"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHealth_DW.InventoryHealthSubStatusWeekly",
-      "purpose": "Weekly inventory health sub-status",
-      "resolved_asset_key": "inventoryhealth.dw.inventoryhealthsubstatusweekly",
-      "step": 420,
-      "wave": "gold_helper"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHealth_DW.InventoryClassificationQtyWeekly",
-      "purpose": "Weekly inventory classification quantity",
-      "resolved_asset_key": "inventoryhealth.dw.inventoryclassificationqtyweekly",
-      "step": 430,
-      "wave": "gold_helper"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "overwrite",
-      "object": "InventoryHealth_DW.FactInventoryHealthFutureWeekEnding",
-      "purpose": "Future week-ending inventory health fact",
-      "resolved_asset_key": "inventoryhealth.dw.factinventoryhealthfutureweekending",
-      "step": 500,
-      "wave": "gold_fact"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "manifest",
-      "object": "InventoryHealth_DW.FactInventoryHealthSnapshot",
-      "purpose": "Inventory health fact",
-      "resolved_asset_key": "inventoryhealth.dw.factinventoryhealthsnapshot",
-      "step": 510,
-      "wave": "gold_fact"
-    },
-    {
-      "dq_gate": "bronze_source_contracts",
-      "load_type": "read_only",
-      "object": "04_semantic/row-count/freshness/grain",
-      "purpose": "Post-run validation",
-      "resolved_asset_key": null,
-      "step": 900,
-      "wave": "smoke"
-    }
+    { "step": 90,  "wave": 0, "object": "ReferenceMaster_Enh.*", "load_type": "overwrite", "purpose": "Reference/master data prerequisites (11 tables)" },
+    { "step": 100, "wave": 0, "object": "InventoryHistory_Enh.InventorySnapshotWeekly", "load_type": "overwrite", "purpose": "Weekly inventory snapshot (no Silver deps)" },
+    { "step": 110, "wave": 0, "object": "InventoryHistory_Enh.AtpWeekEnding", "load_type": "overwrite", "purpose": "ATP week ending (no Silver deps)" },
+    { "step": 200, "wave": 1, "object": "InventoryHistory_Enh.PurchaseOrderSnapshotHistorical", "load_type": "overwrite", "purpose": "PO historical (depends on W00)" },
+    { "step": 210, "wave": 1, "object": "InventoryHistory_Enh.ManufacturingOrderSnapshotDaily", "load_type": "incremental", "purpose": "MO daily snapshot (depends on W00)" },
+    { "step": 220, "wave": 1, "object": "InventoryHistory_Enh.HoldingTransferSnapshotDaily", "load_type": "incremental", "purpose": "Holding transfer (depends on W00)" },
+    { "step": 230, "wave": 1, "object": "InventoryHistory_Enh.ForecastSnapshotWeekly", "load_type": "overwrite", "purpose": "Weekly forecast snapshot (depends on W00)" },
+    { "step": 240, "wave": 1, "object": "InventoryHistory_Enh.SupplyPlanDetail", "load_type": "overwrite", "purpose": "Supply plan detail (depends on W00)" },
+    { "step": 250, "wave": 1, "object": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit", "load_type": "overwrite", "purpose": "Item balance w/ in-transit (depends on W00)" },
+    { "step": 260, "wave": 1, "object": "InventoryHistory_Enh.SafetyStockHelper", "load_type": "overwrite", "purpose": "Safety stock helper (depends on W00 ItemMaster)" },
+    { "step": 270, "wave": 1, "object": "SalesHistory_Enh.InvoiceDetailLineLevel", "load_type": "overwrite", "purpose": "Invoice detail line-level (depends on W00)" },
+    { "step": 300, "wave": 2, "object": "InventoryHistory_Enh.AFIStatusSnapshotWeekly", "load_type": "overwrite", "purpose": "AFI status snapshot (depends on W01 ItemBalance+ItemMaster)" },
+    { "step": 310, "wave": 2, "object": "InventoryHistory_Enh.AwdHelper", "load_type": "overwrite", "purpose": "AWD helper (depends on W01 InvoiceDetailLineLevel)" },
+    { "step": 320, "wave": 2, "object": "InventoryHistory_Enh.LastInvoiceWeekly", "load_type": "overwrite", "purpose": "Last invoice weekly (depends on W01 InvoiceDetailLineLevel)" },
+    { "step": 330, "wave": 2, "object": "InventoryHistory_Enh.Cogs52WWeekly", "load_type": "overwrite", "purpose": "52W COGS helper (depends on W01 InvoiceDetailLineLevel)" },
+    { "step": 400, "wave": "gold_shared", "object": "Shared_DW.DimCalendar", "load_type": "overwrite", "purpose": "Shared date dimension (Gold W01)" },
+    { "step": 410, "wave": "gold_shared", "object": "Shared_DW.DimProduct", "load_type": "overwrite", "purpose": "Shared product dimension (Gold W01)" },
+    { "step": 420, "wave": "gold_shared", "object": "Shared_DW.DimWarehouse", "load_type": "overwrite", "purpose": "Shared warehouse dimension (Gold W01)" },
+    { "step": 500, "wave": "gold_dim", "object": "InventoryHealth_DW.DimVendor", "load_type": "overwrite", "purpose": "Vendor dimension (Gold W10)" },
+    { "step": 600, "wave": "gold_helper", "object": "InventoryHealth_DW.ProjectedInventoryHealthSubStatus", "load_type": "overwrite", "purpose": "Projected sub-status helper (Gold W20)" },
+    { "step": 610, "wave": "gold_helper", "object": "InventoryHealth_DW.InventoryHealthSubStatusWeekly", "load_type": "overwrite", "purpose": "Weekly inv health sub-status (Gold W20)" },
+    { "step": 620, "wave": "gold_helper_w21", "object": "InventoryHealth_DW.InventoryClassificationQtyWeekly", "load_type": "overwrite", "purpose": "Weekly classification qty (Gold W21, depends on W20 IHSubStatusWeekly)" },
+    { "step": 700, "wave": "gold_fact", "object": "InventoryHealth_DW.FactInventoryHealthFutureWeekEnding", "load_type": "overwrite", "purpose": "Future week-ending inv health fact (Gold W30)" },
+    { "step": 710, "wave": "gold_fact", "object": "InventoryHealth_DW.FactInventoryHealthSnapshot", "load_type": "overwrite", "purpose": "Inventory health snapshot fact (Gold W30)" },
+    { "step": 900, "wave": "smoke", "object": "04_semantic/row-count/freshness", "load_type": "read_only", "purpose": "Post-run validation" }
   ]
 }
