@@ -4,40 +4,35 @@
   "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
   "type": "DataPipeline",
   "api": "dataPipelineExecute",
-  "description": "Backup per-table refresh with lineage-style structure: mart → layer → wave. Tables in same wave run in PARALLEL. Waves chain sequentially via dependency. 46 tables, 14 waves, 2 marts.",
+  "description": "Backup pipeline: 45 tables, 15 waves, shared-first optimization. Phase 0: Shared tables (RefMaster + InvoiceDetail) run ONCE. Phase 1: Forecast unique. Phase 2: Inventory unique. Same wave = parallel, between waves = sequential.",
   "wave_algorithm": "topological_kahn_catalog_floor",
-  "activity_count": 46,
-  "wave_count": 14,
-  "estimated_runtime": "~27 minutes (if data not fresh)",
+  "activity_count": 45,
+  "wave_count": 15,
+  "estimated_runtime": "~25 minutes",
   "trigger": "Manual only",
-  "structure": {
-    "forecast_accuracy": {
-      "Silver": {
-        "W00_parallel_11": ["ReferenceMaster_Enh (11 tables: Calendar..Warehouse)"],
-        "W01_parallel_2": ["SalesHistory_Enh.InvoiceDetailLineLevel", "OpenOrderHistory_Enh.OpenOrderLineLevel"],
-        "W02_parallel_5": ["SalesHistory_Enh (ActualDemandMonthly, ActualDemandWeekly, InvoiceWeekly)", "ForecastHistory_Enh.ForecastDemandMonthly", "OpenOrderHistory_Enh.OpenOrderMonthly"],
-        "W03_1": ["ForecastHistory_Enh.NaiveForecastMonthly"]
-      },
-      "Gold": {
-        "W01_parallel_3": ["Shared_DW (DimCalendar, DimProduct, DimWarehouse)"],
-        "W10_parallel_2": ["ForecastAccuracy_DW (DimCustomerGrouping, DimForecastHorizon)"],
-        "W30_parallel_2": ["ForecastAccuracy_DW (FactForecastActual, FactForecastKpi)"]
-      }
-    },
-    "inventory_health": {
-      "Silver": {
-        "W00_parallel_2": ["InventoryHistory_Enh (InventorySnapshotWeekly, AtpWeekEnding)"],
-        "W01_parallel_8": ["InventoryHistory_Enh (PO historical, MO daily(INC), HoldingTransfer(INC), ForecastSnapshotWeekly, SupplyPlanDetail, ItemBalanceHistorical, SafetyStockHelper)", "SalesHistory_Enh.InvoiceDetailLineLevel"],
-        "W02_parallel_4": ["InventoryHistory_Enh (AFIStatusSnapshot, AwdHelper, LastInvoiceWeekly, Cogs52WWeekly)"]
-      },
-      "Gold": {
-        "W10_1": ["InventoryHealth_DW.DimVendor"],
-        "W20_parallel_2": ["InventoryHealth_DW (ProjectedIHSubStatus, IHSubStatusWeekly)"],
-        "W21_1": ["InventoryHealth_DW.InventoryClassificationQtyWeekly (AFTER IHSubStatusWeekly)"],
-        "W30_parallel_2": ["InventoryHealth_DW (FactIHFutureWeekEnding, FactIHSnapshot)"]
-      }
-    }
+  "optimization": "Shared tables (ReferenceMaster_Enh 11t + InvoiceDetailLineLevel) run once in Phase 0. Each mart only refreshes unique tables. Eliminates ~12 redundant calls vs naive approach.",
+  "phases": {
+    "phase_0_shared": [
+      "Silver W00 ∥∥ ReferenceMaster_Enh (11 tables parallel)",
+      "Silver W01 ── InvoiceDetailLineLevel"
+    ],
+    "phase_1_forecast_accuracy": [
+      "Silver W01 ── OpenOrderLineLevel",
+      "Silver W02 ∥∥ ActualDemandMonthly, ActualDemandWeekly, InvoiceWeekly, ForecastDemandMonthly, OpenOrderMonthly",
+      "Silver W03 ── NaiveForecastMonthly",
+      "Gold W01 ∥∥ Shared_DW (DimCalendar, DimProduct, DimWarehouse)",
+      "Gold W10 ∥∥ ForecastAccuracy_DW dims (DimCustomerGrouping, DimForecastHorizon)",
+      "Gold W30 ∥∥ ForecastAccuracy_DW facts (FactForecastActual, FactForecastKpi)"
+    ],
+    "phase_2_inventory_health": [
+      "Silver W00 ∥∥ InventorySnapshotWeekly, AtpWeekEnding",
+      "Silver W01 ∥∥ PO, MO(inc), Transfer(inc), ForecastSnapshot, SupplyPlan, ItemBalance, SafetyStock",
+      "Silver W02 ∥∥ AFIStatus, AwdHelper, LastInvoice, Cogs52W",
+      "Gold W10 ── DimVendor",
+      "Gold W20 ∥∥ ProjectedIHSubStatus, IHSubStatusWeekly",
+      "Gold W21 ── InventoryClassificationQtyWeekly (sau IHSubStatusWeekly)",
+      "Gold W30 ∥∥ FactIHFutureWeekEnding, FactIHSnapshot"
+    ]
   },
-  "concurrency": "Within each wave, all tables execute in parallel (no inter-dependency). Between waves, strict sequential chain via dependsOn: [all activities from previous wave] with DependencyConditions: [Succeeded].",
-  "note": "Shared tables (ReferenceMaster_Enh, Shared_DW) run only ONCE in Forecast. Inventory reuses them."
+  "no_new_objects": "No new SPs, views, or tables created. Uses existing ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView and usp_IncrementalTableLoad."
 }
