@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_AFIStatusSnapshotWeekly
+-- InventoryHistory_Enh_Wrk.v_AFIStatusSnapshotWeekly
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_AFIStatusSnapshotWeekly] AS
 WITH
 _BaseFactInventory AS (

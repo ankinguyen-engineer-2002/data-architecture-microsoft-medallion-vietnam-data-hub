@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_ManufacturingOrderSnapshotDaily
+-- InventoryHistory_Enh_Wrk.v_ManufacturingOrderSnapshotDaily
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_ManufacturingOrderSnapshotDaily] AS
 WITH _ManufacturingOrder AS (
     SELECT

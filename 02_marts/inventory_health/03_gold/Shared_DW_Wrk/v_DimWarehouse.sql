@@ -28,10 +28,39 @@ ih AS (
         CAST(CASE WHEN TRIM(wmaWarehouse) IN ('1','5','15','17','28','335','ECR')
                   THEN 1 ELSE 0 END AS BIT)                 AS IsFinishedGoodsWarehouse,
         CAST(CASE WHEN TRIM(wmaWarehouse) NOT IN ('1','5','15','17','28','335','ECR')
-                  THEN 1 ELSE 0 END AS BIT)                 AS IsManufacturingWarehouse,
-        CAST(NULL AS DECIMAL(18,4))                          AS TotalAvailableWarehouseCube
+                  THEN 1 ELSE 0 END AS BIT)                 AS IsManufacturingWarehouse
     FROM [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[AshleyWarehouseMaster]
     WHERE wmaWarehouse IS NOT NULL AND TRIM(wmaWarehouse) <> ''
+),
+-- capacity_raw from below linkek (Sheet Capacity)
+-- https://masterashley.sharepoint.com/sites/Global_Supply_Chain_Analytics/Shared%20Documents/Data%20Project/20260211%20Inventory%20Health/excel_source/SS%20vs%20Capacity%20Projections%2020260312.xlsx?d=wc85ce29b9b28430b891faa85ead321aa&csf=1&web=1&e=dkK5Ze
+capacity_raw AS (
+    SELECT *
+    FROM (VALUES
+        ('CSG', '1',   CAST(477532 AS DECIMAL(18,4))),
+        ('CSG', '5',   CAST(578193 AS DECIMAL(18,4))),
+        ('CSG', '15',  CAST(488406 AS DECIMAL(18,4))),
+        ('CSG', '17',  CAST(470072 AS DECIMAL(18,4))),
+        ('CSG', '28',  CAST(211193 AS DECIMAL(18,4))),
+        ('CSG', '42',  CAST(188160 AS DECIMAL(18,4))),
+        ('CSG', '335', CAST(184968 AS DECIMAL(18,4))),
+        ('CSG', 'ECR', CAST(525928 AS DECIMAL(18,4))),
+        ('UPH', '1',   CAST(100000 AS DECIMAL(18,4))),
+        ('UPH', '5',   CAST(129828 AS DECIMAL(18,4))),
+        ('UPH', '15',  CAST(99360  AS DECIMAL(18,4))),
+        ('UPH', '17',  CAST(113656 AS DECIMAL(18,4))),
+        ('UPH', '28',  CAST(62586  AS DECIMAL(18,4))),
+        ('UPH', '42',  CAST(49500  AS DECIMAL(18,4))),
+        ('UPH', '335', CAST(68298  AS DECIMAL(18,4))),
+        ('UPH', 'ECR', CAST(134688 AS DECIMAL(18,4)))
+    ) v(Storage, WarehouseCode, CurrentCapacity)
+),
+capacity_by_wh AS (
+    SELECT
+        WarehouseCode,
+        SUM(CurrentCapacity) AS TotalWarehouseCube
+    FROM capacity_raw
+    GROUP BY WarehouseCode
 )
 SELECT
     COALESCE(fa.WarehouseCode, ih.WarehouseCode)             AS WarehouseCode,
@@ -46,7 +75,7 @@ SELECT
                 THEN 'PROD'
             WHEN COALESCE(fa.WarehouseCode, ih.WarehouseCode) IN ('1A','5A','15A','17A','19A','28A','42A','ECA')
                 THEN 'RH'
-            ELSE NULL
+            ELSE 'No longer Used'
          END AS VARCHAR(50))                                 AS WarehouseGroup,
     fa.AFIWarehousesKey,
     fa.IntransitWarehouse,
@@ -68,8 +97,10 @@ SELECT
     ih.IntransitWarehouseCode,
     ih.IsFinishedGoodsWarehouse,
     ih.IsManufacturingWarehouse,
-    ih.TotalAvailableWarehouseCube,
+    cap.TotalWarehouseCube,
     CAST(GETUTCDATE() AS DATETIME2(6))                       AS LoadDT
 FROM fa
 FULL OUTER JOIN ih
-    ON fa.WarehouseCode = ih.WarehouseCode;
+    ON fa.WarehouseCode = ih.WarehouseCode
+LEFT JOIN capacity_by_wh cap
+    ON cap.WarehouseCode = COALESCE(fa.WarehouseCode, ih.WarehouseCode);

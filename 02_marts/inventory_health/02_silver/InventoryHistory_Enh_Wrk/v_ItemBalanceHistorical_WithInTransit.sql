@@ -1,5 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_ItemBalanceHistorical_WithInTransit
-CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_ItemBalanceHistorical_WithInTransit] AS
+CREATE    VIEW [InventoryHistory_Enh_Wrk].[v_ItemBalanceHistorical_WithInTransit] AS
 WITH ranked AS
 (
     SELECT
@@ -43,9 +42,9 @@ InTransitQty AS
         H.ItemSku,
         M.[WarehouseCode] AS WarehouseCode,
         H.WeekEndingDate,
-        SUM(H.OnHandQty) AS InTransitQty
+        SUM(CASE WHEN H.OnHandQty > 0 THEN H.OnHandQty ELSE 0 END) AS InTransitQty
     FROM ItemBalanceHistorical H
-    INNER JOIN [SupplyChain_Processing_Warehouse].[ReferenceMaster_Enh].[Warehouse] M
+    INNER JOIN [ReferenceMaster_Enh].[Warehouse] M
         ON M.[IntransitWarehouse] = H.WarehouseCode
     WHERE H.WarehouseCode IN
     (

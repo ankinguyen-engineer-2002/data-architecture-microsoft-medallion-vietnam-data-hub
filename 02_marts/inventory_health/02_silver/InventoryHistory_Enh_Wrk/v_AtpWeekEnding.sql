@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_AtpWeekEnding
+-- InventoryHistory_Enh_Wrk.v_AtpWeekEnding
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_AtpWeekEnding] AS
 -- Source rule:
 --   InsertedDate is the official snapshot/as-of date.

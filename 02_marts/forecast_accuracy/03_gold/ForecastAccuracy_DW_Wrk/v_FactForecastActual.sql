@@ -1,4 +1,4 @@
--- SupplyChain_Gold_Warehouse.ForecastAccuracy_DW_Wrk.v_FactForecastActual
+-- ForecastAccuracy_DW_Wrk.v_FactForecastActual
 CREATE   VIEW [ForecastAccuracy_DW_Wrk].[v_FactForecastActual] AS
 SELECT ItemSKU, WarehouseCode, CustomerGroupCode, FSCMonthFirst, FSCMonthLast,
     CAST('Actual demand' AS VARCHAR(20)) AS HorizonCode, StatusCode, VersionName, CAST(QtyDemand AS FLOAT) AS Qty,

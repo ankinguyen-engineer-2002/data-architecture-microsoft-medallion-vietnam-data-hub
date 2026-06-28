@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_Vendor
+-- ReferenceMaster_Enh_Wrk.v_Vendor
 CREATE   VIEW [ReferenceMaster_Enh_Wrk].[v_Vendor] AS
 SELECT
     CAST(TRIM(v.VendorNumber) AS VARCHAR(50))           AS VendorNumber,

@@ -1,5 +1,5 @@
--- SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding
-CREATE   VIEW [InventoryHealth_DW_Wrk].[v_FactInventoryHealthFutureWeekEnding] AS
+-- InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding
+CREATE    VIEW [InventoryHealth_DW_Wrk].[v_FactInventoryHealthFutureWeekEnding] AS
 WITH sp_base AS (
     SELECT
         CAST(ItemSku AS VARCHAR(50)) AS Item,
@@ -119,6 +119,29 @@ afi_latest AS (
     FROM afi_ranked
     WHERE rn = 1
 ),
+standard_cost AS (
+    SELECT
+        ItemSku,
+        StandardCost,
+        StandardCostRevision
+    FROM (
+        SELECT
+            CAST(TRIM(ITNBR) AS VARCHAR(50)) AS ItemSku,
+            CAST(UCDEF AS DECIMAL(18,4)) AS StandardCost,
+            CAST(ITRV AS VARCHAR(20)) AS StandardCostRevision,
+            ROW_NUMBER() OVER (
+                PARTITION BY TRIM(STID), TRIM(ITNBR)
+                ORDER BY ITRV DESC
+            ) AS rn
+        FROM [Enterprise_Lakehouse].[ItemMaster_AFI].[ITMRVA]
+        WHERE STID IS NOT NULL
+          AND ITNBR IS NOT NULL
+          AND UCDEF IS NOT NULL
+          AND TRIM(STID) = '000'
+          AND TRIM(ITNBR) <> ''
+    ) ranked_cost
+    WHERE rn = 1
+),
 joined AS (
     SELECT
         sp.Item,
@@ -135,6 +158,7 @@ joined AS (
         sp.SSTarget,
         afi.AFIStatus,
         dp.Cubes,
+        cost.StandardCost,
         dp.FOBArcPrice AS FobArcPrice,
         inv.InventorySnapshotDate,
         sp.SupplyPlanSnapshotDate,
@@ -167,12 +191,14 @@ joined AS (
        AND afi.WH = sp.WH
        AND afi.SnapshotDate = sp.SnapshotDate
        AND afi.WeekEnding = sp.WeekEnding
-    LEFT JOIN [SupplyChain_Gold_Warehouse].[InventoryHealth_DW].[ProjectedInventoryHealthSubStatus] cls
+    LEFT JOIN [InventoryHealth_DW].[ProjectedInventoryHealthSubStatus] cls
         ON cls.ItemSku = sp.Item
        AND cls.WarehouseCode = sp.WH
        AND cls.FactAsOfDate = sp.SnapshotDate
        AND cls.FutureWeekEndingDate = sp.WeekEnding
-    LEFT JOIN [SupplyChain_Gold_Warehouse].[Shared_DW].[DimProduct] dp
+    LEFT JOIN standard_cost cost
+        ON cost.ItemSku = sp.Item
+    LEFT JOIN [Shared_DW].[DimProduct] dp
         ON dp.ItemSKU = sp.Item
 )
 SELECT
@@ -231,6 +257,8 @@ SELECT
     CAST(SSTarget AS DECIMAL(18,4)) AS [SafetyStockTarget],
     CAST(AFIStatus AS VARCHAR(20)) AS [AFIStatus],
     CAST(Cubes AS DECIMAL(18,4)) AS Cubes,
+    CAST(StandardCost AS DECIMAL(18,4)) AS StandardCost,
+    CAST(FobArcPrice AS DECIMAL(18,4)) AS FobArcPrice,
     CAST(InventorySnapshotDate AS DATE) AS InventorySnapshotDate,
     CAST(SupplyPlanSnapshotDate AS DATE) AS SupplyPlanSnapshotDate,
     CAST(AtpSnapshotDate AS DATE) AS ATPSnapshotDate,

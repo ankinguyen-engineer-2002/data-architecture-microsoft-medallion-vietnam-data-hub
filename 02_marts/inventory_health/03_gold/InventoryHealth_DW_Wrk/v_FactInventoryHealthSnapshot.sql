@@ -1,4 +1,4 @@
--- SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot
+-- InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot
 CREATE   VIEW [InventoryHealth_DW_Wrk].[v_FactInventoryHealthSnapshot] AS
 WITH inv_base AS (
     SELECT
@@ -177,11 +177,11 @@ joined AS (
         ON atp.ItemSku = b.ItemSku
        AND atp.WarehouseCode = b.WarehouseCode
        AND atp.SnapshotWeekEndingDate = b.SnapshotWeekEndingDate
-    LEFT JOIN [SupplyChain_Gold_Warehouse].[InventoryHealth_DW].[InventoryHealthSubStatusWeekly] cls
+    LEFT JOIN [InventoryHealth_DW].[InventoryHealthSubStatusWeekly] cls
         ON cls.ItemSku = b.ItemSku
        AND cls.WarehouseCode = b.WarehouseCode
        AND cls.SnapshotWeekEnding = b.SnapshotWeekEndingDate
-    LEFT JOIN [SupplyChain_Gold_Warehouse].[InventoryHealth_DW].[InventoryClassificationQtyWeekly] qty
+    LEFT JOIN [InventoryHealth_DW].[InventoryClassificationQtyWeekly] qty
         ON qty.Item = b.ItemSku
        AND qty.WH = b.WarehouseCode
        AND qty.SnapshotWeekEnding = b.SnapshotWeekEndingDate
@@ -193,7 +193,7 @@ joined AS (
         ON cogs.ItemSku = b.ItemSku
        AND cogs.WarehouseCode = b.WarehouseCode
        AND cogs.WeekEndingDate = b.SnapshotWeekEndingDate
-    LEFT JOIN [SupplyChain_Gold_Warehouse].[Shared_DW].[DimProduct] dp
+    LEFT JOIN [Shared_DW].[DimProduct] dp
         ON dp.ItemSKU = b.ItemSku
     LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[LastInvoiceWeekly] li
         ON li.ItemSku = b.ItemSku

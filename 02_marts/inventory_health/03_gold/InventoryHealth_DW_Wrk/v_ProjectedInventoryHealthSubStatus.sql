@@ -1,4 +1,4 @@
--- SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_ProjectedInventoryHealthSubStatus
+-- InventoryHealth_DW_Wrk.v_ProjectedInventoryHealthSubStatus
 CREATE   VIEW [InventoryHealth_DW_Wrk].[v_ProjectedInventoryHealthSubStatus] AS
 WITH sp_base AS (
     SELECT

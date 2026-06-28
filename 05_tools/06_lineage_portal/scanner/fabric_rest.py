@@ -37,30 +37,32 @@ def get_semantic_definition(workspace_id: str, semantic_model_id: str, token: st
     if status != 202:
         raise RuntimeError(f"Unexpected semantic getDefinition status {status}")
 
-    operation_url = headers.get("Location")
-    if operation_url and operation_url.startswith("/"):
-        operation_url = "https://api.fabric.microsoft.com" + operation_url
     operation_id = headers.get("x-ms-operation-id")
-    retry_after = int(headers.get("Retry-After") or "5")
-    if not operation_url and operation_id:
-        operation_url = f"{BASE_URL}/operations/{operation_id}"
-    if not operation_url:
-        raise RuntimeError("Semantic getDefinition LRO did not return Location or operation id")
+    if not operation_id:
+        raise RuntimeError("Semantic getDefinition LRO did not return x-ms-operation-id")
 
-    for _ in range(120):
+    # Always use Fabric API operation endpoint — PBI redirect URL may be unreachable from CI/CD.
+    operation_url = f"{BASE_URL}/operations/{operation_id}"
+    retry_after = int(headers.get("Retry-After") or "5")
+
+    for attempt in range(120):
         time.sleep(retry_after)
-        status, headers, payload = fabric_request("GET", operation_url, token)
+        status, _, payload = fabric_request("GET", operation_url, token)
         retry_after = int(headers.get("Retry-After") or "5")
         if status != 200:
             continue
         parsed = json.loads(payload.decode("utf-8") or "{}")
         if "definition" in parsed:
             return parsed
-        if str(parsed.get("status", "")).lower() == "failed":
+        op_status = str(parsed.get("status", "")).lower()
+        if op_status == "failed":
             raise RuntimeError(f"Semantic getDefinition failed: {parsed}")
-        if str(parsed.get("status", "")).lower() == "succeeded" and operation_id:
-            _, _, result_payload = fabric_request("GET", f"{BASE_URL}/operations/{operation_id}/result", token)
-            return json.loads(result_payload.decode("utf-8"))
+        if op_status == "succeeded":
+            _, _, result_payload = fabric_request("GET", f"{operation_url}/result", token)
+            result = json.loads(result_payload.decode("utf-8"))
+            if "definition" in result:
+                return result
+            raise RuntimeError(f"Semantic getDefinition result missing definition: {list(result.keys())}")
     raise TimeoutError(f"Timed out waiting for semantic model definition {semantic_model_id}")
 
 

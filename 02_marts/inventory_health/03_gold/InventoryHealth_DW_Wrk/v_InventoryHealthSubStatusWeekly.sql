@@ -1,4 +1,4 @@
--- SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly
+-- InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly
 CREATE   VIEW [InventoryHealth_DW_Wrk].[v_InventoryHealthSubStatusWeekly] AS
 WITH inv_base AS (
     SELECT

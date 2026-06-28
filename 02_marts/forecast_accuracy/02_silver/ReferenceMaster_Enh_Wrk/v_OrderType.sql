@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_OrderType
+-- ReferenceMaster_Enh_Wrk.v_OrderType
 CREATE   VIEW [ReferenceMaster_Enh_Wrk].[v_OrderType] AS
 SELECT
     CAST(TRIM(src.[OTCODE]) AS VARCHAR(8000)) AS [OTCODE],

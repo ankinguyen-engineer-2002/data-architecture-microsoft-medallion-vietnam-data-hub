@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_HoldingTransferSnapshotDaily
+-- InventoryHistory_Enh_Wrk.v_HoldingTransferSnapshotDaily
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_HoldingTransferSnapshotDaily] AS
 WITH _HoldingTransfer AS (
     -- INLINED 2026-05-21 (Option B): was InventoryHistory_Enh.HoldingTransfer

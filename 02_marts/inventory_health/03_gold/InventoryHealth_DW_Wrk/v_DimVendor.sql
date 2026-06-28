@@ -1,4 +1,4 @@
--- SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_DimVendor
+-- InventoryHealth_DW_Wrk.v_DimVendor
 CREATE   VIEW [InventoryHealth_DW_Wrk].[v_DimVendor] AS
 SELECT
     CAST(v.VendorNumber  AS VARCHAR(50))   AS VendorNumber,

@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_ForecastSnapshotWeekly
+-- InventoryHistory_Enh_Wrk.v_ForecastSnapshotWeekly
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_ForecastSnapshotWeekly] AS
 -- CORE CONCEPT UPDATE 2026-05-22:
 --   SnapshotDate is the capture date; FiscalMonthDate is the forecast period.

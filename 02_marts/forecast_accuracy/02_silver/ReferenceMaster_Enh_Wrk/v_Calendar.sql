@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_Calendar
+-- ReferenceMaster_Enh_Wrk.v_Calendar
 CREATE   VIEW [ReferenceMaster_Enh_Wrk].[v_Calendar] AS
 SELECT
     -- Keys (existing)

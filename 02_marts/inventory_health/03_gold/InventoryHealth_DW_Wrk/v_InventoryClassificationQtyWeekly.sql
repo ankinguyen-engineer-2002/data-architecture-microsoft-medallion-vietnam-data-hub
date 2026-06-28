@@ -1,4 +1,4 @@
--- SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_InventoryClassificationQtyWeekly
+-- InventoryHealth_DW_Wrk.v_InventoryClassificationQtyWeekly
 CREATE   VIEW [InventoryHealth_DW_Wrk].[v_InventoryClassificationQtyWeekly] AS
 WITH inv_base AS (
     SELECT
@@ -38,7 +38,7 @@ src AS (
         ON ss.ItemSku = inv.ItemSku
        AND ss.WarehouseCode = inv.WarehouseCode
        AND ss.AsOfDate = inv.SnapshotWeekEndingDate
-    LEFT JOIN [SupplyChain_Gold_Warehouse].[InventoryHealth_DW].[InventoryHealthSubStatusWeekly] cls
+    LEFT JOIN [InventoryHealth_DW].[InventoryHealthSubStatusWeekly] cls
         ON cls.ItemSku = inv.ItemSku
        AND cls.WarehouseCode = inv.WarehouseCode
        AND cls.SnapshotWeekEnding = inv.SnapshotWeekEndingDate

@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.SalesHistory_Enh_Wrk.v_InvoiceWeekly
+-- SalesHistory_Enh_Wrk.v_InvoiceWeekly
 CREATE   VIEW [SalesHistory_Enh_Wrk].[v_InvoiceWeekly] AS
 WITH cf AS (SELECT TOP 1 FSCYearNum FROM ReferenceMaster_Enh.Calendar WHERE Date=CAST(GETDATE() AS DATE))
 SELECT INV.AccountShipTo, INV.ItemSKU, INV.WarehouseCode, INV.CustomerGroupCode,

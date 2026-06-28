@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_SupplyPlanDetail
+-- InventoryHistory_Enh_Wrk.v_SupplyPlanDetail
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_SupplyPlanDetail] AS
 WITH dedup_base AS (
     SELECT

@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_CustomerShippingLocation
+-- ReferenceMaster_Enh_Wrk.v_CustomerShippingLocation
 CREATE   VIEW [ReferenceMaster_Enh_Wrk].[v_CustomerShippingLocation] AS
 SELECT
     CAST(src.[commAudit] AS BIT) AS [commAudit],

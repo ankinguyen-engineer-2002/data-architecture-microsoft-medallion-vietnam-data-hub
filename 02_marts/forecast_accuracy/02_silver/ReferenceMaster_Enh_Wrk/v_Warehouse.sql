@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_Warehouse
+-- ReferenceMaster_Enh_Wrk.v_Warehouse
 CREATE   VIEW [ReferenceMaster_Enh_Wrk].[v_Warehouse] AS
 SELECT
     CAST(LocationID AS INT) AS AFIWarehousesKey,

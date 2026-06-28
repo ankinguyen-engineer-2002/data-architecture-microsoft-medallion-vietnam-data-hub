@@ -27,9 +27,23 @@ class ScannerConfig:
     sql_server: str
     semantic_model_id: str
     semantic_model_name: str
+    use_az_cli: bool = False
 
     @classmethod
     def from_env(cls) -> "ScannerConfig":
+        use_az = os.getenv("FABRIC_USE_AZ_CLI", "").strip().lower() in {"1", "true", "yes"}
+        if use_az:
+            return cls(
+                tenant_id=os.getenv("FABRIC_TENANT_ID") or DEFAULT_TENANT_ID,
+                client_id="",
+                client_secret="",
+                workspace_id=os.getenv("FABRIC_WORKSPACE_ID") or DEFAULT_WORKSPACE_ID,
+                workspace_name=os.getenv("FABRIC_WORKSPACE_NAME") or DEFAULT_WORKSPACE_NAME,
+                sql_server=os.getenv("FABRIC_SQL_SERVER") or DEFAULT_SQL_SERVER,
+                semantic_model_id=os.getenv("FABRIC_SEMANTIC_MODEL_ID") or DEFAULT_SEMANTIC_MODEL_ID,
+                semantic_model_name=os.getenv("FABRIC_SEMANTIC_MODEL_NAME") or DEFAULT_SEMANTIC_MODEL_NAME,
+                use_az_cli=True,
+            )
         required = {
             "FABRIC_CLIENT_ID": os.getenv("FABRIC_CLIENT_ID"),
             "FABRIC_CLIENT_SECRET": os.getenv("FABRIC_CLIENT_SECRET"),

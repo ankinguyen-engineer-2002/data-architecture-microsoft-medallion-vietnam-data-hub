@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ForecastCycle
+-- ReferenceMaster_Enh_Wrk.v_ForecastCycle
 CREATE   VIEW [ReferenceMaster_Enh_Wrk].[v_ForecastCycle] AS
 SELECT
     CAST(TRIM(src.[code_cycle]) AS VARCHAR(8000)) AS [CycleName],

@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.ForecastHistory_Enh_Wrk.v_NaiveForecastMonthly
+-- ForecastHistory_Enh_Wrk.v_NaiveForecastMonthly
 CREATE   VIEW [ForecastHistory_Enh_Wrk].[v_NaiveForecastMonthly] AS
 WITH
 mw AS (SELECT FSCMonthFirst, COUNT(DISTINCT FSCWeekFirst) AS NumWeeks FROM ReferenceMaster_Enh.Calendar GROUP BY FSCMonthFirst),

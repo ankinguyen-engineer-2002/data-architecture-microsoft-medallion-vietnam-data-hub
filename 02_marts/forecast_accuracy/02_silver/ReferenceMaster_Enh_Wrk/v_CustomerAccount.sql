@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_CustomerAccount
+-- ReferenceMaster_Enh_Wrk.v_CustomerAccount
 CREATE   VIEW [ReferenceMaster_Enh_Wrk].[v_CustomerAccount] AS
 SELECT
     CAST(TRIM(src.[cmaCustomerNumber]) AS VARCHAR(8000)) AS [cmaCustomerNumber],

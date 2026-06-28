@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from .auth import client_credentials_token
+from .auth import az_cli_token, client_credentials_token
 from .builder import build_snapshot, load_fixture
 from .config import ScannerConfig
 from .fabric_rest import get_semantic_definition, list_workspace_items
@@ -42,18 +42,22 @@ def main() -> int:
         return 0
 
     cfg = ScannerConfig.from_env()
-    database_token = client_credentials_token(
-        tenant_id=cfg.tenant_id,
-        client_id=cfg.client_id,
-        client_secret=cfg.client_secret,
-        scope="https://database.windows.net/.default",
-    )
-    fabric_token = client_credentials_token(
-        tenant_id=cfg.tenant_id,
-        client_id=cfg.client_id,
-        client_secret=cfg.client_secret,
-        scope="https://api.fabric.microsoft.com/.default",
-    )
+    if cfg.use_az_cli:
+        database_token = az_cli_token("https://database.windows.net/")
+        fabric_token = az_cli_token("https://api.fabric.microsoft.com/")
+    else:
+        database_token = client_credentials_token(
+            tenant_id=cfg.tenant_id,
+            client_id=cfg.client_id,
+            client_secret=cfg.client_secret,
+            scope="https://database.windows.net/.default",
+        )
+        fabric_token = client_credentials_token(
+            tenant_id=cfg.tenant_id,
+            client_id=cfg.client_id,
+            client_secret=cfg.client_secret,
+            scope="https://api.fabric.microsoft.com/.default",
+        )
     items = list_workspace_items(cfg.workspace_id, fabric_token)
     reader = SqlReader(cfg.sql_server, database_token)
     sql_scan = reader.scan_all()

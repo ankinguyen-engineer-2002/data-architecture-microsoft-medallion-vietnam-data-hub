@@ -1,4 +1,4 @@
--- SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimCalendar
+-- Shared_DW_Wrk.v_DimCalendar
 CREATE   VIEW [Shared_DW_Wrk].[v_DimCalendar] AS
 SELECT
     CAL.SKDate                          AS DateSK,

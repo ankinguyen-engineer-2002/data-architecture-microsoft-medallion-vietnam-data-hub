@@ -1,4 +1,4 @@
--- SupplyChain_Gold_Warehouse.ForecastAccuracy_DW_Wrk.v_FactForecastKpi
+-- ForecastAccuracy_DW_Wrk.v_FactForecastKpi
 CREATE   VIEW [ForecastAccuracy_DW_Wrk].[v_FactForecastKpi] AS
 WITH
 fc AS (

@@ -1,4 +1,47 @@
-# Context 2026-06-24 to 2026-06-26
+# Context 2026-06-24 to 2026-06-27
+
+## 2026-06-27 00:10:00 ICT — Fixed lineage portal client error: removed motion + cmdk incompatible with static export
+
+**Scope lock:**
+- Lineage portal frontend only.
+- No live Fabric/SQL/Power BI mutation.
+
+**User symptom:**
+- "Application error: a client-side exception has occurred while loading" on deployed GitHub Pages.
+
+**Root cause:**
+- `motion` (Motion v12.42.0) and/or `cmdk` (v1.1.1) incompatible with Next.js 15 static export on GitHub Pages.
+- `motion/react` caused a client-side React exception during hydration.
+- Bundle went from 119 kB to 62.6 kB after removal.
+
+**Fix applied:**
+- Removed all `motion/react` imports from App.tsx, Sidebar.tsx, DetailPanel.tsx, LineageTableNode.tsx.
+- Removed `cmdk` import and CommandPalette component usage.
+- Replaced motion components with plain HTML elements (`<div>`, `<header>`, `<section>`, `<aside>`).
+- Added ErrorBoundary component wrapping the app to surface future client errors with full stack trace.
+- Kept all non-motion UX enhancements:
+  - Sidebar with layer chips, badge counts, collapse toggle (Cmd+B)
+  - Lane column headers above graph
+  - Color Legend (inline HTML)
+  - Loading skeleton (CSS-only)
+  - Empty state with reset filters button
+  - Keyboard shortcuts (Cmd+B, Escape)
+  - Enhanced CSS (select wrapper, layer chips, lane headers, legend, etc.)
+
+**Verification:**
+- `npm run build` passed (62.6 kB).
+- `npm run typecheck` passed (0 errors).
+- GitHub Actions `Build Lineage Portal` run succeeded: commit `43588da3`.
+- Pages URL returned HTTP 200.
+- Snapshot: 85 nodes, 117 edges.
+
+**Lost temporarily:**
+- Motion animations (fade-in, slide-in, pulse) — can replace with CSS keyframe animations.
+- Cmd+K Command Palette — can replace with custom search modal or wait for cmdk compatibility fix.
+
+**Next concrete step:**
+- If page is stable, re-add animations using CSS keyframes (no motion dependency).
+- Re-add command palette using a lighter custom implementation.
 
 ## 2026-06-26 18:00:00 ICT — Full UX upgrade for lineage portal
 

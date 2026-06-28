@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_InventorySnapshotWeekly
+-- InventoryHistory_Enh_Wrk.v_InventorySnapshotWeekly
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_InventorySnapshotWeekly] AS
 WITH latest_effective_snapshot AS (
     SELECT MAX(CAST(dinSnapshot AS DATE)) AS LatestInventorySnapshotDate

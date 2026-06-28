@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import urllib.parse
 import urllib.request
 
@@ -28,3 +29,16 @@ def client_credentials_token(
     )
     with urllib.request.urlopen(req, timeout=60) as resp:
         return json.loads(resp.read().decode("utf-8"))["access_token"]
+
+
+def az_cli_token(scope: str) -> str:
+    result = subprocess.run(
+        ["az", "account", "get-access-token", "--resource", scope, "--query", "accessToken", "-o", "tsv"],
+        capture_output=True, text=True, timeout=60,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"az account get-access-token failed: {result.stderr.strip()}")
+    token = result.stdout.strip()
+    if not token:
+        raise RuntimeError("az account get-access-token returned empty token")
+    return token

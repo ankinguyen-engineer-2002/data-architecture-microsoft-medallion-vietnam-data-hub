@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_LastInvoiceWeekly
+-- InventoryHistory_Enh_Wrk.v_LastInvoiceWeekly
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_LastInvoiceWeekly] AS
 WITH
 _BaseFact AS (
@@ -6,7 +6,7 @@ _BaseFact AS (
         CAST(SnapshotDate AS DATE)               AS WeekEndingDate,
         CAST(TRIM(ItemSku) AS VARCHAR(50))       AS ItemSku,
         CAST(TRIM(WarehouseCode) AS VARCHAR(50)) AS WarehouseCode
-    FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[InventorySnapshotWeekly]
+    FROM [InventoryHistory_Enh].[InventorySnapshotWeekly]
     WHERE SnapshotDate IS NOT NULL
       AND ItemSku IS NOT NULL
       AND TRIM(ItemSku) <> ''
@@ -18,7 +18,7 @@ _InvoiceDetail AS (
         CAST(TRIM(ItemSKU)       AS VARCHAR(50)) AS ItemSku,
         CAST(TRIM(WarehouseCode) AS VARCHAR(50)) AS WarehouseCode,
         CAST(InvoiceDate         AS DATE)        AS InvoiceDate
-    FROM [SupplyChain_Processing_Warehouse].[SalesHistory_Enh].[InvoiceDetailLineLevel]
+    FROM [SalesHistory_Enh].[InvoiceDetailLineLevel]
     WHERE ItemSKU IS NOT NULL
       AND WarehouseCode IS NOT NULL
       AND TRIM(ItemSKU) <> ''

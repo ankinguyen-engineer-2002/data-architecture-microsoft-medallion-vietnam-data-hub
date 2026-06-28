@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster
+-- ReferenceMaster_Enh_Wrk.v_ItemMaster
 CREATE   VIEW [ReferenceMaster_Enh_Wrk].[v_ItemMaster] AS
 WITH itmext AS (
     SELECT

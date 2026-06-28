@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.OpenOrderHistory_Enh_Wrk.v_OpenOrderMonthly
+-- OpenOrderHistory_Enh_Wrk.v_OpenOrderMonthly
 CREATE   VIEW [OpenOrderHistory_Enh_Wrk].[v_OpenOrderMonthly] AS
 WITH cf AS (SELECT TOP 1 FSCYearNum FROM ReferenceMaster_Enh.Calendar WHERE Date=CAST(GETDATE() AS DATE))
 SELECT OO.ItemSKU, OO.WarehouseCode, UPPER(CG.CustomerGroupCode) AS CustomerGroupCode,

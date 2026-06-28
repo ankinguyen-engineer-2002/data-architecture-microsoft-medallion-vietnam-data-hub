@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_SafetyStockHelper
+-- InventoryHistory_Enh_Wrk.v_SafetyStockHelper
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_SafetyStockHelper] AS
 WITH asof_dates AS (
     SELECT CAST(SYSUTCDATETIME() AS DATE) AS AsOfDate

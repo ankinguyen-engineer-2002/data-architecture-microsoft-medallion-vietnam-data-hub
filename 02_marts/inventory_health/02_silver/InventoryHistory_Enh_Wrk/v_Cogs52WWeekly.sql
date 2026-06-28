@@ -1,4 +1,4 @@
--- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_Cogs52WWeekly
+-- InventoryHistory_Enh_Wrk.v_Cogs52WWeekly
 CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_Cogs52WWeekly] AS
 WITH base_fact AS (
     SELECT DISTINCT
@@ -14,7 +14,7 @@ calendar_source AS (
     SELECT
         CAST([Date] AS DATE) AS CalendarDate,
         CAST(FSCWeekLast AS DATE) AS WeekEndingDate
-    FROM [SupplyChain_Processing_Warehouse].[ReferenceMaster_Enh].[Calendar]
+    FROM [ReferenceMaster_Enh].[Calendar]
     WHERE [Date] IS NOT NULL
       AND FSCWeekLast IS NOT NULL
 ),
@@ -49,7 +49,7 @@ invoice_line_scoped AS (
         CAST(i.QtyShipped AS DECIMAL(18,4)) AS QtyShipped,
         sc.StandardCost,
         sc.StandardCostRevision
-    FROM [SupplyChain_Processing_Warehouse].[SalesHistory_Enh].[InvoiceDetailLineLevel] i
+    FROM [SalesHistory_Enh].[InvoiceDetailLineLevel] i
     INNER JOIN calendar_source c
         ON c.CalendarDate = CAST(i.InvoiceDate AS DATE)
     LEFT JOIN standard_cost sc
