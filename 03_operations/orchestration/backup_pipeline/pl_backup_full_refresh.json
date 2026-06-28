@@ -1,0 +1,45 @@
+{
+  "name": "pl_backup_full_refresh",
+  "id": "41948342-d7e7-4166-8638-9af0633e6a49",
+  "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+  "type": "DataPipeline",
+  "api": "dataPipelineExecute",
+  "description": "Backup ad-hoc full refresh pipeline. Calls 4 wrapper SPs in topological wave order. Use when Aric is unavailable or before US scheduled run.",
+  "wave_algorithm": "topological_kahn_catalog_floor",
+  "activities": [
+    {
+      "name": "01_Forecast_Silver",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[dbo].[Usp_Refresh_ForecastAccuracy_Silver]",
+      "database": "SupplyChain_Processing_Warehouse",
+      "depends_on": [],
+      "description": "Forecast Accuracy Silver W00→W01→W02→W03 (RefMaster + line-level + aggregate + naive)"
+    },
+    {
+      "name": "02_Forecast_Gold",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[dbo].[Usp_Refresh_ForecastAccuracy_Gold]",
+      "database": "SupplyChain_Gold_Warehouse",
+      "depends_on": ["01_Forecast_Silver"],
+      "description": "Forecast Accuracy Gold W01→W10→W30 (Shared dims + forecast dims + facts)"
+    },
+    {
+      "name": "03_Inventory_Silver",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Silver]",
+      "database": "SupplyChain_Processing_Warehouse",
+      "depends_on": ["02_Forecast_Gold"],
+      "description": "Inventory Health Silver W00→W01→W02 (seeds + derived + dependent helpers)"
+    },
+    {
+      "name": "04_Inventory_Gold",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Gold]",
+      "database": "SupplyChain_Gold_Warehouse",
+      "depends_on": ["03_Inventory_Silver"],
+      "description": "Inventory Health Gold W01→W10→W20→W21→W30 (Shared dims + vendor dim + helpers + facts)"
+    }
+  ],
+  "estimated_runtime": "~30 minutes (depends on data freshness)",
+  "trigger": "Manual (ad-hoc) only — no schedule configured"
+}
