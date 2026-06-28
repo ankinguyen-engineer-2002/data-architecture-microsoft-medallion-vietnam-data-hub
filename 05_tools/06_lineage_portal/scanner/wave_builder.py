@@ -5,50 +5,74 @@ from typing import Any
 
 
 def assign_waves(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> list[str]:
+    """Topological wave assignment within each layer (Silver, Gold).
+
+    Catalog explicit waves act as a FLOOR (minimum), never an override.
+    Edges always flow from lower wave to higher wave — no same-wave or
+    backward dependencies within a layer.
+    """
     warnings: list[str] = []
     node_by_id = {node["id"]: node for node in nodes}
 
     for layer in ("Silver", "Gold"):
         layer_nodes = [n for n in nodes if n.get("layer") == layer]
         ids = {n["id"] for n in layer_nodes}
+
+        # Catalog explicit waves as minimum floor.
         explicit = {n["id"]: int(n["wave"]) for n in layer_nodes if n.get("wave") is not None}
-        for node in layer_nodes:
-            if node.get("wave") is None:
-                node["wave"] = 0
-        incoming: dict[str, set[str]] = {node_id: set() for node_id in ids}
-        outgoing: dict[str, set[str]] = {node_id: set() for node_id in ids}
+
+        # Build adjacency for same-layer edges.
+        outgoing: dict[str, set[str]] = {nid: set() for nid in ids}
+        remaining: dict[str, int] = {nid: 0 for nid in ids}
         for edge in edges:
-            source = edge["source"]
-            target = edge["target"]
-            if source in ids and target in ids:
-                incoming[target].add(source)
-                outgoing[source].add(target)
+            src, tgt = edge["source"], edge["target"]
+            if src in ids and tgt in ids:
+                outgoing[src].add(tgt)
+                remaining[tgt] += 1
 
-        queue = deque(sorted({node_id for node_id, deps in incoming.items() if not deps} | set(explicit)))
-        assigned: dict[str, int] = {node_id: explicit.get(node_id, 0) for node_id in queue}
+        # Track the highest wave seen among processed sources for each target.
+        max_source_wave: dict[str, int] = {nid: -1 for nid in ids}
+
+        # Kahn's algorithm: start with nodes that have zero remaining dependencies.
+        queue = deque(sorted(nid for nid, count in remaining.items() if count == 0))
         processed: set[str] = set()
+
         while queue:
-            source = queue.popleft()
-            if source in processed:
+            src = queue.popleft()
+            if src in processed:
                 continue
-            processed.add(source)
-            for target in outgoing[source]:
-                incoming[target].discard(source)
-                if target in explicit:
-                    assigned[target] = explicit[target]
-                else:
-                    assigned[target] = max(assigned.get(target, 0), assigned[source] + 1)
-                if not incoming[target]:
-                    queue.append(target)
+            processed.add(src)
 
-        if len(assigned) != len(ids):
-            unresolved = sorted(ids - set(assigned))
-            warnings.append(f"{layer} cycle or unresolved same-layer dependency: {', '.join(unresolved)}")
-            for node_id in unresolved:
-                assigned[node_id] = max(assigned.values(), default=0) + 1
+            # Wave = max(floor from catalog, 1 + highest dependency wave).
+            wave = max_source_wave.get(src, -1) + 1
+            floor = explicit.get(src)
+            if floor is not None:
+                wave = max(wave, floor)
+            node_by_id[src]["wave"] = wave
 
-        for node_id, wave in assigned.items():
-            node_by_id[node_id]["wave"] = wave
+            for tgt in outgoing[src]:
+                max_source_wave[tgt] = max(max_source_wave[tgt], wave)
+                remaining[tgt] -= 1
+                if remaining[tgt] == 0:
+                    queue.append(tgt)
+
+        # Handle cycles or unresolvable nodes.
+        unresolved = ids - processed
+        if unresolved:
+            fallback = max(
+                (node_by_id[nid].get("wave") or 0 for nid in processed),
+                default=0,
+            )
+            warnings.append(
+                f"{layer} cycle or unresolved same-layer dependency: "
+                + ", ".join(sorted(unresolved)[:10])
+            )
+            for nid in sorted(unresolved):
+                fallback = max(max_source_wave.get(nid, -1) + 1, fallback + 1)
+                floor = explicit.get(nid)
+                if floor is not None:
+                    fallback = max(fallback, floor)
+                node_by_id[nid]["wave"] = fallback
 
     return warnings
 
