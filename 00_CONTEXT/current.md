@@ -2488,3 +2488,75 @@
 - Repo SQL is synced with live Fabric as of 2026-06-28.
 - Lineage portal is deploying with complete semantic edges.
 - Next: monitor workflow run `28311545405` for deployment completion.
+
+## 2026-06-28 12:15:00 ICT — Topological wave ordering fix + wrapper SP redeploy + full refresh
+
+**Scope lock:**
+- Algorithm fix, live Fabric SP redeploy, full 4-wrapper refresh, repo catalog/manifest/tool update.
+- No destructive operations.
+
+**User instruction:**
+- Fix wave assignment so B never shares wave with A if B depends on A.
+- Redeploy wrapper SPs on live Fabric with corrected EXEC order.
+- Update repo mart folders, catalog, manifests, tools, docs.
+
+**Problem:**
+- 224 same-layer same-wave dependency violations: e.g. InvoiceDetailLineLevel (W1)
+  → AwdHelper (W1) — B depends on A but same wave, lineage crosses backwards.
+- Root cause in `wave_builder.py`:
+  1. Catalog explicit waves used as absolute override (not floor).
+  2. Explicit-wave nodes pre-loaded into initial queue before dependency resolution.
+
+**Fix — `wave_builder.py` rewritten:**
+- Pure Kahn's topological sort within each layer (Silver, Gold).
+- Catalog wave = floor (minimum), never an override.
+- Actual wave = max(catalog_floor, 1 + highest_dependency_wave).
+- Nodes wait in queue until ALL dependencies resolved.
+- Result: 0 same-wave violations.
+
+**Wrapper SPs redeployed to live Fabric:**
+- `Usp_Refresh_ForecastAccuracy_Silver` — W00→W01→W02→W03
+- `Usp_Refresh_ForecastAccuracy_Gold` — W01→W10→W30
+- `Usp_Refresh_InventoryHealth_Silver` — W00→W01→W02 (key: AwdHelper/Cogs52WWeekly/LastInvoiceWeekly → W02)
+- `Usp_Refresh_InventoryHealth_Gold` — W01→W10→W20→W21→W30 (key: InventoryClassificationQtyWeekly → W21)
+
+**Full 4-wrapper refresh executed on live Fabric:**
+- 4/4 OK, 33.1s total (data already fresh).
+- Forecast Silver: 10.1s, Forecast Gold: 9.1s
+- Inventory Silver: 6.2s, Inventory Gold: 7.7s
+
+**Repo updates:**
+- `02_marts/*/05_catalog/run_order.json` — corrected wave sequence + added missing tables.
+- `03_operations/orchestration/main/manifest.json` — switched to wrapper_sp API.
+- `03_operations/tools/run_refresh.py` — full rewrite with --execute for direct SP execution via pyodbc.
+- `03_operations/orchestration/*/sql/*.sql` — 4 wrapper SPs updated with corrected EXEC order.
+- `05_tools/06_lineage_portal/scanner/wave_builder.py` — Kahn's algorithm.
+
+**Corrected wave lanes:**
+```
+01 Bronze Sources              33 nodes
+02 Silver W00                 530 nodes
+02 Silver W01                  15 nodes
+02 Silver W02                   9 nodes
+02 Silver W03                   1 node
+03 Gold W00                   293 nodes
+03 Gold W00 Shared              3 nodes  (DimCalendar, DimProduct, DimWarehouse)
+03 Gold W10 Dimensions           3 nodes  (DimCustomerGrouping, DimForecastHorizon, DimVendor)
+03 Gold W20 Helpers              3 nodes  (IHSubStatusWeekly, ProjectedIHSubStatus, +ICQtyWeekly at W21)
+03 Gold W30 Facts                4 nodes  (FactForecastActual, FactForecastKpi, FactIHFuture, FactIHSnapshot)
+04 Semantic sc_control_tower    17 nodes
+```
+
+**Verification:**
+- Python: 10/10 tests pass.
+- TypeScript: 0 type errors.
+- Next.js build: 62.6 kB.
+- Semantic edges: 12 bindings, 0 warnings.
+- Same-wave violations: 0 (down from 224).
+- Live Fabric: 4/4 SPs deployed and executed successfully.
+
+**Current handoff:**
+- Wave ordering is topologically correct across all 3 layers.
+- Wrapper SPs on live Fabric match the corrected order.
+- Lineage portal renders clean forward-flowing graph with 11 lanes.
+- All repo catalog/manifest/tool/docs updated.
