@@ -1,12 +1,14 @@
 -- Target database: SupplyChain_Gold_Warehouse
 -- Mart: inventory_health
--- This mart wrapper is self-contained after Inventory Health Silver.
+-- Wave order: W01 Shared dims → W10 Inv dims → W20 Helpers → W21 Dependent helper → W30 Facts
+-- Topological fix: InventoryClassificationQtyWeekly depends on
+-- InventoryHealthSubStatusWeekly (W20), so it must be W21, not same wave.
 CREATE OR ALTER PROCEDURE [dbo].[Usp_Refresh_InventoryHealth_Gold]
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Gold Wave 00: shared dimensions
+    -- Gold Wave 01: shared dimensions (depend on Gold W00 source tables)
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Gold_Warehouse', 'Shared_DW', 'DimCalendar';
 
@@ -27,6 +29,7 @@ BEGIN
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Gold_Warehouse', 'InventoryHealth_DW', 'InventoryHealthSubStatusWeekly';
 
+    -- Gold Wave 21: dependent helper (depends on InventoryHealthSubStatusWeekly W20)
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Gold_Warehouse', 'InventoryHealth_DW', 'InventoryClassificationQtyWeekly';
 
