@@ -10,7 +10,7 @@
   },
   "post_run_checks": ["semantic_smoke", "row_count_freshness"],
   "sequence": [
-    { "step": 100, "wave": 0, "object": "ReferenceMaster_Enh.*", "load_type": "overwrite", "purpose": "Reference/master data prerequisites" },
+    { "step": 100, "wave": 1, "object": "ReferenceMaster_Enh.*", "load_type": "overwrite", "purpose": "Reference/master data prerequisites" },
     { "step": 200, "wave": 1, "object": "SalesHistory_Enh.InvoiceDetailLineLevel", "load_type": "overwrite", "purpose": "Invoice detail line-level foundation" },
     { "step": 210, "wave": 1, "object": "OpenOrderHistory_Enh.OpenOrderLineLevel", "load_type": "overwrite", "purpose": "Open order line-level foundation" },
     { "step": 300, "wave": 2, "object": "SalesHistory_Enh.ActualDemandMonthly", "load_type": "overwrite", "purpose": "Actual demand monthly (depends on W01)" },

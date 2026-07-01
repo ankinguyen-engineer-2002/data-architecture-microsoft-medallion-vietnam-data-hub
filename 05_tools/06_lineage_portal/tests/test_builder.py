@@ -50,12 +50,13 @@ class BuilderTests(unittest.TestCase):
         )
 
         visible_views = [
-            node["full_name"]
+            node
             for node in snapshot["nodes"]
             if node["schema"].endswith("_Wrk") or node["object_name"].startswith("v_")
         ]
 
-        self.assertEqual(visible_views, [])
+        self.assertTrue(visible_views)
+        self.assertTrue(all(node["schema"] == "Staging_Wrk" for node in visible_views))
         self.assertIn(
             (
                 "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly",

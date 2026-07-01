@@ -8,7 +8,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Gold Wave 01: shared dimensions (depend on Gold W00 source tables)
+    -- Gold Wave 01: shared dimensions (depend on Gold W01 source tables)
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Gold_Warehouse', 'Shared_DW', 'DimCalendar';
 

@@ -4,63 +4,79 @@ Use this when Aric asks to run the full SupplyChain path.
 
 ## Current Status
 
-[Verified] Final Enterprise ETL runtime rerun passed on 2026-06-24.
+[Draft] SQL Agent handoff is now 10 wrapper SP job steps: shared prerequisites, then Forecast Silver/Gold and Inventory Silver/Gold wrappers.
 
 | Check | Result |
 |---|---|
-| Full wrapper run | `4/4` succeeded |
-| Total runtime | `1,721.01s` / about `28m 41s` |
-| Active wrapper surface | exactly two Silver + two Gold mart wrappers |
-| `TableDictionary` active curated rows | `46/46` `_Wrk.v_*`, `0` errors |
-| `AuditLog` | `56 Process Start` + `56 Process Complete`, `0` errors |
-| Compile smoke | `92/92` active target/source checks passed |
-| Live/local SQL modules | `49/49` matched, no drift |
+| Wrapper surface | 10 SPs total |
+| Shared prereq | 2 Processing SPs |
+| Forecast Silver | 3 Processing wave SPs |
+| Inventory Silver | 3 Processing wave SPs |
+| Gold | 2 Gold monolithic SPs unchanged |
+| Load method in new wave SPs | `usp_RefreshCuratedTableFromView` overwrite only |
+| Staging gap | `Staging.DemandForecastSnapshotDaily` added as shared W01 |
 
 ## SQL Agent Handoff
 
-US/DE scheduling should call exactly these four wrapper procedures in order:
+US/DE scheduling should call these 10 wrapper procedures in order:
 
 ```sql
--- Step 1: Forecast Accuracy Silver
-EXEC [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_ForecastAccuracy_Silver];
+-- Step 01: Shared ReferenceMaster
+EXEC [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_Shared_ReferenceMaster];
 
--- Step 2: Forecast Accuracy Gold
+-- Step 02: Shared Staging
+EXEC [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_Shared_Staging];
+
+-- Step 03: Forecast Accuracy Silver W01
+EXEC [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_ForecastAccuracy_Silver_W01];
+
+-- Step 04: Forecast Accuracy Silver W02
+EXEC [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_ForecastAccuracy_Silver_W02];
+
+-- Step 05: Forecast Accuracy Silver W03
+EXEC [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_ForecastAccuracy_Silver_W03];
+
+-- Step 06: Forecast Accuracy Gold
 EXEC [SupplyChain_Gold_Warehouse].[dbo].[Usp_Refresh_ForecastAccuracy_Gold];
 
--- Step 3: Inventory Health Silver
-EXEC [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_InventoryHealth_Silver];
+-- Step 07: Inventory Health Silver W01
+EXEC [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_InventoryHealth_Silver_W01];
 
--- Step 4: Inventory Health Gold
+-- Step 08: Inventory Health Silver W02
+EXEC [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_InventoryHealth_Silver_W02];
+
+-- Step 09: Inventory Health Silver W03
+EXEC [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_InventoryHealth_Silver_W03];
+
+-- Step 10: Inventory Health Gold
 EXEC [SupplyChain_Gold_Warehouse].[dbo].[Usp_Refresh_InventoryHealth_Gold];
 ```
 
 Current logical order:
 
-1. `forecast_accuracy`
-2. `inventory_health`
-3. post-run smoke
+1. shared prerequisites
+2. `forecast_accuracy` Silver W01→W02→W03
+3. `forecast_accuracy` Gold
+4. `inventory_health` Silver W01→W02→W03
+5. `inventory_health` Gold
+6. post-run smoke
 
-The active mart wrappers are self-contained:
-
-- `*_Silver` includes ReferenceMaster prerequisite Wave 00.
-- `*_Gold` includes Shared_DW prerequisite Wave 00.
-
-The official live Fabric master pipeline `pl_sc_master` is legacy context for current docs. SQL Agent should use the wrapper procedures listed in the manifest when US owns scheduling.
-
-This folder documents the order and provides a safe runner for ad-hoc execution.
+The official live Fabric master pipeline `pl_sc_master` is legacy context for current docs. SQL Agent should use the wrapper procedures listed in `manifest.json` when US owns scheduling.
 
 ## Wrapper Stored Procedures
 
 - Wrapper order lives in `manifest.json` under `wrapper_procedures`.
-- Mart wrapper DDL lives under each mart's `sql/` folder.
+- Shared wrapper DDL lives under `03_operations/orchestration/shared/sql/`.
+- Mart wave wrapper DDL lives under each mart's `sql/` folder.
+- Gold wrapper DDL remains unchanged.
 - Default dry-run printer:
   - `python3 03_operations/tools/run_refresh.py --manifest 03_operations/orchestration/main/manifest.json`
-- Wrapper order is aligned to the two active mart model: Forecast Silver/Gold, then Inventory Silver/Gold.
 
 ## Enterprise `_Wrk` Contract
 
 - Full refresh order targets final physical tables.
 - Silver/Gold framework source views are `<target_schema>_Wrk.v_<target_table>`.
+- `Staging_Wrk.v_*` views remain visible in lineage because Silver views use them as source evidence.
 - Base-schema `v_*` views have been removed from active Silver/Gold curated schemas and must not be referenced.
 
 ## Monitoring Query

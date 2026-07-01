@@ -13,7 +13,7 @@
   "optimization": "Shared tables (ReferenceMaster_Enh 11t + InvoiceDetailLineLevel) run once in Phase 0. Each mart only refreshes unique tables. Eliminates ~12 redundant calls vs naive approach.",
   "phases": {
     "phase_0_shared": [
-      "Silver W00 ∥∥ ReferenceMaster_Enh (11 tables parallel)",
+      "Silver W01 ∥∥ ReferenceMaster_Enh (11 tables parallel)",
       "Silver W01 ── InvoiceDetailLineLevel"
     ],
     "phase_1_forecast_accuracy": [
@@ -25,9 +25,9 @@
       "Gold W30 ∥∥ ForecastAccuracy_DW facts (FactForecastActual, FactForecastKpi)"
     ],
     "phase_2_inventory_health": [
-      "Silver W00 ∥∥ InventorySnapshotWeekly, AtpWeekEnding",
-      "Silver W01 ∥∥ PO, MO(inc), Transfer(inc), ForecastSnapshot, SupplyPlan, ItemBalance, SafetyStock",
-      "Silver W02 ∥∥ AFIStatus, AwdHelper, LastInvoice, Cogs52W",
+      "Silver W01 ∥∥ InventorySnapshotWeekly, AtpWeekEnding",
+      "Silver W02 ∥∥ PO, MO(inc), Transfer(inc), ForecastSnapshot, SupplyPlan, ItemBalance, SafetyStock",
+      "Silver W03 ∥∥ AFIStatus, AwdHelper, LastInvoice, Cogs52W",
       "Gold W10 ── DimVendor",
       "Gold W20 ∥∥ ProjectedIHSubStatus, IHSubStatusWeekly",
       "Gold W21 ── InventoryClassificationQtyWeekly (sau IHSubStatusWeekly)",

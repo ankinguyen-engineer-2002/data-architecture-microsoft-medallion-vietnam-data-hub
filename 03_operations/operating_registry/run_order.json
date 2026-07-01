@@ -24,7 +24,7 @@
           "purpose": "Reference/master data",
           "resolved_asset_key": null,
           "step": 100,
-          "wave": 0
+          "wave": 1
         },
         {
           "dq_gate": "bronze_source_contracts",
@@ -159,7 +159,7 @@
           "purpose": "Reference/master data (prereq for Silver and Shared dims)",
           "resolved_asset_key": null,
           "step": 90,
-          "wave": 0
+          "wave": 1
         },
         {
           "dq_gate": "bronze_source_contracts",
@@ -168,7 +168,7 @@
           "purpose": "PO historical snapshot",
           "resolved_asset_key": "inventoryhistory.enh.purchaseordersnapshothistorical",
           "step": 100,
-          "wave": 0
+          "wave": 1
         },
         {
           "dq_gate": "bronze_source_contracts",
@@ -177,7 +177,7 @@
           "purpose": "MO daily snapshot",
           "resolved_asset_key": "inventoryhistory.enh.manufacturingordersnapshotdaily",
           "step": 110,
-          "wave": 0
+          "wave": 1
         },
         {
           "dq_gate": "bronze_source_contracts",
@@ -186,7 +186,7 @@
           "purpose": "Holding transfer snapshot",
           "resolved_asset_key": "inventoryhistory.enh.holdingtransfersnapshotdaily",
           "step": 120,
-          "wave": 0
+          "wave": 1
         },
         {
           "dq_gate": "bronze_source_contracts",
@@ -195,7 +195,7 @@
           "purpose": "Weekly inventory snapshot",
           "resolved_asset_key": "inventoryhistory.enh.inventorysnapshotweekly",
           "step": 130,
-          "wave": 0
+          "wave": 1
         },
         {
           "dq_gate": "bronze_source_contracts",
@@ -204,7 +204,7 @@
           "purpose": "Weekly forecast snapshot",
           "resolved_asset_key": "inventoryhistory.enh.forecastsnapshotweekly",
           "step": 140,
-          "wave": 0
+          "wave": 1
         },
         {
           "dq_gate": "bronze_source_contracts",
@@ -213,7 +213,7 @@
           "purpose": "Supply plan detail",
           "resolved_asset_key": "inventoryhistory.enh.supplyplandetail",
           "step": 150,
-          "wave": 0
+          "wave": 1
         },
         {
           "dq_gate": "bronze_source_contracts",
@@ -222,7 +222,7 @@
           "purpose": "ATP week ending",
           "resolved_asset_key": "inventoryhistory.enh.atpweekending",
           "step": 160,
-          "wave": 0
+          "wave": 1
         },
         {
           "dq_gate": "bronze_source_contracts",
@@ -231,7 +231,7 @@
           "purpose": "Historical item balance with in-transit",
           "resolved_asset_key": "inventoryhistory.enh.itembalancehistorical.withintransit",
           "step": 170,
-          "wave": 0
+          "wave": 1
         },
         {
           "dq_gate": "bronze_source_contracts",

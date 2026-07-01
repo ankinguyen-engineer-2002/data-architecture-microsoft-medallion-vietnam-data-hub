@@ -54,6 +54,7 @@ class MartCatalogTests(unittest.TestCase):
         self.assertEqual(catalog.classify_object("NewMart_DW", "FactNewMetric"), "new_mart")
         self.assertEqual(catalog.role_for("Shared_DW", "DimProduct", "new_mart"), "support")
         self.assertEqual(catalog.wave_for("NewMart_DW", "FactNewMetric"), 30)
+        self.assertEqual(catalog.wave_for("Shared_DW", "DimProduct"), 1)
 
 
 if __name__ == "__main__":

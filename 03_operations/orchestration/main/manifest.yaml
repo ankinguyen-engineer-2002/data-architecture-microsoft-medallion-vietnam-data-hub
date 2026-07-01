@@ -1,44 +1,65 @@
 name: main
-description: Full SupplyChain all-mart refresh order. Runs the two active marts with mart-local wave dependencies.
+description: Full SupplyChain all-mart refresh order — 10 wrapper SP job steps with shared prerequisites and wave-level Silver checkpoints.
 workspace_id: c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
-enterprise_wrk_contract:
-  target_schema_rule: "Final Silver/Gold schema/table is the ETL target."
-  source_view_rule: "Framework source view is <target_schema>_Wrk.v_<target_table>."
-  base_schema_views: "Legacy compatibility only; do not use for new orchestration."
 pipeline:
-  name: pl_sc_master
-  id: f36f56b8-5668-4a0c-b991-2c28302f1710
-  api: dataPipelineExecute
+  api: wrapper_sp
+  description: Direct SP execution via pyodbc/az token or SQL Agent job steps.
+default_mode: dry_run
+wave_algorithm: topological_kahn_catalog_floor
 wrapper_procedures:
   - step: 10
     database: SupplyChain_Processing_Warehouse
     schema: dbo
-    procedure: Usp_Refresh_ForecastAccuracy_Silver
-    purpose: Forecast Accuracy Silver waves, including ReferenceMaster Wave 00.
+    procedure: Usp_Refresh_Shared_ReferenceMaster
+    purpose: Shared ReferenceMaster prerequisites.
   - step: 20
-    database: SupplyChain_Gold_Warehouse
+    database: SupplyChain_Processing_Warehouse
     schema: dbo
-    procedure: Usp_Refresh_ForecastAccuracy_Gold
-    purpose: Forecast Accuracy Gold waves, including Shared_DW Wave 00.
+    procedure: Usp_Refresh_Shared_Staging
+    purpose: Shared Staging.DemandForecastSnapshotDaily prerequisite.
   - step: 30
     database: SupplyChain_Processing_Warehouse
     schema: dbo
-    procedure: Usp_Refresh_InventoryHealth_Silver
-    purpose: Inventory Health Silver waves, including ReferenceMaster Wave 00.
+    procedure: Usp_Refresh_ForecastAccuracy_Silver_W01
+    purpose: Forecast Accuracy Silver W01 line-level tables.
   - step: 40
+    database: SupplyChain_Processing_Warehouse
+    schema: dbo
+    procedure: Usp_Refresh_ForecastAccuracy_Silver_W02
+    purpose: Forecast Accuracy Silver W02 aggregate tables.
+  - step: 50
+    database: SupplyChain_Processing_Warehouse
+    schema: dbo
+    procedure: Usp_Refresh_ForecastAccuracy_Silver_W03
+    purpose: Forecast Accuracy Silver W03 derived forecast table.
+  - step: 60
+    database: SupplyChain_Gold_Warehouse
+    schema: dbo
+    procedure: Usp_Refresh_ForecastAccuracy_Gold
+    purpose: Forecast Accuracy Gold monolithic wrapper.
+  - step: 70
+    database: SupplyChain_Processing_Warehouse
+    schema: dbo
+    procedure: Usp_Refresh_InventoryHealth_Silver_W01
+    purpose: Inventory Health Silver W01 inventory source transformations.
+  - step: 80
+    database: SupplyChain_Processing_Warehouse
+    schema: dbo
+    procedure: Usp_Refresh_InventoryHealth_Silver_W02
+    purpose: Inventory Health Silver W02 derived tables.
+  - step: 90
+    database: SupplyChain_Processing_Warehouse
+    schema: dbo
+    procedure: Usp_Refresh_InventoryHealth_Silver_W03
+    purpose: Inventory Health Silver W03 dependent helpers.
+  - step: 100
     database: SupplyChain_Gold_Warehouse
     schema: dbo
     procedure: Usp_Refresh_InventoryHealth_Gold
-    purpose: Inventory Health Gold waves, including Shared_DW Wave 00.
-sequence:
-  - step: 10
-    type: project
-    project: forecast_accuracy
-    purpose: Forecast Accuracy mart, Silver then Gold.
-  - step: 20
-    type: project
-    project: inventory_health
-    purpose: Inventory Health mart, Silver then Gold.
-  - step: 90
-    type: smoke
-    purpose: Run row-count/freshness/DQ/semantic smoke after refresh.
+    purpose: Inventory Health Gold monolithic wrapper.
+post_run_checks:
+  - Enterprise ETL AuditLog has Process Complete for all physical table loads
+  - TableDictionary Modified/RowCount updated for loaded targets
+  - No grain duplicates on critical snapshot grains
+  - Gold row counts are non-zero and within expected tolerance
+  - Semantic smoke passes if report-facing objects changed

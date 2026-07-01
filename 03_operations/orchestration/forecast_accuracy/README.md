@@ -4,7 +4,7 @@ Use this when Aric asks to refresh only Forecast Accuracy.
 
 Current run order:
 
-1. Silver waves (0, 1, 2, ...)
+1. Silver waves (1, 2, 3, ...)
 2. Gold waves (`gold_shared` -> `gold_dim` -> `gold_fact`)
 3. post-run smoke
 
@@ -13,8 +13,8 @@ Live REST mart-level execution through `pl_sc_mart(project_name)` is marked [Nee
 Wrapper stored procedures (SQL Agent / external scheduler):
 
 - Active mart wrapper order lives in `manifest.json` under `wrapper_procedures`.
-- The mart has exactly two active wrappers: Silver then Gold.
-- `Usp_Refresh_ForecastAccuracy_Silver` includes ReferenceMaster prerequisite Wave 00.
+- The mart has exactly three active Silver wrappers: W01 then W02 then W03, followed by Gold.
+- `Usp_Refresh_ForecastAccuracy_Silver_W01` is the first forecast source wave.
 - `Usp_Refresh_ForecastAccuracy_Gold` includes Shared_DW prerequisite Wave 00.
 - Wrapper DDL lives under `sql/`.
 - Default dry-run printer:

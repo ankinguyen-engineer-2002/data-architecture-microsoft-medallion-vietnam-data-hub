@@ -212,7 +212,7 @@ def build_snapshot(
             "layer": "Semantic",
             "mart": "shared",
             "role": "semantic",
-            "wave": 0,
+            "wave": 1,
             "load_method": "Direct Lake",
             "source_sql": "",
             "row_count": None,
@@ -237,7 +237,7 @@ def build_snapshot(
                     "layer": "Semantic",
                     "mart": classify_with_catalog(catalog, semantic_row["source_schema"], semantic_row["source_table"]),
                     "role": "semantic",
-                    "wave": 0,
+                    "wave": 1,
                     "load_method": "Direct Lake",
                     "source_sql": "",
                     "row_count": None,
@@ -337,6 +337,8 @@ def is_work_view_node(node: dict[str, Any]) -> bool:
     schema = str(node.get("schema") or "")
     object_name = str(node.get("object_name") or "")
     object_type = str(node.get("object_type") or "").lower()
+    if schema == "Staging_Wrk":
+        return False
     return schema.endswith("_Wrk") or object_name.startswith("v_") or object_type == "wrk_view"
 
 
@@ -460,12 +462,12 @@ def lane_for(layer: str, role: str, wave: Any, schema: str) -> tuple[int, str]:
     if layer == "Bronze":
         return 10, "01 Bronze Sources"
     if layer == "Silver":
-        number = safe_int(wave, 0)
+        number = safe_int(wave, 1)
         return 200 + number, f"02 Silver W{number:02d}"
     if layer == "Gold":
-        number = safe_int(wave, 0)
+        number = safe_int(wave, 1)
         if role == "support" or schema == "Shared_DW":
-            return 300, "03 Gold W00 Shared"
+            return 300, "03 Gold W01 Shared"
         if number >= 30:
             return 330, "03 Gold W30 Facts"
         if number >= 20:

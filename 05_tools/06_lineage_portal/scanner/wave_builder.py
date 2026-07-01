@@ -7,9 +7,9 @@ from typing import Any
 def assign_waves(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> list[str]:
     """Topological wave assignment within each layer (Silver, Gold).
 
-    Catalog explicit waves act as a FLOOR (minimum), never an override.
-    Edges always flow from lower wave to higher wave — no same-wave or
-    backward dependencies within a layer.
+    Waves are 1-based. Catalog explicit waves act as a FLOOR (minimum),
+    never an override. Edges always flow from lower wave to higher wave -
+    no same-wave or backward dependencies within a layer.
     """
     warnings: list[str] = []
     node_by_id = {node["id"]: node for node in nodes}
@@ -18,8 +18,12 @@ def assign_waves(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> li
         layer_nodes = [n for n in nodes if n.get("layer") == layer]
         ids = {n["id"] for n in layer_nodes}
 
-        # Catalog explicit waves as minimum floor.
-        explicit = {n["id"]: int(n["wave"]) for n in layer_nodes if n.get("wave") is not None}
+        # Catalog explicit waves as minimum floor, normalized to 1-based numbering.
+        explicit = {
+            n["id"]: max(1, int(n["wave"]))
+            for n in layer_nodes
+            if n.get("wave") is not None
+        }
 
         # Build adjacency for same-layer edges.
         outgoing: dict[str, set[str]] = {nid: set() for nid in ids}
@@ -31,7 +35,7 @@ def assign_waves(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> li
                 remaining[tgt] += 1
 
         # Track the highest wave seen among processed sources for each target.
-        max_source_wave: dict[str, int] = {nid: -1 for nid in ids}
+        max_source_wave: dict[str, int] = {nid: 0 for nid in ids}
 
         # Kahn's algorithm: start with nodes that have zero remaining dependencies.
         queue = deque(sorted(nid for nid, count in remaining.items() if count == 0))
@@ -44,7 +48,7 @@ def assign_waves(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> li
             processed.add(src)
 
             # Wave = max(floor from catalog, 1 + highest dependency wave).
-            wave = max_source_wave.get(src, -1) + 1
+            wave = max_source_wave.get(src, 0) + 1
             floor = explicit.get(src)
             if floor is not None:
                 wave = max(wave, floor)
@@ -60,15 +64,15 @@ def assign_waves(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> li
         unresolved = ids - processed
         if unresolved:
             fallback = max(
-                (node_by_id[nid].get("wave") or 0 for nid in processed),
-                default=0,
+                (int(node_by_id[nid].get("wave") or 1) for nid in processed),
+                default=1,
             )
             warnings.append(
                 f"{layer} cycle or unresolved same-layer dependency: "
                 + ", ".join(sorted(unresolved)[:10])
             )
             for nid in sorted(unresolved):
-                fallback = max(max_source_wave.get(nid, -1) + 1, fallback + 1)
+                fallback = max(max_source_wave.get(nid, 0) + 1, fallback + 1)
                 floor = explicit.get(nid)
                 if floor is not None:
                     fallback = max(fallback, floor)

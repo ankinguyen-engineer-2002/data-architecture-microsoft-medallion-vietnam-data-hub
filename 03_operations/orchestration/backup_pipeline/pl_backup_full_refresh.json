@@ -4,42 +4,131 @@
   "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
   "type": "DataPipeline",
   "api": "dataPipelineExecute",
-  "description": "Backup ad-hoc full refresh pipeline. Calls 4 wrapper SPs in topological wave order. Use when Aric is unavailable or before US scheduled run.",
+  "description": "Backup ad-hoc full refresh pipeline. Calls 10 wrapper SP job steps: shared prerequisites, Forecast Silver/Gold, then Inventory Silver/Gold wrappers. Manual only.",
   "wave_algorithm": "topological_kahn_catalog_floor",
   "activities": [
     {
-      "name": "01_Forecast_Silver",
+      "name": "01_Shared_ReferenceMaster",
       "type": "SqlServerStoredProcedure",
-      "stored_procedure": "[dbo].[Usp_Refresh_ForecastAccuracy_Silver]",
+      "stored_procedure": "[dbo].[Usp_Refresh_Shared_ReferenceMaster]",
       "database": "SupplyChain_Processing_Warehouse",
       "depends_on": [],
-      "description": "Forecast Accuracy Silver W00→W01→W02→W03 (RefMaster + line-level + aggregate + naive)"
+      "description": "Shared ReferenceMaster prerequisites: 11 ReferenceMaster_Enh tables.",
+      "linked_service": {
+        "name": "SupplyChain_Processing_Warehouse",
+        "artifact_id": "c0262cef-b8a7-495f-bccc-53b098c7948c"
+      }
     },
     {
-      "name": "02_Forecast_Gold",
+      "name": "02_Shared_Staging",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[dbo].[Usp_Refresh_Shared_Staging]",
+      "database": "SupplyChain_Processing_Warehouse",
+      "depends_on": ["01_Shared_ReferenceMaster"],
+      "description": "Shared Staging.DemandForecastSnapshotDaily prerequisite.",
+      "linked_service": {
+        "name": "SupplyChain_Processing_Warehouse",
+        "artifact_id": "c0262cef-b8a7-495f-bccc-53b098c7948c"
+      }
+    },
+    {
+      "name": "03_Forecast_Silver_W01",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[dbo].[Usp_Refresh_ForecastAccuracy_Silver_W01]",
+      "database": "SupplyChain_Processing_Warehouse",
+      "depends_on": ["02_Shared_Staging"],
+      "description": "Forecast Accuracy Silver W01: InvoiceDetailLineLevel, OpenOrderLineLevel.",
+      "linked_service": {
+        "name": "SupplyChain_Processing_Warehouse",
+        "artifact_id": "c0262cef-b8a7-495f-bccc-53b098c7948c"
+      }
+    },
+    {
+      "name": "04_Forecast_Silver_W02",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[dbo].[Usp_Refresh_ForecastAccuracy_Silver_W02]",
+      "database": "SupplyChain_Processing_Warehouse",
+      "depends_on": ["03_Forecast_Silver_W01"],
+      "description": "Forecast Accuracy Silver W02 aggregate tables.",
+      "linked_service": {
+        "name": "SupplyChain_Processing_Warehouse",
+        "artifact_id": "c0262cef-b8a7-495f-bccc-53b098c7948c"
+      }
+    },
+    {
+      "name": "05_Forecast_Silver_W03",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[dbo].[Usp_Refresh_ForecastAccuracy_Silver_W03]",
+      "database": "SupplyChain_Processing_Warehouse",
+      "depends_on": ["04_Forecast_Silver_W02"],
+      "description": "Forecast Accuracy Silver W03: NaiveForecastMonthly.",
+      "linked_service": {
+        "name": "SupplyChain_Processing_Warehouse",
+        "artifact_id": "c0262cef-b8a7-495f-bccc-53b098c7948c"
+      }
+    },
+    {
+      "name": "06_Forecast_Gold",
       "type": "SqlServerStoredProcedure",
       "stored_procedure": "[dbo].[Usp_Refresh_ForecastAccuracy_Gold]",
       "database": "SupplyChain_Gold_Warehouse",
-      "depends_on": ["01_Forecast_Silver"],
-      "description": "Forecast Accuracy Gold W01→W10→W30 (Shared dims + forecast dims + facts)"
+      "depends_on": ["05_Forecast_Silver_W03"],
+      "description": "Forecast Accuracy Gold monolithic wrapper: Shared_DW dims, forecast dims, forecast facts.",
+      "linked_service": {
+        "name": "SupplyChain_Gold_Warehouse",
+        "artifact_id": "98e2a911-5af9-442e-9cc8-5d8dadb8b762"
+      }
     },
     {
-      "name": "03_Inventory_Silver",
+      "name": "07_Inventory_Silver_W01",
       "type": "SqlServerStoredProcedure",
-      "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Silver]",
+      "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Silver_W01]",
       "database": "SupplyChain_Processing_Warehouse",
-      "depends_on": ["02_Forecast_Gold"],
-      "description": "Inventory Health Silver W00→W01→W02 (seeds + derived + dependent helpers)"
+      "depends_on": ["06_Forecast_Gold"],
+      "description": "Inventory Health Silver W01 inventory source transformations.",
+      "linked_service": {
+        "name": "SupplyChain_Processing_Warehouse",
+        "artifact_id": "c0262cef-b8a7-495f-bccc-53b098c7948c"
+      }
     },
     {
-      "name": "04_Inventory_Gold",
+      "name": "08_Inventory_Silver_W02",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Silver_W02]",
+      "database": "SupplyChain_Processing_Warehouse",
+      "depends_on": ["07_Inventory_Silver_W01"],
+      "description": "Inventory Health Silver W02 derived tables.",
+      "linked_service": {
+        "name": "SupplyChain_Processing_Warehouse",
+        "artifact_id": "c0262cef-b8a7-495f-bccc-53b098c7948c"
+      }
+    },
+    {
+      "name": "09_Inventory_Silver_W03",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Silver_W03]",
+      "database": "SupplyChain_Processing_Warehouse",
+      "depends_on": ["08_Inventory_Silver_W02"],
+      "description": "Inventory Health Silver W03 dependent helpers.",
+      "linked_service": {
+        "name": "SupplyChain_Processing_Warehouse",
+        "artifact_id": "c0262cef-b8a7-495f-bccc-53b098c7948c"
+      }
+    },
+    {
+      "name": "10_Inventory_Gold",
       "type": "SqlServerStoredProcedure",
       "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Gold]",
       "database": "SupplyChain_Gold_Warehouse",
-      "depends_on": ["03_Inventory_Silver"],
-      "description": "Inventory Health Gold W01→W10→W20→W21→W30 (Shared dims + vendor dim + helpers + facts)"
+      "depends_on": ["09_Inventory_Silver_W03"],
+      "description": "Inventory Health Gold monolithic wrapper: Shared_DW dims, vendor dim, helpers, facts.",
+      "linked_service": {
+        "name": "SupplyChain_Gold_Warehouse",
+        "artifact_id": "98e2a911-5af9-442e-9cc8-5d8dadb8b762"
+      }
     }
   ],
   "estimated_runtime": "~30 minutes (depends on data freshness)",
-  "trigger": "Manual (ad-hoc) only — no schedule configured"
+  "trigger": "Manual (ad-hoc) only — no schedule configured",
+  "notes": "All table loads use usp_RefreshCuratedTableFromView overwrite pattern for now; no incremental wave SP calls until keys are verified."
 }

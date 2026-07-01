@@ -8,7 +8,7 @@ from typing import Any
 
 SUPPORT_SCHEMAS = {"ReferenceMaster_Enh", "ReferenceMaster_Enh_Wrk", "Shared_DW", "Shared_DW_Wrk", "Staging", "Staging_Wrk"}
 WAVE_MAP = {
-    "gold_shared": 0,
+    "gold_shared": 1,
     "gold_dim": 10,
     "gold_helper": 20,
     "gold_fact": 30,
@@ -155,11 +155,15 @@ def normalize_wave(raw: Any) -> int | None:
     if raw is None:
         return None
     if isinstance(raw, int):
-        return raw
+        return raw if raw > 0 else 1
     text = str(raw)
     if text.isdigit():
-        return int(text)
-    return WAVE_MAP.get(text)
+        value = int(text)
+        return value if value > 0 else 1
+    mapped = WAVE_MAP.get(text)
+    if mapped is None:
+        return None
+    return mapped if mapped > 0 else 1
 
 
 def _load_json(path: Path) -> dict[str, Any]:

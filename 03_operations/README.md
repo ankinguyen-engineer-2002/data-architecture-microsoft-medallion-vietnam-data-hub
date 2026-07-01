@@ -42,23 +42,44 @@ giữ dependency order và auditability
 
 ## Lệnh Hay Dùng
 
-Dry-run toàn bộ:
+Default approved ad-hoc mart refresh method: [Manifest Table Runner](operating_registry/manifest_table_runner.md).
+
+Dry-run two active marts table-by-table:
+
+```bash
+python3 03_operations/tools/run_mart_tables.py \
+  --manifest 03_operations/orchestration/forecast_accuracy/manifest.json \
+  --manifest 03_operations/orchestration/inventory_health/manifest.json
+```
+
+Approved live two-mart table refresh:
+
+```bash
+python3 03_operations/tools/run_mart_tables.py \
+  --manifest 03_operations/orchestration/forecast_accuracy/manifest.json \
+  --manifest 03_operations/orchestration/inventory_health/manifest.json \
+  --execute
+```
+
+Wave wrapper dry-run toàn bộ:
 
 ```bash
 python3 03_operations/tools/run_refresh.py --manifest 03_operations/orchestration/main/manifest.json
 ```
 
-Dry-run một mart:
+Wave wrapper dry-run một mart:
 
 ```bash
 python3 03_operations/tools/run_refresh.py --manifest 03_operations/orchestration/forecast_accuracy/manifest.json
 ```
 
-Approved live trigger:
+Wave wrapper live trigger:
 
 ```bash
 python3 03_operations/tools/run_refresh.py --manifest 03_operations/orchestration/main/manifest.json --execute
 ```
+
+Current SQL Agent handoff uses 10 wrapper SP job steps: 2 shared prerequisite SPs, 3 Forecast Silver SPs, 3 Inventory Silver SPs, and 2 unchanged Gold SPs.
 
 List recent jobs:
 
