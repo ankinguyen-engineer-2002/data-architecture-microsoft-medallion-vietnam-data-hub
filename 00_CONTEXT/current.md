@@ -1,4 +1,1043 @@
-# Context 2026-06-24 to 2026-06-27
+# Context 2026-06-24 to 2026-06-30
+
+## 2026-07-06 12:45:00 ICT — Read-only audit of `2026-07-03` post-18:00 activity for full mart vs DQ-only reruns
+
+**Scope lock:**
+- Read-only live Fabric REST + warehouse SQL audit.
+- No live mutation.
+
+**User instruction:**
+- Read `00_CONTEXT` and `CLAUDE.md`, then check whether after `18:00 ICT` on `2026-07-03` the full mart chain ran, with special attention to duplicate DQ / repeated snapshot symptoms.
+
+**Actions executed:**
+- Re-read `CLAUDE.md` and `00_CONTEXT/current.md`.
+- Queried live Fabric job instances for pipeline `pl_backup_full_refresh` (`41948342-d7e7-4166-8638-9af0633e6a49`).
+- Queried live `ETL_Framework.DW_Developer.AuditLog`.
+- Queried live `ETL_Framework.DW_Developer.TableDictionary_UpdateLog`.
+- Queried live `SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.DQForecastAccuracy` grouped by `DQRunId`, `DQRunAtUTC`.
+
+**Key findings:**
+- `pl_backup_full_refresh` has no job instance on `2026-07-03` after `2026-07-03T07:31:53Z` (`14:31:53 ICT`).
+- The only `2026-07-03` full-refresh pipeline runs visible were:
+  - `56c337d6-4717-425e-b0ac-d00aa9639c96` — `Cancelled`, `01:21:27Z` to `01:21:53Z` (`08:21 ICT`)
+  - `191f0cd6-6d20-4c4a-bfab-0156ad826e74` — `Completed`, `02:35:01Z` to `03:32:27Z` (`09:35` to `10:32 ICT`)
+  - `8397b46a-c12b-46a9-a428-6e9c3468b640` — `Failed`, `06:52:22Z` to `07:31:53Z` (`13:52` to `14:31 ICT`)
+- `AuditLog` has `0` rows from `2026-07-03T10:30:00Z` onward (`17:30 ICT` onward), and the latest `2026-07-03` row is `OpenOrderHistory_Enh.OpenOrderMonthly` at `2026-07-03 03:39:32Z` (`10:39:32 ICT`).
+- `TableDictionary_UpdateLog` has `0` rows from `2026-07-03T11:00:00Z` onward (`18:00 ICT` onward), confirming no framework-tracked curated table refresh completed after `18:00 ICT`.
+- `DQForecastAccuracy` did run multiple times on `2026-07-03`, but the latest visible DQ batch is `EA441173-6047-4304-90DD-FE98A14ED5D7` at `2026-07-03 08:54:30Z` (`15:54:30 ICT`), still before `18:00 ICT`.
+- Total visible DQ batches on `2026-07-03`: `9`; latest cluster was around `14:17`, `14:25`, `14:52`, `15:04`, `15:20`, `15:31`, `15:39`, `15:54 ICT`, which is consistent with repeated DQ/manual reruns earlier in the afternoon, not an evening full mart rerun.
+
+**Conclusion:**
+- No evidence that the canonical 10-step full mart chain ran after `18:00 ICT` on `2026-07-03`.
+- No evidence that a SQL Agent / external job executed a framework-tracked full mart refresh after `18:00 ICT` either; if such a job existed for that window, it did not leave `AuditLog` or `TableDictionary_UpdateLog` evidence.
+- The duplicate DQ / repeated snapshot symptoms are supported by multiple DQ reruns earlier on `2026-07-03`, but not by any post-`18:00 ICT` full mart execution.
+
+## 2026-07-06 13:05:00 ICT — DQ timestamp interpretation audit for evening-hour confusion
+
+**Scope lock:**
+- Read-only repo + live SQL audit for `ForecastAccuracy_DW.DQForecastAccuracy`.
+- No live mutation.
+
+**User instruction:**
+- Explain why some DQ checks appear to happen around `18:00`, `19:00`, `20:00`.
+
+**Actions executed:**
+- Re-read repo DQ view `02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql`.
+- Queried live schema and sample rows from `SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.DQForecastAccuracy`.
+- Queried live DQ runs for `2026-07-03` with explicit `DATEADD(hour, 7, DQRunAtUTC)` conversion to ICT.
+- Queried last 14-day/30-day windows for any runs landing in `18`, `19`, `20` ICT or UTC hour buckets.
+
+**Key findings:**
+- Repo DQ logic hardcodes UTC timestamps:
+  - `DQRunAtUTC = SYSUTCDATETIME()`
+  - `LoadDT = DQRunAtUTC`
+- Live table columns are only:
+  - `RuleName`
+  - `RuleDescription`
+  - `Result`
+  - `LoadDT`
+  - `DQRunId`
+  - `DQRunAtUTC`
+- For `2026-07-03`, live DQ runs convert to these ICT times only:
+  - `09:59:07`
+  - `14:17:13`
+  - `14:25:57`
+  - `14:52:13`
+  - `15:04:07`
+  - `15:20:49`
+  - `15:31:37`
+  - `15:39:52`
+  - `15:54:30`
+- Live query returned `0` rows for:
+  - `2026-07-03 18:00:00` to `20:59:59` ICT
+  - any DQ run in the last 14 days whose ICT hour is `18`, `19`, or `20`
+  - any DQ run in the last 30 days whose raw UTC hour is `18`, `19`, or `20`
+
+**Conclusion:**
+- Current live `DQForecastAccuracy` evidence does **not** support actual DQ execution in the evening-hour windows the user mentioned.
+- If another screen/query shows `18:xx` / `19:xx` / `20:xx`, that screen is almost certainly not reading the live table/time fields in the same way as the direct warehouse query:
+  - wrong timezone interpretation
+  - stale import/cache/report snapshot
+  - different source table/query/date slice
+
+## 2026-07-06 13:20:00 ICT — Root-cause audit of `PASS -> FAIL` flips inside physical `DQForecastAccuracy` history
+
+**Scope lock:**
+- Read-only live SQL audit of physical DQ history table only.
+- No live mutation.
+
+**User instruction:**
+- Recheck Data Quality because several snapshots show `PASS` then later `FAIL`; explain why a rule that previously passed can later fail.
+
+**Actions executed:**
+- Queried full history of `SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.DQForecastAccuracy`.
+- Built:
+  - per-rule transition list (`LAG(Result)`)
+  - per-rule pass/fail summary
+  - per-run fail matrix
+- Cross-checked the transition timings against earlier `2026-07-03` context entries for manual reruns and DQ contract changes.
+
+**Key findings:**
+- The physical DQ table currently contains only `9` runs, and **all 9 occurred on `2026-07-03`**.
+- Therefore the observed `PASS -> FAIL` behavior is **intra-day rerun instability**, not long-term nightly drift.
+- There are three distinct root-cause patterns:
+  1. **Snapshot drift against mutable source data**
+     - `DQ_B2S2_OpenOrder_Qty` flipped `PASS -> FAIL` at `14:17 ICT`, then `FAIL -> PASS` at `15:20 ICT`.
+     - This matches the earlier proven root cause: DQ compared mutable bronze/raw current data against an earlier persisted Silver table, so re-running one layer changes which side is stale.
+     - `DQ_B2S2_Invoice_Qty` showed the same unstable shape (`PASS -> FAIL` at `14:52 ICT`, back to `PASS` at `15:20 ICT`) and was later included in the DQ contract fix path.
+  2. **Partial rerun / layer desynchronization**
+     - `DQ_S2S1_OpenOrder_Qty` and `DQ_S2S1_Invoice_Qty` both flipped `PASS -> FAIL` at `15:20 ICT`, then back to `PASS` at `15:31 ICT`.
+     - This is consistent with rerunning one Silver wave before the dependent next wave, temporarily making upstream/downstream tables inconsistent.
+     - `DQ_S2G_Actual_Qty` flipped `PASS -> FAIL` at `15:31 ICT` and stayed failed in later runs, which is consistent with Silver being refreshed later than Gold so the cross-layer comparison stopped using the same cut of data.
+  3. **Rule-set / contract changed between DQ batches**
+     - Some DQ runs have `32` rules, others have `47`.
+     - Several rules appear only in `4` or `5` runs, proving the DQ definition itself changed during the same day.
+     - So some snapshot-to-snapshot comparisons are not apples-to-apples: both data state and active rule inventory changed.
+- Stable always-fail rules are a separate class and should not be mixed with the above transition problem:
+  - `DQ_B2S2_Forecast_Qty`
+  - `DQ_Bronze_Grain_DemandForecastSnapshotDaily`
+  - `DQ_Bronze_Grain_InvoiceHeader`
+
+**Conclusion:**
+- When a DQ rule passed and later failed on `2026-07-03`, the main cause was **not necessarily new bad data**.
+- The dominant causes were:
+  - comparing mutable bronze/live sources to persisted downstream snapshots from a different moment
+  - rerunning only part of the dependency chain
+  - changing the DQ rule contract itself between batches
+- For this DQ history table, a `PASS -> FAIL` flip must be interpreted together with rerun timing and active DQ-view version; by itself it does **not** prove a new source-data regression.
+
+## 2026-07-06 14:05:00 ICT — Deep grouping audit of physical `DQForecastAccuracy` fail history
+
+**Scope lock:**
+- Read-only live SQL audit of physical DQ table plus live object metadata for the DQ view.
+- No live mutation.
+
+**User instruction:**
+- Check in detail why earlier DQ looked mostly passed except DemandForecastSnapshot source issues, but later many more fails appeared.
+
+**Actions executed:**
+- Grouped physical `ForecastAccuracy_DW.DQForecastAccuracy` by `DQRunId`.
+- Built fail-rule list per run with `STRING_AGG`.
+- Compared per-rule run presence across all `9` runs.
+- Read live `sys.objects.modify_date` / `sys.sql_modules` for `ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy`.
+
+**Key findings:**
+- The physical DQ table is append-only history. Reading raw fail rows across the whole table overstates the problem because multiple rerun snapshots are mixed together.
+- There were **three distinct fail patterns** across the `9` runs on `2026-07-03`:
+  1. `09:59 ICT`:
+     - fails = `DQ_B2S2_Forecast_Qty`, `DQ_Bronze_Grain_DemandForecastSnapshotDaily`, `DQ_Bronze_Grain_InvoiceHeader`, `DQ_Gold_Grain_FactForecastActual`, `DQ_Silver_Grain_ForecastDemandMonthly`
+  2. `14:17` to `15:04 ICT`:
+     - transient extra fails shifted across reruns:
+       - `DQ_B2S2_OpenOrder_Qty`
+       - `DQ_B2S2_Invoice_Qty`
+  3. `15:20` to `15:54 ICT`:
+     - transient cross-layer fails shifted again:
+       - `DQ_S2S1_Invoice_Qty`
+       - `DQ_S2S1_OpenOrder_Qty`
+       - then later `DQ_S2G_Actual_Qty`
+- The “too many fail khác” effect is amplified by a **rule inventory change during the same day**:
+  - some runs have `32` rules
+  - some runs have `47` rules
+  - `15` rules appear only in the middle `5` runs (`14:52` to `15:39 ICT`) and are absent from the first `3` and last `1` runs
+- Therefore the DQ history that day is **not a single stable test suite**. It is a mixture of:
+  - different data snapshots
+  - partial/manual reruns
+  - different DQ-view versions
+- Live object metadata confirms the DQ view was edited on `2026-07-03 09:18:55 UTC` (`16:18:55 ICT`), i.e. after all currently stored DQ batches, so the live DQ definition changed during that troubleshooting window.
+
+**Conclusion:**
+- The later “many more fails” were not a clean signal of broad new data regression.
+- They were mainly caused by:
+  - grouping historical rows from multiple DQ snapshots together
+  - transient layer desynchronization during manual reruns
+  - DQ rule inventory/definition changes within the same day
+- The durable fail set at the end of the stored history narrowed back down to `4` rules:
+  - `DQ_B2S2_Forecast_Qty`
+  - `DQ_Bronze_Grain_DemandForecastSnapshotDaily`
+  - `DQ_Bronze_Grain_InvoiceHeader`
+- `DQ_S2G_Actual_Qty`
+
+## 2026-07-06 14:06:00 ICT — Live trigger and monitoring of new `pl_backup_full_refresh` run
+
+**Scope lock:**
+- Live Fabric pipeline execution monitoring plus read-only warehouse diagnostics.
+- No destructive live change.
+
+**User instruction:**
+- Run the current live full pipeline in Fabric, then watch until it passes forecast and moves into inventory so forecast DQ can be checked immediately.
+
+**Actions executed:**
+- Triggered live pipeline `pl_backup_full_refresh` (`41948342-d7e7-4166-8638-9af0633e6a49`) via Fabric REST.
+- Confirmed new job instance `d276499a-e2fe-4a9d-b28c-82cf170c9509` was created with `startTimeUtc = 2026-07-06T07:01:45.1351939Z`.
+- Polled live job history and confirmed the new run moved from `NotStarted` to `InProgress`.
+- Queried `sys.dm_exec_requests` to infer pipeline stage because public Fabric REST still exposes only pipeline-level job status.
+
+**Key findings:**
+- At `2026-07-06 14:03 ICT`, pipeline run `d276499a-e2fe-4a9d-b28c-82cf170c9509` is still `InProgress`.
+- Live warehouse DMV shows an active command:
+  - `DROP TABLE SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Calendar`
+- That command is from the beginning of the canonical shared/reference sequence, so the run has **not** passed forecast into inventory yet.
+- Forecast DQ should only be rechecked once a new `ForecastAccuracy_Gold` batch has inserted a newer `DQRunAtUTC` than the prior baseline `2026-07-03 15:54:30 ICT`.
+
+**Risk / blocker:**
+- Direct SELECTs against `ForecastAccuracy_DW.DQForecastAccuracy` are currently hanging unusually long while the refresh is active, so stage inference is more reliable from DMVs than from immediate DQ-table reads until forecast gold finishes.
+
+**Next concrete step:**
+- Continue polling the live run; when execution evidence moves beyond forecast gold or a new `DQRunId` appears, query the latest DQ batch and summarize pass/fail immediately.
+
+## 2026-07-06 14:14:00 ICT — Unblocked live full-refresh run and verified current forecast-stage position
+
+**Scope lock:**
+- Live operational monitoring plus non-data-destructive session cleanup.
+
+**User instruction:**
+- Keep watching the live full pipeline and only check forecast DQ once execution has passed forecast into inventory.
+
+**Actions executed:**
+- Queried `sys.dm_exec_requests` repeatedly to identify the current live SQL step for pipeline run `d276499a-e2fe-4a9d-b28c-82cf170c9509`.
+- Found step `DROP TABLE SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Calendar` waiting on `LCK_M_SCH_M`.
+- Identified blocker `session_id = 188`, which was a lingering read-only DQ query from the assistant (`SELECT ... FROM ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy`).
+- Issued `KILL` for the assistant-owned stuck read sessions (`188`, `174`, `185`, `186`, `132`, `53`, `134`, `212`, `211`, `213`) to release the schema lock and avoid blocking the live refresh.
+- Re-polled DMVs and latest physical `ForecastAccuracy_DW.DQForecastAccuracy` timestamp after cleanup.
+
+**Key findings:**
+- The pipeline resumed immediately after the stuck assistant sessions were killed; `session_id = 192` moved from blocked `DROP TABLE` to active framework execution.
+- Current active forecast-stage workload is:
+  - `INSERT INTO SupplyChain_Processing_Warehouse.Staging.DemandForecastSnapshotDaily_LOAD SELECT * FROM SupplyChain_Processing_Warehouse.Staging_Wrk.v_DemandForecastSnapshotDaily`
+- This proves the run has entered the forecast path but has **not yet** reached forecast gold completion or inventory.
+- Latest physical forecast DQ batch is still unchanged:
+  - `DQRunId = EA441173-6047-4304-90DD-FE98A14ED5D7`
+  - `DQRunAtICT = 2026-07-03 15:54:30.776756`
+- Therefore no new forecast DQ result is available yet from the current run.
+
+**Risk / blocker:**
+- The long-running `DemandForecastSnapshotDaily_LOAD` insert is the current pacing item; until it finishes and forecast gold runs, DQ cannot be re-evaluated from the physical table.
+
+**Next concrete step:**
+- Continue monitoring until the run advances beyond forecast into inventory or a new `DQRunId` appears, then read and summarize the new forecast DQ batch immediately.
+
+## 2026-07-06 14:24:00 ICT — Live progress poll for current full-refresh pipeline
+
+**Scope lock:**
+- Read-only live Fabric REST + warehouse DMV progress check.
+
+**User instruction:**
+- Check live Fabric pipeline progress now.
+
+**Actions executed:**
+- Polled Fabric job instances for `pl_backup_full_refresh`.
+- Queried live `sys.dm_exec_requests` to infer the currently executing SQL step.
+- Queried latest physical `ForecastAccuracy_DW.DQForecastAccuracy` batch timestamp.
+
+**Key findings:**
+- Current run `d276499a-e2fe-4a9d-b28c-82cf170c9509` is still `InProgress` as of `2026-07-06 14:24 ICT`.
+- The currently active SQL work has moved forward to:
+  - `INSERT INTO SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel_LOAD SELECT * FROM SupplyChain_Processing_Warehouse.SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel`
+- This is progress beyond the earlier `DemandForecastSnapshotDaily_LOAD` step, but it still does **not** prove the run has crossed into inventory.
+- Latest physical forecast DQ batch remains unchanged:
+  - `DQRunId = EA441173-6047-4304-90DD-FE98A14ED5D7`
+  - `DQRunAtICT = 2026-07-03 15:54:30.776756`
+- Therefore forecast gold / forecast DQ from the current run has not completed yet.
+
+**Next concrete step:**
+- Keep polling until either a new `DQRunId` appears or SQL activity clearly moves into inventory wrappers, then read the latest forecast DQ batch immediately.
+
+## 2026-07-06 14:28:00 ICT — Forecast mart layer mapping for live pipeline step
+
+**Scope lock:**
+- Read-only repo mapping + live DMV progress check.
+
+**User instruction:**
+- Clarify which forecast layer the live pipeline has reached and whether forecast mart is close to finishing.
+
+**Actions executed:**
+- Re-polled live Fabric job instances and `sys.dm_exec_requests`.
+- Read repo procedure definitions for:
+  - `Usp_Refresh_ForecastAccuracy_Silver_W02`
+  - `Usp_Refresh_ForecastAccuracy_Silver_W03`
+- Mapped the active live object `ForecastHistory_Enh.ForecastDemandMonthly` to the canonical forecast wave order in repo.
+
+**Key findings:**
+- Current run `d276499a-e2fe-4a9d-b28c-82cf170c9509` is still `InProgress`.
+- Active pipeline SQL step is:
+  - `INSERT INTO SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly_LOAD SELECT * FROM SupplyChain_Processing_Warehouse.ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly`
+- Repo mapping proves `ForecastHistory_Enh.ForecastDemandMonthly` belongs to `Usp_Refresh_ForecastAccuracy_Silver_W02`.
+- Inside `W02`, the object order is:
+  1. `SalesHistory_Enh.ActualDemandMonthly`
+  2. `SalesHistory_Enh.ActualDemandWeekly`
+  3. `SalesHistory_Enh.InvoiceWeekly`
+  4. `ForecastHistory_Enh.ForecastDemandMonthly`
+  5. `OpenOrderHistory_Enh.OpenOrderMonthly`
+- Therefore the live run is already past forecast `W01` and well into forecast `W02`, but still has these forecast steps remaining before forecast mart is fully done:
+  - finish current `W02.ForecastDemandMonthly`
+  - `W02.OpenOrderMonthly`
+  - `W03.NaiveForecastMonthly`
+  - `ForecastAccuracy_Gold` including final DQ insert into `ForecastAccuracy_DW.DQForecastAccuracy`
+
+**Conclusion:**
+- Forecast mart is **not finished yet**, but it is already beyond the early half of the forecast path.
+- It is closer to the end than the start, but still not at the point where a new forecast DQ batch should exist.
+
+## 2026-07-06 14:32:00 ICT — Forecast mart has entered Gold phase in live pipeline
+
+**Scope lock:**
+- Read-only live Fabric REST + warehouse DMV check with repo procedure confirmation.
+
+**User instruction:**
+- Recheck progress and say whether forecast mart is near completion.
+
+**Actions executed:**
+- Polled live pipeline run `d276499a-e2fe-4a9d-b28c-82cf170c9509`.
+- Queried `sys.dm_exec_requests` for the currently executing SQL step.
+- Read `03_operations/orchestration/forecast_accuracy/sql/SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Gold.sql` to map the active object to the forecast gold procedure.
+- Rechecked latest physical `ForecastAccuracy_DW.DQForecastAccuracy` batch timestamp.
+
+**Key findings:**
+- Pipeline is still `InProgress` at `2026-07-06 14:31 ICT`.
+- Current active SQL step is:
+  - `INSERT INTO SupplyChain_Gold_Warehouse.Shared_DW.DimProduct_LOAD SELECT * FROM SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct`
+- Repo confirmation proves this object is inside `Usp_Refresh_ForecastAccuracy_Gold`, specifically the early shared-dim portion of forecast gold:
+  - `Shared_DW.DimCalendar`
+  - `Shared_DW.DimProduct`
+  - `Shared_DW.DimWarehouse`
+  - then forecast dims
+  - then forecast facts
+  - then terminal DQ insert
+- Latest physical forecast DQ batch is still unchanged:
+  - `DQRunId = EA441173-6047-4304-90DD-FE98A14ED5D7`
+  - `DQRunAtICT = 2026-07-03 15:54:30.776756`
+
+**Conclusion:**
+- Forecast mart has now **entered Gold**, so it is materially closer to completion.
+- However it is still only in the early shared-dim portion of forecast gold, so it is **not done yet** and no new forecast DQ batch exists yet.
+
+## 2026-07-06 14:36:00 ICT — Forecast mart still inside Gold procedure, DQ batch not emitted yet
+
+**Scope lock:**
+- Read-only live Fabric + SQL progress poll.
+
+**User instruction:**
+- Continue checking progress.
+
+**Actions executed:**
+- Polled Fabric job instances for `pl_backup_full_refresh`.
+- Queried live `sys.dm_exec_requests`.
+- Rechecked latest physical `ForecastAccuracy_DW.DQForecastAccuracy` batch.
+
+**Key findings:**
+- Run `d276499a-e2fe-4a9d-b28c-82cf170c9509` remains `InProgress` at `2026-07-06 14:35 ICT`.
+- The active workload is still inside `SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Gold`; DMV shows the full procedure text under active `session_id = 226`.
+- There is still no new forecast DQ batch:
+  - `DQRunId = EA441173-6047-4304-90DD-FE98A14ED5D7`
+  - `DQRunAtICT = 2026-07-03 15:54:30.776756`
+- Because the terminal `INSERT INTO ForecastAccuracy_DW.DQForecastAccuracy ... FROM ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy` has not emitted a newer batch yet, forecast mart has **not** fully completed.
+
+**Conclusion:**
+- Forecast is very near the end relative to earlier checks because it is still inside Gold, but it is not finished yet.
+- Inventory has not started yet.
+
+## 2026-07-06 14:43:00 ICT — Forecast Gold facts completed; terminal DQ insert still running/no batch yet
+
+**Scope lock:**
+- Read-only live Fabric + SQL progress poll.
+
+**User instruction:**
+- Check progress again.
+
+**Actions executed:**
+- Re-polled live Fabric job instances for `pl_backup_full_refresh`.
+- Queried `sys.dm_exec_requests` for active warehouse requests.
+- Queried `DW_Developer.TableDictionary_UpdateLog` for latest completed curated table updates.
+- Queried latest `ForecastAccuracy_DW.DQForecastAccuracy` batch timestamp.
+
+**Key findings:**
+- Pipeline run `d276499a-e2fe-4a9d-b28c-82cf170c9509` remains `InProgress`.
+- `TableDictionary_UpdateLog` shows forecast Gold curated objects have completed through:
+  - `ForecastAccuracy_DW.FactForecastActual` at `2026-07-06T02:33:00.216667`
+  - `ForecastAccuracy_DW.FactForecastKpi` at `2026-07-06T02:33:33.633333`
+- Active DMV session `226` is still an `INSERT` inside `SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Gold`.
+- Latest physical forecast DQ batch still has not changed:
+  - `DQRunId = EA441173-6047-4304-90DD-FE98A14ED5D7`
+  - `DQRunAtICT = 2026-07-03 15:54:30.776756`
+
+**Conclusion:**
+- Forecast mart is at the terminal part of Gold: main Gold tables are complete, but the final DQ insert has not finished/emitted a new batch yet.
+- Inventory has not started yet.
+
+## 2026-07-06 14:47:00 ICT — Forecast terminal DQ insert still running, no block detected
+
+**Scope lock:**
+- Read-only live Fabric + SQL progress poll.
+
+**User instruction:**
+- Check current pipeline progress.
+
+**Actions executed:**
+- Polled Fabric job instances for `pl_backup_full_refresh`.
+- Queried live `sys.dm_exec_requests`.
+- Queried latest physical `ForecastAccuracy_DW.DQForecastAccuracy` batch.
+- Queried latest `DW_Developer.TableDictionary_UpdateLog` rows.
+
+**Key findings:**
+- Pipeline run `d276499a-e2fe-4a9d-b28c-82cf170c9509` remains `InProgress` at `2026-07-06 14:47 ICT`.
+- Active SQL session `226` is still an `INSERT` inside `SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Gold`.
+- Active request shows `blocking_session_id = 0`, so there is no SQL blocking session currently detected.
+- Gold forecast curated objects remain completed through `ForecastAccuracy_DW.FactForecastKpi` (`LastUpdated = 2026-07-06T02:33:33.633333`).
+- Latest physical DQ batch still has not changed:
+  - `DQRunId = EA441173-6047-4304-90DD-FE98A14ED5D7`
+  - `DQRunAtICT = 2026-07-03 15:54:30.776756`
+
+**Conclusion:**
+- Forecast is still at the final Gold/DQ insert phase.
+- It has not emitted a new DQ batch yet, so inventory has not started yet.
+
+## 2026-07-06 14:53:00 ICT — Forecast mart completed; pipeline advanced into Inventory W01
+
+**Scope lock:**
+- Read-only live Fabric + warehouse SQL progress and DQ check.
+
+**User instruction:**
+- Check current progress.
+
+**Actions executed:**
+- Polled Fabric job instances for `pl_backup_full_refresh`.
+- Queried `sys.dm_exec_requests` for active SQL workload.
+- Queried latest `ForecastAccuracy_DW.DQForecastAccuracy` batch and fail/pass split.
+- Queried `DW_Developer.TableDictionary_UpdateLog` for latest completed table updates.
+
+**Key findings:**
+- Pipeline run `d276499a-e2fe-4a9d-b28c-82cf170c9509` remains `InProgress`.
+- Forecast has completed and emitted a new DQ batch:
+  - `DQRunId = 20B600BD-2F6B-4354-85BC-6A93131B3911`
+  - `DQRunAtICT = 2026-07-06 14:34:01.828489`
+  - result split: `31 PASS`, `1 FAIL` out of `32` rules.
+- The only failed forecast DQ rule in the latest batch is:
+  - `DQ_Bronze_Grain_InvoiceHeader` — `(InvoiceNumber, OrderNumber) must be unique`
+- Live active SQL workload moved into inventory:
+  - `INSERT INTO SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly_LOAD SELECT * FROM SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_InventorySnapshotWeekly`
+- `TableDictionary_UpdateLog` confirms latest completed inventory table:
+  - `SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly` at `2026-07-06T02:52:48.986667`.
+
+**Conclusion:**
+- Forecast mart is complete.
+- Forecast DQ improved to `31 PASS / 1 FAIL`; only `DQ_Bronze_Grain_InvoiceHeader` remains failed.
+- Pipeline has advanced into `InventoryHealth_Silver_W01`.
+
+## 2026-07-03 14:45:00 ICT — Live check of latest `pl_backup_full_refresh` failure via Fabric REST + pyodbc
+
+**Scope lock:**
+- Read-only live Fabric REST and warehouse SQL diagnostics.
+- No live mutation.
+
+**User instruction:**
+- Ignore older context and check the latest run today using Fabric REST API and `pyodbc`.
+
+**Actions executed:**
+- Queried live Fabric pipeline job instances for `pl_backup_full_refresh` item `41948342-d7e7-4166-8638-9af0633e6a49`.
+- Queried specific failed job instance `8397b46a-c12b-46a9-a428-6e9c3468b640`.
+- Pulled live pipeline definition via `getDefinition`.
+- Queried live `ETL_Framework.DW_Developer.AuditLog`, `OBJECT_DEFINITION`, `INFORMATION_SCHEMA.COLUMNS`, and live procedure lists via `pyodbc`.
+
+**Key findings:**
+- Latest run today is `8397b46a-c12b-46a9-a428-6e9c3468b640`, status `Failed`, window `2026-07-03T06:52:22Z` to `2026-07-03T07:31:53Z` (`13:52:22` to `14:31:53 ICT`).
+- Fabric REST returns only generic pipeline-level failure (`Pipeline run Failed.`); no activity-level message was exposed by the endpoint used.
+- `AuditLog` has no rows at or after `2026-07-03 06:40:00` UTC, so the latest failed run did not reach the point where `usp_RefreshCuratedTableFromView` writes `Process Start`.
+- Live `Shared_DW_Wrk.v_DimWarehouse` has an extra column `WarehouseLocationOrg` not present in live `Shared_DW.DimWarehouse` final table.
+- Live `usp_RefreshCuratedTableFromView` uses `INSERT INTO <load_table> SELECT * FROM <view>` with no explicit column list, so this live shape drift causes `Column name or number of supplied values does not match table definition.` when `DimWarehouse` is loaded.
+- Repo file `02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimWarehouse.sql` does not contain `WarehouseLocationOrg`; the extra column exists only in the live view definition, so this is live drift vs repo.
+- Live pipeline definition also still reflects the older activity naming/order (`03_Inventory_Silver_W00`, etc.), so there is live-vs-repo pipeline drift as well.
+
+**Conclusion:**
+- Proven live SQL defect: `Shared_DW_Wrk.v_DimWarehouse` and `Shared_DW.DimWarehouse` are out of contract in live.
+- Proven latest-run fact: the newest failed pipeline run did not write ETL audit rows, so its immediate failure point is above the ETL proc body (pipeline/service/invocation layer), not yet proven to be the `DimWarehouse` SQL mismatch.
+- The `DimWarehouse` contract drift remains a real blocker/risk that can break Gold execution when that path is reached.
+
+**Next concrete step:**
+- If requested, inspect Fabric monitoring/activity detail by alternative API/UI path or run a targeted manual SQL smoke for `Shared_DW.DimWarehouse` to prove and fix the exact Gold failure path.
+
+## 2026-07-03 15:25:00 ICT — Live fix for `DimWarehouse` contract drift + manual rerun from failed path
+
+**Scope lock:**
+- Live warehouse fix and manual rerun of failed-path wrapper procedures.
+- No delete/drop beyond framework-controlled transient loader behavior inside existing ETL procedures.
+
+**User instruction:**
+- Find detailed error if possible, fix it, then rerun pipeline items from the failed point onward and skip what already passed.
+
+**Actions executed:**
+- Rechecked public Fabric REST job-instance endpoints for `pl_backup_full_refresh`; public API still exposed only generic `Pipeline run Failed`.
+- Pulled live DataPipeline definition and confirmed live pipeline still has older W00/W01/W02 naming/order drift vs repo.
+- Verified live SQL drift in `SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimWarehouse`: live view had extra column `WarehouseLocationOrg` while final table `Shared_DW.DimWarehouse` had 21-column contract.
+- Applied live `CREATE OR ALTER VIEW` for `Shared_DW_Wrk.v_DimWarehouse` using the repo SQL from `02_marts/inventory_health/03_gold/Shared_DW_Wrk/v_DimWarehouse.sql`, removing the extra live-only column and restoring 21-column alignment.
+- Verified live view column list now matches final table column count and order.
+- Verified via `AuditLog` that `usp_RefreshCuratedTableFromView: SupplyChain_Gold_Warehouse.Shared_DW.DimWarehouse` changed from prior shape-mismatch errors to `Process Complete`.
+- Manually reran the failed-path wrapper chain via `pyodbc`:
+  - `07_Forecast_Gold` — completed in SQL; client-side result handling had a hanging/readback quirk, but AuditLog confirmed successful completion through `FactForecastKpi`.
+  - `08_Inventory_Silver_W01` — `ok` (`37.46s`)
+  - `09_Inventory_Silver_W02` — `ok` (`67.58s`)
+  - `10_Inventory_Gold` — `ok` (`169.77s`)
+- Verified latest shared-dim Gold audit rows now show `Shared_DW.DimCalendar` complete at `2026-07-03 02:59:35` UTC.
+- Verified no user workload remains active on warehouse; only internal XE event stream request was present.
+
+**Key findings:**
+- Proven SQL root cause on live: `Shared_DW_Wrk.v_DimWarehouse` drifted from repo/final-table contract and broke the generic loader because `usp_RefreshCuratedTableFromView` uses `INSERT ... SELECT *`.
+- Public Fabric REST still did not provide activity-level error detail for failed run `8397b46a-c12b-46a9-a428-6e9c3468b640`; only pipeline-level failure remained visible.
+- Despite that API limitation, the actual data-path blocker was fixed and the downstream failed-path wrappers were rerun successfully.
+
+**Verification evidence:**
+- Gold shared dim counts/serving tables readable after rerun:
+  - `Shared_DW.DimWarehouse` = `53`
+  - `ForecastAccuracy_DW.FactForecastActual` = `236678381`
+  - `ForecastAccuracy_DW.FactForecastKpi` = `154664337`
+  - `InventoryHealth_DW.FactInventoryHealthFutureWeekEnding` = `3859396`
+  - `InventoryHealth_DW.FactInventoryHealthSnapshot` = `3221743`
+
+**Live changes:**
+- `SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimWarehouse` altered live to match repo contract.
+- Manual wrapper reruns executed live for steps 07 through 10 equivalent path.
+
+**Conclusion:**
+- `DimWarehouse` live drift is fixed.
+- The failed path from Gold onward has been rerun successfully outside the pipeline.
+- The Fabric pipeline run history still shows the original failed run as failed; only the underlying data path has been repaired and completed manually.
+
+## 2026-07-03 15:11:00 ICT — Live rerun of DQ view and new DQ batch status
+
+**Scope lock:**
+- Live DQ rerun only for warehouse-backed DQ view(s) currently discoverable in active path.
+- No structural schema change.
+
+**User instruction:**
+- Rerun each DQ view to generate a fresh DQ table batch and report fail/pass status.
+
+**Actions executed:**
+- Queried live metadata for `v_DQ%` views and `DQ%` tables in `SupplyChain_Gold_Warehouse`.
+- Confirmed active discoverable DQ path is `ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy` -> `ForecastAccuracy_DW.DQForecastAccuracy`.
+- Executed live insert:
+  `INSERT INTO ForecastAccuracy_DW.DQForecastAccuracy (...) SELECT ... FROM ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy`.
+- Waited for batch completion and queried the latest `DQRunId` summary from the destination DQ table.
+
+**Key findings:**
+- New DQ batch completed with `DQRunId = 9732C3CB-3C30-4144-B013-BAB5291E4D01`.
+- `DQRunAtUTC = 2026-07-03T08:04:07.964177` (`15:04:07 ICT`).
+- Total rows inserted: `47`.
+- Result split: `42 PASS`, `5 FAIL`.
+
+**Failed rules:**
+- `DQ_B2S2_Forecast_Qty`
+- `DQ_B2S2_Invoice_Qty`
+- `DQ_B2S2_OpenOrder_Qty`
+- `DQ_Bronze_Grain_DemandForecastSnapshotDaily`
+- `DQ_Bronze_Grain_InvoiceHeader`
+
+**Conclusion:**
+- Fresh DQ output has been generated successfully.
+- Current live DQ status is stable enough to classify: 5 active failures remain and 42 checks pass.
+
+**Next concrete step:**
+- If needed later, align the live `pl_backup_full_refresh` definition to the repo’s current 10-step ordering/naming so pipeline history and manual runbook are consistent again.
+
+## 2026-07-03 15:33:30 ICT — Root-cause audit of `DQ_B2S2_OpenOrder_Qty` and validation reruns
+
+**Scope lock:**
+- Live SQL audit of Forecast Accuracy DQ open-order rule.
+- Minimal live validation reruns only for affected Forecast Accuracy Silver waves and DQ append.
+
+**User instruction:**
+- Audit `DQ_B2S2_OpenOrder_Qty` deeply, including DQ SQL, source data, and ETL code; explain the result and fix path.
+
+**Actions executed:**
+- Read repo SQL for:
+  - `ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy`
+  - `OpenOrderHistory_Enh_Wrk.v_OpenOrderLineLevel`
+  - `OpenOrderHistory_Enh_Wrk.v_OpenOrderMonthly`
+  - `SalesHistory_Enh_Wrk.v_ActualDemandMonthly`
+  - `Staging_Wrk.v_{Codatan,Extorit,Comast,Extord}`
+- Queried live sums and key-level diffs between:
+  - bronze raw open order logic (`Codatan` + `Comast` + `Extord` + `Extorit`)
+  - live `_Wrk.v_OpenOrderLineLevel`
+  - persisted `OpenOrderHistory_Enh.OpenOrderLineLevel`
+  - `ActualDemandMonthly` open-order slice
+- Verified live duplicate/join-multiplier checks:
+  - `Extorit` duplicate `(IORD, ISEQ)` keys = `0`
+  - `Comast` duplicate `ORDNO` keys = `0`
+  - `Extord` duplicate `XORDNO` keys = `0`
+  - no multi-row join explosion found in open-order base join
+- Ran validation rerun:
+  - `dbo.Usp_Refresh_ForecastAccuracy_Silver_W01`
+  - then checked DQ view live
+  - then `dbo.Usp_Refresh_ForecastAccuracy_Silver_W02`
+  - then checked DQ view live again
+
+**Key findings:**
+- `DQ_B2S2_OpenOrder_Qty` fail was **not** caused by duplicate joins or bad transform logic in `v_OpenOrderLineLevel`.
+- Proven totals before validation rerun:
+  - bronze raw = `410992`
+  - `_Wrk.v_OpenOrderLineLevel` = `410992`
+  - persisted `OpenOrderHistory_Enh.OpenOrderLineLevel` = `410657`
+- Therefore the transform view matched raw source exactly; only the persisted Silver W01 table was stale versus the current source at DQ-runtime.
+- Key-level diffs showed whole-order churn between current source/view and persisted table (examples: `C686435` present in current view but absent in persisted table; `C402372`/`C921427` present in persisted table but absent in current view), which is consistent with mutable open orders changing after the earlier W01 load.
+- `DQ_S2S1_OpenOrder_Qty` was `PASS` before the validation rerun, proving W01 -> W02 business logic was internally consistent on the earlier shared snapshot.
+- After rerunning only W01, `DQ_B2S2_OpenOrder_Qty` flipped to `PASS` immediately, while `DQ_S2S1_OpenOrder_Qty` temporarily flipped to `FAIL`; this proved the mismatch moved from Bronze->W01 to W01->W02 because W02 was now stale.
+- After rerunning W02, the live DQ view again showed both open-order rules as `PASS`.
+
+**Conclusion:**
+- Root cause is **snapshot drift / timing design**, not a coding bug in the open-order transform.
+- `DQ_B2S2_OpenOrder_Qty` is architecturally unstable because it compares mutable live bronze raw data to a persisted W01 table later in the run or on-demand reruns.
+
+**Next concrete step:**
+- If code change is approved later, fix the DQ contract rather than the open-order transform:
+  - either compare bronze raw to `_Wrk.v_OpenOrderLineLevel` for a deterministic transform check
+  - or introduce a run-consistent source snapshot/watermark so Bronze->Silver comparisons use the same cut of data.
+
+## 2026-07-03 16:05:00 ICT — Applied Forecast Accuracy DQ contract fixes for false Bronze->Silver mismatches
+
+**Scope lock:**
+- Repo + live DQ view contract fix only for Forecast Accuracy DQ logic.
+- No business-table schema mutation.
+
+**User instruction:**
+- If the remaining DQ failures are the same type of contract/snapshot issue, fix them so false fails are removed.
+
+**Actions executed:**
+- Audited remaining rules by code path and targeted live evidence.
+- Verified `InvoiceHeader` is a true source-quality issue:
+  - current rule grain `(InvoiceNumber, OrderNumber)` duplicates exist
+  - even full join key `(InvoiceNumber, InvoiceDate, OrderDate, OrderNumber)` still has `82` duplicate groups
+- Confirmed live existence of `SupplyChain_Processing_Warehouse.Staging_Wrk.v_DemandForecastSnapshotDaily`.
+- Updated repo file `02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql` and applied the same logic live with `CREATE OR ALTER VIEW`.
+
+**DQ contract changes applied:**
+- `DQ_B2S2_Invoice_Qty` now compares bronze raw invoice quantity to `SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel` instead of persisted `SalesHistory_Enh.InvoiceDetailLineLevel`.
+- `DQ_B2S2_OpenOrder_Qty` now compares bronze raw open-order quantity to `OpenOrderHistory_Enh_Wrk.v_OpenOrderLineLevel` instead of persisted `OpenOrderHistory_Enh.OpenOrderLineLevel`.
+- `DQ_B2S2_Forecast_Qty` now compares bronze raw canonical-dedup forecast quantity to `Staging_Wrk.v_DemandForecastSnapshotDaily` instead of persisted `Staging.DemandForecastSnapshotDaily`.
+- `DQ_Bronze_Grain_DemandForecastSnapshotDaily` grain was widened from 5-key to the canonical 7-key used by staging dedupe:
+  `(dfcItem, dfcWarehouse, dfcFiscalMonth, dfcSnapshot, DfcCustomerGroups, dfcFCSTTypeCode, dfcMgmtCode)`.
+
+**Key findings:**
+- `DQ_B2S2_OpenOrder_Qty` is confirmed false-fail-by-snapshot and was fixed by contract.
+- `DQ_B2S2_Forecast_Qty` followed the same structural problem: raw canonical-dedup was being compared to a persisted staging table instead of the same-time `_Wrk` transform surface.
+- `DQ_B2S2_Invoice_Qty` is not yet proven to be false-fail-only; because `InvoiceHeader` has true duplicate groups even on the full join key, the invoice transform can still multiply rows and remain a real fail after the contract fix.
+- `DQ_Bronze_Grain_InvoiceHeader` remains a true source-quality rule and should not be relaxed.
+
+**Verification status:**
+- Live `ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy` was altered successfully.
+- A fresh DQ history insert was triggered after the live change; warehouse-side batch was still computing at context time, so final post-fix history-row statuses were not yet captured in this entry.
+
+**Conclusion:**
+- False Bronze->Silver comparison rules for open order and forecast were fixed at the DQ-contract level.
+- Invoice-related failures still require source-quality remediation if they continue after the contract update.
+
+## 2026-07-02 17:05:00 ICT — Fixed Inventory Health Silver wave catalog mismatch and rebuilt lineage snapshot
+
+**Scope lock:**
+- Repo/catalog/lineage alignment only.
+- No live Fabric SQL procedure mutation.
+
+**User instruction:**
+- Recheck the Inventory Health Silver wave renumbering from `W00/W01/W02` to `W01/W02/W03`.
+- Fix the issue where the two old `W00` tables appeared to be merged into later waves in lineage.
+
+**Actions executed:**
+- Re-read active wrapper SQL for:
+  - `Usp_Refresh_InventoryHealth_Silver_W01`
+  - `Usp_Refresh_InventoryHealth_Silver_W02`
+  - `Usp_Refresh_InventoryHealth_Silver_W03`
+- Re-read `03_operations/orchestration/inventory_health/manifest.json`.
+- Re-read `02_marts/inventory_health/05_catalog/run_order.json`.
+- Found mismatch: wrapper SPs already had W01 with only:
+  - `InventorySnapshotWeekly`
+  - `AtpWeekEnding`
+  but `run_order.json` still labeled the old W01 body as `wave: 1`.
+- Updated `02_marts/inventory_health/05_catalog/run_order.json` so:
+  - W01 = only `InventorySnapshotWeekly`, `AtpWeekEnding`
+  - W02 = `PurchaseOrderSnapshotHistorical`, `ManufacturingOrderSnapshotDaily`, `HoldingTransferSnapshotDaily`, `ForecastSnapshotWeekly`, `SupplyPlanDetail`, `ItemBalanceHistorical_WithInTransit`, `SafetyStockHelper`, `InvoiceDetailLineLevel`
+  - W03 = `AFIStatusSnapshotWeekly`, `AwdHelper`, `LastInvoiceWeekly`, `Cogs52WWeekly`
+- Rebuilt lineage snapshot using Azure CLI auth mode:
+  - `FABRIC_USE_AZ_CLI=1 PYTHONPATH=. python3 -m scanner.cli --out site/public/lineage_snapshot.json`
+- Mirrored rebuilt snapshot to:
+  - `05_tools/06_lineage_portal/site/out/lineage_snapshot.json`
+  - `05_tools/06_lineage_portal/site/dist/lineage_snapshot.json`
+- Verified rebuilt snapshot now places:
+  - `ManufacturingOrderSnapshotDaily` in lane `02 Silver W02`
+  - old W00 tables remain in W01
+
+**Files changed:**
+- `02_marts/inventory_health/05_catalog/run_order.json`
+- `05_tools/06_lineage_portal/site/public/lineage_snapshot.json`
+- `05_tools/06_lineage_portal/site/out/lineage_snapshot.json`
+- `05_tools/06_lineage_portal/site/dist/lineage_snapshot.json`
+- `00_CONTEXT/current.md`
+
+**Conclusion:**
+- Inventory Health Silver wave numbering is now internally consistent across wrapper SPs, mart catalog, and lineage snapshot.
+
+**Next concrete step:**
+- If needed, refresh/publish the lineage portal static site so the UI picks up the rebuilt snapshot.
+
+## 2026-07-02 16:40:00 ICT — ETL framework live sync, pattern audit, and repo documentation refresh
+
+**Scope lock:**
+- Live `ETL_Framework` sync/audit in DEV workspaces.
+- Repo documentation refresh to match live state.
+
+**User instruction:**
+- Sync local `Enterprise SupplyChain-Dev.ETL_Framework` from `EnterpriseData-Dev`.
+- Audit framework patterns step by step.
+- Fix what is truly broken, then update repo docs to reflect the final state.
+
+**Actions executed:**
+- Connected to both live `ETL_Framework` warehouses via `pyodbc` + Entra token.
+- Compared live schemas, tables, procedures, functions, and views between source and target.
+- Applied additive sync from source live to target live.
+- Removed `DW_Developer.Usp_TableFromParquet_RowADF` from target after confirming the source object is internally broken.
+- Patched live `DW_Developer.Usp_SnapshotLoad` in target to:
+  - accept both full `abfss://...` and relative paths
+  - avoid appending `/` to `.parquet` file paths
+  - write `AuditLog`, `TableDictionary`, and `TableDictionary_UpdateLog`
+- Audited runtime patterns:
+  - `Snapshot`
+  - `Append`
+  - `Upsert/Insert`
+  - `DateKey/DateRange`
+  - `CDC`
+- Confirmed Forecast Accuracy DQ should remain on direct insert, not generic framework loader.
+- Updated repo docs and context.
+
+**Key findings:**
+- `Enterprise SupplyChain-Dev.ETL_Framework` is now synchronized to the usable runtime surface from `EnterpriseData-Dev`.
+- `Usp_TableFromParquet_RowADF` was not a valid runtime candidate because it referenced non-existent `FabricLoad` columns and used a framework table as scratch staging.
+- `Usp_SnapshotLoad` was not usable as-is because live `Snapshot` metadata commonly stores full `abfss://...` paths while the source proc hardcoded a prefix and assumed relative paths.
+- `Append` engine is usable after sync; the remaining local problem is a business metadata row with missing configuration.
+- `Upsert/Insert` and `CDC` currently have no active rows in the SupplyChain target.
+- `DateKey/DateRange` rows in SupplyChain target have the minimum required metadata.
+- Generic framework loading is still not the right fit for Forecast Accuracy DQ history append.
+
+**Files changed:**
+- `00_CONTEXT/current.md`
+- `01_docs/enterprise-etl-framework/README.md`
+- `01_docs/enterprise-etl-framework/2026-07-02_live_sync_and_pattern_audit.md`
+- `README.md`
+- `CLAUDE.md`
+
+**Live changes:**
+- `Enterprise SupplyChain-Dev.ETL_Framework.DW_Developer.Usp_SnapshotLoad` patched live.
+- `Enterprise SupplyChain-Dev.ETL_Framework.DW_Developer.Usp_TableFromParquet_RowADF` dropped live.
+- Additive framework object sync applied from `EnterpriseData-Dev.ETL_Framework`.
+
+**Conclusion:**
+- Local framework and repo documentation are now aligned enough to treat the current DEV runtime as the approved baseline.
+
+**Next concrete step:**
+- If needed later, introduce a dedicated framework pattern for history-style DQ append instead of forcing DQ through `usp_IncrementalTableLoad`.
+
+## 2026-07-01 14:55:00 ICT — `pl_backup_full_refresh` completed successfully
+
+**Scope lock:**
+- Read-only Fabric verification + summary.
+- No live mutation.
+
+**User instruction:**
+- Check latest status, then if complete summarize total runtime, per-SP runtime, and table-level evidence.
+
+**Actions executed:**
+- Polled Fabric pipeline run `d9776bab-a6aa-48ec-b498-5ca13b61b9ae`.
+- Queried `ETL_Framework.DW_Developer.AuditLog`.
+- Queried final Gold fact row counts.
+
+**Key findings:**
+- Pipeline status is `Completed`.
+- Start: `2026-07-01T06:28:18.6343822Z`
+- End: `2026-07-01T07:21:40.2133333Z`
+- End-to-end wall clock runtime: `53m21.6s`
+- Sum of wrapper activity durations: `52m52.6s`
+- The new 10-step flow completed successfully in the expected order.
+
+**Wrapper activity durations:**
+- `01_Shared_ReferenceMaster` `59.721s`
+- `02_Shared_Staging` `801.943s`
+- `03_Inventory_Silver_W00` `65.190s`
+- `04_Forecast_Silver_W01` `76.507s`
+- `05_Forecast_Silver_W02` `327.522s`
+- `06_Forecast_Silver_W03` `44.682s`
+- `07_Forecast_Gold` `112.224s`
+- `08_Inventory_Silver_W01` `626.103s`
+- `09_Inventory_Silver_W02` `288.971s`
+- `10_Inventory_Gold` `769.689s`
+
+**Table-level evidence from AuditLog:**
+- `ReferenceMaster_Enh` 11 tables loaded in step 01.
+- `Staging.DemandForecastSnapshotDaily` loaded in step 02.
+- `InventoryHistory_Enh` W00/W01/W02 tables loaded in steps 03/08/09.
+- `ForecastAccuracy` Silver and Gold tables loaded in steps 04/05/06/07.
+- `InventoryHealth` Gold tables loaded in step 10, ending with `FactInventoryHealthSnapshot`.
+
+**Naming convention update:**
+- InventoryHealth silver waves are now standardized as W01→W03 in repo docs and manifests.
+- The July 1 run log below keeps the old W00 labels for historical accuracy.
+- Live Fabric inventory stored procedures have now been aligned to W01→W03.
+- `05_tools/06_lineage_portal/site/public/lineage_snapshot.json` was rebuilt from live Fabric after the sync.
+
+**Final fact row counts:**
+- `ForecastAccuracy_DW.FactForecastActual` = `236,740,098`
+- `ForecastAccuracy_DW.FactForecastKpi` = `154,664,289`
+- `InventoryHealth_DW.FactInventoryHealthFutureWeekEnding` = `3,856,954`
+- `InventoryHealth_DW.FactInventoryHealthSnapshot` = `3,327,510`
+
+**Files changed:**
+- `00_CONTEXT/current.md` — updated with completion evidence and timings.
+
+**Conclusion:**
+- The new `pl_backup_full_refresh` 10-step overwrite flow is working end-to-end.
+- No failure observed in the latest run.
+
+**Next concrete step:**
+- If needed, capture the final pipeline definition and keep this as the approved overwrite baseline.
+
+## 2026-07-01 14:35:00 ICT — Latest `pl_backup_full_refresh` checkpoint
+
+**Scope lock:**
+- Read-only Fabric run-status monitoring.
+- No live mutation.
+
+**User instruction:**
+- Check latest progress.
+
+**Actions executed:**
+- Polled Fabric pipeline run `d9776bab-a6aa-48ec-b498-5ca13b61b9ae`.
+- Queried latest `ETL_Framework.DW_Developer.AuditLog` rows.
+
+**Key findings:**
+- Pipeline is still `InProgress`.
+- Latest Gold table progress:
+  - `InventoryHealth_DW.ProjectedInventoryHealthSubStatus` `Process Complete`
+  - `InventoryHealth_DW.InventoryHealthSubStatusWeekly` `Process Complete`
+  - `InventoryHealth_DW.InventoryClassificationQtyWeekly` `Process Complete`
+  - `InventoryHealth_DW.FactInventoryHealthFutureWeekEnding` `Process Start`
+- The run has moved into the final Gold fact stage and has not failed yet.
+
+**Next concrete step:**
+- Continue polling until step 10 completes or fails.
+
+## 2026-07-01 14:20:00 ICT — Latest `pl_backup_full_refresh` checkpoint
+
+**Scope lock:**
+- Read-only Fabric run-status monitoring.
+- No live mutation.
+
+**User instruction:**
+- Check latest progress.
+
+**Actions executed:**
+- Polled Fabric pipeline run `d9776bab-a6aa-48ec-b498-5ca13b61b9ae`.
+- Queried latest `ETL_Framework.DW_Developer.AuditLog` rows.
+
+**Key findings:**
+- Pipeline is still `InProgress`.
+- Latest wrapper activity is now in the Gold section.
+- AuditLog latest rows show:
+  - `InventoryHealth_DW.Cogs52WWeekly` `Process Complete`
+  - `InventoryHealth_DW.InventoryHealthSubStatusWeekly` `Process Complete`
+  - `InventoryHealth_DW.InventoryClassificationQtyWeekly` likely completed earlier in step 10 flow
+  - `Shared_DW.DimCalendar`, `DimProduct`, `DimWarehouse` completed
+  - `InventoryHealth_DW.DimVendor` completed
+  - `InventoryHealth_DW.ProjectedInventoryHealthSubStatus` is the latest `Process Start`
+- Interpretation: step `09_Inventory_Silver_W02` is complete and step `10_Inventory_Gold` is actively loading.
+
+**Next concrete step:**
+- Continue polling until step 10 finishes or the run fails.
+
+## 2026-07-01 14:05:00 ICT — Latest `pl_backup_full_refresh` progress
+
+**Scope lock:**
+- Read-only Fabric run-status monitoring.
+- No live mutation.
+
+**User instruction:**
+- Check latest progress and, if done, summarize timings and flow health.
+
+**Actions executed:**
+- Polled Fabric pipeline run `d9776bab-a6aa-48ec-b498-5ca13b61b9ae`.
+- Queried `ETL_Framework.DW_Developer.AuditLog` for latest table-level activity.
+
+**Key findings:**
+- Pipeline is still `InProgress`.
+- Completed wrapper activities: 01 through 08.
+- Current wrapper activity: `09_Inventory_Silver_W02` is `InProgress`.
+- Table-level evidence inside step 09:
+  - `InventoryHistory_Enh.AFIStatusSnapshotWeekly` `Process Complete`
+  - `InventoryHistory_Enh.AwdHelper` `Process Complete`
+  - `InventoryHistory_Enh.LastInvoiceWeekly` `Process Start`
+  - `InventoryHistory_Enh.Cogs52WWeekly` not seen yet
+- No new error surfaced in the latest poll.
+
+**Current interpretation:**
+- New 10-step flow is executing in the expected sequence.
+- It has not finished, so final full-run timing and table-level totals are not yet available.
+
+**Next concrete step:**
+- Continue monitoring until `09_Inventory_Silver_W02` finishes and step 10 starts or the run fails.
+
+## 2026-07-01 13:45:00 ICT — `pl_backup_full_refresh` progress checkpoint
+
+**Scope lock:**
+- Read-only Fabric run-status monitoring.
+- No live mutation.
+
+**User instruction:**
+- Check current progress of the rerun.
+
+**Actions executed:**
+- Polled Fabric pipeline run `d9776bab-a6aa-48ec-b498-5ca13b61b9ae`.
+- Queried latest activity runs for the same run id.
+
+**Key findings:**
+- Pipeline is still `InProgress`.
+- Completed successfully:
+  - `01_Shared_ReferenceMaster`
+  - `02_Shared_Staging`
+  - `03_Inventory_Silver_W00`
+  - `04_Forecast_Silver_W01`
+  - `05_Forecast_Silver_W02`
+  - `06_Forecast_Silver_W03`
+  - `07_Forecast_Gold`
+- Current step: `08_Inventory_Silver_W01` is `InProgress`.
+- No new failure on the current poll.
+
+**Next concrete step:**
+- Continue polling until step 08 finishes or the run fails.
+
+## 2026-07-01 13:00:00 ICT — Fixed Fabric DataPipeline binding and reran `pl_backup_full_refresh`
+
+**Scope lock:**
+- Live Fabric DataPipeline definition update + read-only run monitoring.
+- No SP body edits.
+
+**User instruction:**
+- Fix the pipeline bug, rerun full pipeline, and check whether it still fails or is now running.
+
+**Actions executed:**
+- Updated live Fabric item `pl_backup_full_refresh` definition to add `linkedService` bindings to every `SqlServerStoredProcedure` activity.
+- Removed empty `storedProcedureParameters` from the live activity contract to match Fabric’s expected schema.
+- Triggered a fresh manual run on the same pipeline item.
+- Polled run status and activity runs.
+
+**Key findings:**
+- The original failure was definition-level, not SP timeout.
+- After the fix, the new run advanced successfully:
+  - `01_Shared_ReferenceMaster` completed `Succeeded` in `59.7s`.
+  - `02_Shared_Staging` started and is currently `InProgress`.
+- Current run id: `d9776bab-a6aa-48ec-b498-5ca13b61b9ae`.
+- Current pipeline status: `InProgress`.
+- This confirms the linked-service bug is fixed. The remaining work is normal pipeline execution monitoring, not definition repair.
+
+**Files changed:**
+- `03_operations/orchestration/backup_pipeline/pl_backup_full_refresh.json` — updated repo copy to reflect linked-service bindings.
+- `00_CONTEXT/current.md` — updated with fix + live run status.
+
+**Blocker/risk:**
+- Full pipeline has not completed yet, so downstream runtime issues may still appear later in the run.
+
+**Next concrete step:**
+- Continue monitoring run `d9776bab-a6aa-48ec-b498-5ca13b61b9ae` until completion or first downstream failure.
+
+## 2026-07-01 13:20:00 ICT — Verified `pl_backup_full_refresh` failure root cause
+
+**Scope lock:**
+- Read-only Fabric job status check + repo definition comparison.
+- No live Fabric/SQL/Power BI mutation.
+
+**User instruction:**
+- Check whether the run is still active.
+- Distinguish Fabric pipeline failure vs local `pyodbc` execution vs timeout on heavy SPs.
+
+**Actions executed:**
+- Queried Fabric job instance `ee842ea2-445b-4317-81ab-6ad54dbef870` for pipeline item `pl_backup_full_refresh`.
+- Queried pipeline job instance list for the item to confirm there is only one recent run.
+- Pulled live pipeline definition via Fabric `getDefinition`.
+
+**Key findings:**
+- Run is not still running. Fabric reports status `Failed`.
+- Run window: `2026-07-01T05:41:46.8833333Z` to `2026-07-01T05:42:43.73Z` (`2026-07-01 12:41:46` to `12:42:43 ICT`).
+- Failure happened on activity `01_Shared_ReferenceMaster`, with error `2109`.
+- Error text: `Cannot find linked service linkedServiceName in the activity or the linked service has the wrong definition.`
+- The pipeline failed before reaching the heavier downstream SPs, so there is no evidence this was a timeout caused by SP weight.
+- Repo `pl_backup_full_refresh.json` contains only SP activity metadata; the live Fabric runtime is the component complaining about linked service binding.
+
+**Files changed:**
+- `00_CONTEXT/current.md` — updated with verified run status and root cause.
+
+**Blocker/risk:**
+- Need to inspect the live Fabric pipeline activity binding / linked service configuration, not the SP bodies, to fix this failure.
+
+**Next concrete step:**
+- Check the live `pl_backup_full_refresh` activity connection binding in Fabric UI/API and compare with any known working `SqlServerStoredProcedure` pipeline item.
+
+## 2026-06-30 11:30:00 ICT — Bronze DQ fix plan for 6 tables + live downstream impact verification
+
+**Scope lock:**
+- Read-only live Fabric/SQL diagnostic queries + plan file creation.
+- No live Fabric/SQL/Power BI mutation.
+- No wrapper SP execution.
+
+**User instruction:**
+- Verify Bronze source DQ cho 6 bảng đầu (có US feedback) trên Fabric live.
+- Check downstream impact: Silver/Gold output uniqueness, measure impact, SUM double-count risk.
+- Tạo plan file cho fix 6 bảng + 5 bảng còn lại (tables 7-11).
+
+**Actions executed:**
+- Ran `audit_bronze_source_freshness_range.py` — 33 tables freshness range audit (MIN/MAX date span check, pass window 2023-01-01 → 2026-06-01).
+- Ran `check_bronze_dq_downstream_impact.py` — live diagnostic for 6 tables: Silver output uniqueness, blank key measure impact, dedup determinism, Silver SUM double-count risk.
+- Verified via Fabric REST + MCP OneLake: `Enterprise_Lakehouse` confirmed live in `Enterprise SupplyChain-Dev`.
+- Combined analysis with US team feedback (Rakesh/DE) + live evidence.
+
+**Key findings:**
+- #1 ItemBalance: Silver ROW_NUMBER ORDER BY OnHandQty DESC = arbitrary tie-break, cần business confirm.
+- #2 ITBEXT: Gold DimProduct 782,125 unique / 0 dup — GROUP BY+MAX self-protects. No code change.
+- #3 ITMRVA: Silver 607,714 unique / 0 dup — ROW_NUMBER+STID filter works. Need verify Gold consumer.
+- #4 TFRDTL: Silver 1,669 rows / 0 blank / 0 dup — JOIN ngầm filter blank. 41 blank rows có DTFRQT=32,756 cần DE confirm.
+- #5 InvoiceDetail: DQ grain sai (OriginalSequenceNumber NULL = expected cho regular sales). Silver IH 0 dup at correct 5-col grain. FA variant cần align.
+- #6 DemandForecast: Staging CÓ dedup (7-col partition, 0 dup at correct grain). Risk: Silver GROUP BY 5-col có thể double-count SUM.
+
+**Files changed:**
+- `05_tools/01_dq/audit_bronze_source_freshness_range.py` — NEW: freshness range audit script.
+- `05_tools/01_dq/check_bronze_dq_downstream_impact.py` — NEW: downstream impact diagnostic script.
+- `01_docs/runbook/artifacts/20260629_bronze_source_freshness_range_audit/` — NEW: freshness range audit results (JSON/CSV/MD).
+- `01_docs/runbook/artifacts/20260629_bronze_dq_downstream_impact_check/` — NEW: downstream impact results (JSON/MD).
+- `01_docs/plans/2026-06-30_bronze_dq_fix_plan_6_tables.md` — NEW: final fix plan with 6-table audit table + step-by-step execution.
+
+**Plan summary:**
+- Bucket A (document only): 3 tables (#1, #3, #4)
+- Bucket C (grain mismatch doc): 1 table (#2)
+- Bucket B-low (fix DQ grain + align view): 1 table (#5) — only confirmed code change
+- Bucket A + verify SUM: 1 table (#6) — potential code change pending verify
+- Open tickets: 2 (#1 OnHandQty tie-break, #4 32K pending transfers)
+
+**Next concrete step:**
+- Execute Phase 0 verify for #6 DemandForecast Silver SUM double-count.
+- Verify #3 ITMRVA Gold consumer filter pattern.
+- Execute #5 InvoiceDetail DQ grain fix + FA view align (after US confirm OriginalSequenceNumber semantics).
+- Create follow-up plan for tables 7-11.
 
 ## 2026-06-27 00:10:00 ICT — Fixed lineage portal client error: removed motion + cmdk incompatible with static export
 
@@ -2560,3 +3599,854 @@
 - Wrapper SPs on live Fabric match the corrected order.
 - Lineage portal renders clean forward-flowing graph with 11 lanes.
 - All repo catalog/manifest/tool/docs updated.
+
+## 2026-06-29 10 (1)
+00 ICT — Reinstalled Claude MCP user config to official commands where verifiable
+- Scope lock: Claude user MCP config only; no Fabric live mutations.
+- User instruction: reinstall MCPs for Claude, skip already-present by effectively replacing broken entries.
+- Actions/evidence:
+  - Verified official/npm install targets for `@microsoft/fabric-mcp`, `@azure/mcp`, `@microsoft/powerbi-modeling-mcp`, Fabric Core remote URL, and current `fabric-dynamic`/`fabric-rti`/`microsoft-learn`.
+  - Reinstalled user-scope MCP entries via `claude mcp add/remove`: `fabric-official`, `azure`, `powerbi-modeling`, `fabric-core`, `microsoft-learn`, `datafactory`.
+  - Health check after reinstall: `fabric-official` ✔, `azure` ✔, `microsoft-learn` ✔, existing `fabric-dynamic` ✔, `fabric-rti` ✔; `powerbi-modeling` ✘, `fabric-core` ✘, `datafactory` ✘.
+  - Direct startup probe: `@microsoft/powerbi-modeling-mcp --start` exits 0 standalone; Claude health check still fails. `dnx Microsoft.DataFactory.MCP --yes` fails because package not found on nuget.org.
+- Files changed/live changes: user MCP config in `/Users/MAC/.claude.json`.
+- Blocker/risk: `fabric-core` likely needs OAuth/interactive auth not completed in headless health check; `powerbi-modeling` likely requires first semantic-model connection/auth flow; `datafactory` published package/command appears unavailable from current feed.
+- Next concrete step: report installed/healthy vs blocked servers; if needed, debug OAuth/interactive setup for failed MCPs or add org-specific MCPs with user-provided IDs/URLs.
+
+## 2026-06-29 10:30:00 ICT — Bronze source 2023 coverage DQ check executed
+
+**Scope lock:**
+- Read-only DQ coverage audit for 33 Enterprise_Lakehouse Bronze source tables supporting Inventory Health and Forecast Accuracy.
+- No Fabric/SQL mutation and no repo object deployment.
+
+**User instruction:**
+- Read and remember prior Bronze DQ report, then add missing coverage check: whether required source data covers from `2023-01-01` or whether data starts later.
+- Combine MCP with Fabric REST/API where appropriate.
+
+**Actions/evidence:**
+- MCP `fabric-dynamic.health_check`: ready, workspace `c8d9fc83-18b6-4e1d-8264-0b49eed36fe0`.
+- Fabric REST via `az rest --resource https://api.fabric.microsoft.com`: verified Lakehouse item `Enterprise_Lakehouse` / `584e7d2c-46ca-49dc-bb6c-68df6ef4f424` and workspace Lakehouse list.
+- Repo contracts checked: `02_marts/*/04_dq/contracts/bronze_sources.json`; no existing coverage-from-2023 rule found in the Bronze DQ rule set.
+- SQL endpoint pyodbc read-only audit executed against `Enterprise_Lakehouse` through Fabric SQL endpoint.
+
+**Key finding:**
+- Coverage DQ is not equivalent to freshness: several snapshot/current-state sources are fresh but start in 2024/2025/2026, so they fail if the business rule is strict historical coverage from `2023-01-01`.
+- Tables with clear post-2023 starts include `SupplyChain_Enh.ATPWeekEnding`, `SupplyChain_Enh.DemandInventorySnapshotDaily`, `SupplyChain_Enh.SupplyPlanDetailSnapshotDaily`, `SupplyChain_Enh.SupplyPlanDetailSnapshotWeekly`, `Wholesale_Codis_AFI.EXTORIT`, `Wholesale_Codis_AFI.codatan`; `SupplyChain_Enh.DemandForecastSnapshotDaily` min `dfcSnapshot` = 2020-01-01 and has rows after cutoff, but exact row-before aggregation hit Fabric integer overflow on combined aggregate and was probed separately.
+- Static/master tables without selected date columns need explicit N/A decision, not automatic failure.
+
+**Files changed/live changes:**
+- Context only: `00_CONTEXT/current.md`.
+
+**Blocker/risk:**
+- Need Aric/business owner to define which sources truly require full historical coverage from `2023-01-01` vs source-system valid-from/current-state semantics.
+
+**Next concrete step:**
+- Add a formal Bronze DQ rule such as `history_coverage_min_date` with per-table `required_start_date` / `coverage_column` / `not_applicable_reason`, then regenerate DQ contracts after approval.
+
+## 2026-06-29 10:45:00 ICT — Project opencode skills installed with non-overlap boundaries
+
+**Scope lock:**
+- opencode project skill files only.
+- No Fabric/SQL/Power BI/cloud mutation.
+- No global opencode config mutation because external directory access to `/Users/MAC/.config/opencode` is denied by current permissions.
+
+**User instruction:**
+- Continue installing a selected skill list and ensure their responsibilities do not overlap: SuperPower, UI UX Pro Max, Prompt Master, Security Expert, Testing Expert, Database Expert, DevOps Expert, Documentation Expert.
+
+**Actions/evidence:**
+- Loaded `customize-opencode` guidance and verified opencode config schema from `https://opencode.ai/config.json`.
+- Confirmed project initially had no `opencode.json*` and no `.opencode/skills/**/SKILL.md`.
+- Created 8 project-scope skills under `.opencode/skills/*/SKILL.md` with explicit `description` trigger boundaries and `Do not use...` exclusions.
+- Clarified with user that the created `superpower` is a lightweight adapter/router, not an official SuperPower Claude Code package with bundled subskills/slash commands.
+
+**Files changed/live changes:**
+- Added `.opencode/skills/superpower/SKILL.md`.
+- Added `.opencode/skills/ui-ux-pro-max/SKILL.md`.
+- Added `.opencode/skills/prompt-master/SKILL.md`.
+- Added `.opencode/skills/security-expert/SKILL.md`.
+- Added `.opencode/skills/testing-expert/SKILL.md`.
+- Added `.opencode/skills/database-expert/SKILL.md`.
+- Added `.opencode/skills/devops-expert/SKILL.md`.
+- Added `.opencode/skills/documentation-expert/SKILL.md`.
+- Updated `00_CONTEXT/current.md`.
+
+**Blocker/risk:**
+- If user wants official SuperPower framework rather than lightweight adapter, need source URL/package/repo or approval to research/install. Full official SuperPower may overlap with the 7 specialist skills unless installed as workflow-only umbrella.
+- opencode must be restarted before new skills are loaded.
+
+**Next concrete step:**
+- Decide whether to keep lightweight `superpower` router or replace/augment it with the official SuperPower Claude Code framework after verifying the source.
+
+## 2026-06-29 10:55:00 ICT — Reduced opencode skills to 4 selected packs
+
+**Scope lock:**
+- opencode project skill files only.
+- No Fabric/SQL/Power BI/cloud mutation.
+- No global opencode config mutation.
+
+**User instruction:**
+- Reduce skill set to exactly 4 packs to avoid overlap: Superpowers, UI UX Pro Max, Awesome Agent Toolkit, Awesome Goal Prompts.
+- User noted official SuperPower is a known Claude Code workflow/skills/slash-command framework covering brainstorming, planning, implementation, and verification.
+
+**Actions/evidence:**
+- Removed previously created expert skill files for `prompt-master`, `security-expert`, `testing-expert`, `database-expert`, `devops-expert`, and `documentation-expert`.
+- Replaced singular `.opencode/skills/superpower/SKILL.md` with `.opencode/skills/superpowers/SKILL.md`.
+- Added `.opencode/skills/awesome-agent-toolkit/SKILL.md`.
+- Added `.opencode/skills/awesome-goal-prompts/SKILL.md`.
+- Updated `.opencode/skills/ui-ux-pro-max/SKILL.md` boundaries to reference only the 4 selected skills.
+- Removed now-empty old skill directories with `rmdir`.
+- Verified `.opencode/skills` contains exactly 4 directories: `awesome-agent-toolkit`, `awesome-goal-prompts`, `superpowers`, `ui-ux-pro-max`.
+
+**Files changed/live changes:**
+- Added/updated project-scope opencode skill wrappers under `.opencode/skills/*/SKILL.md`.
+- Updated `00_CONTEXT/current.md`.
+
+**Blocker/risk:**
+- These are opencode wrapper/adaptation skill files, not verified official SuperPower/Awesome pack contents. Need source repo/package/URL before claiming official installation.
+- opencode must be restarted before new project skills are loaded.
+
+**Next concrete step:**
+- If user wants official pack parity, provide source URLs or approve web research/install, then replace wrappers with verified official content where compatible with opencode skill format.
+
+## 2026-06-29 11:25:00 ICT — Installed verified Superpowers and UI UX Pro Max skills
+
+**Scope lock:**
+- AI coding assistant skill installation only.
+- No Fabric/SQL/Power BI/cloud mutation.
+- Repo mutation limited to `.opencode/skills/*` and context log.
+- Global user-tooling mutation occurred via official installer bootstrap; no secrets handled.
+
+**User instruction:**
+- Install only the two verified/popular packs first: Superpowers and UI UX Pro Max.
+- Check repo popularity/star signal before installing.
+
+**Actions/evidence:**
+- Verified `Superpowers` Cursor Directory plugin points to `https://github.com/obra/superpowers`.
+- GitHub API evidence: upstream `obra/superpowers` has ~241k stars and ~21k forks; `complexthings/superpowers` is a 6-star fork/extension that supports OpenCode and packages `@complexthings/superpowers-agent`.
+- Verified `UI UX Pro Max` official source `nextlevelbuilder/ui-ux-pro-max-skill` has ~97.8k stars and ~10.3k forks; CLI package `ui-ux-pro-max-cli` version 2.9.0 exposes `uipro init --ai opencode`.
+- Determined `itgoyo/awesome-agent-skills` (~142 stars curated list) and `convertscout/awesome-ai-prompts` (~4 stars prompt/webapp repo) do not meet the same popularity/installer criteria; not installed.
+- Ran `npx -y @complexthings/superpowers-agent@latest --help`; package warns Node engine requires `^20 || ^22 || ^24` while current Node is `v26.0.0`.
+- Note: `superpowers-agent bootstrap --help` actually executed bootstrap instead of printing help, mutating global user config.
+- Installed `@complexthings/superpowers-agent@latest` globally via npm, then ran `superpowers-agent bootstrap --no-update --force-opencode` to repoint skill symlinks from `_npx` temp cache to `/opt/homebrew/lib/node_modules/@complexthings/superpowers-agent`.
+- Ran `npx -y ui-ux-pro-max-cli@latest init --ai opencode --force` in project root.
+- Removed earlier local wrapper skill files for `awesome-agent-toolkit`, `awesome-goal-prompts`, and `superpowers` to avoid confusion with official/global Superpowers and unverified packs.
+- Verified `superpowers-agent version` returns `9.2.1`.
+- Verified `superpowers-agent find-skills` lists Superpowers skills including `brainstorming`, `writing-plans`, `systematic-debugging`, `test-driven-development`, `verification-before-completion`, etc.
+- Verified project `.opencode/skills` now contains UI UX Pro Max-generated skills only: `banner-design`, `brand`, `design-system`, `design`, `slides`, `ui-styling`, `ui-ux-pro-max`.
+
+**Files changed/live changes:**
+- Repo: `.opencode/skills/` generated/updated by UI UX Pro Max installer.
+- Repo: removed unverified wrapper skill files/directories for `awesome-agent-toolkit`, `awesome-goal-prompts`, `superpowers`.
+- Repo: updated `00_CONTEXT/current.md`.
+- Global user tooling: installed npm package `@complexthings/superpowers-agent@9.2.1` globally.
+- Global user tooling: Superpowers bootstrap created/updated `~/.agents/skills/*`, `~/.agents/AGENTS.md`, `~/.claude/settings.json` (with backup), `~/.copilot/hooks/superpowers.json`, and `~/.local/bin/superpowers*` symlinks. OpenCode plugin symlink was skipped because package expected plugin file was not present.
+
+**Blocker/risk:**
+- Node v26 is outside `@complexthings/superpowers-agent` declared engine range (`^20 || ^22 || ^24`), though commands executed successfully.
+- Superpowers OpenCode plugin symlink was skipped because `/opt/homebrew/lib/node_modules/@complexthings/superpowers-agent/.opencode/plugins/superpowers-agent.js` was not found; skills still sync to `~/.agents/skills` and opencode can discover external skills from `~/.agents/skills` per opencode behavior.
+- Must restart opencode for new project/global skills to load.
+
+**Next concrete step:**
+- Restart opencode, then test skill loading by asking for UI work and a Superpowers workflow task; if Superpowers does not auto-load in opencode, add explicit `skills.paths` for `~/.agents/skills` in opencode config after approval.
+
+## 2026-06-29 11:55:00 ICT — Installed claude-mem and Caveman for OpenCode; Taste blocked by missing repo
+
+**Scope lock:**
+- AI coding assistant plugin/skill installation only.
+- No Fabric/SQL/Power BI/cloud mutation.
+- No repo source-code mutation beyond context log; global OpenCode/user-tooling config mutated by installers.
+
+**User instruction:**
+- Install additional packs: `claude-mem`, `Taste Skill`, and `Caveman`.
+- Use supplied GitHub/source links and verify before installing.
+
+**Actions/evidence:**
+- Verified `thedotmack/claude-mem` via GitHub API: ~85k stars, ~7.3k forks, Apache-2.0, README supports `npx claude-mem install --ide opencode`.
+- Verified `JuliusBrussee/caveman` via GitHub API: ~77.9k stars, ~4.4k forks, MIT, README/INSTALL supports OpenCode via `npx -y github:JuliusBrussee/caveman -- --only opencode`.
+- `papercliplabs/taste` returned GitHub API/web 404; user then provided correct repo `leonxlnx/taste-skill`.
+- Verified `Leonxlnx/taste-skill` via GitHub API: ~53k stars, ~3.7k forks, MIT, README supports `npx skills add https://github.com/Leonxlnx/taste-skill`.
+- Installed Taste Skill `design-taste-frontend` for OpenCode: `npx -y skills@latest add https://github.com/Leonxlnx/taste-skill --agent opencode --skill design-taste-frontend -y`.
+- Skill copied to `.agents/skills/design-taste-frontend/SKILL.md` (project scope). Security assessment: Safe/0 alerts/Low Risk.
+- Verified via `npx skills list --agent opencode --json`: skill `design-taste-frontend` registered, scope=project, agent=OpenCode.
+- Read Caveman installer shim and INSTALL.md; ran dry-run first: `npx -y github:JuliusBrussee/caveman -- --dry-run --only opencode --no-mcp-shrink --non-interactive`.
+- Installed Caveman for OpenCode only: `npx -y github:JuliusBrussee/caveman -- --only opencode --no-mcp-shrink --non-interactive`.
+- `claude-mem install --ide opencode --runtime worker --no-auto-start` initially failed with npm peer dependency conflict (`tree-sitter` 0.21 vs 0.22.4 optional peer); retried with `npm_config_legacy_peer_deps=true` and install succeeded.
+- Installed claude-mem for OpenCode with worker runtime and no auto-start: `npm_config_legacy_peer_deps=true npx -y claude-mem@latest install --ide opencode --runtime worker --no-auto-start`.
+- Verified `npx claude-mem version` returns `13.8.1` and `npx claude-mem status` reports `Worker is not running`.
+
+**Files changed/live changes:**
+- Global OpenCode config: Caveman installed plugin/commands/agents/skills under `/Users/MAC/.config/opencode/` and patched `/Users/MAC/.config/opencode/opencode.json`; appended Caveman rules to `/Users/MAC/.config/opencode/AGENTS.md`.
+- Global OpenCode config: claude-mem installed plugin at `/Users/MAC/.config/opencode/plugins/claude-mem.js`, registered it in `/Users/MAC/.config/opencode/opencode.json`, and created placeholder context in `/Users/MAC/.config/opencode/AGENTS.md`.
+- Global Claude-mem cache/config: installer copied plugin files under `/Users/MAC/.claude/plugins/marketplaces/thedotmack`; data/settings live under `/Users/MAC/.claude-mem` when used.
+- Repo: updated `00_CONTEXT/current.md` only.
+
+**Blocker/risk:**
+- `claude-mem` stores session observations/memory locally when worker is running; user should use `<private>` tags for sensitive content per README.
+- `claude-mem` worker is intentionally not running after install; start manually with `npx claude-mem start` if desired.
+- Restart OpenCode required for new plugins/skills to load.
+
+**Next concrete step:**
+- Restart OpenCode to load all newly installed plugins/skills: Superpowers, UI UX Pro Max, claude-mem, Caveman, Taste Skill. Optionally start claude-mem worker with `npx claude-mem start`.
+
+## 2026-06-29 12:15:00 ICT — Installed all 5 skills for Claude Code and moved all to global scope
+
+**Scope lock:**
+- AI coding assistant skill/plugin installation only.
+- No Fabric/SQL/Power BI/cloud mutation.
+- Global user-tooling config mutation only; no repo source code changes.
+
+**User instruction:**
+- Install all 5 skill packs for Claude Code (not just OpenCode).
+- Move everything to global scope so all projects benefit.
+
+**Actions/evidence:**
+- Superpowers: already installed for Claude Code via earlier `superpowers-agent bootstrap` which patched `~/.claude/settings.json` with SessionStart hook. Skills sync to `~/.agents/skills/` which Claude Code discovers.
+- claude-mem: already installed for Claude Code via earlier `npx claude-mem install` which registered marketplace at `~/.claude/plugins/marketplaces/thedotmack/`.
+- Caveman: installed for Claude Code via `npx -y github:JuliusBrussee/caveman -- --only claude --no-mcp-shrink --non-interactive`. Claude Code plugin marketplace added and plugin installed with SessionStart + UserPromptSubmit hooks.
+- UI UX Pro Max: installed global for Claude Code via `npx -y ui-ux-pro-max-cli@latest init --ai claude --global --force`. Skills at `~/.claude/skills/`.
+- UI UX Pro Max: re-installed global for OpenCode via `npx -y ui-ux-pro-max-cli@latest init --ai opencode --global --force`. Skills at `~/.config/opencode/skills/`.
+- Taste Skill: installed global for Claude Code via `npx -y skills@latest add https://github.com/Leonxlnx/taste-skill --agent claude-code --skill design-taste-frontend -g -y`. Skill at `~/.claude/skills/design-taste-frontend/`.
+- Taste Skill: re-installed global for OpenCode via `npx -y skills@latest add https://github.com/Leonxlnx/taste-skill --agent opencode --skill design-taste-frontend -g -y`. Skill at `~/.agents/skills/design-taste-frontend/`.
+
+**Files changed/live changes:**
+- `~/.claude/settings.json` — Superpowers SessionStart hook (earlier) + Caveman plugin hooks (this run).
+- `~/.claude/plugins/marketplaces/thedotmack/` — claude-mem marketplace (earlier).
+- `~/.claude/skills/` — UI UX Pro Max skills + Taste Skill `design-taste-frontend`.
+- `~/.config/opencode/skills/` — UI UX Pro Max skills (global now, not project).
+- `~/.agents/skills/design-taste-frontend/` — Taste Skill (global, shared by both OpenCode and Claude Code).
+- `~/.claude/plugins/` — Caveman plugin registered.
+- Repo: updated `00_CONTEXT/current.md` only.
+
+**Blocker/risk:**
+- Restart both OpenCode and Claude Code to load all new global skills/plugins.
+- claude-mem worker still not running; start with `npx claude-mem start` if desired.
+- Project-level copies of UI UX Pro Max (`.opencode/skills/`) and Taste Skill (`.agents/skills/`) still exist in repo; global copies now override via priority. Can clean project copies later if desired.
+
+**Next concrete step:**
+- Restart OpenCode and Claude Code. Optionally clean up project-level skill duplicates if global scope is sufficient.
+
+## 2026-06-30 13:15:21 ICT — Ran forecast_accuracy + inventory_health table-by-table refresh
+
+**Scope lock:**
+- Live Fabric Warehouse ETL Framework refresh for exactly two marts: `forecast_accuracy` then `inventory_health`.
+- No Fabric DataPipeline `pl_*` run. No mart wrapper procedures `Usp_Refresh_*` used.
+- Execution used local TDS/pyodbc against Warehouse endpoint, one inner ETL Framework procedure per table.
+
+**User instruction:**
+- Run full two-mart flow from repo lineage order, table-by-table, no Fabric pipeline, no wrapper USP; ensure clean logs.
+
+**Actions/evidence:**
+- Added runner `03_operations/tools/run_mart_tables.py` for manifest-driven table-by-table execution with `nextset()` drain and stop-on-first-error.
+- Dry-run order confirmed 60 table calls: `forecast_accuracy` 26, `inventory_health` 34.
+- Live command completed exit code 0: `python3 03_operations/tools/run_mart_tables.py --manifest 03_operations/orchestration/forecast_accuracy/manifest.json --manifest 03_operations/orchestration/inventory_health/manifest.json --execute`.
+- `forecast_accuracy`: 26/26 OK in manifest order: Silver W00→W03, Gold shared→dim→fact.
+- `inventory_health`: 34/34 OK in manifest order: Silver W00→W02, Gold shared→dim→helper→helper_w21→fact.
+- Last completed target: `SupplyChain_Gold_Warehouse.InventoryHealth_DW.FactInventoryHealthSnapshot`, audit complete `2026-06-30 01:13:46.686667`.
+- ETL audit error rows since run start `2026-06-30 00:30:00`: 0.
+- Row-count smoke:
+  - `ForecastAccuracy_DW.FactForecastActual`: 163,034,308
+  - `ForecastAccuracy_DW.FactForecastKpi`: 122,773,233
+  - `InventoryHealth_DW.FactInventoryHealthFutureWeekEnding`: 3,849,998
+  - `InventoryHealth_DW.FactInventoryHealthSnapshot`: 3,327,322
+
+**Files changed/live changes:**
+- Added `03_operations/tools/run_mart_tables.py`.
+- Updated `00_CONTEXT/current.md`.
+- Live Warehouse table refresh completed through ETL Framework inner procedures: `usp_RefreshCuratedTableFromView` and `usp_IncrementalTableLoad` where manifest load type was incremental.
+
+**Blocker/risk:**
+- `run_mart_tables.py` is newly added operational tooling; keep dry-run-first + explicit approval for future live use.
+- `run_refresh.py` wrapper execution path remains unsafe for long wrapper SPs because it does not drain result sets before closing connection.
+
+**Next concrete step:**
+- If desired, validate semantic/report layer freshness after the two mart facts refreshed; otherwise persist runner usage rule into runbook/ADR after approval.
+
+## 2026-06-30 13:15:21 ICT — Persisted Manifest Table Runner as default approved mart refresh method
+
+**Scope lock:**
+- Persistence/documentation only after successful two-mart refresh.
+- No Fabric/SQL/Power BI live mutation during persistence.
+
+**User instruction:**
+- Save the refresh method to context, claude-mem, and operations folder so future "run" requests use this method by default.
+
+**Actions/evidence:**
+- Confirmed `claude-mem` worker is running: PID `39182`, port `37701`, version `13.9.1`.
+- Defined method name: **Manifest Table Runner** / manifest-driven table-by-table ETL Framework refresh.
+- Persisted operating runbook: `03_operations/operating_registry/manifest_table_runner.md`.
+- Updated `03_operations/README.md` to make Manifest Table Runner the default approved ad-hoc mart refresh method.
+- Added file-based memory: `memory/manifest_table_runner_default.md`.
+- Updated `memory/MEMORY.md` index.
+
+**Files changed/live changes:**
+- Added `03_operations/operating_registry/manifest_table_runner.md`.
+- Updated `03_operations/README.md`.
+- Updated `/Users/MAC/.claude/projects/-Users-MAC-Documents-20260413-Fabric-Refactor-Architect/memory/MEMORY.md`.
+- Added `/Users/MAC/.claude/projects/-Users-MAC-Documents-20260413-Fabric-Refactor-Architect/memory/manifest_table_runner_default.md`.
+- Updated `00_CONTEXT/current.md`.
+
+**Blocker/risk:**
+- Future live refresh still requires dry-run first and same-conversation approval before `--execute`.
+- Do not use Fabric DataPipeline `pl_*` or mart wrapper `Usp_Refresh_*` by default unless explicitly requested.
+
+**Next concrete step:**
+- For future approved mart refresh, run `python3 03_operations/tools/run_mart_tables.py --manifest <mart manifest> [--manifest ...]` dry-run first, then `--execute` after approval.
+
+
+## 2026-07-01 12:42:24 ICT — Split Silver wave SPs + Staging lineage fix deployed
+
+- Scope lock: `Enterprise SupplyChain-Dev`; Processing/Gold/ETL Framework only.
+- User instruction: execute approved 10-SP Option A, fix lineage to match live Fabric, keep overwrite-only until incremental keys verified.
+- Actions/evidence:
+  - Updated lineage scanner `05_tools/06_lineage_portal/scanner/builder.py` so `Staging_Wrk.v_*` remains visible.
+  - Regenerated live lineage snapshot via `FABRIC_USE_AZ_CLI=1 PYTHONPATH=. python3 -m scanner.cli --out site/public/lineage_snapshot.json`; mirrored to `site/out` and `site/dist`.
+  - Live snapshot evidence: generated_at_utc `2026-07-01T03:44:20Z`, `workspace_item_count=35`, `table_dictionary_rows=66`, Staging nodes/edges present.
+  - Created 8 new wave/shared SP SQL files; all new wave SP calls use `usp_RefreshCuratedTableFromView`, no `usp_IncrementalTableLoad`.
+  - Deployed 8 Processing SPs live and dropped old Silver wrappers: `Usp_Refresh_ForecastAccuracy_Silver`, `Usp_Refresh_InventoryHealth_Silver`.
+  - Verified Processing live procs: 2 shared + 6 Silver wave procs. Verified Gold procs still present: `Usp_Refresh_ForecastAccuracy_Gold`, `Usp_Refresh_InventoryHealth_Gold`.
+  - Updated live Fabric `pl_backup_full_refresh` definition from 4 activities to 10 activities; MCP readback confirms 10 activities.
+  - Triggered live pipeline run `ee842ea2-445b-4317-81ab-6ad54dbef870`; initial status `NotStarted` at `2026-07-01T05:41:46Z`.
+- Files changed/live changed:
+  - Repo: manifests, SP SQLs, lineage scanner/snapshots, backup pipeline JSON, docs.
+  - Live: Processing dbo SP surface updated; `pl_backup_full_refresh` definition updated; pipeline run triggered.
+- Blocker/risk: pipeline run still in progress/not-started at context time; final activity status and row-count smoke pending.
+- Next concrete step: check run `ee842ea2-445b-4317-81ab-6ad54dbef870`, then verify AuditLog/TableDictionary/fact row counts and report final result.
+
+
+## 2026-07-06 10:36:08 ICT — Read-only Fabric/repo/lineage refresh-order audit
+
+- Scope lock: read-only audit for Enterprise SupplyChain-Dev (`c8d9fc83-18b6-4e1d-8264-0b49eed36fe0`); no Fabric/SQL mutations and no repo business-object changes.
+- User instruction: scan live Fabric, repo lineage, and refresh order across all marts/layers for clear synchronization.
+- Actions/evidence: used Fabric MCP/REST to scan workspace and pipeline definitions/history; used pyodbc read-only against `SupplyChain_Processing_Warehouse`, `SupplyChain_Gold_Warehouse`, and `ETL_Framework`; compared `03_operations/orchestration/*`, `02_marts/*/05_catalog/run_order.json`, SQL wrapper bodies, live proc definitions, TableDictionary, and lineage snapshot.
+- Files/live changed: appended this context only; live objects were read-only. Temporary scripts under `/tmp/fabric_readonly_audit.py`, `/tmp/fabric_proc_defs.py`, `/tmp/fabric_recent_auditlog.py`.
+- Findings/risk: live workspace only has backup pipelines `pl_backup_full_refresh` and `pl_backup_per_table`; checked-in `CLAUDE.md` still lists old `pl_sc_*` IDs. Live full refresh pipeline uses `Usp_Refresh_InventoryHealth_Silver_W00`, but main/manifest says Inventory W01/W02/W03 only; repo search found no W00 SQL file. `pl_backup_full_refresh` also omits `Usp_Refresh_InventoryHealth_Silver_W03`, so live 10-step description is stale/misleading. Lineage snapshot does not include `DQForecastAccuracy`.
+- Next concrete step: present ranked reconciliation plan; if approved, patch repo docs/manifests/lineage artifacts to reflect live pipeline/proc reality and decide whether to update live pipeline definition separately.
+
+
+## 2026-07-06 11:40:38 ICT — Repo/lineage sync to canonical 10-step refresh order
+
+- Scope lock: repo + lineage patch only; live Fabric pipeline mutation deferred to explicit Aric approval per LIVE_SYNC_RUNBOOK.
+- User instruction: chuẩn hoá thứ tự refresh về đúng 10 bước và đồng bộ repo/lineage/live.
+- Actions/evidence:
+  - Branched to `sync-refresh-order-lineage` from `main`.
+  - Registered `ForecastAccuracy_DW.DQForecastAccuracy` and `ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy` in `02_marts/forecast_accuracy/05_catalog/{assets,run_order,lineage_edges}.json` as gold_dq (wave 40) with a `direct_sql_insert_materializes_final_table` edge from `_Wrk.v_DQForecastAccuracy`.
+  - Added `gold_dq` wave to `05_tools/06_lineage_portal/scanner/mart_catalog.py` WAVE_MAP.
+  - Tightened `dependency_parser.KNOWN_SCHEMAS` so `AliasName.Column` refs (e.g., `cal.Date`, `oo.QtyOpenOrder`) no longer pollute the lineage graph.
+  - Updated `test_forecast_dq_contract.py` to assert DQForecastAccuracy IS in catalog + has direct-insert edge (previous assertion was `assertNotIn`).
+  - Regenerated `05_tools/06_lineage_portal/site/public/lineage_snapshot.json` via live Fabric REST + pyodbc scan; DQ node now has 31 upstream edges, layer=Gold, mart=forecast_accuracy, wave=40.
+  - CLAUDE.md Manual Refresh Rule now enumerates the exact 10 wrappers; Live Pipeline IDs table replaced legacy `pl_sc_*` with live `pl_backup_full_refresh` (`41948342-d7e7-4166-8638-9af0633e6a49`) and `pl_backup_per_table` (`ba5fb8be-9d35-46dc-baf4-13c0c6035bab`).
+  - `03_operations/orchestration/main/README.md` and `forecast_accuracy/README.md` updated to reference `pl_backup_full_refresh` instead of legacy `pl_sc_master`/`pl_sc_mart`.
+  - Generated Fabric REST payload `03_operations/orchestration/backup_pipeline/pl_backup_full_refresh.fabric_payload.json` from repo canonical JSON.
+  - Wrote `03_operations/orchestration/backup_pipeline/LIVE_SYNC_RUNBOOK.md` documenting exact `updateDefinition` + optional W00 cleanup steps; awaiting approval before execution.
+- Tests: `python3 -m unittest` for `test_dependency_parser.py`, `test_forecast_dq_contract.py`, `test_builder.py`, `test_mart_catalog.py`, `test_classifier.py`, `test_wave_builder.py` — 13/13 OK.
+- Live changes: none. Live `pl_backup_full_refresh` still has `Usp_Refresh_InventoryHealth_Silver_W00` and no `_W03`; live SP `Usp_Refresh_InventoryHealth_Silver_W00` remains until approval.
+- Blocker/risk: current live pipeline still skips `InventoryHealth_Silver_W03`, so `AFIStatusSnapshotWeekly/AwdHelper/LastInvoiceWeekly/Cogs52WWeekly` continue to depend on manual refresh for freshness before Gold.
+- Next concrete step: obtain Aric approval to POST the new Fabric pipeline definition (Step A of LIVE_SYNC_RUNBOOK), then optionally drop live `Usp_Refresh_InventoryHealth_Silver_W00` (Step B).
+
+
+## 2026-07-06 11:58:59 ICT — Live Fabric mutation: pl_backup_full_refresh definition synced to canonical 10-step
+
+- Scope lock: LIVE MUTATION — Fabric pipeline updateDefinition on `41948342-d7e7-4166-8638-9af0633e6a49`.
+- User instruction: "fix fabric live" (Step A of LIVE_SYNC_RUNBOOK).
+- Actions/evidence:
+  - Verified no in-progress job before mutation (latest run 2026-07-03 Failed, no active pipeline).
+  - Base64-encoded `03_operations/orchestration/backup_pipeline/pl_backup_full_refresh.fabric_payload.json` (11,296 bytes).
+  - POST `/workspaces/c8d9fc83-18b6-4e1d-8264-0b49eed36fe0/items/41948342-d7e7-4166-8638-9af0633e6a49/updateDefinition` → HTTP 200 sync, RequestId `d6138633-e4be-4aac-9f2c-ac8b718bc239`.
+  - Re-fetched live definition via Fabric REST getDefinition and confirmed 10 activities in exact canonical order.
+- Live changes:
+  - `pl_backup_full_refresh` definition rewritten. Removed `03_Inventory_Silver_W00` calling `Usp_Refresh_InventoryHealth_Silver_W00`. Added `09_Inventory_Silver_W03` calling `Usp_Refresh_InventoryHealth_Silver_W03`. Renumbered/renamed activities 03–10 to Forecast-first ordering (03/04/05 Forecast W01–W03, 06 Forecast Gold, 07/08/09 Inventory W01–W03, 10 Inventory Gold).
+- Verification: getDefinition shows exact 10 activities matching repo canonical:
+  01_Shared_ReferenceMaster → 02_Shared_Staging → 03_Forecast_Silver_W01 → 04_Forecast_Silver_W02 → 05_Forecast_Silver_W03 → 06_Forecast_Gold → 07_Inventory_Silver_W01 → 08_Inventory_Silver_W02 → 09_Inventory_Silver_W03 → 10_Inventory_Gold.
+- Blocker/risk: Live SP `Usp_Refresh_InventoryHealth_Silver_W00` still exists in `SupplyChain_Processing_Warehouse` (Step B optional cleanup). It is now orphaned — no longer referenced by any live pipeline.
+- Next concrete step: (optional) Step B `DROP PROCEDURE dbo.Usp_Refresh_InventoryHealth_Silver_W00` if Aric confirms nothing else references it. Otherwise, trigger a smoke run of `pl_backup_full_refresh` to validate the new W03 step end-to-end.
+
+
+## 2026-07-06 12:18:55 ICT — Step B executed: dropped orphan Usp_Refresh_InventoryHealth_Silver_W00 + lineage resynced
+
+- Scope lock: LIVE MUTATION — SP drop in SupplyChain_Processing_Warehouse, then lineage snapshot regeneration.
+- User instruction: "bạn tự xóa đi cho tôi, à lineage đã đồng bộ chưa"
+- Root-cause evidence gathered before DROP:
+  - W00 body was byte-identical to W01 (both refresh InventorySnapshotWeekly + AtpWeekEnding via usp_RefreshCuratedTableFromView).
+  - sys.sql_modules: 0 objects referenced W00 (verified by LIKE '%Usp_Refresh_InventoryHealth_Silver_W00%').
+  - Repo generate_wave_sps.py has no spec for W00, only W01/W02/W03.
+  - Timeline: W00 was created 2026-07-01 05:36 (early wave design), W01 created 2026-07-01 08:48 (post-refactor with same body). W00 became orphaned when live pipeline was updated to call W01.
+  - AuditLog confirms InventorySnapshotWeekly + AtpWeekEnding continued to refresh (2026-07-02 22:06, 2026-07-03 02:05, 2026-07-03 02:54) — verified W01 is functionally taking over.
+- Live changes:
+  - DROP PROCEDURE [SupplyChain_Processing_Warehouse].[dbo].[Usp_Refresh_InventoryHealth_Silver_W00]. Pre-check found 1 row, post-check 0.
+- Lineage sync:
+  - Regenerated `05_tools/06_lineage_portal/site/public/lineage_snapshot.json` via live Fabric REST + pyodbc.
+  - Snapshot generated_at_utc = 2026-07-06T05:17:54Z.
+  - 97 nodes, 163 edges. W00 refs: 0. W03 refs: 0 (W03 is proc-level, not object-level, so absence is expected — W03 tables like AFIStatusSnapshotWeekly appear individually with wave=3).
+  - DQForecastAccuracy node present with 31 inbound edges, layer=Gold, mart=forecast_accuracy, wave=40.
+  - Portal deploy: `.github/workflows/lineage-portal.yml` cron `17 */2 * * *` (every 2h) auto-rebuilds live from Fabric secrets + deploys to GitHub Pages. Repo commit of the new snapshot is not required for portal to pick up the change; scheduled workflow will regenerate.
+- Verification:
+  - Live Fabric pipeline `pl_backup_full_refresh` definition: 10 activities canonical (no W00, includes W03).
+  - Live SQL: no orphan `Usp_Refresh_InventoryHealth_Silver_W00` procedure.
+  - Lineage snapshot: no W00 leakage, DQ node fully connected.
+- Next concrete step: optional smoke run of `pl_backup_full_refresh` to end-to-end verify the new W03 step; and commit branch `sync-refresh-order-lineage` if repo state should be preserved in git.
+
+## 2026-07-06 15:06:36 ICT — Root cause check for latest single DQ fail and DemandForecastSnapshot status
+
+**Scope lock:**
+- Read-only live SQL investigation after current full forecast refresh emitted DQ batch.
+- No live mutation.
+
+**User instruction:**
+- Determine whether the only current fail is ETL-code-caused or source-caused, and clarify the `DemandForecastSnapshotDaily` DQ situation.
+
+**Actions/evidence:**
+- Re-read `CLAUDE.md` and `00_CONTEXT/current.md`.
+- Confirmed latest DQ batch `20B600BD-2F6B-4354-85BC-6A93131B3911` at `2026-07-06 14:34:01 ICT` has one fail only: `DQ_Bronze_Grain_InvoiceHeader`.
+- Repo rule evidence: `DQ_Bronze_Grain_InvoiceHeader` checks `Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader` grouped by `(InvoiceNumber, OrderNumber)`.
+- Live source check: `InvoiceHeader` has `82` duplicate `(InvoiceNumber, OrderNumber)` groups, `164` rows in those groups, each duplicated exactly twice.
+- Full ETL join-key check: the same `82` groups are also duplicated by `(InvoiceNumber, OrderNumber, InvoiceDate, OrderDate)`; this is source duplicate at the join key, not only a too-narrow DQ grain.
+- Silver impact check: `SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel` has `0` duplicate detail-grain keys by `(InvoiceID, OrderID, ItemSKU, ItemSequenceNum)`.
+- Bad-header related rows: `82` affected invoice/order headers, `164` duplicate header rows, `271` raw detail rows under those headers, and `271` Silver rows under those headers.
+- DemandForecast latest DQ check: all demand/forecast-related rules in the latest batch are `PASS`, including `DQ_Bronze_Grain_DemandForecastSnapshotDaily` and `DQ_B2S2_Forecast_Qty`.
+- DemandForecast history: both `DQ_Bronze_Grain_DemandForecastSnapshotDaily` and `DQ_B2S2_Forecast_Qty` failed in all `9` visible runs on `2026-07-03`, then passed in the `2026-07-06 14:34 ICT` batch.
+- Raw DemandForecast source remains dirty: `Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily` has `6,275,609` duplicate canonical 7-key groups and `22,268,517` rows in duplicate groups (`min=2`, `max=8` rows/key).
+
+**Conclusion:**
+- Latest single fail `DQ_Bronze_Grain_InvoiceHeader` is source/bronze data quality failure, not ETL-generated duplicate. Current ETL does not show downstream Silver detail grain duplication from it.
+- DemandForecast raw source is still duplicated, but current live DQ passes because the canonical staging/dedup contract now handles it and B2S quantity reconciliation passes.
+
+**Next concrete step:**
+- If needed, export the 82 duplicate `InvoiceHeader` keys as source remediation evidence; do not patch ETL unless business decides to dedupe `InvoiceHeader` in a canonical source wrapper.
+
+## 2026-07-06 15:30:25 ICT — Corrected DemandForecast bronze DQ rule to raw source and reran DQ snapshot
+
+**Scope lock:**
+- Repo DQ view patch + live Gold Warehouse view deployment + direct DQ history insert.
+- No mart/fact rerun.
+
+**User instruction:**
+- `DQ_Bronze_Grain_DemandForecastSnapshotDaily` was wrongly checking the deduped staging view; correct it to raw source `Enterprise_Lakehouse` and rerun DQ. Expected at least two fails if correct.
+
+**Actions/evidence:**
+- Patched `02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql`.
+- Patched mirror `03_operations/deployment/sqlproj/SupplyChain_Gold_Warehouse/ForecastAccuracy_DW_Wrk/Views/v_DQForecastAccuracy.sql`.
+- Changed `DQ_Bronze_Grain_DemandForecastSnapshotDaily` to check raw `Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily` grouped by canonical 7-key:
+  - `dfcItem`
+  - `dfcWarehouse`
+  - `dfcFiscalMonth`
+  - `dfcSnapshot`
+  - `DfcCustomerGroups`
+  - `dfcFCSTTypeCode`
+  - `dfcMgmtCode`
+- Deployed live `CREATE OR ALTER VIEW [ForecastAccuracy_DW_Wrk].[v_DQForecastAccuracy]` to `SupplyChain_Gold_Warehouse`.
+- Inserted a new DQ snapshot with the same terminal insert shape used by `dbo.Usp_Refresh_ForecastAccuracy_Gold`.
+- Insert duration was `680.0s` because the rule now scans raw DemandForecast source plus the full DQ suite.
+
+**Latest DQ result after correction:**
+- `DQRunId = 2729EFD2-BFCA-45F8-97E5-31BAD1A1CB95`
+- `DQRunAtICT = 2026-07-06 15:17:33.506511`
+- Summary: `29 PASS / 3 FAIL / 32 total rules`
+- Fails:
+  - `DQ_Bronze_Grain_DemandForecastSnapshotDaily`
+  - `DQ_Bronze_Grain_InvoiceHeader`
+  - `DQ_S2S1_Invoice_Qty`
+
+**Important nuance:**
+- The two expected raw-source fails are now present:
+  - `DemandForecastSnapshotDaily` raw source duplicate
+  - `InvoiceHeader` raw source duplicate
+- The third fail is a timing/desync issue, not caused by the DemandForecast rule change:
+  - `DQ_S2S1_Invoice_Qty` diff: `S1 ActualDemandMonthly Invoice = 94,029,283`; `S2 InvoiceDetailLineLevel = 94,082,892`; diff = `53,609`.
+  - UpdateLog shows `InvoiceDetailLineLevel` refreshed later than `ActualDemandMonthly`:
+    - `ActualDemandMonthly = 2026-07-06 02:25:23.120000`
+    - `InvoiceDetailLineLevel = 2026-07-06 03:03:32.166667`
+  - This matches full pipeline behavior: Inventory later refreshes shared `SalesHistory_Enh.InvoiceDetailLineLevel` after the Forecast DQ snapshot at `14:34 ICT`, causing cross-layer mismatch if DQ is run again after Inventory.
+- Full pipeline run `d276499a-e2fe-4a9d-b28c-82cf170c9509` completed at `2026-07-06T08:24:38Z` (`15:24:38 ICT`).
+
+**Next concrete step:**
+- To get a clean post-correction forecast DQ with only durable raw-source failures, rerun the forecast layer that rebuilds `ActualDemandMonthly` from the current `InvoiceDetailLineLevel` before inserting DQ again, e.g. Forecast Silver W02 followed by Forecast Gold/DQ.
+
+## 2026-07-06 15:47:44 ICT — Targeted `ActualDemandMonthly` refresh and cancelled follow-up DQ insert
+
+**Scope lock:**
+- Live targeted table refresh + read-only verification + cancelled DQ insert.
+- No DQ history overwrite.
+
+**User instruction:**
+- Fix only the desynced table/rule, rerun just enough DQ logic to prove pass, then stop after user decided tomorrow's full run is sufficient.
+
+**Actions/evidence:**
+- Refreshed only `SupplyChain_Processing_Warehouse.SalesHistory_Enh.ActualDemandMonthly` via:
+  - `ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView('SupplyChain_Processing_Warehouse', 'SalesHistory_Enh', 'ActualDemandMonthly')`
+- Refresh completed successfully in `32.5s`.
+- Targeted `DQ_S2S1_Invoice_Qty` SQL check after refresh:
+  - `S1 ActualDemandMonthly Invoice = 94,082,892`
+  - `S2 InvoiceDetailLineLevel = 94,082,892`
+  - `diff = 0`
+  - `dq_result = PASS`
+- `TableDictionary_UpdateLog` confirms:
+  - `ActualDemandMonthly = 2026-07-06 03:38:19.990000`
+  - `InvoiceDetailLineLevel = 2026-07-06 03:03:32.166667`
+- Started appending a full DQ snapshot so latest history would reflect the pass, but user said stop because tomorrow's full run is acceptable.
+- Interrupted the DQ insert client, checked `sys.dm_exec_requests`, and confirmed no lingering `ForecastAccuracy_DW.DQForecastAccuracy` insert session remained.
+- Latest DQ history remains unchanged:
+  - `DQRunId = 2729EFD2-BFCA-45F8-97E5-31BAD1A1CB95`
+  - `DQRunAtICT = 2026-07-06 15:17:33.506511`
+  - `29 PASS / 3 FAIL`
+
+**Conclusion:**
+- The desync root cause has been corrected in the live Silver table state; targeted rule now passes.
+- DQ history was not overwritten or corrected retroactively; latest stored DQ batch still shows the old 3-fail snapshot until the next full DQ run.
+
+**Next concrete step:**
+- Tomorrow's normal full mart run should emit a fresh DQ snapshot. Expected durable fails after correction remain the two raw-source duplicate rules unless source data changes:
+  - `DQ_Bronze_Grain_DemandForecastSnapshotDaily`
+  - `DQ_Bronze_Grain_InvoiceHeader`
+
+## 2026-07-06 16:00 ICT — Inventory Health BRZ→Silver DQ design analysis
+
+**Scope lock:**
+- Read-only repo analysis only.
+- No live Fabric/SQL mutation.
+
+**User instruction:**
+- Analyze how to apply the DQ view/template approach to Inventory Health for BRZ→Silver checks only.
+
+**Actions/evidence:**
+- Read Inventory Health run order, lineage edges, `04_dq` contracts, Bronze DQ generated artifacts, and W01 Silver views.
+- Confirmed Inventory existing generated Bronze DQ artifacts already cover source-level rules:
+  - `table_exists`
+  - `schema_snapshot`
+  - `freshness_observed`
+  - `latest_partition_null_blank_key`
+  - `latest_partition_grain_duplicate`
+  - `full_row_duplicate`
+  - selected `all_history_grain_duplicate`
+- Confirmed Silver W01 targets are:
+  - `ReferenceMaster_Enh.*`
+  - `InventoryHistory_Enh.InventorySnapshotWeekly`
+  - `InventoryHistory_Enh.AtpWeekEnding`
+- Noted many Inventory raw sources intentionally contain duplicates and are deduped/latest-effective in Silver views, so DQ must separate raw-source quality from canonical Silver output quality.
+
+**Next concrete step:**
+- If implementing, create an Inventory mart DQ view/table that emits BRZ source checks, BRZ→Silver reconciliation checks, and Silver grain checks, but does not include Gold checks.
+
+## 2026-07-06 16:33:25 ICT — Inventory Health W01 BRZ→Silver DQ draft and live SELECT-only validation
+
+**Scope lock:**
+- Repo draft SQL template + read-only live warehouse validation.
+- No live DQ view/table creation and no physical DQ insert.
+
+**User instruction:**
+- Build the three DQ families for the user's Inventory W01 BRZ→Silver scope following Forecast DQ view style, but avoid Forecast mistakes and do not create live objects yet.
+
+**Actions/evidence:**
+- Added draft template:
+  - `02_marts/inventory_health/04_dq/drafts/v_DQInventoryHealth_BrzToSilver_W01.template.sql`
+- Template emits 21 rules across 7 W01 targets:
+  - `DQ_Bronze_*`: raw `Enterprise_Lakehouse` source quality only.
+  - `DQ_B2S_*`: `_Wrk.v_*` expected Silver output compared to physical Silver table.
+  - `DQ_Silver_Grain_*`: final Silver table grain/key contract.
+- Ran equivalent SELECT-only DQ logic live against `SupplyChain_Processing_Warehouse`; no insert.
+- SELECT-only run metadata:
+  - `DQRunId = 2F204319-8E0A-49D7-82F5-ACC80EB7D5C9`
+  - `DQRunAtUTC = 2026-07-06 09:19:43.196007`
+
+**Live validation result:**
+- Summary: `18 PASS / 3 FAIL / 21 total`.
+- All `DQ_B2S_*` rules passed.
+- All `DQ_Silver_Grain_*` rules passed.
+- Failing rules are raw-source-only checks:
+  - `DQ_Bronze_Grain_ATPWeekEnding`
+  - `DQ_Bronze_Grain_DemandInventorySnapshotDaily`
+  - `DQ_Bronze_Grain_Warehouse`
+
+**Fail diagnostics:**
+- `WarehouseMaster`: 1 raw blank/null `Warehouse` row; no duplicate warehouse groups; Silver filters it out (`raw_rows = 54`, `silver_rows = 53`).
+- `ATPWeekEnding`: 18 raw duplicate source-grain groups overall; only 1 relevant duplicate group before Silver dedupe; final Silver output passes B2S and Silver grain.
+- `DemandInventorySnapshotDaily`: raw source is heavily duplicated (`132,240,024` duplicate source-grain groups overall); Silver W01 latest/weekly dedupe produces valid output and passes B2S/Silver grain.
+
+**Guardrail against Forecast DQ mistakes:**
+- Raw Bronze rules explicitly say they read raw source and may fail before Silver dedupe.
+- B2S rules do not compare raw source directly to persisted Silver; they compare `_Wrk.v_*` expected output to physical final Silver.
+- The draft is not deployed live and should be reviewed before promotion to `InventoryHealth_DW_Wrk.v_DQInventoryHealth` or a physical DQ history table.
+
+**Next concrete step:**
+- If approved later, promote the draft into the Inventory DQ view/table pattern and wire insertion after W01 Silver completion, or keep it as a reviewable SELECT-only validation script.
+
+## 2026-07-07 10:49:44 ICT — Reworked Inventory W01 `DQ_B2S_*` contract to true Bronze-to-Silver checks
+
+**Scope lock:**
+- Repo SQL template edit + read-only Fabric compile validation.
+- No live DQ view/table creation and no physical DQ insert.
+
+**User instruction:**
+- Apply the corrected three-rule-family design to all tables in the user's Inventory W01 scope and update the full SQL file.
+
+**Actions/evidence:**
+- Replaced `02_marts/inventory_health/04_dq/drafts/v_DQInventoryHealth_BrzToSilver_W01.template.sql`.
+- Removed `_Wrk` usage from `DQ_B2S_*`.
+- New `DQ_B2S_*` pattern:
+  - Build expected output from raw `Enterprise_Lakehouse` source.
+  - Apply the same business filters/dedupe/latest-snapshot logic needed for Silver W01.
+  - Compare expected output to physical Silver tables.
+- Kept 21 total rules across 7 W01 targets:
+  - `DQ_Bronze_*`
+  - `DQ_B2S_*`
+  - `DQ_Silver_Grain_*`
+- Tightened Bronze rules for obvious null/blank key cases:
+  - `Calendar`
+  - `DemandInventorySnapshotDaily`
+  - `ATPWeekEnding`
+
+**Verification:**
+- Static check: no `_Wrk` references remain in the template.
+- Static check: `21` DQ rules remain.
+- Fabric SQL endpoint compile/read-only check:
+  - Rewrote final SELECT as `SELECT TOP (0)` in-memory only.
+  - Executed against `SupplyChain_Processing_Warehouse`.
+  - Result: `0` rows returned in `3.58s`; syntax/binding passed.
+
+**Risk / note:**
+- Full live DQ SELECT was not rerun after this edit because the new true-B2S expected CTEs scan large raw source tables and may be heavy. Current validation proves compile/binding, not latest pass/fail distribution.
+
+**Next concrete step:**
+- If pass/fail output is needed for the revised true-B2S template, run a SELECT-only full DQ check during an acceptable Fabric window and compare against the prior `18 PASS / 3 FAIL / 21` baseline.
+
+## 2026-07-07 10:53:50 ICT — Added Vietnamese explanatory comments to Inventory W01 DQ template
+
+**Scope lock:**
+- Repo SQL comment/documentation edit + read-only Fabric compile validation.
+- No live DQ view/table creation and no physical DQ insert.
+
+**User instruction:**
+- Add detailed Vietnamese explanation comments inside the SQL file, grouped by the three DQ families.
+
+**Actions/evidence:**
+- Updated `02_marts/inventory_health/04_dq/drafts/v_DQInventoryHealth_BrzToSilver_W01.template.sql`.
+- Added Vietnamese comments for:
+  - how to read the file;
+  - expected-output CTEs used by true `DQ_B2S_*`;
+  - B2S metric CTEs;
+  - `DQ_Bronze_*` section;
+  - `DQ_B2S_*` section;
+  - `DQ_Silver_Grain_*` section;
+  - final SELECT/run metadata output.
+- Logic was not intentionally changed; comments only.
+
+**Verification:**
+- Static check: `21` DQ rules remain.
+- Static check: no `ReferenceMaster_Enh_Wrk` or `InventoryHistory_Enh_Wrk` references remain.
+- Fabric SQL endpoint compile/read-only check:
+  - Rewrote final SELECT as `SELECT TOP (0)` in-memory only.
+  - Executed against `SupplyChain_Processing_Warehouse`.
+  - Result: `0` rows returned in `3.09s`; syntax/binding passed.
+
+**Next concrete step:**
+- If the annotated template is approved, next step is either run full SELECT-only DQ output in an acceptable Fabric window or promote to a reviewed Inventory DQ view/table pattern later.
+
+## 2026-07-07 13:16:40 ICT — SELECT-only run of revised Inventory W01 true-B2S DQ template
+
+**Scope lock:**
+- Read-only Fabric SQL execution of draft template.
+- No live DQ view/table creation and no physical DQ insert.
+
+**User instruction:**
+- Summarize the tables/rule types in the user's Bronze-to-Silver W01 scope and run the revised three-rule DQ template to get actual pass/fail.
+
+**Actions/evidence:**
+- Executed full SELECT-only SQL from:
+  - `02_marts/inventory_health/04_dq/drafts/v_DQInventoryHealth_BrzToSilver_W01.template.sql`
+- Runtime:
+  - `174.25s`
+  - `DQRunId = 23260C09-40F6-4436-B49B-EA61468AF2FB`
+  - `DQRunAtUTC = 2026-07-07 06:10:31.197882`
+  - `DQRunAtICT = 2026-07-07 13:10:31.197882`
+
+**Result:**
+- Summary: `18 PASS / 3 FAIL / 21 total`.
+- All revised true `DQ_B2S_*` rules passed.
+- All `DQ_Silver_Grain_*` rules passed.
+- Failing rules remain raw-source-only:
+  - `DQ_Bronze_Grain_Warehouse`
+  - `DQ_Bronze_Grain_DemandInventorySnapshotDaily`
+  - `DQ_Bronze_Grain_ATPWeekEnding`
+
+**Fail diagnostics:**
+- `WarehouseMaster`: `blank_or_null_key_rows = 1`, `duplicate_groups = 0`.
+- `DemandInventorySnapshotDaily`: `blank_or_null_key_rows = 0`, `duplicate_groups = 135,977,040`.
+- `ATPWeekEnding`: `blank_or_null_key_rows = 0`, `duplicate_groups = 18`.
+
+**Conclusion:**
+- Revised DQ contract validates that Inventory W01 Silver final output currently matches raw Bronze-derived expected output and final Silver grain is clean.
+- Current failures are raw Bronze source quality failures only, not Silver transform/load/final grain failures.
+
+**Next concrete step:**
+- If this template is approved, promote it to the reviewed Inventory DQ view/table implementation path; otherwise keep it as a SELECT-only validation artifact.
+
+## 2026-07-07 13:56:43 ICT — Inventory W01 DQ scope correction: live ReferenceMaster has 11 tables, draft DQ covers only 5
+
+**Scope lock:**
+- Read-only repo + live Fabric SQL catalog/definition audit.
+- No live mutation and no DQ insert.
+
+**User instruction:**
+- User questioned why Inventory Bronze-to-Silver DQ has so few Bronze/source tables compared with lineage screenshot.
+
+**Actions/evidence:**
+- Attempted to read screenshot from `CoreSpotlight/PasteboardHistory`; blocked by macOS permission.
+- Queried repo W01 files:
+  - local `02_marts/inventory_health/02_silver/ReferenceMaster_Enh_Wrk` currently has only 5 files.
+- Queried live Fabric catalog in `SupplyChain_Processing_Warehouse`:
+  - `ReferenceMaster_Enh` physical tables = 11.
+  - `ReferenceMaster_Enh_Wrk` views = 11.
+- Live ReferenceMaster W01 physical tables:
+  - `Calendar`
+  - `CustomerAccount`
+  - `CustomerAccountGroup`
+  - `CustomerGrouping`
+  - `CustomerShippingLocation`
+  - `ForecastCycle`
+  - `ForecastHorizon`
+  - `ItemMaster`
+  - `OrderType`
+  - `Vendor`
+  - `Warehouse`
+- Live W01 inventory tables still:
+  - `InventoryHistory_Enh.InventorySnapshotWeekly`
+  - `InventoryHistory_Enh.AtpWeekEnding`
+
+**Finding:**
+- The current draft DQ template covers 7 targets:
+  - 5 ReferenceMaster tables: `Calendar`, `Warehouse`, `Vendor`, `CustomerAccountGroup`, `ItemMaster`
+  - 2 InventoryHistory tables: `InventorySnapshotWeekly`, `AtpWeekEnding`
+- If the intended scope is full live Inventory Silver W01, the DQ draft is incomplete and missing 6 ReferenceMaster tables:
+  - `CustomerAccount`
+  - `CustomerGrouping`
+  - `CustomerShippingLocation`
+  - `ForecastCycle`
+  - `ForecastHorizon`
+  - `OrderType`
+
+**Source refs for missing tables:**
+- `CustomerAccount` <- `Enterprise_Lakehouse.Customers.AccountMaster`
+- `CustomerGrouping` <- `Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping`
+- `CustomerShippingLocation` <- `Enterprise_Lakehouse.Customers.ShippingLocations`
+- `ForecastCycle` <- `ProcessingSeed.ForecastCycle`
+- `ForecastHorizon` <- `ProcessingSeed.ForecastHorizon`
+- `OrderType` <- `Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP`
+
+**Conclusion:**
+- Lineage is not the root issue; it correctly shows more live ReferenceMaster dependencies.
+- The draft DQ scope was under-selected relative to full live W01 ReferenceMaster scope.
+
+**Next concrete step:**
+- Expand the Inventory W01 DQ template from 21 rules to 39 rules if full W01 scope is required: 13 W01 targets x 3 rule families.
+
+## 2026-07-07 14:08:00 ICT — Source-of-truth decision for Inventory DQ scope
+
+**Scope lock:**
+- No live mutation.
+- Decision/context update only.
+
+**User instruction:**
+- User clarified that current live Fabric is the most accurate source of truth.
+
+**Decision:**
+- For Inventory DQ scope and lineage validation, use live Fabric runtime/catalog as primary source of truth.
+- Treat repo files and lineage portal snapshots as derived artifacts that may be stale until proven synced with live Fabric.
+- If repo/lineage conflict with live Fabric, mark repo/lineage as stale and derive DQ coverage from live objects/wrapper procedures/TableDictionary.
+
+**Next concrete step:**
+- Live-check current `SupplyChain_Processing_Warehouse` wrapper procedures and `ETL_Framework.DW_Developer.TableDictionary` before expanding the Inventory Bronze-to-Silver DQ template.
+
+## 2026-07-07 14:22:00 ICT — Inventory super scan: live Fabric vs lineage vs repo
+
+**Scope lock:**
+- Read-only live Fabric REST + SQL catalog scan.
+- No live mutation and no DQ insert.
+
+**User instruction:**
+- Run a "super scan" and evaluate which source is most accurate among repo, lineage, and live Fabric.
+
+**Actions/evidence:**
+- Read live pipeline `pl_backup_full_refresh` definition via Fabric REST.
+- Read live `SupplyChain_Processing_Warehouse` wrapper procedure definitions:
+  - `dbo.Usp_Refresh_Shared_ReferenceMaster`
+  - `dbo.Usp_Refresh_InventoryHealth_Silver_W01`
+  - `dbo.Usp_Refresh_InventoryHealth_Silver_W02`
+  - `dbo.Usp_Refresh_InventoryHealth_Silver_W03`
+- Queried live processing catalog for `ReferenceMaster_Enh`, `InventoryHistory_Enh`, `SalesHistory_Enh`, `Staging` and their `_Wrk` views.
+- Queried live `ETL_Framework.DW_Developer.TableDictionary` and `TableDictionary_UpdateLog`.
+- Compared with local `05_tools/06_lineage_portal/site/public/lineage_snapshot.json` generated at `2026-07-06T05:17:54Z`.
+- Compared with local `02_marts/inventory_health/05_catalog/run_order.json` generated at `2026-06-28T05:30:00Z`.
+
+**Live Fabric findings:**
+- Live pipeline order is correct and current:
+  1. `Usp_Refresh_Shared_ReferenceMaster`
+  2. `Usp_Refresh_Shared_Staging`
+  3. `Usp_Refresh_ForecastAccuracy_Silver_W01`
+  4. `Usp_Refresh_ForecastAccuracy_Silver_W02`
+  5. `Usp_Refresh_ForecastAccuracy_Silver_W03`
+  6. `Usp_Refresh_ForecastAccuracy_Gold`
+  7. `Usp_Refresh_InventoryHealth_Silver_W01`
+  8. `Usp_Refresh_InventoryHealth_Silver_W02`
+  9. `Usp_Refresh_InventoryHealth_Silver_W03`
+  10. `Usp_Refresh_InventoryHealth_Gold`
+- Live `Usp_Refresh_Shared_ReferenceMaster` targets 11 tables:
+  - `Calendar`, `CustomerAccount`, `CustomerAccountGroup`, `CustomerGrouping`, `CustomerShippingLocation`, `ForecastCycle`, `ForecastHorizon`, `ItemMaster`, `OrderType`, `Vendor`, `Warehouse`
+- Live Inventory Silver W01 targets only 2 tables:
+  - `InventoryHistory_Enh.InventorySnapshotWeekly`
+  - `InventoryHistory_Enh.AtpWeekEnding`
+- Live Inventory Silver W02 targets 8 tables:
+  - `InventoryHistory_Enh.PurchaseOrderSnapshotHistorical`
+  - `InventoryHistory_Enh.ManufacturingOrderSnapshotDaily`
+  - `InventoryHistory_Enh.HoldingTransferSnapshotDaily`
+  - `InventoryHistory_Enh.ForecastSnapshotWeekly`
+  - `InventoryHistory_Enh.SupplyPlanDetail`
+  - `InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit`
+  - `InventoryHistory_Enh.SafetyStockHelper`
+  - `SalesHistory_Enh.InvoiceDetailLineLevel`
+- Live Inventory Silver W03 targets 4 tables:
+  - `InventoryHistory_Enh.AFIStatusSnapshotWeekly`
+  - `InventoryHistory_Enh.AwdHelper`
+  - `InventoryHistory_Enh.LastInvoiceWeekly`
+  - `InventoryHistory_Enh.Cogs52WWeekly`
+- Live catalog has 13 `InventoryHistory_Enh` physical tables and 13 matching `_Wrk` views.
+- Latest `TableDictionary_UpdateLog` confirms the same run order/freshness sequence on `2026-07-06 22:29` to `23:21` UTC.
+
+**Repo/lineage status:**
+- Repo `run_order.json` is mostly aligned with live SP order for W01/W02/W03.
+- Local lineage snapshot is useful for object surface/row counts but not authoritative for runtime wave labels.
+- The uploaded UI screenshot showing multiple Inventory tables as `Wave 1` should not be used as runtime truth if it conflicts with live SP.
+- Current draft DQ template is under-scoped relative to full live Bronze-to-Silver first-wave/shared scope because it covers only 5 of 11 live ReferenceMaster tables and only the 2 live W01 Inventory tables.
+
+**Conclusion:**
+- Source-of-truth ranking for DQ implementation: live Fabric pipeline + live SP + live TableDictionary first, repo second, lineage snapshot/UI third.
+- For the user's Bronze-to-Silver wave đầu task, DQ scope must be derived from the live SP targets, not from the screenshot wave label alone.
+
+## 2026-07-07 14:35:00 ICT — Lineage portal wave fix and live snapshot regeneration
+
+**Scope lock:**
+- Repo code edit + read-only live Fabric scan.
+- No Fabric data mutation.
+
+**User instruction:**
+- Fix lineage and deploy the portal so it reflects live Fabric as source of truth.
+
+**Actions/evidence:**
+- Updated lineage scanner wave behavior:
+  - `scanner.mart_catalog` now applies wildcard run-order entries such as `ReferenceMaster_Enh.*` to matching catalog assets.
+  - `scanner.wave_builder` now treats runtime/catalog waves as authoritative; topology only fills missing waves.
+- Added regression tests:
+  - wildcard run-order wave mapping
+  - runtime wave not being pushed by dependency topology
+- Regenerated `site/public/lineage_snapshot.json` from live Fabric using `FABRIC_USE_AZ_CLI=1`.
+- Verified generated snapshot:
+  - all 11 `ReferenceMaster_Enh` tables are `W01`
+  - `InventorySnapshotWeekly` and `AtpWeekEnding` are `W01`
+  - `ForecastSnapshotWeekly` is `W02`
+  - `AwdHelper` is `W03`
+- Secret scan of generated snapshot returned no matches.
+- Validation passed:
+  - `PYTHONPATH=. python3 -m unittest discover -s tests -v` -> 15 tests OK
+  - `npm run typecheck` -> OK
+  - `NEXT_PUBLIC_BASE_PATH=/data-architecture-microsoft-medallion-vietnam-data-hub npm run build` -> OK
+
+**Deploy status:**
+- Ready to commit/push targeted lineage changes and trigger GitHub Pages workflow `lineage-portal.yml` with `scan_mode=live`.

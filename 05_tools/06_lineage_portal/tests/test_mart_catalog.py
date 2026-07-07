@@ -56,6 +56,51 @@ class MartCatalogTests(unittest.TestCase):
         self.assertEqual(catalog.wave_for("NewMart_DW", "FactNewMetric"), 30)
         self.assertEqual(catalog.wave_for("Shared_DW", "DimProduct"), 1)
 
+    def test_wildcard_run_order_applies_wave_to_matching_assets(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            catalog_dir = root / "02_marts" / "inventory_health" / "05_catalog"
+            catalog_dir.mkdir(parents=True)
+            (catalog_dir / "assets.json").write_text(
+                json.dumps(
+                    {
+                        "assets": [
+                            {
+                                "display": "ReferenceMaster_Enh.Calendar",
+                                "schema": "ReferenceMaster_Enh",
+                                "object": "Calendar",
+                                "layer": "silver",
+                                "mart": "inventory_health",
+                            },
+                            {
+                                "display": "ReferenceMaster_Enh.Warehouse",
+                                "schema": "ReferenceMaster_Enh",
+                                "object": "Warehouse",
+                                "layer": "silver",
+                                "mart": "inventory_health",
+                            },
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (catalog_dir / "run_order.json").write_text(
+                json.dumps(
+                    {
+                        "mart": "inventory_health",
+                        "sequence": [
+                            {"object": "ReferenceMaster_Enh.*", "wave": 1, "step": 90},
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            catalog = load_mart_catalog(root)
+
+        self.assertEqual(catalog.wave_for("ReferenceMaster_Enh", "Calendar"), 1)
+        self.assertEqual(catalog.wave_for("ReferenceMaster_Enh", "Warehouse"), 1)
+
 
 if __name__ == "__main__":
     unittest.main()
