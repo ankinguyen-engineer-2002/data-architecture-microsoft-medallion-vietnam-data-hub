@@ -34,6 +34,19 @@ class WaveBuilderTests(unittest.TestCase):
         self.assertEqual(warnings, [])
         self.assertEqual(waves, {"shared_dim": 1, "fact": 30})
 
+    def test_runtime_wave_is_authoritative_even_when_dependency_points_later(self) -> None:
+        nodes = [
+            {"id": "invoice_detail", "layer": "Silver", "wave": 2},
+            {"id": "awd_helper", "layer": "Silver", "wave": 3},
+        ]
+        edges = [{"source": "invoice_detail", "target": "awd_helper"}]
+
+        warnings = assign_waves(nodes, edges)
+        waves = {node["id"]: node["wave"] for node in nodes}
+
+        self.assertEqual(warnings, [])
+        self.assertEqual(waves, {"invoice_detail": 2, "awd_helper": 3})
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -5,11 +5,11 @@ from typing import Any
 
 
 def assign_waves(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> list[str]:
-    """Topological wave assignment within each layer (Silver, Gold).
+    """Assign display waves within each layer (Silver, Gold).
 
-    Waves are 1-based. Catalog explicit waves act as a FLOOR (minimum),
-    never an override. Edges always flow from lower wave to higher wave -
-    no same-wave or backward dependencies within a layer.
+    Runtime/catalog waves are authoritative because they mirror the live
+    wrapper procedures. Topology only fills missing waves for uncataloged
+    nodes; it must not move a wrapper-managed table to another lane.
     """
     warnings: list[str] = []
     node_by_id = {node["id"]: node for node in nodes}
@@ -47,11 +47,13 @@ def assign_waves(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> li
                 continue
             processed.add(src)
 
-            # Wave = max(floor from catalog, 1 + highest dependency wave).
-            wave = max_source_wave.get(src, 0) + 1
+            # Explicit runtime/catalog wave wins. For uncataloged nodes, infer
+            # a deterministic topological wave from same-layer dependencies.
             floor = explicit.get(src)
             if floor is not None:
-                wave = max(wave, floor)
+                wave = floor
+            else:
+                wave = max_source_wave.get(src, 0) + 1
             node_by_id[src]["wave"] = wave
 
             for tgt in outgoing[src]:
@@ -72,10 +74,11 @@ def assign_waves(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> li
                 + ", ".join(sorted(unresolved)[:10])
             )
             for nid in sorted(unresolved):
-                fallback = max(max_source_wave.get(nid, 0) + 1, fallback + 1)
                 floor = explicit.get(nid)
                 if floor is not None:
-                    fallback = max(fallback, floor)
+                    node_by_id[nid]["wave"] = floor
+                    continue
+                fallback = max(max_source_wave.get(nid, 0) + 1, fallback + 1)
                 node_by_id[nid]["wave"] = fallback
 
     return warnings

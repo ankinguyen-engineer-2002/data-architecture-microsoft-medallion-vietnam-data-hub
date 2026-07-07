@@ -12,6 +12,7 @@ WAVE_MAP = {
     "gold_dim": 10,
     "gold_helper": 20,
     "gold_fact": 30,
+    "gold_dq": 40,
     "smoke": 90,
 }
 
@@ -98,8 +99,16 @@ def load_mart_catalog(repo_root: Path) -> MartCatalog:
             schema, object_name = split_object(str(step.get("object") or ""))
             if not schema or not object_name:
                 continue
-            key = object_key(schema, object_name)
             wave = normalize_wave(step.get("wave"))
+            if object_name == "*" and wave is not None:
+                for asset in assets:
+                    if str(asset.get("schema") or "") == schema:
+                        asset_object = str(asset.get("object") or "")
+                        if asset_object:
+                            object_to_wave[object_key(schema, asset_object)] = wave
+                continue
+
+            key = object_key(schema, object_name)
             if wave is not None:
                 object_to_wave[key] = wave
             if schema in SUPPORT_SCHEMAS:
