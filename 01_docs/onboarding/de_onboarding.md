@@ -45,7 +45,7 @@ AuditLog và TableDictionary chứng minh runtime đã làm gì.
 Đọc theo thứ tự:
 
 ```text
-CLAUDE.md
+AGENTS.md
 00_CONTEXT/current.md
 README.md
 01_docs/glossary.md

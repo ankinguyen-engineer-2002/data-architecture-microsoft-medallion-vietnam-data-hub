@@ -1,0 +1,82 @@
+{
+  "step": 4,
+  "wave": "W10_inv_dim",
+  "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.DimVendor",
+  "source_view": "SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_DimVendor",
+  "is_hotspot": false,
+  "declared_business_key": [
+    "VendorNumber"
+  ],
+  "table_modify_date_utc": "2026-07-10T08:34:40.883",
+  "view_modify_date_utc": "2026-06-25T03:27:13.470",
+  "final_table_columns": [
+    {
+      "pos": 1,
+      "col": "VendorNumber",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "VendorName",
+      "dtype": "varchar",
+      "maxlen": 200,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "view_columns": [
+    {
+      "pos": 1,
+      "col": "VendorNumber",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "VendorName",
+      "dtype": "varchar",
+      "maxlen": 200,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "loader_positional_contract": {
+    "loader": "ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView (INSERT ... SELECT *)",
+    "table_column_count": 2,
+    "view_column_count": 2,
+    "column_count_match": true,
+    "column_order_match": true,
+    "drift": {
+      "in_view_not_table": [],
+      "in_table_not_view": []
+    },
+    "load_safe": true
+  },
+  "source_refs": [
+    "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Vendor"
+  ],
+  "static_parse": {
+    "cte_names": [],
+    "cte_count": 0,
+    "row_number_count": 0,
+    "group_by_count": 0,
+    "distinct_count": 0,
+    "left_join_count": 0,
+    "inner_join_count": 0,
+    "case_count": 0,
+    "coalesce_count": 0,
+    "latest_asof_markers": 0,
+    "reads_islatest_flag": false,
+    "has_partition_dedupe": false
+  },
+  "view_definition": "-- InventoryHealth_DW_Wrk.v_DimVendor\nCREATE   VIEW [InventoryHealth_DW_Wrk].[v_DimVendor] AS\nSELECT\n    CAST(v.VendorNumber  AS VARCHAR(50))   AS VendorNumber,\n    CAST(v.VendorName    AS VARCHAR(200))  AS VendorName\nFROM [SupplyChain_Processing_Warehouse].[ReferenceMaster_Enh].[Vendor] v\nWHERE v.VendorNumber IS NOT NULL;\n"
+}

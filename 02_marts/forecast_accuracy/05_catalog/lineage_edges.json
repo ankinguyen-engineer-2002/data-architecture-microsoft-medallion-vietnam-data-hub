@@ -33,6 +33,86 @@
       "target_asset_key": "forecastaccuracy.dw.factforecastkpi"
     },
     {
+      "edge_type": "direct_sql_insert_materializes_final_table",
+      "evidence_file": "03_operations/orchestration/forecast_accuracy/sql/SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Gold.sql",
+      "source": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "source_asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy",
+      "target": "ForecastAccuracy_DW.DQForecastAccuracy",
+      "target_asset_key": "forecastaccuracy.dw.dqforecastaccuracy"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "source": "ForecastAccuracy_DW.FactForecastActual",
+      "source_asset_key": "forecastaccuracy.dw.factforecastactual",
+      "target": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "source": "ForecastAccuracy_DW.FactForecastKpi",
+      "source_asset_key": "forecastaccuracy.dw.factforecastkpi",
+      "target": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "source": "ReferenceMaster_Enh.Calendar",
+      "source_asset_key": "referencemaster.enh.calendar",
+      "target": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "source": "SalesHistory_Enh.ActualDemandMonthly",
+      "source_asset_key": "saleshistory.enh.actualdemandmonthly",
+      "target": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "source": "ForecastHistory_Enh.ForecastDemandMonthly",
+      "source_asset_key": "forecasthistory.enh.forecastdemandmonthly",
+      "target": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "source": "ForecastHistory_Enh.NaiveForecastMonthly",
+      "source_asset_key": "forecasthistory.enh.naiveforecastmonthly",
+      "target": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "source": "OpenOrderHistory_Enh.OpenOrderLineLevel",
+      "source_asset_key": "openorderhistory.enh.openorderlinelevel",
+      "target": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "source": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "source_asset_key": "saleshistory.enh.invoicedetaillinelevel",
+      "target": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy"
+    },
+    {
+      "edge_type": "sql_reference",
+      "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "source": "Staging.DemandForecastSnapshotDaily",
+      "source_asset_key": "staging.demandforecastsnapshotdaily",
+      "target": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "target_asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy"
+    },
+    {
       "edge_type": "sql_reference",
       "evidence_file": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DimCustomerGrouping.sql",
       "source": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.CustomerGrouping",

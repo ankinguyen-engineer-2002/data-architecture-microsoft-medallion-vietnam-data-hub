@@ -1,0 +1,50 @@
+DatabaseName,SchemaName,TableName,ObjectType,PrimaryKey,DateKey,OperationKey,Modified,RowCount
+SupplyChain_Gold_Warehouse,ForecastAccuracy_DW,DimCustomerGrouping,Table,CustomerGroupCode,,ForecastAccuracy_DW.DimCustomerGrouping,2026-07-01 01:51:56.583333,
+SupplyChain_Gold_Warehouse,ForecastAccuracy_DW,DimForecastHorizon,Table,HorizonCode,,ForecastAccuracy_DW.DimForecastHorizon,2026-07-01 01:51:59.890000,
+SupplyChain_Gold_Warehouse,ForecastAccuracy_DW,FactForecastActual,Table,,,ForecastAccuracy_DW.FactForecastActual,2026-07-01 01:52:33.556667,40550760
+SupplyChain_Gold_Warehouse,ForecastAccuracy_DW,FactForecastKpi,Table,,,ForecastAccuracy_DW.FactForecastKpi,2026-07-01 01:53:20.813333,31270916
+SupplyChain_Gold_Warehouse,InventoryHealth_DW,DimVendor,Table,,,InventoryHealth_DW.DimVendor,2026-07-01 02:09:17.656667,0
+SupplyChain_Gold_Warehouse,InventoryHealth_DW,FactInventoryHealthFutureWeekEnding,Table,,,InventoryHealth_DW.FactInventoryHealthFutureWeekEnding,2026-07-01 02:19:42.493333,
+SupplyChain_Gold_Warehouse,InventoryHealth_DW,FactInventoryHealthSnapshot,Table,,,InventoryHealth_DW.FactInventoryHealthSnapshot,2026-07-01 02:21:33.980000,60863538
+SupplyChain_Gold_Warehouse,InventoryHealth_DW,InventoryClassificationQtyWeekly,Table,,,InventoryHealth_DW.InventoryClassificationQtyWeekly,2026-07-01 02:14:32.270000,
+SupplyChain_Gold_Warehouse,InventoryHealth_DW,InventoryHealthSubStatusWeekly,Table,,,InventoryHealth_DW.InventoryHealthSubStatusWeekly,2026-07-01 02:14:00.833333,
+SupplyChain_Gold_Warehouse,InventoryHealth_DW,ProjectedInventoryHealthSubStatus,Table,,,InventoryHealth_DW.ProjectedInventoryHealthSubStatus,2026-07-01 02:12:47.650000,
+SupplyChain_Gold_Warehouse,Shared_DW,DimCalendar,Table,,,Shared_DW.DimCalendar,2026-07-01 02:08:58.050000,21551
+SupplyChain_Gold_Warehouse,Shared_DW,DimProduct,Table,,,Shared_DW.DimProduct,2026-07-01 02:09:10.806667,383883
+SupplyChain_Gold_Warehouse,Shared_DW,DimWarehouse,Table,,,Shared_DW.DimWarehouse,2026-07-01 02:09:13.993333,53
+SupplyChain_Processing_Warehouse,ForecastHistory_Enh,ForecastDemandMonthly,Table,,,ForecastHistory_ENH.ForecastDemandMonthly,2026-07-01 01:50:32.090000,42406201
+SupplyChain_Processing_Warehouse,ForecastHistory_Enh,NaiveForecastMonthly,Table,,,ForecastHistory_ENH.NaiveForecastMonthly,2026-07-01 01:51:27.483333,2054219
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,AFIStatusSnapshotWeekly,Table,,,InventoryHistory_Enh.AFIStatusSnapshotWeekly,2026-07-01 02:05:11.416667,2907355
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,AtpWeekEnding,Table,,,InventoryHistory_Enh.AtpWeekEnding,2026-07-01 01:43:51.163333,12761454
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,AwdHelper,Table,,,InventoryHistory_Enh.AwdHelper,2026-07-01 02:06:29.010000,4486435
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,Cogs52WWeekly,Table,,,InventoryHistory_Enh.Cogs52WWeekly,2026-07-01 02:08:39.130000,2907355
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,ForecastSnapshotWeekly,Table,,,InventoryHistory_Enh.ForecastSnapshotWeekly,2026-07-01 01:56:28.340000,4254382
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,HoldingTransferSnapshotDaily,Table,"SnapshotDate,TransferNumber,TransferLine",SnapshotDate,InventoryHistory_Enh.HoldingTransferSnapshotDaily,2026-07-01 01:54:48.180000,835
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,InventorySnapshotWeekly,Table,,,InventoryHistory_Enh.InventorySnapshotWeekly,2026-07-01 01:43:26.546667,15389175
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,ItemBalanceHistorical_WithInTransit,Table,,,InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit,2026-07-01 02:02:12.533333,30041548
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,LastInvoiceWeekly,Table,,,InventoryHistory_Enh.LastInvoiceWeekly,2026-07-01 02:07:55.153333,2907355
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,ManufacturingOrderSnapshotDaily,Table,"SnapshotDate,MoNumber,ItemSku,WarehouseCode",SnapshotDate,InventoryHistory_Enh.ManufacturingOrderSnapshotDaily,2026-07-01 01:54:44.096667,261177
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,PurchaseOrderSnapshotHistorical,Table,,,InventoryHistory_Enh.PurchaseOrderSnapshotHistorical,2026-07-01 01:54:38.463333,
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,SafetyStockHelper,Table,,,InventoryHistory_Enh.SafetyStockHelper,2026-07-01 02:02:47.056667,16358007
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh,SupplyPlanDetail,Table,,,InventoryHistory_Enh.SupplyPlanDetail,2026-07-01 02:00:52.913333,3097718
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh_Wrk,v_HoldingTransferSnapshotDaily,View,"SnapshotDate,TransferNumber,TransferLine",SnapshotDate,,,
+SupplyChain_Processing_Warehouse,InventoryHistory_Enh_Wrk,v_ManufacturingOrderSnapshotDaily,View,"SnapshotDate,MoNumber,ItemSku,WarehouseCode",SnapshotDate,,,
+SupplyChain_Processing_Warehouse,OpenOrderHistory_Enh,OpenOrderLineLevel,Table,,,OpenOrderHistory_ENH.OpenOrderLineLevel,2026-07-01 01:45:08.123333,175653
+SupplyChain_Processing_Warehouse,OpenOrderHistory_Enh,OpenOrderMonthly,Table,,,OpenOrderHistory_ENH.OpenOrderMonthly,2026-07-01 01:50:40.933333,73849
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,Calendar,Table,,,ReferenceMaster_ENH.Calendar,2026-07-01 01:28:35.130000,21551
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,CustomerAccount,Table,,,ReferenceMaster_ENH.CustomerAccount,2026-07-01 01:28:40.233333,35617
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,CustomerAccountGroup,Table,,,ReferenceMaster_ENH.CustomerAccountGroup,2026-07-01 01:28:43.323333,35617
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,CustomerGrouping,Table,,,ReferenceMaster_ENH.CustomerGrouping,2026-07-01 01:28:46.423333,35617
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,CustomerShippingLocation,Table,,,ReferenceMaster_ENH.CustomerShippingLocation,2026-07-01 01:28:53.080000,127660
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,ForecastCycle,Table,,,ReferenceMaster_ENH.ForecastCycle,2026-07-01 01:28:56.260000,43
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,ForecastHorizon,Table,,,ReferenceMaster_ENH.ForecastHorizon,2026-07-01 01:28:59.036667,8
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,ItemMaster,Table,,,ReferenceMaster_ENH.ItemMaster,2026-07-01 01:29:11.250000,381163
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,OrderType,Table,,,ReferenceMaster_ENH.OrderType,2026-07-01 01:29:14.950000,29
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,Vendor,Table,,,ReferenceMaster_Enh.Vendor,2026-07-01 01:29:18.730000,86620
+SupplyChain_Processing_Warehouse,ReferenceMaster_Enh,Warehouse,Table,,,ReferenceMaster_ENH.Warehouse,2026-07-01 01:29:21.393333,55
+SupplyChain_Processing_Warehouse,SalesHistory_Enh,ActualDemandMonthly,Table,,,SalesHistory_ENH.ActualDemandMonthly,2026-07-01 01:46:08.630000,2655980
+SupplyChain_Processing_Warehouse,SalesHistory_Enh,ActualDemandWeekly,Table,,,SalesHistory_ENH.ActualDemandWeekly,2026-07-01 01:46:41.190000,7888842
+SupplyChain_Processing_Warehouse,SalesHistory_Enh,InvoiceDetailLineLevel,Table,,,SalesHistory_ENH.InvoiceDetailLineLevel,2026-07-01 02:03:43.200000,88761984
+SupplyChain_Processing_Warehouse,SalesHistory_Enh,InvoiceWeekly,Table,,,SalesHistory_ENH.InvoiceWeekly,2026-07-01 01:47:53.943333,37738742
+SupplyChain_Processing_Warehouse,Staging,DemandForecastSnapshotDaily,Table,"dfcItem,dfcWarehouse,dfcFiscalMonth,dfcSnapshot,DfcCustomerGroups,dfcFCSTTypeCode,dfcMgmtCode",dfcSnapshot,Staging_Wrk.DemandForecastSnapshotDaily,2026-07-02 04:20:00,7054627940
+SupplyChain_Processing_Warehouse,Staging_Wrk,v_DemandForecastSnapshotDaily,View,"dfcItem,dfcWarehouse,dfcFiscalMonth,dfcSnapshot,DfcCustomerGroups,dfcFCSTTypeCode,dfcMgmtCode",dfcSnapshot,,,

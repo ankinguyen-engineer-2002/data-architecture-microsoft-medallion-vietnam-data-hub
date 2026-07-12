@@ -1,0 +1,1039 @@
+{
+  "step": 9,
+  "wave": "W30_fact",
+  "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.FactInventoryHealthSnapshot",
+  "source_view": "SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot",
+  "is_hotspot": true,
+  "declared_business_key": [
+    "ItemSku",
+    "WarehouseCode",
+    "SnapshotWeekEndingDate"
+  ],
+  "table_modify_date_utc": "2026-07-10T09:42:17.537",
+  "view_modify_date_utc": "2026-07-10T09:39:21.187",
+  "final_table_columns": [
+    {
+      "pos": 1,
+      "col": "ItemSku",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "WarehouseCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "SnapshotWeekEndingDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "OnHandQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "OnHandValue",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "OnOrderQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "POOnOrderQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "MOOnOrderQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "InTransitQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "TransferInInTransitQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "POInTransitQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "OnOrderValue",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 13,
+      "col": "InTransitValue",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 14,
+      "col": "AwdQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 15,
+      "col": "OnHoldRatio",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 16,
+      "col": "IsActiveItemWhIn7DNext",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 17,
+      "col": "IsActiveItemWhIn14DNext",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 18,
+      "col": "ATPQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 19,
+      "col": "SIQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 20,
+      "col": "ShortageValue",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 21,
+      "col": "InventoryClassificationFinalStatus",
+      "dtype": "varchar",
+      "maxlen": 30,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 22,
+      "col": "QtyByInventoryClassification(InActive)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 23,
+      "col": "QtyByInventoryClassification(SLOB)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 24,
+      "col": "QtyByInventoryClassification(BelowTarget)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 25,
+      "col": "QtyByInventoryClassification(SweetSpot)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 26,
+      "col": "QtyByInventoryClassification(OverTarget)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 27,
+      "col": "QtyByInventoryClassification(Excess)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 28,
+      "col": "QtyByInventoryClassification(AE)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 29,
+      "col": "QtyByInventoryClassification(TBInventory)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 30,
+      "col": "SafetyStockTarget",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 31,
+      "col": "FirmDemandQtyAtRisk",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 32,
+      "col": "NetFcstQtyAtRisk",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 33,
+      "col": "FirmDemandQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 34,
+      "col": "NetFcstQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 35,
+      "col": "COGS52W",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 36,
+      "col": "IsShortage/Surplus/InStock",
+      "dtype": "varchar",
+      "maxlen": 30,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 37,
+      "col": "Shortage/SurplusQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 38,
+      "col": "MakeBuyCode",
+      "dtype": "varchar",
+      "maxlen": 10,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 39,
+      "col": "PrimaryVendorName",
+      "dtype": "varchar",
+      "maxlen": 200,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 40,
+      "col": "SecondaryVendorName",
+      "dtype": "varchar",
+      "maxlen": 200,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 41,
+      "col": "ReplenishmentLeadTime",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 42,
+      "col": "UsedStorageCube",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 43,
+      "col": "StandardCost",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 44,
+      "col": "FobArcPrice",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 45,
+      "col": "Cubes",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 46,
+      "col": "LastInvoiceDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 47,
+      "col": "InventoryAgeWeeks",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 48,
+      "col": "AgingBucket<3MQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 49,
+      "col": "AgingBucket<6MQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 50,
+      "col": "AgingBucket<12MQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 51,
+      "col": "AgingBucket>12MQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 52,
+      "col": "AFIStatus",
+      "dtype": "varchar",
+      "maxlen": 20,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 53,
+      "col": "WeightedSINegScore",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 54,
+      "col": "OutageClass",
+      "dtype": "varchar",
+      "maxlen": 30,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "view_columns": [
+    {
+      "pos": 1,
+      "col": "ItemSku",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "WarehouseCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "SnapshotWeekEndingDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "OnHandQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "OnHandValue",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "OnOrderQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "POOnOrderQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "MOOnOrderQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "InTransitQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "TransferInInTransitQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "POInTransitQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "OnOrderValue",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 13,
+      "col": "InTransitValue",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 14,
+      "col": "AwdQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 15,
+      "col": "OnHoldRatio",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 16,
+      "col": "IsActiveItemWhIn7DNext",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 17,
+      "col": "IsActiveItemWhIn14DNext",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 18,
+      "col": "ATPQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 19,
+      "col": "SIQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 20,
+      "col": "ShortageValue",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 21,
+      "col": "InventoryClassificationFinalStatus",
+      "dtype": "varchar",
+      "maxlen": 30,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 22,
+      "col": "QtyByInventoryClassification(InActive)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 23,
+      "col": "QtyByInventoryClassification(SLOB)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 24,
+      "col": "QtyByInventoryClassification(BelowTarget)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 25,
+      "col": "QtyByInventoryClassification(SweetSpot)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 26,
+      "col": "QtyByInventoryClassification(OverTarget)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 27,
+      "col": "QtyByInventoryClassification(Excess)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 28,
+      "col": "QtyByInventoryClassification(AE)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 29,
+      "col": "QtyByInventoryClassification(TBInventory)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 30,
+      "col": "SafetyStockTarget",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 31,
+      "col": "FirmDemandQtyAtRisk",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 32,
+      "col": "NetFcstQtyAtRisk",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 33,
+      "col": "FirmDemandQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 34,
+      "col": "NetFcstQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 35,
+      "col": "COGS52W",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 36,
+      "col": "IsShortage/Surplus/InStock",
+      "dtype": "varchar",
+      "maxlen": 30,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 37,
+      "col": "Shortage/SurplusQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 38,
+      "col": "MakeBuyCode",
+      "dtype": "varchar",
+      "maxlen": 10,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 39,
+      "col": "PrimaryVendorName",
+      "dtype": "varchar",
+      "maxlen": 200,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 40,
+      "col": "SecondaryVendorName",
+      "dtype": "varchar",
+      "maxlen": 200,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 41,
+      "col": "ReplenishmentLeadTime",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 42,
+      "col": "UsedStorageCube",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 43,
+      "col": "StandardCost",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 44,
+      "col": "FobArcPrice",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 45,
+      "col": "Cubes",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 46,
+      "col": "LastInvoiceDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 47,
+      "col": "InventoryAgeWeeks",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 48,
+      "col": "AgingBucket<3MQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 49,
+      "col": "AgingBucket<6MQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 50,
+      "col": "AgingBucket<12MQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 51,
+      "col": "AgingBucket>12MQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 52,
+      "col": "AFIStatus",
+      "dtype": "varchar",
+      "maxlen": 20,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 53,
+      "col": "WeightedSINegScore",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 54,
+      "col": "OutageClass",
+      "dtype": "varchar",
+      "maxlen": 30,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "loader_positional_contract": {
+    "loader": "ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView (INSERT ... SELECT *)",
+    "table_column_count": 54,
+    "view_column_count": 54,
+    "column_count_match": true,
+    "column_order_match": true,
+    "drift": {
+      "in_view_not_table": [],
+      "in_table_not_view": []
+    },
+    "load_safe": true
+  },
+  "source_refs": [
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AtpWeekEnding",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.Cogs52WWeekly",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SupplyPlanDetail"
+  ],
+  "static_parse": {
+    "cte_names": [
+      "inv_base",
+      "base",
+      "po",
+      "mo",
+      "transfer_in",
+      "supply_plan",
+      "atp",
+      "joined"
+    ],
+    "cte_count": 8,
+    "row_number_count": 1,
+    "group_by_count": 5,
+    "distinct_count": 0,
+    "left_join_count": 14,
+    "inner_join_count": -14,
+    "case_count": 0,
+    "coalesce_count": 36,
+    "latest_asof_markers": 1,
+    "reads_islatest_flag": false,
+    "has_partition_dedupe": true
+  },
+  "view_definition": "-- InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot\nCREATE           VIEW [InventoryHealth_DW_Wrk].[v_FactInventoryHealthSnapshot] AS\nWITH inv_base AS (\n    SELECT\n        ItemSku,\n        WarehouseCode,\n        SnapshotWeekEndingDate,\n        OnHandQty,\n        MakeBuyCode,\n        PrimaryVendorName,\n        SecondaryVendorName,\n        ReplenishmentLeadTime,\n        SnapshotType\n    FROM (\n        SELECT\n            ItemSku,\n            WarehouseCode,\n            SnapshotWeekEndingDate,\n            OnHandQty,\n            MakeBuyCode,\n            PrimaryVendorName,\n            SecondaryVendorName,\n            ReplenishmentLeadTime, \n            SnapshotType, \n            ROW_NUMBER() OVER (\n                PARTITION BY ItemSku, WarehouseCode, SnapshotWeekEndingDate\n                ORDER BY FiscalMonthDate ASC\n            ) AS rn\n        FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[InventorySnapshotWeekly]\n        WHERE ItemSku IS NOT NULL\n          AND WarehouseCode IS NOT NULL\n          AND SnapshotWeekEndingDate IS NOT NULL\n    ) ranked_inv\n    WHERE rn = 1 \n),\nbase AS (\n    SELECT\n        CAST(inv.ItemSku AS VARCHAR(50)) AS ItemSku,\n        CAST(inv.WarehouseCode AS VARCHAR(50)) AS WarehouseCode,\n        CAST(inv.SnapshotWeekEndingDate AS DATE) AS SnapshotWeekEndingDate,\n        CAST(inv.OnHandQty AS DECIMAL(18,4)) AS OnHandsQty,\n        CAST(inv.MakeBuyCode AS VARCHAR(10)) AS MakeBuyCode,\n        CAST(inv.PrimaryVendorName AS VARCHAR(200)) AS PrimaryVendorName,\n        CAST(inv.SecondaryVendorName AS VARCHAR(200)) AS SecondaryVendorName,\n        CAST(inv.ReplenishmentLeadTime AS DECIMAL(18,4)) AS ReplenishmentLeadTime\n    FROM inv_base inv\n    Where SnapshotType = 'WEEKLY' or SnapshotType = 'WEEKLY_AND_LATEST'\n),\npo AS (\n    SELECT\n        CAST(ItemSku AS VARCHAR(50)) AS ItemSku,\n        CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,\n        CAST(SnapshotDate AS DATE) AS SnapshotWeekEndingDate,\n        SUM(COALESCE(POOnOrderQty, 0)) AS POOnOrderQty,\n        SUM(COALESCE(POInTransitQty, 0)) AS POInTransitQty\n    FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[PurchaseOrderSnapshotHistorical]\n    GROUP BY\n        ItemSku,\n        WarehouseCode,\n        SnapshotDate\n),\nmo AS (\n    SELECT\n        CAST(ItemSku AS VARCHAR(50)) AS ItemSku,\n        CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,\n        CAST(SnapshotDate AS DATE) AS SnapshotWeekEndingDate,\n        SUM(COALESCE(RemainingMOQty, 0)) AS RemainingMOQty\n    FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[ManufacturingOrderSnapshotDaily]\n    GROUP BY\n        ItemSku,\n        WarehouseCode,\n        SnapshotDate\n),\ntransfer_in AS (\n    SELECT\n        CAST(ItemSku AS VARCHAR(50)) AS ItemSku,\n        CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,\n        CAST(WeekEndingDate AS DATE) AS WeekEndingDate,\n        SUM(COALESCE(InTransitQty, 0)) AS TransferInInTransitQty\n    FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[ItemBalanceHistorical_WithInTransit]\n    GROUP BY\n        ItemSku,\n        WarehouseCode,\n        WeekEndingDate\n),\nsupply_plan AS (\n    SELECT\n        CAST(ItemSku AS VARCHAR(50)) AS ItemSku,\n        CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,\n        CAST(WeekEnding AS DATE) AS WeekEnding,\n        MAX(CAST(IsActiveItemWhIn7DNext AS INT)) AS IsActiveItemWhIn7DNext,\n        MAX(CAST(IsActiveItemWhIn14DNext AS INT)) AS IsActiveItemWhIn14DNext,\n        SUM(COALESCE(SIQty, 0)) AS SIQty,\n        SUM(COALESCE(SINegQty, 0)) AS SINegQty,\n        SUM(COALESCE(FirmDemandQtyAtRisk, 0)) AS FirmDemandQtyAtRisk,\n        SUM(COALESCE(NetFcstQtyAtRisk, 0)) AS NetFcstQtyAtRisk,\n        SUM(COALESCE(FirmDemandQty, 0)) AS FirmDemandQty,\n        SUM(COALESCE(NetFcstQty, 0)) AS NetFcstQty\n    FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[SupplyPlanDetail]\n    Where SnapshotType = 'WEEKLY' or SnapshotType = 'WEEKLY_AND_LATEST'\n    GROUP BY\n        ItemSku,\n        WarehouseCode,\n        WeekEnding\n),\natp AS (\n    SELECT\n        CAST(ItemSku AS VARCHAR(50)) AS ItemSku,\n        CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,\n        CAST(SnapshotWeekEndingDate AS DATE) AS SnapshotWeekEndingDate,\n        SUM(COALESCE(AtpQty, 0)) AS AtpQty\n    FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[AtpWeekEnding]\n    Where SnapshotType = 'WEEKLY' or SnapshotType = 'WEEKLY_AND_LATEST'\n    GROUP BY\n        ItemSku,\n        WarehouseCode,\n        SnapshotWeekEndingDate\n),\njoined AS (\n    SELECT\n        b.ItemSku,\n        b.WarehouseCode,\n        b.SnapshotWeekEndingDate,\n        b.OnHandsQty,\n        b.MakeBuyCode,\n        b.PrimaryVendorName,\n        b.SecondaryVendorName,\n        b.ReplenishmentLeadTime,\n        COALESCE(po.POOnOrderQty, 0) AS POOnOrderQty,\n        COALESCE(mo.RemainingMOQty, 0) AS MOOnOrderQty,\n        COALESCE(ti.TransferInInTransitQty, 0) AS TransferInInTransitQty,\n        COALESCE(po.POInTransitQty, 0) AS POInTransitQty,\n        awd.AwdQty AS AwdQty,\n        sp.IsActiveItemWhIn7DNext,\n        sp.IsActiveItemWhIn14DNext,\n        sp.SIQty,\n        sp.SINegQty,\n        sp.FirmDemandQtyAtRisk,\n        sp.NetFcstQtyAtRisk,\n        sp.FirmDemandQty,\n        sp.NetFcstQty,\n        atp.AtpQty,\n        cls.[InventoryClassification Final Status],\n        qty.[Qty by InventoryClassification (Inactive)] AS QtyInactive,\n        qty.[Qty by InventoryClassification (SLOB)] AS QtySLOB,\n        qty.[Qty by InventoryClassification (Below Target)] AS QtyBelowTarget,\n        qty.[Qty by InventoryClassification (SweetSpot)] AS QtySweetSpot,\n        qty.[Qty by InventoryClassification (OverTarget)] AS QtyOverTarget,\n        qty.[Qty by InventoryClassification (Excess)] AS QtyExcess,\n        qty.[Qty by InventoryClassification (AE)] AS QtyAE,\n        qty.[Qty by InventoryClassification (TB Inventory)] AS QtyTBInventory,\n        ss.SafetyStockTarget,\n        cogs.COGS52W,\n        cogs.StandardCost,\n        dp.FOBArcPrice AS FobArcPrice,\n        dp.Cubes,\n        li.LastInvoiceDate,\n        li.WeeksSinceLastInvoice,\n        afi.AFIStatus,\n        outage.WeightedSINegScore,\n        outage.OutageClass\n    FROM base b\n    LEFT JOIN po\n        ON po.ItemSku = b.ItemSku\n       AND po.WarehouseCode = b.WarehouseCode\n       AND po.SnapshotWeekEndingDate = b.SnapshotWeekEndingDate\n    LEFT JOIN mo\n        ON mo.ItemSku = b.ItemSku\n       AND mo.WarehouseCode = b.WarehouseCode\n       AND mo.SnapshotWeekEndingDate = b.SnapshotWeekEndingDate\n    LEFT JOIN transfer_in ti\n        ON ti.ItemSku = b.ItemSku\n       AND ti.WarehouseCode = b.WarehouseCode\n       AND ti.WeekEndingDate = b.SnapshotWeekEndingDate\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[AwdHelper] awd\n        ON awd.ItemSku = b.ItemSku\n       AND awd.WarehouseCode = b.WarehouseCode\n       AND awd.AsOfDate = b.SnapshotWeekEndingDate\n    LEFT JOIN supply_plan sp\n        ON sp.ItemSku = b.ItemSku\n       AND sp.WarehouseCode = b.WarehouseCode\n       AND sp.WeekEnding = b.SnapshotWeekEndingDate\n    LEFT JOIN atp\n        ON atp.ItemSku = b.ItemSku\n       AND atp.WarehouseCode = b.WarehouseCode\n       AND atp.SnapshotWeekEndingDate = b.SnapshotWeekEndingDate\n    LEFT JOIN [InventoryHealth_DW].[InventoryHealthSubStatusWeekly] cls\n        ON cls.ItemSku = b.ItemSku\n       AND cls.WarehouseCode = b.WarehouseCode\n       AND cls.SnapshotWeekEnding = b.SnapshotWeekEndingDate\n    LEFT JOIN [InventoryHealth_DW].[InventoryClassificationQtyWeekly] qty\n        ON qty.Item = b.ItemSku\n       AND qty.WH = b.WarehouseCode\n       AND qty.SnapshotWeekEnding = b.SnapshotWeekEndingDate\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[SafetyStockHelper] ss\n        ON ss.ItemSku = b.ItemSku\n       AND ss.WarehouseCode = b.WarehouseCode\n       AND ss.AsOfDate = b.SnapshotWeekEndingDate\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[Cogs52WWeekly] cogs\n        ON cogs.ItemSku = b.ItemSku\n       AND cogs.WarehouseCode = b.WarehouseCode\n       AND cogs.WeekEndingDate = b.SnapshotWeekEndingDate\n    LEFT JOIN [Shared_DW].[DimProduct] dp\n        ON dp.ItemSKU = b.ItemSku\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[LastInvoiceWeekly] li\n        ON li.ItemSku = b.ItemSku\n       AND li.WarehouseCode = b.WarehouseCode\n       AND li.WeekEndingDate = b.SnapshotWeekEndingDate\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[AFIStatusSnapshotWeekly] afi\n        ON afi.ItemSku = b.ItemSku\n       AND afi.WarehouseCode = b.WarehouseCode\n       AND afi.WeekEndingDate = b.SnapshotWeekEndingDate\n    LEFT JOIN [InventoryHealth_DW_Wrk].[v_SupplyPlanOutageClassHelper] outage\n        ON outage.ItemSku = b.ItemSku\n       AND outage.WarehouseCode = b.WarehouseCode\n       AND outage.WeekEnding = b.SnapshotWeekEndingDate\n)\nSELECT\n    CAST(ItemSku AS VARCHAR(50)) AS ItemSku,\n    CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,\n    CAST(SnapshotWeekEndingDate AS DATE) AS SnapshotWeekEndingDate,\n    CAST(OnHandsQty AS DECIMAL(18,4)) AS OnHandQty,\n    CAST(COALESCE(OnHandsQty, 0) * COALESCE(StandardCost, 0) AS DECIMAL(18,4)) AS [OnHandValue],\n    CAST(COALESCE(POOnOrderQty, 0) + COALESCE(MOOnOrderQty, 0) AS DECIMAL(18,4)) AS [OnOrderQty],\n    CAST(POOnOrderQty AS DECIMAL(18,4)) AS POOnOrderQty,\n    CAST(MOOnOrderQty AS DECIMAL(18,4)) AS MOOnOrderQty,\n    CAST(COALESCE(TransferInInTransitQty, 0) + COALESCE(POInTransitQty, 0) AS DECIMAL(18,4)) AS [InTransitQty],\n    CAST(TransferInInTransitQty AS DECIMAL(18,4)) AS TransferInInTransitQty,\n    CAST(POInTransitQty AS DECIMAL(18,4)) AS POInTransitQty,\n    CAST((COALESCE(POOnOrderQty, 0) + COALESCE(MOOnOrderQty, 0)) * COALESCE(StandardCost, 0) AS DECIMAL(18,4)) AS [OnOrderValue],\n    CAST((COALESCE(TransferInInTransitQty, 0) + COALESCE(POInTransitQty, 0)) * COALESCE(StandardCost, 0) AS DECIMAL(18,4)) AS [InTransitValue],\n    CAST(AwdQty AS DECIMAL(18,4)) AS AwdQty,\n    CAST(NULL AS DECIMAL(18,4)) AS [OnHoldRatio],\n    CAST(IsActiveItemWhIn7DNext AS INT) AS IsActiveItemWhIn7DNext,\n    CAST(IsActiveItemWhIn14DNext AS INT) AS IsActiveItemWhIn14DNext,\n    CAST(AtpQty AS DECIMAL(18,4)) AS [ATPQty],\n    CAST(SIQty AS DECIMAL(18,4)) AS SIQty,\n    CAST(CASE\n            WHEN COALESCE(SIQty, 0) < 0 THEN COALESCE(SINegQty, ABS(SIQty)) * COALESCE(FobArcPrice, 0)\n            ELSE 0\n         END AS DECIMAL(18,4)) AS [ShortageValue],\n    CAST([InventoryClassification Final Status] AS VARCHAR(30)) AS [InventoryClassificationFinalStatus],\n    CAST(QtyInactive AS DECIMAL(18,4)) AS [QtyByInventoryClassification(InActive)],\n    CAST(QtySLOB AS DECIMAL(18,4)) AS [QtyByInventoryClassification(SLOB)],\n    CAST(QtyBelowTarget AS DECIMAL(18,4)) AS [QtyByInventoryClassification(BelowTarget)],\n    CAST(QtySweetSpot AS DECIMAL(18,4)) AS [QtyByInventoryClassification(SweetSpot)],\n    CAST(QtyOverTarget AS DECIMAL(18,4)) AS [QtyByInventoryClassification(OverTarget)],\n    CAST(QtyExcess AS DECIMAL(18,4)) AS [QtyByInventoryClassification(Excess)],\n    CAST(QtyAE AS DECIMAL(18,4)) AS [QtyByInventoryClassification(AE)],\n    CAST(QtyTBInventory AS DECIMAL(18,4)) AS [QtyByInventoryClassification(TBInventory)],\n    CAST(SafetyStockTarget AS DECIMAL(18,4)) AS SafetyStockTarget,\n    CAST(FirmDemandQtyAtRisk AS DECIMAL(18,4)) AS FirmDemandQtyAtRisk,\n    CAST(NetFcstQtyAtRisk AS DECIMAL(18,4)) AS NetFcstQtyAtRisk,\n    CAST(FirmDemandQty AS DECIMAL(18,4)) AS FirmDemandQty,\n    CAST(NetFcstQty AS DECIMAL(18,4)) AS NetFcstQty,\n    CAST(COGS52W AS DECIMAL(18,4)) AS COGS52W,\n    CAST(CASE\n            WHEN COALESCE(SIQty, 0) < 0 THEN 'SHORTAGE'\n            WHEN [InventoryClassification Final Status] IN (\n                    'TB_INVENTORY',\n                    'AGGRESSIVE_EXCESS',\n                    'EXCESS',\n                    'OVER_TARGET',\n                    'SLOB',\n                    'INACTIVE'\n                 ) THEN 'SURPLUS'\n            WHEN [InventoryClassification Final Status] IN (\n                    'SWEET_SPOT',\n                    'BELOW_TARGET'\n                 ) THEN 'IN_STOCK'\n            ELSE 'UNCLASSIFIED'\n         END AS VARCHAR(30)) AS [IsShortage/Surplus/InStock],\n    CAST(CASE\n            WHEN COALESCE(SIQty, 0) < 0 THEN ABS(COALESCE(SIQty, 0))\n            WHEN [InventoryClassification Final Status] IN (\n                    'TB_INVENTORY',\n                    'AGGRESSIVE_EXCESS',\n                    'EXCESS',\n                    'OVER_TARGET',\n                    'SLOB',\n                    'INACTIVE',\n                    'SWEET_SPOT',\n                    'BELOW_TARGET'\n                 ) THEN COALESCE(OnHandsQty, 0) \n            ELSE 0\n         END AS DECIMAL(18,4)) AS [Shortage/SurplusQty],\n    CAST(MakeBuyCode AS VARCHAR(10)) AS MakeBuyCode,\n    CAST(PrimaryVendorName AS VARCHAR(200)) AS PrimaryVendorName,\n    CAST(SecondaryVendorName AS VARCHAR(200)) AS SecondaryVendorName,\n    CAST(ReplenishmentLeadTime AS DECIMAL(18,4)) AS ReplenishmentLeadTime,\n    CAST(COALESCE(OnHandsQty, 0) * COALESCE(Cubes, 0) AS DECIMAL(18,4)) AS UsedStorageCube,\n    CAST(StandardCost AS DECIMAL(18,4)) AS StandardCost,\n    CAST(FobArcPrice AS DECIMAL(18,4)) AS FobArcPrice,\n    CAST(Cubes AS DECIMAL(18,4)) AS Cubes,\n    CAST(LastInvoiceDate AS DATE) AS LastInvoiceDate,\n    CAST(WeeksSinceLastInvoice AS INT) AS InventoryAgeWeeks,\n    CAST(NULL AS DECIMAL(18,4)) AS [AgingBucket<3MQty],\n    CAST(NULL AS DECIMAL(18,4)) AS [AgingBucket<6MQty],\n    CAST(NULL AS DECIMAL(18,4)) AS [AgingBucket<12MQty],\n    CAST(NULL AS DECIMAL(18,4)) AS [AgingBucket>12MQty],\n    CAST(AFIStatus AS VARCHAR(20)) AS AFIStatus, \n    CAST(WeightedSINegScore AS DECIMAL(18,4)) AS WeightedSINegScore,\n    CAST(OutageClass AS VARCHAR(30)) AS OutageClass\nFROM joined;\n"
+}

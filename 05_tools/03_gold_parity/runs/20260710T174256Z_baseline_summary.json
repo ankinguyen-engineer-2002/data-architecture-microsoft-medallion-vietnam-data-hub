@@ -1,0 +1,48 @@
+{
+  "generated_at_utc": "20260710T174256Z",
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "targets": [
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.Shared_DW.DimCalendar",
+      "row_count": 21551,
+      "distinct_keys": 21551,
+      "unique_at_grain": true,
+      "date_coverage": {
+        "min_Date": "1900-01-01",
+        "max_Date": "2028-12-31",
+        "min_Datetime": "1900-01-01",
+        "max_Datetime": "2028-12-31",
+        "min_Calendar": "1900-01-01",
+        "max_Calendar": "2028-12-31",
+        "min_CalWeekFirst": "1990-01-01",
+        "max_CalWeekFirst": "2028-12-31",
+        "min_CalWeekLast": "1990-01-06",
+        "max_CalWeekLast": "2028-12-31",
+        "min_CalMonthFirst": "1990-01-01",
+        "max_CalMonthFirst": "2028-12-01",
+        "min_CalMonthLast": "1990-01-31",
+        "max_CalMonthLast": "2028-12-31",
+        "min_FiscalDate": "1999-12-26",
+        "max_FiscalDate": "2028-12-31",
+        "min_FSCWeekFirst": "1999-12-26",
+        "max_FSCWeekFirst": "2028-12-31",
+        "min_FSCWeekLast": "2000-01-01",
+        "max_FSCWeekLast": "2028-12-31",
+        "min_FSCMonthFirst": "1999-12-26",
+        "max_FSCMonthFirst": "2028-12-31",
+        "min_FSCMonthLast": "2000-01-22",
+        "max_FSCMonthLast": "2028-12-31",
+        "min_FSCQuarterFirst": "1999-12-26",
+        "max_FSCQuarterFirst": "2028-12-31",
+        "min_FSCQuarterLast": "2000-03-25",
+        "max_FSCQuarterLast": "2028-12-31",
+        "min_FSCYearFirst": "1999-12-26",
+        "max_FSCYearFirst": "2028-12-31",
+        "min_FSCYearLast": "2000-12-30",
+        "max_FSCYearLast": "2028-12-31",
+        "min_LoadDT": "2026-07-10T08:34:19.433333",
+        "max_LoadDT": "2026-07-10T08:34:19.433333"
+      }
+    }
+  ]
+}

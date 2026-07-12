@@ -1,0 +1,428 @@
+{
+  "step": 3,
+  "wave": "W01_shared_dim",
+  "target_table": "SupplyChain_Gold_Warehouse.Shared_DW.DimWarehouse",
+  "source_view": "SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimWarehouse",
+  "is_hotspot": false,
+  "declared_business_key": [
+    "WarehouseCode"
+  ],
+  "table_modify_date_utc": "2026-07-10T08:34:36.870",
+  "view_modify_date_utc": "2026-07-03T07:49:48.563",
+  "final_table_columns": [
+    {
+      "pos": 1,
+      "col": "WarehouseCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "WarehouseGroup",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "AFIWarehousesKey",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "IntransitWarehouse",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "ContainerDirectWarehouse",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "ControlledWarehouse",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "WarehouseLocation",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "WarehouseOrderGroup",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "FinanceInventoryReportFlag",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "WarehouseName",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "WarehouseType",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "WarehouseSourceId",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 13,
+      "col": "SellableWarehouseFlag",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 14,
+      "col": "ControlledFlag",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 15,
+      "col": "WhereMadeCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 16,
+      "col": "ManufacturingSite",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 17,
+      "col": "IntransitWarehouseCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 18,
+      "col": "IsFinishedGoodsWarehouse",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 19,
+      "col": "IsManufacturingWarehouse",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 20,
+      "col": "TotalWarehouseCube",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 38,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 21,
+      "col": "LoadDT",
+      "dtype": "datetime2",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "view_columns": [
+    {
+      "pos": 1,
+      "col": "WarehouseCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "WarehouseGroup",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "AFIWarehousesKey",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "IntransitWarehouse",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "ContainerDirectWarehouse",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "ControlledWarehouse",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "WarehouseLocation",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "WarehouseOrderGroup",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "FinanceInventoryReportFlag",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "WarehouseName",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "WarehouseType",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "WarehouseSourceId",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 13,
+      "col": "SellableWarehouseFlag",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 14,
+      "col": "ControlledFlag",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 15,
+      "col": "WhereMadeCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 16,
+      "col": "ManufacturingSite",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 17,
+      "col": "IntransitWarehouseCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 18,
+      "col": "IsFinishedGoodsWarehouse",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 19,
+      "col": "IsManufacturingWarehouse",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 20,
+      "col": "TotalWarehouseCube",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 38,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 21,
+      "col": "LoadDT",
+      "dtype": "datetime2",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "loader_positional_contract": {
+    "loader": "ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView (INSERT ... SELECT *)",
+    "table_column_count": 21,
+    "view_column_count": 21,
+    "column_count_match": true,
+    "column_order_match": true,
+    "drift": {
+      "in_view_not_table": [],
+      "in_table_not_view": []
+    },
+    "load_safe": true
+  },
+  "source_refs": [
+    "Enterprise_Lakehouse.Wholesale_Codis_AFI.AshleyWarehouseMaster"
+  ],
+  "static_parse": {
+    "cte_names": [
+      "fa",
+      "ih",
+      "capacity_by_wh"
+    ],
+    "cte_count": 3,
+    "row_number_count": 0,
+    "group_by_count": 1,
+    "distinct_count": 0,
+    "left_join_count": 1,
+    "inner_join_count": 0,
+    "case_count": 0,
+    "coalesce_count": 10,
+    "latest_asof_markers": 0,
+    "reads_islatest_flag": false,
+    "has_partition_dedupe": false
+  },
+  "view_definition": "-- SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimWarehouse\nCREATE   VIEW Shared_DW_Wrk.v_DimWarehouse AS\nWITH fa AS (\n    SELECT\n        CAST(TRIM(WarehouseCode) AS VARCHAR(50))             AS WarehouseCode,\n        CAST(AFIWarehousesKey AS INT)                        AS AFIWarehousesKey,\n        CAST(TRIM(IntransitWarehouse) AS VARCHAR(50))        AS IntransitWarehouse,\n        CAST(TRIM(ContainerDirectWarehouse) AS VARCHAR(50))  AS ContainerDirectWarehouse,\n        CAST(ControlledWarehouse AS INT)                     AS ControlledWarehouse,\n        CAST(TRIM(WarehouseLocation) AS VARCHAR(100))        AS WarehouseLocation,\n        CAST(TRIM(WarehouseOrderGroup) AS VARCHAR(100))      AS WarehouseOrderGroup,\n        CAST(FinanceInventoryReportFlag AS INT)              AS FinanceInventoryReportFlag\n    FROM SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Warehouse\n    WHERE WarehouseCode IS NOT NULL AND TRIM(WarehouseCode) <> ''\n),\nih AS (\n    SELECT\n        CAST(TRIM(wmaWarehouse) AS VARCHAR(50))              AS WarehouseCode,\n        CAST(TRIM(wmaWarehouse) AS VARCHAR(50))              AS WarehouseName,\n        CAST(TRIM(wmaWarehouseType) AS VARCHAR(100))         AS WarehouseType,\n        CAST(TRIM(wmaWarehouseOrderGroup) AS VARCHAR(50))    AS IH_WarehouseOrderGroup,\n        CAST(TRIM(wmaWarehouseSourceId) AS VARCHAR(50))      AS WarehouseSourceId,\n        CAST(wmaSellableWarehouse AS BIT)                    AS SellableWarehouseFlag,\n        CAST(wmaControlled AS BIT)                           AS ControlledFlag,\n        CAST(TRIM(wmaWhereMade) AS VARCHAR(50))              AS WhereMadeCode,\n        CAST(TRIM(wmaManufacturingSite) AS VARCHAR(50))      AS ManufacturingSite,\n        CAST(TRIM(wmaIntransitWarehouse) AS VARCHAR(50))     AS IntransitWarehouseCode,\n        CAST(CASE WHEN TRIM(wmaWarehouse) IN ('1','5','15','17','28','335','ECR')\n                  THEN 1 ELSE 0 END AS BIT)                 AS IsFinishedGoodsWarehouse,\n        CAST(CASE WHEN TRIM(wmaWarehouse) NOT IN ('1','5','15','17','28','335','ECR')\n                  THEN 1 ELSE 0 END AS BIT)                 AS IsManufacturingWarehouse\n    FROM [Enterprise_Lakehouse].[Wholesale_Codis_AFI].[AshleyWarehouseMaster]\n    WHERE wmaWarehouse IS NOT NULL AND TRIM(wmaWarehouse) <> ''\n),\n-- capacity_raw from below linkek (Sheet Capacity)\n-- https://masterashley.sharepoint.com/sites/Global_Supply_Chain_Analytics/Shared%20Documents/Data%20Project/20260211%20Inventory%20Health/excel_source/SS%20vs%20Capacity%20Projections%2020260312.xlsx?d=wc85ce29b9b28430b891faa85ead321aa&csf=1&web=1&e=dkK5Ze\ncapacity_raw AS (\n    SELECT *\n    FROM (VALUES\n        ('CSG', '1',   CAST(477532 AS DECIMAL(18,4))),\n        ('CSG', '5',   CAST(578193 AS DECIMAL(18,4))),\n        ('CSG', '15',  CAST(488406 AS DECIMAL(18,4))),\n        ('CSG', '17',  CAST(470072 AS DECIMAL(18,4))),\n        ('CSG', '28',  CAST(211193 AS DECIMAL(18,4))),\n        ('CSG', '42',  CAST(188160 AS DECIMAL(18,4))),\n        ('CSG', '335', CAST(184968 AS DECIMAL(18,4))),\n        ('CSG', 'ECR', CAST(525928 AS DECIMAL(18,4))),\n        ('UPH', '1',   CAST(100000 AS DECIMAL(18,4))),\n        ('UPH', '5',   CAST(129828 AS DECIMAL(18,4))),\n        ('UPH', '15',  CAST(99360  AS DECIMAL(18,4))),\n        ('UPH', '17',  CAST(113656 AS DECIMAL(18,4))),\n        ('UPH', '28',  CAST(62586  AS DECIMAL(18,4))),\n        ('UPH', '42',  CAST(49500  AS DECIMAL(18,4))),\n        ('UPH', '335', CAST(68298  AS DECIMAL(18,4))),\n        ('UPH', 'ECR', CAST(134688 AS DECIMAL(18,4)))\n    ) v(Storage, WarehouseCode, CurrentCapacity)\n),\ncapacity_by_wh AS (\n    SELECT\n        WarehouseCode,\n        SUM(CurrentCapacity) AS TotalWarehouseCube\n    FROM capacity_raw\n    GROUP BY WarehouseCode\n)\nSELECT\n    COALESCE(fa.WarehouseCode, ih.WarehouseCode)             AS WarehouseCode,\n    CAST(CASE\n            WHEN COALESCE(fa.WarehouseCode, ih.WarehouseCode) IN ('1','5','15','16','17','19','28','42','70','ECR')\n                THEN 'AFI'\n            WHEN COALESCE(fa.WarehouseCode, ih.WarehouseCode) IN ('335','C35')\n                THEN 'Ashton'\n            WHEN COALESCE(fa.WarehouseCode, ih.WarehouseCode) IN ('AE','C','CNW','IOR')\n                THEN 'C/CNW'\n            WHEN COALESCE(fa.WarehouseCode, ih.WarehouseCode) IN ('12','20','201')\n                THEN 'PROD'\n            WHEN COALESCE(fa.WarehouseCode, ih.WarehouseCode) IN ('1A','5A','15A','17A','19A','28A','42A','ECA')\n                THEN 'RH'\n            ELSE 'No longer Used'\n         END AS VARCHAR(50))                                 AS WarehouseGroup,\n    fa.AFIWarehousesKey,\n    fa.IntransitWarehouse,\n    fa.ContainerDirectWarehouse,\n    fa.ControlledWarehouse,\n    CAST(COALESCE(NULLIF(fa.WarehouseOrderGroup, ''),\n                  NULLIF(fa.WarehouseLocation, ''),\n                  NULLIF(ih.IH_WarehouseOrderGroup, ''),\n                  COALESCE(fa.WarehouseCode, ih.WarehouseCode)) AS VARCHAR(100)) AS WarehouseLocation,\n    COALESCE(fa.WarehouseOrderGroup, ih.IH_WarehouseOrderGroup) AS WarehouseOrderGroup,\n    fa.FinanceInventoryReportFlag,\n    ih.WarehouseName,\n    ih.WarehouseType,\n    ih.WarehouseSourceId,\n    ih.SellableWarehouseFlag,\n    ih.ControlledFlag,\n    ih.WhereMadeCode,\n    ih.ManufacturingSite,\n    ih.IntransitWarehouseCode,\n    ih.IsFinishedGoodsWarehouse,\n    ih.IsManufacturingWarehouse,\n    cap.TotalWarehouseCube,\n    CAST(GETUTCDATE() AS DATETIME2(6))                       AS LoadDT\nFROM fa\nFULL OUTER JOIN ih\n    ON fa.WarehouseCode = ih.WarehouseCode\nLEFT JOIN capacity_by_wh cap\n    ON cap.WarehouseCode = COALESCE(fa.WarehouseCode, ih.WarehouseCode);\n"
+}

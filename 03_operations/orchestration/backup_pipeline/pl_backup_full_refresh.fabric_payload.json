@@ -1,0 +1,332 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "01_Shared_ReferenceMaster",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[Usp_Refresh_Shared_ReferenceMaster]"
+        },
+        "description": "Shared ReferenceMaster prerequisites: 11 ReferenceMaster_Enh tables.",
+        "linkedService": {
+          "name": "SupplyChain_Processing_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "02_Shared_Staging",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "01_Shared_ReferenceMaster",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[Usp_Refresh_Shared_Staging]"
+        },
+        "description": "Shared Staging.DemandForecastSnapshotDaily prerequisite.",
+        "linkedService": {
+          "name": "SupplyChain_Processing_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "03_Forecast_Silver_W01",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "02_Shared_Staging",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[Usp_Refresh_ForecastAccuracy_Silver_W01]"
+        },
+        "description": "Forecast Accuracy Silver W01: InvoiceDetailLineLevel, OpenOrderLineLevel.",
+        "linkedService": {
+          "name": "SupplyChain_Processing_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "04_Forecast_Silver_W02",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "03_Forecast_Silver_W01",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[Usp_Refresh_ForecastAccuracy_Silver_W02]"
+        },
+        "description": "Forecast Accuracy Silver W02 aggregate tables.",
+        "linkedService": {
+          "name": "SupplyChain_Processing_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "05_Forecast_Silver_W03",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "04_Forecast_Silver_W02",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[Usp_Refresh_ForecastAccuracy_Silver_W03]"
+        },
+        "description": "Forecast Accuracy Silver W03: NaiveForecastMonthly.",
+        "linkedService": {
+          "name": "SupplyChain_Processing_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "06_Forecast_Gold",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "05_Forecast_Silver_W03",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[Usp_Refresh_ForecastAccuracy_Gold]"
+        },
+        "description": "Forecast Accuracy Gold monolithic wrapper: Shared_DW dims, forecast dims, forecast facts.",
+        "linkedService": {
+          "name": "SupplyChain_Gold_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "98e2a911-5af9-442e-9cc8-5d8dadb8b762",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "07_Inventory_Silver_W01",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "06_Forecast_Gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[Usp_Refresh_InventoryHealth_Silver_W01]"
+        },
+        "description": "Inventory Health Silver W01 inventory source transformations.",
+        "linkedService": {
+          "name": "SupplyChain_Processing_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "08_Inventory_Silver_W02",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "07_Inventory_Silver_W01",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[Usp_Refresh_InventoryHealth_Silver_W02]"
+        },
+        "description": "Inventory Health Silver W02 derived tables.",
+        "linkedService": {
+          "name": "SupplyChain_Processing_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "09_Inventory_Silver_W03",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "08_Inventory_Silver_W02",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[Usp_Refresh_InventoryHealth_Silver_W03]"
+        },
+        "description": "Inventory Health Silver W03 dependent helpers.",
+        "linkedService": {
+          "name": "SupplyChain_Processing_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "c0262cef-b8a7-495f-bccc-53b098c7948c",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      },
+      {
+        "name": "10_Inventory_Gold",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+          {
+            "activity": "09_Inventory_Silver_W03",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 30
+        },
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[Usp_Refresh_InventoryHealth_Gold]"
+        },
+        "description": "Inventory Health Gold monolithic wrapper: Shared_DW dims, vendor dim, helpers, facts.",
+        "linkedService": {
+          "name": "SupplyChain_Gold_Warehouse",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+              "artifactId": "98e2a911-5af9-442e-9cc8-5d8dadb8b762",
+              "workspaceId": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0"
+            }
+          }
+        }
+      }
+    ],
+    "parameters": {},
+    "annotations": [],
+    "description": "Backup ad-hoc full refresh pipeline. Calls 10 wrapper SP job steps: shared prerequisites, Forecast Silver/Gold, then Inventory Silver/Gold wrappers. Manual only."
+  }
+}

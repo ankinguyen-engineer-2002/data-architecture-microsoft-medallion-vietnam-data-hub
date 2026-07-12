@@ -106,7 +106,7 @@
       "step": 330,
       "wave": 2,
       "object": "ForecastHistory_Enh.ForecastDemandMonthly",
-      "load_type": "overwrite",
+      "load_type": "DateRange",
       "purpose": "Forecast demand monthly (depends on W01 + Staging)."
     },
     {
@@ -169,7 +169,7 @@
       "step": 710,
       "wave": "gold_fact",
       "object": "ForecastAccuracy_DW.FactForecastKpi",
-      "load_type": "overwrite",
+      "load_type": "DateRange",
       "purpose": "Forecast KPI fact (Gold W30)."
     },
     {

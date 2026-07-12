@@ -85,8 +85,10 @@
       "step": 200,
       "wave": 2,
       "object": "InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
-      "load_type": "overwrite",
-      "purpose": "PO historical (depends on W01)."
+      "load_type": "DateRange",
+      "date_key": "SnapshotDate",
+      "date_range_days": -30,
+      "purpose": "PO historical DateRange -30; W02 wrapper blocks empty source or duplicate table-dictionary keys before target change."
     },
     {
       "step": 210,
@@ -106,7 +108,7 @@
       "step": 230,
       "wave": 2,
       "object": "InventoryHistory_Enh.ForecastSnapshotWeekly",
-      "load_type": "overwrite",
+      "load_type": "DateRange",
       "purpose": "Weekly forecast snapshot (depends on W01 + Staging)."
     },
     {

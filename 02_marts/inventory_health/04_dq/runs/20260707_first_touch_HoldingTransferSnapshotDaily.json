@@ -1,0 +1,75 @@
+{
+  "generated_at_utc": "2026-07-07T08:17:39+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 1,
+  "rule_count": 3,
+  "results": [
+    {
+      "rule_name": "DQ_Bronze_Grain_HoldingTransferSnapshotDaily",
+      "rule_type": "DQ_Bronze",
+      "target": "InventoryHistory_Enh.HoldingTransferSnapshotDaily",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 42,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRDTL",
+          "grain": [
+            "DTFRNO",
+            "DITNBR"
+          ],
+          "row_count": 1718797,
+          "blank_or_null_key_rows": 42,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        },
+        {
+          "source": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRHDR",
+          "grain": [
+            "HTFRNO"
+          ],
+          "row_count": 62688,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 3.973
+    },
+    {
+      "rule_name": "DQ_B2S_HoldingTransferSnapshotDaily_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "InventoryHistory_Enh.HoldingTransferSnapshotDaily",
+      "result": "PASS",
+      "expected_rows": 1861,
+      "actual_rows": 1861,
+      "expected_metric_sum": 23265.0,
+      "actual_metric_sum": 23265.0,
+      "metric_delta_abs": 0.0,
+      "measures": [
+        "TransferQty",
+        "ShippedQty"
+      ],
+      "note": "",
+      "elapsed_seconds": 2.544
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_HoldingTransferSnapshotDaily",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "InventoryHistory_Enh.HoldingTransferSnapshotDaily",
+      "result": "PASS",
+      "grain": [
+        "SnapshotDate",
+        "TransferNumber",
+        "TransferLine"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 0.977
+    }
+  ]
+}

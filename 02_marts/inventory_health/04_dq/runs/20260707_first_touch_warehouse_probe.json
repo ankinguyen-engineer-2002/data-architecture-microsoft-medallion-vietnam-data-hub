@@ -1,0 +1,58 @@
+{
+  "generated_at_utc": "2026-07-07T08:01:30+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 1,
+  "rule_count": 3,
+  "results": [
+    {
+      "rule_name": "DQ_Bronze_Grain_Warehouse",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.Warehouse",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 1,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+          "grain": [
+            "Warehouse"
+          ],
+          "row_count": 54,
+          "blank_or_null_key_rows": 1,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 1.612
+    },
+    {
+      "rule_name": "DQ_B2S_Warehouse_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.Warehouse",
+      "result": "PASS",
+      "expected_rows": 53,
+      "actual_rows": 53,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 1.432
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_Warehouse",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.Warehouse",
+      "result": "PASS",
+      "grain": [
+        "WarehouseCode"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 0.659
+    }
+  ]
+}

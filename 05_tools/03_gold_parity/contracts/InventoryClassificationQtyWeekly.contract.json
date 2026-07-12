@@ -1,0 +1,275 @@
+{
+  "step": 7,
+  "wave": "W21_dependent_helper",
+  "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryClassificationQtyWeekly",
+  "source_view": "SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_InventoryClassificationQtyWeekly",
+  "is_hotspot": true,
+  "declared_business_key": [
+    "Item",
+    "WH",
+    "SnapshotWeekEnding"
+  ],
+  "table_modify_date_utc": "2026-07-10T08:56:03.383",
+  "view_modify_date_utc": "2026-06-25T03:27:19.560",
+  "final_table_columns": [
+    {
+      "pos": 1,
+      "col": "Item",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "WH",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "SnapshotWeekEnding",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "InventoryClassification Final Status",
+      "dtype": "varchar",
+      "maxlen": 17,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "Qty by InventoryClassification (Inactive)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "Qty by InventoryClassification (SLOB)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "Qty by InventoryClassification (Below Target)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 20,
+      "scale": 5,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "Qty by InventoryClassification (SweetSpot)",
+      "dtype": "numeric",
+      "maxlen": null,
+      "prec": 22,
+      "scale": 5,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "Qty by InventoryClassification (OverTarget)",
+      "dtype": "numeric",
+      "maxlen": null,
+      "prec": 23,
+      "scale": 5,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "Qty by InventoryClassification (Excess)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 23,
+      "scale": 5,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "Qty by InventoryClassification (AE)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 24,
+      "scale": 5,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "Qty by InventoryClassification (TB Inventory)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 24,
+      "scale": 5,
+      "is_nullable": "YES"
+    }
+  ],
+  "view_columns": [
+    {
+      "pos": 1,
+      "col": "Item",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "WH",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "SnapshotWeekEnding",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "InventoryClassification Final Status",
+      "dtype": "varchar",
+      "maxlen": 17,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "Qty by InventoryClassification (Inactive)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "Qty by InventoryClassification (SLOB)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "Qty by InventoryClassification (Below Target)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 20,
+      "scale": 5,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "Qty by InventoryClassification (SweetSpot)",
+      "dtype": "numeric",
+      "maxlen": null,
+      "prec": 22,
+      "scale": 5,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "Qty by InventoryClassification (OverTarget)",
+      "dtype": "numeric",
+      "maxlen": null,
+      "prec": 23,
+      "scale": 5,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "Qty by InventoryClassification (Excess)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 23,
+      "scale": 5,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "Qty by InventoryClassification (AE)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 24,
+      "scale": 5,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "Qty by InventoryClassification (TB Inventory)",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 24,
+      "scale": 5,
+      "is_nullable": "YES"
+    }
+  ],
+  "loader_positional_contract": {
+    "loader": "ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView (INSERT ... SELECT *)",
+    "table_column_count": 12,
+    "view_column_count": 12,
+    "column_count_match": true,
+    "column_order_match": true,
+    "drift": {
+      "in_view_not_table": [],
+      "in_table_not_view": []
+    },
+    "load_safe": true
+  },
+  "source_refs": [
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper"
+  ],
+  "static_parse": {
+    "cte_names": [
+      "inv_base",
+      "src",
+      "raw_bounds",
+      "below_bound",
+      "sweet_bound",
+      "over_bound",
+      "excess_bound",
+      "bounded"
+    ],
+    "cte_count": 8,
+    "row_number_count": 1,
+    "group_by_count": 0,
+    "distinct_count": 0,
+    "left_join_count": 3,
+    "inner_join_count": -3,
+    "case_count": 4,
+    "coalesce_count": 2,
+    "latest_asof_markers": 1,
+    "reads_islatest_flag": false,
+    "has_partition_dedupe": true
+  },
+  "view_definition": "-- InventoryHealth_DW_Wrk.v_InventoryClassificationQtyWeekly\nCREATE   VIEW [InventoryHealth_DW_Wrk].[v_InventoryClassificationQtyWeekly] AS\nWITH inv_base AS (\n    SELECT\n        ItemSku,\n        WarehouseCode,\n        SnapshotWeekEndingDate,\n        OnHandQty\n    FROM (\n        SELECT\n            ItemSku,\n            WarehouseCode,\n            SnapshotWeekEndingDate,\n            OnHandQty,\n            ROW_NUMBER() OVER (\n                PARTITION BY ItemSku, WarehouseCode, SnapshotWeekEndingDate\n                ORDER BY FiscalMonthDate ASC\n            ) AS rn\n        FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[InventorySnapshotWeekly]\n    ) ranked_inv\n    WHERE rn = 1\n),\nsrc AS (\n    SELECT\n        inv.ItemSku AS Item,\n        inv.WarehouseCode AS WH,\n        inv.SnapshotWeekEndingDate AS SnapshotWeekEnding,\n        CAST(COALESCE(inv.OnHandQty, 0) AS DECIMAL(18,4)) AS OnHandsQty,\n        CAST(COALESCE(ss.SafetyStockTarget, 0) AS DECIMAL(18,4)) AS SSTarget,\n        CAST(awd.AwdQty AS DECIMAL(18,4)) AS AvgWeeklyDemand,\n        cls.[InventoryClassification Final Status]\n    FROM inv_base inv\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[AwdHelper] awd\n        ON awd.ItemSku = inv.ItemSku\n       AND awd.WarehouseCode = inv.WarehouseCode\n       AND awd.AsOfDate = inv.SnapshotWeekEndingDate\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[SafetyStockHelper] ss\n        ON ss.ItemSku = inv.ItemSku\n       AND ss.WarehouseCode = inv.WarehouseCode\n       AND ss.AsOfDate = inv.SnapshotWeekEndingDate\n    LEFT JOIN [InventoryHealth_DW].[InventoryHealthSubStatusWeekly] cls\n        ON cls.ItemSku = inv.ItemSku\n       AND cls.WarehouseCode = inv.WarehouseCode\n       AND cls.SnapshotWeekEnding = inv.SnapshotWeekEndingDate\n),\nraw_bounds AS (\n    SELECT\n        src.*,\n        CASE WHEN 0.5 * SSTarget > 0 THEN 0.5 * SSTarget ELSE 0 END AS RawBelowUpperQty,\n        CASE WHEN 1.5 * SSTarget > 0 THEN 1.5 * SSTarget ELSE 0 END AS RawSweetSpotUpperQty,\n        CASE\n            WHEN AvgWeeklyDemand > 0 THEN 17 * AvgWeeklyDemand\n            ELSE OnHandsQty\n        END AS RawOverTargetUpperQty,\n        CASE\n            WHEN AvgWeeklyDemand > 0 THEN 52 * AvgWeeklyDemand\n            ELSE OnHandsQty\n        END AS RawExcessUpperQty,\n        CASE\n            WHEN AvgWeeklyDemand > 0 THEN 104 * AvgWeeklyDemand\n            ELSE OnHandsQty\n        END AS RawAEUpperQty\n    FROM src\n),\nbelow_bound AS (\n    SELECT\n        raw_bounds.*,\n        RawBelowUpperQty AS BelowUpperQty\n    FROM raw_bounds\n),\nsweet_bound AS (\n    SELECT\n        below_bound.*,\n        CASE\n            WHEN RawSweetSpotUpperQty > BelowUpperQty THEN RawSweetSpotUpperQty\n            ELSE BelowUpperQty\n        END AS SweetSpotUpperQty\n    FROM below_bound\n),\nover_bound AS (\n    SELECT\n        sweet_bound.*,\n        CASE\n            WHEN RawOverTargetUpperQty > SweetSpotUpperQty THEN RawOverTargetUpperQty\n            ELSE SweetSpotUpperQty\n        END AS OverTargetUpperQty\n    FROM sweet_bound\n),\nexcess_bound AS (\n    SELECT\n        over_bound.*,\n        CASE\n            WHEN RawExcessUpperQty > OverTargetUpperQty THEN RawExcessUpperQty\n            ELSE OverTargetUpperQty\n        END AS ExcessUpperQty\n    FROM over_bound\n),\nbounded AS (\n    SELECT\n        excess_bound.*,\n        CASE\n            WHEN RawAEUpperQty > ExcessUpperQty THEN RawAEUpperQty\n            ELSE ExcessUpperQty\n        END AS AEUpperQty\n    FROM excess_bound\n)\nSELECT\n    Item,\n    WH,\n    SnapshotWeekEnding,\n    [InventoryClassification Final Status],\n    CASE WHEN [InventoryClassification Final Status] = 'INACTIVE' THEN OnHandsQty ELSE 0 END AS [Qty by InventoryClassification (Inactive)],\n    CASE WHEN [InventoryClassification Final Status] = 'SLOB' THEN OnHandsQty ELSE 0 END AS [Qty by InventoryClassification (SLOB)],\n    CASE\n        WHEN [InventoryClassification Final Status] IN ('INACTIVE','SLOB') THEN 0\n        WHEN OnHandsQty <= 0 THEN 0\n        WHEN OnHandsQty <= BelowUpperQty THEN OnHandsQty\n        ELSE BelowUpperQty\n    END AS [Qty by InventoryClassification (Below Target)],\n    CASE\n        WHEN [InventoryClassification Final Status] IN ('INACTIVE','SLOB') THEN 0\n        WHEN OnHandsQty <= BelowUpperQty THEN 0\n        WHEN OnHandsQty <= SweetSpotUpperQty THEN OnHandsQty - BelowUpperQty\n        ELSE SweetSpotUpperQty - BelowUpperQty\n    END AS [Qty by InventoryClassification (SweetSpot)],\n    CASE\n        WHEN [InventoryClassification Final Status] IN ('INACTIVE','SLOB') THEN 0\n        WHEN OnHandsQty <= SweetSpotUpperQty THEN 0\n        WHEN OnHandsQty <= OverTargetUpperQty THEN OnHandsQty - SweetSpotUpperQty\n        ELSE OverTargetUpperQty - SweetSpotUpperQty\n    END AS [Qty by InventoryClassification (OverTarget)],\n    CASE\n        WHEN [InventoryClassification Final Status] IN ('INACTIVE','SLOB') THEN 0\n        WHEN OnHandsQty <= OverTargetUpperQty THEN 0\n        WHEN OnHandsQty <= ExcessUpperQty THEN OnHandsQty - OverTargetUpperQty\n        ELSE ExcessUpperQty - OverTargetUpperQty\n    END AS [Qty by InventoryClassification (Excess)],\n    CASE\n        WHEN [InventoryClassification Final Status] IN ('INACTIVE','SLOB') THEN 0\n        WHEN OnHandsQty <= ExcessUpperQty THEN 0\n        WHEN OnHandsQty <= AEUpperQty THEN OnHandsQty - ExcessUpperQty\n        ELSE AEUpperQty - ExcessUpperQty\n    END AS [Qty by InventoryClassification (AE)],\n    CASE\n        WHEN [InventoryClassification Final Status] IN ('INACTIVE','SLOB') THEN 0\n        WHEN OnHandsQty <= AEUpperQty THEN 0\n        ELSE OnHandsQty - AEUpperQty\n    END AS [Qty by InventoryClassification (TB Inventory)]\nFROM bounded;\n"
+}

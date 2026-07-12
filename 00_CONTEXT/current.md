@@ -1,5 +1,111 @@
 # Context 2026-06-24 to 2026-06-30
 
+## 2026-07-12 08:15:00 ICT — Module 05 downstream+perf DONE + report-contract constraint locked; Wave 0 COMPLETE (read-only, no live mutation)
+
+**Scope lock:**
+- Still Wave 0 / pre-Wave-1. Read-only only: `ApplicationIntent=ReadOnly`, SELECT + metadata. Zero CREATE/ALTER/DROP/INSERT/UPDATE/DELETE on live Fabric. No optimization deployed.
+
+**User instruction:**
+- "tiếp tục cho xong plan." Mid-way user raised a hard business concern: Power BI report (both Forecast + Inventory Gold facts) is already built on the existing physical facts, so replacing/dropping facts would destroy visual/measure/report work — must be added to the plan as a top optimization constraint.
+
+**Actions executed (all read-only / repo-only):**
+- Hardened `05_tools/03_gold_parity/05_downstream_perf.py`: added `--include-target` / `--measures-for`; heavy views default to rowcount-only; e2e now runs each heavy count on its own short-lived read-only connection + one retry (fixes TCP-session cascade); `run_e2e_view_vs_table(timeout=...)`; e2e target list honors `--include-target`. `lib_conn.query` timeout arg reverted (pyodbc.Cursor has no settable timeout).
+- Ran Layer F sanity per-target (dims batched; heavy views one-by-one).
+- Ran Layer D e2e for both small consumers (SubStatus + ClassQty).
+- Added HARD CONSTRAINT §2.1 to `2026-07-10-inventory-gold-business-parity-optimization-plan.md` (in-place identity: same physical object, columns/order/types/nullability/key byte-compatible; refactor producer `_Wrk.v_*`+loader, not the report-facing object; Direct Lake binding must survive; applies to both marts). Added parity check #1 sub-bullet and §6.3 release gate 7.
+- Updated evidence pack `2026-07-10-inventory-gold-wave0-evidence-pack.md` §7 (Layer F/G + e2e), new §8 (report-contract preservation), §9 next actions; status header → Wave 0 COMPLETE.
+
+**Verified results (all read-only live):**
+- Layer F view-vs-table sanity, all 9 targets PASS, 0 diffs. Row counts match Module 03 baseline exactly: DimCalendar 21,551; DimProduct 783,945; DimWarehouse 53; DimVendor 87,003; SubStatusWeekly 19,605,162; ClassQtyWeekly 19,605,162; ProjectedSubStatus 3,785,137; FutureWeekEnding 3,785,137; FactSnapshot 19,501,346. Dim measure SUMs also 0-diff.
+- Layer D e2e full-tuple A(table)-vs-B(view recompute): SubStatusWeekly a=b=19,605,162, a∉b=0, b∉a=0, value_mismatches=0 (513s, run 20260711T131645Z). ClassQtyWeekly a=b=19,605,162, a∉b=0, b∉a=0, value_mismatches=0 (1388s, run 20260712T010259Z).
+- Layer G perf baseline (30d, run 20260711T084148Z): chain median elapsed=643s, chain median remote scan=10,150MB. Hotspots: FutureWeekEnding p95=886s (compute), FactSnapshot rem_med=5,154MB (scan), SubStatusWeekly rem_med=3,703MB.
+
+**Infra note (not a logic failure):**
+- First ClassQty e2e attempt hit Fabric capacity pause (error 24800 "capacity is currently not active") mid-run, then a long anti-join dropped the shared TCP session (08S01 0x36 → IMC06 cascade). Capacity came back; per-query fresh-connection design made the rerun clean.
+
+**Files changed (repo only, no live):**
+- `05_tools/03_gold_parity/05_downstream_perf.py`, `lib_conn.py`
+- `05_tools/03_gold_parity/runs/2026071{1,2}T*_downstream_perf_{sanity,e2e}.*`
+- `01_docs/plans/2026-07-10-inventory-gold-business-parity-optimization-plan.md` (§2.1, §4.1, §6.3)
+- `01_docs/plans/2026-07-10-inventory-gold-wave0-evidence-pack.md` (§7–§9, status)
+- `00_CONTEXT/current.md`
+
+**Verdict:** Wave 0 COMPLETE. C1 inv_base business parity proven at inv_base + downstream serving level; oracle confirmed non-stale; perf baseline set; report-contract preservation now a blocking gate. C1 is compatible with §2.1 because it only refactors shared inv_base feeding the existing `INSERT ... SELECT *` into the same physical facts.
+
+**Blocker/risk:**
+- No production change is authorized. Wave 1 deploy blocked until Aric approves the exact in-place object(s) + implementation + run + validation scope (§6.3, incl. new gate 7).
+
+**Next concrete step:**
+- Request Wave 1 gate for the first in-place C1 candidate (shared inv_base → FactSnapshot/SubStatus/ClassQty), including the §7 report-contract diff + `sc_control_tower` smoke as part of the gate-7 evidence.
+
+## 2026-07-11 09:30:00 ICT — Module 04 C1 inv_base parity PASS (read-only, no live mutation)
+
+**Scope lock:**
+- Still Wave 0 / pre-Wave-1. User: proceed as long as live Fabric production is not touched.
+- Module 04 implemented as **inline pure SELECT** A-vs-B. **No** CREATE/ALTER/DROP/INSERT/UPDATE/DELETE on live Fabric. No shadow schema/table/view created.
+
+**Actions:**
+- Built `05_tools/03_gold_parity/04_shadow_parity.py` (T1 R3 extended, T2 shared counts, T3 Fact A-vs-B, T4 SubStatus A-vs-B, T5 SnapshotType dist; `--recent-weeks` / `--full` / `--only-antijoin`).
+- Smoke 8 weeks: overall PASS (`runs/20260711T021117Z_shadow_parity_c1.*`).
+- Full history T1/T2/T5 + invariants PASS; first T3 wide-EXCEPT TCP-timeouted → rewritten to key anti-join + null-safe value mismatch.
+- Full history T3/T4 PASS (`runs/20260711T022510Z_shadow_parity_c1.*`).
+- Updated evidence pack `01_docs/plans/2026-07-10-inventory-gold-wave0-evidence-pack.md` §5–§7.
+
+**Verified results (full history, source `InventoryHistory_Enh.InventorySnapshotWeekly`):**
+- multi_row_groups = 19,605,162; FMD ties = 0; all carried cols constant within group (OnHandQty, MakeBuyCode, PrimaryVendorName, SecondaryVendorName, ReplenishmentLeadTime, SnapshotType).
+- shared_rn1 = 19,605,162 (= weekly family); fact_eligible WEEKLY = 19,501,346 (= FactSnapshot table); LATEST excluded = 103,816.
+- T3 Fact A-vs-B: a=b=19,605,162; a∉b=0; b∉a=0; value_mismatches=0.
+- T4 SubStatus A-vs-B: a=b=19,605,162; a∉b=0; b∉a=0; value_mismatches=0.
+- Verdict: `C1_SHARED_INV_BASE_PARITY_PASS` for inv_base surface only.
+
+**Not proven / not done:**
+- End-to-end view parity (joins/CASE after inv_base).
+- Performance gain (no materialization).
+- Production deploy of C1 (not requested; not approved).
+- Module 05 downstream/perf.
+
+**Next:**
+1. Module 05 (downstream serving + perf/rollback), still read-only first.
+2. Optional pure-SELECT end-to-end A-vs-B for FactSnapshot/SubStatus/ClassQty.
+3. Only then request approval before any production object change.
+
+---
+
+## 2026-07-11 00:50:00 ICT — Inventory Health Gold Wave 0 audit/baseline harness (read-only, no live mutation)
+
+**Scope lock:**
+- Wave 0 of `2026-07-10-inventory-gold-business-parity-optimization-plan.md`.
+- Read-only live audit + frozen baseline only. No production DDL/DML, no wrapper/pipeline/semantic mutation. User approved building test scaffolding and read-only probing; no production object touched.
+
+**User instruction:**
+- Read context + repo + optimization plan, then design and execute a very detailed audit/test/parity system so an optimized B provably equals current A on business logic, code logic, and performance. Approved doing anything per plan except changing live-running production; may create-then-drop test objects.
+
+**Actions executed (all read-only):**
+- Built harness `05_tools/03_gold_parity/`: `lib_conn.py` (read-only-intent pyodbc + Entra token, reused 01_dq pattern), `01_contract_inventory.py`, `02_risk_probes.py`, `03_baseline_capture.py`.
+- Module 01: captured contract for all 9 `Usp_Refresh_InventoryHealth_Gold` targets (live view SQL + INFORMATION_SCHEMA + static parse + loader positional contract). Output `contracts/*.contract.json`.
+- Module 02: risk probes R1 (helper-join multiplicity), R2 (DimProduct uniqueness), R3 (inv_base tie-break materiality).
+- Module 03: baseline pack per target (rowcount, key uniqueness, date coverage, exact measure sums, categorical distributions, weekly reconciliation, best-effort Query Insights). Output `contracts/*.baseline.json`.
+- Evidence pack written to `01_docs/plans/2026-07-10-inventory-gold-wave0-evidence-pack.md`.
+
+**Key findings:**
+- Loader safety: all 9 view→table column sets match exactly (`INSERT ... SELECT *` safe); 2026-07-03 DimWarehouse drift class not present now.
+- Live-vs-repo view drift recorded (not a blocker): live `FactInventoryHealthSnapshot` has 54 cols incl `WeightedSINegScore`,`OutageClass`; live FutureWeekEnding has `ProjectedShortageValue` vs repo `ProjectedRevenueAtRisk`. Oracle uses live columns.
+- R1: all 7 FactSnapshot LEFT-JOIN tables have 0 dup groups at join grain → no fan-out.
+- R2: DimProduct unique at ItemSKU (783,945; 0 dup).
+- R3: `InventorySnapshotWeekly` = 705,785,832 raw rows → 19,605,162 dedup groups (~36:1), scanned+deduped 3× by weekly family. Tie-break immaterial for OnHandQty (0 groups differ, 0 FiscalMonthDate ties). GAP: tie-break stability for MakeBuyCode/PrimaryVendorName/SecondaryVendorName/ReplenishmentLeadTime still UNVERIFIED.
+- Baseline-time hypothesis: weekly family 19,605,162 vs FactSnapshot 19,501,346 (Δ=103,816) was initially attributed to the fact-only NULL filter. Module 04 later corrected this: rn=1 null-key exclusion is 0; the full Δ is `SnapshotType='LATEST'` excluded by the post-dedup WEEKLY filter.
+- Frozen FactSnapshot totals (max date 2026-07-04): SUM(OnHandQty)=2,146,230,631; SUM(OnHandValue)=76,277,084,285.2561; SUM(SIQty)=1,538,875,984; SUM(ShortageValue)=-18,577,955,997. Classification + shortage distributions frozen.
+
+**Files changed (repo only, no live):**
+- `05_tools/03_gold_parity/*` (new harness + contracts + baselines + run logs)
+- `01_docs/plans/2026-07-10-inventory-gold-wave0-evidence-pack.md` (new)
+- `00_CONTEXT/current.md`
+
+**Candidate ranking (test-only, NOT approved):** C1 shared deduped inv_base (High ROI, pending R3 gap), C2 shared PO/MO aggregate, C3 shared sp_latest/as-of for future family, C4 column narrowing, C5 predicate pushdown.
+
+**Next concrete step:**
+- Close R3 gap (4 non-OnHand cols tie-break stability), then build Module 04 shadow parity + Module 05 downstream/perf before any C1 shadow implementation or approval request.
+
 ## 2026-07-06 12:45:00 ICT — Read-only audit of `2026-07-03` post-18:00 activity for full mart vs DQ-only reruns
 
 **Scope lock:**
@@ -258,6 +364,50 @@
   - `DQRunId = EA441173-6047-4304-90DD-FE98A14ED5D7`
   - `DQRunAtICT = 2026-07-03 15:54:30.776756`
 - Therefore forecast gold / forecast DQ from the current run has not completed yet.
+
+## 2026-07-07 14:20:00 ICT — Live audit of Inventory BRZ/raw source to first Silver touch
+
+**Scope lock:**
+- Read-only live SQL audit against `SupplyChain_Processing_Warehouse`.
+- No repo code edit and no live mutation.
+
+**User instruction:**
+- Audit live Fabric, list all Bronze/raw source tables and the first Silver table they touch for Inventory mart scope, ignoring execution wave.
+
+**Actions executed:**
+- Re-read `CLAUDE.md` and `00_CONTEXT/current.md`.
+- Queried live wrapper procedure definitions:
+  - `dbo.Usp_Refresh_Shared_ReferenceMaster`
+  - `dbo.Usp_Refresh_InventoryHealth_Silver_W01`
+  - `dbo.Usp_Refresh_InventoryHealth_Silver_W02`
+  - `dbo.Usp_Refresh_InventoryHealth_Silver_W03`
+- Queried live `_Wrk` view definitions in:
+  - `ReferenceMaster_Enh_Wrk`
+  - `InventoryHistory_Enh_Wrk`
+  - `SalesHistory_Enh_Wrk`
+  - `Staging_Wrk`
+- Parsed `FROM/JOIN/APPLY` references and mapped direct `Enterprise_Lakehouse.*` / `ProcessingSeed.*` sources to first physical Silver targets.
+
+**Key findings:**
+- Live wrapper target scope scanned: `25` targets:
+  - `11` shared `ReferenceMaster_Enh` targets
+  - `13` `InventoryHistory_Enh` targets
+  - `1` `SalesHistory_Enh.InvoiceDetailLineLevel` inventory dependency
+- Direct raw/seed to final Silver:
+  - `22` targets have direct raw/seed source refs.
+  - `28` unique direct raw/seed sources.
+- Including the staging hop `Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily -> Staging.DemandForecastSnapshotDaily -> InventoryHistory_Enh.ForecastSnapshotWeekly`:
+  - `23` final Silver targets have raw/seed ancestry.
+  - `29` unique raw/seed sources if `ProcessingSeed` is counted.
+  - `27` unique Enterprise_Lakehouse raw sources if `ProcessingSeed` is excluded.
+- Two scanned final targets are not B2S/raw-first; they are downstream S2S:
+  - `InventoryHistory_Enh.SafetyStockHelper <= InventoryHistory_Enh.InventorySnapshotWeekly`
+  - `InventoryHistory_Enh.LastInvoiceWeekly <= InventoryHistory_Enh.InventorySnapshotWeekly; SalesHistory_Enh.InvoiceDetailLineLevel`
+
+**DQ implication:**
+- For Inventory BRZ->first Silver DQ, wave number is not the correct boundary.
+- The correct B2S scope is every final Silver target with direct or traced raw/seed ancestry, regardless of W01/W02/W03 wrapper.
+- `SafetyStockHelper` and `LastInvoiceWeekly` should be handled as S2S checks, not B2S checks.
 
 **Next concrete step:**
 - Keep polling until either a new `DQRunId` appears or SQL activity clearly moves into inventory wrappers, then read the latest forecast DQ batch immediately.
@@ -4449,4 +4599,825 @@
   - `NEXT_PUBLIC_BASE_PATH=/data-architecture-microsoft-medallion-vietnam-data-hub npm run build` -> OK
 
 **Deploy status:**
-- Ready to commit/push targeted lineage changes and trigger GitHub Pages workflow `lineage-portal.yml` with `scan_mode=live`.
+- Completed.
+- Pushed lineage scanner fix to feature branch commit `febe98b9`.
+- GitHub Pages environment only allowed `main`, so cherry-picked to clean main worktree and pushed:
+  - `57454f88` — scanner wildcard/runtime-wave fix
+  - `0ed4194e` — `inventory_health/05_catalog/run_order.json` aligned with live Fabric W01/W02/W03 plus regenerated snapshot
+- Triggered GitHub Actions workflow `Build Lineage Portal` with `scan_mode=live`.
+- Final successful run:
+  - run id `28849018935`
+  - head SHA `0ed4194eea143d8f03deba833f2fe721cf6d66e6`
+  - Pages URL `https://ankinguyen-engineer-2002.github.io/data-architecture-microsoft-medallion-vietnam-data-hub/`
+- Public snapshot verification passed:
+  - `generated_at_utc = 2026-07-07T07:24:14Z`
+  - `InventorySnapshotWeekly = W01`
+  - `AtpWeekEnding = W01`
+  - `ForecastSnapshotWeekly = W02`
+  - `AwdHelper = W03`
+
+## 2026-07-07 14:40:00 ICT — Inventory BRZ-to-SLV W01 DQ scope recap and missing ReferenceMaster check
+
+**Scope lock:**
+- Read-only live SQL checks.
+- No DQ view/table creation and no physical DQ insert.
+
+**User instruction:**
+- Re-summarize the user's Inventory Bronze-to-Silver wave đầu scope and pass/fail after lineage correction; explain why Bronze lineage shows many sources.
+
+**Scope decision:**
+- User scope `Inventory BRZ -> SLV wave đầu` = live shared `ReferenceMaster` prerequisite + live `InventoryHealth_Silver_W01`.
+- Target count = 13:
+  - `ReferenceMaster_Enh`: 11 tables
+  - `InventoryHistory_Enh`: `InventorySnapshotWeekly`, `AtpWeekEnding`
+- Rule count = 39 = 13 targets x 3 rule families.
+- Do not include Inventory W02/W03 Bronze sources in this wave đầu DQ scope.
+
+**Evidence already available:**
+- Earlier full SELECT-only run for 7 targets:
+  - 5 ReferenceMaster already in draft + 2 Inventory W01 targets
+  - result `18 PASS / 3 FAIL / 21`
+  - all `DQ_B2S_*` and all `DQ_Silver_Grain_*` passed
+  - fails were raw Bronze only:
+    - `Warehouse`: `blank_or_null_key_rows = 1`
+    - `DemandInventorySnapshotDaily`: `duplicate_groups = 135,977,040`
+    - `ATPWeekEnding`: `duplicate_groups = 18`
+
+**New live check for 6 missing ReferenceMaster targets:**
+- Targets checked:
+  - `CustomerAccount`
+  - `CustomerGrouping`
+  - `CustomerShippingLocation`
+  - `ForecastCycle`
+  - `ForecastHorizon`
+  - `OrderType`
+- Result: `14 PASS / 4 FAIL / 18`
+- All 6 `DQ_B2S_KeyParity_*` passed.
+- Fails:
+  - `DQ_Bronze_Grain_CustomerShippingLocation`: `blank_key_rows = 35,716`, `duplicate_groups = 0`
+  - `DQ_Silver_Grain_CustomerShippingLocation`: `blank_or_null_key_rows = 35,716`, `duplicate_groups = 0`
+  - `DQ_Bronze_Grain_OrderType`: `blank_key_rows = 1`, `duplicate_groups = 0`
+  - `DQ_Silver_Grain_OrderType`: `blank_or_null_key_rows = 1`, `duplicate_groups = 0`
+
+**Combined wave đầu result:**
+- `32 PASS / 7 FAIL / 39`
+- By family:
+  - Bronze source grain: `9 PASS / 4 FAIL`
+  - B2S parity: `13 PASS / 0 FAIL`
+  - Silver final grain: `10 PASS / 3 FAIL`
+
+**Interpretation:**
+- Transform/load from BRZ/Wrk to physical Silver is clean for all 13 targets checked.
+- Failures are source/key cleanliness propagated to final Silver for specific raw key issues, plus source duplicate issues in the two Inventory W01 raw feeds.
+- Lineage shows many Bronze nodes because it displays full upstream graph for Inventory W02/W03/Gold and shared dependencies, not only the user's W01 BRZ-to-SLV DQ assignment.
+
+## 2026-07-09 — Session history extraction and context consolidation (from OpenCode/Codex sessions)
+
+**Scope lock:**
+- Read-only extraction from `~/.codex/state_5.sqlite`, `~/.codex/memories_1.sqlite`, and `~/.codex/sessions/` JSONL files.
+- Write to `00_CONTEXT/current.md` only.
+- No live Fabric/SQL mutation.
+
+**Source:**
+- OpenCode/Codex sessions stored in:
+  - `~/.codex/state_5.sqlite` → `threads` table (26 threads in this repo's CWD)
+  - `~/.codex/memories_1.sqlite` → `stage1_outputs` table (25 memory slugs)
+  - `~/.codex/sessions/2026/06/` and `~/.codex/sessions/2026/07/` → 155 JSONL rollout files total
+  - `~/.codex/session_index.jsonl` → 7 named sessions (not repo-specific)
+
+**Key session findings consolidated (July 6-8, 2026):**
+
+### Session `019f35e4` (2026-07-06) — Full pipeline audit + DQ snapshot analysis
+
+- User asked to check whether full 10-step mart chain ran after 18:00 ICT on 2026-07-03.
+- Conclusion: **NO** evidence of evening run. All pipeline runs completed before 15:00 ICT.
+- DQ duplicate snapshots were caused by:
+  1. Multiple manual DQ reruns on the same day
+  2. Mutable bronze source comparison against stale Silver
+  3. DQ rule inventory changing mid-day (32 vs 47 rules)
+- Active pipeline `pl_backup_full_refresh` was triggered on 2026-07-06 at 14:01 ICT and completed successfully.
+- Forecast DQ recheck passed after new pipeline run.
+- Inventory DQ BRZ-to-SLV wave đầu result: `32 PASS / 7 FAIL / 39` (fails are source cleanliness, not transform issues).
+
+### Session `019f3f69` (2026-07-08 to 2026-07-09) — PR feedback from DE US + Git repo strategy
+
+- User committed Fabric workspace changes to `data-fabric-enterprise-supply-chain` (PR #6).
+- DE US (Bob) feedback:
+  - **Database objects** (stored procedures, tables, functions) should go to `data-edw-fabric` repo for future PRs.
+  - Current PR will be accepted this time; Bob will backfill `data-edw-fabric` later.
+  - **Multiple-source contamination**: PR contained schemas from `Retail_DW`, `Wholesale_ProductSourcing_Afi`, `WholeSale_Quality_AFI_wr` — user must remove non-Supply Chain objects.
+- Root cause of contamination: `ETL_Framework` warehouse had schemas synced from Enterprise `ETL_Framework` (Bob's) that included other domains. Those were cleaned up during the session.
+- **Dual-repo strategy established:**
+  - **Repo A** (`data-fabric-enterprise-supply-chain`): Fabric workspace items (lakehouse, semantic models, reports, notebooks, non-SQL objects) — commit via Fabric git integration.
+  - **Repo B** (`data-edw-fabric`): Database objects (stored procedures, tables, views, functions in warehouses) — commit manually via VS Code, PR via GitHub.
+- Git conflict resolved on `ETL_Framework` after cleaning stale schemas.
+- Model used: `gpt-5.5`, total tokens: `134,178,286`
+
+### Session `019f1c4d` (2026-07-01) — Pipeline orchestration re-verification + live sync
+
+- User asked to verify current orchestration/pipeline configuration from repo.
+- Confirmed wave-first ETL order is operational.
+- `ETL_Framework` sync from `EnterpriseData-Dev.ETL_Framework` was verified additive-only on 2026-07-02.
+- Documented intentional exceptions:
+  - `Usp_TableFromParquet_RowADF` removed (broken source object)
+  - `Usp_SnapshotLoad` patched minimally for live path handling
+
+### Session `019f26e5` (2026-07-03) — Pipeline failure investigation
+
+- `pl_backup_full_refresh` failed on 2026-07-03 at 14:31 ICT.
+- Root cause investigated: `ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly` duplicate issue in Silver view.
+- Calendar join logic producing duplicates was the underlying cause.
+
+### Earlier key sessions (June 2026 — from memories DB):
+
+| Date | Slug | Summary |
+|------|------|---------|
+| 2026-06-22 | `phase1-migration-context-logging-and-plan-checkpoints` | Phase 1 execution started; `usp_IncrementalTableLoad` hit SQL 3930 |
+| 2026-06-22 | `phase1-resume-fix-incrementaltableload-3930-and-validate-smokes` | Fixed 3930 masking bug; validated smokes |
+| 2026-06-22 | `forecast_accuracy_affi_enh_source_fix_mart_a_only_rerun` | Source fix: `SalesHistory_AFI` → `SalesHistory_AFI_Enh` |
+| 2026-06-22 | `mart-a-complete-v10-refresh-v8-registry-maintenance` | Mart A verified complete; v8 registry forced due |
+| 2026-06-23 | Phase 1 handoff | Phase 1 officially complete (see `01_docs/runbook/artifacts/.../phase1_done_handoff_20260623.md`) |
+| 2026-06-24 | `wave-first-etl-framework-orchestration` | Orchestration re-aligned to wave-first model |
+| 2026-06-25 | `da-onboarding-table-edit-and-wave-clarification` | DA onboarding doc improved for ETL wave self-service |
+| 2026-06-26 | `codex-cli-aibox-deepseek-default-profile-setup` | Codex CLI configured for API AI Box/DeepSeek |
+| 2026-06-26 | `read-context-and-chat-history-before-continuing` | Lineage portal work remaining (commit/push/redeploy) |
+
+**Codex session storage architecture (for future reference):**
+- `~/.codex/state_5.sqlite` → all thread metadata (`threads` table), including `cwd`, `title`, `model`, `tokens_used`, `first_user_message`
+- `~/.codex/memories_1.sqlite` → distilled learnings per thread (`stage1_outputs` table with `raw_memory`, `rollout_summary`, `rollout_slug`)
+- `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl` → full conversation transcripts (7586 lines for last session alone)
+- `~/.codex/history.jsonl` → 705KB chronological command history
+- `~/.codex/session_index.jsonl` → 7 named session bookmarks
+- Thread filtering: `SELECT * FROM threads WHERE cwd LIKE '%20260413_Fabric%'` returns all 26 sessions for this repo
+
+## 2026-07-09 — Phase 0 freeze/audit for DemandForecast historical backfill plan (read-only)
+
+**Scope lock:**
+- Read-only Fabric REST + warehouse SQL audit.
+- No DELETE/INSERT, no view repoint, no pipeline trigger.
+
+**User instruction:**
+- Proceed with plan sequentially; report each step; audit carefully.
+
+**Phase 0.1 — runtime freeze check:**
+- `pl_backup_full_refresh` recent instances: latest `Completed` 2026-07-08 06:36–08:31 UTC; no Running instance.
+- Query Insights last 6h: ETL_Framework / Processing / Gold = all `Succeeded` only; non-success = 0.
+- AuditLog latest (2026-07-09 ~02:09 UTC): DateRange live validation on `ForecastDemandMonthly`, `ForecastSnapshotWeekly`, `FactForecastKpi` + LoadPatternBench cleanup.
+
+**Phase 0.2 — EL 5-key readiness:**
+- Dry-run window `2026-06-24`–`<2026-07-09`: DuplicateGroups=`0`; rows=`161,221,968`; snapshot_days=`13`.
+- Chunk 2.1 window `2023-05-01`–`<2023-07-01`: DuplicateGroups=`0`.
+- Staging view partition keys now match 5-key (ROW_NUMBER over 5-key); physical Staging max snapshot `2026-07-06`, ~10.9B rows.
+
+**Phase 0.3 — source path still staging-backed:**
+- Live `v_ForecastDemandMonthly` still `FROM Staging.DemandForecastSnapshotDaily`.
+- Live `v_ForecastSnapshotWeekly` still `FROM Staging.DemandForecastSnapshotDaily`.
+- TableDictionary PK for Staging/view = 5-key; `ForecastDemandMonthly` UpdateMethod still `overwrite` (metadata lag vs DateRange test).
+
+**Phase 0.4 — critical dry-run window mismatch:**
+- `ForecastDemandMonthly` / `FactForecastKpi` are **monthly cycle** snapshots (latest physical `2026-06-15`), not daily.
+- `ReferenceMaster_Enh.ForecastCycle` rows in `2026-06-24`–`<2026-07-09` = **0** (join kills FDM output in that window).
+- Physical dry-run window: FDM rows_inside=`0`; KPI rows_inside=`0`; FSW rows_inside=`5,522,472` (Saturdays 06-27, 07-04).
+- Outside window preserved: FDM ~230M (min 2023-01-16); FSW ~1.07B; KPI ~111M.
+- `FactForecastActual` exists but **no Snapshot column** (grain: ItemSKU/WH/CustomerGroup/FSCMonth/Horizon/Status/Version) — rebuild pattern ≠ date-window Snapshot.
+- IH lineage from `ForecastSnapshotWeekly`: `v_AwdHelper` → physical `InventoryHistory_Enh.AwdHelper` (AsOfDate 2023-07-15..2026-07-07). W03 loads AwdHelper. Gold IH facts may cascade.
+
+**Gate / next:**
+- Do **not** start live dry-run with plan window `2026-06-24`–`2026-07-09` for FDM/KPI (empty by ForecastCycle design).
+- Need Aric confirm: (1) dry-run window realigned to a ForecastCycle date e.g. include `2026-06-15`; (2) start history `2023-05-01` vs `2023-01-01`; (3) include `AwdHelper` (+ IH gold?) after FSW; (4) `FactForecastActual` in/out of scope; (5) repoint views to EL/thin before rebuild vs rebuild-from-staging-as-is.
+
+**Next concrete step:**
+- Phase 0 gate: confirm dry-run window realignment + open decisions before any live DELETE/INSERT.
+
+## 2026-07-09 — Path A authorized; deep parity audit; history rebuild re-scoped (read-only)
+
+**Scope lock:**
+- Read-only SQL parity audits only.
+- No live DELETE/INSERT, no view repoint, no full PL.
+
+**User authorization:**
+- Proceed with best path that audits carefully and does not damage final goal:
+  change load method, keep results as good as correct full load, eventually drop unnecessary staging if EL 5-key is clean.
+
+**Parity evidence (cycle probes):**
+
+| Snapshot | EL rows | Staging rows | EL=Stg sums | EL 5-key dups | FDM view=phys rows/sums |
+|---|---:|---:|---|---|---|
+| 2026-06-15 | 12,381,120 | 12,381,120 | YES | 0 | 6,878,400 / 43,771,712 YES |
+| 2023-05-15 | 2,601,144 | 2,601,144 | YES | 0 | YES |
+| 2024-01-15 | 2,566,008 | 2,566,008 | YES | 0 | YES |
+| 2024-10-14 | 3,139,416 | 3,139,416 | YES | 0 | YES |
+| 2025-06-09 | 12,308,184 | 12,308,184 | YES | 0 | YES (view=phys; EL raw > FDM due to transform/cycle filter) |
+
+Also for 2026-06-15:
+- Staging_Wrk view rows/sums = EL
+- FSW view=phys on 2026-06-13 and 2026-06-20
+- KPI view=phys on 2026-06-15
+
+**Framework DateRange constraint (live definition):**
+- `usp_UpdateCuratedTableFromView_DateRange` only supports relative window:
+  `@MinDate = DATEADD(DAY, @NumberofDays, GETDATE())` then DELETE/INSERT where date >= @MinDate.
+- It does **not** accept arbitrary historical `[Start, End)` for 2023 chunks.
+- Historical arbitrary windows require adhoc parameterized DELETE+INSERT scripts.
+
+**Re-scoped decision (protect goal):**
+1. Do **not** run multi-year historical rebuild now — no mismatch found on spread probes; rebuild would burn CU and risk without correctness gain.
+2. Treat historical rebuild as **conditional** only if a future probe finds EL≠Staging or view≠physical on a cycle date.
+3. Primary safe path = daily/relative DateRange method with pre-checks (empty window, 5-key dups) + parity DQ after load.
+4. Staging removal / thin EL wrapper = later optimization after more full-range spot checks, not a blind cutover today.
+5. FDM/KPI are ForecastCycle monthly snapshots, not daily continuum — DateRange `@NumberofDays` must cover last cycle date (e.g. include 2026-06-15).
+
+**Next concrete step:**
+- Prepare production-safe DateRange operating checklist (NumberofDays guidance, pre-check SQL, post parity SQL).
+- Optional controlled re-validation DateRange on FDM/FSW/KPI only if Aric wants another live prove-out.
+- Defer historical chunk scripts unless mismatch appears.
+
+## 2026-07-09 — DemandForecast staging-drop code cutover prepared (no live deploy)
+
+**Scope lock:**
+- Code/docs only in `data-edw-fabric` + architecture repo.
+- No live CREATE/ALTER/DELETE/INSERT on Fabric warehouses.
+- No full PL trigger.
+
+**Decision locked by Aric:**
+- Drop staging hop for DemandForecast path.
+- Keep transform formulas.
+- Results must remain as good as correct full load.
+- DateRange is the daily method after cutover.
+- Historical multi-year rebuild only if parity fails.
+
+**Code prepared:**
+
+1. NEW `Source_Wrk` schema + thin `Source_Wrk.v_DemandForecastSnapshotDaily`
+   - direct EL via `[$(Databricks)].SupplyChain_Enh.DemandForecastSnapshotDaily`
+   - no ROW_NUMBER dedupe
+2. REPOINT `ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly` -> `Source_Wrk...`
+3. REPOINT `InventoryHistory_Enh_Wrk.v_ForecastSnapshotWeekly` -> `Source_Wrk...`
+4. `Usp_Refresh_Shared_Staging` -> no-op (stops Staging DemandForecast DateRange load)
+5. Mirrored to architecture `02_marts` + `03_operations/deployment/sqlproj`
+6. Checklist: `01_docs/plans/2026-07-09-demandforecast-staging-drop-cutover-checklist.md`
+
+**Not done (next live gate):**
+- Deploy objects to Fabric Dev warehouse
+- Parity gate on cycle `2026-06-15` + FSW Saturdays
+- DateRange prove-out after parity PASS
+- DQ rule retirement for Staging physical compares
+- Drop physical Staging table
+
+**Next concrete step:**
+- Aric approve live deploy of Source_Wrk + 2 silver views + Shared_Staging no-op
+- Then run parity gate before any load
+
+## 2026-07-09 — Cutover chốt direct EL (bỏ Source_Wrk)
+
+**Decision:**
+- Aric rejected optional Source_Wrk wrapper.
+- Final path: silver views read EL directly via `[$(Databricks)].SupplyChain_Enh.DemandForecastSnapshotDaily`.
+- No extra hop. Staging physical load remains no-op via `Usp_Refresh_Shared_Staging`.
+
+**Code state:**
+- `Source_Wrk` files removed from data-edw-fabric + architecture mirrors.
+- `v_ForecastDemandMonthly` / `v_ForecastSnapshotWeekly` updated to direct EL.
+- Checklist updated: `01_docs/plans/2026-07-09-demandforecast-staging-drop-cutover-checklist.md`.
+- Still **not live deployed**.
+
+**Next concrete step:**
+- Live deploy Dev: 2 silver views + Shared_Staging no-op → parity gate → DateRange prove-out.
+
+## 2026-07-09 — Handoff status: plan ticks + context synced (ready for next session)
+
+**Purpose:** close documentation loop so next execution continues from a single clear board.
+
+### Goal (unchanged)
+- Drop Staging hop for DemandForecast
+- Keep transform formulas
+- Results as good as correct full load
+- Daily method = DateRange after cutover
+- Historical multi-year rebuild only if parity fails
+
+### DONE [x]
+1. Phase 0 freeze/runtime audit (no full PL running; QI clean sample)
+2. EL 5-key clean on ops window + historical probes (Apr 2023 exception documented)
+3. Deep parity: EL ≈ Staging ≈ FDM/FSW/KPI view/physical on cycles:
+   - 2023-05-15, 2024-01-15, 2024-10-14, 2025-06-09, 2026-06-15
+4. DateRange framework constraint documented (relative GETDATE only)
+5. Historical rebuild re-scoped to **conditional**
+6. Path chốt: **direct EL** (`[$(Databricks)].SupplyChain_Enh.DemandForecastSnapshotDaily`)
+7. `Source_Wrk` drafted then **removed** (rejected)
+8. Repo code prepared (not live):
+   - `v_ForecastDemandMonthly` → direct EL
+   - `v_ForecastSnapshotWeekly` → direct EL
+   - `Usp_Refresh_Shared_Staging` → no-op
+9. Mirrors updated in architecture `02_marts` + `03_operations/deployment/sqlproj`
+10. Plans updated with status boards:
+    - `01_docs/plans/2026-07-09-demandforecast-staging-drop-cutover-checklist.md`
+    - `01_docs/plans/2026-07-09-demandforecast-historical-backfill-and-load-reset-plan.md`
+
+### NOT DONE [ ] — next execution order
+1. **NEXT:** Live deploy Dev
+   - ALTER `ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly`
+   - ALTER `InventoryHistory_Enh_Wrk.v_ForecastSnapshotWeekly`
+   - ALTER `dbo.Usp_Refresh_Shared_Staging` (no-op)
+2. Parity gate (must PASS before load):
+   - cycle `2026-06-15` (FDM/KPI)
+   - FSW Saturdays `2026-06-13`, `2026-06-20`
+   - criteria: EL 5-key dups=0; view rows/sums = physical rows/sums
+3. DateRange prove-out: FDM / FSW / FactForecastKpi (pre-check empty window + dups)
+4. After stable: retire DemandForecast Staging DQ compares
+5. Later: drop/archive `Staging.DemandForecastSnapshotDaily`; deprecate Staging_Wrk view
+6. Conditional only: historical window rebuild if parity FAIL
+
+### Do not
+- Full PL between deploy and parity PASS
+- Historical 6-month chunk rebuild by default
+- Dry-run FDM/KPI on `2026-06-24`–`2026-07-09` (no ForecastCycle)
+- Reintroduce Source_Wrk unless Aric re-opens that decision
+
+### Canonical code locations
+- `data-edw-fabric/SupplyChain_Processing_Warehouse/ForecastHistory_Enh_Wrk/Views/v_ForecastDemandMonthly.sql`
+- `data-edw-fabric/SupplyChain_Processing_Warehouse/InventoryHistory_Enh_Wrk/Views/v_ForecastSnapshotWeekly.sql`
+- `data-edw-fabric/SupplyChain_Processing_Warehouse/dbo/StoredProcedures/Usp_Refresh_Shared_Staging.sql`
+
+### Next concrete step
+- Resume from cutover checklist item **#11 Live deploy Dev** when Aric approves live ALTER.
+
+## 2026-07-10 — Resume cutover plan: pre-flight read-only (ready for live deploy #11)
+
+**Scope lock:**
+- Read-only live Fabric REST + warehouse SQL pre-flight.
+- Deploy SQL prepared offline only.
+- No live ALTER/CREATE/DELETE/INSERT yet.
+
+**User instruction:**
+- Read latest context + plans; report done/not done; continue plan.
+
+**Plan source of truth:**
+- Primary: `01_docs/plans/2026-07-09-demandforecast-staging-drop-cutover-checklist.md`
+- Secondary (re-scoped): `01_docs/plans/2026-07-09-demandforecast-historical-backfill-and-load-reset-plan.md`
+- Resume point confirmed: checklist item **#11 Live deploy Dev**
+
+### DONE [x] (unchanged from 2026-07-09 handoff)
+1. Phase 0 freeze/runtime audit
+2. EL 5-key clean (ops + hist probes; Apr 2023 exception documented)
+3. Deep parity multi-cycle EL ≈ Staging ≈ view ≈ physical
+4. DateRange relative-GETDATE constraint documented
+5. Historical rebuild re-scoped = conditional only
+6. Path chốt direct EL (no Source_Wrk)
+7. Repo code + architecture mirrors prepared (not live)
+8. Plans/context status boards ticked
+
+### NOT DONE [ ] next order
+1. **#11 NEXT** Live deploy Dev: 2 silver views + Shared_Staging no-op
+2. **#12** Parity gate `2026-06-15` + FSW `2026-06-13`/`2026-06-20`
+3. **#13** DateRange prove-out FDM/FSW/KPI
+4. **#14–16** DQ retire / drop Staging later
+5. **#17** Historical rebuild only if parity FAIL
+
+### Pre-flight evidence (2026-07-10)
+- `pl_backup_full_refresh` running/pending = **0**
+- Latest full PL: Completed `2026-07-08T06:36Z`–`08:31Z`
+- Live still **Staging path**:
+  - `ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly` → `FROM Staging.DemandForecastSnapshotDaily`
+  - `InventoryHistory_Enh_Wrk.v_ForecastSnapshotWeekly` → `FROM Staging.DemandForecastSnapshotDaily`
+  - `dbo.Usp_Refresh_Shared_Staging` still DateRange load Staging `-15`
+- Live EL 3-part name verified via `Staging_Wrk.v_DemandForecastSnapshotDaily`:
+  - `FROM [Enterprise_Lakehouse].[SupplyChain_Enh].[DemandForecastSnapshotDaily]`
+  - `sys.databases` includes `Enterprise_Lakehouse`; no external_data_sources needed
+- Deploy package prepared (offline, not executed):
+  - `/var/folders/.../T/opencode/cutover_20260710/00_deploy_all_direct_el_cutover.sql`
+  - `$(Databricks)` resolved to `Enterprise_Lakehouse`
+  - `CREATE OR ALTER` for 2 views + Shared_Staging no-op
+
+### Do not
+- Full PL between deploy and parity PASS
+- Historical multi-year rebuild by default
+- Dry-run FDM/KPI window `2026-06-24`–`2026-07-09`
+- Reintroduce Source_Wrk
+
+**Next concrete step:**
+- Await Aric explicit approve for live ALTER on Processing Warehouse (#11), then deploy → parity gate (#12).
+
+## 2026-07-10 — Live deploy #11 + parity gate #12 PASS (direct-EL cutover)
+
+**Scope lock:**
+- Live ALTER on `SupplyChain_Processing_Warehouse` only (2 views + Shared_Staging).
+- Read-only parity queries on Processing + Gold.
+- No full PL; no DateRange load yet; no Staging drop.
+
+**User instruction:**
+- `oke approve` live deploy #11.
+
+### Deploy executed (all OK)
+1. `CREATE OR ALTER VIEW ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly` → direct EL
+2. `CREATE OR ALTER VIEW InventoryHistory_Enh_Wrk.v_ForecastSnapshotWeekly` → direct EL
+3. `CREATE OR ALTER PROCEDURE dbo.Usp_Refresh_Shared_Staging` → no-op
+
+Live path verified:
+- FDM/FSW: `FROM [Enterprise_Lakehouse].[SupplyChain_Enh].[DemandForecastSnapshotDaily]`
+- Shared_Staging: PRINT no-op only (no DateRange EXEC)
+
+### Parity gate #12 — PASS
+| Check | Result |
+|---|---|
+| EL 5-key dups @ 2026-06-15 | 0 |
+| FDM view vs phys @ 2026-06-15 | rows 6,878,400 / sum 43,771,712 MATCH |
+| FSW view vs phys @ 2026-06-13 | rows 2,763,036 / sum 75,590,621 MATCH |
+| FSW view vs phys @ 2026-06-20 | rows 2,770,344 / sum 75,528,125 MATCH |
+| KPI view vs phys @ 2026-06-15 | rows 1,535,020 / sum 43,771,712 MATCH |
+
+### Status board after this run
+- #11 Live deploy: DONE
+- #12 Parity gate: PASS
+- #13 DateRange prove-out FDM/FSW/KPI: NEXT
+- #14–16 Staging DQ retire / drop: LATER
+- #17 Historical rebuild: CONDITIONAL (not needed — parity PASS)
+
+### Do not
+- Full PL unless Aric requests
+- Drop Staging table yet
+- Historical multi-year rebuild (parity passed)
+
+**Next concrete step:**
+- #13 DateRange prove-out with pre-check empty window + 5-key dups for FDM / FSW / FactForecastKpi (need Aric approve live DateRange if not already covered by earlier 2026-07-09 validation).
+
+## 2026-07-10 — #13 DateRange prove-out PASS (post direct-EL cutover)
+
+**Scope lock:**
+- Live DateRange DELETE+INSERT only on:
+  - `ForecastHistory_Enh.ForecastDemandMonthly` (-30)
+  - `InventoryHistory_Enh.ForecastSnapshotWeekly` (-15)
+  - `ForecastAccuracy_DW.FactForecastKpi` (-30)
+- No full PL; no Staging drop; no historical multi-year rebuild.
+
+**User instruction:**
+- `oke do it` for #13 DateRange prove-out.
+
+### Pre-check gate
+- Server date: `2026-07-10`
+- Windows: FDM/KPI `>= 2026-06-10` (-30); FSW `>= 2026-06-25` (-15)
+- ForecastCycle in window: includes `2026-06-15` (also future 07-13, 08-08)
+- EL 5-key dups in -30d: **0**
+- View window non-empty:
+  - FDM: 6,878,400 rows / sum 43,771,712 (only cycle 2026-06-15)
+  - FSW: 5,522,472 rows / sum 151,711,916 (Saturdays 06-27, 07-04)
+  - KPI: 1,535,020 rows / sum 43,771,712
+
+### Loads (framework DateRange)
+| Table | Days | Window lower | Status | Sec |
+|---|---:|---|---|---:|
+| ForecastDemandMonthly | -30 | 2026-06-10 | OK | 28.1 |
+| ForecastSnapshotWeekly | -15 | 2026-06-25 | OK | 14.0 |
+| FactForecastKpi | -30 | 2026-06-10 | OK | 26.2 |
+
+### Post-check — PASS
+| Check | Result |
+|---|---|
+| FDM view vs phys in-window | 6,878,400 / 43,771,712 MATCH |
+| FDM outside-window preserved | 222,864,296 / 2,876,676,295 (unchanged vs before) |
+| FSW view vs phys in-window | 5,522,472 / 151,711,916 MATCH |
+| FSW outside-window preserved | 1,072,974,394 / 31,212,263,338 (unchanged) |
+| FDM cycle 2026-06-15 | MATCH |
+| KPI view vs phys in-window | 1,535,020 / 43,771,712 MATCH |
+| KPI outside-window preserved | 109,334,721 / 2,876,676,295 (unchanged) |
+
+### Status board after this run
+- #11 Live deploy direct EL: DONE
+- #12 Parity gate: PASS
+- #13 DateRange prove-out: **PASS**
+- #14 Retire DemandForecast Staging DQ compares: NEXT (docs/DQ only when ready)
+- #15–16 Drop/archive Staging table + deprecate Staging_Wrk: LATER (1–2 stable weeks)
+- #17 Historical rebuild: NOT NEEDED (parity + DateRange PASS)
+
+**Next concrete step:**
+- Optional #14 retire Staging-vs-Staging_Wrk DQ rules for DemandForecast when Aric wants.
+- Do **not** drop physical Staging yet.
+- Production daily can use DateRange on FDM/FSW/KPI; Shared_Staging remains no-op.
+
+## 2026-07-10 — Historical rebuild C1–C8 COMPLETE (no Staging, no full PL)
+
+**Scope lock:**
+- Absolute window DELETE+INSERT only on:
+  - `ForecastHistory_Enh.ForecastDemandMonthly`
+  - `InventoryHistory_Enh.ForecastSnapshotWeekly`
+  - `ForecastAccuracy_DW.FactForecastKpi`
+- Source = existing Wrk views (direct EL path already live).
+- **No** Staging load, **no** Staging drop in this step, **no** full PL, **no** ETL formula change.
+
+**User instruction:**
+- Rebuild for certainty in ~5-month chunks (or smaller if needed); do not load 10B Staging; logic unchanged.
+- Continue until plan done; rerun C5; continue C6–C8.
+
+### Chunk schedule & results (all PASS)
+| Chunk | Window | FDM rows | FSW rows | KPI rows | Status |
+|---|---|---:|---:|---:|---|
+| C1 | 2023-05-01 → 2023-10-01 | 12,937,500 | 56,839,248 | 12,937,500 | PASS |
+| C2 | 2023-10-01 → 2024-03-01 | 13,086,108 | 55,018,188 | 13,086,108 | PASS |
+| C3 | 2024-03-01 → 2024-08-01 | 13,861,116 | 60,651,396 | 13,770,504 | PASS |
+| C4 | 2024-08-01 → 2025-01-01 | 15,919,092 | 66,991,140 | 15,161,256 | PASS |
+| C5 | 2025-01-01 → 2025-06-01 | 41,683,761 | 67,677,048 | 14,921,803 | PASS (rerun clean) |
+| C6 | 2025-06-01 → 2025-11-01 | 52,928,954 | 62,183,242 | 12,361,136 | PASS |
+| C7 | 2025-11-01 → 2026-04-01 | 44,020,312 | 62,589,780 | 9,864,330 | PASS |
+| C8 | 2026-04-01 → 2026-07-11 | 21,304,464 | 37,987,452 | 4,765,715 | PASS |
+
+Gate per chunk:
+- EL 5-key dups in window = 0
+- view_rows = phys_rows after INSERT
+- outside-window row count + sum preserved
+
+### What this means
+- Physical silver/gold snapshot tables for DemandForecast path are rebuilt from direct-EL views across 2023-05 → 2026-07-11.
+- Staging 10B never loaded.
+- Full PL never used for backfill.
+- Start date 2023-05-01 intentionally skips Apr 2023 5-key exception.
+
+### Remaining (not part of rebuild)
+- #14 Retire Staging DQ compares (optional cleanup)
+- #15–16 Drop/archive Staging physical + deprecate Staging_Wrk (later, after stable daily)
+- Daily ops = DateRange on FDM/FSW/KPI; Shared_Staging remains no-op
+
+**Evidence file:**
+- `/var/folders/.../T/opencode/cutover_20260710/history_rebuild_results.json`
+
+**Next concrete step:**
+- Optional #14 DQ cleanup; do not drop Staging yet unless Aric requests.
+
+## 2026-07-10 — PurchaseOrder DateRange migration prepared; InventorySnapshotWeekly deferred
+
+**Scope lock:**
+- `InventoryHistory_Enh.InventorySnapshotWeekly`: no code/load/TableDictionary change while US confirms duplicate/source semantics.
+- PurchaseOrder work is repository + read-only live SQL only. No live ALTER/DELETE/INSERT and no TableDictionary mutation.
+
+**User instruction:**
+- Keep InventorySnapshotWeekly full overwrite temporarily; prioritize the larger PurchaseOrder table.
+
+### Decision
+- `InventorySnapshotWeekly` stays **full overwrite** pending US decision on its duplicate grain/tie-break rule.
+- `InventoryHistory_Enh.PurchaseOrderSnapshotHistorical` is the next DateRange candidate: `SnapshotDate`, **-30 days**.
+
+### Read-only PO preflight — PASS (2026-07-10)
+- Candidate window: `2026-06-10` through `2026-07-09` (30 dates).
+- Source `InventoryHistory_Enh_Wrk.v_PurchaseOrderSnapshotHistorical`: **40,733,444** rows.
+- Proposed safety key has **0 duplicate groups**:
+  `SnapshotDate, ItemSku, WarehouseCode, VendorNumber, StatusCode, DueDate, UnitCost`.
+- Current target in-window: **38,089,965** rows; outside-window: **2,028,324,751** rows (total **2,066,414,716**).
+- Source-vs-target mismatch only on current dates `2026-07-08` and `2026-07-09`, which are absent from target; DateRange is expected to catch them up.
+
+### Repo prepared (not deployed)
+- `data-edw-fabric/.../Usp_Refresh_InventoryHealth_Silver_W02.sql`: PO switches from overwrite to DateRange -30.
+- Before delete/insert, W02 blocks if the PO source window is empty or if the proposed safety key duplicates; guard failure `THROW`s before target mutation.
+- Architecture W02 mirror, inventory manifest/catalog/operating registry, and generator updated.
+- Detailed plan: `01_docs/plans/2026-07-10-purchaseorder-daterange-cutover-plan.md`.
+
+### Next concrete step
+1. Re-run PO read-only preflight immediately before deploy.
+2. Obtain Aric explicit approval for live `ALTER PROCEDURE dbo.Usp_Refresh_InventoryHealth_Silver_W02` plus one controlled W02 run.
+3. Post-run verify PO view=target in-window metrics and unchanged outside-window metrics; do not fallback to overwrite automatically.
+
+## 2026-07-10 — PurchaseOrder DateRange live deployment + prove-out PASS
+
+**Authorized scope executed:**
+- `ALTER PROCEDURE dbo.Usp_Refresh_InventoryHealth_Silver_W02` only.
+- One **isolated guarded PO DateRange** call only; the remaining W02 tables were not executed.
+- No InventorySnapshotWeekly change; it remains full overwrite pending US source-grain clarification.
+
+### Preflight (immediately before mutation)
+- Server date/window: `2026-07-10` / `SnapshotDate >= 2026-06-10`.
+- PO source: **40,733,444 rows**, 30 dates (`2026-06-10`–`2026-07-09`).
+- Proposed safety-key duplicate groups: **0**.
+- Target baseline:
+  - In-window: 38,089,965 rows; Ordered 16,928,070,070.5860; OnOrder 3,063,058,989.4880; InTransit 1,666,491,216.6290.
+  - Outside-window: 2,028,324,751 rows; Ordered 1,689,895,830,143.8390; OnOrder 261,542,995,364.0750; InTransit 143,790,020,740.6810.
+
+### Deployment + load
+- Live W02 definition now has source-nonempty + proposed-key-unique guards before PO target mutation; deployment verification PASS.
+- Guarded `usp_UpdateCuratedTableFromView_DateRange` PO `SnapshotDate`, `-30` completed **OK in 33.8 seconds**.
+
+### Post-load validation — PASS
+- In-window source vs target: **40,733,444 = 40,733,444 rows**.
+- OrderedQty / POOnOrderQty / POInTransitQty deltas: **0.0000 / 0.0000 / 0.0000**.
+- Per-date source-vs-target mismatch dates: **0**.
+- Outside-window baseline exactly preserved:
+  - 2,028,324,751 rows
+  - Ordered 1,689,895,830,143.8390
+  - OnOrder 261,542,995,364.0750
+  - InTransit 143,790,020,740.6810
+
+### Operating state / next
+- PO DateRange -30 is live and validated.
+- Do not automatically fallback to PO full overwrite if a guard fails.
+- Observe the next normal W02 and downstream DQ/Gold checks before any PO TableDictionary metadata change.
+- InventorySnapshotWeekly remains full overwrite while Aric works with the US team on duplicate semantics.
+
+## 2026-07-10 — Chốt DateRange -30 + TD sync + DQ Staging retire (#14)
+
+**Scope lock:**
+- Live metadata + DQ definition updates.
+- Repo/docs sync for production standard.
+- No Staging drop. No full PL. No ETL business formula change.
+
+**User instruction:**
+- Chốt 1 DateRange cho FDM/FSW/KPI; update TableDictionary if needed; update context/repo/live; finish remaining adhoc steps.
+
+### Decision
+Unified production DateRange for all three:
+- **FDM** `Snapshot` **-30**
+- **FSW** `SnapshotDate` **-30**
+- **KPI** `Snapshot` **-30**
+
+Rationale: one ops rule; must follow FDM/KPI monthly-cycle coverage (not FSW-only -15).
+
+### Live executed
+1. **TableDictionary** (`ETL_Framework.DW_Developer.TableDictionary`)
+   - `ForecastDemandMonthly`: overwrite → **DateRange**, DateKey=`Snapshot`, DateRangeDays=**30**
+   - `ForecastSnapshotWeekly`: overwrite → **DateRange**, DateKey=`SnapshotDate`, DateRangeDays=**30**
+   - `FactForecastKpi`: overwrite → **DateRange**, DateKey=`Snapshot`, DateRangeDays=**30**
+2. **Wrappers already live at -30** (no body change required):
+   - `Usp_Refresh_ForecastAccuracy_Silver_W02` (FDM)
+   - `Usp_Refresh_InventoryHealth_Silver_W02` (FSW)
+   - `Usp_Refresh_ForecastAccuracy_Gold` (KPI)
+   - `Usp_Refresh_Shared_Staging` remains **no-op**
+3. **#14 DQ retire** on `DataQuality.v_DQForecastAccuracy` (Processing):
+   - `DQ_LoadParity_StagingDemandForecastSnapshotDaily_RowCount` → RETIRED / forced PASS
+   - `DQ_LoadParity_StagingDemandForecastSnapshotDaily_Qty` → RETIRED / forced PASS
+   - Kept bronze grain + other rules; only Staging load-parity retired after Shared_Staging no-op
+
+### Repo / docs synced
+- `data-edw-fabric` DQ view + wrapper header notes
+- architecture `02_marts/.../run_order.json` load_type DateRange -30 for FDM/FSW/KPI
+- orchestration manifests FA/IH
+- cutover checklist + history plan notes
+- this context entry
+
+### Status board after this run
+- #11–#13 cutover + parity + DateRange prove-out: DONE
+- #17 history rebuild C1–C8: DONE
+- #14 Staging DQ load-parity retire: **DONE**
+- Unified DateRange -30 + TableDictionary: **DONE**
+- #15–16 Staging drop/deprecate: still **LATER** (not in this adhoc)
+
+### Do not
+- Drop Staging physical yet
+- Reintroduce Shared_Staging DemandForecast load
+- Use DateRange -15 for FDM/KPI
+
+**Next (optional, not blocking daily):**
+- #15–16 after 1–2 stable daily weeks, only with explicit approve
+- Spot-check first scheduled full PL after this metadata change (DateRange path already live in wrappers)
+
+## 2026-07-10 — Staging DemandForecast DROPPED + post-drop tests
+
+**Scope lock:**
+- Dropped physical Staging DF + Staging_Wrk wrapper view.
+- DQ cleaned of physical Staging dependency first.
+- No full PL; no ETL formula change on FDM/FSW/KPI.
+
+**User instruction:** `no cứ drop staging đi, r check test tiếp`
+
+### Pre-drop
+- `Staging.DemandForecastSnapshotDaily` existed (~10,876,685,631 rows)
+- `Staging_Wrk.v_DemandForecastSnapshotDaily` existed (read EL)
+- Silver FDM/FSW already direct EL; Shared_Staging no-op
+- DQ still had `FROM Staging.DemandForecastSnapshotDaily` in load-parity CTEs → fixed before drop
+
+### Live actions
+1. Redeploy `DataQuality.v_DQForecastAccuracy`:
+   - S2_Forecast* sources → EL direct
+   - LP_StagingDemand_* CTEs → zero stubs (legacy rule names kept, already retired PASS)
+   - No `FROM Staging.DemandForecastSnapshotDaily`
+2. `DROP TABLE Staging.DemandForecastSnapshotDaily` — OK (~0.4s metadata drop)
+3. `DROP VIEW Staging_Wrk.v_DemandForecastSnapshotDaily` — OK
+4. TableDictionary Staging row → `UpdateMethod=Retired` + note dropped
+
+### Post-drop tests
+| Check | Result |
+|---|---|
+| Objects remaining | 0 |
+| `Usp_Refresh_Shared_Staging` | OK no-op |
+| FDM view vs phys `2026-06-15` | 6,878,400 / 43,771,712 MATCH |
+| FSW view vs phys `2026-06-13` | 2,763,036 / 75,590,621 MATCH |
+| FDM/FSW path | direct EL |
+| DQ defn physical FROM Staging | 0 |
+
+### Status board
+- #11–#14, #17, unified DateRange -30: DONE
+- #15 Staging physical drop: **DONE**
+- #16 Staging_Wrk view drop: **DONE**
+
+**Rollback note:** Staging physical gone. Rollback = keep direct EL path (current primary). Rebuilding 10B Staging is not the rollback path.
+
+## 2026-07-10 — New active snapshot load-pattern migration plan (planning only)
+
+**Scope lock:**
+- Read-only audit plus documentation only; no wrapper, TableDictionary, pipeline, or warehouse mutation was made in this step.
+- New candidates: `InventoryHistory_Enh.PurchaseOrderSnapshotHistorical` (P1) and `InventoryHistory_Enh.InventorySnapshotWeekly` (P2).
+- DemandForecast plans are complete and superseded as active plans; they remain evidence.
+
+**Completed audit evidence:**
+- PO TableDictionary grain = `SnapshotDate, ItemSku, WarehouseCode, VendorNumber, StatusCode, DueDate, UnitCost`.
+  - no hidden view dedupe;
+  - zero duplicate groups in full 2.066B-row physical target;
+  - 2,368 all-history view ↔ physical snapshot-date row/sum comparisons match.
+- Inventory Snapshot TableDictionary grain = `ItemSku, WarehouseCode, SnapshotWeekEndingDate, FiscalMonth`.
+  - view `ROW_NUMBER PARTITION BY` matches this exact grain and selects newest technical version;
+  - zero duplicate groups in full 695M-row physical target;
+  - 185 all-history output-date view ↔ physical row/key-sum comparisons match.
+- Therefore: **no historical backfill planned** for either candidate. Migrate load pattern only after controlled proof.
+
+**Plan / controls:**
+- Active document: `01_docs/plans/2026-07-10-snapshot-load-pattern-migration-plan.md`.
+- P1 PO candidate: guarded DateRange on `SnapshotDate`, `-30` candidate pending late-arrival audit.
+- P2 Inventory Snapshot candidate: guarded DateRange on `SnapshotWeekEndingDate`, `-42` candidate pending semantic and Query Insights approval.
+- Mandatory wrapper-local prechecks before DELETE+INSERT: non-empty source window and zero duplicate groups at TableDictionary grain; `THROW` on failure.
+- Do not modify the global framework DateRange SP.
+
+**Next:**
+- Await Aric approval for Phase 0 / P1 only; then reconcile repo-generated wrapper versus live, baseline Query Insights, and develop repo-only PO guard/DateRange change.
+## 2026-07-10 — InventorySnapshotWeekly DA proposed `dtea` grain re-opened (read-only audit; BLOCKED pending DA rule)
+
+**User/DA hypothesis:**
+- Current view/TableDictionary grain may be wrong.
+- Candidate replacement: `ItemSku + WarehouseCode + dtea + FiscalMonth` instead of `ItemSku + WarehouseCode + SnapshotWeekEndingDate + FiscalMonth`.
+- If raw EL key clean, user considered DemandForecast-style historical backfill + load-pattern migration + TableDictionary correction.
+
+**Read-only full EL audit executed (no Fabric mutation):**
+- Source: `Enterprise_Lakehouse.SupplyChain_Enh.DemandInventorySnapshotDaily`.
+- Total raw rows: `4,232,005,200`.
+- Proposed raw `dtea` grain is **not unique**: `8,604` duplicate groups / `8,604` extra rows.
+- Collision dates:
+  - `2025-04-10`: `7,200` groups.
+  - `2026-02-25`: `1,404` groups.
+- Each collision group has two rows; sampled payloads differ while sharing proposed key and `dtec`. No safe winner can be inferred without DA business rule.
+- `dtea` is non-null. `13,619,592` rows have `CAST(dtea AS date) = CAST(dinSnapshot AS date) - 1`; this occurs on three historical source snapshot dates.
+- Current Saturday + latest view output has 181 output dates, each mapped to exactly one `dtea`; output rows with `SnapshotDate <> CAST(dtea AS date)` = 0. The two collision dates are Wednesday/Thursday and are not selected by the present weekly/latest contract.
+- Current physical Silver table does **not** contain a persisted `dtea` column. Replacing TD's key with `dtea` alone would reference a non-existent target column.
+
+**Decision / do not:**
+- **Do not update live TableDictionary.**
+- **Do not remove/change current `ROW_NUMBER()` dedupe.**
+- **Do not start a historical backfill** or treat P2 as DemandForecast-like solely from the proposed grain.
+- Current contract remains valid only as the current contract: physical target matches its Wrk view and has zero duplicates at its declared snapshot-date grain.
+
+**Required DA clarification before any design change:**
+1. Is `dtea` a business as-of/snapshot date or a technical extract timestamp?
+2. For same-`dtea` key collisions with differing payload, what is the deterministic business winner?
+3. Should non-Saturday snapshots be included in historical weekly output, or does Saturday + latest remain the intended output contract?
+4. If `dtea` must become persisted grain: approve target DDL, exact mapping, downstream impact, full historical rebuild and parity gates.
+
+**Documentation:**
+- Updated active plan: `01_docs/plans/2026-07-10-snapshot-load-pattern-migration-plan.md`, §3.2A.
+## 2026-07-10 — Canonical full-refresh pipeline sync, monitored run, and CU/query-insights audit
+
+**Approval and scope:**
+- Aric explicitly approved live sync of `pl_backup_full_refresh` then a full pipeline run.
+- Live mutation performed only for Fabric pipeline `updateDefinition`; all subsequent investigation was read-only Fabric REST/warehouse SQL.
+
+**Pipeline drift found and fixed:**
+- Before sync, live `pl_backup_full_refresh` was an obsolete 4-wrapper path: referenced W00, made Forecast depend on it, and skipped Inventory Silver W03.
+- Synced `03_operations/orchestration/backup_pipeline/pl_backup_full_refresh.fabric_payload.json` to live item `41948342-d7e7-4166-8638-9af0633e6a49` in workspace `c8d9fc83-18b6-4e1d-8264-0b49eed36fe0`.
+- Post-sync `getDefinition` verified exact canonical match: 10 serial activities, `01 Shared ReferenceMaster` → `02 Shared Staging` → Forecast W01/W02/W03 → Forecast Gold → Inventory W01/W02/W03 → Inventory Gold. `W00` absent.
+
+**Full run result:**
+- Run ID: `731d4761-cd94-4427-a521-d81da67570ef`.
+- Started `2026-07-10 08:02:04.830896 UTC`; completed successfully `09:22:19.290 UTC`; runtime **80m 14s**.
+- Previous successful full run `fcac7e40-60b4-47bd-a84d-06fef6fbbc53`: `2026-07-08 06:36:56.143016` → `08:31:42.590 UTC`; **114m 46s**.
+- Improvement: **34m 32s faster** (about **30.1% lower runtime**), despite the new canonical pipeline now executing Inventory W03 that the prior live pipeline skipped.
+
+**Inventory Gold bottleneck / Query Insights evidence:**
+- All pipeline operations succeeded. Query Insights had one 6.337-second *Canceled* ad-hoc `TOP 100` read of `v_SupplyPlanOutageClassHelper`, unrelated to pipeline; no pipeline error.
+- Gold warehouse capacity was F256; `is_pool_under_pressure` was true only 2/80 SELECT and 5/80 NONSELECT samples, so no sustained CU/capacity-pressure explanation.
+- `Usp_Refresh_InventoryHealth_Gold` sequentially refreshes 9 objects. Current vs prior max elapsed times:
+  - `FactInventoryHealthSnapshot`: **47m55s** vs 31m57s; 19.50M vs 19.21M target rows; scan 26.04GB vs 6.78GB. Primary bottleneck.
+  - `FactInventoryHealthFutureWeekEnding`: **45m55s** vs 30m39s; 3.785M vs 3.785M rows. Secondary bottleneck.
+  - `InventoryClassificationQtyWeekly`: **21m49s** vs 15m40s.
+  - `InventoryHealthSubStatusWeekly`: **19m42s** vs 13m57s.
+  - `ProjectedInventoryHealthSubStatus`: **17m26s** vs 11m59s.
+- These Gold tables are still full refreshes; the DateRange improvements were applied upstream to DemandForecast/PO paths, not to these Inventory Gold target loads. Therefore the longer Inventory Gold stage is not regression evidence from the changed snapshot load patterns.
+
+**Changed/backfilled data audit after the run:**
+- `ForecastHistory_Enh.ForecastDemandMonthly`: 229,742,696 rows; history `2023-01-16` to `2026-06-15`; latest load `2026-07-10 08:09:39 UTC`; duplicate business-key groups = 0.
+- `InventoryHistory_Enh.ForecastSnapshotWeekly`: 1,078,496,866 rows; history `2020-01-04` to `2026-07-04`; latest load `2026-07-10 08:15:56 UTC`.
+- `InventoryHistory_Enh.PurchaseOrderSnapshotHistorical`: 40,733,444 rows inside the rolling 30-day window, latest load `2026-07-10 08:15:30 UTC`; 2,028,324,751 historical rows outside the window, whose last-load timestamp remained `2026-07-08 07:36:15 UTC` as intended (not rewritten). Outside-window quantity sums remained unchanged across this run; rolling-window duplicate business-key groups = 0.
+
+**CU conclusion:**
+- No sustained warehouse pool pressure, no Fabric pipeline failure, and no evidence that the new DemandForecast/PO patterns created CU instability.
+- The large work remains the pre-existing full-overwrite Inventory Gold facts and their upstream views. Do not alter their pattern ad hoc; use the approved snapshot-load-pattern migration plan with semantic/late-arrival validation and Query Insights baseline before any DateRange change.
+
+## 2026-07-10 21:56:48 ICT — Inventory Health Gold optimization scope redefined: business-parity audit system first
+
+**User instruction / non-negotiable requirement:**
+- Focus active work only on optimizing the Inventory Health Gold serving chain; PO DateRange is complete/live/validated and `InventorySnapshotWeekly` remains blocked/deferred until US/DA resolves its source-grain and duplicate tie-break semantics.
+- Before proposing any Gold optimization, establish a thorough audit and check/test system for all Inventory Health Gold facts/helpers.
+- Existing Gold logic may be complex because it satisfies the complete real business need. Any optimized implementation B must retain every business outcome presently delivered by implementation A; runtime reduction never justifies missing, approximated, or silently changed behavior.
+
+**Decision / active plan:**
+- Created `01_docs/plans/2026-07-10-inventory-gold-business-parity-optimization-plan.md` as the active source of truth for Gold performance work.
+- The plan requires per-object business contracts, multi-run performance baselines, source/target integrity checks, full-versus-candidate row/value/metric/temporal parity, late-arrival and latest/as-of scenarios, downstream Direct Lake/`sc_control_tower` smoke checks, failure-path guards, performance proof, rollback, and explicit approval gates.
+- Matching totals alone is insufficient; proof must include two-way business-key comparison, duplicate checks, row-level required business value comparison, reconciliation at several business grains, distribution/null checks, and unchanged historical areas when immutability is claimed.
+- Candidate order is evidence-led: first read/map all nine Inventory Gold targets, then audit the known hotspots and only build a shadow candidate once a contract-preserving direction is proven. No blanket DateRange conversion, global framework SP change, semantic/report contract change, or unapproved live mutation.
+
+**Evidence / risk status:**
+- The 2026-07-10 canonical full run established Inventory Gold full-overwrite/query-shape work as the active bottleneck; it did not establish that Direct Lake semantic refresh itself is slow. Gold completion is confirmed as data-ready latency; semantic reframe/report-query duration must be separately measured before making a claim.
+- No live mutation was made for this planning/context update.
+
+**Next concrete step:**
+- Sequentially catalogue every target in `dbo.Usp_Refresh_InventoryHealth_Gold`, extract business contracts and test specifications, then build/run the read-only baseline audit pack before proposing an optimization candidate.

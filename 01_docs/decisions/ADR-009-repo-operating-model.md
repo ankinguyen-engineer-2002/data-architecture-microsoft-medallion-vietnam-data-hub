@@ -29,7 +29,7 @@ Current source of truth:
 - Old v9/v10 knowledge is preserved, not deleted.
 - Reverse-engineering evidence remains available, but no longer competes with current architecture docs.
 - Manual refresh tooling must use `03_operations/orchestration/*/manifest.json` and dry-run by default.
-- Future agents should start from `CLAUDE.md`, `00_CONTEXT/current.md`, `README.md`, and `01_docs/architecture/current/`.
+- Future agents should start from `AGENTS.md`, `00_CONTEXT/current.md`, `README.md`, and `01_docs/architecture/current/`.
 
 ## Rejected Alternatives
 

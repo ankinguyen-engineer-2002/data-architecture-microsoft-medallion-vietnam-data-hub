@@ -1,0 +1,62 @@
+{
+  "generated_at_utc": "2026-07-07T08:49:35+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 1,
+  "rule_count": 3,
+  "results": [
+    {
+      "rule_name": "DQ_Bronze_Grain_AwdHelper",
+      "rule_type": "DQ_Bronze",
+      "target": "InventoryHistory_Enh.AwdHelper",
+      "result": "PASS",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.ItemMaster_AFI.ITEMBL",
+          "grain": [
+            "ITNBR",
+            "HOUSE"
+          ],
+          "row_count": 3438438,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        },
+        {
+          "source": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcStSnapshotWeekly",
+          "grain": [
+            "SnapshotDate",
+            "ItemSku",
+            "Warehouse",
+            "FiscalMonthLastDate"
+          ],
+          "row_count": 46293384,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 106.253
+    },
+    {
+      "rule_name": "run_b2s_AwdHelper",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.AwdHelper",
+      "result": "ERROR",
+      "error": "<class 'pyodbc.Error'> returned a result with an exception set",
+      "elapsed_seconds": 554.834
+    },
+    {
+      "rule_name": "run_silver_grain_AwdHelper",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.AwdHelper",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    }
+  ]
+}

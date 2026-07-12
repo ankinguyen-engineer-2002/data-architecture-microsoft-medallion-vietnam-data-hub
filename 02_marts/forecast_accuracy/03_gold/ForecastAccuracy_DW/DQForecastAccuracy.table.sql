@@ -1,0 +1,4 @@
+-- Physical final table contract: [SupplyChain_Gold_Warehouse].[ForecastAccuracy_DW].[DQForecastAccuracy]
+-- Loaded by direct append INSERT from [SupplyChain_Gold_Warehouse].[ForecastAccuracy_DW_Wrk].[v_DQForecastAccuracy]
+-- at the tail of [dbo].[Usp_Refresh_ForecastAccuracy_Gold], outside the generic ETL framework loader.
+-- Business/source view SQL is documented in ../ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql.

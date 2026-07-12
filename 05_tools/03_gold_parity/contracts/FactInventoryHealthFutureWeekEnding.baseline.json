@@ -1,0 +1,322 @@
+{
+  "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.FactInventoryHealthFutureWeekEnding",
+  "captured_at_utc": "20260710T174312Z",
+  "row_count": 3785137,
+  "key_profile": {
+    "keys": [
+      "ItemSku",
+      "WarehouseCode",
+      "FutureWeekEnding",
+      "SnapshotDate"
+    ],
+    "distinct_keys": 3785137,
+    "dup_groups": 0,
+    "max_mult": 1,
+    "unique_at_grain": true
+  },
+  "date_coverage": {
+    "min_FutureWeekEnding": "2026-07-11",
+    "max_FutureWeekEnding": "2027-03-20",
+    "min_SnapshotDate": "2026-07-09",
+    "max_SnapshotDate": "2026-07-09",
+    "min_InventorySnapshotDate": "2026-07-09",
+    "max_InventorySnapshotDate": "2026-07-09",
+    "min_SupplyPlanSnapshotDate": "2026-07-09",
+    "max_SupplyPlanSnapshotDate": "2026-07-09",
+    "min_ATPSnapshotDate": "2026-06-28",
+    "max_ATPSnapshotDate": "2026-06-28",
+    "min_LatestSupplyPlanSnapshotDate": "2026-07-09",
+    "max_LatestSupplyPlanSnapshotDate": "2026-07-09",
+    "min_AwdAsOfDate": "2024-01-20",
+    "max_AwdAsOfDate": "2026-07-09",
+    "min_AfiStatusAsOfDate": "2025-03-08",
+    "max_AfiStatusAsOfDate": "2026-07-09"
+  },
+  "measure_sums": {
+    "sum_SIQty": "270750824.000000",
+    "sum_ATPQty": "22025022.000000",
+    "sum_Shortage/SurplusQty": "172387972.000000",
+    "sum_ReplenishmentLeadTime": "158911707.000000",
+    "sum_UsedStoreCube": "910292687.014500",
+    "sum_ProjectedShortageValue": "-2534748002.700000",
+    "sum_ProjectedWOS": "23677347.780800",
+    "sum_AwdQty": "22587774.855500",
+    "sum_SafetyStockTarget": "176487088.000000",
+    "sum_Cubes": "59284277.934000",
+    "sum_StandardCost": "480863896.306600",
+    "sum_FobArcPrice": "677508477.780000",
+    "sum_FirmDemandQty": "4706183.000000",
+    "sum_NetFcstQty": "17371885.000000",
+    "sum_FirmDemandQtyAtRisk": "-854287.000000",
+    "sum_NetFcstQtyAtRisk": "-1850808.000000",
+    "sum_IsActiveItemWhIn7DNext": "127234.000000",
+    "sum_IsActiveItemWhIn14DNext": "133929.000000"
+  },
+  "distribution": {
+    "IsShortage/Surplus/InStock": {
+      "SURPLUS": 1802882,
+      "IN_STOCK": 1661729,
+      "SHORTAGE": 320526
+    },
+    "MakeBuyCode": {
+      "B": 2198651,
+      "X": 1113367,
+      "M": 471269,
+      "<NULL>": 1850
+    },
+    "ProjectedInventoryClassification": {
+      "SWEET_SPOT": 1530365,
+      "INACTIVE": 740449,
+      "OVER_TARGET": 715781,
+      "BELOW_TARGET": 350864,
+      "EXCESS": 138490,
+      "SLOB": 125145,
+      "UNCLASSIFIED": 98523,
+      "TB_INVENTORY": 43999,
+      "AGGRESSIVE_EXCESS": 41521
+    },
+    "AFIStatus": {
+      "<NULL>": 2390274,
+      "D": 939800,
+      "N": 453102,
+      "R": 1961
+    },
+    "IsActiveItemWhIn7DNext": {
+      "0": 3657903,
+      "1": 127234
+    },
+    "IsActiveItemWhIn14DNext": {
+      "0": 3651208,
+      "1": 133929
+    },
+    "AfiStatusAsOfDate": {
+      "2026-07-09": 3783287,
+      "2025-03-08": 1850
+    }
+  },
+  "weekly_recon": [
+    {
+      "period": "2026-07-09",
+      "n": 3785137,
+      "sum_SIQty": "270750824.000000",
+      "sum_ATPQty": "22025022.000000",
+      "sum_Shortage/SurplusQty": "172387972.000000",
+      "sum_ReplenishmentLeadTime": "158911707.000000",
+      "sum_UsedStoreCube": "910292687.014500",
+      "sum_ProjectedShortageValue": "-2534748002.700000",
+      "sum_ProjectedWOS": "23677347.780800",
+      "sum_AwdQty": "22587774.855500"
+    }
+  ],
+  "columns_classified": {
+    "date": [
+      "FutureWeekEnding",
+      "SnapshotDate",
+      "InventorySnapshotDate",
+      "SupplyPlanSnapshotDate",
+      "ATPSnapshotDate",
+      "LatestSupplyPlanSnapshotDate",
+      "AwdAsOfDate",
+      "AfiStatusAsOfDate"
+    ],
+    "numeric": [
+      "SIQty",
+      "ATPQty",
+      "Shortage/SurplusQty",
+      "ReplenishmentLeadTime",
+      "UsedStoreCube",
+      "ProjectedShortageValue",
+      "ProjectedWOS",
+      "AwdQty",
+      "SafetyStockTarget",
+      "Cubes",
+      "StandardCost",
+      "FobArcPrice",
+      "FirmDemandQty",
+      "NetFcstQty",
+      "FirmDemandQtyAtRisk",
+      "NetFcstQtyAtRisk",
+      "IsActiveItemWhIn7DNext",
+      "IsActiveItemWhIn14DNext"
+    ],
+    "categorical": [
+      "IsShortage/Surplus/InStock",
+      "MakeBuyCode",
+      "ProjectedInventoryClassification",
+      "AFIStatus",
+      "IsActiveItemWhIn7DNext",
+      "IsActiveItemWhIn14DNext",
+      "AfiStatusAsOfDate"
+    ]
+  },
+  "query_insights": [
+    {
+      "distributed_statement_id": "C536646E-B422-48D8-A560-730820C79A1E",
+      "start_time": "2026-07-10T14:15:43.107750",
+      "end_time": "2026-07-10T14:15:43.125328",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 29,
+      "allocated_cpu_time_ms": 15,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 10,
+      "status": "Succeeded",
+      "statement_type": "SELECT"
+    },
+    {
+      "distributed_statement_id": "8229C052-D662-4300-AA80-0EA34746C5C1",
+      "start_time": "2026-07-10T08:56:10.959453",
+      "end_time": "2026-07-10T09:20:08.448882",
+      "elapsed_sec": 1438,
+      "total_elapsed_time_ms": 1441118,
+      "allocated_cpu_time_ms": 5012842,
+      "data_scanned_remote_storage_mb": "1943.826",
+      "data_scanned_memory_mb": "1052.787",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 3785137,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "86D1824C-003D-4F28-AA91-182C97C99279",
+      "start_time": "2026-07-10T08:56:07.228109",
+      "end_time": "2026-07-10T08:56:07.228133",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "F61C42EC-64DD-4311-8340-AECD6CA73AB4",
+      "start_time": "2026-07-08T08:15:26.152435",
+      "end_time": "2026-07-08T08:30:12.229936",
+      "elapsed_sec": 886,
+      "total_elapsed_time_ms": 894366,
+      "allocated_cpu_time_ms": 45520511,
+      "data_scanned_remote_storage_mb": "2174.334",
+      "data_scanned_memory_mb": "832.476",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 3784582,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "EE697368-EA47-4017-B8FF-697BA0B99EA2",
+      "start_time": "2026-07-08T08:15:17.851936",
+      "end_time": "2026-07-08T08:15:17.851962",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "56DF4C99-1E79-4101-9820-BF8B6B0F51EE",
+      "start_time": "2026-07-08T07:25:31.506287",
+      "end_time": "2026-07-08T07:27:53.178774",
+      "elapsed_sec": 142,
+      "total_elapsed_time_ms": 144162,
+      "allocated_cpu_time_ms": 1132995,
+      "data_scanned_remote_storage_mb": "565.831",
+      "data_scanned_memory_mb": "175.269",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "SELECT"
+    },
+    {
+      "distributed_statement_id": "78832B57-0DC5-4ADE-9D80-F8A276D4D2AB",
+      "start_time": "2026-07-08T07:13:10.789538",
+      "end_time": "2026-07-08T07:15:17.563864",
+      "elapsed_sec": 127,
+      "total_elapsed_time_ms": 127810,
+      "allocated_cpu_time_ms": 1012584,
+      "data_scanned_remote_storage_mb": "316.915",
+      "data_scanned_memory_mb": "424.049",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 102286,
+      "status": "Succeeded",
+      "statement_type": "SELECT"
+    },
+    {
+      "distributed_statement_id": "7492CC02-923B-4432-8940-6151D1CC50E8",
+      "start_time": "2026-07-08T07:02:22.298498",
+      "end_time": "2026-07-08T07:03:46.990382",
+      "elapsed_sec": 84,
+      "total_elapsed_time_ms": 98760,
+      "allocated_cpu_time_ms": 1100572,
+      "data_scanned_remote_storage_mb": "565.695",
+      "data_scanned_memory_mb": "175.269",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "SELECT"
+    },
+    {
+      "distributed_statement_id": "117B91D0-67F8-4CAB-9BB7-85750BD11B06",
+      "start_time": "2026-07-08T06:26:57.271211",
+      "end_time": "2026-07-08T06:26:57.275784",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 12,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "CREATE/ALTER VIEW"
+    },
+    {
+      "distributed_statement_id": "B1EDB124-C868-4BFE-A5ED-E4098BFBB116",
+      "start_time": "2026-07-08T02:42:42.268743",
+      "end_time": "2026-07-08T02:42:42.272612",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 16,
+      "allocated_cpu_time_ms": 3,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 1,
+      "status": "Succeeded",
+      "statement_type": "SELECT"
+    },
+    {
+      "distributed_statement_id": "80DA044D-61DD-43DA-989D-D85BF8AA321E",
+      "start_time": "2026-07-07T08:21:07.099960",
+      "end_time": "2026-07-07T08:51:06.655690",
+      "elapsed_sec": 1799,
+      "total_elapsed_time_ms": 1806989,
+      "allocated_cpu_time_ms": 777931068,
+      "data_scanned_remote_storage_mb": "112801.803",
+      "data_scanned_memory_mb": "185086.995",
+      "data_scanned_disk_mb": "1147.728",
+      "row_count": 57,
+      "status": "Succeeded",
+      "statement_type": "SELECT"
+    },
+    {
+      "distributed_statement_id": "6B0479A2-5E35-4C60-8558-DC072A5CA260",
+      "start_time": "2026-07-07T07:24:05.183734",
+      "end_time": "2026-07-07T07:53:47.979998",
+      "elapsed_sec": 1782,
+      "total_elapsed_time_ms": 1811686,
+      "allocated_cpu_time_ms": 817808572,
+      "data_scanned_remote_storage_mb": "115022.834",
+      "data_scanned_memory_mb": "183712.369",
+      "data_scanned_disk_mb": "332.630",
+      "row_count": 0,
+      "status": "Failed",
+      "statement_type": "SELECT"
+    }
+  ]
+}

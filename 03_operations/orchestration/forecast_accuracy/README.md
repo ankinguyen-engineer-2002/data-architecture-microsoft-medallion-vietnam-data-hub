@@ -8,7 +8,7 @@ Current run order:
 2. Gold waves (`gold_shared` -> `gold_dim` -> `gold_fact`)
 3. post-run smoke
 
-Live REST mart-level execution through `pl_sc_mart(project_name)` is marked [Need-verify] until a parameterized API call is smoke-tested. Dry-run is always safe.
+Live REST mart-level execution through legacy `pl_sc_mart(project_name)` is not current source-of-truth. Use the wrapper procedures in this manifest, or the backup pipeline artifacts under `03_operations/orchestration/backup_pipeline/`, until a new parameterized Fabric router is explicitly reintroduced.
 
 Wrapper stored procedures (SQL Agent / external scheduler):
 
@@ -16,6 +16,7 @@ Wrapper stored procedures (SQL Agent / external scheduler):
 - The mart has exactly three active Silver wrappers: W01 then W02 then W03, followed by Gold.
 - `Usp_Refresh_ForecastAccuracy_Silver_W01` is the first forecast source wave.
 - `Usp_Refresh_ForecastAccuracy_Gold` includes Shared_DW prerequisite Wave 00.
+- `Usp_Refresh_ForecastAccuracy_Gold` ends with a direct `INSERT ... SELECT` DQ snapshot load for `ForecastAccuracy_DW.DQForecastAccuracy`, preserving one full rule set per `LoadDT`.
 - Wrapper DDL lives under `sql/`.
 - Default dry-run printer:
   - `python3 03_operations/tools/run_refresh.py --manifest 03_operations/orchestration/forecast_accuracy/manifest.json`

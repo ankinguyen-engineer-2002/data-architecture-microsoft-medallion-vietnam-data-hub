@@ -22,9 +22,14 @@ node_modules/
 .vscode/
 .devcontainer/
 
-# === Claude Code ===
+# === Claude Code / Opencode / Agents (local tool state) ===
 .claude/
 .claude.md
+.opencode/
+.agents/
+
+# === Ad-hoc / scratch ===
+tmp/
 
 # === Private / Personal ===
 _private/
@@ -39,12 +44,8 @@ email_to_*.txt
 **/PRESENTATION_*.png
 **/PRESENTATION_*.svg
 
-# === Internal evidence / live Fabric exports ===
-Enterprise_SupplyChain_Dev_architect/SQL Server Data Warehouse Standards.docx
-Enterprise_SupplyChain_Dev_architect/artifacts/readiness_exports/*
-!Enterprise_SupplyChain_Dev_architect/artifacts/readiness_exports/README.md
-Enterprise_SupplyChain_Dev_architect/artifacts/detail_clone_v9_forecast/*
-!Enterprise_SupplyChain_Dev_architect/artifacts/detail_clone_v9_forecast/README.md
+# === Internal evidence / live Fabric exports (legacy paths, folder no longer exists but kept for safety) ===
+# Enterprise_SupplyChain_Dev_architect/ was archived pre-Phase 1; patterns retained in case a rescan restores it.
 
 # === Reference repos (cloned, not project code) ===
 enterprise_reference/
@@ -59,25 +60,7 @@ _external_refs/
 .claude.md
 _local_99_archive/
 
-# === Build run artifacts (keep scripts, ignore outputs) ===
-Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/items_*.json
-Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/pre_*.json
-Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/post_*.json
-Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/sql_*.json
-Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/fabric_*.json
-Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/v10_*.json
-Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/build_v10_full_results_*.json
-Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/delete_targets_manifest.json
-Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/**/protected_items_manifest.json
-Enterprise_SupplyChain_Dev_architect/05_tools/__pycache__/
-
-# === Enterprise ETL alignment — keep scripts/README/RESULTS, ignore run logs + backup snapshots ===
-Enterprise_SupplyChain_Dev_architect/artifacts/enterprise_etl_alignment_*/run_logs/
-Enterprise_SupplyChain_Dev_architect/artifacts/enterprise_etl_alignment_*/backup/
-Enterprise_SupplyChain_Dev_architect/artifacts/enterprise_etl_alignment_*/*_fix_*/
-
-# === Work folder info ===
-Enterprise_SupplyChain_Dev_architect/.work-folder-info
+# === Streamlit local secrets (kept for any future revival of lineage_explorer) ===
 03_operations/apps/lineage_explorer/.streamlit/secrets.toml
 
 # Fabric stubs (VS Code Fabric extension cache — appears in any synced workspace folder)
@@ -90,13 +73,12 @@ Enterprise_SupplyChain_Dev_architect/.work-folder-info
 # Azure CLI local state (keep out of repo)
 .azure/
 .azure_user/
+.azure_live/
 99_archive/local-state/
 99_archive/external_refs/
 
 # Run artifacts / exports (keep scripts/docs, ignore outputs)
 01_docs/runbook/artifacts/
-Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/
-Enterprise_SupplyChain_Dev_architect/projects/*/artifacts/backups/semantic_*/
 
 # SQL project local build outputs
 **/bin/
@@ -107,7 +89,3 @@ Enterprise_SupplyChain_Dev_architect/projects/*/artifacts/backups/semantic_*/
 05_tools/06_lineage_portal/site/.next/
 05_tools/06_lineage_portal/site/out/
 05_tools/06_lineage_portal/site/tsconfig.tsbuildinfo
-
-# === Project source bundles archived for reference (not committed) ===
-Enterprise_SupplyChain_Dev_architect/projects/*/_source_v1/
-Enterprise_SupplyChain_Dev_architect/projects/*/_source_*/

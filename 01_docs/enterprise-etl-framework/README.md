@@ -21,6 +21,19 @@ Tài liệu gốc nằm trong [source/](source/):
 - `2026-06-23_enterprisedata_data_feed_alert_email_analysis.md`
 - sample alert email `.msg`
 
+## Cập Nhật Live Mới Nhất
+
+Các ghi chú live đã verify gần đây:
+
+- [2026-07-02_live_sync_and_pattern_audit.md](2026-07-02_live_sync_and_pattern_audit.md)
+
+Điểm cần nhớ:
+
+- `Enterprise SupplyChain-Dev.ETL_Framework` đã được sync từ live `EnterpriseData-Dev.ETL_Framework` theo hướng additive
+- `DW_Developer.Usp_TableFromParquet_RowADF` không được giữ lại vì object nguồn broken
+- `DW_Developer.Usp_SnapshotLoad` đã được vá tối thiểu để usable trong SupplyChain nhưng vẫn giữ gần nguyên thuật toán gốc
+- Forecast Accuracy DQ vẫn dùng direct insert ở cuối gold SP, không ép vào generic loader
+
 ## Cách Đọc Tài Liệu Enterprise ETL
 
 Không copy object một cách máy móc. Thứ tự ưu tiên khi có khác biệt:
@@ -58,6 +71,15 @@ Phase 1 đã đưa runtime hiện tại về hướng Enterprise ETL-aligned:
 - `_Wrk` wrapper coverage được canonicalize
 - business table/view/semantic surface được giữ
 - `Meta.usp_GenericLoad` chỉ còn là fallback/rollback, không phải runtime chính
+
+## Trạng Thái Sau Đồng Bộ Live 2026-07-02
+
+Sau đợt sync + audit live ngày `2026-07-02`, cách hiểu đúng cho SupplyChain là:
+
+- framework runtime của local workspace đã được đồng bộ tới mức usable baseline
+- không phải mọi object từ source đều được mirror byte-by-byte
+- các ngoại lệ có chủ đích phải được đọc trong note audit live
+- các vấn đề còn lại hiện chủ yếu là metadata business row cụ thể, không phải framework engine chung
 
 ## Backlog Không Chặn Phase 1
 

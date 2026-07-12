@@ -7,8 +7,51 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
-        'SupplyChain_Processing_Warehouse', 'InventoryHistory_Enh', 'PurchaseOrderSnapshotHistorical';
+    DECLARE @PurchaseOrderWindowStart date = DATEADD(day, -30, CAST(GETDATE() AS date));
+    DECLARE @PurchaseOrderSourceRows bigint;
+    DECLARE @PurchaseOrderDuplicateGroups bigint;
+    DECLARE @PurchaseOrderGuardMessage varchar(2047);
+
+    SELECT @PurchaseOrderSourceRows = COUNT_BIG(*)
+    FROM [InventoryHistory_Enh_Wrk].[v_PurchaseOrderSnapshotHistorical]
+    WHERE SnapshotDate >= @PurchaseOrderWindowStart;
+
+    IF @PurchaseOrderSourceRows = 0
+    BEGIN
+        SET @PurchaseOrderGuardMessage =
+            'PurchaseOrderSnapshotHistorical DateRange guard failed: target was not changed; '
+            + 'date key=SnapshotDate; window start=' + CONVERT(varchar(10), @PurchaseOrderWindowStart, 23)
+            + '; source rows=0; duplicate groups=not evaluated.';
+        THROW 51000, @PurchaseOrderGuardMessage, 1;
+    END;
+
+    SELECT @PurchaseOrderDuplicateGroups = COUNT_BIG(*)
+    FROM
+    (
+        SELECT SnapshotDate, ItemSku, WarehouseCode, VendorNumber, StatusCode, DueDate, UnitCost
+        FROM [InventoryHistory_Enh_Wrk].[v_PurchaseOrderSnapshotHistorical]
+        WHERE SnapshotDate >= @PurchaseOrderWindowStart
+        GROUP BY SnapshotDate, ItemSku, WarehouseCode, VendorNumber, StatusCode, DueDate, UnitCost
+        HAVING COUNT_BIG(*) > 1
+    ) AS DuplicatePurchaseOrderKeys;
+
+    IF @PurchaseOrderDuplicateGroups > 0
+    BEGIN
+        SET @PurchaseOrderGuardMessage =
+            'PurchaseOrderSnapshotHistorical DateRange guard failed: target was not changed; '
+            + 'date key=SnapshotDate; window start=' + CONVERT(varchar(10), @PurchaseOrderWindowStart, 23)
+            + '; source rows=' + CONVERT(varchar(30), @PurchaseOrderSourceRows)
+            + '; duplicate groups=' + CONVERT(varchar(30), @PurchaseOrderDuplicateGroups) + '.';
+        THROW 51001, @PurchaseOrderGuardMessage, 1;
+    END;
+
+    EXEC [ETL_Framework].[DW_Developer].[usp_UpdateCuratedTableFromView_DateRange]
+        'SupplyChain_Processing_Warehouse',
+        'InventoryHistory_Enh',
+        'PurchaseOrderSnapshotHistorical',
+        'SnapshotDate',
+        'SnapshotDate',
+        -30;
 
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Processing_Warehouse', 'InventoryHistory_Enh', 'ManufacturingOrderSnapshotDaily';
@@ -16,8 +59,8 @@ BEGIN
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Processing_Warehouse', 'InventoryHistory_Enh', 'HoldingTransferSnapshotDaily';
 
-    EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
-        'SupplyChain_Processing_Warehouse', 'InventoryHistory_Enh', 'ForecastSnapshotWeekly';
+    EXEC [ETL_Framework].[DW_Developer].[usp_UpdateCuratedTableFromView_DateRange]
+        'SupplyChain_Processing_Warehouse', 'InventoryHistory_Enh', 'ForecastSnapshotWeekly', 'SnapshotDate', 'SnapshotDate', -30;
 
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Processing_Warehouse', 'InventoryHistory_Enh', 'SupplyPlanDetail';

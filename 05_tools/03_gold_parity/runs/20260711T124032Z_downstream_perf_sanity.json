@@ -1,0 +1,81 @@
+{
+  "generated_at_utc": "20260711T124032Z",
+  "module": "05_downstream_perf",
+  "safety": {
+    "application_intent": "ReadOnly",
+    "ddl_dml": "none",
+    "live_objects_created": [],
+    "live_objects_mutated": []
+  },
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "checks": [
+    {
+      "check": "Layer_F_view_vs_table_sanity",
+      "per_target": {
+        "DimCalendar": {
+          "table": "[SupplyChain_Gold_Warehouse].[Shared_DW].[DimCalendar]",
+          "view": "[SupplyChain_Gold_Warehouse].[Shared_DW_Wrk].[v_DimCalendar]",
+          "elapsed_sec": 0.0,
+          "measures_checked": [],
+          "measures_skipped_not_in_view": [],
+          "table_side": {
+            "__error__": "'pyodbc.Cursor' object has no attribute 'timeout' and no __dict__ for setting new attributes"
+          },
+          "view_side": {
+            "__error__": "'pyodbc.Cursor' object has no attribute 'timeout' and no __dict__ for setting new attributes"
+          },
+          "diffs": {},
+          "pass": false
+        },
+        "DimProduct": {
+          "table": "[SupplyChain_Gold_Warehouse].[Shared_DW].[DimProduct]",
+          "view": "[SupplyChain_Gold_Warehouse].[Shared_DW_Wrk].[v_DimProduct]",
+          "elapsed_sec": 0.0,
+          "measures_checked": [],
+          "measures_skipped_not_in_view": [],
+          "table_side": {
+            "__error__": "'pyodbc.Cursor' object has no attribute 'timeout' and no __dict__ for setting new attributes"
+          },
+          "view_side": {
+            "__error__": "'pyodbc.Cursor' object has no attribute 'timeout' and no __dict__ for setting new attributes"
+          },
+          "diffs": {},
+          "pass": false
+        },
+        "DimWarehouse": {
+          "table": "[SupplyChain_Gold_Warehouse].[Shared_DW].[DimWarehouse]",
+          "view": "[SupplyChain_Gold_Warehouse].[Shared_DW_Wrk].[v_DimWarehouse]",
+          "elapsed_sec": 0.0,
+          "measures_checked": [],
+          "measures_skipped_not_in_view": [],
+          "table_side": {
+            "__error__": "'pyodbc.Cursor' object has no attribute 'timeout' and no __dict__ for setting new attributes"
+          },
+          "view_side": {
+            "__error__": "'pyodbc.Cursor' object has no attribute 'timeout' and no __dict__ for setting new attributes"
+          },
+          "diffs": {},
+          "pass": false
+        },
+        "DimVendor": {
+          "table": "[SupplyChain_Gold_Warehouse].[InventoryHealth_DW].[DimVendor]",
+          "view": "[SupplyChain_Gold_Warehouse].[InventoryHealth_DW_Wrk].[v_DimVendor]",
+          "elapsed_sec": 0.0,
+          "measures_checked": [],
+          "measures_skipped_not_in_view": [],
+          "table_side": {
+            "__error__": "'pyodbc.Cursor' object has no attribute 'timeout' and no __dict__ for setting new attributes"
+          },
+          "view_side": {
+            "__error__": "'pyodbc.Cursor' object has no attribute 'timeout' and no __dict__ for setting new attributes"
+          },
+          "diffs": {},
+          "pass": false
+        }
+      },
+      "pass": false,
+      "note": "View recompute vs live final table for row count and anchor SUMs. Any diff means Module 03 baseline may be stale; a new baseline should be captured before Wave 1 candidate comparison."
+    }
+  ],
+  "overall_pass": false
+}

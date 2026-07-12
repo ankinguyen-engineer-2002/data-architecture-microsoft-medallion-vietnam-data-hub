@@ -18,7 +18,7 @@ Language note: 01_docs/code in English; short Vietnamese hints included where he
 ## 1) Canonical IDs / endpoints (DEV)
 
 Source of truth:
-- `CLAUDE.md` (root) — tenant/workspace/sql endpoint + token commands
+- `AGENTS.md` (root) — tenant/workspace/sql endpoint + token commands
 - `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/projects/inventory_health/00_workspace.md` — Processing/Gold WH IDs + semantic model IDs
 
 Key values (DEV):

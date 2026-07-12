@@ -1,0 +1,27 @@
+Module 04 C1 inline shadow parity — full_history_antijoin_only
+generated_at_utc=20260711T022510Z
+overall_pass=True
+verdict=C1_SHARED_INV_BASE_PARITY_PASS
+live_ddl_dml=none
+
+[T3_fact_invbase_A_vs_C1_shared_B] pass=True elapsed=189.1s
+  compare_mode=key_antijoin_plus_value_mismatch
+  a_rows=19605162
+  b_rows=19605162
+  a_not_in_b=0
+  b_not_in_a=0
+  value_mismatches=0
+  rowcount_match=True
+  set_match=True
+
+[T4_substatus_invbase_vs_shared] pass=True elapsed=265.2s
+  compare_mode=key_antijoin_plus_value_mismatch
+  a_rows=19605162
+  b_rows=19605162
+  a_not_in_b=0
+  b_not_in_a=0
+  value_mismatches=0
+  rowcount_match=True
+  set_match=True
+
+C1 is parity-safe for inv_base if: (1) FMD tie-break is deterministic, (2) FactSnapshot A-vs-B anti-join is empty both ways on all carried cols, (3) SubStatus A-vs-B anti-join is empty both ways on OnHandQty, (4) on full history, shared counts reproduce weekly-family / fact-eligible row invariants. Performance gain is NOT proven here (no materialization).

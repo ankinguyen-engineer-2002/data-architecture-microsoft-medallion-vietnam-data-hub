@@ -1,0 +1,277 @@
+{
+  "step": 6,
+  "wave": "W20_helper",
+  "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryHealthSubStatusWeekly",
+  "source_view": "SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly",
+  "is_hotspot": true,
+  "declared_business_key": [
+    "ItemSku",
+    "WarehouseCode",
+    "SnapshotWeekEnding"
+  ],
+  "table_modify_date_utc": "2026-07-10T08:53:58.580",
+  "view_modify_date_utc": "2026-06-25T03:27:21.193",
+  "final_table_columns": [
+    {
+      "pos": 1,
+      "col": "ItemSku",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "WarehouseCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "SnapshotWeekEnding",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "SubStatus",
+      "dtype": "varchar",
+      "maxlen": 17,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 5,
+      "col": "Ranking",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 6,
+      "col": "InventoryClassification Final Status",
+      "dtype": "varchar",
+      "maxlen": 17,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 7,
+      "col": "Avg Weekly Demand",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "SS target",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "On Hands Qty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "On Order Qty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "AFIStatus",
+      "dtype": "varchar",
+      "maxlen": 20,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "LastInvoiceDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "view_columns": [
+    {
+      "pos": 1,
+      "col": "ItemSku",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "WarehouseCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "SnapshotWeekEnding",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "SubStatus",
+      "dtype": "varchar",
+      "maxlen": 17,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 5,
+      "col": "Ranking",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 6,
+      "col": "InventoryClassification Final Status",
+      "dtype": "varchar",
+      "maxlen": 17,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 7,
+      "col": "Avg Weekly Demand",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "SS target",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "On Hands Qty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "On Order Qty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "AFIStatus",
+      "dtype": "varchar",
+      "maxlen": 20,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "LastInvoiceDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "loader_positional_contract": {
+    "loader": "ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView (INSERT ... SELECT *)",
+    "table_column_count": 12,
+    "view_column_count": 12,
+    "column_count_match": true,
+    "column_order_match": true,
+    "drift": {
+      "in_view_not_table": [],
+      "in_table_not_view": []
+    },
+    "load_safe": true
+  },
+  "source_refs": [
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper"
+  ],
+  "static_parse": {
+    "cte_names": [
+      "inv_base",
+      "po_base",
+      "mo_base",
+      "src",
+      "classified",
+      "ranked"
+    ],
+    "cte_count": 6,
+    "row_number_count": 1,
+    "group_by_count": 2,
+    "distinct_count": 0,
+    "left_join_count": 6,
+    "inner_join_count": -6,
+    "case_count": 2,
+    "coalesce_count": 13,
+    "latest_asof_markers": 1,
+    "reads_islatest_flag": false,
+    "has_partition_dedupe": true
+  },
+  "view_definition": "-- InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly\nCREATE   VIEW [InventoryHealth_DW_Wrk].[v_InventoryHealthSubStatusWeekly] AS\nWITH inv_base AS (\n    SELECT\n        ItemSku,\n        WarehouseCode,\n        SnapshotWeekEndingDate,\n        OnHandQty\n    FROM (\n        SELECT\n            ItemSku,\n            WarehouseCode,\n            SnapshotWeekEndingDate,\n            OnHandQty,\n            ROW_NUMBER() OVER (\n                PARTITION BY ItemSku, WarehouseCode, SnapshotWeekEndingDate\n                ORDER BY FiscalMonthDate ASC\n            ) AS rn\n        FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[InventorySnapshotWeekly]\n    ) ranked_inv\n    WHERE rn = 1\n),\npo_base AS (\n    SELECT\n        ItemSku,\n        WarehouseCode,\n        SnapshotDate,\n        SUM(COALESCE(POOnOrderQty, 0)) AS POOnOrderQty\n    FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[PurchaseOrderSnapshotHistorical]\n    GROUP BY\n        ItemSku,\n        WarehouseCode,\n        SnapshotDate\n),\nmo_base AS (\n    SELECT\n        ItemSku,\n        WarehouseCode,\n        SnapshotDate,\n        SUM(COALESCE(RemainingMOQty, 0)) AS RemainingMOQty\n    FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[ManufacturingOrderSnapshotDaily]\n    GROUP BY\n        ItemSku,\n        WarehouseCode,\n        SnapshotDate\n),\nsrc AS (\n    SELECT\n        inv.ItemSku AS ItemSku,\n        inv.WarehouseCode AS WarehouseCode,\n        inv.SnapshotWeekEndingDate AS SnapshotWeekEnding,\n        -- inv.FiscalWeekIndicator,\n        CAST(COALESCE(inv.OnHandQty, 0) AS DECIMAL(18,4)) AS OnHandsQty,\n        CAST(COALESCE(po.POOnOrderQty, 0) + COALESCE(mo.RemainingMOQty, 0) AS DECIMAL(18,4)) AS OnOrderQty,\n        CAST(awd.AwdQty AS DECIMAL(18,4)) AS AvgWeeklyDemand,\n        CAST(COALESCE(ss.SafetyStockTarget, 0) AS DECIMAL(18,4)) AS SSTarget,\n        im.AFIStatus AS AFIStatus,\n        TRY_CONVERT(DATE, li.LastInvoiceDate) AS LastInvoiceDate\n    FROM inv_base inv\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[AwdHelper] awd\n        ON awd.ItemSku = inv.ItemSku\n       AND awd.WarehouseCode = inv.WarehouseCode\n       AND awd.AsOfDate = inv.SnapshotWeekEndingDate\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[SafetyStockHelper] ss\n        ON ss.ItemSku = inv.ItemSku\n       AND ss.WarehouseCode = inv.WarehouseCode\n       AND ss.AsOfDate = inv.SnapshotWeekEndingDate\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[AFIStatusSnapshotWeekly] im\n        ON im.ItemSku = inv.ItemSku\n       AND im.WarehouseCode = inv.WarehouseCode\n       AND im.WeekEndingDate = inv.SnapshotWeekEndingDate\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[LastInvoiceWeekly] li\n        ON li.ItemSku = inv.ItemSku\n       AND li.WarehouseCode = inv.WarehouseCode\n       AND li.WeekEndingDate = inv.SnapshotWeekEndingDate\n    LEFT JOIN po_base po\n        ON po.ItemSku = inv.ItemSku\n       AND po.WarehouseCode = inv.WarehouseCode\n       AND po.SnapshotDate = inv.SnapshotWeekEndingDate\n    LEFT JOIN mo_base mo\n        ON mo.ItemSku = inv.ItemSku\n       AND mo.WarehouseCode = inv.WarehouseCode\n       AND mo.SnapshotDate = inv.SnapshotWeekEndingDate\n),\nclassified AS (\n    SELECT\n        s.*,\n        CASE\n            WHEN UPPER(LTRIM(RTRIM(COALESCE(AFIStatus, '')))) IN ('D', 'R')\n                 AND OnHandsQty + OnOrderQty = 0 THEN 'INACTIVE'\n            WHEN LastInvoiceDate IS NOT NULL\n                 AND LastInvoiceDate <= DATEADD(WEEK, -17, SnapshotWeekEnding)\n                 AND UPPER(LTRIM(RTRIM(COALESCE(AFIStatus, '')))) NOT IN ('N') THEN 'SLOB'\n            WHEN COALESCE(OnHandsQty, 0) < 0.5 * COALESCE(SSTarget, 0)\n                 AND COALESCE(SSTarget, 0) > 0 THEN 'BELOW_TARGET'\n            WHEN AvgWeeklyDemand > 0\n                 AND OnHandsQty > 104 * AvgWeeklyDemand THEN 'TB_INVENTORY'\n            WHEN AvgWeeklyDemand > 0\n                 AND OnHandsQty > 52 * AvgWeeklyDemand THEN 'AGGRESSIVE_EXCESS'\n            WHEN AvgWeeklyDemand > 0\n                 AND OnHandsQty > 17 * AvgWeeklyDemand THEN 'EXCESS'\n            WHEN OnHandsQty > 1.5 * COALESCE(SSTarget, 0) THEN 'OVER_TARGET'\n            WHEN OnHandsQty >= 0.5 * COALESCE(SSTarget, 0) THEN 'SWEET_SPOT'\n            ELSE 'UNCLASSIFIED'\n        END AS SubStatus\n    FROM src s\n),\nranked AS (\n    SELECT\n        c.*,\n        CASE SubStatus\n            WHEN 'INACTIVE' THEN 0\n            WHEN 'SLOB' THEN 1\n            WHEN 'BELOW_TARGET' THEN 2\n            WHEN 'SWEET_SPOT' THEN 3\n            WHEN 'OVER_TARGET' THEN 4\n            WHEN 'EXCESS' THEN 5\n            WHEN 'AGGRESSIVE_EXCESS' THEN 6\n            WHEN 'TB_INVENTORY' THEN 7\n            ELSE 99\n        END AS Ranking\n    FROM classified c\n)\nSELECT\n    ItemSku,\n    WarehouseCode,\n    SnapshotWeekEnding,\n    -- FiscalWeekIndicator,\n    SubStatus,\n    Ranking,\n    CASE MIN(Ranking) OVER (PARTITION BY ItemSku, WarehouseCode, SnapshotWeekEnding)\n        WHEN 0 THEN 'INACTIVE'\n        WHEN 1 THEN 'SLOB'\n        WHEN 2 THEN 'BELOW_TARGET'\n        WHEN 3 THEN 'SWEET_SPOT'\n        WHEN 4 THEN 'OVER_TARGET'\n        WHEN 5 THEN 'EXCESS'\n        WHEN 6 THEN 'AGGRESSIVE_EXCESS'\n        WHEN 7 THEN 'TB_INVENTORY'\n        ELSE 'UNCLASSIFIED'\n    END AS [InventoryClassification Final Status],\n    AvgWeeklyDemand AS [Avg Weekly Demand],\n    SSTarget AS [SS target],\n    OnHandsQty AS [On Hands Qty],\n    OnOrderQty AS [On Order Qty],\n    AFIStatus,\n    LastInvoiceDate\nFROM ranked;\n"
+}

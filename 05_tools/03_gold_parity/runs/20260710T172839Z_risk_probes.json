@@ -1,0 +1,121 @@
+{
+  "generated_at_utc": "20260710T172839Z",
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "R1_helper_multiplicity": [
+    {
+      "table": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper",
+      "keys": [
+        "ItemSku",
+        "WarehouseCode",
+        "AsOfDate"
+      ],
+      "total_rows": 21070457,
+      "dup_key_groups": 0,
+      "rows_in_dup_groups": 0,
+      "max_rows_per_key": 0,
+      "multiplicity_ok": true
+    },
+    {
+      "table": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.Cogs52WWeekly",
+      "keys": [
+        "ItemSku",
+        "WarehouseCode",
+        "WeekEndingDate"
+      ],
+      "total_rows": 19605162,
+      "dup_key_groups": 0,
+      "rows_in_dup_groups": 0,
+      "max_rows_per_key": 0,
+      "multiplicity_ok": true
+    },
+    {
+      "table": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly",
+      "keys": [
+        "ItemSku",
+        "WarehouseCode",
+        "WeekEndingDate"
+      ],
+      "total_rows": 19605162,
+      "dup_key_groups": 0,
+      "rows_in_dup_groups": 0,
+      "max_rows_per_key": 0,
+      "multiplicity_ok": true
+    },
+    {
+      "table": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "keys": [
+        "ItemSku",
+        "WarehouseCode",
+        "WeekEndingDate"
+      ],
+      "total_rows": 19605162,
+      "dup_key_groups": 0,
+      "rows_in_dup_groups": 0,
+      "max_rows_per_key": 0,
+      "multiplicity_ok": true
+    },
+    {
+      "table": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+      "keys": [
+        "ItemSku",
+        "WarehouseCode",
+        "AsOfDate"
+      ],
+      "total_rows": 13632832,
+      "dup_key_groups": 0,
+      "rows_in_dup_groups": 0,
+      "max_rows_per_key": 0,
+      "multiplicity_ok": true
+    },
+    {
+      "table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryHealthSubStatusWeekly",
+      "keys": [
+        "ItemSku",
+        "WarehouseCode",
+        "SnapshotWeekEnding"
+      ],
+      "total_rows": 19605162,
+      "dup_key_groups": 0,
+      "rows_in_dup_groups": 0,
+      "max_rows_per_key": 0,
+      "multiplicity_ok": true
+    },
+    {
+      "table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryClassificationQtyWeekly",
+      "keys": [
+        "Item",
+        "WH",
+        "SnapshotWeekEnding"
+      ],
+      "total_rows": 19605162,
+      "dup_key_groups": 0,
+      "rows_in_dup_groups": 0,
+      "max_rows_per_key": 0,
+      "multiplicity_ok": true
+    }
+  ],
+  "R2_dimproduct": {
+    "table": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct",
+    "key": "ItemSKU",
+    "total_rows": 783945,
+    "dup_key_groups": 0,
+    "max_rows_per_item": 0,
+    "multiplicity_ok": true
+  },
+  "R3_tiebreak": {
+    "table": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+    "dedupe_grain": [
+      "ItemSku",
+      "WarehouseCode",
+      "SnapshotWeekEndingDate"
+    ],
+    "tiebreak_order": "FiscalMonthDate ASC",
+    "total_rows": 705785832,
+    "multi_row_groups": 19605162,
+    "rows_in_multi_groups": 705785832,
+    "groups_where_onhand_differs": 0,
+    "groups_where_fiscalmonthdate_tied": 0,
+    "tiebreak_is_material": false,
+    "tiebreak_is_nondeterministic": false
+  }
+}

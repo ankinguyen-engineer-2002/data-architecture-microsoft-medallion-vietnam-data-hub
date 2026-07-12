@@ -30,6 +30,13 @@
       "target": "ForecastAccuracy_DW/Tables/FactForecastKpi.sql"
     },
     {
+      "object": "DQForecastAccuracy",
+      "object_type": "table",
+      "schema": "ForecastAccuracy_DW",
+      "source_kind": "repo_contract",
+      "target": "ForecastAccuracy_DW/Tables/DQForecastAccuracy.sql"
+    },
+    {
       "object": "DimVendor",
       "object_type": "table",
       "schema": "InventoryHealth_DW",
@@ -123,6 +130,14 @@
       "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastKpi.sql",
       "source_kind": "repo_sql",
       "target": "ForecastAccuracy_DW_Wrk/Views/v_FactForecastKpi.sql"
+    },
+    {
+      "object": "v_DQForecastAccuracy",
+      "object_type": "view",
+      "schema": "ForecastAccuracy_DW_Wrk",
+      "source": "/Users/MAC/Documents/20260413_Fabric_Refactor_Architect/02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "source_kind": "repo_sql",
+      "target": "ForecastAccuracy_DW_Wrk/Views/v_DQForecastAccuracy.sql"
     },
     {
       "object": "v_DimVendor",

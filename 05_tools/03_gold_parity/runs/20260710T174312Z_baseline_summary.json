@@ -1,0 +1,30 @@
+{
+  "generated_at_utc": "20260710T174312Z",
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "targets": [
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.FactInventoryHealthFutureWeekEnding",
+      "row_count": 3785137,
+      "distinct_keys": 3785137,
+      "unique_at_grain": true,
+      "date_coverage": {
+        "min_FutureWeekEnding": "2026-07-11",
+        "max_FutureWeekEnding": "2027-03-20",
+        "min_SnapshotDate": "2026-07-09",
+        "max_SnapshotDate": "2026-07-09",
+        "min_InventorySnapshotDate": "2026-07-09",
+        "max_InventorySnapshotDate": "2026-07-09",
+        "min_SupplyPlanSnapshotDate": "2026-07-09",
+        "max_SupplyPlanSnapshotDate": "2026-07-09",
+        "min_ATPSnapshotDate": "2026-06-28",
+        "max_ATPSnapshotDate": "2026-06-28",
+        "min_LatestSupplyPlanSnapshotDate": "2026-07-09",
+        "max_LatestSupplyPlanSnapshotDate": "2026-07-09",
+        "min_AwdAsOfDate": "2024-01-20",
+        "max_AwdAsOfDate": "2026-07-09",
+        "min_AfiStatusAsOfDate": "2025-03-08",
+        "max_AfiStatusAsOfDate": "2026-07-09"
+      }
+    }
+  ]
+}

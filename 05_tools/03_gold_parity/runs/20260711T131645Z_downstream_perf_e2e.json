@@ -1,0 +1,97 @@
+{
+  "generated_at_utc": "20260711T131645Z",
+  "module": "05_downstream_perf",
+  "safety": {
+    "application_intent": "ReadOnly",
+    "ddl_dml": "none",
+    "live_objects_created": [],
+    "live_objects_mutated": []
+  },
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "checks": [
+    {
+      "check": "Layer_D_e2e_InventoryHealthSubStatusWeekly",
+      "elapsed_sec": 513.1,
+      "table": "[SupplyChain_Gold_Warehouse].[InventoryHealth_DW].[InventoryHealthSubStatusWeekly]",
+      "view": "[SupplyChain_Gold_Warehouse].[InventoryHealth_DW_Wrk].[v_InventoryHealthSubStatusWeekly]",
+      "keys": [
+        "ItemSku",
+        "WarehouseCode",
+        "SnapshotWeekEnding"
+      ],
+      "value_col_count": 9,
+      "a_rows": 19605162,
+      "b_rows": 19605162,
+      "a_not_in_b": 0,
+      "b_not_in_a": 0,
+      "value_mismatches": 0,
+      "query_execution": [
+        {
+          "label": "a_rows",
+          "elapsed_sec": 0.3
+        },
+        {
+          "label": "b_rows",
+          "elapsed_sec": 117.3
+        },
+        {
+          "label": "a_not_in_b",
+          "elapsed_sec": 117.3
+        },
+        {
+          "label": "b_not_in_a",
+          "elapsed_sec": 160.2
+        },
+        {
+          "label": "value_mismatches",
+          "elapsed_sec": 118.0
+        }
+      ],
+      "pass": true
+    },
+    {
+      "check": "Layer_D_e2e_InventoryClassificationQtyWeekly",
+      "elapsed_sec": 186.2,
+      "table": "[SupplyChain_Gold_Warehouse].[InventoryHealth_DW].[InventoryClassificationQtyWeekly]",
+      "view": "[SupplyChain_Gold_Warehouse].[InventoryHealth_DW_Wrk].[v_InventoryClassificationQtyWeekly]",
+      "keys": [
+        "Item",
+        "WH",
+        "SnapshotWeekEnding"
+      ],
+      "value_col_count": 9,
+      "a_rows": 19605162,
+      "b_rows": 19605162,
+      "a_not_in_b": null,
+      "b_not_in_a": null,
+      "value_mismatches": null,
+      "query_execution": [
+        {
+          "label": "a_rows",
+          "elapsed_sec": 0.7
+        },
+        {
+          "label": "b_rows",
+          "elapsed_sec": 105.5
+        },
+        {
+          "label": "a_not_in_b",
+          "elapsed_sec": 80.0,
+          "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]TCP Provider: Error code 0x36 (54) (SQLExecDirectW)')"
+        },
+        {
+          "label": "b_not_in_a",
+          "elapsed_sec": 0.0,
+          "error": "('IMC06', '[IMC06] [Microsoft][ODBC Driver 18 for SQL Server]The connection is broken and recovery is not possible. The connection is marked by the client driver as unrecoverable. No attempt was made to restore the connection. (0) (SQLExecDirectW)')"
+        },
+        {
+          "label": "value_mismatches",
+          "elapsed_sec": 0.0,
+          "error": "('IMC06', '[IMC06] [Microsoft][ODBC Driver 18 for SQL Server]The connection is broken and recovery is not possible. The connection is marked by the client driver as unrecoverable. No attempt was made to restore the connection. (0) (SQLExecDirectW)')"
+        }
+      ],
+      "pass": false
+    }
+  ],
+  "overall_pass": false
+}

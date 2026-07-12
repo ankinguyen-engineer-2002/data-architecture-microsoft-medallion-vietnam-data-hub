@@ -641,6 +641,16 @@
       "schema": "ForecastAccuracy_DW"
     },
     {
+      "asset_key": "forecastaccuracy.dw.dqforecastaccuracy",
+      "display": "ForecastAccuracy_DW.DQForecastAccuracy",
+      "file_path": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW/DQForecastAccuracy.table.sql",
+      "layer": "gold",
+      "mart": "forecast_accuracy",
+      "object": "DQForecastAccuracy",
+      "object_type": "final_table_contract",
+      "schema": "ForecastAccuracy_DW"
+    },
+    {
       "asset_key": "forecastaccuracy.dw.wrk.v.dimcustomergrouping",
       "display": "ForecastAccuracy_DW_Wrk.v_DimCustomerGrouping",
       "file_path": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DimCustomerGrouping.sql",
@@ -677,6 +687,16 @@
       "layer": "gold",
       "mart": "forecast_accuracy",
       "object": "v_FactForecastKpi",
+      "object_type": "wrk_view",
+      "schema": "ForecastAccuracy_DW_Wrk"
+    },
+    {
+      "asset_key": "forecastaccuracy.dw.wrk.v.dqforecastaccuracy",
+      "display": "ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy",
+      "file_path": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_DQForecastAccuracy.sql",
+      "layer": "gold",
+      "mart": "forecast_accuracy",
+      "object": "v_DQForecastAccuracy",
       "object_type": "wrk_view",
       "schema": "ForecastAccuracy_DW_Wrk"
     },

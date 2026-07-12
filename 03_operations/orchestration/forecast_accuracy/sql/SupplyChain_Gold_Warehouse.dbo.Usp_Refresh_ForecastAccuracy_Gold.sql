@@ -30,4 +30,22 @@ BEGIN
 
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Gold_Warehouse', 'ForecastAccuracy_DW', 'FactForecastKpi';
+
+    -- Gold terminal DQ snapshot: direct history insert, outside generic ETL loader.
+    INSERT INTO [ForecastAccuracy_DW].[DQForecastAccuracy] (
+        [RuleName],
+        [RuleDescription],
+        [Result],
+        [DQRunId],
+        [DQRunAtUTC],
+        [LoadDT]
+    )
+    SELECT
+        [RuleName],
+        [RuleDescription],
+        [Result],
+        [DQRunId],
+        [DQRunAtUTC],
+        [LoadDT]
+    FROM [ForecastAccuracy_DW_Wrk].[v_DQForecastAccuracy];
 END;

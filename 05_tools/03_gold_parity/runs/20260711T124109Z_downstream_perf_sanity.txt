@@ -1,0 +1,10 @@
+Module 05 downstream + perf — mode=sanity
+generated_at_utc=20260711T124109Z
+overall_pass=True
+live_ddl_dml=none
+
+[Layer_F_view_vs_table_sanity] pass=True
+  - DimCalendar: pass=True table.n=21551 view.n=21551 diffs=0 elapsed=0.6s
+  - DimProduct: pass=True table.n=783945 view.n=783945 diffs=0 elapsed=0.7s
+  - DimWarehouse: pass=True table.n=53 view.n=53 diffs=0 elapsed=0.7s
+  - DimVendor: pass=True table.n=87003 view.n=87003 diffs=0 elapsed=0.6s

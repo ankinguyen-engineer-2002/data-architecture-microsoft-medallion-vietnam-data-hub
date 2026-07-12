@@ -1,0 +1,567 @@
+{
+  "step": 5,
+  "wave": "W20_helper",
+  "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.ProjectedInventoryHealthSubStatus",
+  "source_view": "SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_ProjectedInventoryHealthSubStatus",
+  "is_hotspot": true,
+  "declared_business_key": [
+    "ItemSku",
+    "WarehouseCode",
+    "FactAsOfDate",
+    "FutureWeekEndingDate"
+  ],
+  "table_modify_date_utc": "2026-07-10T08:51:42.157",
+  "view_modify_date_utc": "2026-06-25T03:27:22.797",
+  "final_table_columns": [
+    {
+      "pos": 1,
+      "col": "ItemSku",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "WarehouseCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "FactAsOfDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "FutureWeekEndingDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "SupplyPlanSnapshotDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "AwdAsOfDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "AfiStatusAsOfDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "LastInvoiceAsOfDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "ProjectedSubStatus",
+      "dtype": "varchar",
+      "maxlen": 17,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 10,
+      "col": "ProjectedRanking",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 11,
+      "col": "ProjectedInventoryClassificationFinalStatus",
+      "dtype": "varchar",
+      "maxlen": 17,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 12,
+      "col": "AvgWeeklyDemand",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 13,
+      "col": "SafetyStockTarget",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 14,
+      "col": "ProjectedInventoryQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 15,
+      "col": "FirmDemandQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 16,
+      "col": "NetFcstQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 17,
+      "col": "FirmDemandQtyAtRisk",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 18,
+      "col": "NetFcstQtyAtRisk",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 19,
+      "col": "IsActiveItemWhIn7DNext",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 20,
+      "col": "IsActiveItemWhIn14DNext",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 21,
+      "col": "AFIStatus",
+      "dtype": "varchar",
+      "maxlen": 20,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 22,
+      "col": "LastInvoiceDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 23,
+      "col": "SupplyPlanSnapshotType",
+      "dtype": "varchar",
+      "maxlen": 30,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 24,
+      "col": "LatestSupplyPlanSnapshotDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 25,
+      "col": "SupplyPlanSnapshotLagDays",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 26,
+      "col": "AwdLagDays",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 27,
+      "col": "AfiStatusLagDays",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 28,
+      "col": "LastInvoiceLagDays",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    }
+  ],
+  "view_columns": [
+    {
+      "pos": 1,
+      "col": "ItemSku",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "WarehouseCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "FactAsOfDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "FutureWeekEndingDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "SupplyPlanSnapshotDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "AwdAsOfDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "AfiStatusAsOfDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "LastInvoiceAsOfDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "ProjectedSubStatus",
+      "dtype": "varchar",
+      "maxlen": 17,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 10,
+      "col": "ProjectedRanking",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 11,
+      "col": "ProjectedInventoryClassificationFinalStatus",
+      "dtype": "varchar",
+      "maxlen": 17,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "NO"
+    },
+    {
+      "pos": 12,
+      "col": "AvgWeeklyDemand",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 13,
+      "col": "SafetyStockTarget",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 14,
+      "col": "ProjectedInventoryQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 15,
+      "col": "FirmDemandQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 16,
+      "col": "NetFcstQty",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 17,
+      "col": "FirmDemandQtyAtRisk",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 18,
+      "col": "NetFcstQtyAtRisk",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 19,
+      "col": "IsActiveItemWhIn7DNext",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 20,
+      "col": "IsActiveItemWhIn14DNext",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 21,
+      "col": "AFIStatus",
+      "dtype": "varchar",
+      "maxlen": 20,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 22,
+      "col": "LastInvoiceDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 23,
+      "col": "SupplyPlanSnapshotType",
+      "dtype": "varchar",
+      "maxlen": 30,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 24,
+      "col": "LatestSupplyPlanSnapshotDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 25,
+      "col": "SupplyPlanSnapshotLagDays",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 26,
+      "col": "AwdLagDays",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 27,
+      "col": "AfiStatusLagDays",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 28,
+      "col": "LastInvoiceLagDays",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    }
+  ],
+  "loader_positional_contract": {
+    "loader": "ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView (INSERT ... SELECT *)",
+    "table_column_count": 28,
+    "view_column_count": 28,
+    "column_count_match": true,
+    "column_order_match": true,
+    "drift": {
+      "in_view_not_table": [],
+      "in_table_not_view": []
+    },
+    "load_safe": true
+  },
+  "source_refs": [
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly",
+    "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SupplyPlanDetail"
+  ],
+  "static_parse": {
+    "cte_names": [
+      "sp_base",
+      "awd_ranked",
+      "awd_latest",
+      "afi_ranked",
+      "afi_latest",
+      "last_invoice_ranked",
+      "last_invoice_latest",
+      "src",
+      "classified",
+      "ranked"
+    ],
+    "cte_count": 10,
+    "row_number_count": 3,
+    "group_by_count": 0,
+    "distinct_count": 0,
+    "left_join_count": 6,
+    "inner_join_count": -6,
+    "case_count": 2,
+    "coalesce_count": 8,
+    "latest_asof_markers": 6,
+    "reads_islatest_flag": true,
+    "has_partition_dedupe": true
+  },
+  "view_definition": "-- InventoryHealth_DW_Wrk.v_ProjectedInventoryHealthSubStatus\nCREATE   VIEW [InventoryHealth_DW_Wrk].[v_ProjectedInventoryHealthSubStatus] AS\nWITH sp_base AS (\n    SELECT\n        CAST(ItemSku AS VARCHAR(50)) AS ItemSku,\n        CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,\n        CAST(SnapshotDate AS DATE) AS FactAsOfDate,\n        CAST(SnapshotDate AS DATE) AS SupplyPlanSnapshotDate,\n        CAST(WeekEnding AS DATE) AS FutureWeekEndingDate,\n        CAST(SIQty AS DECIMAL(18,4)) AS ProjectedInventoryQty,\n        CAST(SafetyStockQty AS DECIMAL(18,4)) AS SafetyStockTarget,\n        CAST(FirmDemandQty AS DECIMAL(18,4)) AS FirmDemandQty,\n        CAST(NetFcstQty AS DECIMAL(18,4)) AS NetFcstQty,\n        CAST(FirmDemandQtyAtRisk AS DECIMAL(18,4)) AS FirmDemandQtyAtRisk,\n        CAST(NetFcstQtyAtRisk AS DECIMAL(18,4)) AS NetFcstQtyAtRisk,\n        CAST(IsActiveItemWhIn7DNext AS INT) AS IsActiveItemWhIn7DNext,\n        CAST(IsActiveItemWhIn14DNext AS INT) AS IsActiveItemWhIn14DNext,\n        CAST(IsLatestSupplyPlanSnapshot AS INT) AS IsLatestSupplyPlanSnapshot,\n        CAST(SnapshotType AS VARCHAR(30)) AS SupplyPlanSnapshotType,\n        CAST(LatestSupplyPlanSnapshotDate AS DATE) AS LatestSupplyPlanSnapshotDate\n    FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[SupplyPlanDetail]\n    WHERE IsLatestSupplyPlanSnapshot = 1\n      AND ItemSku IS NOT NULL\n      AND WarehouseCode IS NOT NULL\n      AND SnapshotDate IS NOT NULL\n      AND WeekEnding IS NOT NULL\n      AND WeekEnding >= SnapshotDate\n),\nawd_ranked AS (\n    SELECT\n        sp.ItemSku,\n        sp.WarehouseCode,\n        sp.FactAsOfDate,\n        sp.FutureWeekEndingDate,\n        CAST(awd.AsOfDate AS DATE) AS AwdAsOfDate,\n        CAST(awd.AwdQty AS DECIMAL(18,4)) AS AvgWeeklyDemand,\n        ROW_NUMBER() OVER (\n            PARTITION BY\n                sp.ItemSku,\n                sp.WarehouseCode,\n                sp.FactAsOfDate,\n                sp.FutureWeekEndingDate\n            ORDER BY awd.AsOfDate DESC\n        ) AS rn\n    FROM sp_base sp\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[AwdHelper] awd\n        ON awd.ItemSku = sp.ItemSku\n       AND awd.WarehouseCode = sp.WarehouseCode\n       AND awd.AsOfDate <= sp.FactAsOfDate\n),\nawd_latest AS (\n    SELECT\n        ItemSku,\n        WarehouseCode,\n        FactAsOfDate,\n        FutureWeekEndingDate,\n        AwdAsOfDate,\n        AvgWeeklyDemand\n    FROM awd_ranked\n    WHERE rn = 1\n),\nafi_ranked AS (\n    SELECT\n        sp.ItemSku,\n        sp.WarehouseCode,\n        sp.FactAsOfDate,\n        sp.FutureWeekEndingDate,\n        CAST(afi.WeekEndingDate AS DATE) AS AfiStatusAsOfDate,\n        CAST(afi.AFIStatus AS VARCHAR(20)) AS AFIStatus,\n        ROW_NUMBER() OVER (\n            PARTITION BY\n                sp.ItemSku,\n                sp.WarehouseCode,\n                sp.FactAsOfDate,\n                sp.FutureWeekEndingDate\n            ORDER BY afi.WeekEndingDate DESC\n        ) AS rn\n    FROM sp_base sp\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[AFIStatusSnapshotWeekly] afi\n        ON afi.ItemSku = sp.ItemSku\n       AND afi.WarehouseCode = sp.WarehouseCode\n       AND afi.WeekEndingDate <= sp.FactAsOfDate\n),\nafi_latest AS (\n    SELECT\n        ItemSku,\n        WarehouseCode,\n        FactAsOfDate,\n        FutureWeekEndingDate,\n        AfiStatusAsOfDate,\n        AFIStatus\n    FROM afi_ranked\n    WHERE rn = 1\n),\nlast_invoice_ranked AS (\n    SELECT\n        sp.ItemSku,\n        sp.WarehouseCode,\n        sp.FactAsOfDate,\n        sp.FutureWeekEndingDate,\n        CAST(li.WeekEndingDate AS DATE) AS LastInvoiceAsOfDate,\n        CAST(li.LastInvoiceDate AS DATE) AS LastInvoiceDate,\n        ROW_NUMBER() OVER (\n            PARTITION BY\n                sp.ItemSku,\n                sp.WarehouseCode,\n                sp.FactAsOfDate,\n                sp.FutureWeekEndingDate\n            ORDER BY li.WeekEndingDate DESC\n        ) AS rn\n    FROM sp_base sp\n    LEFT JOIN [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[LastInvoiceWeekly] li\n        ON li.ItemSku = sp.ItemSku\n       AND li.WarehouseCode = sp.WarehouseCode\n       AND li.WeekEndingDate <= sp.FactAsOfDate\n),\nlast_invoice_latest AS (\n    SELECT\n        ItemSku,\n        WarehouseCode,\n        FactAsOfDate,\n        FutureWeekEndingDate,\n        LastInvoiceAsOfDate,\n        LastInvoiceDate\n    FROM last_invoice_ranked\n    WHERE rn = 1\n),\nsrc AS (\n    SELECT\n        sp.ItemSku,\n        sp.WarehouseCode,\n        sp.FactAsOfDate,\n        sp.SupplyPlanSnapshotDate,\n        sp.FutureWeekEndingDate,\n        sp.ProjectedInventoryQty,\n        sp.SafetyStockTarget,\n        sp.FirmDemandQty,\n        sp.NetFcstQty,\n        sp.FirmDemandQtyAtRisk,\n        sp.NetFcstQtyAtRisk,\n        sp.IsActiveItemWhIn7DNext,\n        sp.IsActiveItemWhIn14DNext,\n        sp.SupplyPlanSnapshotType,\n        sp.LatestSupplyPlanSnapshotDate,\n        awd.AwdAsOfDate,\n        awd.AvgWeeklyDemand,\n        afi.AfiStatusAsOfDate,\n        afi.AFIStatus,\n        li.LastInvoiceAsOfDate,\n        li.LastInvoiceDate\n    FROM sp_base sp\n    LEFT JOIN awd_latest awd\n        ON awd.ItemSku = sp.ItemSku\n       AND awd.WarehouseCode = sp.WarehouseCode\n       AND awd.FactAsOfDate = sp.FactAsOfDate\n       AND awd.FutureWeekEndingDate = sp.FutureWeekEndingDate\n    LEFT JOIN afi_latest afi\n        ON afi.ItemSku = sp.ItemSku\n       AND afi.WarehouseCode = sp.WarehouseCode\n       AND afi.FactAsOfDate = sp.FactAsOfDate\n       AND afi.FutureWeekEndingDate = sp.FutureWeekEndingDate\n    LEFT JOIN last_invoice_latest li\n        ON li.ItemSku = sp.ItemSku\n       AND li.WarehouseCode = sp.WarehouseCode\n       AND li.FactAsOfDate = sp.FactAsOfDate\n       AND li.FutureWeekEndingDate = sp.FutureWeekEndingDate\n),\nclassified AS (\n    SELECT\n        s.*,\n        CASE\n            WHEN UPPER(LTRIM(RTRIM(COALESCE(AFIStatus, '')))) IN ('D', 'R')\n                 AND COALESCE(ProjectedInventoryQty, 0) = 0 THEN 'INACTIVE'\n            WHEN LastInvoiceDate IS NOT NULL\n                 AND LastInvoiceDate <= DATEADD(WEEK, -17, FactAsOfDate)\n                 AND UPPER(LTRIM(RTRIM(COALESCE(AFIStatus, '')))) NOT IN ('N') THEN 'SLOB'\n            WHEN COALESCE(ProjectedInventoryQty, 0) < 0.5 * COALESCE(SafetyStockTarget, 0)\n                 AND COALESCE(SafetyStockTarget, 0) > 0 THEN 'BELOW_TARGET'\n            WHEN AvgWeeklyDemand > 0\n                 AND ProjectedInventoryQty > 104 * AvgWeeklyDemand THEN 'TB_INVENTORY'\n            WHEN AvgWeeklyDemand > 0\n                 AND ProjectedInventoryQty > 52 * AvgWeeklyDemand THEN 'AGGRESSIVE_EXCESS'\n            WHEN AvgWeeklyDemand > 0\n                 AND ProjectedInventoryQty > 17 * AvgWeeklyDemand THEN 'EXCESS'\n            WHEN ProjectedInventoryQty > 1.5 * COALESCE(SafetyStockTarget, 0) THEN 'OVER_TARGET'\n            WHEN ProjectedInventoryQty >= 0.5 * COALESCE(SafetyStockTarget, 0) THEN 'SWEET_SPOT'\n            ELSE 'UNCLASSIFIED'\n        END AS ProjectedSubStatus\n    FROM src s\n),\nranked AS (\n    SELECT\n        c.*,\n        CASE ProjectedSubStatus\n            WHEN 'INACTIVE' THEN 0\n            WHEN 'SLOB' THEN 1\n            WHEN 'BELOW_TARGET' THEN 2\n            WHEN 'SWEET_SPOT' THEN 3\n            WHEN 'OVER_TARGET' THEN 4\n            WHEN 'EXCESS' THEN 5\n            WHEN 'AGGRESSIVE_EXCESS' THEN 6\n            WHEN 'TB_INVENTORY' THEN 7\n            ELSE 99\n        END AS ProjectedRanking\n    FROM classified c\n)\nSELECT\n    ItemSku,\n    WarehouseCode,\n    FactAsOfDate,\n    FutureWeekEndingDate,\n    SupplyPlanSnapshotDate,\n    AwdAsOfDate,\n    AfiStatusAsOfDate,\n    LastInvoiceAsOfDate,\n    ProjectedSubStatus,\n    ProjectedRanking,\n    CASE MIN(ProjectedRanking) OVER (\n        PARTITION BY ItemSku, WarehouseCode, FactAsOfDate, FutureWeekEndingDate\n    )\n        WHEN 0 THEN 'INACTIVE'\n        WHEN 1 THEN 'SLOB'\n        WHEN 2 THEN 'BELOW_TARGET'\n        WHEN 3 THEN 'SWEET_SPOT'\n        WHEN 4 THEN 'OVER_TARGET'\n        WHEN 5 THEN 'EXCESS'\n        WHEN 6 THEN 'AGGRESSIVE_EXCESS'\n        WHEN 7 THEN 'TB_INVENTORY'\n        ELSE 'UNCLASSIFIED'\n    END AS ProjectedInventoryClassificationFinalStatus,\n    AvgWeeklyDemand,\n    SafetyStockTarget,\n    ProjectedInventoryQty,\n    FirmDemandQty,\n    NetFcstQty,\n    FirmDemandQtyAtRisk,\n    NetFcstQtyAtRisk,\n    IsActiveItemWhIn7DNext,\n    IsActiveItemWhIn14DNext,\n    AFIStatus,\n    LastInvoiceDate,\n    SupplyPlanSnapshotType,\n    LatestSupplyPlanSnapshotDate,\n    CAST(DATEDIFF(day, SupplyPlanSnapshotDate, FactAsOfDate) AS INT) AS SupplyPlanSnapshotLagDays,\n    CAST(DATEDIFF(day, AwdAsOfDate, FactAsOfDate) AS INT) AS AwdLagDays,\n    CAST(DATEDIFF(day, AfiStatusAsOfDate, FactAsOfDate) AS INT) AS AfiStatusLagDays,\n    CAST(DATEDIFF(day, LastInvoiceAsOfDate, FactAsOfDate) AS INT) AS LastInvoiceLagDays\nFROM ranked;\n"
+}

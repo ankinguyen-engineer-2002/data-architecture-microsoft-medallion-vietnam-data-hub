@@ -1,0 +1,18 @@
+{
+  "generated_at_utc": "20260710T173944Z",
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "targets": [
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryHealthSubStatusWeekly",
+      "row_count": 19605162,
+      "distinct_keys": 19605162,
+      "unique_at_grain": true,
+      "date_coverage": {
+        "min_SnapshotWeekEnding": "2023-01-07",
+        "max_SnapshotWeekEnding": "2026-07-09",
+        "min_LastInvoiceDate": "2017-08-23",
+        "max_LastInvoiceDate": "2026-07-09"
+      }
+    }
+  ]
+}

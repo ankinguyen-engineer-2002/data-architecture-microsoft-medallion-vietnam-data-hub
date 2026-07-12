@@ -16,8 +16,8 @@ BEGIN
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Processing_Warehouse', 'SalesHistory_Enh', 'InvoiceWeekly';
 
-    EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
-        'SupplyChain_Processing_Warehouse', 'ForecastHistory_Enh', 'ForecastDemandMonthly';
+    EXEC [ETL_Framework].[DW_Developer].[usp_UpdateCuratedTableFromView_DateRange]
+        'SupplyChain_Processing_Warehouse', 'ForecastHistory_Enh', 'ForecastDemandMonthly', 'Snapshot', 'Snapshot', -30;
 
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Processing_Warehouse', 'OpenOrderHistory_Enh', 'OpenOrderMonthly';

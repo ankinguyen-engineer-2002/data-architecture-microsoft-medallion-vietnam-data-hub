@@ -1,0 +1,511 @@
+{
+  "generated_at_utc": "20260711T084148Z",
+  "module": "05_downstream_perf",
+  "safety": {
+    "application_intent": "ReadOnly",
+    "ddl_dml": "none",
+    "live_objects_created": [],
+    "live_objects_mutated": []
+  },
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "checks": [
+    {
+      "check": "Layer_G_perf_baseline",
+      "source": "queryinsights.exec_requests_history",
+      "window_days": 30,
+      "per_target": {
+        "DimCalendar": {
+          "executions": 38,
+          "window_days": 30,
+          "first_seen_utc": "2026-06-23 03:18:49.328612",
+          "last_seen_utc": "2026-07-10 08:34:19.426649",
+          "elapsed_sec": {
+            "n": 38,
+            "min": 0.0,
+            "median": 1.0,
+            "p95": 1.0,
+            "max": 2.0,
+            "mean": 0.8421052631578947
+          },
+          "allocated_cpu_ms": {
+            "n": 38,
+            "min": 659.0,
+            "median": 789.0,
+            "p95": 983.0,
+            "max": 1417.0,
+            "mean": 805.578947368421
+          },
+          "remote_scan_mb": {
+            "n": 38,
+            "min": 0.0,
+            "median": 1.9175,
+            "p95": 2.032,
+            "max": 2.036,
+            "mean": 1.7667105263157894
+          },
+          "memory_scan_mb": {
+            "n": 38,
+            "min": 0.0,
+            "median": 0.108,
+            "p95": 1.354,
+            "max": 2.027,
+            "mean": 0.2617105263157895
+          },
+          "disk_scan_mb": {
+            "n": 38,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+          },
+          "row_count": {
+            "n": 38,
+            "min": 21551.0,
+            "median": 21551.0,
+            "p95": 21551.0,
+            "max": 21551.0,
+            "mean": 21551.0
+          }
+        },
+        "DimProduct": {
+          "executions": 32,
+          "window_days": 30,
+          "first_seen_utc": "2026-06-23 03:18:53.500374",
+          "last_seen_utc": "2026-07-10 08:34:24.530571",
+          "elapsed_sec": {
+            "n": 32,
+            "min": 5.0,
+            "median": 8.0,
+            "p95": 9.0,
+            "max": 27.0,
+            "mean": 8.0
+          },
+          "allocated_cpu_ms": {
+            "n": 32,
+            "min": 9978.0,
+            "median": 15942.0,
+            "p95": 17241.0,
+            "max": 52815.0,
+            "mean": 15711.75
+          },
+          "remote_scan_mb": {
+            "n": 32,
+            "min": 0.0,
+            "median": 36.709,
+            "p95": 39.788,
+            "max": 189.524,
+            "mean": 32.421
+          },
+          "memory_scan_mb": {
+            "n": 32,
+            "min": 0.0,
+            "median": 0.0025,
+            "p95": 35.615,
+            "max": 36.74,
+            "mean": 10.12046875
+          },
+          "disk_scan_mb": {
+            "n": 32,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+          },
+          "row_count": {
+            "n": 32,
+            "min": 386790.0,
+            "median": 782620.0,
+            "p95": 783565.0,
+            "max": 783945.0,
+            "mean": 770119.65625
+          }
+        },
+        "DimWarehouse": {
+          "executions": 27,
+          "window_days": 30,
+          "first_seen_utc": "2026-06-23 03:24:54.372971",
+          "last_seen_utc": "2026-07-10 08:34:35.943143",
+          "elapsed_sec": {
+            "n": 27,
+            "min": 0.0,
+            "median": 1.0,
+            "p95": 2.0,
+            "max": 8.0,
+            "mean": 0.8518518518518519
+          },
+          "allocated_cpu_ms": {
+            "n": 27,
+            "min": 388.0,
+            "median": 565.0,
+            "p95": 2045.0,
+            "max": 8037.0,
+            "mean": 899.5185185185185
+          },
+          "remote_scan_mb": {
+            "n": 27,
+            "min": 0.0,
+            "median": 0.003,
+            "p95": 0.003,
+            "max": 0.003,
+            "mean": 0.0022222222222222222
+          },
+          "memory_scan_mb": {
+            "n": 27,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.003,
+            "max": 0.003,
+            "mean": 0.0008888888888888889
+          },
+          "disk_scan_mb": {
+            "n": 27,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+          },
+          "row_count": {
+            "n": 27,
+            "min": 53.0,
+            "median": 53.0,
+            "p95": 53.0,
+            "max": 53.0,
+            "mean": 53.0
+          }
+        },
+        "DimVendor": {
+          "executions": 13,
+          "window_days": 30,
+          "first_seen_utc": "2026-06-23 03:17:07.218028",
+          "last_seen_utc": "2026-07-10 08:34:40.102586",
+          "elapsed_sec": {
+            "n": 13,
+            "min": 0.0,
+            "median": 1.0,
+            "p95": 1.0,
+            "max": 1.0,
+            "mean": 0.7692307692307693
+          },
+          "allocated_cpu_ms": {
+            "n": 13,
+            "min": 588.0,
+            "median": 630.0,
+            "p95": 737.0,
+            "max": 766.0,
+            "mean": 652.2307692307693
+          },
+          "remote_scan_mb": {
+            "n": 13,
+            "min": 3.084,
+            "median": 3.087,
+            "p95": 3.09,
+            "max": 3.091,
+            "mean": 3.087615384615385
+          },
+          "memory_scan_mb": {
+            "n": 13,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+          },
+          "disk_scan_mb": {
+            "n": 13,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+          },
+          "row_count": {
+            "n": 13,
+            "min": 86814.0,
+            "median": 86906.0,
+            "p95": 86967.0,
+            "max": 87003.0,
+            "mean": 86914.30769230769
+          }
+        },
+        "ProjectedInventoryHealthSubStatus": {
+          "executions": 14,
+          "window_days": 30,
+          "first_seen_utc": "2026-06-23 03:21:27.419076",
+          "last_seen_utc": "2026-07-10 08:34:51.276012",
+          "elapsed_sec": {
+            "n": 14,
+            "min": 195.0,
+            "median": 202.5,
+            "p95": 680.0,
+            "max": 1011.0,
+            "mean": 296.2142857142857
+          },
+          "allocated_cpu_ms": {
+            "n": 14,
+            "min": 1565446.0,
+            "median": 1621354.0,
+            "p95": 7470512.0,
+            "max": 9094929.0,
+            "mean": 2586007.9285714286
+          },
+          "remote_scan_mb": {
+            "n": 14,
+            "min": 65.981,
+            "median": 147.945,
+            "p95": 336.364,
+            "max": 447.974,
+            "mean": 161.94607142857143
+          },
+          "memory_scan_mb": {
+            "n": 14,
+            "min": 111.97,
+            "median": 271.624,
+            "p95": 290.554,
+            "max": 520.686,
+            "mean": 236.28757142857143
+          },
+          "disk_scan_mb": {
+            "n": 14,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+          },
+          "row_count": {
+            "n": 14,
+            "min": 3784582.0,
+            "median": 3819251.0,
+            "p95": 3856954.0,
+            "max": 3859396.0,
+            "mean": 3823746.5
+          }
+        },
+        "InventoryHealthSubStatusWeekly": {
+          "executions": 13,
+          "window_days": 30,
+          "first_seen_utc": "2026-06-23 03:18:04.512344",
+          "last_seen_utc": "2026-07-10 08:51:47.334187",
+          "elapsed_sec": {
+            "n": 13,
+            "min": 33.0,
+            "median": 39.0,
+            "p95": 96.0,
+            "max": 131.0,
+            "mean": 52.92307692307692
+          },
+          "allocated_cpu_ms": {
+            "n": 13,
+            "min": 4243686.0,
+            "median": 4703252.0,
+            "p95": 12060249.0,
+            "max": 12683997.0,
+            "mean": 5798151.384615385
+          },
+          "remote_scan_mb": {
+            "n": 13,
+            "min": 2320.698,
+            "median": 3702.748,
+            "p95": 5260.447,
+            "max": 5431.027,
+            "mean": 3818.3734615384615
+          },
+          "memory_scan_mb": {
+            "n": 13,
+            "min": 0.0,
+            "median": 37.45,
+            "p95": 749.298,
+            "max": 1425.273,
+            "mean": 205.00338461538462
+          },
+          "disk_scan_mb": {
+            "n": 13,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+          },
+          "row_count": {
+            "n": 13,
+            "min": 3220908.0,
+            "median": 3327322.0,
+            "p95": 19315479.0,
+            "max": 19605162.0,
+            "mean": 5784390.153846154
+          }
+        },
+        "InventoryClassificationQtyWeekly": {
+          "executions": 14,
+          "window_days": 30,
+          "first_seen_utc": "2026-06-23 03:17:25.034357",
+          "last_seen_utc": "2026-07-10 08:54:03.537254",
+          "elapsed_sec": {
+            "n": 14,
+            "min": 25.0,
+            "median": 28.5,
+            "p95": 96.0,
+            "max": 97.0,
+            "mean": 39.642857142857146
+          },
+          "allocated_cpu_ms": {
+            "n": 14,
+            "min": 674447.0,
+            "median": 718702.0,
+            "p95": 5054350.0,
+            "max": 5380071.0,
+            "mean": 1684379.5714285714
+          },
+          "remote_scan_mb": {
+            "n": 14,
+            "min": 195.326,
+            "median": 276.85,
+            "p95": 2393.465,
+            "max": 4076.881,
+            "mean": 803.6647857142857
+          },
+          "memory_scan_mb": {
+            "n": 14,
+            "min": 55.128,
+            "median": 131.387,
+            "p95": 309.645,
+            "max": 429.267,
+            "mean": 158.48535714285714
+          },
+          "disk_scan_mb": {
+            "n": 14,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+          },
+          "row_count": {
+            "n": 14,
+            "min": 3220908.0,
+            "median": 3327322.0,
+            "p95": 19315479.0,
+            "max": 19605162.0,
+            "mean": 5601284.571428572
+          }
+        },
+        "FactInventoryHealthFutureWeekEnding": {
+          "executions": 13,
+          "window_days": 30,
+          "first_seen_utc": "2026-06-23 03:19:27.401750",
+          "last_seen_utc": "2026-07-10 08:56:10.959453",
+          "elapsed_sec": {
+            "n": 13,
+            "min": 64.0,
+            "median": 313.0,
+            "p95": 886.0,
+            "max": 1438.0,
+            "mean": 415.0769230769231
+          },
+          "allocated_cpu_ms": {
+            "n": 13,
+            "min": 2975275.0,
+            "median": 4219815.0,
+            "p95": 7634553.0,
+            "max": 45520511.0,
+            "mean": 7621040.230769231
+          },
+          "remote_scan_mb": {
+            "n": 13,
+            "min": 501.922,
+            "median": 826.511,
+            "p95": 1943.826,
+            "max": 2174.334,
+            "mean": 999.651923076923
+          },
+          "memory_scan_mb": {
+            "n": 13,
+            "min": 144.38,
+            "median": 503.971,
+            "p95": 1052.787,
+            "max": 1262.255,
+            "mean": 601.8666923076923
+          },
+          "disk_scan_mb": {
+            "n": 13,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+          },
+          "row_count": {
+            "n": 13,
+            "min": 3682476.0,
+            "median": 3819251.0,
+            "p95": 3856954.0,
+            "max": 3859396.0,
+            "mean": 3816223.769230769
+          }
+        },
+        "FactInventoryHealthSnapshot": {
+          "executions": 14,
+          "window_days": 30,
+          "first_seen_utc": "2026-06-23 03:20:42.469684",
+          "last_seen_utc": "2026-07-10 09:20:15.010457",
+          "elapsed_sec": {
+            "n": 14,
+            "min": 39.0,
+            "median": 49.0,
+            "p95": 115.0,
+            "max": 321.0,
+            "mean": 77.71428571428571
+          },
+          "allocated_cpu_ms": {
+            "n": 14,
+            "min": 5963891.0,
+            "median": 6668432.5,
+            "p95": 13367977.0,
+            "max": 19259368.0,
+            "mean": 8040221.071428572
+          },
+          "remote_scan_mb": {
+            "n": 14,
+            "min": 3950.667,
+            "median": 5154.1535,
+            "p95": 6083.508,
+            "max": 6268.341,
+            "mean": 5209.774
+          },
+          "memory_scan_mb": {
+            "n": 14,
+            "min": 31.395,
+            "median": 640.8045,
+            "p95": 1359.68,
+            "max": 2069.088,
+            "mean": 696.1775714285715
+          },
+          "disk_scan_mb": {
+            "n": 14,
+            "min": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "max": 0.0,
+            "mean": 0.0
+          },
+          "row_count": {
+            "n": 14,
+            "min": 3220908.0,
+            "median": 3325549.0,
+            "p95": 19211678.0,
+            "max": 19501346.0,
+            "mean": 5571480.571428572
+          }
+        }
+      },
+      "chain_median_elapsed_sec_sum": 643.0,
+      "chain_median_remote_scan_mb_sum": 10149.924,
+      "note": "Serial dbo.Usp_Refresh_InventoryHealth_Gold is a chain of these INSERTs; chain_median_elapsed_sec_sum approximates the current typical Gold refresh wall-clock lower bound. Any Wave 1 candidate must beat this while proving business parity.",
+      "pass": true
+    }
+  ],
+  "overall_pass": true
+}

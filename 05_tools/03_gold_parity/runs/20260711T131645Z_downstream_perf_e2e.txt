@@ -1,0 +1,10 @@
+Module 05 downstream + perf — mode=e2e
+generated_at_utc=20260711T131645Z
+overall_pass=False
+live_ddl_dml=none
+
+[Layer_D_e2e_InventoryHealthSubStatusWeekly] pass=True
+  a_rows=19605162 b_rows=19605162 a_not_b=0 b_not_a=0 value_mismatches=0 elapsed=513.1s
+
+[Layer_D_e2e_InventoryClassificationQtyWeekly] pass=False
+  a_rows=19605162 b_rows=19605162 a_not_b=None b_not_a=None value_mismatches=None elapsed=186.2s

@@ -1,0 +1,37 @@
+{
+  "generated_at_utc": "2026-07-07T09:07:42+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 1,
+  "rule_count": 1,
+  "results": [
+    {
+      "rule_name": "DQ_Bronze_Grain_ForecastSnapshotWeekly",
+      "rule_type": "DQ_Bronze",
+      "target": "InventoryHistory_Enh.ForecastSnapshotWeekly",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 989734,
+      "duplicate_groups": 6275609,
+      "duplicate_extra_rows": 15992908,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily",
+          "grain": [
+            "dfcSnapshot",
+            "dfcItem",
+            "dfcWarehouse",
+            "dfcFiscalMonth",
+            "DfcCustomerGroups",
+            "dfcFCSTTypeCode",
+            "dfcMgmtCode"
+          ],
+          "row_count": 10718697559,
+          "blank_or_null_key_rows": 989734,
+          "duplicate_groups": 6275609,
+          "duplicate_extra_rows": 15992908,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 563.366
+    }
+  ]
+}

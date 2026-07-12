@@ -32,7 +32,71 @@ class ProcSpec:
     wave_note: str
 
 
+DATE_RANGE_TARGETS = {
+    ("InventoryHistory_Enh", "PurchaseOrderSnapshotHistorical"): ("SnapshotDate", -30),
+    ("InventoryHistory_Enh", "ForecastSnapshotWeekly"): ("SnapshotDate", -30),
+    ("ForecastHistory_Enh", "ForecastDemandMonthly"): ("Snapshot", -30),
+}
+
+
+def guarded_purchase_order_block(database: str) -> str:
+    return f"""    DECLARE @PurchaseOrderWindowStart date = DATEADD(day, -30, CAST(GETDATE() AS date));
+    DECLARE @PurchaseOrderSourceRows bigint;
+    DECLARE @PurchaseOrderDuplicateGroups bigint;
+    DECLARE @PurchaseOrderGuardMessage varchar(2047);
+
+    SELECT @PurchaseOrderSourceRows = COUNT_BIG(*)
+    FROM [InventoryHistory_Enh_Wrk].[v_PurchaseOrderSnapshotHistorical]
+    WHERE SnapshotDate >= @PurchaseOrderWindowStart;
+
+    IF @PurchaseOrderSourceRows = 0
+    BEGIN
+        SET @PurchaseOrderGuardMessage =
+            'PurchaseOrderSnapshotHistorical DateRange guard failed: target was not changed; '
+            + 'date key=SnapshotDate; window start=' + CONVERT(varchar(10), @PurchaseOrderWindowStart, 23)
+            + '; source rows=0; duplicate groups=not evaluated.';
+        THROW 51000, @PurchaseOrderGuardMessage, 1;
+    END;
+
+    SELECT @PurchaseOrderDuplicateGroups = COUNT_BIG(*)
+    FROM
+    (
+        SELECT SnapshotDate, ItemSku, WarehouseCode, VendorNumber, StatusCode, DueDate, UnitCost
+        FROM [InventoryHistory_Enh_Wrk].[v_PurchaseOrderSnapshotHistorical]
+        WHERE SnapshotDate >= @PurchaseOrderWindowStart
+        GROUP BY SnapshotDate, ItemSku, WarehouseCode, VendorNumber, StatusCode, DueDate, UnitCost
+        HAVING COUNT_BIG(*) > 1
+    ) AS DuplicatePurchaseOrderKeys;
+
+    IF @PurchaseOrderDuplicateGroups > 0
+    BEGIN
+        SET @PurchaseOrderGuardMessage =
+            'PurchaseOrderSnapshotHistorical DateRange guard failed: target was not changed; '
+            + 'date key=SnapshotDate; window start=' + CONVERT(varchar(10), @PurchaseOrderWindowStart, 23)
+            + '; source rows=' + CONVERT(varchar(30), @PurchaseOrderSourceRows)
+            + '; duplicate groups=' + CONVERT(varchar(30), @PurchaseOrderDuplicateGroups) + '.';
+        THROW 51001, @PurchaseOrderGuardMessage, 1;
+    END;
+
+    EXEC [ETL_Framework].[DW_Developer].[usp_UpdateCuratedTableFromView_DateRange]
+        '{database}',
+        'InventoryHistory_Enh',
+        'PurchaseOrderSnapshotHistorical',
+        'SnapshotDate',
+        'SnapshotDate',
+        -30;"""
+
+
 def exec_block(database: str, schema: str, table: str) -> str:
+    if (schema, table) == ("InventoryHistory_Enh", "PurchaseOrderSnapshotHistorical"):
+        return guarded_purchase_order_block(database)
+    date_range = DATE_RANGE_TARGETS.get((schema, table))
+    if date_range:
+        date_column, days = date_range
+        return (
+            "    EXEC [ETL_Framework].[DW_Developer].[usp_UpdateCuratedTableFromView_DateRange]\n"
+            f"        '{database}', '{schema}', '{table}', '{date_column}', '{date_column}', {days};"
+        )
     return (
         "    EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]\n"
         f"        '{database}', '{schema}', '{table}';"

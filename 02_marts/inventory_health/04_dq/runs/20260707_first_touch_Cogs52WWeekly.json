@@ -1,0 +1,49 @@
+{
+  "generated_at_utc": "2026-07-07T08:49:35+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 1,
+  "rule_count": 3,
+  "results": [
+    {
+      "rule_name": "DQ_Bronze_Grain_Cogs52WWeekly",
+      "rule_type": "DQ_Bronze",
+      "target": "InventoryHistory_Enh.Cogs52WWeekly",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 2933817,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+          "grain": [
+            "STID",
+            "ITNBR",
+            "ITRV"
+          ],
+          "row_count": 2933820,
+          "blank_or_null_key_rows": 2933817,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 7.622
+    },
+    {
+      "rule_name": "run_b2s_Cogs52WWeekly",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.Cogs52WWeekly",
+      "result": "ERROR",
+      "error": "<class 'pyodbc.Error'> returned a result with an exception set",
+      "elapsed_seconds": 653.364
+    },
+    {
+      "rule_name": "run_silver_grain_Cogs52WWeekly",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.Cogs52WWeekly",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    }
+  ]
+}

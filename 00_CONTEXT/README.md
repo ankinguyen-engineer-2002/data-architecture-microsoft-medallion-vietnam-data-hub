@@ -8,7 +8,7 @@ Rules:
 - `current.md` mirrors the latest chunk and is the default append target for active work.
 - `_source/CONTEXT_full_before_split_20260623.md` preserves the original unsplit file.
 - `_source/current_before_reorder_20260624.md` preserves the active context before the 2026-06-24 cleanup.
-- Do not create parallel context folders; update this folder and keep `CLAUDE.md` in sync.
+- Do not create parallel context folders; update this folder and keep `AGENTS.md` in sync.
 
 Chunks:
 

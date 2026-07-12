@@ -1,0 +1,767 @@
+{
+  "step": 2,
+  "wave": "W01_shared_dim",
+  "target_table": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct",
+  "source_view": "SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct",
+  "is_hotspot": false,
+  "declared_business_key": [
+    "ItemSKU"
+  ],
+  "table_modify_date_utc": "2026-07-10T08:34:33.167",
+  "view_modify_date_utc": "2026-06-24T02:39:54.153",
+  "final_table_columns": [
+    {
+      "pos": 1,
+      "col": "ItemSKU",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "Description",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "Seats",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "CEXCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "UnitWeightLbs",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "ItemClassCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "ItemClassDescription",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "ProductWidthInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "ProductDepthInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "ProductHeightInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "CartonWidthInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "CartonDepthInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 13,
+      "col": "CartonHeightInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 14,
+      "col": "Cubes",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 15,
+      "col": "ExtSeriesNumber",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 16,
+      "col": "FOBArcPrice",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 17,
+      "col": "AFIItemStatus",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 18,
+      "col": "FutureStatus",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 19,
+      "col": "CollectiveClass",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 20,
+      "col": "AFIFinanceDivisionCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 21,
+      "col": "AFIFinanceDivisionName",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 22,
+      "col": "AFIItemStatusCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 23,
+      "col": "AFISalesCategoryCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 24,
+      "col": "AFISalesCategoryName",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 25,
+      "col": "AFISalesDivisionCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 26,
+      "col": "AFISalesDivisionName",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 27,
+      "col": "CategoryCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 28,
+      "col": "CategoryName",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 29,
+      "col": "CollectiveClassCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 30,
+      "col": "CollectiveClassName",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 31,
+      "col": "CurrentSCPManufacturingStatusCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 32,
+      "col": "CurrentStatusCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 33,
+      "col": "CurrentUnitCost",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 34,
+      "col": "SourceCoverage",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 35,
+      "col": "SelectedSourceTable",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 36,
+      "col": "LoadDT",
+      "dtype": "datetime2",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 37,
+      "col": "LifecycleStatus",
+      "dtype": "varchar",
+      "maxlen": 20,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 38,
+      "col": "IsFinishedGoodsItem",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 39,
+      "col": "UnavailableFlag",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 40,
+      "col": "GoldLoadDT",
+      "dtype": "datetime2",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "view_columns": [
+    {
+      "pos": 1,
+      "col": "ItemSKU",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "Description",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "Seats",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "CEXCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "UnitWeightLbs",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "ItemClassCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "ItemClassDescription",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "ProductWidthInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "ProductDepthInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "ProductHeightInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "CartonWidthInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "CartonDepthInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 13,
+      "col": "CartonHeightInches",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 14,
+      "col": "Cubes",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 15,
+      "col": "ExtSeriesNumber",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 16,
+      "col": "FOBArcPrice",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 17,
+      "col": "AFIItemStatus",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 18,
+      "col": "FutureStatus",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 19,
+      "col": "CollectiveClass",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 20,
+      "col": "AFIFinanceDivisionCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 21,
+      "col": "AFIFinanceDivisionName",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 22,
+      "col": "AFIItemStatusCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 23,
+      "col": "AFISalesCategoryCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 24,
+      "col": "AFISalesCategoryName",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 25,
+      "col": "AFISalesDivisionCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 26,
+      "col": "AFISalesDivisionName",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 27,
+      "col": "CategoryCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 28,
+      "col": "CategoryName",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 29,
+      "col": "CollectiveClassCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 30,
+      "col": "CollectiveClassName",
+      "dtype": "varchar",
+      "maxlen": 100,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 31,
+      "col": "CurrentSCPManufacturingStatusCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 32,
+      "col": "CurrentStatusCode",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 33,
+      "col": "CurrentUnitCost",
+      "dtype": "decimal",
+      "maxlen": null,
+      "prec": 18,
+      "scale": 4,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 34,
+      "col": "SourceCoverage",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 35,
+      "col": "SelectedSourceTable",
+      "dtype": "varchar",
+      "maxlen": 50,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 36,
+      "col": "LoadDT",
+      "dtype": "datetime2",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 37,
+      "col": "LifecycleStatus",
+      "dtype": "varchar",
+      "maxlen": 20,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 38,
+      "col": "IsFinishedGoodsItem",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 39,
+      "col": "UnavailableFlag",
+      "dtype": "bit",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 40,
+      "col": "GoldLoadDT",
+      "dtype": "datetime2",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "loader_positional_contract": {
+    "loader": "ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView (INSERT ... SELECT *)",
+    "table_column_count": 40,
+    "view_column_count": 40,
+    "column_count_match": true,
+    "column_order_match": true,
+    "drift": {
+      "in_view_not_table": [],
+      "in_table_not_view": []
+    },
+    "load_safe": true
+  },
+  "source_refs": [
+    "Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT",
+    "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster"
+  ],
+  "static_parse": {
+    "cte_names": [],
+    "cte_count": 0,
+    "row_number_count": 0,
+    "group_by_count": 1,
+    "distinct_count": 0,
+    "left_join_count": 1,
+    "inner_join_count": -1,
+    "case_count": 0,
+    "coalesce_count": 0,
+    "latest_asof_markers": 0,
+    "reads_islatest_flag": false,
+    "has_partition_dedupe": false
+  },
+  "view_definition": "-- SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimProduct\nCREATE   VIEW Shared_DW_Wrk.v_DimProduct AS\n-- ===========================================================================\n-- Shared_DW.v_DimProduct - canonical shared item/product dimension\n-- Source of record: SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.v_ItemMaster\n-- v_ItemMaster is union/dedup from DimItemMaster + ITMEXT.\n-- ===========================================================================\nSELECT\n    CAST(TRIM(CAST(d.[ItemSKU] AS VARCHAR(8000))) AS VARCHAR(50)) AS [ItemSKU],\n    d.[Description],\n    d.[Seats],\n    d.[CEXCode],\n    d.[UnitWeightLbs],\n    d.[ItemClassCode],\n    d.[ItemClassDescription],\n    d.[ProductWidthInches],\n    d.[ProductDepthInches],\n    d.[ProductHeightInches],\n    d.[CartonWidthInches],\n    d.[CartonDepthInches],\n    d.[CartonHeightInches],\n    d.[Cubes],\n    d.[ExtSeriesNumber],\n    d.[FOBArcPrice],\n    d.[AFIItemStatus],\n    d.[FutureStatus],\n    d.[CollectiveClass],\n    d.[AFIFinanceDivisionCode],\n    d.[AFIFinanceDivisionName],\n    d.[AFIItemStatusCode],\n    d.[AFISalesCategoryCode],\n    d.[AFISalesCategoryName],\n    d.[AFISalesDivisionCode],\n    d.[AFISalesDivisionName],\n    d.[CategoryCode],\n    d.[CategoryName],\n    d.[CollectiveClassCode],\n    d.[CollectiveClassName],\n    d.[CurrentSCPManufacturingStatusCode],\n    d.[CurrentStatusCode],\n    d.[CurrentUnitCost],\n    d.[SourceCoverage],\n    d.[SelectedSourceTable],\n    d.[LoadDT],\n    CAST(CASE\n        WHEN TRIM(CAST(d.[AFIItemStatus] AS VARCHAR(8000))) = 'N' THEN 'New'\n        WHEN TRIM(CAST(d.[AFIItemStatus] AS VARCHAR(8000))) = 'A' THEN 'Active'\n        WHEN TRIM(CAST(d.[AFIItemStatus] AS VARCHAR(8000))) IN ('D','R') THEN 'Inactive'\n        WHEN d.[AFIItemStatus] IS NULL THEN 'Unknown'\n        ELSE 'Other'\n    END AS VARCHAR(20)) AS [LifecycleStatus],\n    CAST(CASE\n        WHEN LEFT(TRIM(CAST(d.[ItemClassCode] AS VARCHAR(8000))), 1) = 'Z'\n         AND RIGHT(TRIM(CAST(d.[ItemClassCode] AS VARCHAR(8000))), 1) = 'K'\n        THEN 1 ELSE 0 END AS BIT) AS [IsFinishedGoodsItem],\n    CAST(ISNULL(u.[UnavailableFlag], 0) AS BIT) AS [UnavailableFlag],\n    CAST(GETUTCDATE() AS DATETIME2(6)) AS [GoldLoadDT]\nFROM [SupplyChain_Processing_Warehouse].[ReferenceMaster_Enh].[ItemMaster] AS d\nLEFT JOIN (\n    SELECT\n        TRIM(CAST([ITNBR] AS VARCHAR(8000))) AS [ItemSKU],\n        MAX(CASE WHEN TRIM(CAST([MFPUS] AS VARCHAR(8000))) = 'U' THEN 1 ELSE 0 END) AS [UnavailableFlag]\n    FROM [Enterprise_Lakehouse].[ItemMaster_AFI].[ITBEXT]\n    WHERE [ITNBR] IS NOT NULL\n      AND TRIM(CAST([ITNBR] AS VARCHAR(8000))) <> ''\n    GROUP BY TRIM(CAST([ITNBR] AS VARCHAR(8000)))\n) AS u\n    ON u.[ItemSKU] = TRIM(CAST(d.[ItemSKU] AS VARCHAR(8000)))\nWHERE d.[ItemSKU] IS NOT NULL\n  AND TRIM(CAST(d.[ItemSKU] AS VARCHAR(8000))) <> '';\n"
+}

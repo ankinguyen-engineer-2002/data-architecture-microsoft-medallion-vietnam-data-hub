@@ -51,7 +51,7 @@ Mermaid source: [readme_operating_map.mmd](01_docs/architecture/current/readme_o
 | [01_docs/onboarding/](01_docs/onboarding/) | Hướng dẫn nhập môn theo vai trò DA và DE. |
 | [01_docs/glossary.md](01_docs/glossary.md) | Giải thích thuật ngữ như `_Wrk`, `TableDictionary`, `SQLPROJ`, `.dacpac`, `semantic smoke`. |
 | [01_docs/architecture/current/](01_docs/architecture/current/) | Kiến trúc hiện tại sau Phase 1. |
-| [01_docs/enterprise-etl-framework/](01_docs/enterprise-etl-framework/) | Tài liệu Enterprise ETL gửi và cách repo này diễn giải để áp dụng. |
+| [01_docs/enterprise-etl-framework/](01_docs/enterprise-etl-framework/) | Tài liệu Enterprise ETL gửi, cách repo này diễn giải để áp dụng, và ghi chú sync/audit framework live mới nhất. |
 | [01_docs/decisions/](01_docs/decisions/) | ADR, tức các quyết định kiến trúc quan trọng và lý do chọn. |
 | [02_marts/](02_marts/) | Nơi lưu logic theo từng mart: source, Bronze, Silver, Gold, DQ, catalog. |
 | [03_operations/](03_operations/) | Nơi lưu manifest chạy luồng, wrapper SQL, registry, SQLPROJ package và tool vận hành. |
@@ -158,6 +158,13 @@ Giải thích nhanh:
 | Enterprise ETL loader | Procedure framework thực hiện load, swap/materialize, log audit và cập nhật metadata. |
 | `TableDictionary` | Bảng đăng ký metadata: table nào, source view nào, load pattern nào. |
 | `AuditLog` | Bảng log lần chạy: start, complete, error, duration. |
+
+Ghi chú runtime mới:
+
+- `Enterprise SupplyChain-Dev.ETL_Framework` đã được sync từ `EnterpriseData-Dev` theo hướng additive vào ngày `2026-07-02`
+- `DW_Developer.Usp_TableFromParquet_RowADF` bị loại khỏi SupplyChain vì object nguồn broken
+- `DW_Developer.Usp_SnapshotLoad` đã được vá tối thiểu để hoạt động với metadata live của SupplyChain
+- chi tiết xem [2026-07-02 live sync and pattern audit](01_docs/enterprise-etl-framework/2026-07-02_live_sync_and_pattern_audit.md)
 
 ## CI/CD Là Gì Trong Repo Này?
 
@@ -335,7 +342,7 @@ python3 05_tools/04_operating_package/build_operating_package.py --repo-root .
 Nếu hai tài liệu nói khác nhau, dùng thứ tự này:
 
 ```text
-1. CLAUDE.md
+1. AGENTS.md
 2. 00_CONTEXT/current.md
 3. 01_docs/architecture/current/final_enterprise_etl_runtime_architecture.md
 4. 01_docs/Enterprise_Framework_Migration_Master_Plan.md

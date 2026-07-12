@@ -1,0 +1,16 @@
+{
+  "generated_at_utc": "20260710T173932Z",
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "targets": [
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.Shared_DW.DimWarehouse",
+      "row_count": 53,
+      "distinct_keys": 53,
+      "unique_at_grain": true,
+      "date_coverage": {
+        "min_LoadDT": "2026-07-10T08:34:35.943333",
+        "max_LoadDT": "2026-07-10T08:34:35.943333"
+      }
+    }
+  ]
+}

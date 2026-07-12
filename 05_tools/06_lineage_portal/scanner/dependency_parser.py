@@ -11,6 +11,31 @@ KNOWN_DATABASES = {
     "ETL_Framework",
 }
 
+KNOWN_SCHEMAS = {
+    "DW_Developer",
+    "dbo",
+    "ForecastAccuracy_DW",
+    "ForecastAccuracy_DW_Wrk",
+    "ForecastHistory_Enh",
+    "ForecastHistory_Enh_Wrk",
+    "InventoryHealth_DW",
+    "InventoryHealth_DW_Wrk",
+    "InventoryHistory_Enh",
+    "InventoryHistory_Enh_Wrk",
+    "Meta",
+    "OpenOrderHistory_Enh",
+    "OpenOrderHistory_Enh_Wrk",
+    "ProcessingSeed",
+    "ReferenceMaster_Enh",
+    "ReferenceMaster_Enh_Wrk",
+    "SalesHistory_Enh",
+    "SalesHistory_Enh_Wrk",
+    "Shared_DW",
+    "Shared_DW_Wrk",
+    "Staging",
+    "Staging_Wrk",
+}
+
 SQL_KEYWORDS = {
     "AS",
     "BY",
@@ -99,6 +124,7 @@ def extract_object_refs(sql: str, default_database: str | None = None) -> list[O
             continue
         if schema.upper() in SQL_KEYWORDS or obj.upper() in SQL_KEYWORDS:
             continue
-        refs.add(ObjectRef(default_database, schema, obj))
+        if schema in KNOWN_SCHEMAS:
+            refs.add(ObjectRef(default_database, schema, obj))
 
     return sorted(refs)

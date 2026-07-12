@@ -1,0 +1,66 @@
+{
+  "generated_at_utc": "20260711T022510Z",
+  "module": "04_shadow_parity",
+  "candidate": "C1_shared_deduped_inv_base",
+  "safety": {
+    "application_intent": "ReadOnly",
+    "ddl_dml": "none",
+    "live_objects_created": [],
+    "live_objects_mutated": []
+  },
+  "mode": "full_history_antijoin_only",
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "source": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+  "checks": [
+    {
+      "check": "T3_fact_invbase_A_vs_C1_shared_B",
+      "elapsed_sec": 189.1,
+      "compare_mode": "key_antijoin_plus_value_mismatch",
+      "a_definition": "NULL-filter BEFORE ROW_NUMBER, rn=1 (live FactSnapshot inv_base)",
+      "b_definition": "ROW_NUMBER on all, rn=1, THEN NULL-filter (C1 consumer path)",
+      "compared_columns": [
+        "ItemSku",
+        "WarehouseCode",
+        "SnapshotWeekEndingDate",
+        "OnHandQty",
+        "MakeBuyCode",
+        "PrimaryVendorName",
+        "SecondaryVendorName",
+        "ReplenishmentLeadTime",
+        "SnapshotType"
+      ],
+      "a_rows": 19605162,
+      "b_rows": 19605162,
+      "a_not_in_b": 0,
+      "b_not_in_a": 0,
+      "value_mismatches": 0,
+      "rowcount_match": true,
+      "set_match": true,
+      "pass": true
+    },
+    {
+      "check": "T4_substatus_invbase_vs_shared",
+      "elapsed_sec": 265.2,
+      "compare_mode": "key_antijoin_plus_value_mismatch",
+      "a_definition": "live SubStatus inv_base (RN all, rn=1, OnHandQty only)",
+      "b_definition": "C1 shared surface projected to OnHandQty",
+      "compared_columns": [
+        "ItemSku",
+        "WarehouseCode",
+        "SnapshotWeekEndingDate",
+        "OnHandQty"
+      ],
+      "a_rows": 19605162,
+      "b_rows": 19605162,
+      "a_not_in_b": 0,
+      "b_not_in_a": 0,
+      "value_mismatches": 0,
+      "rowcount_match": true,
+      "set_match": true,
+      "pass": true
+    }
+  ],
+  "overall_pass": true,
+  "c1_parity_verdict": "C1_SHARED_INV_BASE_PARITY_PASS",
+  "interpretation": "C1 is parity-safe for inv_base if: (1) FMD tie-break is deterministic, (2) FactSnapshot A-vs-B anti-join is empty both ways on all carried cols, (3) SubStatus A-vs-B anti-join is empty both ways on OnHandQty, (4) on full history, shared counts reproduce weekly-family / fact-eligible row invariants. Performance gain is NOT proven here (no materialization)."
+}

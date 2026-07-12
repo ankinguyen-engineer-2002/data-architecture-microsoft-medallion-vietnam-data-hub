@@ -61,7 +61,7 @@ Current logical order:
 5. `inventory_health` Gold
 6. post-run smoke
 
-The official live Fabric master pipeline `pl_sc_master` is legacy context for current docs. SQL Agent should use the wrapper procedures listed in `manifest.json` when US owns scheduling.
+The canonical 10-step wrapper order lives in `manifest.json` under `wrapper_procedures` and is mirrored in the live-target artifact `03_operations/orchestration/backup_pipeline/pl_backup_full_refresh.json` (Fabric pipeline `pl_backup_full_refresh` / `41948342-d7e7-4166-8638-9af0633e6a49`). Legacy `pl_sc_master` is no longer present in the live workspace; SQL Agent handoff uses the wrappers listed in `manifest.json`.
 
 ## Wrapper Stored Procedures
 

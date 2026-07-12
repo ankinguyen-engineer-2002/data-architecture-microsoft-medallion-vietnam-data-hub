@@ -1,0 +1,24 @@
+{
+  "generated_at_utc": "2026-07-07T08:51:13+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 1,
+  "rule_count": 1,
+  "results": [
+    {
+      "rule_name": "DQ_Silver_Grain_SupplyPlanDetail",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "InventoryHistory_Enh.SupplyPlanDetail",
+      "result": "PASS",
+      "grain": [
+        "ItemSku",
+        "WarehouseCode",
+        "SnapshotDate",
+        "WeekEnding"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 31.405
+    }
+  ]
+}

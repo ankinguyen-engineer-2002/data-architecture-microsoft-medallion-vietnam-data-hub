@@ -1,0 +1,66 @@
+{
+  "generated_at_utc": "2026-07-07T08:38:15+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 1,
+  "rule_count": 3,
+  "results": [
+    {
+      "rule_name": "DQ_Bronze_Grain_ItemBalanceHistorical_WithInTransit",
+      "rule_type": "DQ_Bronze",
+      "target": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 172,
+      "duplicate_extra_rows": 172,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.Inventory_Enh_History.ItemBalance",
+          "grain": [
+            "ItemNumber",
+            "Warehouse",
+            "DateWeekEnding"
+          ],
+          "row_count": 49125849,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 172,
+          "duplicate_extra_rows": 172,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 68.994
+    },
+    {
+      "rule_name": "DQ_B2S_ItemBalanceHistorical_WithInTransit_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+      "result": "PASS",
+      "expected_rows": 30166450,
+      "actual_rows": 30166450,
+      "expected_metric_sum": 106828075670.61,
+      "actual_metric_sum": 106828075670.61,
+      "metric_delta_abs": 0.0,
+      "measures": [
+        "OnHandQty",
+        "InTransitQty",
+        "TotalAvailQty"
+      ],
+      "note": "",
+      "elapsed_seconds": 138.234
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_ItemBalanceHistorical_WithInTransit",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+      "result": "PASS",
+      "grain": [
+        "ItemSku",
+        "WarehouseCode",
+        "WeekEndingDate"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 195.954
+    }
+  ]
+}

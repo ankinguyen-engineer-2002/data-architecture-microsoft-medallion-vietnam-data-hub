@@ -1,0 +1,32 @@
+{
+  "generated_at_utc": "2026-07-07T08:31:11+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 1,
+  "rule_count": 3,
+  "results": [
+    {
+      "rule_name": "run_bronze_SupplyPlanDetail",
+      "rule_type": "bronze",
+      "target": "InventoryHistory_Enh.SupplyPlanDetail",
+      "result": "ERROR",
+      "error": "<class 'pyodbc.Error'> returned a result with an exception set",
+      "elapsed_seconds": 790.742
+    },
+    {
+      "rule_name": "run_b2s_SupplyPlanDetail",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.SupplyPlanDetail",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_SupplyPlanDetail",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.SupplyPlanDetail",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    }
+  ]
+}

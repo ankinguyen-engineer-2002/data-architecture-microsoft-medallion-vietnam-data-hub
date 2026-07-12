@@ -1,0 +1,13 @@
+{
+  "generated_at_utc": "20260710T173938Z",
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "targets": [
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.DimVendor",
+      "row_count": 87003,
+      "distinct_keys": 87003,
+      "unique_at_grain": true,
+      "date_coverage": {}
+    }
+  ]
+}

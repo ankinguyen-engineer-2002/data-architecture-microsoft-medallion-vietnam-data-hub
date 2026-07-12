@@ -1,0 +1,18 @@
+Module 05 downstream + perf — mode=perf
+generated_at_utc=20260711T084148Z
+overall_pass=True
+live_ddl_dml=none
+
+[Layer_G_perf_baseline] pass=True
+  window_days=30
+  chain_median_elapsed_sec_sum=643.0
+  chain_median_remote_scan_mb_sum=10149.9
+  - DimCalendar: n=38 elapsed_med=1s elapsed_p95=1s remote_med=2MB rows_med=21551
+  - DimProduct: n=32 elapsed_med=8s elapsed_p95=9s remote_med=37MB rows_med=782620
+  - DimWarehouse: n=27 elapsed_med=1s elapsed_p95=2s remote_med=0MB rows_med=53
+  - DimVendor: n=13 elapsed_med=1s elapsed_p95=1s remote_med=3MB rows_med=86906
+  - ProjectedInventoryHealthSubStatus: n=14 elapsed_med=202s elapsed_p95=680s remote_med=148MB rows_med=3819251
+  - InventoryHealthSubStatusWeekly: n=13 elapsed_med=39s elapsed_p95=96s remote_med=3703MB rows_med=3327322
+  - InventoryClassificationQtyWeekly: n=14 elapsed_med=28s elapsed_p95=96s remote_med=277MB rows_med=3327322
+  - FactInventoryHealthFutureWeekEnding: n=13 elapsed_med=313s elapsed_p95=886s remote_med=827MB rows_med=3819251
+  - FactInventoryHealthSnapshot: n=14 elapsed_med=49s elapsed_p95=115s remote_med=5154MB rows_med=3325549

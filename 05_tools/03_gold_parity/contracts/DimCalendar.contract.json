@@ -1,0 +1,1394 @@
+{
+  "step": 1,
+  "wave": "W01_shared_dim",
+  "target_table": "SupplyChain_Gold_Warehouse.Shared_DW.DimCalendar",
+  "source_view": "SupplyChain_Gold_Warehouse.Shared_DW_Wrk.v_DimCalendar",
+  "is_hotspot": false,
+  "declared_business_key": [
+    "DateKey"
+  ],
+  "table_modify_date_utc": "2026-07-10T08:34:20.320",
+  "view_modify_date_utc": "2026-06-25T03:27:24.587",
+  "final_table_columns": [
+    {
+      "pos": 1,
+      "col": "DateSK",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "MapicsDate",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "Date",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "Datetime",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "Calendar",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "CalendarDateName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "CalDateIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "CalDayOfWeekNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "CalDayOfWeekName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "CalDayOfMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "CalDayOfYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "CalWeekNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 13,
+      "col": "CalWeekIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 14,
+      "col": "CalWeekYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 15,
+      "col": "CalWeekYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 16,
+      "col": "CalWeekFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 17,
+      "col": "CalWeekLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 18,
+      "col": "CalWeekOfMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 19,
+      "col": "CalMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 20,
+      "col": "CalMonthIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 21,
+      "col": "CalMonthYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 22,
+      "col": "CalMonthName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 23,
+      "col": "CalMonthYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 24,
+      "col": "CalMonthFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 25,
+      "col": "CalMonthLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 26,
+      "col": "CalQuarterNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 27,
+      "col": "CalQuarterName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 28,
+      "col": "CalQuarterIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 29,
+      "col": "CalQuarterYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 30,
+      "col": "CalQuarterYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 31,
+      "col": "CalSemesterNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 32,
+      "col": "CalSemesterYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 33,
+      "col": "CalYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 34,
+      "col": "CalYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 35,
+      "col": "CalYearIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 36,
+      "col": "FiscalDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 37,
+      "col": "FiscalDateName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 38,
+      "col": "FSCDateIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 39,
+      "col": "FSCDayOfWeekNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 40,
+      "col": "FSCDayOfWeekName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 41,
+      "col": "FSCDayOfMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 42,
+      "col": "FSCDayOfYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 43,
+      "col": "FSCWeekNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 44,
+      "col": "FSCWeekIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 45,
+      "col": "FSCWeekYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 46,
+      "col": "FSCWeekYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 47,
+      "col": "FSCWeekFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 48,
+      "col": "FSCWeekLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 49,
+      "col": "FSCWeekOfMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 50,
+      "col": "FSCMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 51,
+      "col": "FSCMonthIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 52,
+      "col": "FSCMonthYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 53,
+      "col": "FSCMonthName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 54,
+      "col": "FSCMonthYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 55,
+      "col": "FSCMonthFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 56,
+      "col": "FSCMonthLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 57,
+      "col": "FSCQuarterNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 58,
+      "col": "FSCQuarterName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 59,
+      "col": "FSCQuarterIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 60,
+      "col": "FSCQuarterYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 61,
+      "col": "FSCQuarterYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 62,
+      "col": "FSCQuarterFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 63,
+      "col": "FSCQuarterLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 64,
+      "col": "FSCSemesterNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 65,
+      "col": "FSCSemesterYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 66,
+      "col": "FSCYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 67,
+      "col": "FSCYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 68,
+      "col": "FSCYearIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 69,
+      "col": "FSCYearFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 70,
+      "col": "FSCYearLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 71,
+      "col": "HolidayIndicatorCode",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 72,
+      "col": "HolidayName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 73,
+      "col": "WorkingDayCode",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 74,
+      "col": "WeekdayWeekendCode",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 75,
+      "col": "LoadDT",
+      "dtype": "datetime2",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "view_columns": [
+    {
+      "pos": 1,
+      "col": "DateSK",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 2,
+      "col": "MapicsDate",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 3,
+      "col": "Date",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 4,
+      "col": "Datetime",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 5,
+      "col": "Calendar",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 6,
+      "col": "CalendarDateName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 7,
+      "col": "CalDateIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 8,
+      "col": "CalDayOfWeekNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 9,
+      "col": "CalDayOfWeekName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 10,
+      "col": "CalDayOfMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 11,
+      "col": "CalDayOfYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 12,
+      "col": "CalWeekNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 13,
+      "col": "CalWeekIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 14,
+      "col": "CalWeekYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 15,
+      "col": "CalWeekYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 16,
+      "col": "CalWeekFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 17,
+      "col": "CalWeekLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 18,
+      "col": "CalWeekOfMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 19,
+      "col": "CalMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 20,
+      "col": "CalMonthIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 21,
+      "col": "CalMonthYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 22,
+      "col": "CalMonthName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 23,
+      "col": "CalMonthYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 24,
+      "col": "CalMonthFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 25,
+      "col": "CalMonthLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 26,
+      "col": "CalQuarterNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 27,
+      "col": "CalQuarterName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 28,
+      "col": "CalQuarterIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 29,
+      "col": "CalQuarterYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 30,
+      "col": "CalQuarterYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 31,
+      "col": "CalSemesterNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 32,
+      "col": "CalSemesterYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 33,
+      "col": "CalYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 34,
+      "col": "CalYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 35,
+      "col": "CalYearIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 36,
+      "col": "FiscalDate",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 37,
+      "col": "FiscalDateName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 38,
+      "col": "FSCDateIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 39,
+      "col": "FSCDayOfWeekNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 40,
+      "col": "FSCDayOfWeekName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 41,
+      "col": "FSCDayOfMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 42,
+      "col": "FSCDayOfYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 43,
+      "col": "FSCWeekNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 44,
+      "col": "FSCWeekIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 45,
+      "col": "FSCWeekYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 46,
+      "col": "FSCWeekYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 47,
+      "col": "FSCWeekFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 48,
+      "col": "FSCWeekLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 49,
+      "col": "FSCWeekOfMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 50,
+      "col": "FSCMonthNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 51,
+      "col": "FSCMonthIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 52,
+      "col": "FSCMonthYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 53,
+      "col": "FSCMonthName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 54,
+      "col": "FSCMonthYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 55,
+      "col": "FSCMonthFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 56,
+      "col": "FSCMonthLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 57,
+      "col": "FSCQuarterNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 58,
+      "col": "FSCQuarterName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 59,
+      "col": "FSCQuarterIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 60,
+      "col": "FSCQuarterYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 61,
+      "col": "FSCQuarterYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 62,
+      "col": "FSCQuarterFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 63,
+      "col": "FSCQuarterLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 64,
+      "col": "FSCSemesterNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 65,
+      "col": "FSCSemesterYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 66,
+      "col": "FSCYearNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 67,
+      "col": "FSCYearName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 68,
+      "col": "FSCYearIndicatorNum",
+      "dtype": "int",
+      "maxlen": null,
+      "prec": 10,
+      "scale": 0,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 69,
+      "col": "FSCYearFirst",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 70,
+      "col": "FSCYearLast",
+      "dtype": "date",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 71,
+      "col": "HolidayIndicatorCode",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 72,
+      "col": "HolidayName",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 73,
+      "col": "WorkingDayCode",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 74,
+      "col": "WeekdayWeekendCode",
+      "dtype": "varchar",
+      "maxlen": 8000,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    },
+    {
+      "pos": 75,
+      "col": "LoadDT",
+      "dtype": "datetime2",
+      "maxlen": null,
+      "prec": null,
+      "scale": null,
+      "is_nullable": "YES"
+    }
+  ],
+  "loader_positional_contract": {
+    "loader": "ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView (INSERT ... SELECT *)",
+    "table_column_count": 75,
+    "view_column_count": 75,
+    "column_count_match": true,
+    "column_order_match": true,
+    "drift": {
+      "in_view_not_table": [],
+      "in_table_not_view": []
+    },
+    "load_safe": true
+  },
+  "source_refs": [],
+  "static_parse": {
+    "cte_names": [],
+    "cte_count": 0,
+    "row_number_count": 0,
+    "group_by_count": 0,
+    "distinct_count": 0,
+    "left_join_count": 0,
+    "inner_join_count": 0,
+    "case_count": 0,
+    "coalesce_count": 0,
+    "latest_asof_markers": 0,
+    "reads_islatest_flag": false,
+    "has_partition_dedupe": false
+  },
+  "view_definition": "-- Shared_DW_Wrk.v_DimCalendar\nCREATE   VIEW [Shared_DW_Wrk].[v_DimCalendar] AS\nSELECT\n    CAL.SKDate                          AS DateSK,\n    CAL.MapicsDate                      AS MapicsDate,\n    CAL.Date                            AS [Date],\n    CAL.Datetime                        AS Datetime,\n    CAL.Calendar                        AS Calendar,\n    CAL.CalendarDateName                AS CalendarDateName,\n    CAL.CalDateIndicatorNum             AS CalDateIndicatorNum,\n    CAL.CalDayOfWeekNum                 AS CalDayOfWeekNum,\n    CAL.CalDayOfWeekName                AS CalDayOfWeekName,\n    CAL.CalDayOfMonthNum                AS CalDayOfMonthNum,\n    CAL.CalDayOfYearNum                 AS CalDayOfYearNum,\n    CAL.CalWeekNum                      AS CalWeekNum,\n    CAL.CalWeekIndicatorNum             AS CalWeekIndicatorNum,\n    CAL.CalWeekYearNum                  AS CalWeekYearNum,\n    CAL.CalWeekYearName                 AS CalWeekYearName,\n    CAL.CalWeekFirst                    AS CalWeekFirst,\n    CAL.CalWeekLast                     AS CalWeekLast,\n    CAL.CalWeekOfMonthNum               AS CalWeekOfMonthNum,\n    CAL.CalMonthNum                     AS CalMonthNum,\n    CAL.CalMonthIndicatorNum            AS CalMonthIndicatorNum,\n    CAL.CalMonthYearNum                 AS CalMonthYearNum,\n    CAL.CalMonthName                    AS CalMonthName,\n    CAL.CalMonthYearName                AS CalMonthYearName,\n    CAL.CalMonthFirst                   AS CalMonthFirst,\n    CAL.CalMonthLast                    AS CalMonthLast,\n    CAL.CalQuarterNum                   AS CalQuarterNum,\n    CAL.CalQuarterName                  AS CalQuarterName,\n    CAL.CalQuarterIndicatorNum          AS CalQuarterIndicatorNum,\n    CAL.CalQuarterYearNum               AS CalQuarterYearNum,\n    CAL.CalQuarterYearName              AS CalQuarterYearName,\n    CAL.CalSemesterNum                  AS CalSemesterNum,\n    CAL.CalSemesterYearNum              AS CalSemesterYearNum,\n    CAL.CalYearNum                      AS CalYearNum,\n    CAL.CalYearName                     AS CalYearName,\n    CAL.CalYearIndicatorNum             AS CalYearIndicatorNum,\n    CAL.FiscalDate                      AS FiscalDate,\n    CAL.FiscalDateName                  AS FiscalDateName,\n    CAL.FSCDateIndicatorNum             AS FSCDateIndicatorNum,\n    CAL.FSCDayOfWeekNum                 AS FSCDayOfWeekNum,\n    CAL.FSCDayOfWeekName                AS FSCDayOfWeekName,\n    CAL.FSCDayOfMonthNum                AS FSCDayOfMonthNum,\n    CAL.FSCDayOfYearNum                 AS FSCDayOfYearNum,\n    CAL.FSCWeekNum                      AS FSCWeekNum,\n    CAL.FSCWeekIndicatorNum             AS FSCWeekIndicatorNum,\n    CAL.FSCWeekYearNum                  AS FSCWeekYearNum,\n    CAL.FSCWeekYearName                 AS FSCWeekYearName,\n    CAL.FSCWeekFirst                    AS FSCWeekFirst,\n    CAL.FSCWeekLast                     AS FSCWeekLast,\n    CAL.FSCWeekOfMonthNum               AS FSCWeekOfMonthNum,\n    CAL.FSCMonthNum                     AS FSCMonthNum,\n    CAL.FSCMonthIndicatorNum            AS FSCMonthIndicatorNum,\n    CAL.FSCMonthYearNum                 AS FSCMonthYearNum,\n    CAL.FSCMonthName                    AS FSCMonthName,\n    CAL.FSCMonthYearName                AS FSCMonthYearName,\n    CAL.FSCMonthFirst                   AS FSCMonthFirst,\n    CAL.FSCMonthLast                    AS FSCMonthLast,\n    CAL.FSCQuarterNum                   AS FSCQuarterNum,\n    CAL.FSCQuarterName                  AS FSCQuarterName,\n    CAL.FSCQuarterIndicatorNum          AS FSCQuarterIndicatorNum,\n    CAL.FSCQuarterYearNum               AS FSCQuarterYearNum,\n    CAL.FSCQuarterYearName              AS FSCQuarterYearName,\n    CAL.FSCQuarterFirst                 AS FSCQuarterFirst,\n    CAL.FSCQuarterLast                  AS FSCQuarterLast,\n    CAL.FSCSemesterNum                  AS FSCSemesterNum,\n    CAL.FSCSemesterYearNum              AS FSCSemesterYearNum,\n    CAL.FSCYearNum                      AS FSCYearNum,\n    CAL.FSCYearName                     AS FSCYearName,\n    CAL.FSCYearIndicatorNum             AS FSCYearIndicatorNum,\n    CAL.FSCYearFirst                    AS FSCYearFirst,\n    CAL.FSCYearLast                     AS FSCYearLast,\n    CAL.HolidayIndicatorCode            AS HolidayIndicatorCode,\n    CAL.HolidayName                     AS HolidayName,\n    CAL.WorkingDayCode                  AS WorkingDayCode,\n    CAL.WeekdayWeekendCode              AS WeekdayWeekendCode,\n    CAST(GETUTCDATE() AS DATETIME2(6))  AS LoadDT\nFROM SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Calendar AS CAL;\n"
+}

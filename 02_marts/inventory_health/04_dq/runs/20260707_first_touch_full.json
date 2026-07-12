@@ -1,0 +1,980 @@
+{
+  "generated_at_utc": "2026-07-07T08:17:05+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 23,
+  "rule_count": 69,
+  "results": [
+    {
+      "rule_name": "DQ_Bronze_Grain_Calendar",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.Calendar",
+      "result": "PASS",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.MasterData_DW.DimDate",
+          "grain": [
+            "DateKey"
+          ],
+          "row_count": 21551,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 1.235
+    },
+    {
+      "rule_name": "DQ_B2S_Calendar_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.Calendar",
+      "result": "PASS",
+      "expected_rows": 21551,
+      "actual_rows": 21551,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 1.348
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_Calendar",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.Calendar",
+      "result": "PASS",
+      "grain": [
+        "SKDate"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 0.716
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_CustomerAccount",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.CustomerAccount",
+      "result": "PASS",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.Customers.AccountMaster",
+          "grain": [
+            "cmaCustomerNumber"
+          ],
+          "row_count": 35713,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 1.246
+    },
+    {
+      "rule_name": "DQ_B2S_CustomerAccount_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.CustomerAccount",
+      "result": "PASS",
+      "expected_rows": 35713,
+      "actual_rows": 35713,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 1.46
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_CustomerAccount",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.CustomerAccount",
+      "result": "PASS",
+      "grain": [
+        "cmaCustomerNumber"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 0.712
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_CustomerAccountGroup",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.CustomerAccountGroup",
+      "result": "PASS",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping",
+          "grain": [
+            "CustomerNumber",
+            "CustomerGroup"
+          ],
+          "row_count": 35712,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 1.297
+    },
+    {
+      "rule_name": "DQ_B2S_CustomerAccountGroup_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.CustomerAccountGroup",
+      "result": "PASS",
+      "expected_rows": 35712,
+      "actual_rows": 35712,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 1.662
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_CustomerAccountGroup",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.CustomerAccountGroup",
+      "result": "PASS",
+      "grain": [
+        "Customer",
+        "CustomerGroupCode"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 0.735
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_CustomerGrouping",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.CustomerGrouping",
+      "result": "PASS",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping",
+          "grain": [
+            "CustomerNumber",
+            "CustomerGroup"
+          ],
+          "row_count": 35712,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 1.078
+    },
+    {
+      "rule_name": "DQ_B2S_CustomerGrouping_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.CustomerGrouping",
+      "result": "PASS",
+      "expected_rows": 35712,
+      "actual_rows": 35712,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 1.368
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_CustomerGrouping",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.CustomerGrouping",
+      "result": "PASS",
+      "grain": [
+        "Customer",
+        "CustomerGroupCode"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 0.848
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_CustomerShippingLocation",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.CustomerShippingLocation",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 35716,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.Customers.ShippingLocations",
+          "grain": [
+            "cslCustomerNumber",
+            "cslShiptoNumber",
+            "cslMapicsSequenceNumber"
+          ],
+          "row_count": 128045,
+          "blank_or_null_key_rows": 35716,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 1.473
+    },
+    {
+      "rule_name": "DQ_B2S_CustomerShippingLocation_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.CustomerShippingLocation",
+      "result": "PASS",
+      "expected_rows": 128045,
+      "actual_rows": 128045,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 1.827
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_CustomerShippingLocation",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.CustomerShippingLocation",
+      "result": "FAIL",
+      "grain": [
+        "cslCustomerNumber",
+        "cslShiptoNumber",
+        "cslMapicsSequenceNumber"
+      ],
+      "blank_or_null_key_rows": 35716,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 1.216
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_ForecastCycle",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.ForecastCycle",
+      "result": "PASS",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "SupplyChain_Processing_Warehouse.ProcessingSeed.ForecastCycle",
+          "grain": [
+            "code_cycle",
+            "dt_cycle_month_last",
+            "dt_forecast_snapshot"
+          ],
+          "row_count": 44,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 2.383
+    },
+    {
+      "rule_name": "DQ_B2S_ForecastCycle_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.ForecastCycle",
+      "result": "PASS",
+      "expected_rows": 44,
+      "actual_rows": 44,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 1.309
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_ForecastCycle",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.ForecastCycle",
+      "result": "PASS",
+      "grain": [
+        "CycleName",
+        "CycleMonthLastDate",
+        "ForecastSnapshot"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 1.05
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_ForecastHorizon",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.ForecastHorizon",
+      "result": "PASS",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "SupplyChain_Processing_Warehouse.ProcessingSeed.ForecastHorizon",
+          "grain": [
+            "HorizonCode"
+          ],
+          "row_count": 8,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 1.144
+    },
+    {
+      "rule_name": "DQ_B2S_ForecastHorizon_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.ForecastHorizon",
+      "result": "PASS",
+      "expected_rows": 8,
+      "actual_rows": 8,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 1.311
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_ForecastHorizon",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.ForecastHorizon",
+      "result": "PASS",
+      "grain": [
+        "HorizonCode"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 0.674
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_ItemMaster",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.ItemMaster",
+      "result": "PASS",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT",
+          "grain": [
+            "ITNBR"
+          ],
+          "row_count": 637454,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        },
+        {
+          "source": "Enterprise_Lakehouse.ItemMaster_AFI.AITMCLS",
+          "grain": [
+            "ITMCL"
+          ],
+          "row_count": 1221,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        },
+        {
+          "source": "Enterprise_Lakehouse.MasterData_DW.DimItemMaster",
+          "grain": [
+            "ItemSKU"
+          ],
+          "row_count": 388341,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        },
+        {
+          "source": "Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV",
+          "grain": [
+            "ienItemNumber",
+            "ienEnvironmentCode"
+          ],
+          "row_count": 291942,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        },
+        {
+          "source": "Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems",
+          "grain": [
+            "npkItemNumber"
+          ],
+          "row_count": 18772,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 9.186
+    },
+    {
+      "rule_name": "DQ_B2S_ItemMaster_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.ItemMaster",
+      "result": "FAIL",
+      "expected_rows": 783416,
+      "actual_rows": 783367,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 5.513
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_ItemMaster",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.ItemMaster",
+      "result": "PASS",
+      "grain": [
+        "ItemSKU"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 1.309
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_OrderType",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.OrderType",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 1,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP",
+          "grain": [
+            "OTCODE"
+          ],
+          "row_count": 29,
+          "blank_or_null_key_rows": 1,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 1.371
+    },
+    {
+      "rule_name": "DQ_B2S_OrderType_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.OrderType",
+      "result": "PASS",
+      "expected_rows": 29,
+      "actual_rows": 29,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 1.434
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_OrderType",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.OrderType",
+      "result": "FAIL",
+      "grain": [
+        "OTCODE"
+      ],
+      "blank_or_null_key_rows": 1,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 0.689
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_Vendor",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.Vendor",
+      "result": "PASS",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.Purchasing_AFI.VendorMaster",
+          "grain": [
+            "VendorNumber"
+          ],
+          "row_count": 86967,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 1.212
+    },
+    {
+      "rule_name": "DQ_B2S_Vendor_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.Vendor",
+      "result": "FAIL",
+      "expected_rows": 86967,
+      "actual_rows": 86954,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 1.309
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_Vendor",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.Vendor",
+      "result": "PASS",
+      "grain": [
+        "VendorNumber"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 0.8
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_Warehouse",
+      "rule_type": "DQ_Bronze",
+      "target": "ReferenceMaster_Enh.Warehouse",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 1,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
+          "grain": [
+            "Warehouse"
+          ],
+          "row_count": 54,
+          "blank_or_null_key_rows": 1,
+          "duplicate_groups": 0,
+          "duplicate_extra_rows": 0,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 6.405
+    },
+    {
+      "rule_name": "DQ_B2S_Warehouse_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "ReferenceMaster_Enh.Warehouse",
+      "result": "PASS",
+      "expected_rows": 53,
+      "actual_rows": 53,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "",
+      "elapsed_seconds": 9.375
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_Warehouse",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "ReferenceMaster_Enh.Warehouse",
+      "result": "PASS",
+      "grain": [
+        "WarehouseCode"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 0.668
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_InventorySnapshotWeekly",
+      "rule_type": "DQ_Bronze",
+      "target": "InventoryHistory_Enh.InventorySnapshotWeekly",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 135977040,
+      "duplicate_extra_rows": 148623192,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.SupplyChain_Enh.DemandInventorySnapshotDaily",
+          "grain": [
+            "dinSnapshot",
+            "dinItem",
+            "dinWarehouse",
+            "dinFiscalMonth"
+          ],
+          "row_count": 885443472,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 135977040,
+          "duplicate_extra_rows": 148623192,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 191.131
+    },
+    {
+      "rule_name": "DQ_B2S_InventorySnapshotWeekly_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "InventoryHistory_Enh.InventorySnapshotWeekly",
+      "result": "PASS",
+      "expected_rows": 123456780,
+      "actual_rows": 123456780,
+      "expected_metric_sum": 14016428285.0,
+      "actual_metric_sum": 14016428285.0,
+      "metric_delta_abs": 0.0,
+      "measures": [
+        "OnHandQty",
+        "SafetyStockTarget",
+        "OrderQty"
+      ],
+      "note": "",
+      "elapsed_seconds": 53.955
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_InventorySnapshotWeekly",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "InventoryHistory_Enh.InventorySnapshotWeekly",
+      "result": "PASS",
+      "grain": [
+        "ItemSku",
+        "WarehouseCode",
+        "SnapshotWeekEndingDate",
+        "FiscalMonth"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 183.176
+    },
+    {
+      "rule_name": "DQ_Bronze_Grain_AtpWeekEnding",
+      "rule_type": "DQ_Bronze",
+      "target": "InventoryHistory_Enh.AtpWeekEnding",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 40867,
+      "duplicate_groups": 18,
+      "duplicate_extra_rows": 18,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.SupplyChain_Enh.ATPWeekEnding",
+          "grain": [
+            "WeekEnding",
+            "RunDate",
+            "InsertedDate",
+            "ItemSKU",
+            "Warehouse",
+            "AFIFinanceDivision",
+            "ATPWeek",
+            "InsertedVersion"
+          ],
+          "row_count": 1192641717,
+          "blank_or_null_key_rows": 40867,
+          "duplicate_groups": 18,
+          "duplicate_extra_rows": 18,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 180.795
+    },
+    {
+      "rule_name": "DQ_B2S_AtpWeekEnding_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "InventoryHistory_Enh.AtpWeekEnding",
+      "result": "PASS",
+      "expected_rows": 24732996,
+      "actual_rows": 24732996,
+      "expected_metric_sum": 329724113.0,
+      "actual_metric_sum": 329724113.0,
+      "metric_delta_abs": 0.0,
+      "measures": [
+        "AtpQty",
+        "APNQ"
+      ],
+      "note": "",
+      "elapsed_seconds": 31.23
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_AtpWeekEnding",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "InventoryHistory_Enh.AtpWeekEnding",
+      "result": "PASS",
+      "grain": [
+        "ItemSku",
+        "WarehouseCode",
+        "SnapshotDate",
+        "ATPWeek",
+        "WeekEndingDate",
+        "InsertedVersion"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 81.177
+    },
+    {
+      "rule_name": "run_bronze_PurchaseOrderSnapshotHistorical",
+      "rule_type": "bronze",
+      "target": "InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
+      "result": "ERROR",
+      "error": "<class 'pyodbc.Error'> returned a result with an exception set",
+      "elapsed_seconds": 135.024
+    },
+    {
+      "rule_name": "run_b2s_PurchaseOrderSnapshotHistorical",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_PurchaseOrderSnapshotHistorical",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_bronze_ManufacturingOrderSnapshotDaily",
+      "rule_type": "bronze",
+      "target": "InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_b2s_ManufacturingOrderSnapshotDaily",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_ManufacturingOrderSnapshotDaily",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_bronze_HoldingTransferSnapshotDaily",
+      "rule_type": "bronze",
+      "target": "InventoryHistory_Enh.HoldingTransferSnapshotDaily",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_b2s_HoldingTransferSnapshotDaily",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.HoldingTransferSnapshotDaily",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_HoldingTransferSnapshotDaily",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.HoldingTransferSnapshotDaily",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_bronze_ForecastSnapshotWeekly",
+      "rule_type": "bronze",
+      "target": "InventoryHistory_Enh.ForecastSnapshotWeekly",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_b2s_ForecastSnapshotWeekly",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.ForecastSnapshotWeekly",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_ForecastSnapshotWeekly",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.ForecastSnapshotWeekly",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_bronze_SupplyPlanDetail",
+      "rule_type": "bronze",
+      "target": "InventoryHistory_Enh.SupplyPlanDetail",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_b2s_SupplyPlanDetail",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.SupplyPlanDetail",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_SupplyPlanDetail",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.SupplyPlanDetail",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_bronze_ItemBalanceHistorical_WithInTransit",
+      "rule_type": "bronze",
+      "target": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_b2s_ItemBalanceHistorical_WithInTransit",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_ItemBalanceHistorical_WithInTransit",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_bronze_InvoiceDetailLineLevel",
+      "rule_type": "bronze",
+      "target": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_b2s_InvoiceDetailLineLevel",
+      "rule_type": "b2s",
+      "target": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_InvoiceDetailLineLevel",
+      "rule_type": "silver_grain",
+      "target": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_bronze_AFIStatusSnapshotWeekly",
+      "rule_type": "bronze",
+      "target": "InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_b2s_AFIStatusSnapshotWeekly",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_AFIStatusSnapshotWeekly",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_bronze_AwdHelper",
+      "rule_type": "bronze",
+      "target": "InventoryHistory_Enh.AwdHelper",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_b2s_AwdHelper",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.AwdHelper",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_AwdHelper",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.AwdHelper",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_bronze_Cogs52WWeekly",
+      "rule_type": "bronze",
+      "target": "InventoryHistory_Enh.Cogs52WWeekly",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_b2s_Cogs52WWeekly",
+      "rule_type": "b2s",
+      "target": "InventoryHistory_Enh.Cogs52WWeekly",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    },
+    {
+      "rule_name": "run_silver_grain_Cogs52WWeekly",
+      "rule_type": "silver_grain",
+      "target": "InventoryHistory_Enh.Cogs52WWeekly",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (0) (SQLExecDirectW)')",
+      "elapsed_seconds": 0.0
+    }
+  ]
+}

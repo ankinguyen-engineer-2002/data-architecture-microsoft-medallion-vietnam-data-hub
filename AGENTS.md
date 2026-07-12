@@ -1,6 +1,6 @@
-# CLAUDE.md — Fabric SupplyChain Operating Repo
+# AGENTS.md — Fabric SupplyChain Operating Repo
 > Current target: Enterprise ETL-aligned Microsoft Fabric ETL operating repository  
-> Last updated: 2026-06-23 ICT
+> Last updated: 2026-07-09 ICT
 
 ## Startup Acknowledgment
 
@@ -40,7 +40,7 @@ Use these first, in order:
 
 Every assistant run must be resumable.
 
-- Always read `CLAUDE.md` and `00_CONTEXT/current.md` at the start of a technical turn.
+- Always read `AGENTS.md` and `00_CONTEXT/current.md` at the start of a technical turn.
 - Append/update `00_CONTEXT/current.md` after meaningful changes:
   - repo edits
   - tool/script execution
@@ -76,12 +76,17 @@ Every assistant run must be resumable.
 ## Current Runtime Contract
 
 [Verified] Phase 1 is complete as of 2026-06-23.
+[Verified] Local ETL framework live sync and pattern audit updated as of 2026-07-02.
 
 - Primary runtime/load framework:
   - `Enterprise SupplyChain-Dev.ETL_Framework`
   - schema `DW_Developer`
   - `TableDictionary`, `AuditLog`, `TableDictionary_UpdateLog`
   - Enterprise ETL loader/wrapper procedures including `usp_IncrementalTableLoad`
+  - synced additively from `EnterpriseData-Dev.ETL_Framework` on `2026-07-02`
+  - intentional exceptions:
+    - `DW_Developer.Usp_TableFromParquet_RowADF` removed from SupplyChain because source object was broken
+    - `DW_Developer.Usp_SnapshotLoad` patched minimally in SupplyChain to support live path handling and framework logging
 - Medallion layers remain:
   - Bronze/source: `Enterprise_Lakehouse`
   - Silver/processing: `SupplyChain_Processing_Warehouse`
@@ -95,19 +100,17 @@ Every assistant run must be resumable.
   - Base-schema `v_*` views have been removed from active Silver/Gold curated schemas and must not be reintroduced.
   - `_LOAD` is transient loader work surface.
 - `SupplyChain_Processing_Warehouse.Meta.usp_GenericLoad` is fallback/rollback only, not the target primary runtime.
+- Forecast Accuracy DQ history append is currently mart-specific direct insert, not a generic ETL framework load pattern.
 - Do not rerun full curated refresh packs unless Aric explicitly requests it.
 
 ## Live Pipeline IDs
 
 | Pipeline | ID | Notes |
 |---|---|---|
-| `pl_sc_master` | `f36f56b8-5668-4a0c-b991-2c28302f1710` | top-level orchestrator; schedules exist but were disabled in the 2026-06-15 audit |
-| `pl_sc_mart` | `20db5725-80e3-4081-9ef5-01700acdf3b3` | per-project router |
-| `pl_sc_staging` | `10221fb2-6e30-4911-9d95-d8dd67440d84` | staging/reference load |
-| `pl_sc_silver` | `7dc6ecda-56cc-4797-893c-1c502863323f` | project-aware silver dispatcher |
-| `pl_sc_silver_wave` | `797b1a02-f973-4584-bd27-bb0151549d4b` | wave executor |
-| `pl_sc_gold` | `50ff6263-659d-4b09-9e45-b42a3434e093` | project-filtered Gold publisher |
-| `pl_dq_check` | `3c7c61f6-c184-41e5-8309-f9ac3260d38d` | on-demand DQ gate |
+| `pl_backup_full_refresh` | `41948342-d7e7-4166-8638-9af0633e6a49` | ad-hoc full refresh; canonical repo order is the 10 wrapper SP chain below; live definition must not contain `InventoryHealth_Silver_W00`. |
+| `pl_backup_per_table` | `ba5fb8be-9d35-46dc-baf4-13c0c6035bab` | ad-hoc per-table refresh; 45 table activities in topological wave order. |
+
+Legacy `pl_sc_*` pipelines were not present in the 2026-07-06 live workspace scan and must not be used as current runtime source of truth.
 
 ## Auth And Tooling
 
@@ -142,11 +145,18 @@ Preferred tool order:
 - Default scripts must run dry-run first.
 - Live execution requires explicit `--execute` and a current Aric approval.
 - Order is always:
-  1. `forecast_accuracy` Silver wrapper, then Gold wrapper
-  2. `inventory_health` Silver wrapper, then Gold wrapper
-  3. Silver wrappers include `ReferenceMaster_Enh` prerequisite Wave 00
-  4. Gold wrappers include `Shared_DW` prerequisite Wave 00
-  5. DQ/parity/semantic smoke after publish
+  1. `SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_Shared_ReferenceMaster`
+  2. `SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_Shared_Staging`
+  3. `SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Silver_W01`
+  4. `SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Silver_W02`
+  5. `SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Silver_W03`
+  6. `SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Gold`
+  7. `SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_InventoryHealth_Silver_W01`
+  8. `SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_InventoryHealth_Silver_W02`
+  9. `SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_InventoryHealth_Silver_W03`
+  10. `SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_InventoryHealth_Gold`
+- `InventoryHealth_Silver_W00` is not canonical for the full-refresh wrapper chain.
+- DQ/parity/semantic smoke runs after publish.
 
 ## Persistence Rule
 

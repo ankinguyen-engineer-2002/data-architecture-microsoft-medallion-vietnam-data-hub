@@ -1,0 +1,59 @@
+{
+  "generated_at_utc": "20260712T010259Z",
+  "module": "05_downstream_perf",
+  "safety": {
+    "application_intent": "ReadOnly",
+    "ddl_dml": "none",
+    "live_objects_created": [],
+    "live_objects_mutated": []
+  },
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "checks": [
+    {
+      "check": "Layer_D_e2e_InventoryClassificationQtyWeekly",
+      "elapsed_sec": 1388.2,
+      "table": "[SupplyChain_Gold_Warehouse].[InventoryHealth_DW].[InventoryClassificationQtyWeekly]",
+      "view": "[SupplyChain_Gold_Warehouse].[InventoryHealth_DW_Wrk].[v_InventoryClassificationQtyWeekly]",
+      "keys": [
+        "Item",
+        "WH",
+        "SnapshotWeekEnding"
+      ],
+      "value_col_count": 9,
+      "a_rows": 19605162,
+      "b_rows": 19605162,
+      "a_not_in_b": 0,
+      "b_not_in_a": 0,
+      "value_mismatches": 0,
+      "query_execution": [
+        {
+          "label": "a_rows",
+          "elapsed_sec": 7.3,
+          "attempts": 1
+        },
+        {
+          "label": "b_rows",
+          "elapsed_sec": 170.4,
+          "attempts": 1
+        },
+        {
+          "label": "a_not_in_b",
+          "elapsed_sec": 203.6,
+          "attempts": 1
+        },
+        {
+          "label": "b_not_in_a",
+          "elapsed_sec": 784.4,
+          "attempts": 2
+        },
+        {
+          "label": "value_mismatches",
+          "elapsed_sec": 222.5,
+          "attempts": 1
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "overall_pass": true
+}

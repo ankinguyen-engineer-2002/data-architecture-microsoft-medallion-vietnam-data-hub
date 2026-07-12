@@ -1,0 +1,18 @@
+=== R1: helper-join multiplicity (LEFT JOINs in v_FactInventoryHealthSnapshot) ===
+TABLE                                                                 TOTAL   DUP_GRP  MAXROWS  OK
+SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper     21070457         0        0  OK
+SupplyChain_Processing_Warehouse.InventoryHistory_Enh.Cogs52WWeekly     19605162         0        0  OK
+SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly     19605162         0        0  OK
+SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly     19605162         0        0  OK
+SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper     13632832         0        0  OK
+SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryHealthSubStatusWeekly     19605162         0        0  OK
+SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryClassificationQtyWeekly     19605162         0        0  OK
+
+=== R2: DimProduct uniqueness at ItemSKU (fact joins Item-only) ===
+total=783945  dup_item_groups=0  max_rows_per_item=0  OK
+
+=== R3: inv_base tie-break materiality (ORDER BY FiscalMonthDate ASC) ===
+total_rows=705785832
+multi_row_groups=19605162  rows_in_multi_groups=705785832
+groups_where_onhand_differs=0  (tiebreak_material=False)
+groups_where_fiscalmonthdate_tied=0  (nondeterministic=False)

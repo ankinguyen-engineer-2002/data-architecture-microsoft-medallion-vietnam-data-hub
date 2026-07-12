@@ -8,24 +8,140 @@
     "api": "wrapper_sp",
     "name": "Usp_Refresh_ForecastAccuracy_Silver + Usp_Refresh_ForecastAccuracy_Gold"
   },
-  "post_run_checks": ["semantic_smoke", "row_count_freshness"],
+  "post_run_checks": [
+    "semantic_smoke",
+    "row_count_freshness"
+  ],
   "sequence": [
-    { "step": 100, "wave": 1, "object": "ReferenceMaster_Enh.*", "load_type": "overwrite", "purpose": "Reference/master data prerequisites" },
-    { "step": 200, "wave": 1, "object": "SalesHistory_Enh.InvoiceDetailLineLevel", "load_type": "overwrite", "purpose": "Invoice detail line-level foundation" },
-    { "step": 210, "wave": 1, "object": "OpenOrderHistory_Enh.OpenOrderLineLevel", "load_type": "overwrite", "purpose": "Open order line-level foundation" },
-    { "step": 300, "wave": 2, "object": "SalesHistory_Enh.ActualDemandMonthly", "load_type": "overwrite", "purpose": "Actual demand monthly (depends on W01)" },
-    { "step": 310, "wave": 2, "object": "SalesHistory_Enh.ActualDemandWeekly", "load_type": "overwrite", "purpose": "Actual demand weekly (depends on W01)" },
-    { "step": 320, "wave": 2, "object": "SalesHistory_Enh.InvoiceWeekly", "load_type": "overwrite", "purpose": "Invoice weekly aggregate (depends on W01)" },
-    { "step": 330, "wave": 2, "object": "ForecastHistory_Enh.ForecastDemandMonthly", "load_type": "overwrite", "purpose": "Forecast demand monthly (depends on W01)" },
-    { "step": 340, "wave": 2, "object": "OpenOrderHistory_Enh.OpenOrderMonthly", "load_type": "overwrite", "purpose": "Open order monthly (depends on W01)" },
-    { "step": 400, "wave": 3, "object": "ForecastHistory_Enh.NaiveForecastMonthly", "load_type": "overwrite", "purpose": "Naive forecast (depends on W02 ForecastDemandMonthly)" },
-    { "step": 500, "wave": "gold_shared", "object": "Shared_DW.DimCalendar", "load_type": "overwrite", "purpose": "Shared date dimension (Gold W01)" },
-    { "step": 510, "wave": "gold_shared", "object": "Shared_DW.DimProduct", "load_type": "overwrite", "purpose": "Shared product dimension (Gold W01)" },
-    { "step": 520, "wave": "gold_shared", "object": "Shared_DW.DimWarehouse", "load_type": "overwrite", "purpose": "Shared warehouse dimension (Gold W01)" },
-    { "step": 600, "wave": "gold_dim", "object": "ForecastAccuracy_DW.DimCustomerGrouping", "load_type": "overwrite", "purpose": "Forecast customer grouping dim (Gold W10)" },
-    { "step": 610, "wave": "gold_dim", "object": "ForecastAccuracy_DW.DimForecastHorizon", "load_type": "overwrite", "purpose": "Forecast horizon dim (Gold W10)" },
-    { "step": 700, "wave": "gold_fact", "object": "ForecastAccuracy_DW.FactForecastActual", "load_type": "overwrite", "purpose": "Forecast actual fact (Gold W30)" },
-    { "step": 710, "wave": "gold_fact", "object": "ForecastAccuracy_DW.FactForecastKpi", "load_type": "overwrite", "purpose": "Forecast KPI fact (Gold W30)" },
-    { "step": 900, "wave": "smoke", "object": "04_semantic/row-count/freshness", "load_type": "read_only", "purpose": "Post-run validation" }
+    {
+      "step": 100,
+      "wave": 1,
+      "object": "ReferenceMaster_Enh.*",
+      "load_type": "overwrite",
+      "purpose": "Reference/master data prerequisites"
+    },
+    {
+      "step": 200,
+      "wave": 1,
+      "object": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "load_type": "overwrite",
+      "purpose": "Invoice detail line-level foundation"
+    },
+    {
+      "step": 210,
+      "wave": 1,
+      "object": "OpenOrderHistory_Enh.OpenOrderLineLevel",
+      "load_type": "overwrite",
+      "purpose": "Open order line-level foundation"
+    },
+    {
+      "step": 300,
+      "wave": 2,
+      "object": "SalesHistory_Enh.ActualDemandMonthly",
+      "load_type": "overwrite",
+      "purpose": "Actual demand monthly (depends on W01)"
+    },
+    {
+      "step": 310,
+      "wave": 2,
+      "object": "SalesHistory_Enh.ActualDemandWeekly",
+      "load_type": "overwrite",
+      "purpose": "Actual demand weekly (depends on W01)"
+    },
+    {
+      "step": 320,
+      "wave": 2,
+      "object": "SalesHistory_Enh.InvoiceWeekly",
+      "load_type": "overwrite",
+      "purpose": "Invoice weekly aggregate (depends on W01)"
+    },
+    {
+      "step": 330,
+      "wave": 2,
+      "object": "ForecastHistory_Enh.ForecastDemandMonthly",
+      "load_type": "DateRange",
+      "date_key": "Snapshot",
+      "date_range_days": -30,
+      "purpose": "Forecast demand monthly DateRange -30 (unified; direct EL)"
+    },
+    {
+      "step": 340,
+      "wave": 2,
+      "object": "OpenOrderHistory_Enh.OpenOrderMonthly",
+      "load_type": "overwrite",
+      "purpose": "Open order monthly (depends on W01)"
+    },
+    {
+      "step": 400,
+      "wave": 3,
+      "object": "ForecastHistory_Enh.NaiveForecastMonthly",
+      "load_type": "overwrite",
+      "purpose": "Naive forecast (depends on W02 ForecastDemandMonthly)"
+    },
+    {
+      "step": 500,
+      "wave": "gold_shared",
+      "object": "Shared_DW.DimCalendar",
+      "load_type": "overwrite",
+      "purpose": "Shared date dimension (Gold W01)"
+    },
+    {
+      "step": 510,
+      "wave": "gold_shared",
+      "object": "Shared_DW.DimProduct",
+      "load_type": "overwrite",
+      "purpose": "Shared product dimension (Gold W01)"
+    },
+    {
+      "step": 520,
+      "wave": "gold_shared",
+      "object": "Shared_DW.DimWarehouse",
+      "load_type": "overwrite",
+      "purpose": "Shared warehouse dimension (Gold W01)"
+    },
+    {
+      "step": 600,
+      "wave": "gold_dim",
+      "object": "ForecastAccuracy_DW.DimCustomerGrouping",
+      "load_type": "overwrite",
+      "purpose": "Forecast customer grouping dim (Gold W10)"
+    },
+    {
+      "step": 610,
+      "wave": "gold_dim",
+      "object": "ForecastAccuracy_DW.DimForecastHorizon",
+      "load_type": "overwrite",
+      "purpose": "Forecast horizon dim (Gold W10)"
+    },
+    {
+      "step": 700,
+      "wave": "gold_fact",
+      "object": "ForecastAccuracy_DW.FactForecastActual",
+      "load_type": "overwrite",
+      "purpose": "Forecast actual fact (Gold W30)"
+    },
+    {
+      "step": 710,
+      "wave": "gold_fact",
+      "object": "ForecastAccuracy_DW.FactForecastKpi",
+      "load_type": "DateRange",
+      "date_key": "Snapshot",
+      "date_range_days": -30,
+      "purpose": "Forecast KPI fact DateRange -30 (unified; depends on FDM physical)"
+    },
+    {
+      "step": 720,
+      "wave": "gold_dq",
+      "object": "ForecastAccuracy_DW.DQForecastAccuracy",
+      "load_type": "append_direct_insert",
+      "purpose": "Forecast Accuracy terminal DQ history loaded by direct INSERT from ForecastAccuracy_DW_Wrk.v_DQForecastAccuracy at the tail of the Gold wrapper"
+    },
+    {
+      "step": 900,
+      "wave": "smoke",
+      "object": "04_semantic/row-count/freshness",
+      "load_type": "read_only",
+      "purpose": "Post-run validation"
+    }
   ]
 }

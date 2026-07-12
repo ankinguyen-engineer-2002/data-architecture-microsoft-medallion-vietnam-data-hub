@@ -1,0 +1,62 @@
+{
+  "generated_at_utc": "2026-07-07T08:24:48+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 1,
+  "rule_count": 3,
+  "results": [
+    {
+      "rule_name": "DQ_Bronze_Grain_AFIStatusSnapshotWeekly",
+      "rule_type": "DQ_Bronze",
+      "target": "InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "result": "FAIL",
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 9128,
+      "duplicate_extra_rows": 9128,
+      "sources": [
+        {
+          "source": "Enterprise_Lakehouse.SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility",
+          "grain": [
+            "WeekEnding",
+            "Item",
+            "Whse"
+          ],
+          "row_count": 38356303,
+          "blank_or_null_key_rows": 0,
+          "duplicate_groups": 9128,
+          "duplicate_extra_rows": 9128,
+          "duplicate_check": true
+        }
+      ],
+      "elapsed_seconds": 44.776
+    },
+    {
+      "rule_name": "DQ_B2S_AFIStatusSnapshotWeekly_WrkExpectedParity",
+      "rule_type": "DQ_B2S",
+      "target": "InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "result": "PASS",
+      "expected_rows": 3429355,
+      "actual_rows": 3429355,
+      "expected_metric_sum": 0.0,
+      "actual_metric_sum": 0.0,
+      "metric_delta_abs": 0.0,
+      "measures": [],
+      "note": "Mixed raw + Silver upstream.",
+      "elapsed_seconds": 357.4
+    },
+    {
+      "rule_name": "DQ_Silver_Grain_AFIStatusSnapshotWeekly",
+      "rule_type": "DQ_Silver_Grain",
+      "target": "InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+      "result": "PASS",
+      "grain": [
+        "ItemSku",
+        "WarehouseCode",
+        "WeekEndingDate"
+      ],
+      "blank_or_null_key_rows": 0,
+      "duplicate_groups": 0,
+      "duplicate_extra_rows": 0,
+      "elapsed_seconds": 5.339
+    }
+  ]
+}

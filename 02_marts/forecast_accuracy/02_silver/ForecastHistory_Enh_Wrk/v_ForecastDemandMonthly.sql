@@ -1,16 +1,15 @@
--- Full _Wrk inline rewrite for SupplyChain_Processing_Warehouse
--- Generated from live base-schema view definitions plus final table column contracts.
--- Execute before dropping legacy base-schema v_* views.
-
 -- ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly
-CREATE     VIEW [ForecastHistory_Enh_Wrk].[v_ForecastDemandMonthly] AS
 -- 2026-05-19 SWAP: was legacy EDW supplement (SC_LH ver2 to DF2).
 -- 2026-05-22 SWAP: was EL.SupplyChain_Enh_1.DemandForecastSnapshotDaily (dirty, row-dup x16 from Q1 2025)
--- Now reads Staging.DemandForecastSnapshotDaily (canonical BOB target; cleaned/deduped via Staging_Wrk.v_DemandForecastSnapshotDaily).
+-- 2026-05-22..2026-07-08: read Staging.DemandForecastSnapshotDaily (physical cache via Staging_Wrk dedupe).
+-- 2026-07-09 CUTOVER: read EL directly via [$(Databricks)].SupplyChain_Enh.DemandForecastSnapshotDaily.
+--   Drop physical Staging hop. Official grain 5-key on EL confirmed clean on probes.
+--   No Source_Wrk wrapper; no ROW_NUMBER dedupe.
 -- Schema mapping: ts_snapshot → dfcSnapshot, code_customer_group → DfcCustomerGroups, etc.
 -- Logic unchanged: ForecastCycle JOIN, Lag-N HorizonCode, GROUP BY summed forecast.
+CREATE VIEW [ForecastHistory_Enh_Wrk].[v_ForecastDemandMonthly] AS
 WITH Raw AS (
-    SELECT 
+    SELECT
         f.dfcItem                                            AS ItemSKU,
         f.dfcWarehouse                                       AS WarehouseCode,
         UPPER(f.DfcCustomerGroups)                           AS CustomerGroupCode,
@@ -18,9 +17,9 @@ WITH Raw AS (
         CAST(f.dfcSnapshot AS DATE)                          AS Snapshot,
         sum(f.dfcResultantForecast)                               AS QtyResultantForecast,
         sum(f.dfcPromotionalLift)                                 AS QtyPromotionalLift
-    FROM Staging.DemandForecastSnapshotDaily AS f
+    FROM [$(Databricks)].[SupplyChain_Enh].[DemandForecastSnapshotDaily] AS f
     INNER JOIN ReferenceMaster_Enh.ForecastCycle AS c ON CAST(f.dfcSnapshot AS DATE)=c.ForecastSnapshot
-    GROUP BY 
+    GROUP BY
         f.dfcItem,
         f.dfcWarehouse,
         UPPER(f.DfcCustomerGroups),
@@ -41,7 +40,7 @@ Calc AS (
         'Forecast' AS StatusCode
     FROM Raw AS FC
     INNER JOIN ReferenceMaster_Enh.Calendar AS CAL ON CAL.Date=FC.FiscalMonth
-    WHERE 
+    WHERE
         FC.FiscalMonth >= DATEADD(MONTH,-36,DATETRUNC(YEAR,DATEADD(MONTH,-6,CAST(GETDATE() AS DATE))))
         AND FC.FiscalMonth <= DATEADD(MONTH,12,DATETRUNC(YEAR,DATEADD(MONTH,6,CAST(GETDATE() AS DATE))))
     GROUP BY
@@ -52,8 +51,20 @@ Calc AS (
         CAL.FSCMonthLast,
         FC.Snapshot,
         FC.FiscalMonth
+),
+Dedup AS (
+    SELECT
+        ItemSKU, WarehouseCode, CustomerGroupCode,
+        FSCMonthFirst, FSCMonthLast, Snapshot,
+        HorizonCode, VersionCode, StatusCode,
+        CAST(SUM(QtyForecast) AS FLOAT) AS QtyForecast
+    FROM Calc
+    GROUP BY
+        ItemSKU, WarehouseCode, CustomerGroupCode,
+        FSCMonthFirst, FSCMonthLast, Snapshot,
+        HorizonCode, VersionCode, StatusCode
 )
-SELECT 
+SELECT
     CAST(TRIM(ItemSKU) AS VARCHAR(50)) AS ItemSKU,
     CAST(TRIM(WarehouseCode) AS VARCHAR(10)) AS WarehouseCode,
     CAST(TRIM(CustomerGroupCode) AS VARCHAR(50)) AS CustomerGroupCode,
@@ -65,4 +76,4 @@ SELECT
     CAST(TRIM(VersionCode) AS VARCHAR(20)) AS VersionCode,
     CAST(TRIM(StatusCode) AS VARCHAR(20)) AS StatusCode,
     CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
-FROM Calc;
+FROM Dedup;

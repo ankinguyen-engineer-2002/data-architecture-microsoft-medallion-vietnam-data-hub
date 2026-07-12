@@ -1,0 +1,298 @@
+{
+  "generated_at_utc": "20260710T165939Z",
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "database": "SupplyChain_Gold_Warehouse",
+  "targets": [
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.Shared_DW.DimCalendar",
+      "load_safe": true,
+      "view_cols": 75,
+      "table_cols": 75,
+      "drift_count": 0,
+      "source_refs": [],
+      "static_parse": {
+        "cte_names": [],
+        "cte_count": 0,
+        "row_number_count": 0,
+        "group_by_count": 0,
+        "distinct_count": 0,
+        "left_join_count": 0,
+        "inner_join_count": 0,
+        "case_count": 0,
+        "coalesce_count": 0,
+        "latest_asof_markers": 0,
+        "reads_islatest_flag": false,
+        "has_partition_dedupe": false
+      }
+    },
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.Shared_DW.DimProduct",
+      "load_safe": true,
+      "view_cols": 40,
+      "table_cols": 40,
+      "drift_count": 0,
+      "source_refs": [
+        "Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT",
+        "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster"
+      ],
+      "static_parse": {
+        "cte_names": [],
+        "cte_count": 0,
+        "row_number_count": 0,
+        "group_by_count": 1,
+        "distinct_count": 0,
+        "left_join_count": 1,
+        "inner_join_count": -1,
+        "case_count": 0,
+        "coalesce_count": 0,
+        "latest_asof_markers": 0,
+        "reads_islatest_flag": false,
+        "has_partition_dedupe": false
+      }
+    },
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.Shared_DW.DimWarehouse",
+      "load_safe": true,
+      "view_cols": 21,
+      "table_cols": 21,
+      "drift_count": 0,
+      "source_refs": [
+        "Enterprise_Lakehouse.Wholesale_Codis_AFI.AshleyWarehouseMaster"
+      ],
+      "static_parse": {
+        "cte_names": [
+          "fa",
+          "ih",
+          "capacity_by_wh"
+        ],
+        "cte_count": 3,
+        "row_number_count": 0,
+        "group_by_count": 1,
+        "distinct_count": 0,
+        "left_join_count": 1,
+        "inner_join_count": 0,
+        "case_count": 0,
+        "coalesce_count": 10,
+        "latest_asof_markers": 0,
+        "reads_islatest_flag": false,
+        "has_partition_dedupe": false
+      }
+    },
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.DimVendor",
+      "load_safe": true,
+      "view_cols": 2,
+      "table_cols": 2,
+      "drift_count": 0,
+      "source_refs": [
+        "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.Vendor"
+      ],
+      "static_parse": {
+        "cte_names": [],
+        "cte_count": 0,
+        "row_number_count": 0,
+        "group_by_count": 0,
+        "distinct_count": 0,
+        "left_join_count": 0,
+        "inner_join_count": 0,
+        "case_count": 0,
+        "coalesce_count": 0,
+        "latest_asof_markers": 0,
+        "reads_islatest_flag": false,
+        "has_partition_dedupe": false
+      }
+    },
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.ProjectedInventoryHealthSubStatus",
+      "load_safe": true,
+      "view_cols": 28,
+      "table_cols": 28,
+      "drift_count": 0,
+      "source_refs": [
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SupplyPlanDetail"
+      ],
+      "static_parse": {
+        "cte_names": [
+          "sp_base",
+          "awd_ranked",
+          "awd_latest",
+          "afi_ranked",
+          "afi_latest",
+          "last_invoice_ranked",
+          "last_invoice_latest",
+          "src",
+          "classified",
+          "ranked"
+        ],
+        "cte_count": 10,
+        "row_number_count": 3,
+        "group_by_count": 0,
+        "distinct_count": 0,
+        "left_join_count": 6,
+        "inner_join_count": -6,
+        "case_count": 2,
+        "coalesce_count": 8,
+        "latest_asof_markers": 6,
+        "reads_islatest_flag": true,
+        "has_partition_dedupe": true
+      }
+    },
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryHealthSubStatusWeekly",
+      "load_safe": true,
+      "view_cols": 12,
+      "table_cols": 12,
+      "drift_count": 0,
+      "source_refs": [
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper"
+      ],
+      "static_parse": {
+        "cte_names": [
+          "inv_base",
+          "po_base",
+          "mo_base",
+          "src",
+          "classified",
+          "ranked"
+        ],
+        "cte_count": 6,
+        "row_number_count": 1,
+        "group_by_count": 2,
+        "distinct_count": 0,
+        "left_join_count": 6,
+        "inner_join_count": -6,
+        "case_count": 2,
+        "coalesce_count": 13,
+        "latest_asof_markers": 1,
+        "reads_islatest_flag": false,
+        "has_partition_dedupe": true
+      }
+    },
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryClassificationQtyWeekly",
+      "load_safe": true,
+      "view_cols": 12,
+      "table_cols": 12,
+      "drift_count": 0,
+      "source_refs": [
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper"
+      ],
+      "static_parse": {
+        "cte_names": [
+          "inv_base",
+          "src",
+          "raw_bounds",
+          "below_bound",
+          "sweet_bound",
+          "over_bound",
+          "excess_bound",
+          "bounded"
+        ],
+        "cte_count": 8,
+        "row_number_count": 1,
+        "group_by_count": 0,
+        "distinct_count": 0,
+        "left_join_count": 3,
+        "inner_join_count": -3,
+        "case_count": 4,
+        "coalesce_count": 2,
+        "latest_asof_markers": 1,
+        "reads_islatest_flag": false,
+        "has_partition_dedupe": true
+      }
+    },
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.FactInventoryHealthFutureWeekEnding",
+      "load_safe": true,
+      "view_cols": 34,
+      "table_cols": 34,
+      "drift_count": 0,
+      "source_refs": [
+        "Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AtpWeekEnding",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SupplyPlanDetail"
+      ],
+      "static_parse": {
+        "cte_names": [
+          "sp_base",
+          "inventory_latest",
+          "atp_latest",
+          "awd_ranked",
+          "awd_latest",
+          "afi_ranked",
+          "afi_latest",
+          "standard_cost",
+          "joined"
+        ],
+        "cte_count": 9,
+        "row_number_count": 4,
+        "group_by_count": 1,
+        "distinct_count": 0,
+        "left_join_count": 9,
+        "inner_join_count": -9,
+        "case_count": 0,
+        "coalesce_count": 13,
+        "latest_asof_markers": 5,
+        "reads_islatest_flag": false,
+        "has_partition_dedupe": true
+      }
+    },
+    {
+      "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.FactInventoryHealthSnapshot",
+      "load_safe": true,
+      "view_cols": 54,
+      "table_cols": 54,
+      "drift_count": 0,
+      "source_refs": [
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AFIStatusSnapshotWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AtpWeekEnding",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.Cogs52WWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.InventorySnapshotWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.ItemBalanceHistorical_WithInTransit",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.LastInvoiceWeekly",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.ManufacturingOrderSnapshotDaily",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SafetyStockHelper",
+        "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SupplyPlanDetail"
+      ],
+      "static_parse": {
+        "cte_names": [
+          "inv_base",
+          "base",
+          "po",
+          "mo",
+          "transfer_in",
+          "supply_plan",
+          "atp",
+          "joined"
+        ],
+        "cte_count": 8,
+        "row_number_count": 1,
+        "group_by_count": 5,
+        "distinct_count": 0,
+        "left_join_count": 14,
+        "inner_join_count": -14,
+        "case_count": 0,
+        "coalesce_count": 36,
+        "latest_asof_markers": 1,
+        "reads_islatest_flag": false,
+        "has_partition_dedupe": true
+      }
+    }
+  ]
+}

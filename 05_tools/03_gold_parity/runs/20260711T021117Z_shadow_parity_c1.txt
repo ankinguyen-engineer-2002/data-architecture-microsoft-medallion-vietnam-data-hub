@@ -1,0 +1,48 @@
+Module 04 C1 inline shadow parity — recent_weeks_8
+generated_at_utc=20260711T021117Z
+overall_pass=True
+verdict=C1_SHARED_INV_BASE_PARITY_PASS
+live_ddl_dml=none
+
+[T1_R3_extended_carried_cols] pass=True elapsed=22.6s
+  total_groups=833223
+  multi_row_groups=833223
+  rows_in_multi_groups=29996028
+  groups_where_fiscalmonthdate_tied=0
+  groups_where_col_differs={'OnHandQty': 0, 'MakeBuyCode': 0, 'PrimaryVendorName': 0, 'SecondaryVendorName': 0, 'ReplenishmentLeadTime': 0, 'SnapshotType': 0}
+  order_by_material_for=[]
+  tiebreak_deterministic=True
+  note=ORDER BY FiscalMonthDate ASC is deterministic iff FMD never ties. If a carried col differs within group, ORDER BY is material for that col but still deterministic. C1 preserves the same ORDER BY as A.
+
+[T2_shared_surface_counts] pass=True elapsed=6.7s
+  shared_rn1_groups=833223
+  shared_nonnull_groups=833223
+  shared_fact_eligible_groups=729407
+  shared_nonnull_nonweekly_groups=103816
+  shared_nonnull_nulltype_groups=0
+  note=On --full: shared_rn1_groups should equal weekly family 19,605,162; shared_fact_eligible_groups should equal FactSnapshot 19,501,346 if SnapshotType filter alone explains the Δ after non-null filter.
+
+[T5_rn1_nonnull_SnapshotType_dist] pass=True elapsed=14.8s
+  distribution={'WEEKLY': 729407, 'LATEST': 103816}
+  total_nonnull_rn1=833223
+  weekly_eligible=729407
+  excluded_by_snapshottype_filter=103816
+  note=FactSnapshot base applies SnapshotType IN ('WEEKLY','WEEKLY_AND_LATEST') AFTER inv_base pick. excluded_by_snapshottype_filter should equal the weekly-family vs FactSnapshot row delta on full history if no other filter.
+
+[T3_fact_invbase_A_vs_C1_shared_B] pass=True elapsed=32.6s
+  a_rows=833223
+  b_rows=833223
+  a_not_in_b=0
+  b_not_in_a=0
+  rowcount_match=True
+  set_match=True
+
+[T4_substatus_invbase_vs_shared] pass=True elapsed=18.7s
+  a_rows=833223
+  b_rows=833223
+  a_not_in_b=0
+  b_not_in_a=0
+  rowcount_match=True
+  set_match=True
+
+C1 is parity-safe for inv_base if: (1) FMD tie-break is deterministic, (2) FactSnapshot A-vs-B anti-join is empty both ways on all carried cols, (3) SubStatus A-vs-B anti-join is empty both ways on OnHandQty, (4) on full history, shared counts reproduce weekly-family / fact-eligible row invariants. Performance gain is NOT proven here (no materialization).

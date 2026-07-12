@@ -1,0 +1,208 @@
+{
+  "target_table": "SupplyChain_Gold_Warehouse.Shared_DW.DimWarehouse",
+  "captured_at_utc": "20260710T173932Z",
+  "row_count": 53,
+  "key_profile": {
+    "keys": [
+      "WarehouseCode"
+    ],
+    "distinct_keys": 53,
+    "dup_groups": 0,
+    "max_mult": 1,
+    "unique_at_grain": true
+  },
+  "date_coverage": {
+    "min_LoadDT": "2026-07-10T08:34:35.943333",
+    "max_LoadDT": "2026-07-10T08:34:35.943333"
+  },
+  "measure_sums": {
+    "sum_AFIWarehousesKey": "174668267.000000",
+    "sum_ControlledWarehouse": "34.000000",
+    "sum_FinanceInventoryReportFlag": "38.000000",
+    "sum_TotalWarehouseCube": "3882368.000000"
+  },
+  "distribution": {},
+  "weekly_recon": [],
+  "columns_classified": {
+    "date": [
+      "LoadDT"
+    ],
+    "numeric": [
+      "AFIWarehousesKey",
+      "ControlledWarehouse",
+      "FinanceInventoryReportFlag",
+      "TotalWarehouseCube"
+    ],
+    "categorical": []
+  },
+  "query_insights": [
+    {
+      "distributed_statement_id": "F9F6B6CE-DA3F-482D-984C-513CCC1F5EB2",
+      "start_time": "2026-07-10T08:34:35.943143",
+      "end_time": "2026-07-10T08:34:36.598992",
+      "elapsed_sec": 1,
+      "total_elapsed_time_ms": 968,
+      "allocated_cpu_time_ms": 619,
+      "data_scanned_remote_storage_mb": "0.003",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 53,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "A12DDD58-9FA5-4CF9-AF44-556863983049",
+      "start_time": "2026-07-10T08:34:35.546789",
+      "end_time": "2026-07-10T08:34:35.546809",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "2DD75EF1-C5DB-4C56-9A28-7EDA9E80E5AA",
+      "start_time": "2026-07-10T08:11:19.143368",
+      "end_time": "2026-07-10T08:11:19.730436",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 1164,
+      "allocated_cpu_time_ms": 558,
+      "data_scanned_remote_storage_mb": "0.003",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 53,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "83E6EA78-F3F7-4290-AEFD-4BA98A1973A3",
+      "start_time": "2026-07-10T08:11:18.558868",
+      "end_time": "2026-07-10T08:11:18.558889",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "9CA4419E-B4E1-46A4-876B-17D1151DFE39",
+      "start_time": "2026-07-08T08:22:26.435515",
+      "end_time": "2026-07-08T08:22:26.441263",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 538,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "CREATE/ALTER VIEW"
+    },
+    {
+      "distributed_statement_id": "3824B45D-091E-4165-8F67-007B66A38DA5",
+      "start_time": "2026-07-08T07:59:55.290616",
+      "end_time": "2026-07-08T07:59:55.810532",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 767,
+      "allocated_cpu_time_ms": 490,
+      "data_scanned_remote_storage_mb": "0.001",
+      "data_scanned_memory_mb": "0.002",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 53,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "512E10FE-FCFB-46D3-A690-55D4C687A5FF",
+      "start_time": "2026-07-08T07:59:55.038844",
+      "end_time": "2026-07-08T07:59:55.038866",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "0867824E-3834-4AB2-AF14-1B028E8044BC",
+      "start_time": "2026-07-08T07:10:21.382916",
+      "end_time": "2026-07-08T07:10:21.973871",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 873,
+      "allocated_cpu_time_ms": 565,
+      "data_scanned_remote_storage_mb": "0.003",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 53,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "81AC06C4-120C-4AF2-87D5-5BD65F1574C0",
+      "start_time": "2026-07-08T07:10:20.658603",
+      "end_time": "2026-07-08T07:10:20.658625",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "0F6DDAE6-0F82-435B-9C22-9EA9A51900F1",
+      "start_time": "2026-07-08T07:00:00.533183",
+      "end_time": "2026-07-08T07:00:01.125943",
+      "elapsed_sec": 1,
+      "total_elapsed_time_ms": 1202,
+      "allocated_cpu_time_ms": 564,
+      "data_scanned_remote_storage_mb": "0.003",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 53,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "642EA380-E24C-43C2-BF5D-FFDBE38569CC",
+      "start_time": "2026-07-08T06:59:59.748879",
+      "end_time": "2026-07-08T06:59:59.748905",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "6B43F4A8-286E-4561-ACBB-1D5BD40382AC",
+      "start_time": "2026-07-07T04:22:01.153653",
+      "end_time": "2026-07-07T04:22:01.747643",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 927,
+      "allocated_cpu_time_ms": 564,
+      "data_scanned_remote_storage_mb": "0.002",
+      "data_scanned_memory_mb": "0.001",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 53,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    }
+  ]
+}

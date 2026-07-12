@@ -163,9 +163,9 @@
         },
         {
           "dq_gate": "bronze_source_contracts",
-          "load_type": "overwrite",
+          "load_type": "DateRange",
           "object": "InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
-          "purpose": "PO historical snapshot",
+          "purpose": "PO historical snapshot DateRange -30; W02 pre-delete guard requires non-empty source and unique table-dictionary keys",
           "resolved_asset_key": "inventoryhistory.enh.purchaseordersnapshothistorical",
           "step": 100,
           "wave": 1

@@ -1,0 +1,1906 @@
+{
+  "target_table": "SupplyChain_Gold_Warehouse.InventoryHealth_DW.InventoryHealthSubStatusWeekly",
+  "captured_at_utc": "20260710T173944Z",
+  "row_count": 19605162,
+  "key_profile": {
+    "keys": [
+      "ItemSku",
+      "WarehouseCode",
+      "SnapshotWeekEnding"
+    ],
+    "distinct_keys": 19605162,
+    "dup_groups": 0,
+    "max_mult": 1,
+    "unique_at_grain": true
+  },
+  "date_coverage": {
+    "min_SnapshotWeekEnding": "2023-01-07",
+    "max_SnapshotWeekEnding": "2026-07-09",
+    "min_LastInvoiceDate": "2017-08-23",
+    "max_LastInvoiceDate": "2026-07-09"
+  },
+  "measure_sums": {
+    "sum_Ranking": "58034964.000000",
+    "sum_Avg Weekly Demand": "99049611.060800",
+    "sum_SS target": "901745799.252000",
+    "sum_On Hands Qty": "2156876330.000000",
+    "sum_On Order Qty": "962797874.000000"
+  },
+  "distribution": {
+    "SubStatus": {
+      "SWEET_SPOT": 6454696,
+      "OVER_TARGET": 6358965,
+      "BELOW_TARGET": 2817739,
+      "INACTIVE": 2074627,
+      "EXCESS": 855695,
+      "SLOB": 626196,
+      "AGGRESSIVE_EXCESS": 225841,
+      "TB_INVENTORY": 191403
+    },
+    "InventoryClassification Final Status": {
+      "SWEET_SPOT": 6454696,
+      "OVER_TARGET": 6358965,
+      "BELOW_TARGET": 2817739,
+      "INACTIVE": 2074627,
+      "EXCESS": 855695,
+      "SLOB": 626196,
+      "AGGRESSIVE_EXCESS": 225841,
+      "TB_INVENTORY": 191403
+    },
+    "AFIStatus": {
+      "C": 10560780,
+      "<NULL>": 3964255,
+      "D": 2881399,
+      "N": 2181468,
+      "R": 16131,
+      "T": 1070,
+      "I": 59
+    }
+  },
+  "weekly_recon": [
+    {
+      "period": "2023-01-07",
+      "n": 100742,
+      "sum_Ranking": "295646.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5325578.221700",
+      "sum_On Hands Qty": "16287144.000000",
+      "sum_On Order Qty": "6742646.000000"
+    },
+    {
+      "period": "2023-01-14",
+      "n": 100596,
+      "sum_Ranking": "292206.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5252166.563300",
+      "sum_On Hands Qty": "16190704.000000",
+      "sum_On Order Qty": "6466602.000000"
+    },
+    {
+      "period": "2023-01-21",
+      "n": 99847,
+      "sum_Ranking": "289704.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5385899.224400",
+      "sum_On Hands Qty": "16262254.000000",
+      "sum_On Order Qty": "7586232.000000"
+    },
+    {
+      "period": "2023-01-28",
+      "n": 94927,
+      "sum_Ranking": "277581.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "6228019.560300",
+      "sum_On Hands Qty": "15643692.000000",
+      "sum_On Order Qty": "9567443.000000"
+    },
+    {
+      "period": "2023-02-04",
+      "n": 94592,
+      "sum_Ranking": "275291.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5921759.620000",
+      "sum_On Hands Qty": "14985284.000000",
+      "sum_On Order Qty": "8967840.000000"
+    },
+    {
+      "period": "2023-02-11",
+      "n": 97631,
+      "sum_Ranking": "287420.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5988990.294100",
+      "sum_On Hands Qty": "14171401.000000",
+      "sum_On Order Qty": "8483403.000000"
+    },
+    {
+      "period": "2023-02-18",
+      "n": 98151,
+      "sum_Ranking": "287060.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5968188.626700",
+      "sum_On Hands Qty": "13539267.000000",
+      "sum_On Order Qty": "7202698.000000"
+    },
+    {
+      "period": "2023-02-25",
+      "n": 98155,
+      "sum_Ranking": "285597.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5872711.949800",
+      "sum_On Hands Qty": "13347419.000000",
+      "sum_On Order Qty": "7882893.000000"
+    },
+    {
+      "period": "2023-03-04",
+      "n": 97910,
+      "sum_Ranking": "282430.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5974466.596400",
+      "sum_On Hands Qty": "12833007.000000",
+      "sum_On Order Qty": "6953276.000000"
+    },
+    {
+      "period": "2023-03-11",
+      "n": 97232,
+      "sum_Ranking": "281352.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5972926.263100",
+      "sum_On Hands Qty": "13258286.000000",
+      "sum_On Order Qty": "5921657.000000"
+    },
+    {
+      "period": "2023-03-18",
+      "n": 96659,
+      "sum_Ranking": "280085.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5839694.267500",
+      "sum_On Hands Qty": "12761980.000000",
+      "sum_On Order Qty": "6229903.000000"
+    },
+    {
+      "period": "2023-03-25",
+      "n": 96616,
+      "sum_Ranking": "279043.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5786619.934400",
+      "sum_On Hands Qty": "13149993.000000",
+      "sum_On Order Qty": "5498928.000000"
+    },
+    {
+      "period": "2023-04-01",
+      "n": 96831,
+      "sum_Ranking": "279566.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5711987.960800",
+      "sum_On Hands Qty": "12989293.000000",
+      "sum_On Order Qty": "5715883.000000"
+    },
+    {
+      "period": "2023-04-08",
+      "n": 96999,
+      "sum_Ranking": "280612.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5616608.879100",
+      "sum_On Hands Qty": "13566219.000000",
+      "sum_On Order Qty": "4850163.000000"
+    },
+    {
+      "period": "2023-04-15",
+      "n": 97093,
+      "sum_Ranking": "279158.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5553638.887500",
+      "sum_On Hands Qty": "13464106.000000",
+      "sum_On Order Qty": "4851380.000000"
+    },
+    {
+      "period": "2023-04-22",
+      "n": 97044,
+      "sum_Ranking": "279460.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "5676943.549600",
+      "sum_On Hands Qty": "14324255.000000",
+      "sum_On Order Qty": "5008819.000000"
+    },
+    {
+      "period": "2023-04-29",
+      "n": 88775,
+      "sum_Ranking": "270969.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "3995203.535300",
+      "sum_On Hands Qty": "13957634.000000",
+      "sum_On Order Qty": "5008999.000000"
+    },
+    {
+      "period": "2023-05-06",
+      "n": 90448,
+      "sum_Ranking": "272770.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "2328171.619000",
+      "sum_On Hands Qty": "14850750.000000",
+      "sum_On Order Qty": "4687854.000000"
+    },
+    {
+      "period": "2023-05-13",
+      "n": 90677,
+      "sum_Ranking": "273630.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "2539527.272900",
+      "sum_On Hands Qty": "15318358.000000",
+      "sum_On Order Qty": "3724403.000000"
+    },
+    {
+      "period": "2023-05-20",
+      "n": 90958,
+      "sum_Ranking": "274981.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "4766924.924600",
+      "sum_On Hands Qty": "14947689.000000",
+      "sum_On Order Qty": "3848953.000000"
+    },
+    {
+      "period": "2023-05-27",
+      "n": 90670,
+      "sum_Ranking": "274396.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "4723351.929300",
+      "sum_On Hands Qty": "15186290.000000",
+      "sum_On Order Qty": "3875418.000000"
+    },
+    {
+      "period": "2023-06-03",
+      "n": 90855,
+      "sum_Ranking": "274240.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "4734811.303500",
+      "sum_On Hands Qty": "14987422.000000",
+      "sum_On Order Qty": "4553471.000000"
+    },
+    {
+      "period": "2023-06-10",
+      "n": 90869,
+      "sum_Ranking": "272088.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "4852225.286200",
+      "sum_On Hands Qty": "14874276.000000",
+      "sum_On Order Qty": "4629045.000000"
+    },
+    {
+      "period": "2023-06-17",
+      "n": 90879,
+      "sum_Ranking": "272938.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "4858059.293100",
+      "sum_On Hands Qty": "15625050.000000",
+      "sum_On Order Qty": "5199450.000000"
+    },
+    {
+      "period": "2023-06-24",
+      "n": 90889,
+      "sum_Ranking": "273094.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "4863148.623200",
+      "sum_On Hands Qty": "15509187.000000",
+      "sum_On Order Qty": "5521934.000000"
+    },
+    {
+      "period": "2023-07-01",
+      "n": 91024,
+      "sum_Ranking": "275830.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "4800258.887800",
+      "sum_On Hands Qty": "15217196.000000",
+      "sum_On Order Qty": "5321367.000000"
+    },
+    {
+      "period": "2023-07-08",
+      "n": 87334,
+      "sum_Ranking": "269543.000000",
+      "sum_Avg Weekly Demand": null,
+      "sum_SS target": "4848294.881300",
+      "sum_On Hands Qty": "15749002.000000",
+      "sum_On Order Qty": "5358380.000000"
+    },
+    {
+      "period": "2023-07-15",
+      "n": 87460,
+      "sum_Ranking": "283300.000000",
+      "sum_Avg Weekly Demand": "623114.219200",
+      "sum_SS target": "4848089.214700",
+      "sum_On Hands Qty": "14852938.000000",
+      "sum_On Order Qty": "6474048.000000"
+    },
+    {
+      "period": "2023-07-22",
+      "n": 87547,
+      "sum_Ranking": "282435.000000",
+      "sum_Avg Weekly Demand": "624993.921500",
+      "sum_SS target": "4742246.207500",
+      "sum_On Hands Qty": "14162663.000000",
+      "sum_On Order Qty": "7554512.000000"
+    },
+    {
+      "period": "2023-07-29",
+      "n": 86971,
+      "sum_Ranking": "281864.000000",
+      "sum_Avg Weekly Demand": "624191.843500",
+      "sum_SS target": "4802530.860700",
+      "sum_On Hands Qty": "13625360.000000",
+      "sum_On Order Qty": "7274254.000000"
+    },
+    {
+      "period": "2023-08-05",
+      "n": 91977,
+      "sum_Ranking": "293271.000000",
+      "sum_Avg Weekly Demand": "613972.440000",
+      "sum_SS target": "4781096.960200",
+      "sum_On Hands Qty": "14404235.000000",
+      "sum_On Order Qty": "6716209.000000"
+    },
+    {
+      "period": "2023-08-12",
+      "n": 92196,
+      "sum_Ranking": "296081.000000",
+      "sum_Avg Weekly Demand": "614246.502800",
+      "sum_SS target": "4781096.960200",
+      "sum_On Hands Qty": "13725633.000000",
+      "sum_On Order Qty": "6210647.000000"
+    },
+    {
+      "period": "2023-08-19",
+      "n": 92336,
+      "sum_Ranking": "291996.000000",
+      "sum_Avg Weekly Demand": "607427.359400",
+      "sum_SS target": "4736117.232900",
+      "sum_On Hands Qty": "13416792.000000",
+      "sum_On Order Qty": "6355657.000000"
+    },
+    {
+      "period": "2023-08-26",
+      "n": 90426,
+      "sum_Ranking": "288567.000000",
+      "sum_Avg Weekly Demand": "606457.302300",
+      "sum_SS target": "4774887.576100",
+      "sum_On Hands Qty": "13330153.000000",
+      "sum_On Order Qty": "6103672.000000"
+    },
+    {
+      "period": "2023-09-02",
+      "n": 90541,
+      "sum_Ranking": "288337.000000",
+      "sum_Avg Weekly Demand": "615869.905400",
+      "sum_SS target": "4787186.625400",
+      "sum_On Hands Qty": "13588337.000000",
+      "sum_On Order Qty": "6330456.000000"
+    },
+    {
+      "period": "2023-09-09",
+      "n": 89962,
+      "sum_Ranking": "286438.000000",
+      "sum_Avg Weekly Demand": "613699.295400",
+      "sum_SS target": "4817653.615700",
+      "sum_On Hands Qty": "13406270.000000",
+      "sum_On Order Qty": "5986826.000000"
+    },
+    {
+      "period": "2023-09-16",
+      "n": 89987,
+      "sum_Ranking": "284438.000000",
+      "sum_Avg Weekly Demand": "614766.681700",
+      "sum_SS target": "4754961.954700",
+      "sum_On Hands Qty": "13005331.000000",
+      "sum_On Order Qty": "0.000000"
+    },
+    {
+      "period": "2023-09-23",
+      "n": 89135,
+      "sum_Ranking": "283567.000000",
+      "sum_Avg Weekly Demand": "615224.828500",
+      "sum_SS target": "4761115.283200",
+      "sum_On Hands Qty": "12815401.000000",
+      "sum_On Order Qty": "7344211.000000"
+    },
+    {
+      "period": "2023-09-30",
+      "n": 89454,
+      "sum_Ranking": "283061.000000",
+      "sum_Avg Weekly Demand": "616797.374500",
+      "sum_SS target": "4766757.276200",
+      "sum_On Hands Qty": "13299774.000000",
+      "sum_On Order Qty": "6391308.000000"
+    },
+    {
+      "period": "2023-10-07",
+      "n": 89485,
+      "sum_Ranking": "283826.000000",
+      "sum_Avg Weekly Demand": "623609.071500",
+      "sum_SS target": "4752330.239900",
+      "sum_On Hands Qty": "12791839.000000",
+      "sum_On Order Qty": "7269404.000000"
+    },
+    {
+      "period": "2023-10-14",
+      "n": 89290,
+      "sum_Ranking": "282284.000000",
+      "sum_Avg Weekly Demand": "626213.832900",
+      "sum_SS target": "4598434.872300",
+      "sum_On Hands Qty": "13002174.000000",
+      "sum_On Order Qty": "8710794.000000"
+    },
+    {
+      "period": "2023-10-21",
+      "n": 92816,
+      "sum_Ranking": "289049.000000",
+      "sum_Avg Weekly Demand": "623709.918400",
+      "sum_SS target": "4571190.541600",
+      "sum_On Hands Qty": "12211384.000000",
+      "sum_On Order Qty": "7337447.000000"
+    },
+    {
+      "period": "2023-10-28",
+      "n": 92545,
+      "sum_Ranking": "290920.000000",
+      "sum_Avg Weekly Demand": "624426.280200",
+      "sum_SS target": "4424768.211700",
+      "sum_On Hands Qty": "12149514.000000",
+      "sum_On Order Qty": "7838360.000000"
+    },
+    {
+      "period": "2023-11-04",
+      "n": 91651,
+      "sum_Ranking": "287302.000000",
+      "sum_Avg Weekly Demand": "622695.835400",
+      "sum_SS target": "4612000.612500",
+      "sum_On Hands Qty": "11462527.000000",
+      "sum_On Order Qty": "8474404.000000"
+    },
+    {
+      "period": "2023-11-11",
+      "n": 91914,
+      "sum_Ranking": "285311.000000",
+      "sum_Avg Weekly Demand": "621846.380800",
+      "sum_SS target": "4671292.923900",
+      "sum_On Hands Qty": "11557069.000000",
+      "sum_On Order Qty": "7876181.000000"
+    },
+    {
+      "period": "2023-11-18",
+      "n": 91325,
+      "sum_Ranking": "283611.000000",
+      "sum_Avg Weekly Demand": "627382.222500",
+      "sum_SS target": "4654975.244500",
+      "sum_On Hands Qty": "12039306.000000",
+      "sum_On Order Qty": "7303800.000000"
+    },
+    {
+      "period": "2023-11-25",
+      "n": 91263,
+      "sum_Ranking": "281268.000000",
+      "sum_Avg Weekly Demand": "622930.605200",
+      "sum_SS target": "4767946.264400",
+      "sum_On Hands Qty": "12246647.000000",
+      "sum_On Order Qty": "7325012.000000"
+    },
+    {
+      "period": "2023-12-02",
+      "n": 91484,
+      "sum_Ranking": "280678.000000",
+      "sum_Avg Weekly Demand": "629893.152200",
+      "sum_SS target": "4762578.947800",
+      "sum_On Hands Qty": "11516042.000000",
+      "sum_On Order Qty": "7043483.000000"
+    },
+    {
+      "period": "2023-12-09",
+      "n": 91458,
+      "sum_Ranking": "277587.000000",
+      "sum_Avg Weekly Demand": "633705.058300",
+      "sum_SS target": "4862903.600300",
+      "sum_On Hands Qty": "11528648.000000",
+      "sum_On Order Qty": "6846275.000000"
+    },
+    {
+      "period": "2023-12-16",
+      "n": 91534,
+      "sum_Ranking": "279598.000000",
+      "sum_Avg Weekly Demand": "635438.143800",
+      "sum_SS target": "4776179.600200",
+      "sum_On Hands Qty": "11420421.000000",
+      "sum_On Order Qty": "6565423.000000"
+    },
+    {
+      "period": "2023-12-23",
+      "n": 91247,
+      "sum_Ranking": "279362.000000",
+      "sum_Avg Weekly Demand": "642543.911400",
+      "sum_SS target": "4693732.598300",
+      "sum_On Hands Qty": "11714498.000000",
+      "sum_On Order Qty": "6339564.000000"
+    },
+    {
+      "period": "2023-12-30",
+      "n": 91384,
+      "sum_Ranking": "280856.000000",
+      "sum_Avg Weekly Demand": "637906.227500",
+      "sum_SS target": "4795169.605000",
+      "sum_On Hands Qty": "11892560.000000",
+      "sum_On Order Qty": "5728171.000000"
+    },
+    {
+      "period": "2024-01-06",
+      "n": 91058,
+      "sum_Ranking": "280054.000000",
+      "sum_Avg Weekly Demand": "648775.518200",
+      "sum_SS target": "4689030.241900",
+      "sum_On Hands Qty": "12661727.000000",
+      "sum_On Order Qty": "6521709.000000"
+    },
+    {
+      "period": "2024-01-13",
+      "n": 91183,
+      "sum_Ranking": "279990.000000",
+      "sum_Avg Weekly Demand": "645296.756300",
+      "sum_SS target": "4601999.904500",
+      "sum_On Hands Qty": "12666321.000000",
+      "sum_On Order Qty": "5461261.000000"
+    },
+    {
+      "period": "2024-01-20",
+      "n": 91337,
+      "sum_Ranking": "280250.000000",
+      "sum_Avg Weekly Demand": "648480.210300",
+      "sum_SS target": "4592092.242900",
+      "sum_On Hands Qty": "12622474.000000",
+      "sum_On Order Qty": "6180190.000000"
+    },
+    {
+      "period": "2024-01-27",
+      "n": 91424,
+      "sum_Ranking": "280183.000000",
+      "sum_Avg Weekly Demand": "644968.905700",
+      "sum_SS target": "4642285.901700",
+      "sum_On Hands Qty": "12637358.000000",
+      "sum_On Order Qty": "5300030.000000"
+    },
+    {
+      "period": "2024-02-03",
+      "n": 96738,
+      "sum_Ranking": "294847.000000",
+      "sum_Avg Weekly Demand": "635896.066200",
+      "sum_SS target": "4456988.637900",
+      "sum_On Hands Qty": "12885848.000000",
+      "sum_On Order Qty": "5268665.000000"
+    },
+    {
+      "period": "2024-02-10",
+      "n": 96990,
+      "sum_Ranking": "298497.000000",
+      "sum_Avg Weekly Demand": "632445.912500",
+      "sum_SS target": "4550252.601500",
+      "sum_On Hands Qty": "12133411.000000",
+      "sum_On Order Qty": "4748390.000000"
+    },
+    {
+      "period": "2024-02-17",
+      "n": 97051,
+      "sum_Ranking": "298617.000000",
+      "sum_Avg Weekly Demand": "629484.221400",
+      "sum_SS target": "4490200.614700",
+      "sum_On Hands Qty": "11184640.000000",
+      "sum_On Order Qty": "5226101.000000"
+    },
+    {
+      "period": "2024-02-24",
+      "n": 97081,
+      "sum_Ranking": "297635.000000",
+      "sum_Avg Weekly Demand": "620238.213100",
+      "sum_SS target": "4334302.608800",
+      "sum_On Hands Qty": "10816263.000000",
+      "sum_On Order Qty": "5304341.000000"
+    },
+    {
+      "period": "2024-03-02",
+      "n": 97289,
+      "sum_Ranking": "298484.000000",
+      "sum_Avg Weekly Demand": "607907.134400",
+      "sum_SS target": "4321207.609000",
+      "sum_On Hands Qty": "11916479.000000",
+      "sum_On Order Qty": "5823169.000000"
+    },
+    {
+      "period": "2024-03-09",
+      "n": 97205,
+      "sum_Ranking": "296036.000000",
+      "sum_Avg Weekly Demand": "607779.661200",
+      "sum_SS target": "4498325.291700",
+      "sum_On Hands Qty": "11305698.000000",
+      "sum_On Order Qty": "5397569.000000"
+    },
+    {
+      "period": "2024-03-16",
+      "n": 96387,
+      "sum_Ranking": "295727.000000",
+      "sum_Avg Weekly Demand": "608293.601800",
+      "sum_SS target": "4669051.623000",
+      "sum_On Hands Qty": "11094878.000000",
+      "sum_On Order Qty": "4523468.000000"
+    },
+    {
+      "period": "2024-03-23",
+      "n": 96989,
+      "sum_Ranking": "296207.000000",
+      "sum_Avg Weekly Demand": "617907.453000",
+      "sum_SS target": "4877157.613900",
+      "sum_On Hands Qty": "11775568.000000",
+      "sum_On Order Qty": "4552123.000000"
+    },
+    {
+      "period": "2024-03-30",
+      "n": 96870,
+      "sum_Ranking": "295797.000000",
+      "sum_Avg Weekly Demand": "617518.991100",
+      "sum_SS target": "4968552.276500",
+      "sum_On Hands Qty": "11217432.000000",
+      "sum_On Order Qty": "4703816.000000"
+    },
+    {
+      "period": "2024-04-06",
+      "n": 96756,
+      "sum_Ranking": "297541.000000",
+      "sum_Avg Weekly Demand": "599288.990400",
+      "sum_SS target": "4884646.926900",
+      "sum_On Hands Qty": "11500624.000000",
+      "sum_On Order Qty": "5180357.000000"
+    },
+    {
+      "period": "2024-04-13",
+      "n": 96881,
+      "sum_Ranking": "298679.000000",
+      "sum_Avg Weekly Demand": "593780.140700",
+      "sum_SS target": "4651321.539200",
+      "sum_On Hands Qty": "11836076.000000",
+      "sum_On Order Qty": "4969047.000000"
+    },
+    {
+      "period": "2024-04-20",
+      "n": 100400,
+      "sum_Ranking": "307338.000000",
+      "sum_Avg Weekly Demand": "593018.837300",
+      "sum_SS target": "4649693.213400",
+      "sum_On Hands Qty": "11670927.000000",
+      "sum_On Order Qty": "4598508.000000"
+    },
+    {
+      "period": "2024-04-27",
+      "n": 100604,
+      "sum_Ranking": "310125.000000",
+      "sum_Avg Weekly Demand": "589247.909400",
+      "sum_SS target": "4612701.213100",
+      "sum_On Hands Qty": "11217706.000000",
+      "sum_On Order Qty": "4414913.000000"
+    },
+    {
+      "period": "2024-05-04",
+      "n": 100441,
+      "sum_Ranking": "309252.000000",
+      "sum_Avg Weekly Demand": "585911.351500",
+      "sum_SS target": "4597265.294700",
+      "sum_On Hands Qty": "11507772.000000",
+      "sum_On Order Qty": "4644735.000000"
+    },
+    {
+      "period": "2024-05-11",
+      "n": 100035,
+      "sum_Ranking": "306169.000000",
+      "sum_Avg Weekly Demand": "592287.287300",
+      "sum_SS target": "4537308.597000",
+      "sum_On Hands Qty": "11608190.000000",
+      "sum_On Order Qty": "4410386.000000"
+    },
+    {
+      "period": "2024-05-18",
+      "n": 99047,
+      "sum_Ranking": "304449.000000",
+      "sum_Avg Weekly Demand": "553984.595800",
+      "sum_SS target": "4684305.926300",
+      "sum_On Hands Qty": "11260192.000000",
+      "sum_On Order Qty": "4275875.000000"
+    },
+    {
+      "period": "2024-05-25",
+      "n": 99052,
+      "sum_Ranking": "305872.000000",
+      "sum_Avg Weekly Demand": "573464.974200",
+      "sum_SS target": "4613721.246300",
+      "sum_On Hands Qty": "12548815.000000",
+      "sum_On Order Qty": "4662174.000000"
+    },
+    {
+      "period": "2024-06-01",
+      "n": 99208,
+      "sum_Ranking": "305642.000000",
+      "sum_Avg Weekly Demand": "593536.136300",
+      "sum_SS target": "4687780.287700",
+      "sum_On Hands Qty": "12569850.000000",
+      "sum_On Order Qty": "4032675.000000"
+    },
+    {
+      "period": "2024-06-08",
+      "n": 99663,
+      "sum_Ranking": "304307.000000",
+      "sum_Avg Weekly Demand": "587711.190700",
+      "sum_SS target": "4781990.604700",
+      "sum_On Hands Qty": "12118243.000000",
+      "sum_On Order Qty": "4451287.000000"
+    },
+    {
+      "period": "2024-06-15",
+      "n": 99258,
+      "sum_Ranking": "304180.000000",
+      "sum_Avg Weekly Demand": "590428.122400",
+      "sum_SS target": "4759439.602300",
+      "sum_On Hands Qty": "12296672.000000",
+      "sum_On Order Qty": "4385571.000000"
+    },
+    {
+      "period": "2024-06-22",
+      "n": 99709,
+      "sum_Ranking": "304571.000000",
+      "sum_Avg Weekly Demand": "591165.422700",
+      "sum_SS target": "4796262.934800",
+      "sum_On Hands Qty": "11906532.000000",
+      "sum_On Order Qty": "4293104.000000"
+    },
+    {
+      "period": "2024-06-29",
+      "n": 99179,
+      "sum_Ranking": "301838.000000",
+      "sum_Avg Weekly Demand": "596489.183200",
+      "sum_SS target": "4717494.940100",
+      "sum_On Hands Qty": "11261432.000000",
+      "sum_On Order Qty": "4507405.000000"
+    },
+    {
+      "period": "2024-07-06",
+      "n": 100171,
+      "sum_Ranking": "304701.000000",
+      "sum_Avg Weekly Demand": "628937.278800",
+      "sum_SS target": "5025746.251100",
+      "sum_On Hands Qty": "11071528.000000",
+      "sum_On Order Qty": "5234905.000000"
+    },
+    {
+      "period": "2024-07-13",
+      "n": 100548,
+      "sum_Ranking": "303494.000000",
+      "sum_Avg Weekly Demand": "630343.436900",
+      "sum_SS target": "5545839.551300",
+      "sum_On Hands Qty": "10879487.000000",
+      "sum_On Order Qty": "5184234.000000"
+    },
+    {
+      "period": "2024-07-20",
+      "n": 100987,
+      "sum_Ranking": "301942.000000",
+      "sum_Avg Weekly Demand": "628118.506000",
+      "sum_SS target": "5613322.556000",
+      "sum_On Hands Qty": "10693620.000000",
+      "sum_On Order Qty": "5678400.000000"
+    },
+    {
+      "period": "2024-07-27",
+      "n": 100817,
+      "sum_Ranking": "301220.000000",
+      "sum_Avg Weekly Demand": "624682.666100",
+      "sum_SS target": "5673305.557200",
+      "sum_On Hands Qty": "10455400.000000",
+      "sum_On Order Qty": "6192517.000000"
+    },
+    {
+      "period": "2024-08-03",
+      "n": 104994,
+      "sum_Ranking": "311943.000000",
+      "sum_Avg Weekly Demand": "652788.819600",
+      "sum_SS target": "6004609.622300",
+      "sum_On Hands Qty": "10043483.000000",
+      "sum_On Order Qty": "6363439.000000"
+    },
+    {
+      "period": "2024-08-10",
+      "n": 105466,
+      "sum_Ranking": "314169.000000",
+      "sum_Avg Weekly Demand": "668796.118200",
+      "sum_SS target": "5990471.263600",
+      "sum_On Hands Qty": "9678764.000000",
+      "sum_On Order Qty": "5929789.000000"
+    },
+    {
+      "period": "2024-08-17",
+      "n": 107611,
+      "sum_Ranking": "321422.000000",
+      "sum_Avg Weekly Demand": "655709.032400",
+      "sum_SS target": "5990949.920200",
+      "sum_On Hands Qty": "9507340.000000",
+      "sum_On Order Qty": "5126777.000000"
+    },
+    {
+      "period": "2024-08-24",
+      "n": 107900,
+      "sum_Ranking": "322261.000000",
+      "sum_Avg Weekly Demand": "664363.114000",
+      "sum_SS target": "5523086.600400",
+      "sum_On Hands Qty": "10278676.000000",
+      "sum_On Order Qty": "5730518.000000"
+    },
+    {
+      "period": "2024-08-31",
+      "n": 113850,
+      "sum_Ranking": "337021.000000",
+      "sum_Avg Weekly Demand": "470829.958600",
+      "sum_SS target": "6071180.000000",
+      "sum_On Hands Qty": "10207631.000000",
+      "sum_On Order Qty": "5292486.000000"
+    },
+    {
+      "period": "2024-09-07",
+      "n": 114723,
+      "sum_Ranking": "342912.000000",
+      "sum_Avg Weekly Demand": "699803.586900",
+      "sum_SS target": "6131981.271700",
+      "sum_On Hands Qty": "10212401.000000",
+      "sum_On Order Qty": "5395766.000000"
+    },
+    {
+      "period": "2024-09-14",
+      "n": 114912,
+      "sum_Ranking": "342983.000000",
+      "sum_Avg Weekly Demand": "695372.361800",
+      "sum_SS target": "6118387.280200",
+      "sum_On Hands Qty": "10646176.000000",
+      "sum_On Order Qty": "6254474.000000"
+    },
+    {
+      "period": "2024-09-21",
+      "n": 115628,
+      "sum_Ranking": "346380.000000",
+      "sum_Avg Weekly Demand": "700023.430200",
+      "sum_SS target": "6197411.296600",
+      "sum_On Hands Qty": "10768344.000000",
+      "sum_On Order Qty": "6243088.000000"
+    },
+    {
+      "period": "2024-09-28",
+      "n": 116236,
+      "sum_Ranking": "347534.000000",
+      "sum_Avg Weekly Demand": "692028.504500",
+      "sum_SS target": "6251137.968000",
+      "sum_On Hands Qty": "10124883.000000",
+      "sum_On Order Qty": "6145740.000000"
+    },
+    {
+      "period": "2024-10-05",
+      "n": 116372,
+      "sum_Ranking": "349968.000000",
+      "sum_Avg Weekly Demand": "733069.970900",
+      "sum_SS target": "6045092.543700",
+      "sum_On Hands Qty": "10521485.000000",
+      "sum_On Order Qty": "6065795.000000"
+    },
+    {
+      "period": "2024-10-12",
+      "n": 115597,
+      "sum_Ranking": "349994.000000",
+      "sum_Avg Weekly Demand": "696981.748800",
+      "sum_SS target": "5926245.214400",
+      "sum_On Hands Qty": "11032184.000000",
+      "sum_On Order Qty": "5769519.000000"
+    },
+    {
+      "period": "2024-10-19",
+      "n": 115748,
+      "sum_Ranking": "350952.000000",
+      "sum_Avg Weekly Demand": "683207.039100",
+      "sum_SS target": "5828935.878300",
+      "sum_On Hands Qty": "11192660.000000",
+      "sum_On Order Qty": "5562162.000000"
+    },
+    {
+      "period": "2024-10-26",
+      "n": 117975,
+      "sum_Ranking": "358666.000000",
+      "sum_Avg Weekly Demand": "689027.503500",
+      "sum_SS target": "5643790.893900",
+      "sum_On Hands Qty": "12575505.000000",
+      "sum_On Order Qty": "5096068.000000"
+    },
+    {
+      "period": "2024-11-02",
+      "n": 120087,
+      "sum_Ranking": "365267.000000",
+      "sum_Avg Weekly Demand": "689923.031200",
+      "sum_SS target": "5781994.977900",
+      "sum_On Hands Qty": "11996710.000000",
+      "sum_On Order Qty": "4502876.000000"
+    },
+    {
+      "period": "2024-11-09",
+      "n": 121046,
+      "sum_Ranking": "368324.000000",
+      "sum_Avg Weekly Demand": "681107.879900",
+      "sum_SS target": "5853560.958900",
+      "sum_On Hands Qty": "11553613.000000",
+      "sum_On Order Qty": "4271045.000000"
+    },
+    {
+      "period": "2024-11-16",
+      "n": 121919,
+      "sum_Ranking": "368369.000000",
+      "sum_Avg Weekly Demand": "679585.250100",
+      "sum_SS target": "5759882.953400",
+      "sum_On Hands Qty": "12273806.000000",
+      "sum_On Order Qty": "3699434.000000"
+    },
+    {
+      "period": "2024-11-23",
+      "n": 120690,
+      "sum_Ranking": "367376.000000",
+      "sum_Avg Weekly Demand": "674710.873800",
+      "sum_SS target": "5575633.958900",
+      "sum_On Hands Qty": "12065257.000000",
+      "sum_On Order Qty": "3634688.000000"
+    },
+    {
+      "period": "2024-11-30",
+      "n": 120769,
+      "sum_Ranking": "371556.000000",
+      "sum_Avg Weekly Demand": "467914.782400",
+      "sum_SS target": "5965791.000000",
+      "sum_On Hands Qty": "12886732.000000",
+      "sum_On Order Qty": "3263412.000000"
+    },
+    {
+      "period": "2024-12-07",
+      "n": 121149,
+      "sum_Ranking": "363418.000000",
+      "sum_Avg Weekly Demand": "672244.738500",
+      "sum_SS target": "5468821.943200",
+      "sum_On Hands Qty": "12515704.000000",
+      "sum_On Order Qty": "3241039.000000"
+    },
+    {
+      "period": "2024-12-14",
+      "n": 121151,
+      "sum_Ranking": "363096.000000",
+      "sum_Avg Weekly Demand": "678137.743600",
+      "sum_SS target": "5423516.943400",
+      "sum_On Hands Qty": "12952751.000000",
+      "sum_On Order Qty": "3677810.000000"
+    },
+    {
+      "period": "2024-12-21",
+      "n": 121383,
+      "sum_Ranking": "363792.000000",
+      "sum_Avg Weekly Demand": "675392.582500",
+      "sum_SS target": "5265663.593600",
+      "sum_On Hands Qty": "13018526.000000",
+      "sum_On Order Qty": "4622066.000000"
+    },
+    {
+      "period": "2024-12-28",
+      "n": 121500,
+      "sum_Ranking": "364195.000000",
+      "sum_Avg Weekly Demand": "672894.275000",
+      "sum_SS target": "5208311.275400",
+      "sum_On Hands Qty": "13291500.000000",
+      "sum_On Order Qty": "4400386.000000"
+    },
+    {
+      "period": "2025-01-04",
+      "n": 121565,
+      "sum_Ranking": "367037.000000",
+      "sum_Avg Weekly Demand": "674530.685800",
+      "sum_SS target": "5032489.265800",
+      "sum_On Hands Qty": "13615025.000000",
+      "sum_On Order Qty": "5504822.000000"
+    },
+    {
+      "period": "2025-01-11",
+      "n": 120664,
+      "sum_Ranking": "366813.000000",
+      "sum_Avg Weekly Demand": "675772.476700",
+      "sum_SS target": "4907144.929800",
+      "sum_On Hands Qty": "13624773.000000",
+      "sum_On Order Qty": "5769198.000000"
+    },
+    {
+      "period": "2025-01-18",
+      "n": 120164,
+      "sum_Ranking": "367572.000000",
+      "sum_Avg Weekly Demand": "679101.875700",
+      "sum_SS target": "4894516.574200",
+      "sum_On Hands Qty": "13407124.000000",
+      "sum_On Order Qty": "5595566.000000"
+    },
+    {
+      "period": "2025-01-25",
+      "n": 123321,
+      "sum_Ranking": "374988.000000",
+      "sum_Avg Weekly Demand": "683178.632500",
+      "sum_SS target": "4910837.568100",
+      "sum_On Hands Qty": "12928831.000000",
+      "sum_On Order Qty": "4260514.000000"
+    },
+    {
+      "period": "2025-02-01",
+      "n": 126663,
+      "sum_Ranking": "388240.000000",
+      "sum_Avg Weekly Demand": "671906.627600",
+      "sum_SS target": "4745413.640300",
+      "sum_On Hands Qty": "12411286.000000",
+      "sum_On Order Qty": "4692763.000000"
+    },
+    {
+      "period": "2025-02-08",
+      "n": 126025,
+      "sum_Ranking": "384230.000000",
+      "sum_Avg Weekly Demand": "658202.936400",
+      "sum_SS target": "4972549.979300",
+      "sum_On Hands Qty": "12096958.000000",
+      "sum_On Order Qty": "4962878.000000"
+    },
+    {
+      "period": "2025-02-15",
+      "n": 125290,
+      "sum_Ranking": "383232.000000",
+      "sum_Avg Weekly Demand": "670183.703200",
+      "sum_SS target": "4725091.969400",
+      "sum_On Hands Qty": "11568392.000000",
+      "sum_On Order Qty": "4398769.000000"
+    },
+    {
+      "period": "2025-02-22",
+      "n": 125530,
+      "sum_Ranking": "380665.000000",
+      "sum_Avg Weekly Demand": "668048.020800",
+      "sum_SS target": "5024747.304900",
+      "sum_On Hands Qty": "11000415.000000",
+      "sum_On Order Qty": "4370893.000000"
+    },
+    {
+      "period": "2025-03-01",
+      "n": 119187,
+      "sum_Ranking": "359740.000000",
+      "sum_Avg Weekly Demand": "670183.425100",
+      "sum_SS target": "4981119.307100",
+      "sum_On Hands Qty": "10214426.000000",
+      "sum_On Order Qty": "4702285.000000"
+    },
+    {
+      "period": "2025-03-08",
+      "n": 119230,
+      "sum_Ranking": "357814.000000",
+      "sum_Avg Weekly Demand": "672458.418000",
+      "sum_SS target": "5087313.611300",
+      "sum_On Hands Qty": "9592617.000000",
+      "sum_On Order Qty": "5244447.000000"
+    },
+    {
+      "period": "2025-03-15",
+      "n": 118789,
+      "sum_Ranking": "360473.000000",
+      "sum_Avg Weekly Demand": "604961.316200",
+      "sum_SS target": "5119812.617900",
+      "sum_On Hands Qty": "9969394.000000",
+      "sum_On Order Qty": "5395903.000000"
+    },
+    {
+      "period": "2025-03-22",
+      "n": 118262,
+      "sum_Ranking": "356250.000000",
+      "sum_Avg Weekly Demand": "698269.271900",
+      "sum_SS target": "5095594.619800",
+      "sum_On Hands Qty": "10091256.000000",
+      "sum_On Order Qty": "5117210.000000"
+    },
+    {
+      "period": "2025-03-29",
+      "n": 118311,
+      "sum_Ranking": "353887.000000",
+      "sum_Avg Weekly Demand": "676140.905100",
+      "sum_SS target": "4561207.282000",
+      "sum_On Hands Qty": "10108906.000000",
+      "sum_On Order Qty": "4330323.000000"
+    },
+    {
+      "period": "2025-04-05",
+      "n": 118500,
+      "sum_Ranking": "353475.000000",
+      "sum_Avg Weekly Demand": "673946.498900",
+      "sum_SS target": "4688609.296000",
+      "sum_On Hands Qty": "10373098.000000",
+      "sum_On Order Qty": "4013968.000000"
+    },
+    {
+      "period": "2025-04-12",
+      "n": 118774,
+      "sum_Ranking": "351578.000000",
+      "sum_Avg Weekly Demand": "682147.269400",
+      "sum_SS target": "4712908.252500",
+      "sum_On Hands Qty": "10498902.000000",
+      "sum_On Order Qty": "3848555.000000"
+    },
+    {
+      "period": "2025-04-19",
+      "n": 118580,
+      "sum_Ranking": "350819.000000",
+      "sum_Avg Weekly Demand": "683978.650700",
+      "sum_SS target": "4818016.588600",
+      "sum_On Hands Qty": "11073620.000000",
+      "sum_On Order Qty": "5185981.000000"
+    },
+    {
+      "period": "2025-04-26",
+      "n": 118972,
+      "sum_Ranking": "351529.000000",
+      "sum_Avg Weekly Demand": "682511.409600",
+      "sum_SS target": "4836795.250700",
+      "sum_On Hands Qty": "10717912.000000",
+      "sum_On Order Qty": "4736572.000000"
+    },
+    {
+      "period": "2025-05-03",
+      "n": 124918,
+      "sum_Ranking": "369162.000000",
+      "sum_Avg Weekly Demand": "704795.709500",
+      "sum_SS target": "4997179.962200",
+      "sum_On Hands Qty": "10534768.000000",
+      "sum_On Order Qty": "5024956.000000"
+    },
+    {
+      "period": "2025-05-10",
+      "n": 124826,
+      "sum_Ranking": "368759.000000",
+      "sum_Avg Weekly Demand": "697440.477000",
+      "sum_SS target": "4863459.599900",
+      "sum_On Hands Qty": "10685606.000000",
+      "sum_On Order Qty": "4316202.000000"
+    },
+    {
+      "period": "2025-05-17",
+      "n": 125159,
+      "sum_Ranking": "366523.000000",
+      "sum_Avg Weekly Demand": "695129.856900",
+      "sum_SS target": "4566338.598100",
+      "sum_On Hands Qty": "11003066.000000",
+      "sum_On Order Qty": "4284844.000000"
+    },
+    {
+      "period": "2025-05-24",
+      "n": 124248,
+      "sum_Ranking": "363194.000000",
+      "sum_Avg Weekly Demand": "690201.094200",
+      "sum_SS target": "4639475.262400",
+      "sum_On Hands Qty": "11055672.000000",
+      "sum_On Order Qty": "4543076.000000"
+    },
+    {
+      "period": "2025-05-31",
+      "n": 121753,
+      "sum_Ranking": "365073.000000",
+      "sum_Avg Weekly Demand": "502884.961200",
+      "sum_SS target": "4699867.000000",
+      "sum_On Hands Qty": "11565699.000000",
+      "sum_On Order Qty": "4545553.000000"
+    },
+    {
+      "period": "2025-06-07",
+      "n": 122187,
+      "sum_Ranking": "358986.000000",
+      "sum_Avg Weekly Demand": "686383.582000",
+      "sum_SS target": "4724170.292700",
+      "sum_On Hands Qty": "12657782.000000",
+      "sum_On Order Qty": "4257188.000000"
+    },
+    {
+      "period": "2025-06-14",
+      "n": 117743,
+      "sum_Ranking": "346085.000000",
+      "sum_Avg Weekly Demand": "672194.675800",
+      "sum_SS target": "4624076.614100",
+      "sum_On Hands Qty": "12063399.000000",
+      "sum_On Order Qty": "4044494.000000"
+    },
+    {
+      "period": "2025-06-21",
+      "n": 118241,
+      "sum_Ranking": "343940.000000",
+      "sum_Avg Weekly Demand": "669806.367300",
+      "sum_SS target": "4552514.288700",
+      "sum_On Hands Qty": "11659953.000000",
+      "sum_On Order Qty": "4883451.000000"
+    },
+    {
+      "period": "2025-06-28",
+      "n": 116506,
+      "sum_Ranking": "339794.000000",
+      "sum_Avg Weekly Demand": "671286.307800",
+      "sum_SS target": "4597236.291400",
+      "sum_On Hands Qty": "11376480.000000",
+      "sum_On Order Qty": "5150592.000000"
+    },
+    {
+      "period": "2025-07-05",
+      "n": 117031,
+      "sum_Ranking": "339559.000000",
+      "sum_Avg Weekly Demand": "676073.936000",
+      "sum_SS target": "4663778.285000",
+      "sum_On Hands Qty": "11699837.000000",
+      "sum_On Order Qty": "4760646.000000"
+    },
+    {
+      "period": "2025-07-12",
+      "n": 117091,
+      "sum_Ranking": "338635.000000",
+      "sum_Avg Weekly Demand": "666291.395500",
+      "sum_SS target": "4604020.603600",
+      "sum_On Hands Qty": "11819768.000000",
+      "sum_On Order Qty": "4418742.000000"
+    },
+    {
+      "period": "2025-07-19",
+      "n": 117326,
+      "sum_Ranking": "336507.000000",
+      "sum_Avg Weekly Demand": "664577.479900",
+      "sum_SS target": "4443101.924900",
+      "sum_On Hands Qty": "11607141.000000",
+      "sum_On Order Qty": "4683737.000000"
+    },
+    {
+      "period": "2025-07-26",
+      "n": 117338,
+      "sum_Ranking": "334590.000000",
+      "sum_Avg Weekly Demand": "659975.158000",
+      "sum_SS target": "4440267.920400",
+      "sum_On Hands Qty": "11844430.000000",
+      "sum_On Order Qty": "5146428.000000"
+    },
+    {
+      "period": "2025-08-02",
+      "n": 120460,
+      "sum_Ranking": "341841.000000",
+      "sum_Avg Weekly Demand": "647289.931800",
+      "sum_SS target": "3179293.978000",
+      "sum_On Hands Qty": "11908356.000000",
+      "sum_On Order Qty": "4775363.000000"
+    },
+    {
+      "period": "2025-08-09",
+      "n": 120621,
+      "sum_Ranking": "341653.000000",
+      "sum_Avg Weekly Demand": "647120.228500",
+      "sum_SS target": "4528948.297000",
+      "sum_On Hands Qty": "11977686.000000",
+      "sum_On Order Qty": "4220349.000000"
+    },
+    {
+      "period": "2025-08-16",
+      "n": 121018,
+      "sum_Ranking": "340767.000000",
+      "sum_Avg Weekly Demand": "644687.376000",
+      "sum_SS target": "4432499.612200",
+      "sum_On Hands Qty": "11783927.000000",
+      "sum_On Order Qty": "3930303.000000"
+    },
+    {
+      "period": "2025-08-23",
+      "n": 121157,
+      "sum_Ranking": "338496.000000",
+      "sum_Avg Weekly Demand": "648911.764900",
+      "sum_SS target": "4430418.609000",
+      "sum_On Hands Qty": "11547065.000000",
+      "sum_On Order Qty": "3632484.000000"
+    },
+    {
+      "period": "2025-08-30",
+      "n": 120025,
+      "sum_Ranking": "339381.000000",
+      "sum_Avg Weekly Demand": "460910.445200",
+      "sum_SS target": "4612235.500000",
+      "sum_On Hands Qty": "11799680.000000",
+      "sum_On Order Qty": "4136546.000000"
+    },
+    {
+      "period": "2025-09-06",
+      "n": 120520,
+      "sum_Ranking": "334534.000000",
+      "sum_Avg Weekly Demand": "667785.534500",
+      "sum_SS target": "4569504.301100",
+      "sum_On Hands Qty": "11831474.000000",
+      "sum_On Order Qty": "4547514.000000"
+    },
+    {
+      "period": "2025-09-13",
+      "n": 120606,
+      "sum_Ranking": "332658.000000",
+      "sum_Avg Weekly Demand": "667110.685500",
+      "sum_SS target": "4522923.636500",
+      "sum_On Hands Qty": "11124671.000000",
+      "sum_On Order Qty": "5392378.000000"
+    },
+    {
+      "period": "2025-09-20",
+      "n": 121264,
+      "sum_Ranking": "330691.000000",
+      "sum_Avg Weekly Demand": "668989.992700",
+      "sum_SS target": "4300458.622800",
+      "sum_On Hands Qty": "10970389.000000",
+      "sum_On Order Qty": "5516173.000000"
+    },
+    {
+      "period": "2025-09-27",
+      "n": 121755,
+      "sum_Ranking": "330490.000000",
+      "sum_Avg Weekly Demand": "666330.833700",
+      "sum_SS target": "4606455.292100",
+      "sum_On Hands Qty": "10756397.000000",
+      "sum_On Order Qty": "5175651.000000"
+    },
+    {
+      "period": "2025-10-04",
+      "n": 112538,
+      "sum_Ranking": "319141.000000",
+      "sum_Avg Weekly Demand": "664780.824200",
+      "sum_SS target": "4437473.629500",
+      "sum_On Hands Qty": "10564004.000000",
+      "sum_On Order Qty": "4582136.000000"
+    },
+    {
+      "period": "2025-10-11",
+      "n": 111959,
+      "sum_Ranking": "317168.000000",
+      "sum_Avg Weekly Demand": "653450.217500",
+      "sum_SS target": "4468881.288000",
+      "sum_On Hands Qty": "10128910.000000",
+      "sum_On Order Qty": "4018197.000000"
+    },
+    {
+      "period": "2025-10-18",
+      "n": 112433,
+      "sum_Ranking": "317358.000000",
+      "sum_Avg Weekly Demand": "653838.913000",
+      "sum_SS target": "4481841.286900",
+      "sum_On Hands Qty": "10302315.000000",
+      "sum_On Order Qty": "4154760.000000"
+    },
+    {
+      "period": "2025-10-25",
+      "n": 112711,
+      "sum_Ranking": "317009.000000",
+      "sum_Avg Weekly Demand": "654318.449700",
+      "sum_SS target": "4447297.280800",
+      "sum_On Hands Qty": "10068418.000000",
+      "sum_On Order Qty": "4862112.000000"
+    },
+    {
+      "period": "2025-11-01",
+      "n": 117766,
+      "sum_Ranking": "331873.000000",
+      "sum_Avg Weekly Demand": "672759.069200",
+      "sum_SS target": "4517158.980300",
+      "sum_On Hands Qty": "9607343.000000",
+      "sum_On Order Qty": "4271839.000000"
+    },
+    {
+      "period": "2025-11-08",
+      "n": 117916,
+      "sum_Ranking": "331509.000000",
+      "sum_Avg Weekly Demand": "673826.836500",
+      "sum_SS target": "4924306.306500",
+      "sum_On Hands Qty": "9524522.000000",
+      "sum_On Order Qty": "4341550.000000"
+    },
+    {
+      "period": "2025-11-15",
+      "n": 118450,
+      "sum_Ranking": "329626.000000",
+      "sum_Avg Weekly Demand": "666510.757700",
+      "sum_SS target": "4919475.964500",
+      "sum_On Hands Qty": "9529710.000000",
+      "sum_On Order Qty": "4555692.000000"
+    },
+    {
+      "period": "2025-11-22",
+      "n": 118566,
+      "sum_Ranking": "326937.000000",
+      "sum_Avg Weekly Demand": "663081.067400",
+      "sum_SS target": "5012382.961400",
+      "sum_On Hands Qty": "9702773.000000",
+      "sum_On Order Qty": "4309155.000000"
+    },
+    {
+      "period": "2025-11-29",
+      "n": 118683,
+      "sum_Ranking": "331015.000000",
+      "sum_Avg Weekly Demand": "455947.495700",
+      "sum_SS target": "5254707.500000",
+      "sum_On Hands Qty": "9551308.000000",
+      "sum_On Order Qty": "4349022.000000"
+    },
+    {
+      "period": "2025-12-06",
+      "n": 118852,
+      "sum_Ranking": "322618.000000",
+      "sum_Avg Weekly Demand": "660075.220900",
+      "sum_SS target": "5121352.625000",
+      "sum_On Hands Qty": "9359194.000000",
+      "sum_On Order Qty": "4624565.000000"
+    },
+    {
+      "period": "2025-12-13",
+      "n": 118049,
+      "sum_Ranking": "323089.000000",
+      "sum_Avg Weekly Demand": "630244.997800",
+      "sum_SS target": "5142041.954100",
+      "sum_On Hands Qty": "8908918.000000",
+      "sum_On Order Qty": "4671603.000000"
+    },
+    {
+      "period": "2025-12-20",
+      "n": 118245,
+      "sum_Ranking": "324215.000000",
+      "sum_Avg Weekly Demand": "625711.310500",
+      "sum_SS target": "4852652.955800",
+      "sum_On Hands Qty": "8885924.000000",
+      "sum_On Order Qty": "4315399.000000"
+    },
+    {
+      "period": "2025-12-27",
+      "n": 118258,
+      "sum_Ranking": "323152.000000",
+      "sum_Avg Weekly Demand": "618135.695000",
+      "sum_SS target": "4780886.287800",
+      "sum_On Hands Qty": "9679991.000000",
+      "sum_On Order Qty": "4467967.000000"
+    },
+    {
+      "period": "2026-01-03",
+      "n": 118300,
+      "sum_Ranking": "323164.000000",
+      "sum_Avg Weekly Demand": "624029.225000",
+      "sum_SS target": "4701536.294300",
+      "sum_On Hands Qty": "9839247.000000",
+      "sum_On Order Qty": "4625600.000000"
+    },
+    {
+      "period": "2026-01-10",
+      "n": 117562,
+      "sum_Ranking": "321489.000000",
+      "sum_Avg Weekly Demand": "628066.527700",
+      "sum_SS target": "4590336.283000",
+      "sum_On Hands Qty": "9853821.000000",
+      "sum_On Order Qty": "4603672.000000"
+    },
+    {
+      "period": "2026-01-17",
+      "n": 117578,
+      "sum_Ranking": "320652.000000",
+      "sum_Avg Weekly Demand": "618652.382500",
+      "sum_SS target": "4615328.949000",
+      "sum_On Hands Qty": "9282425.000000",
+      "sum_On Order Qty": "5109885.000000"
+    },
+    {
+      "period": "2026-01-24",
+      "n": 115685,
+      "sum_Ranking": "320609.000000",
+      "sum_Avg Weekly Demand": "622608.384900",
+      "sum_SS target": "4485961.279200",
+      "sum_On Hands Qty": "9573035.000000",
+      "sum_On Order Qty": "5344824.000000"
+    },
+    {
+      "period": "2026-01-31",
+      "n": 114972,
+      "sum_Ranking": "323261.000000",
+      "sum_Avg Weekly Demand": "447275.456500",
+      "sum_SS target": "4248813.500000",
+      "sum_On Hands Qty": "9610053.000000",
+      "sum_On Order Qty": "5277977.000000"
+    },
+    {
+      "period": "2026-02-07",
+      "n": 116669,
+      "sum_Ranking": "324030.000000",
+      "sum_Avg Weekly Demand": "639648.701900",
+      "sum_SS target": "4508199.961600",
+      "sum_On Hands Qty": "9665284.000000",
+      "sum_On Order Qty": "4453213.000000"
+    },
+    {
+      "period": "2026-02-14",
+      "n": 116879,
+      "sum_Ranking": "325912.000000",
+      "sum_Avg Weekly Demand": "627989.074200",
+      "sum_SS target": "4500205.627800",
+      "sum_On Hands Qty": "9484061.000000",
+      "sum_On Order Qty": "3775720.000000"
+    },
+    {
+      "period": "2026-02-21",
+      "n": 117068,
+      "sum_Ranking": "324757.000000",
+      "sum_Avg Weekly Demand": "626710.995100",
+      "sum_SS target": "4565041.939700",
+      "sum_On Hands Qty": "9669724.000000",
+      "sum_On Order Qty": "4724458.000000"
+    },
+    {
+      "period": "2026-02-28",
+      "n": 117296,
+      "sum_Ranking": "329014.000000",
+      "sum_Avg Weekly Demand": "441444.371300",
+      "sum_SS target": "4663619.000000",
+      "sum_On Hands Qty": "9232969.000000",
+      "sum_On Order Qty": "4829115.000000"
+    },
+    {
+      "period": "2026-03-07",
+      "n": 117414,
+      "sum_Ranking": "324309.000000",
+      "sum_Avg Weekly Demand": "618363.236800",
+      "sum_SS target": "4628971.622400",
+      "sum_On Hands Qty": "9261282.000000",
+      "sum_On Order Qty": "4607507.000000"
+    },
+    {
+      "period": "2026-03-14",
+      "n": 112994,
+      "sum_Ranking": "323784.000000",
+      "sum_Avg Weekly Demand": "604045.856900",
+      "sum_SS target": "4621570.955700",
+      "sum_On Hands Qty": "9092982.000000",
+      "sum_On Order Qty": "4213105.000000"
+    },
+    {
+      "period": "2026-03-21",
+      "n": 113016,
+      "sum_Ranking": "322544.000000",
+      "sum_Avg Weekly Demand": "604473.774500",
+      "sum_SS target": "4619888.288900",
+      "sum_On Hands Qty": "9084268.000000",
+      "sum_On Order Qty": "4112347.000000"
+    },
+    {
+      "period": "2026-03-28",
+      "n": 113171,
+      "sum_Ranking": "321267.000000",
+      "sum_Avg Weekly Demand": "604202.696600",
+      "sum_SS target": "4655379.617800",
+      "sum_On Hands Qty": "8942718.000000",
+      "sum_On Order Qty": "4378512.000000"
+    },
+    {
+      "period": "2026-04-04",
+      "n": 113562,
+      "sum_Ranking": "322981.000000",
+      "sum_Avg Weekly Demand": "604011.927800",
+      "sum_SS target": "4620466.957200",
+      "sum_On Hands Qty": "9208981.000000",
+      "sum_On Order Qty": "3951959.000000"
+    },
+    {
+      "period": "2026-04-11",
+      "n": 102892,
+      "sum_Ranking": "302071.000000",
+      "sum_Avg Weekly Demand": "598600.697100",
+      "sum_SS target": "4527553.597400",
+      "sum_On Hands Qty": "9826502.000000",
+      "sum_On Order Qty": "4785574.000000"
+    },
+    {
+      "period": "2026-04-18",
+      "n": 103023,
+      "sum_Ranking": "301120.000000",
+      "sum_Avg Weekly Demand": "596875.233800",
+      "sum_SS target": "4372093.596900",
+      "sum_On Hands Qty": "9464288.000000",
+      "sum_On Order Qty": "4993450.000000"
+    },
+    {
+      "period": "2026-04-25",
+      "n": 103031,
+      "sum_Ranking": "299901.000000",
+      "sum_Avg Weekly Demand": "590352.151600",
+      "sum_SS target": "4447367.257100",
+      "sum_On Hands Qty": "10553602.000000",
+      "sum_On Order Qty": "4451348.000000"
+    },
+    {
+      "period": "2026-05-02",
+      "n": 101683,
+      "sum_Ranking": "298171.000000",
+      "sum_Avg Weekly Demand": "592721.399800",
+      "sum_SS target": "4497010.287600",
+      "sum_On Hands Qty": "10133381.000000",
+      "sum_On Order Qty": "4791683.000000"
+    },
+    {
+      "period": "2026-05-09",
+      "n": 101805,
+      "sum_Ranking": "297252.000000",
+      "sum_Avg Weekly Demand": "588324.170900",
+      "sum_SS target": "4588566.290600",
+      "sum_On Hands Qty": "9801402.000000",
+      "sum_On Order Qty": "4687905.000000"
+    },
+    {
+      "period": "2026-05-16",
+      "n": 106438,
+      "sum_Ranking": "310773.000000",
+      "sum_Avg Weekly Demand": "601607.179000",
+      "sum_SS target": "4568815.955600",
+      "sum_On Hands Qty": "9912724.000000",
+      "sum_On Order Qty": "4947123.000000"
+    },
+    {
+      "period": "2026-05-23",
+      "n": 103591,
+      "sum_Ranking": "299666.000000",
+      "sum_Avg Weekly Demand": "594144.406100",
+      "sum_SS target": "4639768.615800",
+      "sum_On Hands Qty": "9760654.000000",
+      "sum_On Order Qty": "5214190.000000"
+    },
+    {
+      "period": "2026-05-30",
+      "n": 103660,
+      "sum_Ranking": "302067.000000",
+      "sum_Avg Weekly Demand": "415666.612600",
+      "sum_SS target": "4743956.000000",
+      "sum_On Hands Qty": "9653727.000000",
+      "sum_On Order Qty": "5299441.000000"
+    },
+    {
+      "period": "2026-06-06",
+      "n": 103962,
+      "sum_Ranking": "296063.000000",
+      "sum_Avg Weekly Demand": "597590.466800",
+      "sum_SS target": "4762400.956500",
+      "sum_On Hands Qty": "9903686.000000",
+      "sum_On Order Qty": "4672767.000000"
+    },
+    {
+      "period": "2026-06-13",
+      "n": 104065,
+      "sum_Ranking": "294718.000000",
+      "sum_Avg Weekly Demand": "594929.154100",
+      "sum_SS target": "4624715.624000",
+      "sum_On Hands Qty": "9769587.000000",
+      "sum_On Order Qty": "4965370.000000"
+    },
+    {
+      "period": "2026-06-20",
+      "n": 104744,
+      "sum_Ranking": "294597.000000",
+      "sum_Avg Weekly Demand": "594119.231300",
+      "sum_SS target": "4570404.290900",
+      "sum_On Hands Qty": "10172071.000000",
+      "sum_On Order Qty": "5057022.000000"
+    },
+    {
+      "period": "2026-06-27",
+      "n": 105579,
+      "sum_Ranking": "296383.000000",
+      "sum_Avg Weekly Demand": "589173.916900",
+      "sum_SS target": "4609880.291300",
+      "sum_On Hands Qty": "10159192.000000",
+      "sum_On Order Qty": "5544490.000000"
+    },
+    {
+      "period": "2026-07-04",
+      "n": 103806,
+      "sum_Ranking": "296508.000000",
+      "sum_Avg Weekly Demand": "608264.396300",
+      "sum_SS target": "4822381.616400",
+      "sum_On Hands Qty": "10111486.000000",
+      "sum_On Order Qty": "5931788.000000"
+    },
+    {
+      "period": "2026-07-09",
+      "n": 103816,
+      "sum_Ranking": "276592.000000",
+      "sum_Avg Weekly Demand": "606975.325500",
+      "sum_SS target": "4639241.272000",
+      "sum_On Hands Qty": "10645699.000000",
+      "sum_On Order Qty": "4932055.000000"
+    }
+  ],
+  "columns_classified": {
+    "date": [
+      "SnapshotWeekEnding",
+      "LastInvoiceDate"
+    ],
+    "numeric": [
+      "Ranking",
+      "Avg Weekly Demand",
+      "SS target",
+      "On Hands Qty",
+      "On Order Qty"
+    ],
+    "categorical": [
+      "SubStatus",
+      "InventoryClassification Final Status",
+      "AFIStatus"
+    ]
+  },
+  "query_insights": [
+    {
+      "distributed_statement_id": "C536646E-B422-48D8-A560-730820C79A1E",
+      "start_time": "2026-07-10T14:15:43.107750",
+      "end_time": "2026-07-10T14:15:43.125328",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 29,
+      "allocated_cpu_time_ms": 15,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 10,
+      "status": "Succeeded",
+      "statement_type": "SELECT"
+    },
+    {
+      "distributed_statement_id": "FED73995-3975-4945-8603-299AADE6F3D0",
+      "start_time": "2026-07-10T08:51:47.334187",
+      "end_time": "2026-07-10T08:53:58.447397",
+      "elapsed_sec": 131,
+      "total_elapsed_time_ms": 133764,
+      "allocated_cpu_time_ms": 12683997,
+      "data_scanned_remote_storage_mb": "5431.027",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 19605162,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "0C9350A3-B94A-43B0-A419-B5BF95DE9B24",
+      "start_time": "2026-07-10T08:51:44.677892",
+      "end_time": "2026-07-10T08:51:44.677914",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "91E39D29-DAB5-45C1-9294-F9BFDCE55B35",
+      "start_time": "2026-07-08T08:11:55.654407",
+      "end_time": "2026-07-08T08:13:31.885598",
+      "elapsed_sec": 96,
+      "total_elapsed_time_ms": 115052,
+      "allocated_cpu_time_ms": 12060249,
+      "data_scanned_remote_storage_mb": "5260.447",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 19315479,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "B0F0EFF8-384B-434E-9786-085454C7B1F0",
+      "start_time": "2026-07-08T08:11:36.818595",
+      "end_time": "2026-07-08T08:11:36.818618",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "2EE27180-5DB6-4614-9594-9CBD977D6B7F",
+      "start_time": "2026-07-08T07:05:21.303189",
+      "end_time": "2026-07-08T07:06:11.770817",
+      "elapsed_sec": 50,
+      "total_elapsed_time_ms": 243540,
+      "allocated_cpu_time_ms": 706221,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "313.594",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "SELECT"
+    },
+    {
+      "distributed_statement_id": "8BF34605-FE31-4B2F-B927-1B1D21B04929",
+      "start_time": "2026-07-07T07:00:46.422940",
+      "end_time": "2026-07-07T07:00:46.426350",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 16,
+      "allocated_cpu_time_ms": 3,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 1,
+      "status": "Succeeded",
+      "statement_type": "SELECT"
+    },
+    {
+      "distributed_statement_id": "88E2867E-5D4B-4D10-8BD2-1AA1F14EBE50",
+      "start_time": "2026-07-07T04:26:08.111493",
+      "end_time": "2026-07-07T04:27:04.524079",
+      "elapsed_sec": 56,
+      "total_elapsed_time_ms": 69864,
+      "allocated_cpu_time_ms": 4703252,
+      "data_scanned_remote_storage_mb": "3862.811",
+      "data_scanned_memory_mb": "56.988",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 3429355,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "D948683D-EDED-4133-B823-EEA2787124D2",
+      "start_time": "2026-07-07T04:25:54.655465",
+      "end_time": "2026-07-07T04:25:54.655487",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "5F08B5EE-C142-4B24-864B-C5006F05D2FC",
+      "start_time": "2026-07-06T08:12:26.262640",
+      "end_time": "2026-07-06T08:13:03.121605",
+      "elapsed_sec": 37,
+      "total_elapsed_time_ms": 50708,
+      "allocated_cpu_time_ms": 4426838,
+      "data_scanned_remote_storage_mb": "3841.274",
+      "data_scanned_memory_mb": "44.524",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 3325549,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    },
+    {
+      "distributed_statement_id": "31488158-F967-467D-B6A0-C75A33207928",
+      "start_time": "2026-07-06T08:12:12.406459",
+      "end_time": "2026-07-06T08:12:12.406483",
+      "elapsed_sec": 0,
+      "total_elapsed_time_ms": 10,
+      "allocated_cpu_time_ms": 0,
+      "data_scanned_remote_storage_mb": "0.000",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 0,
+      "status": "Succeeded",
+      "statement_type": "ASSIGN"
+    },
+    {
+      "distributed_statement_id": "BD6EBCF7-405C-46BC-8BB3-B9A98AB79935",
+      "start_time": "2026-07-03T03:21:19.330743",
+      "end_time": "2026-07-03T03:21:54.208388",
+      "elapsed_sec": 35,
+      "total_elapsed_time_ms": 51615,
+      "allocated_cpu_time_ms": 4574500,
+      "data_scanned_remote_storage_mb": "3680.315",
+      "data_scanned_memory_mb": "0.000",
+      "data_scanned_disk_mb": "0.000",
+      "row_count": 3327576,
+      "status": "Succeeded",
+      "statement_type": "INSERT"
+    }
+  ]
+}

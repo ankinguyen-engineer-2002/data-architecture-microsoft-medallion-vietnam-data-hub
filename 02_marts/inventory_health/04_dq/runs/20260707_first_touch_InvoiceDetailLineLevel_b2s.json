@@ -1,0 +1,16 @@
+{
+  "generated_at_utc": "2026-07-07T09:19:51+00:00",
+  "scope": "inventory_health_brz_to_first_touch_silver",
+  "target_count": 1,
+  "rule_count": 1,
+  "results": [
+    {
+      "rule_name": "run_b2s_InvoiceDetailLineLevel",
+      "rule_type": "b2s",
+      "target": "SalesHistory_Enh.InvoiceDetailLineLevel",
+      "result": "ERROR",
+      "error": "('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]TCP Provider: Error code 0x274C (10060) (SQLExecDirectW)')",
+      "elapsed_seconds": 59.664
+    }
+  ]
+}

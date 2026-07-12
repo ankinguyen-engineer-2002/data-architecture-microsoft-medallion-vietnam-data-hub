@@ -1,0 +1,7 @@
+Module 05 downstream + perf — mode=sanity
+generated_at_utc=20260711T124542Z
+overall_pass=True
+live_ddl_dml=none
+
+[Layer_F_view_vs_table_sanity] pass=True
+  - ProjectedInventoryHealthSubStatus: pass=True table.n=3785137 view.n=3785137 diffs=0 elapsed=325.1s

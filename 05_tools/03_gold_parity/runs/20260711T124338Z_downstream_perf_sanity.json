@@ -1,0 +1,36 @@
+{
+  "generated_at_utc": "20260711T124338Z",
+  "module": "05_downstream_perf",
+  "safety": {
+    "application_intent": "ReadOnly",
+    "ddl_dml": "none",
+    "live_objects_created": [],
+    "live_objects_mutated": []
+  },
+  "server": "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com",
+  "checks": [
+    {
+      "check": "Layer_F_view_vs_table_sanity",
+      "per_target": {
+        "InventoryClassificationQtyWeekly": {
+          "table": "[SupplyChain_Gold_Warehouse].[InventoryHealth_DW].[InventoryClassificationQtyWeekly]",
+          "view": "[SupplyChain_Gold_Warehouse].[InventoryHealth_DW_Wrk].[v_InventoryClassificationQtyWeekly]",
+          "elapsed_sec": 113.0,
+          "measures_checked": [],
+          "measures_skipped_not_in_view": [],
+          "table_side": {
+            "n": "19605162"
+          },
+          "view_side": {
+            "n": "19605162"
+          },
+          "diffs": {},
+          "pass": true
+        }
+      },
+      "pass": true,
+      "note": "View recompute vs live final table for row count and anchor SUMs. Any diff means Module 03 baseline may be stale; a new baseline should be captured before Wave 1 candidate comparison."
+    }
+  ],
+  "overall_pass": true
+}
