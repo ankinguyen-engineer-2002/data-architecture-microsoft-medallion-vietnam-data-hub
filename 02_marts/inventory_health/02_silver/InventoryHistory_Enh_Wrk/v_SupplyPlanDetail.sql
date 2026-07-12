@@ -1,5 +1,5 @@
 -- InventoryHistory_Enh_Wrk.v_SupplyPlanDetail
-CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_SupplyPlanDetail] AS
+CREATE     VIEW [InventoryHistory_Enh_Wrk].[v_SupplyPlanDetail] AS
 WITH dedup_base AS (
     SELECT
         *,
@@ -34,7 +34,7 @@ snapshotselected_dedup AS (
     SELECT
         d.*,
         CAST(CASE
-            WHEN d.SnapshotDate = DATEADD(day, -5, CAST(d.spdWeekEnding AS date))
+            WHEN d.SnapshotDate = CAST(d.spdWeekEnding AS date)
                 THEN 1
             ELSE 0
         END AS INT) AS IsHistoricalWeeklySnapshot,
@@ -45,7 +45,7 @@ snapshotselected_dedup AS (
         END AS INT) AS IsLatestSupplyPlanSnapshot,
         CAST(CASE
             WHEN d.SnapshotDate = les.LatestSupplyPlanSnapshotDate
-             AND d.SnapshotDate = DATEADD(day, -5, CAST(d.spdWeekEnding AS date))
+             AND d.SnapshotDate = CAST(d.spdWeekEnding AS date)
                 THEN 'WEEKLY_AND_LATEST'
             WHEN d.SnapshotDate = les.LatestSupplyPlanSnapshotDate
                 THEN 'LATEST'
@@ -193,8 +193,6 @@ final AS (
             END AS decimal(18,4)
         ) AS FirmDemandQtyAtRisk
 
-
-
     FROM snapshotselected_dedup cur
     LEFT JOIN future_from_same_snapshot fut
         ON cur.ItemSku = fut.ItemSku
@@ -202,6 +200,8 @@ final AS (
        AND cur.SnapshotDate = fut.SnapshotDate
        AND cur.spdWeekEnding = fut.WeekEnding
 )
-SELECT *,
+
+SELECT
+    *,
     CAST(SYSUTCDATETIME() AS datetime2(6)) AS [LoadDT]
 FROM final;

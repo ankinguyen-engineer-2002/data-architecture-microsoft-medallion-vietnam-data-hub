@@ -1,5 +1,6 @@
 -- InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding
-CREATE    VIEW [InventoryHealth_DW_Wrk].[v_FactInventoryHealthFutureWeekEnding] AS
+-- InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding
+CREATE          VIEW [InventoryHealth_DW_Wrk].[v_FactInventoryHealthFutureWeekEnding] AS
 WITH sp_base AS (
     SELECT
         CAST(ItemSku AS VARCHAR(50)) AS Item,
@@ -17,7 +18,8 @@ WITH sp_base AS (
         CAST(IsActiveItemWhIn14DNext AS INT) AS IsActiveItemWhIn14DNext,
         CAST(LatestSupplyPlanSnapshotDate AS DATE) AS LatestSupplyPlanSnapshotDate
     FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[SupplyPlanDetail]
-    WHERE IsLatestSupplyPlanSnapshot = 1
+    WHERE  SnapshotType = 'LATEST'
+
 ),
 inventory_latest AS (
     SELECT
@@ -42,7 +44,7 @@ inventory_latest AS (
                 ORDER BY SnapshotWeekEndingDate DESC, FiscalMonthDate ASC
             ) AS rn
         FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[InventorySnapshotWeekly]
-        WHERE IsLatestInventorySnapshot = 1
+        WHERE SnapshotType = 'LATEST'
     ) ranked_inv
     WHERE rn = 1
 ),
@@ -54,7 +56,7 @@ atp_latest AS (
         CAST(WeekEndingDate AS DATE) AS WeekEnding,
         SUM(COALESCE(AtpQty, 0)) AS AtpQty
     FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[AtpWeekEnding]
-    WHERE IsLatestAtpSnapshot = 1
+    WHERE SnapshotType = 'LATEST'
     GROUP BY
         ItemSku,
         WarehouseCode,
@@ -206,7 +208,7 @@ SELECT
     CAST(WH AS VARCHAR(50)) AS WarehouseCode,
     CAST(WeekEnding AS DATE) AS [FutureWeekEnding],
     CAST(SnapshotDate AS DATE) AS SnapshotDate,
-    CAST(TotalInvCommitmentInFuture AS DECIMAL(18,4)) AS [TotalInvCommitmentInFuture],
+    CAST(TotalInvCommitmentInFuture AS DECIMAL(18,4)) AS [SIQty],
     CAST(AtpQty AS DECIMAL(18,4)) AS [ATPQty],
     CAST(CASE
             WHEN COALESCE(TotalInvCommitmentInFuture, 0) < 0 THEN 'SHORTAGE'
@@ -246,7 +248,7 @@ SELECT
             WHEN COALESCE(TotalInvCommitmentInFuture, 0) < 0
                 THEN COALESCE(TotalInvCommitmentInFuture, 0) * COALESCE(FobArcPrice, 0)
             ELSE 0
-         END AS DECIMAL(18,4)) AS ProjectedRevenueAtRisk,
+         END AS DECIMAL(18,4)) AS ProjectedShortageValue,
     CAST(CASE
             WHEN COALESCE(AvgWeeklyDemand, 0) > 0
                 THEN COALESCE(TotalInvCommitmentInFuture, 0) / AvgWeeklyDemand

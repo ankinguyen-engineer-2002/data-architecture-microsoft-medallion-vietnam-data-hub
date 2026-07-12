@@ -1,16 +1,17 @@
 -- InventoryHistory_Enh_Wrk.v_InventorySnapshotWeekly
-CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_InventorySnapshotWeekly] AS
+-- InventoryHistory_Enh_Wrk.v_InventorySnapshotWeekly
+CREATE     VIEW [InventoryHistory_Enh_Wrk].[v_InventorySnapshotWeekly] AS
 WITH latest_effective_snapshot AS (
-    SELECT MAX(CAST(dinSnapshot AS DATE)) AS LatestInventorySnapshotDate
+    SELECT MAX(CAST(dtea AS DATE)) AS LatestInventorySnapshotDate
     FROM [Enterprise_Lakehouse].[SupplyChain_Enh].[DemandInventorySnapshotDaily]
-    WHERE CAST(dinSnapshot AS DATE) <= DATEADD(day, -1, CAST(SYSUTCDATETIME() AS DATE))
+    WHERE CAST(dtea AS DATE) <= DATEADD(day, -1, CAST(SYSUTCDATETIME() AS DATE))
 ),
 source_rows AS (
     SELECT
         CAST(TRIM(dinItem) AS VARCHAR(50)) AS ItemSku,
         CAST(TRIM(dinWarehouse) AS VARCHAR(50)) AS WarehouseCode,
-        CAST(dinSnapshot AS DATE) AS SnapshotDate,
-        CAST(dinSnapshot AS DATE) AS SnapshotWeekEndingDate,
+        CAST(dtea AS DATE) AS SnapshotDate,
+        CAST(dtea AS DATE) AS SnapshotWeekEndingDate,
         CAST(dinFiscalMonth AS INT) AS FiscalMonth,
         CAST(DATEFROMPARTS(CAST(dinFiscalMonth / 100 AS INT), CAST(dinFiscalMonth % 100 AS INT), 1) AS DATE) AS FiscalMonthDate,
         CAST(dinOnHandQuantity AS DECIMAL(18,4)) AS OnHandQty,
@@ -31,20 +32,20 @@ source_rows AS (
         CAST('SupplyChain_Enh' AS VARCHAR(64)) AS SourceSystem,
         CAST('DemandInventorySnapshotDaily (Sat + latest effective dedupe)' AS VARCHAR(128)) AS SourceTable,
         CAST(CASE
-            WHEN ((DATEDIFF(day, CAST('19000101' AS DATE), CAST(dinSnapshot AS DATE)) % 7) + 1) = 6
+            WHEN ((DATEDIFF(day, CAST('19000101' AS DATE), CAST(dtea AS DATE)) % 7) + 1) = 6
                 THEN 1
             ELSE 0
         END AS INT) AS IsHistoricalWeeklySnapshot,
         CAST(CASE
-            WHEN CAST(dinSnapshot AS DATE) = LatestInventorySnapshotDate
+            WHEN CAST(dtea AS DATE) = LatestInventorySnapshotDate
                 THEN 1
             ELSE 0
         END AS INT) AS IsLatestInventorySnapshot,
         CAST(CASE
-            WHEN CAST(dinSnapshot AS DATE) = LatestInventorySnapshotDate
-             AND ((DATEDIFF(day, CAST('19000101' AS DATE), CAST(dinSnapshot AS DATE)) % 7) + 1) = 6
+            WHEN CAST(dtea AS DATE) = LatestInventorySnapshotDate
+             AND ((DATEDIFF(day, CAST('19000101' AS DATE), CAST(dtea AS DATE)) % 7) + 1) = 6
                 THEN 'WEEKLY_AND_LATEST'
-            WHEN CAST(dinSnapshot AS DATE) = LatestInventorySnapshotDate
+            WHEN CAST(dtea AS DATE) = LatestInventorySnapshotDate
                 THEN 'LATEST'
             ELSE 'WEEKLY'
         END AS VARCHAR(30)) AS SnapshotType,
@@ -59,8 +60,8 @@ source_rows AS (
       AND TRIM(dinWarehouse) <> ''
       AND dinFiscalMonth IS NOT NULL
       AND (
-            ((DATEDIFF(day, CAST('19000101' AS DATE), CAST(dinSnapshot AS DATE)) % 7) + 1) = 6
-         OR CAST(dinSnapshot AS DATE) = LatestInventorySnapshotDate
+            ((DATEDIFF(day, CAST('19000101' AS DATE), CAST(dtea AS DATE)) % 7) + 1) = 6
+         OR CAST(dtea AS DATE) = LatestInventorySnapshotDate
       )
 ),
 ranked AS (

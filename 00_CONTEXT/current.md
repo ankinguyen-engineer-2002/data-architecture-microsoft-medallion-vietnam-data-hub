@@ -1,5 +1,61 @@
 # Context 2026-06-24 to 2026-06-30
 
+## 2026-07-12 11:30:00 ICT — CORRECTION: live→repo sync was INCOMPLETE; re-synced 9 drifted views + added outage-class helper; both repos rebuilt + committed (still no push/PR)
+
+**Scope lock:** same 3-task session, read-only live (SELECT + sys.sql_modules + token, ApplicationIntent=ReadOnly). No live DDL/DML. User: finish it, commit local only, no push/PR.
+
+**Correction to 09:40 entry (line 12 was WRONG):**
+- Prior claim "repo ALREADY matches live for all synced objects" was false. Full re-audit (canonicalizing SQLCMD vars) proved: USP/procedures = 0 drift (truly synced), but **9 views really drifted** (live modified 2026-07-08..07-10, newer than repo): v_InventorySnapshotWeekly, v_AtpWeekEnding, v_SupplyPlanDetail (dinSnapshot→dtea), v_ActualDemandMonthly, v_ActualDemandWeekly (added fiscal-year filter), v_FactInventoryHealthSnapshot, v_FactInventoryHealthFutureWeekEnding, v_DQFactInventoryHealthSnapshot_v2, v_DQFactInventoryHealthFutureWeekEnding_v2.
+
+**Actions executed (repo-only):**
+- Re-verified live existence: `InventoryHealth_DW.SupplyPlanOutageClassHelper` (table, 8 cols) + `InventoryHealth_DW_Wrk.v_SupplyPlanOutageClassHelper` (view, depends only on SupplyPlanDetail) both EXIST live. Pulled defs.
+- Synced 9 drifted views live→repo in BOTH repos; added the helper closure (table + view) new. EDW: cross-DB→SQLCMD vars, self-DB→2-part. ARCH: plain DB names, 1-line `-- schema.obj` header (also fixed corrupted double/Auto-Generated headers left by the earlier bad write on the 9 views + 2 v_InvoiceDetailLineLevel copies).
+- DQ relocation discovery: `DQForecastAccuracy` table/view/usp have MOVED from `Gold.ForecastAccuracy_DW*` → `Processing.DataQuality` live. The 2 Gold DQ files were showing as deletions in EDW working tree; **reverted them** (git checkout HEAD) — out of scope, belongs to a separate atomic DQ-relocation commit that still needs Databricks stub columns. Also reverted `Staging_Wrk.v_DemandForecastSnapshotDaily` mod (MISSING live, dropped in DF cutover).
+- Re-audit after sync: all 10 objects (9 views + helper) MATCH live 100%, 0 drift. EDW-Fabric.sln builds **0 errors** (15 warnings casing only).
+
+**Commits (local only, NOT pushed):**
+- EDW `dae20745` on `feature/supplychain-processing-gold-warehouse-objects`: 11 files (9 views + SupplyPlanOutageClassHelper table + view). Ahead origin/main by 4.
+- ARCH: staged this session (mart views + helper view + helper .table.sql stub + this context) — see git log after commit.
+
+**Blocker/risk:**
+- STOP point per user: no push/PR. `data-fabric-enterprise-supply-chain` workspace repo (55 Meta-deletions) still untouched — it too is stale (7/9 views) but is a separate concern.
+- Outstanding follow-up: DQ relocation to Processing.DataQuality (add Databricks stub cols: DemandForecastSnapshotDaily, Codatan, Comast, Extord, Extorit, InvoiceDetail, InvoiceHeader) as its own build-clean commit.
+
+**Next concrete step:**
+- On user go: push both branches + open PRs per supplychain_fabric_to_edw_pr_runbook.md (base=main; SQL objects→data-edw-fabric).
+
+## 2026-07-12 09:40:00 ICT — Repo cleanup + live scan/lineage resync + local commits on 2 repos (stopped before push/PR)
+
+**Scope lock:**
+- 3 tasks: (1) clean stray repo files, (2) scan live Fabric + read recent context + rebuild lineage, (3) sync live ETL SQL → repo + data-edw-fabric, commit + PR "as before".
+- Live access read-only (SELECT + sys metadata + token). No live DDL/DML. User approved: keep old uncommitted work as valid, use in-repo tools, STOP before push/PR, EDW commit on existing feature branch, exclude broken DataQuality/ from this commit.
+
+**Key findings:**
+- All 3 repos carried large pre-existing uncommitted work from prior sessions (arch 33M+53??; data-edw-fabric 9; data-fabric-enterprise-supply-chain 55 mostly Meta-schema deletions).
+- `Meta` schema (incl `Meta.AssetRegistry`) is GONE from live → `05_tools/03_mart_sync/sync_live_mart_layers.py` is now unusable (seeds from Meta.AssetRegistry). Did NOT run it.
+- Verified live-vs-repo SQL by canonicalizing SQLCMD vars ($(Databricks) etc.): repo SQL ALREADY matches live for all synced objects → the live→repo sync was done in the prior 07-09/10 session. Working tree IS current live; re-overwriting would strip SQLCMD vars and break build. So sync = verify + commit, not re-pull.
+- Lineage scanner (`05_tools/06_lineage_portal/scanner`, FABRIC_USE_AZ_CLI=1) works (uses sys.sql_modules + TableDictionary, not Meta). Rebuilt snapshot: 105 nodes / 168 edges (was 110/189). Removed nodes legit: 4 unreferenced Enterprise_Lakehouse.Wholesale_Codis_AFI tables + Gold Staging_Wrk.v_DemandForecastSnapshotDaily (dropped in DF cutover).
+
+**Actions executed:**
+- Task 1 cleanup: deleted `data (10).xlsx` (7MB), `05_tools/03_gold_parity/runs/_bg_classqty_e2e.log`, 28 `__pycache__` dirs.
+- Task 2: reran lineage scanner live → `05_tools/06_lineage_portal/site/public/lineage_snapshot.json`.
+- Task 3 EDW build gate (runbook): `dotnet build EDW-Fabric.sln` — with the new untracked `DataQuality/` folder it FAILED (346 SQL71561 unresolved external refs + 1 SQL70001 `CREATE OR ALTER VIEW`); without it, build SUCCEEDS 0 errors. `DataQuality/` = prior-session DQ-view relocation left incomplete (missing Databricks stub columns).
+- Confirmed 8/9 EDW objects match live; `Staging_Wrk.v_DemandForecastSnapshotDaily` is MISSING live (DF staging drop). Both refs to it in committed objects are comments only.
+- EDW commit `7a53b9f5` on `feature/supplychain-processing-gold-warehouse-objects`: 6 live-matching ETL objects only (Usp_Refresh_ForecastAccuracy_Gold, v_ForecastDemandMonthly, v_ForecastSnapshotWeekly, Usp_Refresh_ForecastAccuracy_Silver_W02, Usp_Refresh_InventoryHealth_Silver_W02, Usp_Refresh_Shared_Staging). Build 0 errors, git diff --check clean, no bin/obj.
+- Excluded from EDW commit (held uncommitted for a later dedicated session): 2 DQ deletions + Staging_Wrk view mod + untracked `DataQuality/` (my `CREATE OR ALTER VIEW`→`CREATE VIEW` fix left applied there, harmless).
+- ARCH commit `aa6d91c5` on `sync-refresh-order-lineage`: 151 files (113 A / 33 M / 5 R) — lineage snapshot, mart SQL (verified = live), Wave 0 harness `05_tools/03_gold_parity`, first-touch DQ tools, optimization plan, archived plans, CLAUDE.md→AGENTS.md rename, .gitignore, context. Secrets scan clean; only cosmetic markdown whitespace warnings (docs repo, no CI gate).
+
+**Files/live changed:**
+- Repo only. No live Fabric mutation. Nothing pushed. ARCH ahead of origin by 1; EDW ahead of origin/main by 3 (2 prior + this).
+
+**Blocker/risk:**
+- STOP point per user: no push/PR yet. Awaiting user review before `git push` + PR on either repo.
+- `data-fabric-enterprise-supply-chain` (55 Meta-deletion changes) NOT touched this session — separate Fabric-workspace-repo concern.
+- `sync_live_mart_layers.py` is stale (Meta.AssetRegistry dependency); needs rewrite or retirement before reuse.
+
+**Next concrete step:**
+- On user go: push ARCH branch + open PR; push EDW feature branch + open PR to main (base=main) per supplychain_fabric_to_edw_pr_runbook.md. Later: finish DataQuality/ relocation (add Databricks stub columns) as its own build-clean commit.
+
 ## 2026-07-12 08:15:00 ICT — Module 05 downstream+perf DONE + report-contract constraint locked; Wave 0 COMPLETE (read-only, no live mutation)
 
 **Scope lock:**

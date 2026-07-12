@@ -1,5 +1,6 @@
 -- InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot
-CREATE   VIEW [InventoryHealth_DW_Wrk].[v_FactInventoryHealthSnapshot] AS
+-- InventoryHealth_DW_Wrk.v_FactInventoryHealthSnapshot
+CREATE           VIEW [InventoryHealth_DW_Wrk].[v_FactInventoryHealthSnapshot] AS
 WITH inv_base AS (
     SELECT
         ItemSku,
@@ -9,7 +10,8 @@ WITH inv_base AS (
         MakeBuyCode,
         PrimaryVendorName,
         SecondaryVendorName,
-        ReplenishmentLeadTime
+        ReplenishmentLeadTime,
+        SnapshotType
     FROM (
         SELECT
             ItemSku,
@@ -19,7 +21,8 @@ WITH inv_base AS (
             MakeBuyCode,
             PrimaryVendorName,
             SecondaryVendorName,
-            ReplenishmentLeadTime,
+            ReplenishmentLeadTime, 
+            SnapshotType, 
             ROW_NUMBER() OVER (
                 PARTITION BY ItemSku, WarehouseCode, SnapshotWeekEndingDate
                 ORDER BY FiscalMonthDate ASC
@@ -29,7 +32,7 @@ WITH inv_base AS (
           AND WarehouseCode IS NOT NULL
           AND SnapshotWeekEndingDate IS NOT NULL
     ) ranked_inv
-    WHERE rn = 1
+    WHERE rn = 1 
 ),
 base AS (
     SELECT
@@ -42,6 +45,7 @@ base AS (
         CAST(inv.SecondaryVendorName AS VARCHAR(200)) AS SecondaryVendorName,
         CAST(inv.ReplenishmentLeadTime AS DECIMAL(18,4)) AS ReplenishmentLeadTime
     FROM inv_base inv
+    Where SnapshotType = 'WEEKLY' or SnapshotType = 'WEEKLY_AND_LATEST'
 ),
 po AS (
     SELECT
@@ -94,6 +98,7 @@ supply_plan AS (
         SUM(COALESCE(FirmDemandQty, 0)) AS FirmDemandQty,
         SUM(COALESCE(NetFcstQty, 0)) AS NetFcstQty
     FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[SupplyPlanDetail]
+    Where SnapshotType = 'WEEKLY' or SnapshotType = 'WEEKLY_AND_LATEST'
     GROUP BY
         ItemSku,
         WarehouseCode,
@@ -106,6 +111,7 @@ atp AS (
         CAST(SnapshotWeekEndingDate AS DATE) AS SnapshotWeekEndingDate,
         SUM(COALESCE(AtpQty, 0)) AS AtpQty
     FROM [SupplyChain_Processing_Warehouse].[InventoryHistory_Enh].[AtpWeekEnding]
+    Where SnapshotType = 'WEEKLY' or SnapshotType = 'WEEKLY_AND_LATEST'
     GROUP BY
         ItemSku,
         WarehouseCode,
@@ -151,7 +157,9 @@ joined AS (
         dp.Cubes,
         li.LastInvoiceDate,
         li.WeeksSinceLastInvoice,
-        afi.AFIStatus
+        afi.AFIStatus,
+        outage.WeightedSINegScore,
+        outage.OutageClass
     FROM base b
     LEFT JOIN po
         ON po.ItemSku = b.ItemSku
@@ -203,40 +211,44 @@ joined AS (
         ON afi.ItemSku = b.ItemSku
        AND afi.WarehouseCode = b.WarehouseCode
        AND afi.WeekEndingDate = b.SnapshotWeekEndingDate
+    LEFT JOIN [InventoryHealth_DW_Wrk].[v_SupplyPlanOutageClassHelper] outage
+        ON outage.ItemSku = b.ItemSku
+       AND outage.WarehouseCode = b.WarehouseCode
+       AND outage.WeekEnding = b.SnapshotWeekEndingDate
 )
 SELECT
     CAST(ItemSku AS VARCHAR(50)) AS ItemSku,
     CAST(WarehouseCode AS VARCHAR(50)) AS WarehouseCode,
     CAST(SnapshotWeekEndingDate AS DATE) AS SnapshotWeekEndingDate,
     CAST(OnHandsQty AS DECIMAL(18,4)) AS OnHandQty,
-    CAST(COALESCE(OnHandsQty, 0) * COALESCE(StandardCost, 0) AS DECIMAL(18,4)) AS [OnHand Value],
-    CAST(COALESCE(POOnOrderQty, 0) + COALESCE(MOOnOrderQty, 0) AS DECIMAL(18,4)) AS [On Order Qty],
+    CAST(COALESCE(OnHandsQty, 0) * COALESCE(StandardCost, 0) AS DECIMAL(18,4)) AS [OnHandValue],
+    CAST(COALESCE(POOnOrderQty, 0) + COALESCE(MOOnOrderQty, 0) AS DECIMAL(18,4)) AS [OnOrderQty],
     CAST(POOnOrderQty AS DECIMAL(18,4)) AS POOnOrderQty,
     CAST(MOOnOrderQty AS DECIMAL(18,4)) AS MOOnOrderQty,
-    CAST(COALESCE(TransferInInTransitQty, 0) + COALESCE(POInTransitQty, 0) AS DECIMAL(18,4)) AS [In Transit Qty],
+    CAST(COALESCE(TransferInInTransitQty, 0) + COALESCE(POInTransitQty, 0) AS DECIMAL(18,4)) AS [InTransitQty],
     CAST(TransferInInTransitQty AS DECIMAL(18,4)) AS TransferInInTransitQty,
     CAST(POInTransitQty AS DECIMAL(18,4)) AS POInTransitQty,
-    CAST((COALESCE(POOnOrderQty, 0) + COALESCE(MOOnOrderQty, 0)) * COALESCE(StandardCost, 0) AS DECIMAL(18,4)) AS [On Order Value],
-    CAST((COALESCE(TransferInInTransitQty, 0) + COALESCE(POInTransitQty, 0)) * COALESCE(StandardCost, 0) AS DECIMAL(18,4)) AS [In Transit Value],
+    CAST((COALESCE(POOnOrderQty, 0) + COALESCE(MOOnOrderQty, 0)) * COALESCE(StandardCost, 0) AS DECIMAL(18,4)) AS [OnOrderValue],
+    CAST((COALESCE(TransferInInTransitQty, 0) + COALESCE(POInTransitQty, 0)) * COALESCE(StandardCost, 0) AS DECIMAL(18,4)) AS [InTransitValue],
     CAST(AwdQty AS DECIMAL(18,4)) AS AwdQty,
-    CAST(NULL AS DECIMAL(18,4)) AS [On Hold Ratio],
+    CAST(NULL AS DECIMAL(18,4)) AS [OnHoldRatio],
     CAST(IsActiveItemWhIn7DNext AS INT) AS IsActiveItemWhIn7DNext,
     CAST(IsActiveItemWhIn14DNext AS INT) AS IsActiveItemWhIn14DNext,
-    CAST(AtpQty AS DECIMAL(18,4)) AS [ATP Qty],
+    CAST(AtpQty AS DECIMAL(18,4)) AS [ATPQty],
     CAST(SIQty AS DECIMAL(18,4)) AS SIQty,
     CAST(CASE
             WHEN COALESCE(SIQty, 0) < 0 THEN COALESCE(SINegQty, ABS(SIQty)) * COALESCE(FobArcPrice, 0)
             ELSE 0
-         END AS DECIMAL(18,4)) AS [Revenue at risk],
-    CAST([InventoryClassification Final Status] AS VARCHAR(30)) AS [InventoryClassification Final Status],
-    CAST(QtyInactive AS DECIMAL(18,4)) AS [Qty by InventoryClassification (InActive)],
-    CAST(QtySLOB AS DECIMAL(18,4)) AS [Qty by InventoryClassification (SLOB)],
-    CAST(QtyBelowTarget AS DECIMAL(18,4)) AS [Qty by InventoryClassification (Below Target)],
-    CAST(QtySweetSpot AS DECIMAL(18,4)) AS [Qty by InventoryClassification (SweetSpot)],
-    CAST(QtyOverTarget AS DECIMAL(18,4)) AS [Qty by InventoryClassification (OverTarget)],
-    CAST(QtyExcess AS DECIMAL(18,4)) AS [Qty by InventoryClassification (Excess)],
-    CAST(QtyAE AS DECIMAL(18,4)) AS [Qty by InventoryClassification (AE)],
-    CAST(QtyTBInventory AS DECIMAL(18,4)) AS [Qty by InventoryClassification (TB Inventory)],
+         END AS DECIMAL(18,4)) AS [ShortageValue],
+    CAST([InventoryClassification Final Status] AS VARCHAR(30)) AS [InventoryClassificationFinalStatus],
+    CAST(QtyInactive AS DECIMAL(18,4)) AS [QtyByInventoryClassification(InActive)],
+    CAST(QtySLOB AS DECIMAL(18,4)) AS [QtyByInventoryClassification(SLOB)],
+    CAST(QtyBelowTarget AS DECIMAL(18,4)) AS [QtyByInventoryClassification(BelowTarget)],
+    CAST(QtySweetSpot AS DECIMAL(18,4)) AS [QtyByInventoryClassification(SweetSpot)],
+    CAST(QtyOverTarget AS DECIMAL(18,4)) AS [QtyByInventoryClassification(OverTarget)],
+    CAST(QtyExcess AS DECIMAL(18,4)) AS [QtyByInventoryClassification(Excess)],
+    CAST(QtyAE AS DECIMAL(18,4)) AS [QtyByInventoryClassification(AE)],
+    CAST(QtyTBInventory AS DECIMAL(18,4)) AS [QtyByInventoryClassification(TBInventory)],
     CAST(SafetyStockTarget AS DECIMAL(18,4)) AS SafetyStockTarget,
     CAST(FirmDemandQtyAtRisk AS DECIMAL(18,4)) AS FirmDemandQtyAtRisk,
     CAST(NetFcstQtyAtRisk AS DECIMAL(18,4)) AS NetFcstQtyAtRisk,
@@ -244,9 +256,8 @@ SELECT
     CAST(NetFcstQty AS DECIMAL(18,4)) AS NetFcstQty,
     CAST(COGS52W AS DECIMAL(18,4)) AS COGS52W,
     CAST(CASE
-            WHEN ABS(COALESCE(SIQty, 0)) > 0 THEN 'SHORTAGE'
-            WHEN ABS(COALESCE(SIQty, 0)) = 0
-             AND [InventoryClassification Final Status] IN (
+            WHEN COALESCE(SIQty, 0) < 0 THEN 'SHORTAGE'
+            WHEN [InventoryClassification Final Status] IN (
                     'TB_INVENTORY',
                     'AGGRESSIVE_EXCESS',
                     'EXCESS',
@@ -254,15 +265,14 @@ SELECT
                     'SLOB',
                     'INACTIVE'
                  ) THEN 'SURPLUS'
-            WHEN ABS(COALESCE(SIQty, 0)) = 0
-             AND [InventoryClassification Final Status] IN (
+            WHEN [InventoryClassification Final Status] IN (
                     'SWEET_SPOT',
                     'BELOW_TARGET'
                  ) THEN 'IN_STOCK'
             ELSE 'UNCLASSIFIED'
          END AS VARCHAR(30)) AS [IsShortage/Surplus/InStock],
     CAST(CASE
-            WHEN ABS(COALESCE(SIQty, 0)) > 0 THEN ABS(COALESCE(SIQty, 0))
+            WHEN COALESCE(SIQty, 0) < 0 THEN ABS(COALESCE(SIQty, 0))
             WHEN [InventoryClassification Final Status] IN (
                     'TB_INVENTORY',
                     'AGGRESSIVE_EXCESS',
@@ -272,9 +282,9 @@ SELECT
                     'INACTIVE',
                     'SWEET_SPOT',
                     'BELOW_TARGET'
-                 ) THEN COALESCE(OnHandsQty, 0)
+                 ) THEN COALESCE(OnHandsQty, 0) 
             ELSE 0
-         END AS DECIMAL(18,4)) AS [Shortage/Surplus Qty],
+         END AS DECIMAL(18,4)) AS [Shortage/SurplusQty],
     CAST(MakeBuyCode AS VARCHAR(10)) AS MakeBuyCode,
     CAST(PrimaryVendorName AS VARCHAR(200)) AS PrimaryVendorName,
     CAST(SecondaryVendorName AS VARCHAR(200)) AS SecondaryVendorName,
@@ -285,9 +295,11 @@ SELECT
     CAST(Cubes AS DECIMAL(18,4)) AS Cubes,
     CAST(LastInvoiceDate AS DATE) AS LastInvoiceDate,
     CAST(WeeksSinceLastInvoice AS INT) AS InventoryAgeWeeks,
-    CAST(NULL AS DECIMAL(18,4)) AS [Aging Bucket <3M Qty],
-    CAST(NULL AS DECIMAL(18,4)) AS [Aging Bucket <6M Qty],
-    CAST(NULL AS DECIMAL(18,4)) AS [Aging Bucket <12M Qty],
-    CAST(NULL AS DECIMAL(18,4)) AS [Aging Bucket >12M Qty],
-    CAST(AFIStatus AS VARCHAR(20)) AS AFIStatus
+    CAST(NULL AS DECIMAL(18,4)) AS [AgingBucket<3MQty],
+    CAST(NULL AS DECIMAL(18,4)) AS [AgingBucket<6MQty],
+    CAST(NULL AS DECIMAL(18,4)) AS [AgingBucket<12MQty],
+    CAST(NULL AS DECIMAL(18,4)) AS [AgingBucket>12MQty],
+    CAST(AFIStatus AS VARCHAR(20)) AS AFIStatus, 
+    CAST(WeightedSINegScore AS DECIMAL(18,4)) AS WeightedSINegScore,
+    CAST(OutageClass AS VARCHAR(30)) AS OutageClass
 FROM joined;

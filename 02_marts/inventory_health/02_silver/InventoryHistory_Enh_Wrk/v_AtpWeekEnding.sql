@@ -3,7 +3,7 @@ CREATE   VIEW [InventoryHistory_Enh_Wrk].[v_AtpWeekEnding] AS
 -- Source rule:
 --   InsertedDate is the official snapshot/as-of date.
 --   Keep historical Saturday snapshots, ATPWeek = Week2, InsertedVersion = 2.
---   Also keep the latest effective InsertedDate <= D-1 for InsertedVersion = 2 across all ATPWeek/WeekEnding rows.
+--   Also keep the latest effective InsertedDate <= D-1 for InsertedVersion = 2 across ATPWeek <> Week1.
 --   If source has duplicate rows at the view grain, keep the latest InsertedDate timestamp.
 WITH latest_effective_snapshot AS (
     SELECT
@@ -18,7 +18,11 @@ source_rows AS (
         CAST(TRIM(ItemSKU) AS VARCHAR(50)) AS ItemSku,
         CAST(TRIM(Warehouse) AS VARCHAR(50)) AS WarehouseCode,
         CAST(InsertedDate AS DATE) AS SnapshotDate,
-        CAST(InsertedDate AS DATE) AS SnapshotWeekEndingDate,
+        CAST(DATEADD(
+            day,
+            (7 - (DATEDIFF(day, CAST('19000106' AS DATE), CAST(InsertedDate AS DATE)) % 7)) % 7,
+            CAST(InsertedDate AS DATE)
+        ) AS DATE) AS SnapshotWeekEndingDate,
         CAST(RunDate AS DATE) AS SourceRunDate,
         CAST(TRIM(SeriesNumber) AS VARCHAR(50)) AS SeriesNumber,
         CAST(TRIM(AFIFinanceDivision) AS VARCHAR(50)) AS AFIFinanceDivision,
@@ -33,7 +37,7 @@ source_rows AS (
         CAST(InsertedVersion AS INT) AS InsertedVersion,
         CAST(TRIM(VersionDescription) AS VARCHAR(100)) AS VersionDescription,
         CAST('SupplyChain_Enh' AS VARCHAR(64)) AS SourceSystem,
-        CAST('ATPWeekEnding (InsertedVersion=2, Sat Week2 + latest effective all weeks)' AS VARCHAR(128)) AS SourceTable,
+        CAST('ATPWeekEnding (InsertedVersion=2, Sat Week2 + latest effective excluding Week1)' AS VARCHAR(128)) AS SourceTable,
         CAST(CASE
             WHEN TRIM(ATPWeek) = 'Week2'
              AND ((DATEDIFF(day, CAST('19000101' AS DATE), CAST(InsertedDate AS DATE)) % 7) + 1) = 6
@@ -69,7 +73,10 @@ source_rows AS (
                 TRIM(ATPWeek) = 'Week2'
                 AND ((DATEDIFF(day, CAST('19000101' AS DATE), CAST(InsertedDate AS DATE)) % 7) + 1) = 6
             )
-         OR CAST(InsertedDate AS DATE) = LatestAtpSnapshotDate
+         OR (
+                CAST(InsertedDate AS DATE) = LatestAtpSnapshotDate
+                AND TRIM(ATPWeek) <> 'Week1'
+            )
       )
 ),
 ranked AS (
