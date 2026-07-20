@@ -20,7 +20,7 @@ on:
 jobs:
   monitor:
     runs-on: ubuntu-latest
-    timeout-minutes: 4  # Force completion before next run
+    timeout-minutes: 5  # Force completion before next scheduled run
     
     steps:
       - name: Checkout code
@@ -51,4 +51,4 @@ jobs:
           FABRIC_SQL_SERVER: ${{ secrets.FABRIC_SQL_SERVER }}
         run: |
           cd 03_operations/tools/query_governor
-          python query_watchdog.py
+          python -u query_watchdog.py
