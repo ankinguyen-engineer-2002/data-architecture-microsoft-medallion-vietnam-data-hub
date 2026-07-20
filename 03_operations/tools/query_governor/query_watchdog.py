@@ -10,6 +10,7 @@ import time
 import urllib.parse
 import urllib.request
 import json
+import struct
 from datetime import datetime
 from typing import Optional
 
@@ -102,7 +103,10 @@ class QueryWatchdog:
         )
         
         # SQL_COPT_SS_ACCESS_TOKEN = 1256
-        conn = pyodbc.connect(conn_str, attrs_before={1256: token.encode('utf-16-le')})
+        # Token must be UTF-16-LE bytes prefixed with a 4-byte little-endian length.
+        token_bytes = token.encode('utf-16-le')
+        token_struct = struct.pack('<i', len(token_bytes)) + token_bytes
+        conn = pyodbc.connect(conn_str, attrs_before={1256: token_struct})
         return conn
     
     def should_exclude_query(self, command: str, login_name: str, wait_type: Optional[str], 
