@@ -1,7 +1,7 @@
 # Query Governor Configuration
 
 # Thresholds
-kill_threshold_seconds: 600  # 10 phút - queries chạy lâu hơn sẽ bị kill
+kill_threshold_seconds: 30  # TEST MODE: 30 giây - sau test đổi lại 600
 
 # Warehouses to monitor
 warehouses:
