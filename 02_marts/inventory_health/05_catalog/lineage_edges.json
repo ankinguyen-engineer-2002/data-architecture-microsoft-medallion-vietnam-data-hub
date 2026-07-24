@@ -546,14 +546,6 @@
     },
     {
       "edge_type": "sql_reference",
-      "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_ForecastSnapshotWeekly.sql",
-      "source": "Staging.DemandForecastSnapshotDaily",
-      "source_asset_key": "staging.demandforecastsnapshotdaily",
-      "target": "InventoryHistory_Enh_Wrk.v_ForecastSnapshotWeekly",
-      "target_asset_key": "inventoryhistory.enh.wrk.v.forecastsnapshotweekly"
-    },
-    {
-      "edge_type": "sql_reference",
       "evidence_file": "02_marts/inventory_health/02_silver/InventoryHistory_Enh_Wrk/v_HoldingTransferSnapshotDaily.sql",
       "source": "Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRDTL",
       "source_asset_key": "enterprise.lakehouse.manufacturing.inventory.afi.tfrdtl",
@@ -855,22 +847,6 @@
       "source_asset_key": "supplychain.processing.warehouse.referencemaster.enh.warehouse",
       "target": "Shared_DW_Wrk.v_DimWarehouse",
       "target_asset_key": "shared.dw.wrk.v.dimwarehouse"
-    },
-    {
-      "edge_type": "enterprise_etl_wrk_view_materializes_final_table",
-      "evidence_file": "02_marts/inventory_health/00_source_wrk/staging_wrk/Staging_Wrk.v_DemandForecastSnapshotDaily.sql",
-      "source": "Staging_Wrk.v_DemandForecastSnapshotDaily",
-      "source_asset_key": "staging.wrk.v.demandforecastsnapshotdaily",
-      "target": "Staging.DemandForecastSnapshotDaily",
-      "target_asset_key": "staging.demandforecastsnapshotdaily"
-    },
-    {
-      "edge_type": "sql_reference",
-      "evidence_file": "02_marts/inventory_health/00_source_wrk/staging_wrk/Staging_Wrk.v_DemandForecastSnapshotDaily.sql",
-      "source": "Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily",
-      "source_asset_key": "enterprise.lakehouse.supplychain.enh.demandforecastsnapshotdaily",
-      "target": "Staging_Wrk.v_DemandForecastSnapshotDaily",
-      "target_asset_key": "staging.wrk.v.demandforecastsnapshotdaily"
     }
   ],
   "generated_at_utc": "2026-06-24T07:55:34Z",

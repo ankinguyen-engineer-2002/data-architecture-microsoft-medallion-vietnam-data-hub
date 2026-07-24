@@ -138,14 +138,6 @@
     },
     {
       "edge_type": "sql_reference",
-      "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_ForecastDemandMonthly.sql",
-      "source": "Staging.DemandForecastSnapshotDaily",
-      "source_asset_key": "staging.demandforecastsnapshotdaily",
-      "target": "ForecastHistory_Enh_Wrk.v_ForecastDemandMonthly",
-      "target_asset_key": "forecasthistory.enh.wrk.v.forecastdemandmonthly"
-    },
-    {
-      "edge_type": "sql_reference",
       "evidence_file": "02_marts/forecast_accuracy/02_silver/ForecastHistory_Enh_Wrk/v_NaiveForecastMonthly.sql",
       "source": "ReferenceMaster_Enh.Calendar",
       "source_asset_key": "referencemaster.enh.calendar",

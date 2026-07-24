@@ -21,16 +21,6 @@
       "schema": "ProcessingSeed"
     },
     {
-      "asset_key": "staging.demandforecastsnapshotdaily",
-      "display": "Staging.DemandForecastSnapshotDaily",
-      "file_path": "02_marts/forecast_accuracy/00_source_wrk/staging_wrk/Staging.DemandForecastSnapshotDaily.sql",
-      "layer": "source_wrk",
-      "mart": "forecast_accuracy",
-      "object": "DemandForecastSnapshotDaily",
-      "object_type": "source_seed_or_target",
-      "schema": "Staging"
-    },
-    {
       "asset_key": "staging.wrk.v.codatan",
       "display": "Staging_Wrk.v_Codatan",
       "file_path": "02_marts/forecast_accuracy/00_source_wrk/staging_wrk/Staging_Wrk.v_Codatan.sql",

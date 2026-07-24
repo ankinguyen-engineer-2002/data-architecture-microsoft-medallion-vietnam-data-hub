@@ -1,26 +1,6 @@
 {
   "assets": [
     {
-      "asset_key": "staging.demandforecastsnapshotdaily",
-      "display": "Staging.DemandForecastSnapshotDaily",
-      "file_path": "02_marts/inventory_health/00_source_wrk/staging_wrk/Staging.DemandForecastSnapshotDaily.sql",
-      "layer": "source_wrk",
-      "mart": "inventory_health",
-      "object": "DemandForecastSnapshotDaily",
-      "object_type": "source_seed_or_target",
-      "schema": "Staging"
-    },
-    {
-      "asset_key": "staging.wrk.v.demandforecastsnapshotdaily",
-      "display": "Staging_Wrk.v_DemandForecastSnapshotDaily",
-      "file_path": "02_marts/inventory_health/00_source_wrk/staging_wrk/Staging_Wrk.v_DemandForecastSnapshotDaily.sql",
-      "layer": "source_wrk",
-      "mart": "inventory_health",
-      "object": "v_DemandForecastSnapshotDaily",
-      "object_type": "wrk_view",
-      "schema": "Staging_Wrk"
-    },
-    {
       "asset_key": "enterprise.lakehouse.customerorders.afi.warehousemaster",
       "display": "Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster",
       "file_path": "02_marts/inventory_health/01_bronze/01_enterprise_lakehouse/Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster.sql",
