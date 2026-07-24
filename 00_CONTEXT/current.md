@@ -1,5 +1,53 @@
 # Context 2026-06-24 to 2026-06-30
 
+## 2026-07-24 10:52:00 ICT — Lineage portal auto-sync fix: purge stale `Staging.DemandForecastSnapshotDaily` + scanner semantic 404 diagnostics
+
+**Scope lock:**
+- Repo edit + local scanner test + 2 commits pushed to `origin/main` + workflow verification.
+- No live Fabric mutation.
+
+**User instruction:**
+- Fix lineage portal for lung tung and to auto-sync with live Fabric DEV state; 2 commits directly to `main`.
+
+**Actions executed:**
+- Diagnosed 2 warnings on live GH Pages snapshot (`https://ankinguyen-engineer-2002.github.io/data-architecture-microsoft-medallion-vietnam-data-hub/lineage_snapshot.json`, generated_at `2026-07-23T23:14:03Z`):
+  - "Silver cycle or unresolved same-layer dependency: `ForecastDemandMonthly, AwdHelper, ForecastSnapshotWeekly, Staging.DemandForecastSnapshotDaily`" → root cause: stale catalog entries.
+  - "Semantic model definition was not available; semantic edges are incomplete." → root cause: HTTP 404 to `getDefinition` on CI SP identity.
+- Purged `Staging.DemandForecastSnapshotDaily` catalog entries from:
+  - `02_marts/forecast_accuracy/05_catalog/assets.json`
+  - `02_marts/forecast_accuracy/05_catalog/lineage_edges.json`
+  - `02_marts/inventory_health/05_catalog/assets.json`
+  - `02_marts/inventory_health/05_catalog/lineage_edges.json`
+- Improved scanner:
+  - `05_tools/06_lineage_portal/scanner/fabric_rest.py`: `fabric_request` now raises `RuntimeError` with full body + `resolve_semantic_model_id_by_name()` added.
+  - `05_tools/06_lineage_portal/scanner/cli.py`: retries semantic getDefinition with resolved-by-name id on failure; logs actionable warnings.
+- Updated GitHub secret `FABRIC_SEMANTIC_MODEL_ID = f06a2361-15fd-4f91-9d37-941fefe62aaf` + `FABRIC_SEMANTIC_MODEL_NAME = sc_control_tower`.
+- Local scanner run (user identity `NAric@ashleyfurniture.com` via `FABRIC_USE_AZ_CLI=1`) → snapshot clean: 0 warnings, 90 nodes, 124 edges, semantic scan OK.
+- Cherry-picked commit `f3c39ab5` from `sync-refresh-order-lineage` to `main` as `228ecde9`; added scanner commit `2b82ac23`. Pushed both to `origin/main`.
+- Triggered workflow_dispatch live (`30065054500`) → SUCCESS. Live snapshot post-push: generated_at `2026-07-24T03:46:25Z`, 88 nodes, 118 edges.
+
+**Key findings:**
+- "Silver cycle" warning eliminated on live snapshot after push. Only single `DFSD`-named node remains = `Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily` (legit post-cutover source, mart `inventory_health`).
+- Semantic 404 persists on CI. Full body now visible: `{"errorCode":"EntityNotFound","message":"The requested resource could not be found","relatedResource":{"resourceType":"Item"}}` for `/workspaces/{ws}/semanticModels/{id}/getDefinition?format=TMDL`.
+- SP `FABRIC_CLIENT_ID` can list workspace items but cannot read the semantic model definition. Same call with user identity succeeds. Root cause: SP missing per-item permission on `sc_control_tower`, not workspace-level. `list_workspace_items` returns visible items but per-item ACL is separate.
+
+**Blocker/risk:**
+- Semantic 404 unresolved. To fix: grant the SP `Build` or `Read + Reshare` on `sc_control_tower` in Fabric workspace, or add the SP to a security group with model-level access. Alternative: use user-delegated auth in CI (not recommended).
+- Impact until fixed: lineage snapshot on GH Pages has no semantic edges (`04_semantic` layer disconnected).
+
+**Files changed:**
+- `02_marts/forecast_accuracy/05_catalog/{assets,lineage_edges}.json`
+- `02_marts/inventory_health/05_catalog/{assets,lineage_edges}.json`
+- `05_tools/06_lineage_portal/scanner/{cli,fabric_rest}.py`
+- GitHub secrets: `FABRIC_SEMANTIC_MODEL_ID`, `FABRIC_SEMANTIC_MODEL_NAME`
+
+**Commits pushed:**
+- `228ecde9` — chore(lineage): purge stale Staging.DemandForecastSnapshotDaily from mart catalogs
+- `2b82ac23` — feat(lineage-scanner): expose semantic 404 body + name-based ID fallback
+
+**Next concrete step:**
+- Grant SP permission on `sc_control_tower` semantic model, then trigger workflow_dispatch → snapshot should show 0 warnings + semantic edges present.
+
 ## 2026-07-06 12:45:00 ICT — Read-only audit of `2026-07-03` post-18:00 activity for full mart vs DQ-only reruns
 
 **Scope lock:**

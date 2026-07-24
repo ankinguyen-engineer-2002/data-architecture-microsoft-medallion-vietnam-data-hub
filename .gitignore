@@ -89,12 +89,18 @@ Enterprise_SupplyChain_Dev_architect/.work-folder-info
 
 # Azure CLI local state (keep out of repo)
 .azure/
+.azure_live/
 .azure_user/
 99_archive/local-state/
 99_archive/external_refs/
 
+# Local scratch / temp (never commit)
+tmp/
+.tmp/
+
 # Run artifacts / exports (keep scripts/docs, ignore outputs)
 01_docs/runbook/artifacts/
+!01_docs/runbook/artifacts/20260724_live_fabric_audit/live_snapshot_full.json
 Enterprise_SupplyChain_Dev_architect/artifacts/build_runs/
 Enterprise_SupplyChain_Dev_architect/projects/*/artifacts/backups/semantic_*/
 
@@ -109,6 +115,9 @@ Enterprise_SupplyChain_Dev_architect/projects/*/artifacts/backups/semantic_*/
 05_tools/06_lineage_portal/site/tsconfig.tsbuildinfo
 05_tools/06_lineage_portal/site-v2/dist/
 05_tools/06_lineage_portal/site-v2/tsconfig.tsbuildinfo
+99_archive/legacy_site/site-nextjs/.next/
+99_archive/legacy_site/site-nextjs/out/
+99_archive/legacy_site/site-nextjs/tsconfig.tsbuildinfo
 
 # === Project source bundles archived for reference (not committed) ===
 Enterprise_SupplyChain_Dev_architect/projects/*/_source_v1/
