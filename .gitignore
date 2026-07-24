@@ -107,6 +107,8 @@ Enterprise_SupplyChain_Dev_architect/projects/*/artifacts/backups/semantic_*/
 05_tools/06_lineage_portal/site/.next/
 05_tools/06_lineage_portal/site/out/
 05_tools/06_lineage_portal/site/tsconfig.tsbuildinfo
+05_tools/06_lineage_portal/site-v2/dist/
+05_tools/06_lineage_portal/site-v2/tsconfig.tsbuildinfo
 
 # === Project source bundles archived for reference (not committed) ===
 Enterprise_SupplyChain_Dev_architect/projects/*/_source_v1/

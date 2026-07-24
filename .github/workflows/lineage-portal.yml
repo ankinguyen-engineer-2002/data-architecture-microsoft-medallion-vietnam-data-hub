@@ -52,7 +52,7 @@ jobs:
       - name: Build fixture lineage snapshot
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.scan_mode == 'fixture' }}
         working-directory: 05_tools/06_lineage_portal
-        run: python -m scanner.cli --fixture tests/fixtures/minimal_live_input.json --out site/public/lineage_snapshot.json
+        run: python -m scanner.cli --fixture tests/fixtures/minimal_live_input.json --out site-v2/public/lineage_snapshot.json
 
       - name: Build live lineage snapshot
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.scan_mode == 'live' }}
@@ -66,33 +66,29 @@ jobs:
           FABRIC_SQL_SERVER: ${{ secrets.FABRIC_SQL_SERVER || secrets.FABRIC_SERVER }}
           FABRIC_SEMANTIC_MODEL_ID: ${{ secrets.FABRIC_SEMANTIC_MODEL_ID }}
           FABRIC_SEMANTIC_MODEL_NAME: ${{ secrets.FABRIC_SEMANTIC_MODEL_NAME }}
-        run: python -m scanner.cli --out site/public/lineage_snapshot.json
+        run: python -m scanner.cli --out site-v2/public/lineage_snapshot.json
 
       - name: Secret scan generated snapshot
         working-directory: 05_tools/06_lineage_portal
         run: |
-          ! grep -E -i "(client_secret|api[_-]?key|bearer |password|BEGIN PRIVATE KEY)" site/public/lineage_snapshot.json
+          ! grep -E -i "(client_secret|api[_-]?key|bearer |password|BEGIN PRIVATE KEY)" site-v2/public/lineage_snapshot.json
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: 05_tools/06_lineage_portal/site/package-lock.json
+          cache-dependency-path: 05_tools/06_lineage_portal/site-v2/package-lock.json
 
       - name: Install frontend dependencies
-        working-directory: 05_tools/06_lineage_portal/site
+        working-directory: 05_tools/06_lineage_portal/site-v2
         run: npm ci
 
       - name: Build static site
-        working-directory: 05_tools/06_lineage_portal/site
+        working-directory: 05_tools/06_lineage_portal/site-v2
         env:
-          NEXT_PUBLIC_BASE_PATH: /data-architecture-microsoft-medallion-vietnam-data-hub
+          VITE_BASE_PATH: /data-architecture-microsoft-medallion-vietnam-data-hub/
         run: npm run build
-
-      - name: Typecheck frontend
-        working-directory: 05_tools/06_lineage_portal/site
-        run: npm run typecheck
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -100,7 +96,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 05_tools/06_lineage_portal/site/out
+          path: 05_tools/06_lineage_portal/site-v2/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
