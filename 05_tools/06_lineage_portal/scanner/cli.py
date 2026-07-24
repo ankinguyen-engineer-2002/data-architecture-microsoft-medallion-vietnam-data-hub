@@ -6,7 +6,7 @@ from pathlib import Path
 from .auth import az_cli_token, client_credentials_token
 from .builder import build_snapshot, load_fixture
 from .config import ScannerConfig
-from .fabric_rest import get_semantic_definition, list_workspace_items
+from .fabric_rest import get_semantic_definition, list_workspace_items, resolve_semantic_model_id
 from .mart_catalog import find_repo_root, load_mart_catalog
 from .snapshot_writer import write_snapshot
 from .sql_reader import SqlReader
@@ -63,10 +63,21 @@ def main() -> int:
     sql_scan = reader.scan_all()
     semantic_definition = None
     if not args.skip_semantic:
+        semantic_model_id = cfg.semantic_model_id
         try:
-            semantic_definition = get_semantic_definition(cfg.workspace_id, cfg.semantic_model_id, fabric_token)
+            semantic_definition = get_semantic_definition(cfg.workspace_id, semantic_model_id, fabric_token)
         except Exception as exc:
-            print(f"warning: semantic model definition scan skipped: {exc}")
+            print(f"warning: semantic getDefinition failed for id={semantic_model_id}: {exc}")
+            # Fallback: resolve id from display name and retry once
+            resolved = resolve_semantic_model_id(cfg.workspace_id, cfg.semantic_model_name, fabric_token)
+            if resolved and resolved != semantic_model_id:
+                print(f"info: retrying semantic getDefinition with resolved id={resolved} (name={cfg.semantic_model_name})")
+                try:
+                    semantic_definition = get_semantic_definition(cfg.workspace_id, resolved, fabric_token)
+                except Exception as exc2:
+                    print(f"warning: semantic getDefinition retry failed: {exc2}")
+            elif resolved is None:
+                print(f"warning: could not resolve semantic model id by name '{cfg.semantic_model_name}' — check workspace/permissions.")
 
     snapshot = build_snapshot(
         workspace_id=cfg.workspace_id,

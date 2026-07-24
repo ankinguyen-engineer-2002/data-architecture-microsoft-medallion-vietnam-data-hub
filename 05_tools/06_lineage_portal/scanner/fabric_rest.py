@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import json
 import time
+import urllib.error
 import urllib.request
 from typing import Any
 
@@ -20,13 +21,38 @@ def fabric_request(method: str, url: str, token: str, body: bytes | None = None)
             "Content-Type": "application/json",
         },
     )
-    with urllib.request.urlopen(req, timeout=120) as resp:
-        return resp.status, dict(resp.headers), resp.read()
+    try:
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            return resp.status, dict(resp.headers), resp.read()
+    except urllib.error.HTTPError as exc:
+        # Read body for diagnostics; do NOT log the token.
+        body_snippet = ""
+        try:
+            body_snippet = exc.read().decode("utf-8", errors="replace")[:500]
+        except Exception:
+            pass
+        raise RuntimeError(
+            f"Fabric REST {method} {url} -> HTTP {exc.code} {exc.reason}. Body: {body_snippet}"
+        ) from exc
 
 
 def list_workspace_items(workspace_id: str, token: str) -> list[dict[str, Any]]:
     _, _, payload = fabric_request("GET", f"{BASE_URL}/workspaces/{workspace_id}/items", token)
     return json.loads(payload.decode("utf-8")).get("value", [])
+
+
+def resolve_semantic_model_id(workspace_id: str, model_name: str, token: str) -> str | None:
+    """Fallback: find semantic model id by display name inside the workspace."""
+    try:
+        _, _, payload = fabric_request(
+            "GET", f"{BASE_URL}/workspaces/{workspace_id}/semanticModels", token
+        )
+    except Exception:
+        return None
+    for item in json.loads(payload.decode("utf-8")).get("value", []):
+        if str(item.get("displayName", "")).lower() == model_name.lower():
+            return item.get("id")
+    return None
 
 
 def get_semantic_definition(workspace_id: str, semantic_model_id: str, token: str) -> dict[str, Any]:
