@@ -221,7 +221,7 @@ function RelSection({
                   {node.display_name}
                 </div>
                 <div className="truncate font-mono text-[11px] text-ink-500">
-                  {node.schema} · {node.layer}
+                  {node.database}.{node.schema} · {node.layer}
                 </div>
                 <div className="mt-1 flex items-center gap-1.5">
                   <EdgeBadge edge={edge} />

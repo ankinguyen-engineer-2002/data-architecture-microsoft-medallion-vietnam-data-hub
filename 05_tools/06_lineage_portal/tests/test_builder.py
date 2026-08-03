@@ -177,6 +177,10 @@ class BuilderTests(unittest.TestCase):
             if node["schema"].endswith("_Wrk") or node["object_name"].startswith("v_")
         ]
 
+        self.assertFalse(
+            any(node["object_type"].lower() == "semantic_artifact" for node in snapshot["nodes"])
+        )
+        self.assertFalse(any(not node["schema"] for node in snapshot["nodes"]))
         self.assertTrue(visible_views)
         self.assertTrue(all(node["schema"] == "Staging_Wrk" for node in visible_views))
         self.assertIn(

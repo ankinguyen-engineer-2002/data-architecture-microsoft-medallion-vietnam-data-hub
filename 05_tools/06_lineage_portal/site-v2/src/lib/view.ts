@@ -171,33 +171,52 @@ function downstreamVisibleTargets(
   return targets;
 }
 
-/** Ported from the original portal — mart + its full transitive lineage (support/semantic allowed). */
+/**
+ * A mart plus its complete upstream lineage and connected semantic endpoint.
+ *
+ * Mart ownership is intentionally not used as an upstream traversal filter:
+ * shared reference tables and sources can legitimately feed more than one mart.
+ * Traversing upstream only prevents a shared node from pulling sibling mart
+ * consumers into the selected mart view.
+ */
 function lineageClosure(snapshot: Snapshot, mart: string): Set<string> {
   const included = new Set<string>();
   const nodeById = new Map(snapshot.nodes.map((node) => [node.id, node]));
-  const forward = new Map<string, string[]>();
-  const backward = new Map<string, string[]>();
+  const forward = new Map<string, LineageEdge[]>();
+  const backward = new Map<string, LineageEdge[]>();
   for (const edge of snapshot.edges) {
-    forward.set(edge.source, [...(forward.get(edge.source) ?? []), edge.target]);
-    backward.set(edge.target, [...(backward.get(edge.target) ?? []), edge.source]);
+    forward.set(edge.source, [...(forward.get(edge.source) ?? []), edge]);
+    backward.set(edge.target, [...(backward.get(edge.target) ?? []), edge]);
   }
-  const queue = snapshot.nodes
-    .filter((node) => node.mart === mart || node.layer === "Semantic")
+
+  const upstreamQueue = snapshot.nodes
+    .filter((node) => node.mart === mart && node.layer !== "Semantic")
     .map((node) => node.id);
-  while (queue.length > 0) {
-    const nodeId = queue.shift();
-    if (!nodeId || included.has(nodeId)) continue;
-    included.add(nodeId);
-    for (const next of [...(forward.get(nodeId) ?? []), ...(backward.get(nodeId) ?? [])]) {
-      const node = nodeById.get(next);
-      const role = node?.role ?? "business";
-      const allowed =
-        node?.mart === mart ||
-        role === "support" ||
-        role === "semantic" ||
-        node?.layer === "Semantic";
-      if (allowed && !included.has(next)) queue.push(next);
+  for (const nodeId of upstreamQueue) included.add(nodeId);
+
+  while (upstreamQueue.length > 0) {
+    const nodeId = upstreamQueue.shift();
+    if (!nodeId) continue;
+    for (const edge of backward.get(nodeId) ?? []) {
+      if (!nodeById.has(edge.source) || included.has(edge.source)) continue;
+      included.add(edge.source);
+      upstreamQueue.push(edge.source);
     }
   }
+
+  // Downstream expansion is restricted to Semantic so shared upstream nodes do
+  // not pull consumers from sibling marts into this projection.
+  const semanticQueue = [...included];
+  while (semanticQueue.length > 0) {
+    const nodeId = semanticQueue.shift();
+    if (!nodeId) continue;
+    for (const edge of forward.get(nodeId) ?? []) {
+      const target = nodeById.get(edge.target);
+      if (target?.layer !== "Semantic" || included.has(edge.target)) continue;
+      included.add(edge.target);
+      semanticQueue.push(edge.target);
+    }
+  }
+
   return included;
 }

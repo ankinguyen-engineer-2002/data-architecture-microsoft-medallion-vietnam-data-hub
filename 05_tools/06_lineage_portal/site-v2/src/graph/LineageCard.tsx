@@ -98,8 +98,11 @@ function LineageCardImpl({ data, selected }: NodeProps) {
         >
           {node.display_name}
         </div>
-        <div title={node.schema} className="mt-0.5 truncate font-mono text-[11px] text-ink-500">
-          {node.schema}
+        <div
+          title={`${node.database}.${node.schema}`}
+          className="mt-0.5 truncate font-mono text-[11px] text-ink-500"
+        >
+          {node.database} · {node.schema}
         </div>
       </div>
       <Handle

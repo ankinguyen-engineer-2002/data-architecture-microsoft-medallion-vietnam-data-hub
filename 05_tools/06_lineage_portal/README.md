@@ -61,6 +61,7 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v
 
 cd site-v2
 npm ci
+npm run test:views
 npm run typecheck
 npm run build
 ```

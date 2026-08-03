@@ -15,20 +15,35 @@ const SEMANTIC_MODEL_TYPE = "SEMANTIC_MODEL";
  * and the full view, terminates in the same single semantic model.
  */
 export function normalizeSnapshot(raw: Snapshot): Snapshot {
+  const artifactIds = new Set(
+    raw.nodes
+      .filter((n) => n.object_type.toLowerCase() === "semantic_artifact")
+      .map((n) => n.id)
+  );
+
   // 1. Pick the canonical model node (prefer the real SEMANTIC_MODEL item).
   const modelNode =
-    raw.nodes.find((n) => n.object_type === SEMANTIC_MODEL_TYPE) ??
-    raw.nodes.find((n) => n.layer === "Semantic");
-  if (!modelNode) return raw;
+    raw.nodes.find((n) => n.object_type === SEMANTIC_MODEL_TYPE && !artifactIds.has(n.id)) ??
+    raw.nodes.find((n) => n.layer === "Semantic" && !artifactIds.has(n.id));
+  if (!modelNode) {
+    return {
+      ...raw,
+      nodes: raw.nodes.filter((n) => !artifactIds.has(n.id)),
+      edges: raw.edges.filter(
+        (edge) => !artifactIds.has(edge.source) && !artifactIds.has(edge.target)
+      ),
+    };
+  }
 
   const modelId = modelNode.id;
 
   // 2. Drop the artifact fragments; keep the single model node + everything else.
-  const droppedIds = new Set(
-    raw.nodes
+  const droppedIds = new Set([
+    ...artifactIds,
+    ...raw.nodes
       .filter((n) => n.layer === "Semantic" && n.id !== modelId)
-      .map((n) => n.id)
-  );
+      .map((n) => n.id),
+  ]);
 
   const nodes = raw.nodes
     .filter((n) => !droppedIds.has(n.id))

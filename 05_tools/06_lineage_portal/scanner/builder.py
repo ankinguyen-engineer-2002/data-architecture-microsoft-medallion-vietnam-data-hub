@@ -134,6 +134,11 @@ def build_snapshot(
     if catalog.business_marts:
         for asset in catalog.assets:
             database, schema, object_name = asset_ref_parts(asset)
+            object_type = str(asset.get("object_type") or "")
+            # Semantic source files are catalog documentation, not SQL objects.
+            # The semantic reader adds the real model/table nodes separately.
+            if not schema or object_type.lower() == "semantic_artifact":
+                continue
             node_id = stable_node_id(database, schema, object_name)
             meta = object_meta.get(node_id, {})
             add_node(
@@ -145,7 +150,7 @@ def build_snapshot(
                     "database": database,
                     "schema": schema,
                     "object_name": object_name,
-                    "object_type": str(meta.get("type_desc") or asset.get("object_type") or "CATALOG_ASSET"),
+                    "object_type": str(meta.get("type_desc") or object_type or "CATALOG_ASSET"),
                     "layer": layer_from_catalog(str(asset.get("layer") or ""), database, schema),
                     "mart": asset.get("mart") or classify_with_catalog(catalog, schema, object_name),
                     "wave": catalog.wave_for(schema, object_name),

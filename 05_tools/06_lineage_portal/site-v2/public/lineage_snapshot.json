@@ -2055,7 +2055,7 @@
       "target": "SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel"
     }
   ],
-  "generated_at_utc": "2026-08-03T08:13:10Z",
+  "generated_at_utc": "2026-08-03T08:41:44Z",
   "layers": [
     {
       "layer": "Bronze",
@@ -2067,7 +2067,7 @@
     },
     {
       "layer": "Semantic",
-      "node_count": 5
+      "node_count": 1
     },
     {
       "layer": "Silver",
@@ -2075,7 +2075,7 @@
     }
   ],
   "live_baseline": {
-    "generated_at_utc": "2026-08-03T08:13:10Z",
+    "generated_at_utc": "2026-08-03T08:41:44Z",
     "summary": {
       "dependency_edge_count": 203,
       "system_dependency_row_count": 203,
@@ -2125,7 +2125,7 @@
     },
     {
       "mart": "inventory_health",
-      "node_count": 71
+      "node_count": 67
     },
     {
       "mart": "shared",
@@ -3803,7 +3803,7 @@
       "id": "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi",
       "lane_label": "03 Gold W30 Facts",
       "lane_order": 330,
-      "last_modified": "2026-07-29 22:23:22.200000",
+      "last_modified": "2026-08-03 03:28:39.413333",
       "layer": "Gold",
       "load_method": "DateRange",
       "mart": "forecast_accuracy",
@@ -3996,7 +3996,7 @@
       "display_name": "InventorySnapshotWeeklyBase",
       "evidence": [
         "afi-internal/data-edw-fabric@7282973e4fda:SupplyChain_Gold_Warehouse/InventoryHealth_Internal_Wrk/Views/v_InventorySnapshotWeeklyBase.sql",
-        "sys.sql_expression_dependencies:SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_FactInventoryHealthFutureWeekEnding"
+        "sys.sql_expression_dependencies:SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly"
       ],
       "full_name": "SupplyChain_Gold_Warehouse.InventoryHealth_Internal.InventorySnapshotWeeklyBase",
       "id": "SupplyChain_Gold_Warehouse.InventoryHealth_Internal.InventorySnapshotWeeklyBase",
@@ -4092,102 +4092,6 @@
       "workspace": "Enterprise SupplyChain-Dev"
     },
     {
-      "database": "Enterprise_Lakehouse",
-      "display_name": "Measures_DAX",
-      "evidence": [
-        "02_marts/05_catalog/assets.json"
-      ],
-      "full_name": "Enterprise_Lakehouse..Measures_DAX",
-      "id": "Enterprise_Lakehouse..Measures_DAX",
-      "lane_label": "04 Semantic sc_control_tower",
-      "lane_order": 400,
-      "last_modified": "",
-      "layer": "Semantic",
-      "load_method": "",
-      "mart": "inventory_health",
-      "object_name": "Measures_DAX",
-      "object_type": "semantic_artifact",
-      "role": "business",
-      "row_count": null,
-      "schema": "",
-      "source_sql": "",
-      "status": "catalog",
-      "wave": null,
-      "workspace": "Enterprise SupplyChain-Dev"
-    },
-    {
-      "database": "Enterprise_Lakehouse",
-      "display_name": "README",
-      "evidence": [
-        "02_marts/05_catalog/assets.json"
-      ],
-      "full_name": "Enterprise_Lakehouse..README",
-      "id": "Enterprise_Lakehouse..README",
-      "lane_label": "04 Semantic sc_control_tower",
-      "lane_order": 400,
-      "last_modified": "",
-      "layer": "Semantic",
-      "load_method": "",
-      "mart": "inventory_health",
-      "object_name": "README",
-      "object_type": "semantic_artifact",
-      "role": "business",
-      "row_count": null,
-      "schema": "",
-      "source_sql": "",
-      "status": "catalog",
-      "wave": null,
-      "workspace": "Enterprise SupplyChain-Dev"
-    },
-    {
-      "database": "Enterprise_Lakehouse",
-      "display_name": "SemanticModel",
-      "evidence": [
-        "02_marts/05_catalog/assets.json"
-      ],
-      "full_name": "Enterprise_Lakehouse..SemanticModel",
-      "id": "Enterprise_Lakehouse..SemanticModel",
-      "lane_label": "04 Semantic sc_control_tower",
-      "lane_order": 400,
-      "last_modified": "",
-      "layer": "Semantic",
-      "load_method": "",
-      "mart": "inventory_health",
-      "object_name": "SemanticModel",
-      "object_type": "semantic_artifact",
-      "role": "business",
-      "row_count": null,
-      "schema": "",
-      "source_sql": "",
-      "status": "catalog",
-      "wave": null,
-      "workspace": "Enterprise SupplyChain-Dev"
-    },
-    {
-      "database": "Enterprise_Lakehouse",
-      "display_name": "relationships",
-      "evidence": [
-        "02_marts/05_catalog/assets.json"
-      ],
-      "full_name": "Enterprise_Lakehouse..relationships",
-      "id": "Enterprise_Lakehouse..relationships",
-      "lane_label": "04 Semantic sc_control_tower",
-      "lane_order": 400,
-      "last_modified": "",
-      "layer": "Semantic",
-      "load_method": "",
-      "mart": "inventory_health",
-      "object_name": "relationships",
-      "object_type": "semantic_artifact",
-      "role": "business",
-      "row_count": null,
-      "schema": "",
-      "source_sql": "",
-      "status": "catalog",
-      "wave": null,
-      "workspace": "Enterprise SupplyChain-Dev"
-    },
-    {
       "database": "SemanticModel",
       "display_name": "sc_control_tower",
       "evidence": [
@@ -4222,7 +4126,7 @@
       "id": "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
       "lane_label": "02 Silver W02",
       "lane_order": 202,
-      "last_modified": "2026-07-29 22:20:42.170000",
+      "last_modified": "2026-08-03 03:26:16.753333",
       "layer": "Silver",
       "load_method": "DateRange",
       "mart": "forecast_accuracy",
@@ -4649,7 +4553,7 @@
       "id": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.ForecastSnapshotWeekly",
       "lane_label": "02 Silver W02",
       "lane_order": 202,
-      "last_modified": "2026-07-29 22:27:51.176667",
+      "last_modified": "2026-08-03 03:32:47.960000",
       "layer": "Silver",
       "load_method": "DateRange",
       "mart": "inventory_health",
@@ -4799,7 +4703,7 @@
       "id": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
       "lane_label": "02 Silver W02",
       "lane_order": 202,
-      "last_modified": "2026-07-29 22:27:21.973333",
+      "last_modified": "2026-08-03 03:32:16.916667",
       "layer": "Silver",
       "load_method": "DateRange",
       "mart": "inventory_health",
@@ -4849,7 +4753,7 @@
       "id": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.SupplyPlanDetail",
       "lane_label": "02 Silver W02",
       "lane_order": 202,
-      "last_modified": "2026-07-29 22:33:45.236667",
+      "last_modified": "2026-08-03 03:38:58.970000",
       "layer": "Silver",
       "load_method": "DateRange",
       "mart": "inventory_health",
@@ -5193,7 +5097,7 @@
     "live_baseline_view_count": 0,
     "live_dependency_row_count": 203,
     "live_module_definition_count": 69,
-    "processing_object_count": 88,
+    "processing_object_count": 89,
     "repository_procedure_count": 14,
     "repository_table_count": 51,
     "repository_view_count": 53,
