@@ -189,8 +189,11 @@ function lineageClosure(snapshot: Snapshot, mart: string): Set<string> {
     backward.set(edge.target, [...(backward.get(edge.target) ?? []), edge]);
   }
 
+  // Catalog mart ownership is metadata, not lineage evidence. Start from the
+  // selected mart's curated outputs and include Bronze only when a directed
+  // dependency path actually reaches one of those outputs.
   const upstreamQueue = snapshot.nodes
-    .filter((node) => node.mart === mart && node.layer !== "Semantic")
+    .filter((node) => node.mart === mart && (node.layer === "Silver" || node.layer === "Gold"))
     .map((node) => node.id);
   for (const nodeId of upstreamQueue) included.add(nodeId);
 

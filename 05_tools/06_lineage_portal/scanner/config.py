@@ -10,6 +10,8 @@ DEFAULT_WORKSPACE_NAME = "Enterprise SupplyChain-Dev"
 DEFAULT_SQL_SERVER = "7woj2wroypauvkpn72b56t46ju-qp6ntsfwdaou5atebne65u3p4a.datawarehouse.fabric.microsoft.com"
 DEFAULT_SEMANTIC_MODEL_ID = "f06a2361-15fd-4f91-9d37-941fefe62aaf"
 DEFAULT_SEMANTIC_MODEL_NAME = "sc_control_tower"
+DEFAULT_SEMANTIC_BINDING_COUNT = 14
+DEFAULT_LIVE_BASELINE_MAX_AGE_HOURS = 6
 
 ETL_DATABASE = "ETL_Framework"
 PROCESSING_DATABASE = "SupplyChain_Processing_Warehouse"

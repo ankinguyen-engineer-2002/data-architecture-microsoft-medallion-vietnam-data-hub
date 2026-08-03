@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +13,57 @@ def load_live_baseline(path: Path | None) -> dict[str, Any] | None:
     if path is None:
         return None
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def validate_live_baseline(
+    baseline: dict[str, Any] | None,
+    *,
+    max_age_hours: int | None = None,
+    now: datetime | None = None,
+) -> dict[str, Any]:
+    """Return machine-readable freshness and coverage evidence for a fallback."""
+    if baseline is None:
+        return {"status": "not_configured", "valid": False, "reason": "No live baseline supplied."}
+
+    generated_at = str(baseline.get("generated_at_utc") or "")
+    try:
+        generated = datetime.fromisoformat(generated_at.replace("Z", "+00:00"))
+        if generated.tzinfo is None:
+            generated = generated.replace(tzinfo=UTC)
+    except ValueError:
+        return {"status": "invalid", "valid": False, "reason": "Invalid generated_at_utc.", "generated_at_utc": generated_at}
+
+    views = baseline.get("views")
+    summary = baseline.get("summary") or {}
+    if not isinstance(views, list):
+        return {"status": "invalid", "valid": False, "reason": "Baseline views must be a list.", "generated_at_utc": generated_at}
+    actual_edges = sum(len(view.get("dependencies") or []) for view in views if isinstance(view, dict))
+    incomplete_views = [
+        view for view in views
+        if not isinstance(view, dict)
+        or not view.get("database")
+        or not view.get("schema")
+        or not view.get("object_name")
+        or not isinstance(view.get("dependencies"), list)
+        or not view.get("dependencies")
+    ]
+    metadata: dict[str, Any] = {
+        "generated_at_utc": generated_at,
+        "view_count": len(views),
+        "dependency_edge_count": actual_edges,
+        "max_age_hours": max_age_hours,
+    }
+    if summary.get("view_count") != len(views) or summary.get("dependency_edge_count") != actual_edges or incomplete_views:
+        metadata.update({"status": "incomplete", "valid": False, "reason": "Baseline summary or view dependency coverage is incomplete.", "incomplete_view_count": len(incomplete_views)})
+        return metadata
+
+    age_hours = ((now or datetime.now(UTC)) - generated).total_seconds() / 3600
+    metadata["age_hours"] = round(age_hours, 3)
+    if age_hours < 0 or (max_age_hours is not None and age_hours > max_age_hours):
+        metadata.update({"status": "stale", "valid": False, "reason": "Baseline is outside the allowed age window."})
+        return metadata
+    metadata.update({"status": "valid", "valid": True, "reason": "Baseline freshness and coverage checks passed."})
+    return metadata
 
 
 def build_live_baseline(

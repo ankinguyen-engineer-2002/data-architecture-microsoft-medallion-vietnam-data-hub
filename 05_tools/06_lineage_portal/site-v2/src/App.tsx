@@ -242,6 +242,7 @@ export function App() {
           nodesById={nodesById}
           onClose={() => setDetail(null)}
           onNavigate={(node) => selectTable(node)}
+          onFocus={selectTable}
         />
       </div>
 

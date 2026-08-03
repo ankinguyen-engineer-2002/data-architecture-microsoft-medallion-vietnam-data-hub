@@ -22,8 +22,10 @@ The browser app never receives Fabric, SQL, Power BI, or OpenAI credentials.
 
 ## Required GitHub Secrets For Live Scan
 
-Manual preview runs can use `scan_mode=fixture` without Fabric credentials.
-Scheduled runs and manual `scan_mode=live` runs need credentials.
+Manual preview runs can use `scan_mode=fixture` without Fabric credentials, but
+fixtures never deploy to production Pages. Scheduled runs and manual
+`scan_mode=live` runs need credentials. A manual `scan_mode=verified_snapshot`
+deploys only a recently generated, production-gated delegated live snapshot.
 
 | Secret | Purpose |
 |---|---|
@@ -90,11 +92,11 @@ PYTHONPATH=. python3 -m scanner.repository_manifest \
   --out repository_lineage_manifest.json
 ```
 
-Refresh the live fallback baseline and build the combined snapshot with delegated Azure CLI auth:
+Refresh the live fallback baseline, current TMDL bindings, and combined snapshot
+with delegated Azure CLI auth:
 
 ```bash
 FABRIC_USE_AZ_CLI=1 PYTHONPATH=. python3 -m scanner.cli \
-  --skip-semantic \
   --repository-manifest repository_lineage_manifest.json \
   --write-live-baseline live_lineage_baseline.json \
   --out site-v2/public/lineage_snapshot.json
@@ -102,9 +104,17 @@ FABRIC_USE_AZ_CLI=1 PYTHONPATH=. python3 -m scanner.cli \
 
 The graph keeps live and repository target edges separate. Exact matches are `aligned`; differing source routes are `drift`; repository edges with no live counterpart are `repository_only`. Live runtime remains authoritative.
 
+Production deployment fails closed when the snapshot is older than six hours,
+the fallback baseline is stale or incomplete, the repository manifest no longer
+matches PR #694, or the semantic definition does not yield exactly 14 verified
+Gold bindings. Public snapshots retain SHA-256 hashes for module comparison and
+never publish raw SQL definitions.
+
 ## Safety
 
 - Scanner is read-only against Fabric/SQL/Power BI surfaces.
 - Do not commit generated credentials, access tokens, or API keys.
 - Rotate any secret pasted into chat before using this workflow long-term.
-- If the repository or Pages site is public, confirm that table names, SQL definitions, semantic metadata, and lineage are acceptable to publish.
+- If the repository or Pages site is public, confirm that object names,
+  semantic metadata, and lineage are acceptable to publish; raw SQL is redacted
+  by the scanner and blocked by the production checks.

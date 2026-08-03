@@ -7,35 +7,31 @@ on:
         description: "Snapshot source for this run"
         type: choice
         required: true
-        default: fixture
+        default: live
         options:
           - fixture
           - live
+          - verified_snapshot
   schedule:
     - cron: "17 */2 * * *"
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: github-pages-lineage-portal
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build-fixture-preview:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.scan_mode == 'fixture' }}
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.11"
 
@@ -54,9 +50,43 @@ jobs:
         run: PYTHONPATH=. python -m unittest discover -s tests -v
 
       - name: Build fixture lineage snapshot
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.scan_mode == 'fixture' }}
         working-directory: 05_tools/06_lineage_portal
         run: python -m scanner.cli --fixture tests/fixtures/minimal_live_input.json --out site-v2/public/lineage_snapshot.json
+
+  build-and-deploy-live:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.scan_mode == 'live' || inputs.scan_mode == 'verified_snapshot' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      # Required by actions/deploy-pages to attest the deployment origin.
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.11"
+
+      - name: Install Microsoft ODBC Driver 18
+        run: |
+          curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc >/dev/null
+          curl -sSL https://packages.microsoft.com/config/ubuntu/22.04/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list >/dev/null
+          sudo apt-get update
+          sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc-dev
+
+      - name: Install Python dependencies
+        run: python -m pip install --upgrade pip pyodbc
+
+      - name: Run lineage scanner tests
+        working-directory: 05_tools/06_lineage_portal
+        run: PYTHONPATH=. python -m unittest discover -s tests -v
 
       - name: Build live lineage snapshot
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.scan_mode == 'live' }}
@@ -76,13 +106,25 @@ jobs:
           --live-baseline live_lineage_baseline.json
           --out site-v2/public/lineage_snapshot.json
 
+      - name: Verify production lineage completeness
+        working-directory: 05_tools/06_lineage_portal
+        run: >-
+          python -m scanner.verify_production_snapshot
+          --snapshot site-v2/public/lineage_snapshot.json
+          --expected-manifest-sha 7282973e4fdad2464907ca0ea4b3f3d43b1a5f31
+          --expected-pull-request 694
+          --expected-workspace-id c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
+          --expected-workspace-name "Enterprise SupplyChain-Dev"
+          --baseline-max-age-hours 6
+          --expected-baseline-view-count 50
+
       - name: Secret scan generated snapshot
         working-directory: 05_tools/06_lineage_portal
         run: |
           ! grep -E -i "(client_secret|api[_-]?key|bearer |password|BEGIN PRIVATE KEY)" site-v2/public/lineage_snapshot.json
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "22"
           cache: npm
@@ -103,13 +145,13 @@ jobs:
         run: npm run build
 
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
           path: 05_tools/06_lineage_portal/site-v2/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

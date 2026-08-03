@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 from typing import Any
 
@@ -21,7 +22,7 @@ from .config import (
 )
 from .dependency_parser import ObjectRef, extract_object_refs
 from .mart_catalog import MartCatalog, empty_catalog
-from .semantic_reader import extract_semantic_table_sources
+from .semantic_reader import extract_semantic_table_sources, semantic_binding_metadata
 from .snapshot_writer import now_utc
 from .wave_builder import assign_waves, layer_summary, mart_summary
 
@@ -42,6 +43,9 @@ def build_snapshot(
     mart_catalog: MartCatalog | None = None,
     repository_manifest: dict[str, Any] | None = None,
     live_baseline: dict[str, Any] | None = None,
+    live_baseline_validation: dict[str, Any] | None = None,
+    semantic_expected_binding_count: int | None = None,
+    semantic_failure_reason: str = "",
 ) -> dict[str, Any]:
     nodes: dict[str, dict[str, Any]] = {}
     edges: dict[tuple[str, str, str, str], dict[str, Any]] = {}
@@ -206,7 +210,7 @@ def build_snapshot(
         parsed_modules.add(node_id)
         definition = modules_by_id.get(node_id, "")
         if definition and node_id in nodes:
-            nodes[node_id]["source_sql"] = definition
+            nodes[node_id]["source_sql_sha256"] = hashlib.sha256(definition.encode("utf-8")).hexdigest()
             nodes[node_id]["evidence"] = sorted(set(nodes[node_id].get("evidence", []) + ["sys.sql_modules"]))
         module_meta = module_meta_by_id.get(node_id, {})
         default_database = str(module_meta.get("database_name") or node_id.split(".", 1)[0])
@@ -271,7 +275,7 @@ def build_snapshot(
             nodes[view_id]["wave"] = nodes[target_id].get("wave", nodes[view_id].get("wave"))
         view_sql = modules_by_id.get(view_id, "")
         if view_sql and target_id in nodes:
-            nodes[target_id]["source_sql"] = view_sql
+            nodes[target_id]["source_sql_sha256"] = hashlib.sha256(view_sql.encode("utf-8")).hexdigest()
         for edge in list(edges.values()):
             if edge["target"] == view_id and edge["source"] != target_id:
                 add_edge(
@@ -320,36 +324,45 @@ def build_snapshot(
             "evidence": ["Fabric semantic model definition"],
         }
     )
-    if semantic_definition:
-        for semantic_row in extract_semantic_table_sources(semantic_definition, semantic_model_name):
-            table_id = stable_node_id("SemanticModel", semantic_model_name, semantic_row["semantic_table"])
-            add_node(
-                {
-                    "id": table_id,
-                    "display_name": semantic_row["semantic_table"],
-                    "full_name": table_id,
-                    "workspace": workspace_name,
-                    "database": "SemanticModel",
-                    "schema": semantic_model_name,
-                    "object_name": semantic_row["semantic_table"],
-                    "object_type": "SEMANTIC_TABLE",
-                    "layer": "Semantic",
-                    "mart": classify_with_catalog(catalog, semantic_row["source_schema"], semantic_row["source_table"]),
-                    "role": "semantic",
-                    "wave": 1,
-                    "load_method": "Direct Lake",
-                    "source_sql": "",
-                    "row_count": None,
-                    "last_modified": "",
-                    "status": "active",
-                    "evidence": ["Fabric semantic model TMDL"],
-                }
-            )
+    allowed_semantic_sources = {
+        f"{row.get('schema_name')}.{row.get('object_name')}"
+        for row in object_meta.values()
+        if str(row.get("database_name") or "") == GOLD_DATABASE
+        and str(row.get("type_desc") or "").upper() in {"USER_TABLE", "TABLE"}
+    }
+    semantic_validation = semantic_binding_metadata(
+        semantic_definition,
+        semantic_model_name,
+        expected_binding_count=semantic_expected_binding_count,
+        allowed_source_ids=allowed_semantic_sources,
+        failure_reason=semantic_failure_reason,
+    )
+    if semantic_validation["complete"]:
+        for semantic_row in extract_semantic_table_sources(semantic_definition or {}, semantic_model_name):
             source_id = stable_node_id(GOLD_DATABASE, semantic_row["source_schema"], semantic_row["source_table"])
-            add_edge(source_id, table_id, "semantic_binding", "verified", "sc_control_tower TMDL partition")
-            add_edge(table_id, semantic_model_id, "belongs_to_model", "verified", "sc_control_tower TMDL table")
+            if source_id not in nodes:
+                # TMDL may bind an active Gold object omitted from the mart catalog.
+                add_node(
+                    node_from_ref(
+                        workspace_name=workspace_name,
+                        database=GOLD_DATABASE,
+                        schema=semantic_row["source_schema"],
+                        object_name=semantic_row["source_table"],
+                        object_type=object_type_for(source_id, object_meta, "SEMANTIC_SOURCE"),
+                        status="semantic_referenced",
+                        evidence=["sc_control_tower TMDL partition"],
+                        catalog=catalog,
+                    )
+                )
+            add_edge(
+                source_id,
+                semantic_model_id,
+                "feeds_semantic",
+                "verified",
+                f"sc_control_tower TMDL partition:{semantic_row['semantic_table']}",
+            )
     else:
-        warnings.append("Semantic model definition was not available; semantic edges are incomplete.")
+        warnings.append(f"Semantic lineage is {semantic_validation['status']}: {semantic_validation['reason']}")
 
     node_list = sorted(nodes.values(), key=lambda n: (str(n.get("layer")), str(n.get("mart")), str(n.get("full_name"))))
     edge_list = sorted(edges.values(), key=lambda e: (e["source"], e["target"], e["relationship_type"]))
@@ -364,6 +377,8 @@ def build_snapshot(
         )
     warnings.extend(assign_waves(node_list, edge_list))
     for node in node_list:
+        # Public GitHub Pages snapshots retain only a stable hash, never source SQL.
+        node["source_sql"] = ""
         lane_order, lane_label = lane_for(str(node.get("layer") or ""), str(node.get("role") or ""), node.get("wave"), str(node.get("schema") or ""))
         node["lane_order"] = lane_order
         node["lane_label"] = lane_label
@@ -377,7 +392,8 @@ def build_snapshot(
         "marts": mart_summary(node_list),
         "mart_registry": catalog.business_marts,
         "repository": repository_snapshot_metadata(repository_manifest),
-        "live_baseline": live_baseline_snapshot_metadata(live_baseline, live_baseline_views_used),
+        "live_baseline": live_baseline_snapshot_metadata(live_baseline, live_baseline_views_used, live_baseline_validation),
+        "semantic_validation": semantic_validation,
         "warnings": sorted(set(warnings)),
         "scan_evidence": {
             "workspace_item_count": len(workspace_items or []),
@@ -406,6 +422,8 @@ def build_snapshot(
             ),
             "lineage_sync": lineage_sync_summary(edge_list),
             "semantic_model": semantic_model_name,
+            "semantic_binding_count": int(semantic_validation["binding_count"]),
+            "semantic_complete": bool(semantic_validation["complete"]),
         },
 }
 
@@ -616,13 +634,15 @@ def repository_snapshot_metadata(manifest: dict[str, Any] | None) -> dict[str, A
 def live_baseline_snapshot_metadata(
     baseline: dict[str, Any] | None,
     used_views: set[str],
+    validation: dict[str, Any] | None = None,
 ) -> dict[str, Any] | None:
-    if not baseline:
+    if not baseline and not validation:
         return None
     return {
-        "generated_at_utc": str(baseline.get("generated_at_utc") or ""),
+        "generated_at_utc": str((baseline or {}).get("generated_at_utc") or ""),
         "used_view_count": len(used_views),
-        "summary": baseline.get("summary") or {},
+        "summary": (baseline or {}).get("summary") or {},
+        "validation": validation or {},
     }
 
 

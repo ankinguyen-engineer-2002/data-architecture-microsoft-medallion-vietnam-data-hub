@@ -90,7 +90,7 @@ export function Topbar({
 
       {/* Contextual controls per mode */}
       {mode === "focus" && focusNode && <HopsPicker hops={hops} onChange={onHopsChange} />}
-      {mode === "full" && (
+      {(mode === "full" || (mode === "mart" && martId) || (mode === "focus" && focusNode)) && (
         <label className="flex cursor-pointer items-center gap-1.5 text-[11.5px] text-ink-400">
           <input
             type="checkbox"

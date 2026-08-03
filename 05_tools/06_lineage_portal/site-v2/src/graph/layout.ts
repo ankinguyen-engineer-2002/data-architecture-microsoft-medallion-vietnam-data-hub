@@ -113,6 +113,7 @@ export function toFlowEdges(edges: LineageEdge[], accentIds?: Set<string>): Edge
 }
 
 function edgeClass(edge: LineageEdge, isSemantic: boolean): string {
+  if (edge.confidence === "inferred") return "edge-inferred";
   if (isSemantic) return "edge-semantic";
   if (edge.sync_status === "aligned") return "edge-aligned";
   if (edge.sync_status === "drift") {

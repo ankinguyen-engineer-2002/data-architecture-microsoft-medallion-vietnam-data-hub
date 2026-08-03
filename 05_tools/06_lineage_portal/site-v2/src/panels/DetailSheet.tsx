@@ -10,6 +10,7 @@ type Props = {
   nodesById: Map<string, LineageNode>;
   onClose: () => void;
   onNavigate: (node: LineageNode) => void;
+  onFocus: (node: LineageNode) => void;
 };
 
 const LAYER_DOT: Record<string, string> = {
@@ -19,7 +20,7 @@ const LAYER_DOT: Record<string, string> = {
   Semantic: "bg-[var(--color-semantic)]",
 };
 
-export function DetailSheet({ node, edges, nodesById, onClose, onNavigate }: Props) {
+export function DetailSheet({ node, edges, nodesById, onClose, onNavigate, onFocus }: Props) {
   const upstream = useMemo(() => {
     if (!node) return [];
     return edges
@@ -100,6 +101,7 @@ export function DetailSheet({ node, edges, nodesById, onClose, onNavigate }: Pro
                 items={upstream}
                 direction="in"
                 onNavigate={onNavigate}
+                onFocus={() => onFocus(node)}
               />
             )}
 
@@ -110,6 +112,7 @@ export function DetailSheet({ node, edges, nodesById, onClose, onNavigate }: Pro
                 items={downstream}
                 direction="out"
                 onNavigate={onNavigate}
+                onFocus={() => onFocus(node)}
               />
             )}
 
@@ -193,12 +196,14 @@ function RelSection({
   items,
   direction,
   onNavigate,
+  onFocus,
 }: {
   title: string;
   subtitle: string;
   items: Array<{ edge: LineageEdge; node: LineageNode }>;
   direction: "in" | "out";
   onNavigate: (node: LineageNode) => void;
+  onFocus: () => void;
 }) {
   return (
     <div className="border-t border-ink-800 px-6 py-4">
@@ -245,7 +250,10 @@ function RelSection({
         ))}
       </ul>
       {items.length > 0 && (
-        <button className="mt-2 flex items-center gap-1 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-500 hover:text-ink-300">
+        <button
+          onClick={onFocus}
+          className="mt-2 flex items-center gap-1 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-500 hover:text-ink-300"
+        >
           <ExternalLink size={11} />
           Focus lineage on selected
         </button>
@@ -257,7 +265,9 @@ function RelSection({
 function EdgeBadge({ edge }: { edge: LineageEdge }) {
   const status = edge.sync_status ?? "not_applicable";
   const label =
-    status === "aligned"
+    edge.confidence === "inferred"
+      ? "Inferred"
+      : status === "aligned"
       ? "Aligned"
       : status === "drift"
         ? edge.provenance === "repository_target"
@@ -271,7 +281,9 @@ function EdgeBadge({ edge }: { edge: LineageEdge }) {
               ? "Repo target"
               : "Live";
   const style =
-    status === "aligned"
+    edge.confidence === "inferred"
+      ? "border-[var(--color-signal-warn)]/35 text-[var(--color-signal-warn)]"
+      : status === "aligned"
       ? "border-[var(--color-signal-ok)]/35 text-[var(--color-signal-ok)]"
       : status === "drift" || status === "repository_only"
         ? "border-[var(--color-signal-warn)]/35 text-[var(--color-signal-warn)]"

@@ -6,6 +6,7 @@ from pathlib import Path
 
 from scanner.builder import build_snapshot, load_fixture
 from scanner.mart_catalog import load_mart_catalog
+from scanner.snapshot_writer import sanitize_snapshot_source_sql
 
 
 FIXTURE = Path(__file__).resolve().parent / "fixtures" / "minimal_live_input.json"
@@ -26,16 +27,21 @@ class BuilderTests(unittest.TestCase):
         edge_keys = {(edge["source"], edge["target"], edge["relationship_type"]) for edge in snapshot["edges"]}
         self.assertIn("Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA", node_ids)
         self.assertIn("SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi", node_ids)
-        self.assertIn("SemanticModel.sc_control_tower.FactForecastKpi", node_ids)
         self.assertIn(
             (
                 "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi",
-                "SemanticModel.sc_control_tower.FactForecastKpi",
-                "semantic_binding",
+                "SemanticModel.sc_control_tower.Model",
+                "feeds_semantic",
             ),
             edge_keys,
         )
         self.assertGreaterEqual(len(snapshot["layers"]), 4)
+        self.assertTrue(snapshot["semantic_validation"]["complete"])
+        self.assertTrue(all(not node["source_sql"] for node in snapshot["nodes"]))
+        self.assertTrue(
+            any(node.get("source_sql_sha256") for node in snapshot["nodes"]),
+            "public snapshots retain module hashes but never raw SQL",
+        )
 
     def test_compares_live_edges_with_repository_target(self) -> None:
         fixture = load_fixture(FIXTURE)
@@ -191,6 +197,69 @@ class BuilderTests(unittest.TestCase):
             ),
             {(edge["source"], edge["target"], edge["relationship_type"]) for edge in snapshot["edges"]},
         )
+
+    def test_semantic_source_missing_from_catalog_is_added_before_binding(self) -> None:
+        fixture = load_fixture(FIXTURE)
+        fixture["sql_scan"]["objects"]["SupplyChain_Gold_Warehouse"].append(
+            {
+                "database_name": "SupplyChain_Gold_Warehouse",
+                "schema_name": "ForecastAccuracy_DW",
+                "object_name": "OrphanGoldTable",
+                "type_desc": "USER_TABLE",
+                "modify_date": "2026-06-25T00:00:00",
+            }
+        )
+        fixture["semantic_definition"] = {
+            "definition": {
+                "parts": [
+                    {
+                        "path": "definition/tables/OrphanSemanticTable.tmdl",
+                        "payload": "ZW50aXR5TmFtZTogT3JwaGFuR29sZFRhYmxlIHNjaGVtYU5hbWU6IEZvcmVjYXN0QWNjdXJhY3lfRFc=",
+                        "payloadType": "InlineBase64",
+                    }
+                ]
+            }
+        }
+        snapshot = build_snapshot(
+            workspace_id=fixture["workspace"]["id"],
+            workspace_name=fixture["workspace"]["name"],
+            workspace_items=fixture["workspace_items"],
+            sql_scan=fixture["sql_scan"],
+            semantic_definition=fixture["semantic_definition"],
+            semantic_model_name=fixture["semantic_model_name"],
+        )
+        node_ids = {node["id"] for node in snapshot["nodes"]}
+        self.assertIn("SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.OrphanGoldTable", node_ids)
+        self.assertTrue(
+            all(edge["source"] in node_ids and edge["target"] in node_ids for edge in snapshot["edges"])
+        )
+
+    def test_incomplete_semantic_definition_emits_no_unverified_bindings(self) -> None:
+        fixture = load_fixture(FIXTURE)
+        snapshot = build_snapshot(
+            workspace_id=fixture["workspace"]["id"],
+            workspace_name=fixture["workspace"]["name"],
+            workspace_items=fixture["workspace_items"],
+            sql_scan=fixture["sql_scan"],
+            semantic_definition=None,
+            semantic_model_name=fixture["semantic_model_name"],
+            semantic_expected_binding_count=14,
+            semantic_failure_reason="permission denied",
+        )
+        self.assertFalse(snapshot["semantic_validation"]["complete"])
+        self.assertEqual(snapshot["semantic_validation"]["status"], "unavailable")
+        self.assertFalse(any(edge["relationship_type"] == "feeds_semantic" for edge in snapshot["edges"]))
+
+    def test_legacy_snapshot_sanitizer_removes_raw_sql(self) -> None:
+        path = Path(self._testMethodName + ".json")
+        try:
+            path.write_text('{"nodes":[{"source_sql":"SELECT secret_free_sql"}]}', encoding="utf-8")
+            self.assertEqual(sanitize_snapshot_source_sql(path), 1)
+            sanitized = load_fixture(path)
+            self.assertEqual(sanitized["nodes"][0]["source_sql"], "")
+            self.assertTrue(sanitized["nodes"][0]["source_sql_sha256"])
+        finally:
+            path.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

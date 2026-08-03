@@ -54,6 +54,18 @@ export type LiveBaselineSnapshot = {
   generated_at_utc: string;
   used_view_count: number;
   summary: Record<string, number>;
+  validation?: Record<string, unknown>;
+};
+
+export type SemanticValidation = {
+  status: "complete" | "incomplete" | "unavailable" | string;
+  complete: boolean;
+  definition_read: boolean;
+  expected_binding_count: number | null;
+  binding_count: number;
+  table_part_count: number;
+  non_binding_table_count?: number;
+  reason: string;
 };
 
 export type MartRegistryEntry = {
@@ -73,6 +85,7 @@ export type Snapshot = {
   mart_registry?: MartRegistryEntry[];
   repository?: RepositorySnapshot | null;
   live_baseline?: LiveBaselineSnapshot | null;
+  semantic_validation?: SemanticValidation;
   warnings: string[];
   scan_evidence: Record<string, unknown>;
 };

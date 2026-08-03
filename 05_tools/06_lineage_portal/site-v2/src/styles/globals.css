@@ -171,6 +171,12 @@ body {
   stroke-dasharray: 3 4;
 }
 
+/* Inferred paths are deliberately distinct from deployed or repository evidence. */
+.react-flow__edge.edge-inferred .react-flow__edge-path {
+  stroke: color-mix(in oklch, var(--color-signal-warn) 74%, transparent);
+  stroke-dasharray: 1 5;
+}
+
 /* Animated flow dash for accented focus edges */
 .react-flow__edge.edge-accent .react-flow__edge-path {
   stroke-dasharray: 5 4;
