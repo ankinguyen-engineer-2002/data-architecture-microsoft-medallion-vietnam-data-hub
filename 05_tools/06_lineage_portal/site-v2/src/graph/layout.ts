@@ -98,7 +98,7 @@ export function toFlowEdges(edges: LineageEdge[], accentIds?: Set<string>): Edge
   return edges.map((edge) => {
     const highlighted = accentIds ? accentIds.has(edge.id) : false;
     const isSemantic = edge.relationship_type === "feeds_semantic";
-    const base = isSemantic ? "edge-semantic" : "edge-base";
+    const evidenceClass = edgeClass(edge, isSemantic);
     return {
       id: edge.id,
       source: edge.source,
@@ -107,9 +107,21 @@ export function toFlowEdges(edges: LineageEdge[], accentIds?: Set<string>): Edge
       animated: highlighted,
       data: { edge },
       markerEnd: { type: MarkerType.ArrowClosed, width: 14, height: 14 },
-      className: highlighted ? "edge-accent" : base,
+      className: `${evidenceClass}${highlighted ? " edge-accent" : ""}`,
     };
   });
+}
+
+function edgeClass(edge: LineageEdge, isSemantic: boolean): string {
+  if (isSemantic) return "edge-semantic";
+  if (edge.sync_status === "aligned") return "edge-aligned";
+  if (edge.sync_status === "drift") {
+    return edge.provenance === "repository_target"
+      ? "edge-drift edge-repository"
+      : "edge-drift edge-live";
+  }
+  if (edge.provenance === "repository_target") return "edge-repository";
+  return "edge-live";
 }
 
 // ── topology ─────────────────────────────────────────────────

@@ -1,0 +1,1408 @@
+{
+  "generated_at_utc": "2026-08-03T08:13:10Z",
+  "schema_version": 1,
+  "summary": {
+    "dependency_edge_count": 203,
+    "system_dependency_row_count": 203,
+    "view_count": 54
+  },
+  "views": [
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "CustomerGrouping",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_DimCustomerGrouping",
+      "schema": "ForecastAccuracy_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastHorizon",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_DimForecastHorizon",
+      "schema": "ForecastAccuracy_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastDemandMonthly",
+          "schema": "ForecastHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "NaiveForecastMonthly",
+          "schema": "ForecastHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ActualDemandMonthly",
+          "schema": "SalesHistory_Enh"
+        }
+      ],
+      "object_name": "v_FactForecastActual",
+      "schema": "ForecastAccuracy_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastDemandMonthly",
+          "schema": "ForecastHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "NaiveForecastMonthly",
+          "schema": "ForecastHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastHorizon",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ActualDemandMonthly",
+          "schema": "SalesHistory_Enh"
+        }
+      ],
+      "object_name": "v_FactForecastKpi",
+      "schema": "ForecastAccuracy_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "ITMRVA",
+          "schema": "ItemMaster_AFI"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "FactInventoryHealthFutureWeekEnding",
+          "schema": "InventoryHealth_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "ProjectedInventoryHealthSubStatus",
+          "schema": "InventoryHealth_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "DimProduct",
+          "schema": "Shared_DW"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AFIStatusSnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AtpWeekEnding",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AwdHelper",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InventorySnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "SupplyPlanDetail",
+          "schema": "InventoryHistory_Enh"
+        }
+      ],
+      "object_name": "v_DQFactInventoryHealthFutureWeekEnding_v2",
+      "schema": "InventoryHealth_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "FactInventoryHealthSnapshot",
+          "schema": "InventoryHealth_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "InventoryHealthSubStatusWeekly",
+          "schema": "InventoryHealth_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "DimProduct",
+          "schema": "Shared_DW"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AFIStatusSnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AtpWeekEnding",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AwdHelper",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Cogs52WWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InventorySnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ItemBalanceHistorical_WithInTransit",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ManufacturingOrderSnapshotDaily",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "PurchaseOrderSnapshotHistorical",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "SafetyStockHelper",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "SupplyPlanDetail",
+          "schema": "InventoryHistory_Enh"
+        }
+      ],
+      "object_name": "v_DQFactInventoryHealthSnapshot_v2",
+      "schema": "InventoryHealth_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Vendor",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_DimVendor",
+      "schema": "InventoryHealth_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "ITMRVA",
+          "schema": "ItemMaster_AFI"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "ProjectedInventoryHealthSubStatus",
+          "schema": "InventoryHealth_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "InventorySnapshotWeeklyBase",
+          "schema": "InventoryHealth_Internal"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "DimProduct",
+          "schema": "Shared_DW"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AtpWeekEnding",
+          "schema": "InventoryHistory_Enh"
+        }
+      ],
+      "object_name": "v_FactInventoryHealthFutureWeekEnding",
+      "schema": "InventoryHealth_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "InventoryClassificationQtyWeekly",
+          "schema": "InventoryHealth_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "InventoryHealthSubStatusWeekly",
+          "schema": "InventoryHealth_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "v_SupplyPlanOutageClassHelper",
+          "schema": "InventoryHealth_DW_Wrk"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "DimProduct",
+          "schema": "Shared_DW"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AFIStatusSnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AtpWeekEnding",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AwdHelper",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Cogs52WWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InventorySnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ItemBalanceHistorical_WithInTransit",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "LastInvoiceWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ManufacturingOrderSnapshotDaily",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "PurchaseOrderSnapshotHistorical",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "SafetyStockHelper",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "SupplyPlanDetail",
+          "schema": "InventoryHistory_Enh"
+        }
+      ],
+      "object_name": "v_FactInventoryHealthSnapshot",
+      "schema": "InventoryHealth_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "InventoryHealthSubStatusWeekly",
+          "schema": "InventoryHealth_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "InventorySnapshotWeeklyBase",
+          "schema": "InventoryHealth_Internal"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AwdHelper",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "SafetyStockHelper",
+          "schema": "InventoryHistory_Enh"
+        }
+      ],
+      "object_name": "v_InventoryClassificationQtyWeekly",
+      "schema": "InventoryHealth_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "InventorySnapshotWeeklyBase",
+          "schema": "InventoryHealth_Internal"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AFIStatusSnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AwdHelper",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "LastInvoiceWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ManufacturingOrderSnapshotDaily",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "PurchaseOrderSnapshotHistorical",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "SafetyStockHelper",
+          "schema": "InventoryHistory_Enh"
+        }
+      ],
+      "object_name": "v_InventoryHealthSubStatusWeekly",
+      "schema": "InventoryHealth_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AFIStatusSnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "AwdHelper",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "LastInvoiceWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "SupplyPlanDetail",
+          "schema": "InventoryHistory_Enh"
+        }
+      ],
+      "object_name": "v_ProjectedInventoryHealthSubStatus",
+      "schema": "InventoryHealth_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "SupplyPlanDetail",
+          "schema": "InventoryHistory_Enh"
+        }
+      ],
+      "object_name": "v_SupplyPlanOutageClassHelper",
+      "schema": "InventoryHealth_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InventorySnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        }
+      ],
+      "object_name": "v_InventorySnapshotWeeklyBase",
+      "schema": "InventoryHealth_Internal_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Calendar",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_DimCalendar",
+      "schema": "Shared_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "ITBEXT",
+          "schema": "ItemMaster_AFI"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ItemMaster",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_DimProduct",
+      "schema": "Shared_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Gold_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "AshleyWarehouseMaster",
+          "schema": "Wholesale_Codis_AFI"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Warehouse",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_DimWarehouse",
+      "schema": "Shared_DW_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "InvoiceDetail",
+          "schema": "SalesHistory_AFI_Enh"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "InvoiceHeader",
+          "schema": "SalesHistory_AFI_Enh"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "DemandForecastSnapshotDaily",
+          "schema": "SupplyChain_Enh"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "AAORDTYP",
+          "schema": "Wholesale_Codis_AFI"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "Codatan",
+          "schema": "Wholesale_Codis_AFI"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "Comast",
+          "schema": "Wholesale_Codis_AFI"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "Extord",
+          "schema": "Wholesale_Codis_AFI"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "Extorit",
+          "schema": "Wholesale_Codis_AFI"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "DimCustomerGrouping",
+          "schema": "ForecastAccuracy_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "DimForecastHorizon",
+          "schema": "ForecastAccuracy_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "FactForecastActual",
+          "schema": "ForecastAccuracy_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "FactForecastKpi",
+          "schema": "ForecastAccuracy_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "v_DimCustomerGrouping",
+          "schema": "ForecastAccuracy_DW_Wrk"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "v_DimForecastHorizon",
+          "schema": "ForecastAccuracy_DW_Wrk"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "v_FactForecastActual",
+          "schema": "ForecastAccuracy_DW_Wrk"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "v_FactForecastKpi",
+          "schema": "ForecastAccuracy_DW_Wrk"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "DimCalendar",
+          "schema": "Shared_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "DimProduct",
+          "schema": "Shared_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "DimWarehouse",
+          "schema": "Shared_DW"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "v_DimCalendar",
+          "schema": "Shared_DW_Wrk"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "v_DimProduct",
+          "schema": "Shared_DW_Wrk"
+        },
+        {
+          "database": "SupplyChain_Gold_Warehouse",
+          "object_name": "v_DimWarehouse",
+          "schema": "Shared_DW_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastDemandMonthly",
+          "schema": "ForecastHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "NaiveForecastMonthly",
+          "schema": "ForecastHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_ForecastDemandMonthly",
+          "schema": "ForecastHistory_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_NaiveForecastMonthly",
+          "schema": "ForecastHistory_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "OpenOrderLineLevel",
+          "schema": "OpenOrderHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "OpenOrderMonthly",
+          "schema": "OpenOrderHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_OpenOrderLineLevel",
+          "schema": "OpenOrderHistory_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_OpenOrderMonthly",
+          "schema": "OpenOrderHistory_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastCycle",
+          "schema": "ProcessingSeed"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Calendar",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "CustomerAccount",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "CustomerAccountGroup",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "CustomerGrouping",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "CustomerShippingLocation",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastCycle",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastHorizon",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ItemMaster",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "OrderType",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Warehouse",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_Calendar",
+          "schema": "ReferenceMaster_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_CustomerAccount",
+          "schema": "ReferenceMaster_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_CustomerAccountGroup",
+          "schema": "ReferenceMaster_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_CustomerGrouping",
+          "schema": "ReferenceMaster_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_CustomerShippingLocation",
+          "schema": "ReferenceMaster_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_ForecastCycle",
+          "schema": "ReferenceMaster_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_ForecastHorizon",
+          "schema": "ReferenceMaster_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_ItemMaster",
+          "schema": "ReferenceMaster_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_OrderType",
+          "schema": "ReferenceMaster_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_Warehouse",
+          "schema": "ReferenceMaster_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ActualDemandMonthly",
+          "schema": "SalesHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ActualDemandWeekly",
+          "schema": "SalesHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InvoiceDetailLineLevel",
+          "schema": "SalesHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InvoiceWeekly",
+          "schema": "SalesHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_ActualDemandMonthly",
+          "schema": "SalesHistory_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_ActualDemandWeekly",
+          "schema": "SalesHistory_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_InvoiceDetailLineLevel",
+          "schema": "SalesHistory_Enh_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_InvoiceWeekly",
+          "schema": "SalesHistory_Enh_Wrk"
+        }
+      ],
+      "object_name": "v_DQForecastAccuracy",
+      "schema": "DataQuality"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "DemandForecastSnapshotDaily",
+          "schema": "SupplyChain_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Calendar",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastCycle",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_ForecastDemandMonthly",
+      "schema": "ForecastHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Calendar",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ActualDemandMonthly",
+          "schema": "SalesHistory_Enh"
+        }
+      ],
+      "object_name": "v_NaiveForecastMonthly",
+      "schema": "ForecastHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "DemandFulfillmentCommonContainer_Logility",
+          "schema": "SupplyChain_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InventorySnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ItemMaster",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_AFIStatusSnapshotWeekly",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "ATPWeekEnding",
+          "schema": "SupplyChain_Enh"
+        }
+      ],
+      "object_name": "v_AtpWeekEnding",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "ITEMBL",
+          "schema": "ItemMaster_AFI"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "CurFcStSnapshotWeekly",
+          "schema": "SupplyChain_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastSnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InventorySnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InvoiceDetailLineLevel",
+          "schema": "SalesHistory_Enh"
+        }
+      ],
+      "object_name": "v_AwdHelper",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "ITMRVA",
+          "schema": "ItemMaster_AFI"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InventorySnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Calendar",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InvoiceDetailLineLevel",
+          "schema": "SalesHistory_Enh"
+        }
+      ],
+      "object_name": "v_Cogs52WWeekly",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "DemandForecastSnapshotDaily",
+          "schema": "SupplyChain_Enh"
+        }
+      ],
+      "object_name": "v_ForecastSnapshotWeekly",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "TFRDTL",
+          "schema": "Manufacturing_Inventory_AFI"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "TFRHDR",
+          "schema": "Manufacturing_Inventory_AFI"
+        }
+      ],
+      "object_name": "v_HoldingTransferSnapshotDaily",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "DemandInventorySnapshotDaily",
+          "schema": "SupplyChain_Enh"
+        }
+      ],
+      "object_name": "v_InventorySnapshotWeekly",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "ItemBalance",
+          "schema": "Inventory_Enh_History"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Warehouse",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_ItemBalanceHistorical_WithInTransit",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InventorySnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InvoiceDetailLineLevel",
+          "schema": "SalesHistory_Enh"
+        }
+      ],
+      "object_name": "v_LastInvoiceWeekly",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "MOMAST",
+          "schema": "Manufacturing_ProductionPlanning_AFI"
+        }
+      ],
+      "object_name": "v_ManufacturingOrderSnapshotDaily",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "PurchaseOrderSnapshot",
+          "schema": "SupplyChain_Enh"
+        }
+      ],
+      "object_name": "v_PurchaseOrderSnapshotHistorical",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InventorySnapshotWeekly",
+          "schema": "InventoryHistory_Enh"
+        }
+      ],
+      "object_name": "v_SafetyStockHelper",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "SupplyPlanDetailSnapshotDaily",
+          "schema": "SupplyChain_Enh"
+        }
+      ],
+      "object_name": "v_SupplyPlanDetail",
+      "schema": "InventoryHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_Codatan",
+          "schema": "Staging_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_Comast",
+          "schema": "Staging_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_Extord",
+          "schema": "Staging_Wrk"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "v_Extorit",
+          "schema": "Staging_Wrk"
+        }
+      ],
+      "object_name": "v_OpenOrderLineLevel",
+      "schema": "OpenOrderHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "OpenOrderLineLevel",
+          "schema": "OpenOrderHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Calendar",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "CustomerAccountGroup",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_OpenOrderMonthly",
+      "schema": "OpenOrderHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "DimDate",
+          "schema": "MasterData_DW"
+        }
+      ],
+      "object_name": "v_Calendar",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "AccountMaster",
+          "schema": "Customers"
+        }
+      ],
+      "object_name": "v_CustomerAccount",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "CustomerGrouping",
+          "schema": "Wholesale_ProductSourcing_AFI"
+        }
+      ],
+      "object_name": "v_CustomerAccountGroup",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "CustomerGrouping",
+          "schema": "Wholesale_ProductSourcing_AFI"
+        }
+      ],
+      "object_name": "v_CustomerGrouping",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "ShippingLocations",
+          "schema": "Customers"
+        }
+      ],
+      "object_name": "v_CustomerShippingLocation",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastCycle",
+          "schema": "ProcessingSeed"
+        }
+      ],
+      "object_name": "v_ForecastCycle",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "ForecastHorizon",
+          "schema": "ProcessingSeed"
+        }
+      ],
+      "object_name": "v_ForecastHorizon",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "AITMCLS",
+          "schema": "ItemMaster_AFI"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "ITMEXT",
+          "schema": "ItemMaster_AFI"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "DimItemMaster",
+          "schema": "MasterData_DW"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "Item_ENV",
+          "schema": "MasterData_ProductKnowledge"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "InvoiceDetail",
+          "schema": "SalesHistory_AFI_Enh"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "NonPkItems",
+          "schema": "Wholesale_ProductSourcing"
+        }
+      ],
+      "object_name": "v_ItemMaster",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "AAORDTYP",
+          "schema": "Wholesale_Codis_AFI"
+        }
+      ],
+      "object_name": "v_OrderType",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "VendorMaster",
+          "schema": "Purchasing_AFI"
+        }
+      ],
+      "object_name": "v_Vendor",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "WarehouseMaster",
+          "schema": "CustomerOrders_AFI"
+        }
+      ],
+      "object_name": "v_Warehouse",
+      "schema": "ReferenceMaster_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "OpenOrderLineLevel",
+          "schema": "OpenOrderHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Calendar",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "CustomerAccountGroup",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InvoiceDetailLineLevel",
+          "schema": "SalesHistory_Enh"
+        }
+      ],
+      "object_name": "v_ActualDemandMonthly",
+      "schema": "SalesHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "OpenOrderLineLevel",
+          "schema": "OpenOrderHistory_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Calendar",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "CustomerAccountGroup",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InvoiceDetailLineLevel",
+          "schema": "SalesHistory_Enh"
+        }
+      ],
+      "object_name": "v_ActualDemandWeekly",
+      "schema": "SalesHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "InvoiceDetail",
+          "schema": "SalesHistory_AFI_Enh"
+        },
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "InvoiceHeader",
+          "schema": "SalesHistory_AFI_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "CustomerAccountGroup",
+          "schema": "ReferenceMaster_Enh"
+        }
+      ],
+      "object_name": "v_InvoiceDetailLineLevel",
+      "schema": "SalesHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "Calendar",
+          "schema": "ReferenceMaster_Enh"
+        },
+        {
+          "database": "SupplyChain_Processing_Warehouse",
+          "object_name": "InvoiceDetailLineLevel",
+          "schema": "SalesHistory_Enh"
+        }
+      ],
+      "object_name": "v_InvoiceWeekly",
+      "schema": "SalesHistory_Enh_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "codatan",
+          "schema": "Wholesale_Codis_AFI"
+        }
+      ],
+      "object_name": "v_Codatan",
+      "schema": "Staging_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "COMAST",
+          "schema": "Wholesale_Codis_AFI"
+        }
+      ],
+      "object_name": "v_Comast",
+      "schema": "Staging_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "EXTORD",
+          "schema": "Wholesale_Codis_AFI"
+        }
+      ],
+      "object_name": "v_Extord",
+      "schema": "Staging_Wrk"
+    },
+    {
+      "database": "SupplyChain_Processing_Warehouse",
+      "dependencies": [
+        {
+          "database": "Enterprise_Lakehouse",
+          "object_name": "EXTORIT",
+          "schema": "Wholesale_Codis_AFI"
+        }
+      ],
+      "object_name": "v_Extorit",
+      "schema": "Staging_Wrk"
+    }
+  ],
+  "workspace": {
+    "id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
+    "name": "Enterprise SupplyChain-Dev"
+  }
+}

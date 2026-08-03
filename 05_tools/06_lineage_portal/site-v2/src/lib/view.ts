@@ -122,7 +122,10 @@ function collapseThroughHidden(edges: LineageEdge[], visibleIds: Set<string>): L
   for (const edge of edges) {
     if (!visibleIds.has(edge.source)) continue;
     if (visibleIds.has(edge.target)) {
-      result.set(`${edge.source}|${edge.target}|${edge.relationship_type}`, edge);
+      result.set(
+        `${edge.source}|${edge.target}|${edge.relationship_type}|${edge.provenance ?? "live"}`,
+        edge
+      );
       continue;
     }
     for (const target of downstreamVisibleTargets(edge.target, outgoing, visibleIds)) {
@@ -132,12 +135,12 @@ function collapseThroughHidden(edges: LineageEdge[], visibleIds: Set<string>): L
           ? "feeds_semantic"
           : "transforms_to";
       const id = `collapse:${edge.source}->${target}:${relationship}`;
-      result.set(`${edge.source}|${target}|${relationship}`, {
+      result.set(`${edge.source}|${target}|${relationship}|${edge.provenance ?? "live"}`, {
+        ...edge,
         id,
         source: edge.source,
         target,
         relationship_type: relationship,
-        confidence: edge.confidence,
         evidence: `Collapsed plumbing path through ${edge.target}`,
       });
     }

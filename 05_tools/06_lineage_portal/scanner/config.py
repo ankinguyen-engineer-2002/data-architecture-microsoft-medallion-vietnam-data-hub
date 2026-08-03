@@ -15,6 +15,12 @@ ETL_DATABASE = "ETL_Framework"
 PROCESSING_DATABASE = "SupplyChain_Processing_Warehouse"
 GOLD_DATABASE = "SupplyChain_Gold_Warehouse"
 SOURCE_DATABASE = "Enterprise_Lakehouse"
+REPOSITORY_SOURCE_DATABASES = {
+    "Source_Data",
+    "Wholesale_Warehouse",
+    "MasterData_Warehouse",
+    "SupplyChain_Warehouse",
+}
 
 
 @dataclass(frozen=True)

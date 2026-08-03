@@ -5,7 +5,7 @@ Builds a static lineage portal for the current `Enterprise SupplyChain-Dev` Ente
 The operating pattern is:
 
 ```text
-GitHub Actions -> live Fabric/SQL scanner -> lineage_snapshot.json -> Vite/React build -> GitHub Pages
+GitHub Actions -> live Fabric/SQL scanner + EDW target manifest -> lineage_snapshot.json -> Vite/React build -> GitHub Pages
 ```
 
 The browser app never receives Fabric, SQL, Power BI, or OpenAI credentials.
@@ -15,8 +15,10 @@ The browser app never receives Fabric, SQL, Power BI, or OpenAI credentials.
 | Folder | Purpose |
 |---|---|
 | `scanner/` | Python scanner and snapshot builder. |
-| `site/` | Static Vite/React GitHub Pages app. |
+| `site-v2/` | Static Vite/React GitHub Pages app. |
 | `tests/` | Fixture-based scanner tests. |
+| `repository_lineage_manifest.json` | Generated target lineage from the exact `data-edw-fabric` commit/PR under review. |
+| `live_lineage_baseline.json` | Timestamped read-only fallback used only when the scheduled identity cannot read current SQL dependency metadata. |
 
 ## Required GitHub Secrets For Live Scan
 
@@ -53,11 +55,11 @@ This does not connect to Fabric:
 cd 05_tools/06_lineage_portal
 PYTHONPATH=. python3 -m scanner.cli \
   --fixture tests/fixtures/minimal_live_input.json \
-  --out site/public/lineage_snapshot.json
+  --out site-v2/public/lineage_snapshot.json
 
 PYTHONPATH=. python3 -m unittest discover -s tests -v
 
-cd site
+cd site-v2
 npm ci
 npm run typecheck
 npm run build
@@ -71,8 +73,33 @@ For a local read-only smoke test, export the same variables as GitHub secrets an
 
 ```bash
 cd 05_tools/06_lineage_portal
-PYTHONPATH=. python3 -m scanner.cli --out site/public/lineage_snapshot.json
+PYTHONPATH=. python3 -m scanner.cli --out site-v2/public/lineage_snapshot.json
 ```
+
+## Refresh Repository And Live Evidence
+
+Generate the repository target manifest from a clean EDW worktree and exact SHA:
+
+```bash
+cd 05_tools/06_lineage_portal
+PYTHONPATH=. python3 -m scanner.repository_manifest \
+  --repo-root /path/to/data-edw-fabric-worktree \
+  --expected-sha <full-sha> \
+  --pull-request <number> \
+  --out repository_lineage_manifest.json
+```
+
+Refresh the live fallback baseline and build the combined snapshot with delegated Azure CLI auth:
+
+```bash
+FABRIC_USE_AZ_CLI=1 PYTHONPATH=. python3 -m scanner.cli \
+  --skip-semantic \
+  --repository-manifest repository_lineage_manifest.json \
+  --write-live-baseline live_lineage_baseline.json \
+  --out site-v2/public/lineage_snapshot.json
+```
+
+The graph keeps live and repository target edges separate. Exact matches are `aligned`; differing source routes are `drift`; repository edges with no live counterpart are `repository_only`. Live runtime remains authoritative.
 
 ## Safety
 

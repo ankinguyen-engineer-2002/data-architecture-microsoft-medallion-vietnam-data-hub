@@ -78,6 +78,31 @@ class SqlReader:
             )
             return self.rows_as_dicts(cur)
 
+    def fetch_view_dependencies(self, database: str) -> list[dict[str, Any]]:
+        with self.connect(database) as conn:
+            cur = conn.cursor()
+            cur.execute(
+                """
+                SELECT
+                    DB_NAME() AS database_name,
+                    s.name AS referencing_schema_name,
+                    o.name AS referencing_object_name,
+                    COALESCE(d.referenced_database_name, DB_NAME()) AS referenced_database_name,
+                    d.referenced_schema_name,
+                    d.referenced_entity_name AS referenced_object_name
+                FROM sys.sql_expression_dependencies d
+                JOIN sys.objects o ON o.object_id = d.referencing_id
+                JOIN sys.schemas s ON s.schema_id = o.schema_id
+                WHERE o.is_ms_shipped = 0
+                  AND o.type = 'V'
+                  AND d.referenced_schema_name IS NOT NULL
+                  AND d.referenced_entity_name IS NOT NULL
+                ORDER BY s.name, o.name, referenced_database_name,
+                         d.referenced_schema_name, d.referenced_entity_name
+                """
+            )
+            return self.rows_as_dicts(cur)
+
     def fetch_table_dictionary(self) -> list[dict[str, Any]]:
         with self.connect(ETL_DATABASE) as conn:
             cur = conn.cursor()
@@ -110,5 +135,9 @@ class SqlReader:
             "modules": {
                 PROCESSING_DATABASE: self.fetch_view_modules(PROCESSING_DATABASE),
                 GOLD_DATABASE: self.fetch_view_modules(GOLD_DATABASE),
+            },
+            "dependencies": {
+                PROCESSING_DATABASE: self.fetch_view_dependencies(PROCESSING_DATABASE),
+                GOLD_DATABASE: self.fetch_view_dependencies(GOLD_DATABASE),
             },
         }

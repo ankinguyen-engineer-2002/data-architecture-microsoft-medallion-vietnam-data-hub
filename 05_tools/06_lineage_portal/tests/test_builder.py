@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import unittest
 from pathlib import Path
 
@@ -35,6 +36,127 @@ class BuilderTests(unittest.TestCase):
             edge_keys,
         )
         self.assertGreaterEqual(len(snapshot["layers"]), 4)
+
+    def test_compares_live_edges_with_repository_target(self) -> None:
+        fixture = load_fixture(FIXTURE)
+        repository_manifest = {
+            "repository": "afi-internal/data-edw-fabric",
+            "commit_sha": "7282973e4fdad2464907ca0ea4b3f3d43b1a5f31",
+            "pull_request": 694,
+            "generated_at_utc": "2026-08-03T08:00:00Z",
+            "summary": {"view_count": 2, "procedure_count": 14, "table_count": 51},
+            "views": [
+                {
+                    "database": "SupplyChain_Processing_Warehouse",
+                    "schema": "ReferenceMaster_Enh_Wrk",
+                    "object_name": "v_ItemMaster",
+                    "path": "SupplyChain_Processing_Warehouse/ReferenceMaster_Enh_Wrk/Views/v_ItemMaster.sql",
+                    "target": {
+                        "database": "SupplyChain_Processing_Warehouse",
+                        "schema": "ReferenceMaster_Enh",
+                        "object_name": "ItemMaster",
+                    },
+                    "dependencies": [
+                        {
+                            "database": "Source_Data",
+                            "schema": "MasterData_ItemMaster_AFI",
+                            "object_name": "ITMRVA",
+                        }
+                    ],
+                },
+                {
+                    "database": "SupplyChain_Gold_Warehouse",
+                    "schema": "ForecastAccuracy_DW_Wrk",
+                    "object_name": "v_FactForecastKpi",
+                    "path": "SupplyChain_Gold_Warehouse/ForecastAccuracy_DW_Wrk/Views/v_FactForecastKpi.sql",
+                    "target": {
+                        "database": "SupplyChain_Gold_Warehouse",
+                        "schema": "ForecastAccuracy_DW",
+                        "object_name": "FactForecastKpi",
+                    },
+                    "dependencies": [
+                        {
+                            "database": "SupplyChain_Processing_Warehouse",
+                            "schema": "ForecastHistory_Enh",
+                            "object_name": "ForecastDemandMonthly",
+                        }
+                    ],
+                },
+            ],
+        }
+
+        snapshot = build_snapshot(
+            workspace_id=fixture["workspace"]["id"],
+            workspace_name=fixture["workspace"]["name"],
+            workspace_items=fixture["workspace_items"],
+            sql_scan=fixture["sql_scan"],
+            semantic_definition=fixture["semantic_definition"],
+            semantic_model_name=fixture["semantic_model_name"],
+            repository_manifest=repository_manifest,
+        )
+
+        statuses = {
+            (edge["source"], edge["target"], edge["provenance"]): edge["sync_status"]
+            for edge in snapshot["edges"]
+        }
+        self.assertEqual(
+            statuses[
+                (
+                    "SupplyChain_Processing_Warehouse.ForecastHistory_Enh.ForecastDemandMonthly",
+                    "SupplyChain_Gold_Warehouse.ForecastAccuracy_DW.FactForecastKpi",
+                    "live+repository_target",
+                )
+            ],
+            "aligned",
+        )
+        self.assertEqual(
+            statuses[
+                (
+                    "Source_Data.MasterData_ItemMaster_AFI.ITMRVA",
+                    "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster",
+                    "repository_target",
+                )
+            ],
+            "drift",
+        )
+        self.assertEqual(snapshot["repository"]["pull_request"], 694)
+
+    def test_uses_timestamped_live_baseline_when_module_metadata_is_unavailable(self) -> None:
+        fixture = copy.deepcopy(load_fixture(FIXTURE))
+        for rows in fixture["sql_scan"]["modules"].values():
+            for row in rows:
+                row["definition"] = None
+        live_baseline = {
+            "generated_at_utc": "2026-08-03T08:13:10Z",
+            "summary": {"view_count": 1, "dependency_edge_count": 1},
+            "views": [
+                {
+                    "database": "SupplyChain_Processing_Warehouse",
+                    "schema": "ReferenceMaster_Enh_Wrk",
+                    "object_name": "v_ItemMaster",
+                    "dependencies": [
+                        {
+                            "database": "Enterprise_Lakehouse",
+                            "schema": "ItemMaster_AFI",
+                            "object_name": "ITMRVA",
+                        }
+                    ],
+                }
+            ],
+        }
+
+        snapshot = build_snapshot(
+            workspace_id=fixture["workspace"]["id"],
+            workspace_name=fixture["workspace"]["name"],
+            workspace_items=fixture["workspace_items"],
+            sql_scan=fixture["sql_scan"],
+            semantic_definition=fixture["semantic_definition"],
+            semantic_model_name=fixture["semantic_model_name"],
+            live_baseline=live_baseline,
+        )
+
+        self.assertEqual(snapshot["scan_evidence"]["live_baseline_view_count"], 1)
+        self.assertTrue(any("baseline" in warning for warning in snapshot["warnings"]))
 
     def test_catalog_snapshot_hides_work_view_nodes(self) -> None:
         fixture = load_fixture(FIXTURE)

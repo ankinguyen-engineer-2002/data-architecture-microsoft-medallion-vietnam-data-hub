@@ -25,6 +25,27 @@ class DependencyParserTests(unittest.TestCase):
         refs = extract_object_refs(sql)
         self.assertEqual(refs, [ObjectRef("Enterprise_Lakehouse", "Good", "TableA")])
 
+    def test_handles_sqlcmd_database_and_ignores_alias_columns_and_literals(self) -> None:
+        sql = """
+        SELECT s.ItemSKU, inv.OnHandQty,
+               'Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA.UCDEF' AS evidence
+        FROM [$(Source_Data)].[MasterData_ItemMaster_AFI].[ITMRVA] s
+        JOIN [InventoryHistory_Enh].[InventorySnapshotWeekly] inv
+          ON inv.ItemSKU = s.ITNBR
+        """
+        refs = extract_object_refs(sql, default_database="SupplyChain_Processing_Warehouse")
+        self.assertEqual(
+            refs,
+            [
+                ObjectRef("Source_Data", "MasterData_ItemMaster_AFI", "ITMRVA"),
+                ObjectRef(
+                    "SupplyChain_Processing_Warehouse",
+                    "InventoryHistory_Enh",
+                    "InventorySnapshotWeekly",
+                ),
+            ],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -40,27 +40,46 @@ def build_snapshot(
     semantic_model_name: str = "sc_control_tower",
     generated_at_utc: str | None = None,
     mart_catalog: MartCatalog | None = None,
+    repository_manifest: dict[str, Any] | None = None,
+    live_baseline: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     nodes: dict[str, dict[str, Any]] = {}
-    edges: dict[tuple[str, str, str], dict[str, Any]] = {}
+    edges: dict[tuple[str, str, str, str], dict[str, Any]] = {}
     warnings: list[str] = []
     catalog = mart_catalog or empty_catalog()
+    live_baseline_views_used: set[str] = set()
 
     def add_node(node: dict[str, Any]) -> None:
         enriched = enrich_node(node, catalog)
         nodes[enriched["id"]] = {**nodes.get(enriched["id"], {}), **enriched}
 
-    def add_edge(source: str, target: str, rel: str, confidence: str, evidence: str) -> None:
+    def add_edge(
+        source: str,
+        target: str,
+        rel: str,
+        confidence: str,
+        evidence: str,
+        *,
+        provenance: str = "live",
+        evidence_timestamp: str = "",
+        repository_sha: str = "",
+        source_file: str = "",
+    ) -> None:
         if source == target:
             return
-        key = (source, target, rel)
+        key = (source, target, rel, provenance)
         edges[key] = {
-            "id": f"{source}::{rel}::{target}",
+            "id": f"{source}::{rel}::{target}::{provenance}",
             "source": source,
             "target": target,
             "relationship_type": rel,
             "confidence": confidence,
             "evidence": evidence,
+            "provenance": provenance,
+            "sync_status": "unassessed",
+            "evidence_timestamp": evidence_timestamp,
+            "repository_sha": repository_sha,
+            "source_file": source_file,
         }
 
     object_meta = {
@@ -75,6 +94,39 @@ def build_snapshot(
             node_id = stable_node_id(database, str(row.get("schema_name") or ""), str(row.get("object_name") or ""))
             modules_by_id[node_id] = str(row.get("definition") or "")
             module_meta_by_id[node_id] = row
+
+    dependency_refs_by_id: dict[str, list[ObjectRef]] = {}
+    for database, rows in sql_scan.get("dependencies", {}).items():
+        for row in rows:
+            node_id = stable_node_id(
+                database,
+                str(row.get("referencing_schema_name") or ""),
+                str(row.get("referencing_object_name") or ""),
+            )
+            dependency_refs_by_id.setdefault(node_id, []).append(
+                ObjectRef(
+                    str(row.get("referenced_database_name") or database),
+                    str(row.get("referenced_schema_name") or ""),
+                    str(row.get("referenced_object_name") or ""),
+                )
+            )
+
+    baseline_refs_by_id: dict[str, list[ObjectRef]] = {}
+    for view in (live_baseline or {}).get("views", []):
+        node_id = stable_node_id(
+            str(view.get("database") or ""),
+            str(view.get("schema") or ""),
+            str(view.get("object_name") or ""),
+        )
+        baseline_refs_by_id[node_id] = [
+            ObjectRef(
+                str(dep.get("database") or ""),
+                str(dep.get("schema") or ""),
+                str(dep.get("object_name") or ""),
+            )
+            for dep in view.get("dependencies", [])
+            if dep.get("schema") and dep.get("object_name")
+        ]
 
     relevant_module_ids: set[str] = set()
 
@@ -104,14 +156,12 @@ def build_snapshot(
                     "evidence": ["02_marts/05_catalog/assets.json"],
                 }
             )
-            if node_id in modules_by_id:
+            if node_id in modules_by_id or node_id in baseline_refs_by_id:
                 relevant_module_ids.add(node_id)
 
-        for edge in catalog.edges:
-            source_id = catalog_ref_to_node_id(str(edge.get("source") or ""))
-            target_id = catalog_ref_to_node_id(str(edge.get("target") or ""))
-            if source_id and target_id:
-                add_edge(source_id, target_id, str(edge.get("edge_type") or "catalog_edge"), "catalog", str(edge.get("evidence_file") or "02_marts/05_catalog/lineage_edges.json"))
+        # Catalog assets still provide mart/role/wave classification. Their
+        # lineage edges are intentionally not loaded because they are static
+        # repository evidence and previously masqueraded as live runtime truth.
 
     # Final table nodes from Enterprise ETL TableDictionary.
     for row in sql_scan.get("table_dictionary", []):
@@ -149,14 +199,27 @@ def build_snapshot(
             continue
         parsed_modules.add(node_id)
         definition = modules_by_id.get(node_id, "")
-        if not definition:
-            continue
-        if node_id in nodes:
+        if definition and node_id in nodes:
             nodes[node_id]["source_sql"] = definition
             nodes[node_id]["evidence"] = sorted(set(nodes[node_id].get("evidence", []) + ["sys.sql_modules"]))
         module_meta = module_meta_by_id.get(node_id, {})
         default_database = str(module_meta.get("database_name") or node_id.split(".", 1)[0])
-        for ref in extract_object_refs(definition, default_database=default_database):
+        refs = dependency_refs_by_id.get(node_id, [])
+        confidence = "verified"
+        evidence = f"sys.sql_expression_dependencies:{node_id}"
+        evidence_timestamp = ""
+        if not refs and definition:
+            refs = extract_object_refs(definition, default_database=default_database)
+            confidence = "parsed"
+            evidence = f"sys.sql_modules:{node_id}"
+        if not refs and node_id in baseline_refs_by_id:
+            refs = baseline_refs_by_id[node_id]
+            confidence = "live_snapshot"
+            evidence_timestamp = str((live_baseline or {}).get("generated_at_utc") or "")
+            evidence = f"live lineage baseline:{node_id}"
+            live_baseline_views_used.add(node_id)
+
+        for ref in sorted(set(refs)):
             ref_db = ref.database or default_database
             source_id = stable_node_id(ref_db, ref.schema, ref.object_name)
             if source_id not in nodes:
@@ -168,11 +231,21 @@ def build_snapshot(
                         object_name=ref.object_name,
                         object_type=object_type_for(source_id, object_meta, "REFERENCE"),
                         status="active" if source_id in object_meta else "referenced",
-                        evidence=["sys.sql_modules dependency parse"],
+                        evidence=[evidence],
                         catalog=catalog,
                     )
                 )
-            add_edge(source_id, node_id, "uses", "parsed", f"sys.sql_modules:{node_id}")
+            nodes[source_id]["role"] = "business"
+            if nodes[source_id].get("mart") in {None, "", "unresolved"}:
+                nodes[source_id]["mart"] = nodes.get(node_id, {}).get("mart", "unresolved")
+            add_edge(
+                source_id,
+                node_id,
+                "uses",
+                confidence,
+                evidence,
+                evidence_timestamp=evidence_timestamp,
+            )
             if source_id in modules_by_id:
                 relevant_module_ids.add(source_id)
 
@@ -195,7 +268,27 @@ def build_snapshot(
             nodes[target_id]["source_sql"] = view_sql
         for edge in list(edges.values()):
             if edge["target"] == view_id and edge["source"] != target_id:
-                add_edge(edge["source"], target_id, "transforms_to", edge["confidence"], edge["evidence"])
+                add_edge(
+                    edge["source"],
+                    target_id,
+                    "transforms_to",
+                    edge["confidence"],
+                    edge["evidence"],
+                    provenance=str(edge.get("provenance") or "live"),
+                    evidence_timestamp=str(edge.get("evidence_timestamp") or ""),
+                    repository_sha=str(edge.get("repository_sha") or ""),
+                    source_file=str(edge.get("source_file") or ""),
+                )
+
+    add_repository_overlay(
+        repository_manifest=repository_manifest,
+        workspace_name=workspace_name,
+        nodes=nodes,
+        add_node=add_node,
+        add_edge=add_edge,
+        object_meta=object_meta,
+        catalog=catalog,
+    )
 
     # Semantic edges.
     semantic_model_id = stable_node_id("SemanticModel", semantic_model_name, "Model")
@@ -256,6 +349,13 @@ def build_snapshot(
     edge_list = sorted(edges.values(), key=lambda e: (e["source"], e["target"], e["relationship_type"]))
     if catalog.business_marts:
         node_list, edge_list = simplify_to_table_graph(node_list, edge_list)
+    edge_list = reconcile_lineage_edges(edge_list)
+    if live_baseline_views_used:
+        baseline_time = str((live_baseline or {}).get("generated_at_utc") or "unknown time")
+        warnings.append(
+            f"Live SQL dependency baseline from {baseline_time} was used for "
+            f"{len(live_baseline_views_used)} view(s) because current dependency metadata was unavailable."
+        )
     warnings.extend(assign_waves(node_list, edge_list))
     for node in node_list:
         lane_order, lane_label = lane_for(str(node.get("layer") or ""), str(node.get("role") or ""), node.get("wave"), str(node.get("schema") or ""))
@@ -270,6 +370,8 @@ def build_snapshot(
         "layers": layer_summary(node_list),
         "marts": mart_summary(node_list),
         "mart_registry": catalog.business_marts,
+        "repository": repository_snapshot_metadata(repository_manifest),
+        "live_baseline": live_baseline_snapshot_metadata(live_baseline, live_baseline_views_used),
         "warnings": sorted(set(warnings)),
         "scan_evidence": {
             "workspace_item_count": len(workspace_items or []),
@@ -277,9 +379,245 @@ def build_snapshot(
             "processing_object_count": len(sql_scan.get("objects", {}).get(PROCESSING_DATABASE, [])),
             "gold_object_count": len(sql_scan.get("objects", {}).get(GOLD_DATABASE, [])),
             "source_object_count": len(sql_scan.get("objects", {}).get(SOURCE_DATABASE, [])),
+            "live_module_definition_count": sum(
+                1
+                for rows in sql_scan.get("modules", {}).values()
+                for row in rows
+                if row.get("definition")
+            ),
+            "live_dependency_row_count": sum(
+                len(rows) for rows in sql_scan.get("dependencies", {}).values()
+            ),
+            "live_baseline_view_count": len(live_baseline_views_used),
+            "repository_view_count": int(
+                ((repository_manifest or {}).get("summary") or {}).get("view_count") or 0
+            ),
+            "repository_procedure_count": int(
+                ((repository_manifest or {}).get("summary") or {}).get("procedure_count") or 0
+            ),
+            "repository_table_count": int(
+                ((repository_manifest or {}).get("summary") or {}).get("table_count") or 0
+            ),
+            "lineage_sync": lineage_sync_summary(edge_list),
             "semantic_model": semantic_model_name,
         },
 }
+
+
+def add_repository_overlay(
+    *,
+    repository_manifest: dict[str, Any] | None,
+    workspace_name: str,
+    nodes: dict[str, dict[str, Any]],
+    add_node: Any,
+    add_edge: Any,
+    object_meta: dict[str, dict[str, Any]],
+    catalog: MartCatalog,
+) -> None:
+    if not repository_manifest:
+        return
+    commit_sha = str(repository_manifest.get("commit_sha") or "")
+    generated_at = str(repository_manifest.get("generated_at_utc") or "")
+    repository = str(repository_manifest.get("repository") or "repository")
+
+    for view in repository_manifest.get("views", []):
+        target = view.get("target") or {}
+        target_db = str(target.get("database") or view.get("database") or "")
+        target_schema = str(target.get("schema") or view.get("schema") or "")
+        target_object = str(target.get("object_name") or view.get("object_name") or "")
+        target_id = stable_node_id(target_db, target_schema, target_object)
+        view_id = stable_node_id(
+            str(view.get("database") or ""),
+            str(view.get("schema") or ""),
+            str(view.get("object_name") or ""),
+        )
+        relationship = "uses" if target_id == view_id else "transforms_to"
+        source_file = str(view.get("path") or "")
+        repo_evidence = f"{repository}@{commit_sha[:12]}:{source_file}"
+
+        if target_id not in nodes:
+            add_node(
+                node_from_ref(
+                    workspace_name=workspace_name,
+                    database=target_db,
+                    schema=target_schema,
+                    object_name=target_object,
+                    object_type=object_type_for(target_id, object_meta, "REPOSITORY_TARGET"),
+                    status="repository_target",
+                    evidence=[repo_evidence],
+                    catalog=catalog,
+                )
+            )
+        else:
+            nodes[target_id]["evidence"] = sorted(
+                set(nodes[target_id].get("evidence", []) + [repo_evidence])
+            )
+
+        for dep in view.get("dependencies", []):
+            source_db = str(dep.get("database") or target_db)
+            source_schema = str(dep.get("schema") or "")
+            source_object = str(dep.get("object_name") or "")
+            if not source_schema or not source_object:
+                continue
+            source_id = stable_node_id(source_db, source_schema, source_object)
+            if source_id not in nodes:
+                add_node(
+                    node_from_ref(
+                        workspace_name=workspace_name,
+                        database=source_db,
+                        schema=source_schema,
+                        object_name=source_object,
+                        object_type=object_type_for(source_id, object_meta, "REPOSITORY_SOURCE"),
+                        status="repository_target",
+                        evidence=[repo_evidence],
+                        catalog=catalog,
+                    )
+                )
+            nodes[source_id]["role"] = "business"
+            if nodes[source_id].get("mart") in {None, "", "unresolved"}:
+                nodes[source_id]["mart"] = nodes[target_id].get("mart", "unresolved")
+            add_edge(
+                source_id,
+                target_id,
+                relationship,
+                "repository",
+                repo_evidence,
+                provenance="repository_target",
+                evidence_timestamp=generated_at,
+                repository_sha=commit_sha,
+                source_file=source_file,
+            )
+
+
+def reconcile_lineage_edges(edges: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    comparable_types = {"transforms_to", "uses"}
+    comparable = [
+        edge for edge in edges if edge.get("relationship_type") in comparable_types
+    ]
+    live_pairs = {
+        (edge["source"], edge["target"], edge["relationship_type"])
+        for edge in comparable
+        if edge.get("provenance") == "live"
+    }
+    repo_pairs = {
+        (edge["source"], edge["target"], edge["relationship_type"])
+        for edge in comparable
+        if edge.get("provenance") == "repository_target"
+    }
+    live_targets = {target for _, target, _ in live_pairs}
+    repo_targets = {target for _, target, _ in repo_pairs}
+
+    reconciled: list[dict[str, Any]] = []
+    aligned_seen: set[tuple[str, str, str]] = set()
+    by_pair: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
+    for edge in comparable:
+        by_pair.setdefault(
+            (edge["source"], edge["target"], edge["relationship_type"]), []
+        ).append(edge)
+
+    for edge in edges:
+        if edge.get("relationship_type") not in comparable_types:
+            reconciled.append({**edge, "sync_status": "not_applicable"})
+            continue
+        pair = (edge["source"], edge["target"], edge["relationship_type"])
+        if pair in live_pairs and pair in repo_pairs:
+            if pair in aligned_seen:
+                continue
+            aligned_seen.add(pair)
+            pair_edges = by_pair[pair]
+            live_edge = next(item for item in pair_edges if item.get("provenance") == "live")
+            repo_edge = next(
+                item for item in pair_edges if item.get("provenance") == "repository_target"
+            )
+            reconciled.append(
+                {
+                    **live_edge,
+                    "id": (
+                        f"{edge['source']}::{edge['relationship_type']}::"
+                        f"{edge['target']}::aligned"
+                    ),
+                    "provenance": "live+repository_target",
+                    "sync_status": "aligned",
+                    "confidence": "verified+repository",
+                    "evidence": f"{live_edge['evidence']} | {repo_edge['evidence']}",
+                    "repository_sha": repo_edge.get("repository_sha", ""),
+                    "source_file": repo_edge.get("source_file", ""),
+                }
+            )
+            continue
+
+        provenance = str(edge.get("provenance") or "live")
+        target = str(edge.get("target") or "")
+        if provenance == "live":
+            status = "drift" if target in repo_targets else "live_only"
+        else:
+            status = "drift" if target in live_targets else "repository_only"
+        reconciled.append({**edge, "sync_status": status})
+
+    return sorted(
+        reconciled,
+        key=lambda item: (
+            str(item.get("source") or ""),
+            str(item.get("target") or ""),
+            str(item.get("relationship_type") or ""),
+            str(item.get("provenance") or ""),
+        ),
+    )
+
+
+def lineage_sync_summary(edges: list[dict[str, Any]]) -> dict[str, int]:
+    statuses = {"aligned": 0, "drift": 0, "live_only": 0, "repository_only": 0}
+    for edge in edges:
+        status = str(edge.get("sync_status") or "")
+        if status in statuses:
+            statuses[status] += 1
+    statuses["compared_edges"] = sum(statuses.values())
+    statuses["drift_targets"] = len(
+        {edge["target"] for edge in edges if edge.get("sync_status") == "drift"}
+    )
+    statuses["repository_only_targets"] = len(
+        {
+            edge["target"]
+            for edge in edges
+            if edge.get("sync_status") == "repository_only"
+        }
+    )
+    statuses["live_only_targets"] = len(
+        {edge["target"] for edge in edges if edge.get("sync_status") == "live_only"}
+    )
+    return statuses
+
+
+def repository_snapshot_metadata(manifest: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not manifest:
+        return None
+    repository = str(manifest.get("repository") or "")
+    pull_request = manifest.get("pull_request")
+    return {
+        "repository": repository,
+        "commit_sha": str(manifest.get("commit_sha") or ""),
+        "pull_request": pull_request,
+        "pull_request_url": (
+            f"https://github.com/{repository}/pull/{pull_request}"
+            if repository and pull_request
+            else ""
+        ),
+        "generated_at_utc": str(manifest.get("generated_at_utc") or ""),
+        "summary": manifest.get("summary") or {},
+    }
+
+
+def live_baseline_snapshot_metadata(
+    baseline: dict[str, Any] | None,
+    used_views: set[str],
+) -> dict[str, Any] | None:
+    if not baseline:
+        return None
+    return {
+        "generated_at_utc": str(baseline.get("generated_at_utc") or ""),
+        "used_view_count": len(used_views),
+        "summary": baseline.get("summary") or {},
+    }
 
 
 def classify_with_catalog(catalog: MartCatalog, schema: str, object_name: str) -> str:
@@ -293,26 +631,33 @@ def simplify_to_table_graph(nodes: list[dict[str, Any]], edges: list[dict[str, A
     for edge in edges:
         adjacency.setdefault(edge["source"], []).append(edge)
 
-    simplified: dict[tuple[str, str, str], dict[str, Any]] = {}
+    simplified: dict[tuple[str, str, str, str], dict[str, Any]] = {}
 
-    def add_simplified(source: str, target: str, evidence: str, confidence: str = "collapsed") -> None:
+    def add_simplified(source: str, target: str, source_edge: dict[str, Any], evidence: str) -> None:
         if source == target:
             return
-        key = (source, target, "transforms_to")
+        provenance = str(source_edge.get("provenance") or "live")
+        key = (source, target, "transforms_to", provenance)
         simplified[key] = {
-            "id": f"{source}::transforms_to::{target}",
+            "id": f"{source}::transforms_to::{target}::{provenance}",
             "source": source,
             "target": target,
             "relationship_type": "transforms_to",
-            "confidence": confidence,
+            "confidence": str(source_edge.get("confidence") or "collapsed"),
             "evidence": evidence,
+            "provenance": provenance,
+            "sync_status": str(source_edge.get("sync_status") or "unassessed"),
+            "evidence_timestamp": str(source_edge.get("evidence_timestamp") or ""),
+            "repository_sha": str(source_edge.get("repository_sha") or ""),
+            "source_file": str(source_edge.get("source_file") or ""),
         }
 
     for edge in edges:
         source = edge["source"]
         target = edge["target"]
         if source in visible_ids and target in visible_ids:
-            simplified[(source, target, edge["relationship_type"])] = edge
+            provenance = str(edge.get("provenance") or "live")
+            simplified[(source, target, edge["relationship_type"], provenance)] = edge
             continue
         if source not in visible_ids:
             continue
@@ -324,7 +669,12 @@ def simplify_to_table_graph(nodes: list[dict[str, Any]], edges: list[dict[str, A
                 continue
             seen.add(current)
             if current in visible_ids:
-                add_simplified(source, current, " -> ".join(item for item in evidence_chain if item))
+                add_simplified(
+                    source,
+                    current,
+                    edge,
+                    " -> ".join(item for item in evidence_chain if item),
+                )
                 continue
             for next_edge in adjacency.get(current, []):
                 stack.append((next_edge["target"], evidence_chain + [next_edge.get("evidence", "")]))

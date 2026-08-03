@@ -223,6 +223,17 @@ function RelSection({
                 <div className="truncate font-mono text-[11px] text-ink-500">
                   {node.schema} · {node.layer}
                 </div>
+                <div className="mt-1 flex items-center gap-1.5">
+                  <EdgeBadge edge={edge} />
+                  {edge.source_file && (
+                    <span
+                      title={edge.source_file}
+                      className="max-w-[190px] truncate font-mono text-[9.5px] text-ink-600"
+                    >
+                      {edge.source_file}
+                    </span>
+                  )}
+                </div>
               </div>
               {direction === "out" ? (
                 <ArrowUpRight size={13} className="text-ink-600 group-hover:text-ink-300" />
@@ -240,5 +251,37 @@ function RelSection({
         </button>
       )}
     </div>
+  );
+}
+
+function EdgeBadge({ edge }: { edge: LineageEdge }) {
+  const status = edge.sync_status ?? "not_applicable";
+  const label =
+    status === "aligned"
+      ? "Aligned"
+      : status === "drift"
+        ? edge.provenance === "repository_target"
+          ? "Repo target · drift"
+          : "Live · drift"
+        : status === "repository_only"
+          ? "Repo target · no live edge"
+          : status === "live_only"
+            ? "Live only"
+            : edge.provenance === "repository_target"
+              ? "Repo target"
+              : "Live";
+  const style =
+    status === "aligned"
+      ? "border-[var(--color-signal-ok)]/35 text-[var(--color-signal-ok)]"
+      : status === "drift" || status === "repository_only"
+        ? "border-[var(--color-signal-warn)]/35 text-[var(--color-signal-warn)]"
+        : "border-ink-700 text-ink-400";
+  return (
+    <span
+      title={edge.evidence}
+      className={cn("rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wide", style)}
+    >
+      {label}
+    </span>
   );
 }

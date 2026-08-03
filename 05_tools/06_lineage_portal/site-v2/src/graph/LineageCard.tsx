@@ -86,6 +86,11 @@ function LineageCardImpl({ data, selected }: NodeProps) {
               <span>W{String(node.wave).padStart(2, "0")}</span>
             </>
           )}
+          {node.status === "repository_target" && (
+            <span className="ml-auto rounded border border-[var(--color-silver)]/30 px-1 py-0.5 text-[8.5px] text-[var(--color-silver)]">
+              target
+            </span>
+          )}
         </div>
         <div
           title={node.display_name}

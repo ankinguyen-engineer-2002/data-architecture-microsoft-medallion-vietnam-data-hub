@@ -2,6 +2,7 @@ import {
   AlertTriangle,
   Download,
   Focus,
+  GitPullRequest,
   Layers,
   Minus,
   Network,
@@ -53,6 +54,10 @@ export function Topbar({
   nodeCount,
   edgeCount,
 }: Props) {
+  const sync = snapshot.scan_evidence.lineage_sync as Record<string, number> | undefined;
+  const driftTargets = sync?.drift_targets ?? 0;
+  const repositoryOnly = sync?.repository_only_targets ?? 0;
+  const aligned = sync?.aligned ?? 0;
   return (
     <header className="flex items-center gap-3 border-b border-ink-800 bg-ink-975/85 px-5 py-2.5 backdrop-blur">
       <button
@@ -105,6 +110,35 @@ export function Topbar({
         <span className="text-ink-700">·</span>
         <span>{edgeCount} edges</span>
       </div>
+
+      {sync && (
+        <div className="hidden items-center gap-1.5 font-mono text-[9.5px] xl:flex">
+          <span className="rounded border border-[var(--color-signal-ok)]/30 px-1.5 py-1 text-[var(--color-signal-ok)]">
+            {aligned} aligned
+          </span>
+          <span className="rounded border border-[var(--color-signal-warn)]/30 px-1.5 py-1 text-[var(--color-signal-warn)]">
+            {driftTargets} drift targets
+          </span>
+          {repositoryOnly > 0 && (
+            <span className="rounded border border-[var(--color-signal-warn)]/30 px-1.5 py-1 text-[var(--color-signal-warn)]">
+              {repositoryOnly} repo-only target
+            </span>
+          )}
+        </div>
+      )}
+
+      {snapshot.repository?.pull_request_url && (
+        <a
+          href={snapshot.repository.pull_request_url}
+          target="_blank"
+          rel="noreferrer"
+          title={`${snapshot.repository.repository} @ ${snapshot.repository.commit_sha}`}
+          className="hidden items-center gap-1.5 rounded-md border border-ink-800 bg-ink-900/70 px-2 py-1.5 font-mono text-[10.5px] text-ink-400 hover:border-ink-700 hover:text-ink-100 lg:flex"
+        >
+          <GitPullRequest size={12} />
+          PR #{snapshot.repository.pull_request}
+        </a>
+      )}
 
       <button
         onClick={onOpenSearch}

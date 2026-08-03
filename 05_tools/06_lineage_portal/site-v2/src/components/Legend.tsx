@@ -8,6 +8,15 @@ export function Legend({ showDirection = true }: { showDirection?: boolean }) {
       <Row color="var(--color-silver)" label="Silver" desc="Curated" />
       <Row color="var(--color-gold)" label="Gold" desc="Serving" />
       <Row color="var(--color-semantic)" label="Semantic" desc="Model" />
+      <div className="mt-1.5 border-t border-ink-800 pt-1.5">
+        <div className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink-500">
+          Evidence
+        </div>
+        <EvidenceRow color="var(--color-ink-400)" label="Live" desc="deployed" />
+        <EvidenceRow color="var(--color-silver)" label="Repo target" desc="dashed" dashed />
+        <EvidenceRow color="var(--color-signal-ok)" label="Aligned" desc="same edge" />
+        <EvidenceRow color="var(--color-signal-warn)" label="Drift" desc="live ≠ repo" />
+      </div>
       {showDirection && (
         <div className="mt-1.5 border-t border-ink-800 pt-1.5">
           <div className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink-500">
@@ -17,6 +26,29 @@ export function Legend({ showDirection = true }: { showDirection?: boolean }) {
           <Row color="var(--color-silver)" label="Downstream" desc="consumers →" thin />
         </div>
       )}
+    </div>
+  );
+}
+
+function EvidenceRow({
+  color,
+  label,
+  desc,
+  dashed,
+}: {
+  color: string;
+  label: string;
+  desc: string;
+  dashed?: boolean;
+}) {
+  return (
+    <div className="flex items-center gap-2 text-[11px]">
+      <span
+        className="block h-0 w-4 border-t-[1.5px]"
+        style={{ borderColor: color, borderStyle: dashed ? "dashed" : "solid" }}
+      />
+      <span className="text-ink-200">{label}</span>
+      <span className="text-ink-500">{desc}</span>
     </div>
   );
 }

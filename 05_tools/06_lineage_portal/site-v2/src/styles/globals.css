@@ -122,9 +122,30 @@ body {
   transition: stroke 180ms ease, opacity 180ms ease, stroke-width 180ms ease;
 }
 
-/* Base edges (full / mart view) — subtle neutral */
-.react-flow__edge.edge-base .react-flow__edge-path {
+/* Runtime lineage is the authority: solid neutral edge. */
+.react-flow__edge.edge-live .react-flow__edge-path {
   stroke: color-mix(in oklch, var(--color-ink-500) 42%, transparent);
+}
+
+/* Repository target is intentionally distinct from deployed runtime. */
+.react-flow__edge.edge-repository .react-flow__edge-path {
+  stroke: color-mix(in oklch, var(--color-silver) 72%, transparent);
+  stroke-width: 1.35px;
+  stroke-dasharray: 7 5;
+}
+
+.react-flow__edge.edge-aligned .react-flow__edge-path {
+  stroke: color-mix(in oklch, var(--color-signal-ok) 68%, transparent);
+  stroke-width: 1.35px;
+}
+
+.react-flow__edge.edge-drift .react-flow__edge-path {
+  stroke: color-mix(in oklch, var(--color-signal-warn) 86%, transparent);
+  stroke-width: 1.65px;
+}
+
+.react-flow__edge.edge-drift.edge-repository .react-flow__edge-path {
+  stroke-dasharray: 7 5;
 }
 
 /* Focus mode direction accents */

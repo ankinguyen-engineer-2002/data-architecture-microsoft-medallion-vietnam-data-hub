@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from .config import GOLD_DATABASE, PROCESSING_DATABASE, SOURCE_DATABASE
+from .config import (
+    GOLD_DATABASE,
+    PROCESSING_DATABASE,
+    REPOSITORY_SOURCE_DATABASES,
+    SOURCE_DATABASE,
+)
 
 
 FORECAST_SCHEMAS = {
@@ -32,7 +37,7 @@ SHARED_SCHEMAS = {
 
 
 def classify_layer(database: str, schema: str, object_type: str = "") -> str:
-    if database == SOURCE_DATABASE:
+    if database == SOURCE_DATABASE or database in REPOSITORY_SOURCE_DATABASES:
         return "Bronze"
     if database == PROCESSING_DATABASE:
         return "Silver"

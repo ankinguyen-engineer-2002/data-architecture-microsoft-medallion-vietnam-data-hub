@@ -7,7 +7,9 @@ from .auth import az_cli_token, client_credentials_token
 from .builder import build_snapshot, load_fixture
 from .config import ScannerConfig
 from .fabric_rest import get_semantic_definition, list_workspace_items, resolve_semantic_model_id
+from .live_baseline import build_live_baseline, load_live_baseline, write_live_baseline
 from .mart_catalog import find_repo_root, load_mart_catalog
+from .repository_manifest import load_repository_manifest
 from .snapshot_writer import write_snapshot
 from .sql_reader import SqlReader
 
@@ -17,6 +19,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out", type=Path, default=Path("site/public/lineage_snapshot.json"))
     parser.add_argument("--fixture", type=Path, help="Build snapshot from fixture input instead of live Fabric.")
     parser.add_argument("--repo-root", type=Path, help="Repository root containing 02_marts catalog folders.")
+    parser.add_argument("--repository-manifest", type=Path, help="Generated data-edw-fabric lineage manifest.")
+    parser.add_argument("--live-baseline", type=Path, help="Last verified live dependency baseline used only as a fallback.")
+    parser.add_argument("--write-live-baseline", type=Path, help="Write the current read-only live dependency scan as a fallback baseline.")
     parser.add_argument("--skip-semantic", action="store_true", help="Skip semantic model definition scan.")
     return parser.parse_args()
 
@@ -25,6 +30,8 @@ def main() -> int:
     args = parse_args()
     repo_root = args.repo_root or find_repo_root(Path.cwd())
     mart_catalog = load_mart_catalog(repo_root)
+    repository_manifest = load_repository_manifest(args.repository_manifest)
+    live_baseline = load_live_baseline(args.live_baseline)
     if args.fixture:
         fixture = load_fixture(args.fixture)
         snapshot = build_snapshot(
@@ -36,6 +43,8 @@ def main() -> int:
             semantic_model_name=fixture.get("semantic_model_name", "sc_control_tower"),
             generated_at_utc=fixture.get("generated_at_utc"),
             mart_catalog=mart_catalog,
+            repository_manifest=repository_manifest,
+            live_baseline=live_baseline,
         )
         write_snapshot(args.out, snapshot)
         print(f"wrote fixture snapshot: {args.out}")
@@ -61,6 +70,14 @@ def main() -> int:
     items = list_workspace_items(cfg.workspace_id, fabric_token)
     reader = SqlReader(cfg.sql_server, database_token)
     sql_scan = reader.scan_all()
+    if args.write_live_baseline:
+        live_baseline = build_live_baseline(
+            sql_scan,
+            workspace_id=cfg.workspace_id,
+            workspace_name=cfg.workspace_name,
+        )
+        write_live_baseline(args.write_live_baseline, live_baseline)
+        print(f"wrote live lineage baseline: {args.write_live_baseline}")
     semantic_definition = None
     if not args.skip_semantic:
         semantic_model_id = cfg.semantic_model_id
@@ -87,6 +104,8 @@ def main() -> int:
         semantic_definition=semantic_definition,
         semantic_model_name=cfg.semantic_model_name,
         mart_catalog=mart_catalog,
+        repository_manifest=repository_manifest,
+        live_baseline=live_baseline,
     )
     write_snapshot(args.out, snapshot)
     print(f"wrote live snapshot: {args.out}")

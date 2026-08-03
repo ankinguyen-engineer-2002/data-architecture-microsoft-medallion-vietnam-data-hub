@@ -28,6 +28,32 @@ export type LineageEdge = {
   relationship_type: string;
   confidence: string;
   evidence: string;
+  provenance?: "live" | "repository_target" | "live+repository_target" | string;
+  sync_status?:
+    | "aligned"
+    | "drift"
+    | "live_only"
+    | "repository_only"
+    | "not_applicable"
+    | string;
+  evidence_timestamp?: string;
+  repository_sha?: string;
+  source_file?: string;
+};
+
+export type RepositorySnapshot = {
+  repository: string;
+  commit_sha: string;
+  pull_request: number | null;
+  pull_request_url: string;
+  generated_at_utc: string;
+  summary: Record<string, number>;
+};
+
+export type LiveBaselineSnapshot = {
+  generated_at_utc: string;
+  used_view_count: number;
+  summary: Record<string, number>;
 };
 
 export type MartRegistryEntry = {
@@ -45,6 +71,8 @@ export type Snapshot = {
   layers: Array<{ layer: string; node_count: number }>;
   marts: Array<{ mart: string; node_count: number }>;
   mart_registry?: MartRegistryEntry[];
+  repository?: RepositorySnapshot | null;
+  live_baseline?: LiveBaselineSnapshot | null;
   warnings: string[];
   scan_evidence: Record<string, unknown>;
 };

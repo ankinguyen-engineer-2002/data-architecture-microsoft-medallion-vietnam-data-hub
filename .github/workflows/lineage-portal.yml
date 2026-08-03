@@ -66,7 +66,11 @@ jobs:
           FABRIC_SQL_SERVER: ${{ secrets.FABRIC_SQL_SERVER || secrets.FABRIC_SERVER }}
           FABRIC_SEMANTIC_MODEL_ID: ${{ secrets.FABRIC_SEMANTIC_MODEL_ID }}
           FABRIC_SEMANTIC_MODEL_NAME: ${{ secrets.FABRIC_SEMANTIC_MODEL_NAME }}
-        run: python -m scanner.cli --out site-v2/public/lineage_snapshot.json
+        run: >-
+          python -m scanner.cli
+          --repository-manifest repository_lineage_manifest.json
+          --live-baseline live_lineage_baseline.json
+          --out site-v2/public/lineage_snapshot.json
 
       - name: Secret scan generated snapshot
         working-directory: 05_tools/06_lineage_portal
