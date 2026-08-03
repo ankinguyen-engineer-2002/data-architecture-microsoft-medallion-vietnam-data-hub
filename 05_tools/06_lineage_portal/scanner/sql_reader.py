@@ -21,6 +21,7 @@ class SqlReader:
         self._pyodbc = pyodbc
         self.server = server
         self.token = token_attr(access_token)
+        self.warnings: list[str] = []
 
     def connect(self, database: str):
         return self._pyodbc.connect(
@@ -81,26 +82,36 @@ class SqlReader:
     def fetch_view_dependencies(self, database: str) -> list[dict[str, Any]]:
         with self.connect(database) as conn:
             cur = conn.cursor()
-            cur.execute(
-                """
-                SELECT
-                    DB_NAME() AS database_name,
-                    s.name AS referencing_schema_name,
-                    o.name AS referencing_object_name,
-                    COALESCE(d.referenced_database_name, DB_NAME()) AS referenced_database_name,
-                    d.referenced_schema_name,
-                    d.referenced_entity_name AS referenced_object_name
-                FROM sys.sql_expression_dependencies d
-                JOIN sys.objects o ON o.object_id = d.referencing_id
-                JOIN sys.schemas s ON s.schema_id = o.schema_id
-                WHERE o.is_ms_shipped = 0
-                  AND o.type = 'V'
-                  AND d.referenced_schema_name IS NOT NULL
-                  AND d.referenced_entity_name IS NOT NULL
-                ORDER BY s.name, o.name, referenced_database_name,
-                         d.referenced_schema_name, d.referenced_entity_name
-                """
-            )
+            try:
+                cur.execute(
+                    """
+                    SELECT
+                        DB_NAME() AS database_name,
+                        s.name AS referencing_schema_name,
+                        o.name AS referencing_object_name,
+                        COALESCE(d.referenced_database_name, DB_NAME()) AS referenced_database_name,
+                        d.referenced_schema_name,
+                        d.referenced_entity_name AS referenced_object_name
+                    FROM sys.sql_expression_dependencies d
+                    JOIN sys.objects o ON o.object_id = d.referencing_id
+                    JOIN sys.schemas s ON s.schema_id = o.schema_id
+                    WHERE o.is_ms_shipped = 0
+                      AND o.type = 'V'
+                      AND d.referenced_schema_name IS NOT NULL
+                      AND d.referenced_entity_name IS NOT NULL
+                    ORDER BY s.name, o.name, referenced_database_name,
+                             d.referenced_schema_name, d.referenced_entity_name
+                    """
+                )
+            except self._pyodbc.ProgrammingError as exc:
+                message = str(exc)
+                if "sql_expression_dependencies" not in message or "permission was denied" not in message.lower():
+                    raise
+                self.warnings.append(
+                    f"{database}: current sys.sql_expression_dependencies is not readable; "
+                    "using the timestamped live lineage baseline."
+                )
+                return []
             return self.rows_as_dicts(cur)
 
     def fetch_table_dictionary(self) -> list[dict[str, Any]]:
@@ -140,4 +151,5 @@ class SqlReader:
                 PROCESSING_DATABASE: self.fetch_view_dependencies(PROCESSING_DATABASE),
                 GOLD_DATABASE: self.fetch_view_dependencies(GOLD_DATABASE),
             },
+            "warnings": self.warnings,
         }

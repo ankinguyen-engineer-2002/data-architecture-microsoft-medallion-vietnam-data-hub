@@ -48,6 +48,7 @@ def build_snapshot(
     warnings: list[str] = []
     catalog = mart_catalog or empty_catalog()
     live_baseline_views_used: set[str] = set()
+    warnings.extend(str(item) for item in sql_scan.get("warnings", []) if item)
 
     def add_node(node: dict[str, Any]) -> None:
         enriched = enrich_node(node, catalog)
