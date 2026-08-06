@@ -2237,7 +2237,7 @@
       "target": "SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel"
     }
   ],
-  "generated_at_utc": "2026-08-06T16:58:10Z",
+  "generated_at_utc": "2026-08-06T22:24:14Z",
   "layers": [
     {
       "layer": "Bronze",
@@ -2257,7 +2257,7 @@
     }
   ],
   "live_baseline": {
-    "generated_at_utc": "2026-08-06T16:57:45Z",
+    "generated_at_utc": "2026-08-06T22:23:49Z",
     "summary": {
       "dependency_edge_count": 203,
       "system_dependency_row_count": 203,
@@ -2267,7 +2267,7 @@
     "validation": {
       "age_hours": 0.0,
       "dependency_edge_count": 203,
-      "generated_at_utc": "2026-08-06T16:57:45Z",
+      "generated_at_utc": "2026-08-06T22:23:49Z",
       "max_age_hours": 6,
       "reason": "Baseline freshness and coverage checks passed.",
       "status": "valid",
@@ -4198,7 +4198,7 @@
       "display_name": "InventorySnapshotWeeklyBase",
       "evidence": [
         "afi-internal/data-edw-fabric@7282973e4fda:SupplyChain_Gold_Warehouse/InventoryHealth_Internal_Wrk/Views/v_InventorySnapshotWeeklyBase.sql",
-        "sys.sql_expression_dependencies:SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_InventoryHealthSubStatusWeekly"
+        "sys.sql_expression_dependencies:SupplyChain_Gold_Warehouse.InventoryHealth_DW_Wrk.v_InventoryClassificationQtyWeekly"
       ],
       "full_name": "SupplyChain_Gold_Warehouse.InventoryHealth_Internal.InventorySnapshotWeeklyBase",
       "id": "SupplyChain_Gold_Warehouse.InventoryHealth_Internal.InventorySnapshotWeeklyBase",
