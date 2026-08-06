@@ -1,0 +1,1202 @@
+{
+  "generatedAt": "2026-08-06T16:43:36.864Z",
+  "artifact": "fabric-e2e-ai-decision-control-tower",
+  "title": "Enterprise Data + AI Engineering Architecture",
+  "orientation": "landscape",
+  "source": "Enterprise Data + AI reference architecture with governed domain contracts and audited AI engineering controls",
+  "drawioPlugin": "jgraph/drawio-mcp drawio@drawio 1.1.0",
+  "drawioAiKit": "1.0.1",
+  "customMicrosoftIcons": 29,
+  "interaction": {
+    "hitboxes": [
+      {
+        "id": "source_operational",
+        "x": 119,
+        "y": 396,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "ingest_batch",
+        "x": 187,
+        "y": 676,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "ingest_stream",
+        "x": 187,
+        "y": 784,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "source_files",
+        "x": 322,
+        "y": 396,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "databricks_jobs",
+        "x": 433,
+        "y": 730,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "source_events",
+        "x": 525,
+        "y": 396,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "databricks_delta",
+        "x": 670,
+        "y": 730,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "source_apis",
+        "x": 728,
+        "y": 396,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "supply_lakehouse",
+        "x": 1047,
+        "y": 751,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "supply_processing",
+        "x": 1280,
+        "y": 751,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "enterprise_mirror",
+        "x": 1371,
+        "y": 322,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "supply_dq",
+        "x": 1513,
+        "y": 751,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "enterprise_onelake",
+        "x": 1616,
+        "y": 322,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "supply_gold",
+        "x": 1746,
+        "y": 751,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "enterprise_domains",
+        "x": 1875,
+        "y": 322,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "supply_semantic",
+        "x": 1979,
+        "y": 751,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "production_evidence",
+        "x": 2102,
+        "y": 1150,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "foundation_entra",
+        "x": 2155,
+        "y": 1449,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "supply_metrics",
+        "x": 2212,
+        "y": 751,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "eval_dataset",
+        "x": 2247,
+        "y": 1164,
+        "width": 210,
+        "height": 70
+      },
+      {
+        "id": "foundation_purview",
+        "x": 2394,
+        "y": 1449,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "prompt_rag_baseline",
+        "x": 2475,
+        "y": 1164,
+        "width": 178,
+        "height": 70
+      },
+      {
+        "id": "doc_parse",
+        "x": 2489,
+        "y": 731,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "chunk_acl",
+        "x": 2605,
+        "y": 745,
+        "width": 172,
+        "height": 70
+      },
+      {
+        "id": "foundation_keyvault",
+        "x": 2633,
+        "y": 1449,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "offline_eval",
+        "x": 2671,
+        "y": 1164,
+        "width": 192,
+        "height": 70
+      },
+      {
+        "id": "optional_finetune",
+        "x": 2698,
+        "y": 1262,
+        "width": 200,
+        "height": 70
+      },
+      {
+        "id": "ontology",
+        "x": 2701,
+        "y": 922,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "embeddings",
+        "x": 2787,
+        "y": 745,
+        "width": 162,
+        "height": 70
+      },
+      {
+        "id": "semantic_query",
+        "x": 2848,
+        "y": 383,
+        "width": 218,
+        "height": 92
+      },
+      {
+        "id": "detail_query",
+        "x": 2848,
+        "y": 481,
+        "width": 218,
+        "height": 92
+      },
+      {
+        "id": "foundation_lineage",
+        "x": 2872,
+        "y": 1449,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "entity_linking",
+        "x": 2884,
+        "y": 936,
+        "width": 146,
+        "height": 70
+      },
+      {
+        "id": "release_registry",
+        "x": 2945,
+        "y": 1150,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "search_index",
+        "x": 3002,
+        "y": 731,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "foundation_monitor",
+        "x": 3111,
+        "y": 1449,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "graph",
+        "x": 3121,
+        "y": 922,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "hybrid_retrieval",
+        "x": 3146,
+        "y": 745,
+        "width": 152,
+        "height": 70
+      },
+      {
+        "id": "data_agent",
+        "x": 3147,
+        "y": 429,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "red_team",
+        "x": 3172,
+        "y": 1150,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "graph_traversal",
+        "x": 3304,
+        "y": 936,
+        "width": 182,
+        "height": 70
+      },
+      {
+        "id": "semantic_rerank",
+        "x": 3308,
+        "y": 745,
+        "width": 166,
+        "height": 70
+      },
+      {
+        "id": "release_gate",
+        "x": 3335,
+        "y": 1164,
+        "width": 196,
+        "height": 70
+      },
+      {
+        "id": "foundation_policy",
+        "x": 3350,
+        "y": 1449,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "context_citations",
+        "x": 3484,
+        "y": 745,
+        "width": 190,
+        "height": 70
+      },
+      {
+        "id": "prompt_shields",
+        "x": 3809,
+        "y": 885,
+        "width": 178,
+        "height": 70
+      },
+      {
+        "id": "agent_framework",
+        "x": 3842,
+        "y": 673,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "runtime_identity",
+        "x": 3848,
+        "y": 373,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "intent_classifier",
+        "x": 4033,
+        "y": 387,
+        "width": 164,
+        "height": 70
+      },
+      {
+        "id": "tool_gateway",
+        "x": 4048,
+        "y": 673,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "content_safety",
+        "x": 4060,
+        "y": 871,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "model_router",
+        "x": 4209,
+        "y": 673,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "domain_router",
+        "x": 4241,
+        "y": 387,
+        "width": 190,
+        "height": 70
+      },
+      {
+        "id": "auth_policy",
+        "x": 4278,
+        "y": 871,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "llm_inference",
+        "x": 4353,
+        "y": 673,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "refusal_guard",
+        "x": 4471,
+        "y": 885,
+        "width": 186,
+        "height": 70
+      },
+      {
+        "id": "decision_contract",
+        "x": 4475,
+        "y": 387,
+        "width": 194,
+        "height": 70
+      },
+      {
+        "id": "structured_output",
+        "x": 4478,
+        "y": 687,
+        "width": 210,
+        "height": 70
+      },
+      {
+        "id": "action_intent",
+        "x": 4802,
+        "y": 821,
+        "width": 168,
+        "height": 70
+      },
+      {
+        "id": "action_adapter",
+        "x": 4901,
+        "y": 917,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "recommendation",
+        "x": 4959,
+        "y": 507,
+        "width": 198,
+        "height": 70
+      },
+      {
+        "id": "approval",
+        "x": 5025,
+        "y": 807,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "operational_target",
+        "x": 5118,
+        "y": 917,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "action_api",
+        "x": 5210,
+        "y": 807,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "control_tower",
+        "x": 5233,
+        "y": 381,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "power_bi",
+        "x": 5233,
+        "y": 493,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "copilot",
+        "x": 5234,
+        "y": 605,
+        "width": 92,
+        "height": 64
+      },
+      {
+        "id": "outcome_verify",
+        "x": 5278,
+        "y": 931,
+        "width": 202,
+        "height": 70
+      },
+      {
+        "id": "command_bus",
+        "x": 5395,
+        "y": 807,
+        "width": 92,
+        "height": 64
+      }
+    ],
+    "lineageByNode": {
+      "source_operational": [
+        "ed1"
+      ],
+      "ingest_batch": [
+        "ed2",
+        "ed3"
+      ],
+      "databricks_jobs": [
+        "ed3",
+        "ed4",
+        "ed31"
+      ],
+      "databricks_delta": [
+        "ed4",
+        "ed5"
+      ],
+      "enterprise_mirror": [
+        "ed5",
+        "ed6"
+      ],
+      "enterprise_onelake": [
+        "ed6",
+        "ed7"
+      ],
+      "enterprise_domains": [
+        "ed7",
+        "ed8"
+      ],
+      "supply_lakehouse": [
+        "ed8",
+        "ed9"
+      ],
+      "supply_processing": [
+        "ed9",
+        "ed10"
+      ],
+      "supply_dq": [
+        "ed10",
+        "ed11"
+      ],
+      "supply_gold": [
+        "ed11",
+        "ed12",
+        "ed32"
+      ],
+      "supply_semantic": [
+        "ed12",
+        "ed13"
+      ],
+      "supply_metrics": [
+        "ed13",
+        "ed14"
+      ],
+      "semantic_query": [
+        "ed16",
+        "ed17"
+      ],
+      "data_agent": [
+        "ed17",
+        "ed18",
+        "ed34"
+      ],
+      "agent_framework": [
+        "ed19",
+        "ed20"
+      ],
+      "tool_gateway": [
+        "ed20",
+        "ed21"
+      ],
+      "model_router": [
+        "ed21",
+        "ed22",
+        "ed72"
+      ],
+      "llm_inference": [
+        "ed22",
+        "ed23"
+      ],
+      "structured_output": [
+        "ed23",
+        "ed24"
+      ],
+      "refusal_guard": [
+        "ed24",
+        "ed25",
+        "ed52"
+      ],
+      "recommendation": [
+        "ed25",
+        "ed26",
+        "ed53",
+        "ed54",
+        "ed55"
+      ],
+      "copilot": [
+        "ed26",
+        "ed62"
+      ],
+      "source_files": [
+        "ed27"
+      ],
+      "source_events": [
+        "ed28"
+      ],
+      "source_apis": [
+        "ed29"
+      ],
+      "ingest_stream": [
+        "ed30",
+        "ed31"
+      ],
+      "detail_query": [
+        "ed33",
+        "ed34"
+      ],
+      "doc_parse": [
+        "ed35"
+      ],
+      "chunk_acl": [
+        "ed35",
+        "ed36"
+      ],
+      "embeddings": [
+        "ed36",
+        "ed37"
+      ],
+      "search_index": [
+        "ed37",
+        "ed38"
+      ],
+      "hybrid_retrieval": [
+        "ed38",
+        "ed39"
+      ],
+      "semantic_rerank": [
+        "ed39",
+        "ed40"
+      ],
+      "context_citations": [
+        "ed40",
+        "ed41"
+      ],
+      "ontology": [
+        "ed42"
+      ],
+      "entity_linking": [
+        "ed42",
+        "ed43"
+      ],
+      "graph": [
+        "ed43",
+        "ed44"
+      ],
+      "graph_traversal": [
+        "ed44",
+        "ed45"
+      ],
+      "runtime_identity": [
+        "ed46"
+      ],
+      "intent_classifier": [
+        "ed46",
+        "ed47"
+      ],
+      "domain_router": [
+        "ed47",
+        "ed48"
+      ],
+      "decision_contract": [
+        "ed48",
+        "ed49"
+      ],
+      "prompt_shields": [
+        "ed50"
+      ],
+      "content_safety": [
+        "ed50",
+        "ed51"
+      ],
+      "auth_policy": [
+        "ed51",
+        "ed52"
+      ],
+      "control_tower": [
+        "ed53"
+      ],
+      "power_bi": [
+        "ed54"
+      ],
+      "action_intent": [
+        "ed55",
+        "ed56"
+      ],
+      "approval": [
+        "ed56",
+        "ed57"
+      ],
+      "action_api": [
+        "ed57",
+        "ed58"
+      ],
+      "command_bus": [
+        "ed58",
+        "ed59"
+      ],
+      "action_adapter": [
+        "ed59",
+        "ed60"
+      ],
+      "operational_target": [
+        "ed60",
+        "ed61"
+      ],
+      "outcome_verify": [
+        "ed61",
+        "ed63"
+      ],
+      "production_evidence": [
+        "ed62",
+        "ed63",
+        "ed64"
+      ],
+      "eval_dataset": [
+        "ed64",
+        "ed65"
+      ],
+      "prompt_rag_baseline": [
+        "ed65",
+        "ed66"
+      ],
+      "offline_eval": [
+        "ed66",
+        "ed67",
+        "ed68"
+      ],
+      "release_registry": [
+        "ed67",
+        "ed69",
+        "ed70"
+      ],
+      "optional_finetune": [
+        "ed68",
+        "ed69"
+      ],
+      "red_team": [
+        "ed70",
+        "ed71"
+      ],
+      "release_gate": [
+        "ed71",
+        "ed72"
+      ]
+    },
+    "connections": [
+      {
+        "id": "ed1",
+        "source": "source_operational",
+        "target": "source_authority"
+      },
+      {
+        "id": "ed2",
+        "source": "source_authority",
+        "target": "ingest_batch"
+      },
+      {
+        "id": "ed3",
+        "source": "ingest_batch",
+        "target": "databricks_jobs"
+      },
+      {
+        "id": "ed4",
+        "source": "databricks_jobs",
+        "target": "databricks_delta"
+      },
+      {
+        "id": "ed5",
+        "source": "databricks_delta",
+        "target": "enterprise_mirror"
+      },
+      {
+        "id": "ed6",
+        "source": "enterprise_mirror",
+        "target": "enterprise_onelake"
+      },
+      {
+        "id": "ed7",
+        "source": "enterprise_onelake",
+        "target": "enterprise_domains"
+      },
+      {
+        "id": "ed8",
+        "source": "enterprise_domains",
+        "target": "supply_lakehouse"
+      },
+      {
+        "id": "ed9",
+        "source": "supply_lakehouse",
+        "target": "supply_processing"
+      },
+      {
+        "id": "ed10",
+        "source": "supply_processing",
+        "target": "supply_dq"
+      },
+      {
+        "id": "ed11",
+        "source": "supply_dq",
+        "target": "supply_gold"
+      },
+      {
+        "id": "ed12",
+        "source": "supply_gold",
+        "target": "supply_semantic"
+      },
+      {
+        "id": "ed13",
+        "source": "supply_semantic",
+        "target": "supply_metrics"
+      },
+      {
+        "id": "ed14",
+        "source": "supply_metrics",
+        "target": "fabric_grounding_output"
+      },
+      {
+        "id": "ed15",
+        "source": "fabric_grounding_output",
+        "target": "structured_grounding_input"
+      },
+      {
+        "id": "ed16",
+        "source": "structured_grounding_input",
+        "target": "semantic_query"
+      },
+      {
+        "id": "ed17",
+        "source": "semantic_query",
+        "target": "data_agent"
+      },
+      {
+        "id": "ed18",
+        "source": "data_agent",
+        "target": "grounding_envelope"
+      },
+      {
+        "id": "ed19",
+        "source": "grounding_envelope",
+        "target": "agent_framework"
+      },
+      {
+        "id": "ed20",
+        "source": "agent_framework",
+        "target": "tool_gateway"
+      },
+      {
+        "id": "ed21",
+        "source": "tool_gateway",
+        "target": "model_router"
+      },
+      {
+        "id": "ed22",
+        "source": "model_router",
+        "target": "llm_inference"
+      },
+      {
+        "id": "ed23",
+        "source": "llm_inference",
+        "target": "structured_output"
+      },
+      {
+        "id": "ed24",
+        "source": "structured_output",
+        "target": "refusal_guard"
+      },
+      {
+        "id": "ed25",
+        "source": "refusal_guard",
+        "target": "recommendation"
+      },
+      {
+        "id": "ed26",
+        "source": "recommendation",
+        "target": "copilot"
+      },
+      {
+        "id": "ed27",
+        "source": "source_files",
+        "target": "source_authority"
+      },
+      {
+        "id": "ed28",
+        "source": "source_events",
+        "target": "source_authority"
+      },
+      {
+        "id": "ed29",
+        "source": "source_apis",
+        "target": "source_authority"
+      },
+      {
+        "id": "ed30",
+        "source": "source_authority",
+        "target": "ingest_stream"
+      },
+      {
+        "id": "ed31",
+        "source": "ingest_stream",
+        "target": "databricks_jobs"
+      },
+      {
+        "id": "ed32",
+        "source": "supply_gold",
+        "target": "fabric_grounding_output"
+      },
+      {
+        "id": "ed33",
+        "source": "structured_grounding_input",
+        "target": "detail_query"
+      },
+      {
+        "id": "ed34",
+        "source": "detail_query",
+        "target": "data_agent"
+      },
+      {
+        "id": "ed35",
+        "source": "doc_parse",
+        "target": "chunk_acl"
+      },
+      {
+        "id": "ed36",
+        "source": "chunk_acl",
+        "target": "embeddings"
+      },
+      {
+        "id": "ed37",
+        "source": "embeddings",
+        "target": "search_index"
+      },
+      {
+        "id": "ed38",
+        "source": "search_index",
+        "target": "hybrid_retrieval"
+      },
+      {
+        "id": "ed39",
+        "source": "hybrid_retrieval",
+        "target": "semantic_rerank"
+      },
+      {
+        "id": "ed40",
+        "source": "semantic_rerank",
+        "target": "context_citations"
+      },
+      {
+        "id": "ed41",
+        "source": "context_citations",
+        "target": "grounding_envelope"
+      },
+      {
+        "id": "ed42",
+        "source": "ontology",
+        "target": "entity_linking"
+      },
+      {
+        "id": "ed43",
+        "source": "entity_linking",
+        "target": "graph"
+      },
+      {
+        "id": "ed44",
+        "source": "graph",
+        "target": "graph_traversal"
+      },
+      {
+        "id": "ed45",
+        "source": "graph_traversal",
+        "target": "grounding_envelope"
+      },
+      {
+        "id": "ed46",
+        "source": "runtime_identity",
+        "target": "intent_classifier"
+      },
+      {
+        "id": "ed47",
+        "source": "intent_classifier",
+        "target": "domain_router"
+      },
+      {
+        "id": "ed48",
+        "source": "domain_router",
+        "target": "decision_contract"
+      },
+      {
+        "id": "ed49",
+        "source": "decision_contract",
+        "target": "grounding_envelope"
+      },
+      {
+        "id": "ed50",
+        "source": "prompt_shields",
+        "target": "content_safety"
+      },
+      {
+        "id": "ed51",
+        "source": "content_safety",
+        "target": "auth_policy"
+      },
+      {
+        "id": "ed52",
+        "source": "auth_policy",
+        "target": "refusal_guard"
+      },
+      {
+        "id": "ed53",
+        "source": "recommendation",
+        "target": "control_tower"
+      },
+      {
+        "id": "ed54",
+        "source": "recommendation",
+        "target": "power_bi"
+      },
+      {
+        "id": "ed55",
+        "source": "recommendation",
+        "target": "action_intent"
+      },
+      {
+        "id": "ed56",
+        "source": "action_intent",
+        "target": "approval"
+      },
+      {
+        "id": "ed57",
+        "source": "approval",
+        "target": "action_api"
+      },
+      {
+        "id": "ed58",
+        "source": "action_api",
+        "target": "command_bus"
+      },
+      {
+        "id": "ed59",
+        "source": "command_bus",
+        "target": "action_adapter"
+      },
+      {
+        "id": "ed60",
+        "source": "action_adapter",
+        "target": "operational_target"
+      },
+      {
+        "id": "ed61",
+        "source": "operational_target",
+        "target": "outcome_verify"
+      },
+      {
+        "id": "ed62",
+        "source": "copilot",
+        "target": "production_evidence"
+      },
+      {
+        "id": "ed63",
+        "source": "outcome_verify",
+        "target": "production_evidence"
+      },
+      {
+        "id": "ed64",
+        "source": "production_evidence",
+        "target": "eval_dataset"
+      },
+      {
+        "id": "ed65",
+        "source": "eval_dataset",
+        "target": "prompt_rag_baseline"
+      },
+      {
+        "id": "ed66",
+        "source": "prompt_rag_baseline",
+        "target": "offline_eval"
+      },
+      {
+        "id": "ed67",
+        "source": "offline_eval",
+        "target": "release_registry"
+      },
+      {
+        "id": "ed68",
+        "source": "offline_eval",
+        "target": "optional_finetune"
+      },
+      {
+        "id": "ed69",
+        "source": "optional_finetune",
+        "target": "release_registry"
+      },
+      {
+        "id": "ed70",
+        "source": "release_registry",
+        "target": "red_team"
+      },
+      {
+        "id": "ed71",
+        "source": "red_team",
+        "target": "release_gate"
+      },
+      {
+        "id": "ed72",
+        "source": "release_gate",
+        "target": "model_router"
+      }
+    ],
+    "workflow": {
+      "id": "source-to-copilot",
+      "label": "Operational source to governed Copilot response",
+      "nodeIds": [
+        "source_operational",
+        "source_authority",
+        "ingest_batch",
+        "databricks_jobs",
+        "databricks_delta",
+        "enterprise_mirror",
+        "enterprise_onelake",
+        "enterprise_domains",
+        "supply_lakehouse",
+        "supply_processing",
+        "supply_dq",
+        "supply_gold",
+        "supply_semantic",
+        "supply_metrics",
+        "fabric_grounding_output",
+        "structured_grounding_input",
+        "semantic_query",
+        "data_agent",
+        "grounding_envelope",
+        "agent_framework",
+        "tool_gateway",
+        "model_router",
+        "llm_inference",
+        "structured_output",
+        "refusal_guard",
+        "recommendation",
+        "copilot"
+      ],
+      "edgeIds": [
+        "ed1",
+        "ed2",
+        "ed3",
+        "ed4",
+        "ed5",
+        "ed6",
+        "ed7",
+        "ed8",
+        "ed9",
+        "ed10",
+        "ed11",
+        "ed12",
+        "ed13",
+        "ed14",
+        "ed15",
+        "ed16",
+        "ed17",
+        "ed18",
+        "ed19",
+        "ed20",
+        "ed21",
+        "ed22",
+        "ed23",
+        "ed24",
+        "ed25",
+        "ed26"
+      ],
+      "durationMs": 26000
+    },
+    "handoffs": [
+      {
+        "id": "A",
+        "from": "fabric_grounding_output",
+        "to": "structured_grounding_input",
+        "contract": "Certified semantic evidence plus governed Gold detail"
+      }
+    ]
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "advice": [],
+    "stats": {
+      "resIcons": 0,
+      "grIcons": 0,
+      "shapes": 0,
+      "uniqueStencils": 0,
+      "cellIds": 193
+    }
+  },
+  "files": {
+    "drawio": "/generated/drawio/fabric-e2e-ai-decision-control-tower.drawio",
+    "png": "/generated/drawio/fabric-e2e-ai-decision-control-tower.png",
+    "svg": "/generated/drawio/fabric-e2e-ai-decision-control-tower.svg"
+  }
+}

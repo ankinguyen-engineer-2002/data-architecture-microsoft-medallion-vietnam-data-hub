@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Trải nghiệm tương tác giải thích kiến trúc Enterprise AI Decision Control Tower trên Microsoft Fabric."
+    />
+    <link rel="icon" type="image/svg+xml" href="/data-architecture-microsoft-medallion-vietnam-data-hub/control-tower/assets/ai-foundry-7zZ17RQE.svg" />
+    <title>Enterprise AI Decision Control Tower</title>
+    <script>
+      (() => {
+        const storedTheme = localStorage.getItem("control-tower-theme");
+        const theme = storedTheme === "light" || storedTheme === "dark"
+          ? storedTheme
+          : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        const storedLanguage = localStorage.getItem("control-tower-language");
+        const language = storedLanguage === "en" || storedLanguage === "vi"
+          ? storedLanguage
+          : navigator.language.toLowerCase().startsWith("vi") ? "vi" : "en";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.documentElement.lang = language;
+      })();
+    </script>
+    <script type="module" crossorigin src="/data-architecture-microsoft-medallion-vietnam-data-hub/control-tower/assets/index-CQoSAo2w.js"></script>
+    <link rel="stylesheet" crossorigin href="/data-architecture-microsoft-medallion-vietnam-data-hub/control-tower/assets/index-b5X9ECN-.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
