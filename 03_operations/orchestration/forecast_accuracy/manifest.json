@@ -106,7 +106,9 @@
       "step": 330,
       "wave": 2,
       "object": "ForecastHistory_Enh.ForecastDemandMonthly",
-      "load_type": "overwrite",
+      "load_type": "date_range",
+      "date_key": "Snapshot",
+      "date_range_days": 90,
       "purpose": "Forecast demand monthly (depends on W01 + Staging)."
     },
     {

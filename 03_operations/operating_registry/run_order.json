@@ -54,8 +54,10 @@
           "wave": 2
         },
         {
+          "date_key": "Snapshot",
+          "date_range_days": 90,
           "dq_gate": "bronze_source_contracts",
-          "load_type": "manifest",
+          "load_type": "date_range",
           "object": "ForecastHistory_Enh.ForecastDemandMonthly",
           "purpose": "Forecast demand aggregate",
           "resolved_asset_key": "forecasthistory.enh.forecastdemandmonthly",
@@ -162,8 +164,10 @@
           "wave": 1
         },
         {
+          "date_key": "SnapshotDate",
+          "date_range_days": 90,
           "dq_gate": "bronze_source_contracts",
-          "load_type": "overwrite",
+          "load_type": "date_range",
           "object": "InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
           "purpose": "PO historical snapshot",
           "resolved_asset_key": "inventoryhistory.enh.purchaseordersnapshothistorical",
@@ -198,8 +202,10 @@
           "wave": 1
         },
         {
+          "date_key": "SnapshotDate",
+          "date_range_days": 90,
           "dq_gate": "bronze_source_contracts",
-          "load_type": "overwrite",
+          "load_type": "date_range",
           "object": "InventoryHistory_Enh.ForecastSnapshotWeekly",
           "purpose": "Weekly forecast snapshot",
           "resolved_asset_key": "inventoryhistory.enh.forecastsnapshotweekly",
@@ -207,8 +213,10 @@
           "wave": 1
         },
         {
+          "date_key": "SnapshotDate",
+          "date_range_days": 90,
           "dq_gate": "bronze_source_contracts",
-          "load_type": "overwrite",
+          "load_type": "date_range",
           "object": "InventoryHistory_Enh.SupplyPlanDetail",
           "purpose": "Supply plan detail",
           "resolved_asset_key": "inventoryhistory.enh.supplyplandetail",

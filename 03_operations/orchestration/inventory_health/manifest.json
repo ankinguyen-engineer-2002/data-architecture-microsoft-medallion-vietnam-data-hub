@@ -85,7 +85,9 @@
       "step": 200,
       "wave": 2,
       "object": "InventoryHistory_Enh.PurchaseOrderSnapshotHistorical",
-      "load_type": "overwrite",
+      "load_type": "date_range",
+      "date_key": "SnapshotDate",
+      "date_range_days": 90,
       "purpose": "PO historical (depends on W01)."
     },
     {
@@ -106,14 +108,18 @@
       "step": 230,
       "wave": 2,
       "object": "InventoryHistory_Enh.ForecastSnapshotWeekly",
-      "load_type": "overwrite",
+      "load_type": "date_range",
+      "date_key": "SnapshotDate",
+      "date_range_days": 90,
       "purpose": "Weekly forecast snapshot (depends on W01 + Staging)."
     },
     {
       "step": 240,
       "wave": 2,
       "object": "InventoryHistory_Enh.SupplyPlanDetail",
-      "load_type": "overwrite",
+      "load_type": "date_range",
+      "date_key": "SnapshotDate",
+      "date_range_days": 90,
       "purpose": "Supply plan detail (depends on W01)."
     },
     {
