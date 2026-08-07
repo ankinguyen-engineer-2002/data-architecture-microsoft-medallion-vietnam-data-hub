@@ -1,5 +1,5 @@
--- InventoryHistory_Enh_Wrk.v_AwdHelper
-CREATE     VIEW [InventoryHistory_Enh_Wrk].[v_AwdHelper] AS
+-- SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_AwdHelper
+CREATE       VIEW [InventoryHistory_Enh_Wrk].[v_AwdHelper] AS
 WITH _InventoryCurrent AS (
    -- INLINED 2026-05-21 (Option B): was InventoryHistory_Enh.InventoryCurrent (dropped entity)
    SELECT
@@ -10,7 +10,7 @@ WITH _InventoryCurrent AS (
        CAST(CAST(SYSUTCDATETIME() AS DATE) AS DATE)      AS SnapshotDate
    FROM [Enterprise_Lakehouse].[ItemMaster_AFI].[ITEMBL] b
    WHERE LEFT(TRIM(b.ITCLS), 1) = 'Z'
-     AND RIGHT(TRIM(b.ITCLS), 1) = 'K' -- FG
+     AND RIGHT(TRIM(b.ITCLS), 1) <> 'K' -- FG
 ),
 asof_dates AS (
 --    SELECT CAST(SYSUTCDATETIME() AS DATE) AS AsOfDate
@@ -64,7 +64,7 @@ fcst_recent AS (
        CAST(SnapshotDate AS DATE) AS SnapshotDateOrg,
        CAST(FiscalMonthLastDate AS DATE) AS FiscalMonthDate,
        CAST(SUM(TotalForecast) AS DECIMAL(18,4)) AS ForecastQty
-   FROM Enterprise_Lakehouse.SupplyChain_Enh.CurFcStSnapshotWeekly
+   FROM Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly
    WHERE SnapshotDate >= DATEADD(week, -156, CAST(SYSUTCDATETIME() AS DATE)) and SnapshotDate > '2025-08-04'
      AND SnapshotDate <= CAST(SYSUTCDATETIME() AS DATE)
      AND FiscalMonthLastDate IS NOT NULL
@@ -249,3 +249,5 @@ LEFT JOIN hist13w h
      AND h.WarehouseCode = iw.WarehouseCode
      AND h.AsOfDate = a.AsOfDate
 WHERE COALESCE(d.ThreeMoTotalDemandQty, h.Hist13WQty) IS NOT NULL;
+
+GO

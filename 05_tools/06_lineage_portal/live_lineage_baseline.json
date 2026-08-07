@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-06T22:23:49Z",
+  "generated_at_utc": "2026-08-07T02:47:31Z",
   "schema_version": 1,
   "summary": {
     "dependency_edge_count": 203,
@@ -881,7 +881,7 @@
         },
         {
           "database": "Enterprise_Lakehouse",
-          "object_name": "CurFcStSnapshotWeekly",
+          "object_name": "CurFcstSnapshotWeekly",
           "schema": "SupplyChain_Enh"
         },
         {
@@ -1212,7 +1212,7 @@
         {
           "database": "Enterprise_Lakehouse",
           "object_name": "InvoiceDetail",
-          "schema": "SalesHistory_AFI_Enh"
+          "schema": "SalesHistory_AFI"
         },
         {
           "database": "Enterprise_Lakehouse",
@@ -1319,12 +1319,12 @@
         {
           "database": "Enterprise_Lakehouse",
           "object_name": "InvoiceDetail",
-          "schema": "SalesHistory_AFI_Enh"
+          "schema": "SalesHistory_AFI"
         },
         {
           "database": "Enterprise_Lakehouse",
           "object_name": "InvoiceHeader",
-          "schema": "SalesHistory_AFI_Enh"
+          "schema": "SalesHistory_AFI"
         },
         {
           "database": "SupplyChain_Processing_Warehouse",

@@ -225,11 +225,11 @@
       "confidence": "verified",
       "evidence": "sys.sql_expression_dependencies:SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster -> DW_Developer.TableDictionary.ReplicatedSource",
       "evidence_timestamp": "",
-      "id": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail::transforms_to::SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster::live",
+      "id": "Enterprise_Lakehouse.SalesHistory_AFI.InvoiceDetail::transforms_to::SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster::live",
       "provenance": "live",
       "relationship_type": "transforms_to",
       "repository_sha": "",
-      "source": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+      "source": "Enterprise_Lakehouse.SalesHistory_AFI.InvoiceDetail",
       "source_file": "",
       "sync_status": "drift",
       "target": "SupplyChain_Processing_Warehouse.ReferenceMaster_Enh.ItemMaster"
@@ -238,11 +238,11 @@
       "confidence": "verified",
       "evidence": "sys.sql_expression_dependencies:SupplyChain_Processing_Warehouse.SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel -> DW_Developer.TableDictionary.ReplicatedSource",
       "evidence_timestamp": "",
-      "id": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail::transforms_to::SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel::live",
+      "id": "Enterprise_Lakehouse.SalesHistory_AFI.InvoiceDetail::transforms_to::SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel::live",
       "provenance": "live",
       "relationship_type": "transforms_to",
       "repository_sha": "",
-      "source": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail",
+      "source": "Enterprise_Lakehouse.SalesHistory_AFI.InvoiceDetail",
       "source_file": "",
       "sync_status": "drift",
       "target": "SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel"
@@ -251,11 +251,11 @@
       "confidence": "verified",
       "evidence": "sys.sql_expression_dependencies:SupplyChain_Processing_Warehouse.SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel -> DW_Developer.TableDictionary.ReplicatedSource",
       "evidence_timestamp": "",
-      "id": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader::transforms_to::SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel::live",
+      "id": "Enterprise_Lakehouse.SalesHistory_AFI.InvoiceHeader::transforms_to::SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel::live",
       "provenance": "live",
       "relationship_type": "transforms_to",
       "repository_sha": "",
-      "source": "Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader",
+      "source": "Enterprise_Lakehouse.SalesHistory_AFI.InvoiceHeader",
       "source_file": "",
       "sync_status": "drift",
       "target": "SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel"
@@ -277,11 +277,11 @@
       "confidence": "verified",
       "evidence": "sys.sql_expression_dependencies:SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_AwdHelper -> DW_Developer.TableDictionary.ReplicatedSource",
       "evidence_timestamp": "",
-      "id": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcStSnapshotWeekly::transforms_to::SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper::live",
+      "id": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly::transforms_to::SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper::live",
       "provenance": "live",
       "relationship_type": "transforms_to",
       "repository_sha": "",
-      "source": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcStSnapshotWeekly",
+      "source": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly",
       "source_file": "",
       "sync_status": "drift",
       "target": "SupplyChain_Processing_Warehouse.InventoryHistory_Enh.AwdHelper"
@@ -2237,11 +2237,11 @@
       "target": "SupplyChain_Processing_Warehouse.SalesHistory_Enh.InvoiceDetailLineLevel"
     }
   ],
-  "generated_at_utc": "2026-08-06T22:24:14Z",
+  "generated_at_utc": "2026-08-07T02:47:56Z",
   "layers": [
     {
       "layer": "Bronze",
-      "node_count": 66
+      "node_count": 68
     },
     {
       "layer": "Gold",
@@ -2257,7 +2257,7 @@
     }
   ],
   "live_baseline": {
-    "generated_at_utc": "2026-08-06T22:23:49Z",
+    "generated_at_utc": "2026-08-07T02:47:31Z",
     "summary": {
       "dependency_edge_count": 203,
       "system_dependency_row_count": 203,
@@ -2267,7 +2267,7 @@
     "validation": {
       "age_hours": 0.0,
       "dependency_edge_count": 203,
-      "generated_at_utc": "2026-08-06T22:23:49Z",
+      "generated_at_utc": "2026-08-07T02:47:31Z",
       "max_age_hours": 6,
       "reason": "Baseline freshness and coverage checks passed.",
       "status": "valid",
@@ -2313,7 +2313,7 @@
   "marts": [
     {
       "mart": "forecast_accuracy",
-      "node_count": 38
+      "node_count": 40
     },
     {
       "mart": "inventory_health",
@@ -2368,6 +2368,54 @@
       "role": "business",
       "row_count": null,
       "schema": "Customers",
+      "source_sql": "",
+      "status": "active",
+      "wave": null,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "Enterprise_Lakehouse",
+      "display_name": "InvoiceDetail",
+      "evidence": [
+        "sys.sql_expression_dependencies:SupplyChain_Processing_Warehouse.ReferenceMaster_Enh_Wrk.v_ItemMaster"
+      ],
+      "full_name": "Enterprise_Lakehouse.SalesHistory_AFI.InvoiceDetail",
+      "id": "Enterprise_Lakehouse.SalesHistory_AFI.InvoiceDetail",
+      "lane_label": "01 Bronze Sources",
+      "lane_order": 10,
+      "last_modified": "",
+      "layer": "Bronze",
+      "load_method": "",
+      "mart": "forecast_accuracy",
+      "object_name": "InvoiceDetail",
+      "object_type": "USER_TABLE",
+      "role": "business",
+      "row_count": null,
+      "schema": "SalesHistory_AFI",
+      "source_sql": "",
+      "status": "active",
+      "wave": null,
+      "workspace": "Enterprise SupplyChain-Dev"
+    },
+    {
+      "database": "Enterprise_Lakehouse",
+      "display_name": "InvoiceHeader",
+      "evidence": [
+        "sys.sql_expression_dependencies:SupplyChain_Processing_Warehouse.SalesHistory_Enh_Wrk.v_InvoiceDetailLineLevel"
+      ],
+      "full_name": "Enterprise_Lakehouse.SalesHistory_AFI.InvoiceHeader",
+      "id": "Enterprise_Lakehouse.SalesHistory_AFI.InvoiceHeader",
+      "lane_label": "01 Bronze Sources",
+      "lane_order": 10,
+      "last_modified": "",
+      "layer": "Bronze",
+      "load_method": "",
+      "mart": "forecast_accuracy",
+      "object_name": "InvoiceHeader",
+      "object_type": "USER_TABLE",
+      "role": "business",
+      "row_count": null,
+      "schema": "SalesHistory_AFI",
       "source_sql": "",
       "status": "active",
       "wave": null,
@@ -3239,25 +3287,25 @@
     },
     {
       "database": "Enterprise_Lakehouse",
-      "display_name": "CurFcStSnapshotWeekly",
+      "display_name": "CurFcstSnapshotWeekly",
       "evidence": [
         "sys.sql_expression_dependencies:SupplyChain_Processing_Warehouse.InventoryHistory_Enh_Wrk.v_AwdHelper"
       ],
-      "full_name": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcStSnapshotWeekly",
-      "id": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcStSnapshotWeekly",
+      "full_name": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly",
+      "id": "Enterprise_Lakehouse.SupplyChain_Enh.CurFcstSnapshotWeekly",
       "lane_label": "01 Bronze Sources",
       "lane_order": 10,
       "last_modified": "",
       "layer": "Bronze",
       "load_method": "",
       "mart": "inventory_health",
-      "object_name": "CurFcStSnapshotWeekly",
-      "object_type": "REFERENCE",
+      "object_name": "CurFcstSnapshotWeekly",
+      "object_type": "USER_TABLE",
       "role": "business",
       "row_count": null,
       "schema": "SupplyChain_Enh",
       "source_sql": "",
-      "status": "referenced",
+      "status": "active",
       "wave": null,
       "workspace": "Enterprise SupplyChain-Dev"
     },
@@ -3271,7 +3319,7 @@
       "id": "Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily",
       "lane_label": "01 Bronze Sources",
       "lane_order": 10,
-      "last_modified": "2026-06-16T06:59:44.077",
+      "last_modified": "2026-08-07T02:43:25.190",
       "layer": "Bronze",
       "load_method": "",
       "mart": "inventory_health",
@@ -4731,7 +4779,7 @@
       "row_count": "4486435",
       "schema": "InventoryHistory_Enh",
       "source_sql": "",
-      "source_sql_sha256": "b4090867beb1f599f9fe24e42c8d4ff2cf72aa4fec21cf520526be3f2ffa971c",
+      "source_sql_sha256": "949359883d6a2ab9412bb97aa005490f9ecf818df25088efdc9450c4ebddf8f5",
       "status": "active",
       "wave": 3,
       "workspace": "Enterprise SupplyChain-Dev"
@@ -5017,7 +5065,7 @@
       "row_count": "88761984",
       "schema": "SalesHistory_Enh",
       "source_sql": "",
-      "source_sql_sha256": "a57ad4e9c9701da4f66e976bc24477e3f80ee945508178fdfdb6673c5a1f97e7",
+      "source_sql_sha256": "f16256c6ac0614fc564cbf1fc22326b56f406ba4074b8ec8f7466f8ec35cbc4c",
       "status": "active",
       "wave": 2,
       "workspace": "Enterprise SupplyChain-Dev"
@@ -5225,7 +5273,7 @@
       "row_count": "381163",
       "schema": "ReferenceMaster_Enh",
       "source_sql": "",
-      "source_sql_sha256": "68ed698700671017d347193a1dcfa08267bf86dd65dbcd5a7af1b06287913dda",
+      "source_sql_sha256": "08a0217faf44240dc33bf739dd7915c5ceba62475059eb1da782ce90e06cd199",
       "status": "active",
       "wave": 1,
       "workspace": "Enterprise SupplyChain-Dev"
@@ -5347,7 +5395,7 @@
     "semantic_model": "sc_control_tower",
     "source_object_count": 431,
     "table_dictionary_rows": 97,
-    "workspace_item_count": 30
+    "workspace_item_count": 26
   },
   "semantic_validation": {
     "binding_count": 14,
