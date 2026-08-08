@@ -40,12 +40,12 @@ Mermaid source: [da_onboarding_flow.mmd](da_onboarding_flow.mmd)
 
 ```text
 README.md
-00_CONTEXT/current.md
+CONTEXT.md
 02_marts/README.md
 01_docs/glossary.md
 ```
 
-`00_CONTEXT/current.md` dùng để biết trạng thái mới nhất. Không copy số liệu audit cũ vào tài liệu thiết kế mới nếu số liệu đó chỉ là bằng chứng tại một thời điểm.
+`CONTEXT.md` dùng để biết trạng thái mới nhất. Không copy số liệu audit cũ vào tài liệu thiết kế mới nếu số liệu đó chỉ là bằng chứng tại một thời điểm.
 
 ### Step 2 - Xác Định Scope
 

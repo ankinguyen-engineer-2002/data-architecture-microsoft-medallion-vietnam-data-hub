@@ -18,8 +18,8 @@ Language note: 01_docs/code in English; short Vietnamese hints included where he
 ## 1) Canonical IDs / endpoints (DEV)
 
 Source of truth:
-- `CLAUDE.md` (root) — tenant/workspace/sql endpoint + token commands
-- `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/projects/inventory_health/00_workspace.md` — Processing/Gold WH IDs + semantic model IDs
+- `AGENTS.md` and `CONTEXT.md` (root) - current scope lock, access method, and safety rules
+- `99_archive/reverse-engineering/enterprise_supplychain_dev_architect/projects/inventory_health/00_workspace.md` - historical Processing/Gold warehouse and semantic-model evidence; reverify through Fabric REST before use
 
 Key values (DEV):
 - Tenant: `5a9d9cfd-c32e-4ac1-a9ed-fe83df4f9e4d`
@@ -196,4 +196,3 @@ Evidence in repo:
 
 Rule of thumb:
 1) Try MCP tool → 2) fall back to `az rest` → 3) fall back to Python `requests` + token.
-

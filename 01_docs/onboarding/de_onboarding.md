@@ -17,7 +17,7 @@ Mermaid source: [de_operating_cycle.mmd](de_operating_cycle.mmd)
 
 | Khu vực | DE cần chịu trách nhiệm |
 |---|---|
-| Context discipline | Đọc và cập nhật `00_CONTEXT/current.md` sau thay đổi có ý nghĩa. |
+| Context discipline | Đọc và cập nhật `CONTEXT.md` sau thay đổi có ý nghĩa. |
 | Live scan | Kiểm tra workspace, lakehouse, warehouse, SQL endpoint, semantic model, stored procedure khi cần. |
 | Repo sync | Giữ `02_marts`, `03_operations`, `04_semantic`, JSON packages khớp với live truth. |
 | Runtime contract | Bảo đảm `_Wrk.v_<TableName>` map đúng vào final table và wrapper procedure. |
@@ -45,12 +45,12 @@ AuditLog và TableDictionary chứng minh runtime đã làm gì.
 Đọc theo thứ tự:
 
 ```text
-CLAUDE.md
-00_CONTEXT/current.md
+AGENTS.md
+CONTEXT.md
 README.md
 01_docs/glossary.md
 01_docs/architecture/current/final_enterprise_etl_runtime_architecture.md
-03_operations/orchestration/main/manifest.json
+03_operations/orchestration/main/manifest.yaml
 ```
 
 Không lấy file archive làm current truth nếu tài liệu hiện tại không link rõ.
@@ -226,11 +226,10 @@ next step
 Default context target:
 
 ```text
-00_CONTEXT/current.md
-00_CONTEXT/<date-range>.md
+CONTEXT.md
 ```
 
-Không tạo context song song nếu convention repo chưa đổi.
+Không tạo context song song hoặc dated context files.
 
 ## Checklist DE Cho Mart Mới
 

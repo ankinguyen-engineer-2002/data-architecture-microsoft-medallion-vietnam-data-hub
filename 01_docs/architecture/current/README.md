@@ -36,4 +36,4 @@ CI/CD chỉ deploy object, không thay runtime refresh
 - Runtime chính là `ETL_Framework.DW_Developer` cộng với wrapper stored procedures.
 - Phase 2 đang deferred, không tự khởi động nếu chưa có yêu cầu mới.
 
-Số liệu audit, duration, row count và closeout evidence không đặt ở README kiến trúc. Xem [../../../00_CONTEXT/current.md](../../../00_CONTEXT/current.md) hoặc runbook artifacts khi cần bằng chứng cụ thể.
+Số liệu audit, duration, row count và closeout evidence không đặt ở README kiến trúc. Xem [../../../CONTEXT.md](../../../CONTEXT.md) hoặc runbook artifacts khi cần bằng chứng cụ thể.
