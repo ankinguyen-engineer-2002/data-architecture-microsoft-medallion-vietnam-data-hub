@@ -22,6 +22,10 @@ node_modules/
 .vscode/
 .devcontainer/
 
+# Local agent and frontend caches
+/.opencode/
+/.vite/
+
 # === Claude Code ===
 .claude/
 .claude.md
