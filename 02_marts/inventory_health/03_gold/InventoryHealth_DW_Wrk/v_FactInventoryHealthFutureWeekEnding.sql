@@ -205,9 +205,9 @@ SELECT
     ) AS ProjectedShortageValue,
     CAST(
         CASE
-            WHEN COALESCE(AvgWeeklyDemand, 0) > 0
-                THEN COALESCE(TotalInvCommitmentInFuture, 0) / AvgWeeklyDemand
-            ELSE NULL
+            WHEN COALESCE(AvgWeeklyDemand, 0) <= 0 THEN NULL
+            WHEN TotalInvCommitmentInFuture <= 0 THEN 0
+            ELSE TotalInvCommitmentInFuture / AvgWeeklyDemand
         END AS DECIMAL(18,4)
     ) AS ProjectedWOS,
     CAST(ProjectedInventoryClassification AS VARCHAR(30)) AS ProjectedInventoryClassification,
