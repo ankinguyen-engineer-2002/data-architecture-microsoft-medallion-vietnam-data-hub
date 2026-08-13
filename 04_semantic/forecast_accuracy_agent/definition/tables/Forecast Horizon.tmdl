@@ -1,0 +1,23 @@
+/// Forecast lag dimension. Forecast KPIs support exactly one of Lag-0 through Lag-4.
+table 'Forecast Horizon'
+
+	/// Forecast horizon such as Lag-0, Lag-1, Lag-2, Lag-3, or Lag-4.
+	column 'Forecast Horizon'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: HorizonCode
+		sortByColumn: 'Horizon Rank'
+
+	column 'Horizon Rank'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		isHidden
+		sourceColumn: Rank
+
+	partition 'Forecast Horizon' = entity
+		mode: directLake
+		source
+			entityName: DimForecastHorizon
+			schemaName: ForecastAccuracy_DW
+			expressionSource: 'DirectLake - Forecast Accuracy Agent'

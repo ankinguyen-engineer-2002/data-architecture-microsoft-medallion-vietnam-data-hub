@@ -1,0 +1,57 @@
+/// Forecast-relevant product attributes. Cost and price fields are intentionally excluded.
+table Product
+
+	/// Item stock-keeping unit used as the product identifier.
+	column 'Item SKU'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ItemSKU
+
+	/// Business product description.
+	column 'Product Description'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Description
+
+	/// Sales category used for forecast analysis.
+	column 'Sales Category'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: AFISalesCategoryName
+
+	/// Sales division used for forecast analysis.
+	column 'Sales Division'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: AFISalesDivisionName
+
+	/// Collective product class.
+	column 'Collective Class'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: CollectiveClassName
+
+	/// Product item class description.
+	column 'Item Class'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ItemClassDescription
+
+	/// Product lifecycle stage.
+	column 'Lifecycle Stage'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: LifecycleStage
+
+	/// Whether the item is a finished-goods item.
+	column 'Is Finished Goods Item'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: IsFinishedGoodsItem
+
+	partition Product = entity
+		mode: directLake
+		source
+			entityName: DimProduct
+			schemaName: Shared_DW
+			expressionSource: 'DirectLake - Forecast Accuracy Agent'

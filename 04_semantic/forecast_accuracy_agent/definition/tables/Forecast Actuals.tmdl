@@ -1,0 +1,58 @@
+/// Operational forecast and actual quantities by item, warehouse, customer group, fiscal month, horizon, status, and version.
+table 'Forecast Actuals'
+
+	column 'Item SKU'
+		dataType: string
+		summarizeBy: none
+		isHidden
+		sourceColumn: ItemSKU
+
+	column 'Warehouse Code'
+		dataType: string
+		summarizeBy: none
+		isHidden
+		sourceColumn: WarehouseCode
+
+	column 'Customer Group Code'
+		dataType: string
+		summarizeBy: none
+		isHidden
+		sourceColumn: CustomerGroupCode
+
+	column 'Fiscal Month End'
+		dataType: dateTime
+		formatString: mmm yyyy
+		summarizeBy: none
+		isHidden
+		sourceColumn: FSCMonthLast
+
+	column 'Forecast Horizon'
+		dataType: string
+		summarizeBy: none
+		isHidden
+		sourceColumn: HorizonCode
+
+	/// Operational quantity status such as Invoice, Open Order, Forecast, or Naive Forecast.
+	column 'Quantity Status'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: StatusCode
+
+	/// Forecast or actual version label.
+	column 'Version Name'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: VersionName
+
+	column 'Quantity Raw'
+		dataType: double
+		summarizeBy: sum
+		isHidden
+		sourceColumn: Qty
+
+	partition 'Forecast Actuals' = entity
+		mode: directLake
+		source
+			entityName: FactForecastActual
+			schemaName: ForecastAccuracy_DW
+			expressionSource: 'DirectLake - Forecast Accuracy Agent'

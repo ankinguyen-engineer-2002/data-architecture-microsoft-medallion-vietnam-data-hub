@@ -1,0 +1,51 @@
+/// Forecast-relevant warehouse attributes used to slice quantities and accuracy metrics.
+table Warehouse
+
+	/// Business warehouse code.
+	column 'Warehouse Code'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: WarehouseCode
+
+	/// Warehouse business name.
+	column 'Warehouse Name'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: WarehouseName
+
+	/// Warehouse location.
+	column 'Warehouse Location'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: WarehouseLocation
+
+	/// Governed warehouse grouping.
+	column 'Warehouse Group'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: WarehouseGroup
+
+	/// Warehouse operating type.
+	column 'Warehouse Type'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: WarehouseType
+
+	/// Manufacturing site associated with the warehouse.
+	column 'Manufacturing Site'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ManufacturingSite
+
+	/// Whether the warehouse is classified as a finished-goods warehouse.
+	column 'Is Finished Goods Warehouse'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: IsFinishedGoodsWarehouse
+
+	partition Warehouse = entity
+		mode: directLake
+		source
+			entityName: DimWarehouse
+			schemaName: Shared_DW
+			expressionSource: 'DirectLake - Forecast Accuracy Agent'

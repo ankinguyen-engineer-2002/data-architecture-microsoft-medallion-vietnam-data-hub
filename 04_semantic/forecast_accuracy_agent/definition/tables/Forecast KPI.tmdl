@@ -1,0 +1,84 @@
+/// Governed forecast KPI observations at item, warehouse, horizon, fiscal month, and snapshot grain. Use explicit measures, not raw columns.
+table 'Forecast KPI'
+
+	column 'Item SKU'
+		dataType: string
+		summarizeBy: none
+		isHidden
+		sourceColumn: ItemSKU
+
+	column 'Warehouse Code'
+		dataType: string
+		summarizeBy: none
+		isHidden
+		sourceColumn: WarehouseCode
+
+	column 'Fiscal Month End'
+		dataType: dateTime
+		formatString: mmm yyyy
+		summarizeBy: none
+		isHidden
+		sourceColumn: FSCMonthLast
+
+	column 'Forecast Horizon'
+		dataType: string
+		summarizeBy: none
+		isHidden
+		sourceColumn: HorizonCode
+
+	column 'Snapshot Date'
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		summarizeBy: none
+		isHidden
+		sourceColumn: Snapshot
+
+	column 'Forecast Quantity Raw'
+		dataType: double
+		summarizeBy: sum
+		isHidden
+		sourceColumn: QtyForecast
+
+	column 'Observation Actual Quantity Raw'
+		dataType: double
+		summarizeBy: sum
+		isHidden
+		sourceColumn: QtyActual
+
+	column 'Naive Forecast Quantity Raw'
+		dataType: double
+		summarizeBy: sum
+		isHidden
+		sourceColumn: QtyNaiveForecast
+
+	column 'Forecast Error Quantity Raw'
+		dataType: double
+		summarizeBy: sum
+		isHidden
+		sourceColumn: QtyFcstError
+
+	column 'Absolute Forecast Error Quantity Raw'
+		dataType: double
+		summarizeBy: sum
+		isHidden
+		sourceColumn: QtyAbsFcstError
+
+	column 'Absolute Naive Forecast Error Quantity Raw'
+		dataType: double
+		summarizeBy: sum
+		isHidden
+		sourceColumn: QtyAbsNaiveFcstError
+
+	column 'Valid Observation Flag Raw'
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		isHidden
+		sourceColumn: ValidObsFlag
+
+	partition 'Forecast KPI' = entity
+		mode: directLake
+		source
+			entityName: FactForecastKpi
+			schemaName: ForecastAccuracy_DW
+			expressionSource: 'DirectLake - Forecast Accuracy Agent'

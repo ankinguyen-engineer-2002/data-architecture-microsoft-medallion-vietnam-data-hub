@@ -1,0 +1,176 @@
+/// Explicit governed measures for forecast analysis. KPI measures fail closed when horizon or snapshot context is ambiguous.
+table 'Forecast Measures'
+
+	/// Explains whether the current context is safe for forecast KPI calculation.
+	measure 'KPI Context Message' = ```
+		VAR SelectedHorizon = SELECTEDVALUE('Forecast Horizon'[Forecast Horizon])
+		VAR SupportedHorizon = SelectedHorizon IN { "Lag-0", "Lag-1", "Lag-2", "Lag-3", "Lag-4" }
+		VAR MonthSnapshotCounts =
+			ADDCOLUMNS(
+				VALUES('Forecast KPI'[Fiscal Month End]),
+				"__SnapshotCount",
+					CALCULATE(
+						DISTINCTCOUNT('Forecast KPI'[Snapshot Date]),
+						REMOVEFILTERS(Product),
+						REMOVEFILTERS(Warehouse),
+						'Forecast KPI'[Snapshot Date] <> BLANK()
+					)
+			)
+		VAR ValidSnapshotMonths = COUNTROWS(FILTER(MonthSnapshotCounts, [__SnapshotCount] > 0))
+		VAR AmbiguousSnapshotMonths = COUNTROWS(FILTER(MonthSnapshotCounts, [__SnapshotCount] > 1))
+		RETURN
+			SWITCH(
+				TRUE(),
+				NOT HASONEVALUE('Forecast Horizon'[Forecast Horizon]), "Select one forecast horizon",
+				SelectedHorizon = ">Lag-4" || NOT SupportedHorizon, "Unsupported >Lag-4 horizon",
+				ValidSnapshotMonths = 0, "No valid forecast snapshot",
+				AmbiguousSnapshotMonths > 0, "Multiple snapshots exist for a month/horizon",
+				"Ready"
+			)
+		```
+		formatString: @
+		displayFolder: Diagnostics
+
+	/// Returns 1 only when the current forecast KPI context passes all deterministic safety checks.
+	measure 'KPI Context Valid' = IF([KPI Context Message] = "Ready", 1, 0)
+		formatString: 0
+		displayFolder: Diagnostics
+
+	/// Consensus forecast quantity from one supported horizon and one unambiguous snapshot cohort per fiscal month.
+	measure 'Forecast Quantity' = ```
+		IF(
+			[KPI Context Valid] = 1,
+			CALCULATE(
+				SUM('Forecast KPI'[Forecast Quantity Raw]),
+				'Forecast KPI'[Snapshot Date] <> BLANK()
+			)
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: Governed KPIs
+
+	/// Actual quantity paired with valid forecast observations. This is the denominator for forecast KPI calculations, not operational actual demand.
+	measure 'Observation Actual Quantity' = ```
+		IF(
+			[KPI Context Valid] = 1,
+			CALCULATE(
+				SUM('Forecast KPI'[Observation Actual Quantity Raw]),
+				'Forecast KPI'[Snapshot Date] <> BLANK()
+			)
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: Governed KPIs
+
+	/// Signed forecast error calculated as Forecast minus Actual. Positive values indicate over-forecast.
+	measure 'Forecast Error Quantity' = ```
+		IF(
+			[KPI Context Valid] = 1,
+			CALCULATE(
+				SUM('Forecast KPI'[Forecast Error Quantity Raw]),
+				'Forecast KPI'[Snapshot Date] <> BLANK()
+			)
+		)
+		```
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Governed KPIs
+
+	/// Absolute forecast error quantity used in weighted mean absolute percentage error.
+	measure 'Absolute Forecast Error Quantity' = ```
+		IF(
+			[KPI Context Valid] = 1,
+			CALCULATE(
+				SUM('Forecast KPI'[Absolute Forecast Error Quantity Raw]),
+				'Forecast KPI'[Snapshot Date] <> BLANK()
+			)
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: Governed KPIs
+
+	/// Signed bias percentage: Forecast minus Actual divided by observation actual quantity. Positive means over-forecast.
+	measure 'Forecast Bias %' = DIVIDE([Forecast Error Quantity], [Observation Actual Quantity], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Governed KPIs
+
+	/// Weighted mean absolute percentage error: absolute forecast error divided by observation actual quantity.
+	measure wMAPE = DIVIDE([Absolute Forecast Error Quantity], [Observation Actual Quantity], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Governed KPIs
+
+	/// Forecast accuracy calculated as 1 minus wMAPE. Negative accuracy is retained when error exceeds actual demand.
+	measure 'Forecast Accuracy' = IF([KPI Context Valid] = 1, 1 - [wMAPE])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Governed KPIs
+
+	/// Naive forecast quantity used as the deterministic baseline for process value add.
+	measure 'Naive Forecast Quantity' = ```
+		IF(
+			[KPI Context Valid] = 1,
+			CALCULATE(
+				SUM('Forecast KPI'[Naive Forecast Quantity Raw]),
+				'Forecast KPI'[Snapshot Date] <> BLANK()
+			)
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: Governed KPIs
+
+	/// Naive weighted mean absolute percentage error using the same observation actual denominator as wMAPE.
+	measure 'Naive wMAPE' = ```
+		VAR AbsoluteNaiveError =
+			IF(
+				[KPI Context Valid] = 1,
+				CALCULATE(
+					SUM('Forecast KPI'[Absolute Naive Forecast Error Quantity Raw]),
+					'Forecast KPI'[Snapshot Date] <> BLANK()
+				)
+			)
+		RETURN DIVIDE(AbsoluteNaiveError, [Observation Actual Quantity], BLANK())
+		```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Governed KPIs
+
+	/// Process value add: Naive wMAPE minus forecast wMAPE. Positive means the consensus process outperformed the naive baseline.
+	measure 'Process Value Add' = IF([KPI Context Valid] = 1, [Naive wMAPE] - [wMAPE])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Governed KPIs
+
+	/// Number of valid observation rows in the safe KPI context.
+	measure 'Valid Observation Count' = ```
+		IF(
+			[KPI Context Valid] = 1,
+			CALCULATE(
+				SUM('Forecast KPI'[Valid Observation Flag Raw]),
+				'Forecast KPI'[Snapshot Date] <> BLANK()
+			)
+		)
+		```
+		formatString: #,##0
+		displayFolder: Diagnostics
+
+	/// Operational actual demand quantity from invoice and open-order rows. Do not use this as the forecast KPI denominator.
+	measure 'Actual Demand Quantity' = CALCULATE(SUM('Forecast Actuals'[Quantity Raw]), 'Forecast Actuals'[Forecast Horizon] = "Actual demand")
+		formatString: #,##0.00
+		displayFolder: Operational Quantities
+
+	/// Invoiced quantity within operational actual demand.
+	measure 'Invoice Quantity' = CALCULATE(SUM('Forecast Actuals'[Quantity Raw]), 'Forecast Actuals'[Forecast Horizon] = "Actual demand", 'Forecast Actuals'[Quantity Status] = "Invoice")
+		formatString: #,##0.00
+		displayFolder: Operational Quantities
+
+	/// Open sales order quantity within operational actual demand.
+	measure 'Open Sales Order Quantity' = CALCULATE(SUM('Forecast Actuals'[Quantity Raw]), 'Forecast Actuals'[Forecast Horizon] = "Actual demand", 'Forecast Actuals'[Quantity Status] = "Open Order")
+		formatString: #,##0.00
+		displayFolder: Operational Quantities
+
+	column Value
+		formatString: 0
+		summarizeBy: sum
+		isHidden
+		isNameInferred
+		sourceColumn: [Value]
+
+	partition 'Forecast Measures' = calculated
+		mode: import
+		source = Row("Value", BLANK())

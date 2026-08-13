@@ -1,0 +1,78 @@
+/// Governed 4-4-5 fiscal calendar. Use fiscal month, quarter, and year for forecast analysis.
+table 'Fiscal Calendar'
+
+	column Date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		summarizeBy: none
+		isHidden
+		sourceColumn: Date
+
+	/// Fiscal month-end date used to join forecast facts and define monthly analysis grain.
+	column 'Fiscal Month End'
+		dataType: dateTime
+		formatString: mmm yyyy
+		summarizeBy: none
+		sourceColumn: FSCMonthLast
+
+	column 'Fiscal Month Number'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		isHidden
+		sourceColumn: FSCMonthNum
+
+	column 'Fiscal Month Year Key'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		isHidden
+		sourceColumn: FSCMonthYearNum
+
+	/// Fiscal month and year display label.
+	column 'Fiscal Month'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: FSCMonthYearName
+		sortByColumn: 'Fiscal Month Year Key'
+
+	column 'Fiscal Quarter Number'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		isHidden
+		sourceColumn: FSCQuarterNum
+
+	/// Fiscal quarter and year display label.
+	column 'Fiscal Quarter'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: FSCQuarterYearName
+
+	column 'Fiscal Year Number'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		isHidden
+		sourceColumn: FSCYearNum
+
+	/// Fiscal year display label.
+	column 'Fiscal Year'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: FSCYearName
+
+	hierarchy 'Fiscal Period'
+		level 'Fiscal Year'
+			column: 'Fiscal Year'
+		level 'Fiscal Quarter'
+			column: 'Fiscal Quarter'
+		level 'Fiscal Month'
+			column: 'Fiscal Month'
+
+	partition 'Fiscal Calendar' = entity
+		mode: directLake
+		source
+			entityName: DimCalendar
+			schemaName: Shared_DW
+			expressionSource: 'DirectLake - Forecast Accuracy Agent'

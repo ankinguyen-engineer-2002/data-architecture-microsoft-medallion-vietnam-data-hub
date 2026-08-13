@@ -1,0 +1,20 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DirectLake - Forecast Accuracy Agent"]
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+ref table 'Customer Group'
+ref table 'Fiscal Calendar'
+ref table 'Forecast Horizon'
+ref table Product
+ref table Warehouse
+ref table 'Forecast Actuals'
+ref table 'Forecast KPI'
+ref table 'Forecast Measures'

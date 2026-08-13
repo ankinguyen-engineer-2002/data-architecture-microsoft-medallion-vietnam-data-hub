@@ -1,0 +1,35 @@
+relationship 97028647-a423-4900-ab9c-57fb387b3628
+	fromColumn: 'Forecast Actuals'.'Customer Group Code'
+	toColumn: 'Customer Group'.'Customer Group Code'
+
+relationship 7cdeaccf-fb19-4252-ad88-96f1dec463f2
+	fromColumn: 'Forecast Actuals'.'Fiscal Month End'
+	toColumn: 'Fiscal Calendar'.Date
+
+relationship a2eaf4d6-8f8f-4399-9b99-d8ac1b417db3
+	fromColumn: 'Forecast Actuals'.'Warehouse Code'
+	toColumn: Warehouse.'Warehouse Code'
+
+relationship ecc5f1b6-8d45-4ab3-b411-091cf2a2f57e
+	fromColumn: 'Forecast Actuals'.'Forecast Horizon'
+	toColumn: 'Forecast Horizon'.'Forecast Horizon'
+
+relationship f3f7c4e1-fb3b-4b05-9a65-1149d547c086
+	fromColumn: 'Forecast KPI'.'Forecast Horizon'
+	toColumn: 'Forecast Horizon'.'Forecast Horizon'
+
+relationship 9ce21e03-e7b8-4b5b-bd81-77fbd8b635c2
+	fromColumn: 'Forecast KPI'.'Warehouse Code'
+	toColumn: Warehouse.'Warehouse Code'
+
+relationship 716886bf-25b0-45c7-9002-507b9dbe5b04
+	fromColumn: 'Forecast KPI'.'Fiscal Month End'
+	toColumn: 'Fiscal Calendar'.Date
+
+relationship 792822aa-14d9-4162-ba4f-cebbd29249f6
+	fromColumn: 'Forecast Actuals'.'Item SKU'
+	toColumn: Product.'Item SKU'
+
+relationship 19816695-745f-4e18-b96f-be7ddd279b23
+	fromColumn: 'Forecast KPI'.'Item SKU'
+	toColumn: Product.'Item SKU'

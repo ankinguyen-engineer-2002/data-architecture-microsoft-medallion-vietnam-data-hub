@@ -1,0 +1,21 @@
+/// Governed customer grouping used to analyze operational actual demand, invoices, and open sales orders.
+table 'Customer Group'
+
+	/// Governed customer group code.
+	column 'Customer Group Code'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: CustomerGroupCode
+
+	/// Business-facing customer group name.
+	column 'Customer Group'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Customer
+
+	partition 'Customer Group' = entity
+		mode: directLake
+		source
+			entityName: DimCustomerGrouping
+			schemaName: ForecastAccuracy_DW
+			expressionSource: 'DirectLake - Forecast Accuracy Agent'
