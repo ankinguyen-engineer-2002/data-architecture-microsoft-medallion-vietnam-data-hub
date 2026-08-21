@@ -1,0 +1,29 @@
+{
+  "status": "OK",
+  "evidenceId": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+  "querySpecHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "daxHash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "templateId": "KPI_TREND_V1",
+  "governanceVersion": "forecast-metrics-1.0.0",
+  "semanticModelId": "2fbc4dfc-96d1-4af6-9987-4c14639435e6",
+  "queryId": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+  "executedAt": "2026-08-21T08:00:00Z",
+  "rowCount": 6,
+  "metrics": [
+    { "metricId": "forecast_accuracy", "value": 0.3959006542885988, "unit": "percent" }
+  ],
+  "context": {
+    "periodLabel": "Fiscal year 2026",
+    "horizonLabel": "Lag-0",
+    "scopeLabel": "Total scope",
+    "filters": ["Fiscal year 2026", "Lag-0"]
+  },
+  "series": [
+    { "label": "Jan", "value": 0.42, "metricId": "forecast_accuracy", "sortKey": "2026-01" },
+    { "label": "Feb", "value": 0.44, "metricId": "forecast_accuracy", "sortKey": "2026-02" },
+    { "label": "Mar", "value": 0.41, "metricId": "forecast_accuracy", "sortKey": "2026-03" },
+    { "label": "Apr", "value": 0.46, "metricId": "forecast_accuracy", "sortKey": "2026-04" },
+    { "label": "May", "value": 0.48, "metricId": "forecast_accuracy", "sortKey": "2026-05" },
+    { "label": "Jun", "value": 0.45, "metricId": "forecast_accuracy", "sortKey": "2026-06" }
+  ]
+}

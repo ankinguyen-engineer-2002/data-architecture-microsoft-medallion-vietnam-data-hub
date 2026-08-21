@@ -1,0 +1,70 @@
+[
+  {
+    "profileId": "WEB_RICH_V1",
+    "displayName": "Authenticated custom Web Chat",
+    "adaptiveCardVersion": "1.5",
+    "supportsActionSubmit": true,
+    "supportsToggleVisibility": true,
+    "supportsShowCard": true,
+    "supportsActionExecute": false,
+    "supportsRichTrend": true,
+    "supportsCustomClientEvents": true,
+    "maxRows": 25,
+    "maxSeriesPoints": 24,
+    "fallbacks": {
+      "TREND": "TABLE",
+      "FLASHCARD": "TEXT_FALLBACK",
+      "FORM": "TEXT_FALLBACK"
+    }
+  },
+  {
+    "profileId": "TEAMS_AC15",
+    "displayName": "Microsoft Teams Adaptive Card 1.5",
+    "adaptiveCardVersion": "1.5",
+    "supportsActionSubmit": true,
+    "supportsToggleVisibility": true,
+    "supportsShowCard": true,
+    "supportsActionExecute": false,
+    "supportsRichTrend": false,
+    "supportsCustomClientEvents": false,
+    "maxRows": 8,
+    "maxSeriesPoints": 24,
+    "fallbacks": {
+      "TREND": "TABLE"
+    }
+  },
+  {
+    "profileId": "M365_LIMITED",
+    "displayName": "Microsoft 365 Copilot conservative card",
+    "adaptiveCardVersion": "1.5",
+    "supportsActionSubmit": true,
+    "supportsToggleVisibility": false,
+    "supportsShowCard": false,
+    "supportsActionExecute": false,
+    "supportsRichTrend": false,
+    "supportsCustomClientEvents": false,
+    "maxRows": 8,
+    "maxSeriesPoints": 24,
+    "fallbacks": {
+      "TREND": "TABLE",
+      "FLASHCARD": "TEXT_FALLBACK",
+      "FORM": "TEXT_FALLBACK"
+    }
+  },
+  {
+    "profileId": "COPILOT_TEST",
+    "displayName": "Copilot Studio test canvas",
+    "adaptiveCardVersion": "1.5",
+    "supportsActionSubmit": true,
+    "supportsToggleVisibility": true,
+    "supportsShowCard": true,
+    "supportsActionExecute": false,
+    "supportsRichTrend": false,
+    "supportsCustomClientEvents": false,
+    "maxRows": 8,
+    "maxSeriesPoints": 24,
+    "fallbacks": {
+      "TREND": "TABLE"
+    }
+  }
+]

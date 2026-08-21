@@ -1,0 +1,100 @@
+{
+  "contractVersion": "1.0.0",
+  "purpose": "Finite presentation decision table for the Copilot Studio Agent Flow. It consumes validated fields only.",
+  "inputFields": [
+    "evidenceStatus",
+    "interactionMode",
+    "workflowId",
+    "conceptId",
+    "resultShape",
+    "metricCount",
+    "rowCount",
+    "seriesPointCount",
+    "channelProfile",
+    "supportsRichTrend",
+    "presentationHint"
+  ],
+  "forbiddenInputs": [
+    "dax",
+    "sql",
+    "rawCardJson",
+    "userId",
+    "role",
+    "approvalState",
+    "nextReviewAt"
+  ],
+  "branches": [
+    {
+      "id": "B01_INVALID_EVIDENCE",
+      "when": "evidenceStatus != OK",
+      "presentationType": "TEXT_FALLBACK",
+      "templateId": "forecast.text.v1",
+      "reasonCode": "INVALID_EVIDENCE",
+      "includeNumber": false
+    },
+    {
+      "id": "B02_GOVERNANCE_DRAFT",
+      "when": "interactionMode == GOVERNANCE_DRAFT and workflowId == forecast_governance_draft",
+      "presentationType": "FORM",
+      "templateId": "forecast.governance-form.v1",
+      "reasonCode": "GOVERNANCE_DRAFT_INTENT",
+      "includeNumber": false
+    },
+    {
+      "id": "B03_CURATED_FLASHCARD",
+      "when": "interactionMode == FLASHCARD_REVIEW and conceptId is in reviewed registry",
+      "presentationType": "FLASHCARD",
+      "templateId": "forecast.flashcard.v1",
+      "reasonCode": "LEARNING_INTENT",
+      "includeNumber": false
+    },
+    {
+      "id": "B04_SCALAR",
+      "when": "resultShape == SCALAR and metricCount between 1 and 3 and rowCount <= 1",
+      "presentationType": "KPI_CARD",
+      "templateId": "forecast.kpi.v1",
+      "reasonCode": "SCALAR_MATCH",
+      "includeNumber": true
+    },
+    {
+      "id": "B05_RICH_TREND",
+      "when": "resultShape == SERIES and seriesPointCount between 3 and 24 and supportsRichTrend == true and presentationHint != TABLE",
+      "presentationType": "TREND",
+      "templateId": "forecast.trend.v1",
+      "reasonCode": "SERIES_MATCH",
+      "includeNumber": true
+    },
+    {
+      "id": "B06_TREND_HOST_FALLBACK",
+      "when": "resultShape == SERIES and seriesPointCount between 3 and 24 and (supportsRichTrend == false or presentationHint == TABLE)",
+      "presentationType": "TABLE",
+      "templateId": "forecast.table.v1",
+      "reasonCode": "HOST_CAPABILITY_FALLBACK",
+      "includeNumber": true
+    },
+    {
+      "id": "B07_SMALL_TABLE",
+      "when": "resultShape == TABLE and rowCount between 2 and 8",
+      "presentationType": "TABLE",
+      "templateId": "forecast.table.v1",
+      "reasonCode": "SMALL_TABLE_MATCH",
+      "includeNumber": true
+    },
+    {
+      "id": "B08_OVERFLOW",
+      "when": "rowCount > 8 or seriesPointCount > 24",
+      "presentationType": "TEXT_FALLBACK",
+      "templateId": "forecast.text.v1",
+      "reasonCode": "ROW_LIMIT_BLOCK",
+      "includeNumber": false
+    },
+    {
+      "id": "B09_NO_TEMPLATE",
+      "when": "no prior branch matched",
+      "presentationType": "TEXT_FALLBACK",
+      "templateId": "forecast.text.v1",
+      "reasonCode": "NO_REGISTERED_TEMPLATE",
+      "includeNumber": false
+    }
+  ]
+}

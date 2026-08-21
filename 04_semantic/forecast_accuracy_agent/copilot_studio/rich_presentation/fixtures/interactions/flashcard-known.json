@@ -1,0 +1,12 @@
+{
+  "contractVersion": "1.0.0",
+  "interactionId": "20202020-2020-4020-8020-202020202020",
+  "cardInstanceId": "21212121-2121-4121-8121-212121212121",
+  "templateId": "forecast.flashcard.v1",
+  "actionId": "flashcard.rate",
+  "evidenceId": null,
+  "stateVersion": 0,
+  "issuedAt": "2026-08-21T08:00:00Z",
+  "expiresAt": "2026-08-21T08:15:00Z",
+  "payload": { "rating": "KNOWN" }
+}

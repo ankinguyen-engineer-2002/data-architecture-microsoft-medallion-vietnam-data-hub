@@ -1,0 +1,17 @@
+{
+  "contractVersion": "1.0.0",
+  "interactionId": "22202020-2020-4020-8020-202020202020",
+  "cardInstanceId": "23232323-2323-4323-8323-232323232323",
+  "templateId": "forecast.governance-form.v1",
+  "actionId": "governance.draft.submit",
+  "evidenceId": null,
+  "stateVersion": 0,
+  "issuedAt": "2026-08-21T08:00:00Z",
+  "expiresAt": "2026-08-21T08:15:00Z",
+  "payload": {
+    "action": "CREATE_DRAFT",
+    "subject": "Review Forecast Accuracy definition",
+    "requestType": "metric_definition_review",
+    "businessReason": "The planner needs a governed definition review."
+  }
+}

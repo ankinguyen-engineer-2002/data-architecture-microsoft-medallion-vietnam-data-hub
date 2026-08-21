@@ -1,0 +1,80 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Study card",
+      "isSubtle": true,
+      "size": "Small",
+      "weight": "Bolder"
+    },
+    {
+      "type": "TextBlock",
+      "text": "${data.flashcard.front}",
+      "size": "Large",
+      "weight": "Bolder",
+      "wrap": true,
+      "spacing": "Medium"
+    },
+    {
+      "type": "Container",
+      "id": "flashcardAnswer",
+      "isVisible": false,
+      "style": "emphasis",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Answer",
+          "weight": "Bolder"
+        },
+        {
+          "type": "TextBlock",
+          "text": "${data.flashcard.answer}",
+          "wrap": true
+        },
+        {
+          "type": "TextBlock",
+          "text": "${data.flashcard.explanation}",
+          "isSubtle": true,
+          "wrap": true,
+          "spacing": "Small"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.ToggleVisibility",
+      "title": "Reveal answer",
+      "targetElements": ["flashcardAnswer"]
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Known",
+      "data": {
+        "actionId": "flashcard.rate",
+        "rating": "KNOWN",
+        "cardInstanceId": "${cardInstanceId}",
+        "interactionId": "${interactionId}",
+        "templateId": "forecast.flashcard.v1",
+        "stateVersion": "${stateVersion}",
+        "expiresAt": "${expiresAt}"
+      }
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Again",
+      "data": {
+        "actionId": "flashcard.rate",
+        "rating": "AGAIN",
+        "cardInstanceId": "${cardInstanceId}",
+        "interactionId": "${interactionId}",
+        "templateId": "forecast.flashcard.v1",
+        "stateVersion": "${stateVersion}",
+        "expiresAt": "${expiresAt}"
+      }
+    }
+  ]
+}

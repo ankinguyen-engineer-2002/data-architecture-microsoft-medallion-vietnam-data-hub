@@ -1,0 +1,24 @@
+{
+  "contractVersion": "1.0.0",
+  "requestId": "12121212-1212-4121-8121-121212121212",
+  "evidenceId": null,
+  "evidenceHash": null,
+  "presentationType": "TEXT_FALLBACK",
+  "templateId": "forecast.text.v1",
+  "channelProfile": "WEB_RICH_V1",
+  "locale": "en-US",
+  "title": "Governed result unavailable",
+  "subtitle": "",
+  "data": { "metrics": [], "rows": [], "series": [] },
+  "actions": [],
+  "accessibility": {
+    "summary": "No governed number is available.",
+    "readingOrder": ["title", "fallback message"]
+  },
+  "fallback": {
+    "templateId": "forecast.text.v1",
+    "text": "No governed number is available for this request. Narrow the fiscal period or check access and try again."
+  },
+  "expiresAt": "2026-08-21T08:15:00Z",
+  "reasonCode": "INVALID_EVIDENCE"
+}

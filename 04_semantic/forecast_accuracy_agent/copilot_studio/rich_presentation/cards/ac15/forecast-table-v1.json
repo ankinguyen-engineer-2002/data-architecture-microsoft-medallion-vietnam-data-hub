@@ -1,0 +1,64 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "${title}",
+      "weight": "Bolder",
+      "size": "Medium",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "${subtitle}",
+      "isSubtle": true,
+      "spacing": "Small",
+      "wrap": true
+    },
+    {
+      "type": "Table",
+      "firstRowAsHeaders": true,
+      "showGridLines": true,
+      "columns": [
+        { "width": 2 },
+        { "width": 1 },
+        { "width": 2 }
+      ],
+      "rows": [
+        {
+          "type": "TableRow",
+          "cells": [
+            { "type": "TableCell", "items": [{ "type": "TextBlock", "text": "Group", "weight": "Bolder" }] },
+            { "type": "TableCell", "items": [{ "type": "TextBlock", "text": "Value", "weight": "Bolder" }] },
+            { "type": "TableCell", "items": [{ "type": "TextBlock", "text": "Metric", "weight": "Bolder" }] }
+          ]
+        },
+        {
+          "$data": "${data.rows}",
+          "type": "TableRow",
+          "cells": [
+            { "type": "TableCell", "items": [{ "type": "TextBlock", "text": "${label}", "wrap": true }] },
+            { "type": "TableCell", "items": [{ "type": "TextBlock", "text": "${displayValue}", "wrap": true }] },
+            { "type": "TableCell", "items": [{ "type": "TextBlock", "text": "${metricId}", "wrap": true }] }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Open evidence",
+      "data": {
+        "actionId": "evidence.open",
+        "cardInstanceId": "${cardInstanceId}",
+        "interactionId": "${interactionId}",
+        "templateId": "forecast.table.v1",
+        "stateVersion": "${stateVersion}",
+        "expiresAt": "${expiresAt}"
+      }
+    }
+  ]
+}

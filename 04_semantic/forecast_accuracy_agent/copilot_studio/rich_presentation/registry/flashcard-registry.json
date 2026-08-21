@@ -1,0 +1,29 @@
+{
+  "registryVersion": "1.0.0",
+  "concepts": [
+    {
+      "conceptId": "forecast_accuracy_basics",
+      "front": "What does Forecast Accuracy represent in the governed KPI profile?",
+      "answer": "Forecast Accuracy is one minus the approved weighted MAPE in the current fiscal context.",
+      "explanation": "It is a semantic-model measure. The denominator guard requires positive governed Actual Demand, and future fiscal periods can return blank.",
+      "sourceLabel": "Forecast metric registry",
+      "tags": ["forecast", "accuracy", "wmape"]
+    },
+    {
+      "conceptId": "signed_bias_direction",
+      "front": "How should a planner read the sign of Forecast Bias?",
+      "answer": "Positive bias means over-forecast; negative bias means under-forecast.",
+      "explanation": "Bias is signed forecast error divided by approved Actual Demand. It is not an absolute error rate.",
+      "sourceLabel": "Forecast metric registry",
+      "tags": ["forecast", "bias", "interpretation"]
+    },
+    {
+      "conceptId": "forecast_horizon_lag",
+      "front": "What does Lag-0 mean in the Forecast KPI profile?",
+      "answer": "Lag-0 is the exact governed forecast horizon selected for the query.",
+      "explanation": "A query must select one explicit horizon unless horizon is the requested grouping dimension. The agent must not silently infer it.",
+      "sourceLabel": "Forecast QuerySpec contract",
+      "tags": ["forecast", "horizon", "queries"]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "${data.form.title}",
+      "weight": "Bolder",
+      "size": "Medium",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "${data.form.notice}",
+      "isSubtle": true,
+      "wrap": true,
+      "spacing": "Small"
+    },
+    {
+      "type": "Input.Text",
+      "id": "subject",
+      "label": "Subject",
+      "isRequired": true,
+      "errorMessage": "Add a short subject."
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "requestType",
+      "label": "Request type",
+      "style": "compact",
+      "isRequired": true,
+      "choices": [
+        { "title": "Metric definition review", "value": "metric_definition_review" },
+        { "title": "Data quality investigation", "value": "data_quality_investigation" },
+        { "title": "Access or scope question", "value": "access_scope_question" }
+      ]
+    },
+    {
+      "type": "Input.Text",
+      "id": "businessReason",
+      "label": "Business reason",
+      "isMultiline": true,
+      "isRequired": true,
+      "maxLength": 1000,
+      "errorMessage": "Add the business reason."
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Create draft",
+      "data": {
+        "actionId": "governance.draft.submit",
+        "cardInstanceId": "${cardInstanceId}",
+        "interactionId": "${interactionId}",
+        "templateId": "forecast.governance-form.v1",
+        "stateVersion": "${stateVersion}",
+        "expiresAt": "${expiresAt}"
+      }
+    }
+  ]
+}

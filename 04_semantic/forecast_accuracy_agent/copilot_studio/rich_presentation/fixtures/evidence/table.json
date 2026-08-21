@@ -1,0 +1,24 @@
+{
+  "status": "OK",
+  "evidenceId": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee",
+  "querySpecHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "daxHash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "templateId": "KPI_BREAKDOWN_V1",
+  "governanceVersion": "forecast-metrics-1.0.0",
+  "semanticModelId": "2fbc4dfc-96d1-4af6-9987-4c14639435e6",
+  "queryId": "ffffffff-ffff-4fff-8fff-ffffffffffff",
+  "executedAt": "2026-08-21T08:00:00Z",
+  "rowCount": 3,
+  "metrics": [],
+  "context": {
+    "periodLabel": "Fiscal July 2026",
+    "horizonLabel": "Lag-0",
+    "scopeLabel": "Warehouse group",
+    "filters": ["Fiscal July 2026", "Lag-0"]
+  },
+  "rows": [
+    { "label": "AFI", "value": 0.44, "metricId": "forecast_accuracy", "secondaryLabel": "Warehouse group" },
+    { "label": "ASH", "value": 0.39, "metricId": "forecast_accuracy", "secondaryLabel": "Warehouse group" },
+    { "label": "West", "value": 0.36, "metricId": "forecast_accuracy", "secondaryLabel": "Warehouse group" }
+  ]
+}

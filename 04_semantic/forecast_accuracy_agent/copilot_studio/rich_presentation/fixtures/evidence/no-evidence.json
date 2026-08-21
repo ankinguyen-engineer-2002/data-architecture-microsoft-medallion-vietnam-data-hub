@@ -1,0 +1,19 @@
+{
+  "status": "NO_GOVERNED_EVIDENCE",
+  "evidenceId": "12121212-1212-4121-8121-121212121212",
+  "querySpecHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "daxHash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "templateId": "KPI_SCALAR_V1",
+  "governanceVersion": "forecast-metrics-1.0.0",
+  "semanticModelId": "2fbc4dfc-96d1-4af6-9987-4c14639435e6",
+  "queryId": "13131313-1313-4131-8131-131313131313",
+  "executedAt": "2026-08-21T08:00:00Z",
+  "rowCount": 0,
+  "metrics": [],
+  "context": {
+    "periodLabel": "Fiscal July 2035",
+    "horizonLabel": "Lag-0",
+    "scopeLabel": "Total scope",
+    "filters": ["Fiscal July 2035", "Lag-0"]
+  }
+}

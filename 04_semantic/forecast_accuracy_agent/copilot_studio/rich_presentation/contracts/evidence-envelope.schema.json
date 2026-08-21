@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supplychainagent.local/contracts/evidence-envelope.schema.json",
+  "title": "Validated Evidence Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "evidenceId",
+    "querySpecHash",
+    "daxHash",
+    "templateId",
+    "governanceVersion",
+    "semanticModelId",
+    "queryId",
+    "executedAt",
+    "rowCount",
+    "metrics",
+    "context"
+  ],
+  "properties": {
+    "status": {
+      "enum": ["OK", "NO_GOVERNED_EVIDENCE", "INVALID_QUERY", "UNAUTHORIZED", "ERROR", "STALE"]
+    },
+    "evidenceId": { "type": "string", "format": "uuid" },
+    "querySpecHash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "daxHash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "templateId": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "governanceVersion": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "semanticModelId": { "type": "string", "format": "uuid" },
+    "queryId": { "type": "string", "format": "uuid" },
+    "executedAt": { "type": "string", "format": "date-time" },
+    "rowCount": { "type": "integer", "minimum": 0, "maximum": 25 },
+    "metrics": {
+      "type": "array",
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["metricId", "value", "unit"],
+        "properties": {
+          "metricId": { "type": "string", "pattern": "^[a-z0-9_]{1,64}$" },
+          "value": { "anyOf": [{ "type": "number" }, { "type": "null" }] },
+          "unit": { "enum": ["percent", "quantity"] }
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["periodLabel", "horizonLabel", "scopeLabel"],
+      "properties": {
+        "periodLabel": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "horizonLabel": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "scopeLabel": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "filters": { "type": "array", "maxItems": 5, "items": { "type": "string", "maxLength": 120 } }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "maxItems": 25,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "value", "metricId"],
+        "properties": {
+          "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+          "value": { "anyOf": [{ "type": "number" }, { "type": "null" }] },
+          "metricId": { "type": "string", "pattern": "^[a-z0-9_]{1,64}$" },
+          "secondaryLabel": { "type": "string", "maxLength": 120 }
+        }
+      }
+    },
+    "series": {
+      "type": "array",
+      "maxItems": 24,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "value", "metricId", "sortKey"],
+        "properties": {
+          "label": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "value": { "anyOf": [{ "type": "number" }, { "type": "null" }] },
+          "metricId": { "type": "string", "pattern": "^[a-z0-9_]{1,64}$" },
+          "sortKey": { "type": "string", "minLength": 1, "maxLength": 80 }
+        }
+      }
+    }
+  }
+}

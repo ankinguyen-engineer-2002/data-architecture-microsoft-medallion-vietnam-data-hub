@@ -1,0 +1,10 @@
+{
+  "contractVersion": "1.0.0",
+  "requestId": "44444444-4444-4444-8444-444444444444",
+  "querySpecHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "presentationHint": "FLASHCARD",
+  "channelProfile": "WEB_RICH_V1",
+  "locale": "en-US",
+  "interactionMode": "FLASHCARD_REVIEW",
+  "conceptId": "forecast_accuracy_basics"
+}

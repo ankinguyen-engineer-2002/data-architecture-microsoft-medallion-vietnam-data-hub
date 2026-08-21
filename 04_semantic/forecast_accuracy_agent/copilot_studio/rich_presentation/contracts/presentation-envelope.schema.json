@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supplychainagent.local/contracts/presentation-envelope.schema.json",
+  "title": "Presentation Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractVersion",
+    "requestId",
+    "evidenceId",
+    "evidenceHash",
+    "presentationType",
+    "templateId",
+    "channelProfile",
+    "locale",
+    "title",
+    "subtitle",
+    "data",
+    "actions",
+    "accessibility",
+    "fallback",
+    "expiresAt",
+    "reasonCode"
+  ],
+  "properties": {
+    "contractVersion": { "const": "1.0.0" },
+    "requestId": { "type": "string", "format": "uuid" },
+    "evidenceId": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string", "format": "uuid" }
+      ]
+    },
+    "evidenceHash": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      ]
+    },
+    "presentationType": {
+      "enum": ["KPI_CARD", "TABLE", "TREND", "FLASHCARD", "FORM", "TEXT_FALLBACK"]
+    },
+    "templateId": { "type": "string", "pattern": "^forecast\\.[a-z-]+\\.v1$" },
+    "channelProfile": {
+      "enum": ["WEB_RICH_V1", "TEAMS_AC15", "M365_LIMITED", "COPILOT_TEST"]
+    },
+    "locale": { "enum": ["en-US", "vi-VN"] },
+    "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "subtitle": { "type": "string", "maxLength": 240 },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metrics", "rows", "series"],
+      "properties": {
+        "metrics": {
+          "type": "array",
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["metricId", "label", "value", "displayValue", "unit"],
+            "properties": {
+              "metricId": { "type": "string" },
+              "label": { "type": "string", "minLength": 1, "maxLength": 80 },
+              "value": { "type": "number" },
+              "displayValue": { "type": "string", "maxLength": 32 },
+              "unit": { "enum": ["percent", "quantity"] }
+            }
+          }
+        },
+        "rows": {
+          "type": "array",
+          "maxItems": 25,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "displayValue", "metricId"],
+            "properties": {
+              "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+              "displayValue": { "type": "string", "maxLength": 32 },
+              "metricId": { "type": "string" },
+              "secondaryLabel": { "type": "string", "maxLength": 120 }
+            }
+          }
+        },
+        "series": {
+          "type": "array",
+          "maxItems": 24,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "displayValue", "value", "metricId", "sortKey"],
+            "properties": {
+              "label": { "type": "string", "minLength": 1, "maxLength": 80 },
+              "displayValue": { "type": "string", "maxLength": 32 },
+              "value": { "type": "number" },
+              "metricId": { "type": "string" },
+              "sortKey": { "type": "string", "maxLength": 80 }
+            }
+          }
+        },
+        "flashcard": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["conceptId", "front", "answer", "explanation", "sourceLabel"],
+          "properties": {
+            "conceptId": { "type": "string" },
+            "front": { "type": "string", "minLength": 1, "maxLength": 240 },
+            "answer": { "type": "string", "minLength": 1, "maxLength": 500 },
+            "explanation": { "type": "string", "minLength": 1, "maxLength": 800 },
+            "sourceLabel": { "type": "string", "minLength": 1, "maxLength": 160 }
+          }
+        },
+        "form": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["workflowId", "title", "fields", "notice"],
+          "properties": {
+            "workflowId": { "const": "forecast_governance_draft" },
+            "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+            "notice": { "type": "string", "minLength": 1, "maxLength": 400 },
+            "fields": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 5,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["id", "label", "inputType", "required"],
+                "properties": {
+                  "id": { "enum": ["subject", "requestType", "businessReason"] },
+                  "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+                  "inputType": { "enum": ["text", "choice"] },
+                  "required": { "type": "boolean" },
+                  "options": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["actionId", "label", "style", "payload"],
+        "properties": {
+          "actionId": {
+            "enum": [
+              "evidence.open",
+              "followup.compare",
+              "followup.trend",
+              "flashcard.reveal",
+              "flashcard.rate",
+              "governance.draft.submit"
+            ]
+          },
+          "label": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "style": { "enum": ["primary", "secondary", "subtle"] },
+          "payload": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "requestId": { "type": "string" },
+              "evidenceId": { "type": "string" },
+              "templateId": { "type": "string" },
+              "conceptId": { "type": "string" },
+              "workflowId": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "readingOrder"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "readingOrder": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "maxLength": 80 }
+        }
+      }
+    },
+    "fallback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["templateId", "text"],
+      "properties": {
+        "templateId": { "const": "forecast.text.v1" },
+        "text": { "type": "string", "minLength": 1, "maxLength": 1200 }
+      }
+    },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "reasonCode": {
+      "enum": [
+        "SCALAR_MATCH",
+        "SERIES_MATCH",
+        "SMALL_TABLE_MATCH",
+        "LEARNING_INTENT",
+        "GOVERNANCE_DRAFT_INTENT",
+        "HOST_CAPABILITY_FALLBACK",
+        "ROW_LIMIT_BLOCK",
+        "INVALID_EVIDENCE",
+        "NO_REGISTERED_TEMPLATE"
+      ]
+    }
+  }
+}

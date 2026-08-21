@@ -1,0 +1,81 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "bleed": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "${title}",
+          "weight": "Bolder",
+          "size": "Medium",
+          "wrap": true
+        },
+        {
+          "type": "TextBlock",
+          "text": "${subtitle}",
+          "isSubtle": true,
+          "spacing": "Small",
+          "wrap": true
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "${data.metrics[0].label}",
+          "isSubtle": true,
+          "spacing": "Medium",
+          "wrap": true
+        },
+        {
+          "type": "TextBlock",
+          "text": "${data.metrics[0].displayValue}",
+          "size": "ExtraLarge",
+          "weight": "Bolder",
+          "color": "Good",
+          "wrap": true
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            { "title": "Context", "value": "${subtitle}" },
+            { "title": "Evidence", "value": "${evidenceId}" }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Open evidence",
+      "data": {
+        "actionId": "evidence.open",
+        "cardInstanceId": "${cardInstanceId}",
+        "interactionId": "${interactionId}",
+        "templateId": "forecast.kpi.v1",
+        "stateVersion": "${stateVersion}",
+        "expiresAt": "${expiresAt}"
+      }
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Compare",
+      "data": {
+        "actionId": "followup.compare",
+        "cardInstanceId": "${cardInstanceId}",
+        "interactionId": "${interactionId}",
+        "templateId": "forecast.kpi.v1",
+        "stateVersion": "${stateVersion}",
+        "expiresAt": "${expiresAt}"
+      }
+    }
+  ]
+}

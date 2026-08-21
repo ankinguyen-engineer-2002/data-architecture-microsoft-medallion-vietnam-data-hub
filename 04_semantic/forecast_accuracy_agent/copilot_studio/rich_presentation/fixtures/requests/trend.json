@@ -1,0 +1,9 @@
+{
+  "contractVersion": "1.0.0",
+  "requestId": "22222222-2222-4222-8222-222222222222",
+  "querySpecHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "presentationHint": "AUTO",
+  "channelProfile": "WEB_RICH_V1",
+  "locale": "en-US",
+  "interactionMode": "READ_ONLY"
+}

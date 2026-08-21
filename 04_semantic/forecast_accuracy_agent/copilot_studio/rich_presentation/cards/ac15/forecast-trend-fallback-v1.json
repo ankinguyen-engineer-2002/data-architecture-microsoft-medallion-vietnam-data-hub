@@ -1,0 +1,58 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "${title}",
+      "weight": "Bolder",
+      "size": "Medium",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "Trend chart is available in the custom web client. This channel receives the accessible data table.",
+      "isSubtle": true,
+      "spacing": "Small",
+      "wrap": true
+    },
+    {
+      "type": "Table",
+      "firstRowAsHeaders": true,
+      "showGridLines": true,
+      "columns": [{ "width": 2 }, { "width": 1 }],
+      "rows": [
+        {
+          "type": "TableRow",
+          "cells": [
+            { "type": "TableCell", "items": [{ "type": "TextBlock", "text": "Period", "weight": "Bolder" }] },
+            { "type": "TableCell", "items": [{ "type": "TextBlock", "text": "Value", "weight": "Bolder" }] }
+          ]
+        },
+        {
+          "$data": "${data.series}",
+          "type": "TableRow",
+          "cells": [
+            { "type": "TableCell", "items": [{ "type": "TextBlock", "text": "${label}", "wrap": true }] },
+            { "type": "TableCell", "items": [{ "type": "TextBlock", "text": "${displayValue}", "wrap": true }] }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Open evidence",
+      "data": {
+        "actionId": "evidence.open",
+        "cardInstanceId": "${cardInstanceId}",
+        "interactionId": "${interactionId}",
+        "templateId": "forecast.trend-fallback.v1",
+        "stateVersion": "${stateVersion}",
+        "expiresAt": "${expiresAt}"
+      }
+    }
+  ]
+}

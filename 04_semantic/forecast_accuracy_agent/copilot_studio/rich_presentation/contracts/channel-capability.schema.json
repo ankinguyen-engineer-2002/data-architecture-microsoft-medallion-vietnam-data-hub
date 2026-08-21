@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supplychainagent.local/contracts/channel-capability.schema.json",
+  "title": "Channel Capability Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profileId",
+    "displayName",
+    "adaptiveCardVersion",
+    "supportsActionSubmit",
+    "supportsToggleVisibility",
+    "supportsShowCard",
+    "supportsActionExecute",
+    "supportsRichTrend",
+    "supportsCustomClientEvents",
+    "maxRows",
+    "maxSeriesPoints",
+    "fallbacks"
+  ],
+  "properties": {
+    "profileId": {
+      "enum": ["WEB_RICH_V1", "TEAMS_AC15", "M365_LIMITED", "COPILOT_TEST"]
+    },
+    "displayName": { "type": "string", "minLength": 1 },
+    "adaptiveCardVersion": { "enum": ["1.5", "1.6"] },
+    "supportsActionSubmit": { "type": "boolean" },
+    "supportsToggleVisibility": { "type": "boolean" },
+    "supportsShowCard": { "type": "boolean" },
+    "supportsActionExecute": { "const": false },
+    "supportsRichTrend": { "type": "boolean" },
+    "supportsCustomClientEvents": { "type": "boolean" },
+    "maxRows": { "type": "integer", "minimum": 1, "maximum": 25 },
+    "maxSeriesPoints": { "type": "integer", "minimum": 3, "maximum": 24 },
+    "fallbacks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "TREND": { "enum": ["TABLE", "TEXT_FALLBACK"] },
+        "FLASHCARD": { "enum": ["TEXT_FALLBACK"] },
+        "FORM": { "enum": ["TEXT_FALLBACK"] }
+      }
+    }
+  }
+}

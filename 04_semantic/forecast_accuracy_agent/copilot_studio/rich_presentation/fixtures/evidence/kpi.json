@@ -1,0 +1,24 @@
+{
+  "status": "OK",
+  "evidenceId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+  "querySpecHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "daxHash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "templateId": "KPI_SCALAR_V1",
+  "governanceVersion": "forecast-metrics-1.0.0",
+  "semanticModelId": "2fbc4dfc-96d1-4af6-9987-4c14639435e6",
+  "queryId": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+  "executedAt": "2026-08-21T08:00:00Z",
+  "rowCount": 1,
+  "metrics": [
+    { "metricId": "forecast_accuracy", "value": 0.3959006542885988, "unit": "percent" }
+  ],
+  "context": {
+    "periodLabel": "Fiscal July 2026",
+    "horizonLabel": "Lag-0",
+    "scopeLabel": "Total scope",
+    "filters": ["Fiscal July 2026", "Lag-0"]
+  },
+  "rows": [
+    { "label": "Total scope", "value": 0.3959006542885988, "metricId": "forecast_accuracy" }
+  ]
+}

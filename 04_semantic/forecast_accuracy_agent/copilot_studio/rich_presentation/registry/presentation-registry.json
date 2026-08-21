@@ -1,0 +1,72 @@
+{
+  "registryVersion": "1.0.0",
+  "templates": [
+    {
+      "templateId": "forecast.kpi.v1",
+      "presentationType": "KPI_CARD",
+      "schemaVersion": "1.5",
+      "registryVersion": "1.0.0",
+      "supportedProfiles": ["WEB_RICH_V1", "TEAMS_AC15", "M365_LIMITED", "COPILOT_TEST"],
+      "requiredPaths": ["evidenceId", "data.metrics[0]", "subtitle", "fallback.text"],
+      "optionalPaths": ["actions", "data.metrics[1]", "data.metrics[2]"],
+      "limits": { "metricCount": 3, "rowCount": 1 },
+      "allowedActions": ["evidence.open", "followup.compare", "followup.trend"],
+      "fallbackTemplateId": "forecast.text.v1"
+    },
+    {
+      "templateId": "forecast.table.v1",
+      "presentationType": "TABLE",
+      "schemaVersion": "1.5",
+      "registryVersion": "1.0.0",
+      "supportedProfiles": ["WEB_RICH_V1", "TEAMS_AC15", "M365_LIMITED", "COPILOT_TEST"],
+      "requiredPaths": ["data.rows", "subtitle", "fallback.text"],
+      "limits": { "rowCount": 8 },
+      "allowedActions": ["evidence.open", "followup.trend"],
+      "fallbackTemplateId": "forecast.text.v1"
+    },
+    {
+      "templateId": "forecast.trend.v1",
+      "presentationType": "TREND",
+      "schemaVersion": "1.5",
+      "registryVersion": "1.0.0",
+      "supportedProfiles": ["WEB_RICH_V1"],
+      "requiredPaths": ["data.series", "subtitle", "fallback.text"],
+      "limits": { "seriesPointCount": 24 },
+      "allowedActions": ["evidence.open", "followup.compare"],
+      "fallbackTemplateId": "forecast.table.v1"
+    },
+    {
+      "templateId": "forecast.flashcard.v1",
+      "presentationType": "FLASHCARD",
+      "schemaVersion": "1.5",
+      "registryVersion": "1.0.0",
+      "supportedProfiles": ["WEB_RICH_V1", "TEAMS_AC15", "COPILOT_TEST"],
+      "requiredPaths": ["data.flashcard", "actions", "fallback.text"],
+      "limits": { "rowCount": 1 },
+      "allowedActions": ["flashcard.reveal", "flashcard.rate"],
+      "fallbackTemplateId": "forecast.text.v1"
+    },
+    {
+      "templateId": "forecast.governance-form.v1",
+      "presentationType": "FORM",
+      "schemaVersion": "1.5",
+      "registryVersion": "1.0.0",
+      "supportedProfiles": ["WEB_RICH_V1", "TEAMS_AC15", "COPILOT_TEST"],
+      "requiredPaths": ["data.form", "actions", "fallback.text"],
+      "limits": { "rowCount": 1 },
+      "allowedActions": ["governance.draft.submit"],
+      "fallbackTemplateId": "forecast.text.v1"
+    },
+    {
+      "templateId": "forecast.text.v1",
+      "presentationType": "TEXT_FALLBACK",
+      "schemaVersion": "1.5",
+      "registryVersion": "1.0.0",
+      "supportedProfiles": ["WEB_RICH_V1", "TEAMS_AC15", "M365_LIMITED", "COPILOT_TEST"],
+      "requiredPaths": ["fallback.text"],
+      "limits": {},
+      "allowedActions": [],
+      "fallbackTemplateId": "forecast.text.v1"
+    }
+  ]
+}

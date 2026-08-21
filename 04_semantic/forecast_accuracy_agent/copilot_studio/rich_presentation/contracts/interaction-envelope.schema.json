@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supplychainagent.local/contracts/interaction-envelope.schema.json",
+  "title": "Interaction Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractVersion",
+    "interactionId",
+    "cardInstanceId",
+    "templateId",
+    "actionId",
+    "evidenceId",
+    "stateVersion",
+    "issuedAt",
+    "expiresAt",
+    "payload"
+  ],
+  "properties": {
+    "contractVersion": { "const": "1.0.0" },
+    "interactionId": { "type": "string", "format": "uuid" },
+    "cardInstanceId": { "type": "string", "format": "uuid" },
+    "templateId": {
+      "enum": ["forecast.flashcard.v1", "forecast.governance-form.v1"]
+    },
+    "actionId": {
+      "enum": ["flashcard.reveal", "flashcard.rate", "governance.draft.submit"]
+    },
+    "evidenceId": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string", "format": "uuid" }
+      ]
+    },
+    "stateVersion": { "type": "integer", "minimum": 0 },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "payload": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["action"],
+          "properties": { "action": { "const": "REVEAL" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["rating"],
+          "properties": { "rating": { "enum": ["AGAIN", "HARD", "KNOWN"] } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["action", "subject", "requestType", "businessReason"],
+          "properties": {
+            "action": { "const": "CREATE_DRAFT" },
+            "subject": { "type": "string", "minLength": 1, "maxLength": 160 },
+            "requestType": { "type": "string", "minLength": 1, "maxLength": 100 },
+            "businessReason": { "type": "string", "minLength": 1, "maxLength": 1000 }
+          }
+        }
+      ]
+    }
+  }
+}

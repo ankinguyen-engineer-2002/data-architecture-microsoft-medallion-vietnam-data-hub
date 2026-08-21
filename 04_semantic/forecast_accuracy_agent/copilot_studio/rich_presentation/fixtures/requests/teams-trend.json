@@ -1,0 +1,9 @@
+{
+  "contractVersion": "1.0.0",
+  "requestId": "33333333-3333-4333-8333-333333333333",
+  "querySpecHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "presentationHint": "TREND",
+  "channelProfile": "TEAMS_AC15",
+  "locale": "en-US",
+  "interactionMode": "READ_ONLY"
+}

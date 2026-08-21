@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supplychainagent.local/contracts/presentation-request.schema.json",
+  "title": "Presentation Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractVersion",
+    "requestId",
+    "querySpecHash",
+    "presentationHint",
+    "channelProfile",
+    "locale",
+    "interactionMode"
+  ],
+  "properties": {
+    "contractVersion": { "const": "1.0.0" },
+    "requestId": { "type": "string", "format": "uuid" },
+    "querySpecHash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "presentationHint": {
+      "enum": [
+        "AUTO",
+        "KPI_CARD",
+        "TABLE",
+        "TREND",
+        "FLASHCARD",
+        "FORM",
+        "TEXT_FALLBACK"
+      ]
+    },
+    "channelProfile": {
+      "enum": ["WEB_RICH_V1", "TEAMS_AC15", "M365_LIMITED", "COPILOT_TEST"]
+    },
+    "locale": { "enum": ["en-US", "vi-VN"] },
+    "interactionMode": {
+      "enum": ["READ_ONLY", "FLASHCARD_REVIEW", "GOVERNANCE_DRAFT"]
+    },
+    "conceptId": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]{1,64}$"
+    },
+    "workflowId": { "const": "forecast_governance_draft" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "interactionMode": { "const": "FLASHCARD_REVIEW" } } },
+      "then": { "required": ["conceptId"] }
+    },
+    {
+      "if": { "properties": { "interactionMode": { "const": "GOVERNANCE_DRAFT" } } },
+      "then": { "required": ["workflowId"] }
+    }
+  ]
+}
