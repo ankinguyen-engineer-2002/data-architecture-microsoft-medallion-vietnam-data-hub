@@ -9,6 +9,8 @@ from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
+from referencing import Registry, Resource
+from referencing.jsonschema import DRAFT202012
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -64,14 +66,30 @@ def main() -> int:
     failures: list[str] = []
     checker = FormatChecker()
     schemas = {
-        path.stem: load(path)
+        path.name.removesuffix(".schema.json"): load(path)
         for path in SCHEMA_DIR.glob("*.schema.json")
     }
+    schema_registry = Registry()
+    for path in SCHEMA_DIR.glob("*.schema.json"):
+        schema = load(path)
+        resource = Resource.from_contents(schema, default_specification=DRAFT202012)
+        for uri in (
+            path.name,
+            path.as_uri(),
+            f"https://supplychainagent.local/contracts/{path.name}",
+            schema.get("$id"),
+        ):
+            if uri:
+                schema_registry = schema_registry.with_resource(uri, resource)
     validators = {}
     for name, schema in schemas.items():
         try:
             Draft202012Validator.check_schema(schema)
-            validators[name] = Draft202012Validator(schema, format_checker=checker)
+            validators[name] = Draft202012Validator(
+                schema,
+                format_checker=checker,
+                registry=schema_registry,
+            )
         except Exception as exc:  # pragma: no cover - diagnostic path
             fail(f"invalid schema {name}: {exc}", failures)
 
@@ -81,8 +99,26 @@ def main() -> int:
         validate_json_files(ROOT / "fixtures" / "evidence", validators["evidence-envelope"], failures)
     if "presentation-envelope" in validators:
         validate_json_files(ROOT / "fixtures" / "presentations", validators["presentation-envelope"], failures)
+    if "presentation-trace" in validators:
+        trace_validator = validators["presentation-trace"]
+        for path in sorted((ROOT / "fixtures" / "presentations").glob("*.json")):
+            document = load(path)
+            trace = {
+                key: document[key]
+                for key in ("decision", "events", "resourceReference")
+                if key in document
+            }
+            if "decision" not in trace or "events" not in trace:
+                fail(f"{path.relative_to(ROOT)}: missing decision trace fields", failures)
+            for error in trace_validator.iter_errors(trace):
+                location = ".".join(str(part) for part in error.path) or "$"
+                fail(f"{path.relative_to(ROOT)}:{location}: {error.message}", failures)
     if "interaction-envelope" in validators:
         validate_json_files(ROOT / "fixtures" / "interactions", validators["interaction-envelope"], failures)
+    if "flow-response" in validators:
+        validate_json_files(ROOT / "fixtures" / "flow-responses", validators["flow-response"], failures)
+    if "flow-router-input" in validators:
+        validate_json_files(ROOT / "fixtures" / "flow-inputs", validators["flow-router-input"], failures)
 
     profiles = load(ROOT / "registry" / "channel-profiles.json")
     if "channel-capability" in validators:

@@ -1,0 +1,12 @@
+{
+  "contractVersion": "1.0.0",
+  "evidenceStatus": "OK",
+  "interactionMode": "READ_ONLY",
+  "resultShape": "SERIES",
+  "metricCount": 1,
+  "rowCount": 6,
+  "seriesPointCount": 6,
+  "channelProfile": "WEB_RICH_V1",
+  "supportsRichTrend": true,
+  "presentationHint": "AUTO"
+}

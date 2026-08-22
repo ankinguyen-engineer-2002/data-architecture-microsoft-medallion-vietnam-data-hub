@@ -30,6 +30,7 @@
       "label": "Request type",
       "style": "compact",
       "isRequired": true,
+      "errorMessage": "Choose a request type.",
       "choices": [
         { "title": "Metric definition review", "value": "metric_definition_review" },
         { "title": "Data quality investigation", "value": "data_quality_investigation" },

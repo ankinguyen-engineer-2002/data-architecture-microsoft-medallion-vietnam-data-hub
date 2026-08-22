@@ -1,0 +1,12 @@
+{
+  "contractVersion": "1.0.0",
+  "evidenceStatus": "OK",
+  "interactionMode": "READ_ONLY",
+  "resultShape": "SERIES",
+  "metricCount": 1,
+  "rowCount": 6,
+  "seriesPointCount": 6,
+  "channelProfile": "TEAMS_AC15",
+  "supportsRichTrend": false,
+  "presentationHint": "TREND"
+}

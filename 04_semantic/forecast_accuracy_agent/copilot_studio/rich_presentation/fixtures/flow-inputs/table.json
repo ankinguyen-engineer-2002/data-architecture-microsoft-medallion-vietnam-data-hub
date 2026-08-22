@@ -1,0 +1,12 @@
+{
+  "contractVersion": "1.0.0",
+  "evidenceStatus": "OK",
+  "interactionMode": "READ_ONLY",
+  "resultShape": "TABLE",
+  "metricCount": 0,
+  "rowCount": 3,
+  "seriesPointCount": 0,
+  "channelProfile": "TEAMS_AC15",
+  "supportsRichTrend": false,
+  "presentationHint": "TABLE"
+}

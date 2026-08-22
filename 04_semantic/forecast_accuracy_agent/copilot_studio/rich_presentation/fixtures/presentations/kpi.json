@@ -26,5 +26,29 @@
     "text": "Forecast Accuracy: 39.6% for Fiscal July 2026, Lag-0, Total scope."
   },
   "expiresAt": "2026-08-21T08:15:00Z",
-  "reasonCode": "SCALAR_MATCH"
+  "reasonCode": "SCALAR_MATCH",
+  "decision": {
+    "candidateHint": "AUTO",
+    "selectedType": "KPI_CARD",
+    "templateId": "forecast.kpi.v1",
+    "checks": [
+      { "check": "REQUEST", "outcome": "PASS", "detail": "Bounded analytics request accepted." },
+      { "check": "EVIDENCE", "outcome": "PASS", "detail": "Evidence is bound to the governed model." },
+      { "check": "SHAPE", "outcome": "PASS", "detail": "Matched the KPI_CARD evidence shape." },
+      { "check": "REGISTRY", "outcome": "PASS", "detail": "forecast.kpi.v1 is registered." }
+    ]
+  },
+  "events": [
+    { "type": "presentation.status", "sequence": 1, "name": "VALIDATING_REQUEST", "status": "COMPLETED", "detail": "Request is valid." },
+    { "type": "presentation.status", "sequence": 2, "name": "CHECKING_EVIDENCE", "status": "COMPLETED", "detail": "Evidence is valid." },
+    { "type": "presentation.status", "sequence": 3, "name": "SELECTING_PRESENTATION", "status": "COMPLETED", "detail": "KPI template selected." },
+    { "type": "presentation.status", "sequence": 4, "name": "READY", "status": "COMPLETED", "detail": "Presentation is ready." }
+  ],
+  "resourceReference": {
+    "uri": "evidence://aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+    "name": "Governed Forecast evidence aaaaaaaa",
+    "mimeType": "application/json",
+    "description": "User-scoped evidence metadata.",
+    "audience": "USER_SCOPED"
+  }
 }

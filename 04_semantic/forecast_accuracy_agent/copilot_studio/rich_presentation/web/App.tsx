@@ -237,7 +237,10 @@ export function App() {
     try {
       const request = requestFor(scenario);
       const evidence = scenario === "flashcard" || scenario === "form" ? null : evidenceFor(scenario);
-      const presentation = await resolvePresentation(request, evidence, profiles.WEB_RICH_V1, { flashcards });
+      const presentation = await resolvePresentation(request, evidence, profiles.WEB_RICH_V1, {
+        flashcards,
+        trustedChannelProfile: "WEB_RICH_V1",
+      });
       setMessages((current) => [...current, { id: nextId("assistant"), role: "assistant", text: scenario === "form" ? "I prepared a draft-only governance form." : scenario === "flashcard" ? "Here is a curated study card." : "The result is rendered from validated governed evidence.", presentation }]);
     } catch (error) {
       setMessages((current) => [...current, { id: nextId("assistant"), role: "assistant", text: `The local demo could not render this response: ${String(error)}` }]);
@@ -277,7 +280,21 @@ export function App() {
           </div>
         </main>
 
-        {evidencePanel && <aside className="evidence-panel" aria-label="Evidence trail"><div className="panel-top"><div><div className="eyebrow">TRACE VIEW</div><h2>Evidence trail</h2></div><Button appearance="subtle" onClick={() => setEvidencePanel(null)} aria-label="Close evidence trail">Close</Button></div><p className="panel-copy">This panel shows safe reconstruction metadata. Raw DAX, SQL, identity and role fields never enter the presentation envelope.</p><dl className="evidence-list"><div><dt>Status</dt><dd><Badge appearance="tint" color="success">OK</Badge></dd></div><div><dt>Evidence ID</dt><dd className="mono">{evidencePanel.evidenceId}</dd></div><div><dt>Template</dt><dd className="mono">{evidencePanel.templateId}</dd></div><div><dt>Decision</dt><dd>{evidencePanel.reasonCode}</dd></div><div><dt>Expires</dt><dd>{formatTimestamp(evidencePanel.expiresAt)}</dd></div></dl><div className="panel-foot"><span className="status-dot" />Bound to the validated evidence envelope</div></aside>}
+        {evidencePanel && <aside className="evidence-panel" aria-label="Evidence trail">
+          <div className="panel-top"><div><div className="eyebrow">TRACE VIEW</div><h2>Evidence trail</h2></div><Button appearance="subtle" onClick={() => setEvidencePanel(null)} aria-label="Close evidence trail">Close</Button></div>
+          <p className="panel-copy">This panel shows safe reconstruction metadata. Raw DAX, SQL, identity and role fields never enter the presentation envelope.</p>
+          <dl className="evidence-list">
+            <div><dt>Status</dt><dd><Badge appearance="tint" color="success">OK</Badge></dd></div>
+            <div><dt>Evidence ID</dt><dd className="mono">{evidencePanel.evidenceId}</dd></div>
+            <div><dt>Template</dt><dd className="mono">{evidencePanel.templateId}</dd></div>
+            <div><dt>Decision</dt><dd>{evidencePanel.reasonCode}</dd></div>
+            <div><dt>Why this presentation</dt><dd>{evidencePanel.decision.checks.map((check) => `${check.check}: ${check.outcome}`).join(" · ")}</dd></div>
+            {evidencePanel.resourceReference && <div><dt>Resource pointer</dt><dd className="mono">{evidencePanel.resourceReference.uri}</dd></div>}
+            <div><dt>Status events</dt><dd>{evidencePanel.events.map((event) => event.name).join(" -> ")}</dd></div>
+            <div><dt>Expires</dt><dd>{formatTimestamp(evidencePanel.expiresAt)}</dd></div>
+          </dl>
+          <div className="panel-foot"><span className="status-dot" />Bound to the validated evidence envelope</div>
+        </aside>}
       </div>
     </FluentProvider>
   );

@@ -4,10 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "check": "npm run validate:artifacts && npm test && npm run build",
+    "check": "npm run validate:artifacts && npm run validate:cards && npm test && npm run build",
     "validate:artifacts": "python3 tests/validate_artifacts.py",
-    "test": "tsc -p tsconfig.test.json && node --test .tmp/rich-presentation-tsc/tests/resolver.test.js",
+    "validate:cards": "esbuild tests/validate_cards.ts --bundle --platform=node --format=esm --outfile=.tmp/card-validator.mjs && node .tmp/card-validator.mjs",
+    "test": "tsc -p tsconfig.test.json && node --test .tmp/rich-presentation-tsc/tests/*.test.js",
     "build": "tsc -p tsconfig.json && vite build",
+    "test:e2e": "playwright test",
     "dev": "vite --host 127.0.0.1"
   },
   "dependencies": {
@@ -16,10 +18,13 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@types/node": "^22.20.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "adaptivecards": "^3.0.6",
+    "esbuild": "^0.25.12",
     "typescript": "^5.6.3",
     "vite": "^6.0.7"
   }

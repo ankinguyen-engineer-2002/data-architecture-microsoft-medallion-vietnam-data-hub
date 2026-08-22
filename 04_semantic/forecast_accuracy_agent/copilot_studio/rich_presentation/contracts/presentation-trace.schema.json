@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Presentation decision trace and bounded status events",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decision", "events"],
+  "$defs": {
+    "decisionCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["check", "outcome", "detail"],
+      "properties": {
+        "check": { "enum": ["REQUEST", "EVIDENCE", "INTERACTION", "SHAPE", "CAPABILITY", "LIMIT", "REGISTRY"] },
+        "outcome": { "enum": ["PASS", "FALLBACK", "BLOCK"] },
+        "detail": { "type": "string", "minLength": 1, "maxLength": 240 }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateHint", "selectedType", "templateId", "checks"],
+      "properties": {
+        "candidateHint": { "enum": ["AUTO", "KPI_CARD", "TABLE", "TREND", "FLASHCARD", "FORM", "TEXT_FALLBACK"] },
+        "selectedType": { "enum": ["KPI_CARD", "TABLE", "TREND", "FLASHCARD", "FORM", "TEXT_FALLBACK"] },
+        "templateId": { "type": "string", "pattern": "^forecast\\.[a-z-]+\\.v1$" },
+        "checks": { "type": "array", "minItems": 1, "maxItems": 8, "items": { "$ref": "#/$defs/decisionCheck" } }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "sequence", "name", "status", "detail"],
+      "properties": {
+        "type": { "const": "presentation.status" },
+        "sequence": { "type": "integer", "minimum": 1, "maximum": 8 },
+        "name": { "enum": ["VALIDATING_REQUEST", "CHECKING_EVIDENCE", "SELECTING_PRESENTATION", "RENDERING", "READY", "FALLBACK"] },
+        "status": { "enum": ["COMPLETED", "BLOCKED"] },
+        "detail": { "type": "string", "minLength": 1, "maxLength": 240 }
+      }
+    },
+    "resourceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uri", "name", "mimeType", "description", "audience"],
+      "properties": {
+        "uri": { "type": "string", "pattern": "^evidence://[0-9a-f-]{36}$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "mimeType": { "enum": ["application/json", "text/plain"] },
+        "description": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "audience": { "const": "USER_SCOPED" }
+      }
+    }
+  },
+  "properties": {
+    "decision": { "$ref": "#/$defs/decision" },
+    "events": { "type": "array", "minItems": 1, "maxItems": 8, "items": { "$ref": "#/$defs/event" } },
+    "resourceReference": { "$ref": "#/$defs/resourceReference" }
+  }
+}

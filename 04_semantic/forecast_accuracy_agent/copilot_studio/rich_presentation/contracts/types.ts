@@ -25,6 +25,7 @@ export type EvidenceStatus =
   | "UNAUTHORIZED"
   | "ERROR"
   | "STALE";
+export type FlowRouterResultShape = "NONE" | "SCALAR" | "SERIES" | "TABLE";
 export type MetricUnit = "percent" | "quantity";
 export type ReasonCode =
   | "SCALAR_MATCH"
@@ -36,6 +37,55 @@ export type ReasonCode =
   | "ROW_LIMIT_BLOCK"
   | "INVALID_EVIDENCE"
   | "NO_REGISTERED_TEMPLATE";
+
+export type DecisionCheckName =
+  | "REQUEST"
+  | "EVIDENCE"
+  | "INTERACTION"
+  | "SHAPE"
+  | "CAPABILITY"
+  | "LIMIT"
+  | "REGISTRY";
+export type DecisionCheckOutcome = "PASS" | "FALLBACK" | "BLOCK";
+export type PresentationEventName =
+  | "VALIDATING_REQUEST"
+  | "CHECKING_EVIDENCE"
+  | "SELECTING_PRESENTATION"
+  | "RENDERING"
+  | "READY"
+  | "FALLBACK";
+export type PresentationEventStatus = "COMPLETED" | "BLOCKED";
+
+export interface PresentationDecisionCheck {
+  check: DecisionCheckName;
+  outcome: DecisionCheckOutcome;
+  detail: string;
+}
+
+/** Policy trace only; this is not model chain-of-thought. */
+export interface PresentationDecision {
+  candidateHint: PresentationHint;
+  selectedType: PresentationType;
+  templateId: string;
+  checks: PresentationDecisionCheck[];
+}
+
+/** Bounded client-event equivalent for Web Chat or an activity adapter. */
+export interface PresentationEvent {
+  type: "presentation.status";
+  sequence: number;
+  name: PresentationEventName;
+  status: PresentationEventStatus;
+  detail: string;
+}
+
+export interface ResourceReference {
+  uri: string;
+  name: string;
+  mimeType: "application/json" | "text/plain";
+  description: string;
+  audience: "USER_SCOPED";
+}
 
 export interface PresentationRequest {
   contractVersion: "1.0.0";
@@ -181,6 +231,9 @@ export interface PresentationEnvelope {
   };
   expiresAt: string;
   reasonCode: ReasonCode;
+  decision: PresentationDecision;
+  events: PresentationEvent[];
+  resourceReference?: ResourceReference;
 }
 
 export interface ChannelProfile {
@@ -196,6 +249,22 @@ export interface ChannelProfile {
   maxRows: number;
   maxSeriesPoints: number;
   fallbacks: Partial<Record<PresentationType, PresentationType>>;
+}
+
+/** Trusted, bounded facts passed to the finite presentation Flow. */
+export interface FlowRouterInput {
+  contractVersion: "1.0.0";
+  evidenceStatus: EvidenceStatus;
+  interactionMode: InteractionMode;
+  workflowId?: "forecast_governance_draft";
+  conceptId?: string;
+  resultShape: FlowRouterResultShape;
+  metricCount: number;
+  rowCount: number;
+  seriesPointCount: number;
+  channelProfile: ChannelProfileId;
+  supportsRichTrend: boolean;
+  presentationHint: PresentationHint;
 }
 
 export interface PresentationRegistryEntry {
@@ -257,4 +326,18 @@ export interface InteractionReceipt {
   nextReviewAt: string | null;
   draftStatus?: "DRAFT_CREATED";
   message: string;
+}
+
+export type FlowResponseStatus = "OK" | "NO_GOVERNED_EVIDENCE" | "ERROR";
+
+export interface FlowResponse {
+  contractVersion: "1.0.0";
+  status: FlowResponseStatus;
+  presentationEnvelope: PresentationEnvelope;
+  trace: {
+    requestId: string;
+    evidenceId: string | null;
+    reasonCode: ReasonCode;
+  };
+  events: PresentationEvent[];
 }

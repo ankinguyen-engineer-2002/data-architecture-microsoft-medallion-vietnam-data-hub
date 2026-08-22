@@ -3,18 +3,24 @@ import type {
   BoundRow,
   BoundSeriesPoint,
   ChannelProfile,
+  ChannelProfileId,
   EvidenceEnvelope,
   EvidenceMetric,
   EvidenceRow,
   EvidenceSeriesPoint,
   FlashcardDefinition,
   PresentationAction,
+  PresentationDecisionCheck,
   PresentationEnvelope,
+  PresentationEvent,
+  PresentationHint,
   PresentationRequest,
   PresentationType,
+  ResourceReference,
   ReasonCode,
 } from "../contracts/types.js";
 import { formatMetricValue, METRIC_DEFINITIONS, sanitizeLabel } from "./formatters.js";
+import { deriveFlowRouterInput } from "./flow-router-input.js";
 import { PRESENTATION_LIMITS } from "./limits.js";
 
 export const GOVERNED_SEMANTIC_MODEL_ID = "2fbc4dfc-96d1-4af6-9987-4c14639435e6";
@@ -51,6 +57,7 @@ const FORBIDDEN_KEYS = new Set([
 export interface ResolverOptions {
   flashcards?: FlashcardDefinition[];
   now?: () => Date;
+  trustedChannelProfile?: ChannelProfileId;
 }
 
 interface ValidationFailure {
@@ -64,6 +71,12 @@ interface BoundEvidence {
   series: BoundSeriesPoint[];
   subtitle: string;
   title: string;
+}
+
+interface FallbackOptions {
+  checks?: PresentationDecisionCheck[];
+  events?: PresentationEvent[];
+  resourceReference?: ResourceReference;
 }
 
 function ownKeys(value: object): string[] {
@@ -104,6 +117,39 @@ function isFiniteNumber(value: unknown): value is number {
 
 function makeExpiresAt(now: Date): string {
   return new Date(now.getTime() + PRESENTATION_LIMITS.ttlMinutes * 60_000).toISOString();
+}
+
+function makeDecision(
+  candidateHint: PresentationHint,
+  selectedType: PresentationType,
+  templateId: string,
+  checks: PresentationDecisionCheck[],
+) {
+  return { candidateHint, selectedType, templateId, checks };
+}
+
+function makeEvents(
+  steps: Array<{
+    name: PresentationEvent["name"];
+    status: PresentationEvent["status"];
+    detail: string;
+  }>,
+): PresentationEvent[] {
+  return steps.map((step, index) => ({
+    type: "presentation.status" as const,
+    sequence: index + 1,
+    ...step,
+  }));
+}
+
+function evidenceResourceReference(evidence: EvidenceEnvelope): ResourceReference {
+  return {
+    uri: `evidence://${evidence.evidenceId}`,
+    name: `Governed Forecast evidence ${evidence.evidenceId.slice(0, 8)}`,
+    mimeType: "application/json",
+    description: "User-scoped evidence metadata; read through the approved evidence endpoint.",
+    audience: "USER_SCOPED",
+  };
 }
 
 function canonicalize(value: unknown): string {
@@ -252,6 +298,23 @@ function validateEvidence(evidence: EvidenceEnvelope, request: PresentationReque
     const failure = validateSeriesPoint(point);
     if (failure) return failure;
   }
+  if (evidence.rows !== undefined && evidence.rowCount !== evidence.rows.length) {
+    return { code: "ROW_COUNT_MISMATCH", detail: "rowCount does not match the bound rows" };
+  }
+  const rowKeys = (evidence.rows ?? []).map((row) => `${row.label}\u0000${row.secondaryLabel ?? ""}`);
+  if (new Set(rowKeys).size !== rowKeys.length) {
+    return { code: "DUPLICATE_ROWS", detail: "duplicate table row keys" };
+  }
+  if (evidence.series !== undefined && evidence.rowCount !== evidence.series.length) {
+    return { code: "SERIES_COUNT_MISMATCH", detail: "rowCount does not match the bound series" };
+  }
+  const seriesKeys = (evidence.series ?? []).map((point) => point.sortKey);
+  if (new Set(seriesKeys).size !== seriesKeys.length) {
+    return { code: "DUPLICATE_SERIES", detail: "duplicate series sort keys" };
+  }
+  if (seriesKeys.some((key, index) => index > 0 && key <= seriesKeys[index - 1]!)) {
+    return { code: "SERIES_ORDER", detail: "series points are not strictly ordered" };
+  }
   if ((evidence.rows?.length ?? 0) > PRESENTATION_LIMITS.maxEvidenceRows) {
     return { code: "ROW_COUNT", detail: "too many evidence rows" };
   }
@@ -366,6 +429,7 @@ function invalidFallback(
   now: Date,
   reasonCode: ReasonCode,
   message: string,
+  options: FallbackOptions = {},
 ): PresentationEnvelope {
   return {
     contractVersion: PRESENTATION_CONTRACT_VERSION,
@@ -390,6 +454,16 @@ function invalidFallback(
     },
     expiresAt: makeExpiresAt(now),
     reasonCode,
+    decision: makeDecision(
+      request.presentationHint,
+      "TEXT_FALLBACK",
+      "forecast.text.v1",
+      options.checks ?? [{ check: "REQUEST", outcome: "BLOCK", detail: message }],
+    ),
+    events: options.events ?? makeEvents([
+      { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+    ]),
+    ...(options.resourceReference ? { resourceReference: options.resourceReference } : {}),
   };
 }
 
@@ -443,6 +517,18 @@ function flashcardEnvelope(
     fallback: { templateId: "forecast.text.v1", text: fallback },
     expiresAt: makeExpiresAt(now),
     reasonCode: "LEARNING_INTENT",
+    decision: makeDecision(request.presentationHint, "FLASHCARD", "forecast.flashcard.v1", [
+      { check: "REQUEST", outcome: "PASS", detail: "Bounded learning request accepted." },
+      { check: "INTERACTION", outcome: "PASS", detail: "Concept is present in the curated registry." },
+      { check: "CAPABILITY", outcome: "PASS", detail: "The channel supports a reveal interaction." },
+      { check: "REGISTRY", outcome: "PASS", detail: "forecast.flashcard.v1 is registered for this channel." },
+    ]),
+    events: makeEvents([
+      { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Validated the bounded learning request." },
+      { name: "SELECTING_PRESENTATION", status: "COMPLETED", detail: "Selected the curated flashcard template." },
+      { name: "RENDERING", status: "COMPLETED", detail: "Prepared reveal and rating actions." },
+      { name: "READY", status: "COMPLETED", detail: "Flashcard is ready for the user." },
+    ]),
   };
 }
 
@@ -493,6 +579,18 @@ function formEnvelope(request: PresentationRequest, now: Date): PresentationEnve
     },
     expiresAt: makeExpiresAt(now),
     reasonCode: "GOVERNANCE_DRAFT_INTENT",
+    decision: makeDecision(request.presentationHint, "FORM", "forecast.governance-form.v1", [
+      { check: "REQUEST", outcome: "PASS", detail: "Bounded governance draft request accepted." },
+      { check: "INTERACTION", outcome: "PASS", detail: "Allowlisted draft workflow selected." },
+      { check: "CAPABILITY", outcome: "PASS", detail: "The channel supports submit actions." },
+      { check: "REGISTRY", outcome: "PASS", detail: "forecast.governance-form.v1 is registered for this channel." },
+    ]),
+    events: makeEvents([
+      { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Validated the bounded draft request." },
+      { name: "SELECTING_PRESENTATION", status: "COMPLETED", detail: "Selected the draft-only form template." },
+      { name: "RENDERING", status: "COMPLETED", detail: "Prepared draft fields without approval controls." },
+      { name: "READY", status: "COMPLETED", detail: "Draft form is ready for the user." },
+    ]),
   };
 }
 
@@ -529,11 +627,34 @@ export async function resolvePresentation(
   const now = options.now?.() ?? new Date();
   const requestFailure = validateRequest(request);
   if (requestFailure) {
-    return invalidFallback(request, now, "INVALID_EVIDENCE", `Request rejected: ${requestFailure.code}.`);
+    return invalidFallback(request, now, "INVALID_EVIDENCE", `Request rejected: ${requestFailure.code}.`, {
+      checks: [{ check: "REQUEST", outcome: "BLOCK", detail: requestFailure.detail }],
+      events: makeEvents([
+        { name: "VALIDATING_REQUEST", status: "BLOCKED", detail: `Request rejected: ${requestFailure.code}.` },
+        { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+      ]),
+    });
   }
   const profileFailure = validateProfile(request, profile);
   if (profileFailure) {
-    return invalidFallback(request, now, "INVALID_EVIDENCE", `Channel rejected: ${profileFailure.code}.`);
+    return invalidFallback(request, now, "INVALID_EVIDENCE", `Channel rejected: ${profileFailure.code}.`, {
+      checks: [{ check: "CAPABILITY", outcome: "BLOCK", detail: profileFailure.detail }],
+      events: makeEvents([
+        { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Request shape is valid." },
+        { name: "SELECTING_PRESENTATION", status: "BLOCKED", detail: `Channel rejected: ${profileFailure.code}.` },
+        { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+      ]),
+    });
+  }
+  if (options.trustedChannelProfile && options.trustedChannelProfile !== request.channelProfile) {
+    return invalidFallback(request, now, "INVALID_EVIDENCE", "Trusted channel context does not match the request.", {
+      checks: [{ check: "CAPABILITY", outcome: "BLOCK", detail: "Channel profile must come from trusted runtime context." }],
+      events: makeEvents([
+        { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Request shape is valid." },
+        { name: "SELECTING_PRESENTATION", status: "BLOCKED", detail: "Trusted channel context mismatch." },
+        { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+      ]),
+    });
   }
 
   if (request.interactionMode === "GOVERNANCE_DRAFT") {
@@ -542,26 +663,61 @@ export async function resolvePresentation(
 
   if (request.interactionMode === "FLASHCARD_REVIEW") {
     const card = options.flashcards?.find((candidate) => candidate.conceptId === request.conceptId);
-    if (!card) return invalidFallback(request, now, "NO_REGISTERED_TEMPLATE", "The study concept is not registered.");
+    if (!card) return invalidFallback(request, now, "NO_REGISTERED_TEMPLATE", "The study concept is not registered.", {
+      checks: [{ check: "INTERACTION", outcome: "BLOCK", detail: "Concept is not in the curated registry." }],
+      events: makeEvents([
+        { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Learning request is valid." },
+        { name: "SELECTING_PRESENTATION", status: "BLOCKED", detail: "No curated concept matched the request." },
+        { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+      ]),
+    });
     const selected = chooseTemplate("FLASHCARD", profile);
     if (selected.type === "TEXT_FALLBACK") {
-      return invalidFallback(request, now, "HOST_CAPABILITY_FALLBACK", "This channel cannot render the study interaction.");
+      return invalidFallback(request, now, "HOST_CAPABILITY_FALLBACK", "This channel cannot render the study interaction.", {
+        checks: [{ check: "CAPABILITY", outcome: "FALLBACK", detail: "Reveal interaction is unsupported by this channel." }],
+        events: makeEvents([
+          { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Learning request is valid." },
+          { name: "SELECTING_PRESENTATION", status: "BLOCKED", detail: "Reveal interaction is unsupported by this channel." },
+          { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+        ]),
+      });
     }
     return flashcardEnvelope(request, card, now);
   }
 
-  if (!evidence) return invalidFallback(request, now, "INVALID_EVIDENCE", "The governed evidence envelope is missing.");
+  if (!evidence) return invalidFallback(request, now, "INVALID_EVIDENCE", "The governed evidence envelope is missing.", {
+    checks: [
+      { check: "REQUEST", outcome: "PASS", detail: "Bounded analytics request accepted." },
+      { check: "EVIDENCE", outcome: "BLOCK", detail: "No governed evidence envelope was supplied." },
+    ],
+    events: makeEvents([
+      { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Request shape is valid." },
+      { name: "CHECKING_EVIDENCE", status: "BLOCKED", detail: "No governed evidence envelope was supplied." },
+      { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+    ]),
+  });
   const evidenceFailure = validateEvidence(evidence, request);
   if (evidenceFailure) {
     const reason = evidenceFailure.code === "ROW_COUNT" || evidenceFailure.code === "SERIES_COUNT"
       ? "ROW_LIMIT_BLOCK"
       : "INVALID_EVIDENCE";
-    return invalidFallback(request, now, reason, `Evidence rejected: ${evidenceFailure.code}.`);
+    return invalidFallback(request, now, reason, `Evidence rejected: ${evidenceFailure.code}.`, {
+      checks: [
+        { check: "REQUEST", outcome: "PASS", detail: "Bounded analytics request accepted." },
+        { check: "EVIDENCE", outcome: "BLOCK", detail: evidenceFailure.detail },
+      ],
+      events: makeEvents([
+        { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Request shape is valid." },
+        { name: "CHECKING_EVIDENCE", status: "BLOCKED", detail: `Evidence rejected: ${evidenceFailure.code}.` },
+        { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+      ]),
+    });
   }
 
   const metrics = evidence.metrics.map((metric) => boundMetric(metric, request.locale));
   const rows = (evidence.rows ?? []).map((row) => boundRow(row, request.locale));
   const series = (evidence.series ?? []).map((point) => boundSeriesPoint(point, request.locale));
+  const routerInput = deriveFlowRouterInput(request, evidence, profile);
   const bound: BoundEvidence = {
     metrics,
     rows,
@@ -573,9 +729,20 @@ export async function resolvePresentation(
   let reasonCode: ReasonCode;
   let tableRows = rows;
 
-  if (series.length > 0) {
+  if (routerInput.resultShape === "SERIES") {
     if (series.length < PRESENTATION_LIMITS.minTrendPoints || series.length > PRESENTATION_LIMITS.maxTrendPoints) {
-      return invalidFallback(request, now, "ROW_LIMIT_BLOCK", "The trend point count is outside the published limit.");
+      return invalidFallback(request, now, "ROW_LIMIT_BLOCK", "The trend point count is outside the published limit.", {
+        checks: [
+          { check: "EVIDENCE", outcome: "PASS", detail: "Evidence envelope is valid and governed." },
+          { check: "LIMIT", outcome: "BLOCK", detail: "Trend point count is outside the published limit." },
+        ],
+        events: makeEvents([
+          { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Request shape is valid." },
+          { name: "CHECKING_EVIDENCE", status: "COMPLETED", detail: "Evidence envelope is valid." },
+          { name: "SELECTING_PRESENTATION", status: "BLOCKED", detail: "Trend point count is outside the published limit." },
+          { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+        ]),
+      });
     }
     selectedType = request.presentationHint === "TABLE" || !profile.supportsRichTrend ? "TABLE" : "TREND";
     reasonCode = selectedType === "TREND" ? "SERIES_MATCH" : "HOST_CAPABILITY_FALLBACK";
@@ -584,21 +751,54 @@ export async function resolvePresentation(
       displayValue: point.displayValue,
       metricId: point.metricId,
     }));
-  } else if (metrics.length > 0 && metrics.length <= PRESENTATION_LIMITS.maxMetrics && rows.length <= 1) {
+  } else if (routerInput.resultShape === "SCALAR" && metrics.length <= PRESENTATION_LIMITS.maxMetrics) {
     selectedType = "KPI_CARD";
     reasonCode = "SCALAR_MATCH";
-  } else if (rows.length >= 2 && rows.length <= Math.min(profile.maxRows, PRESENTATION_LIMITS.maxTableRows)) {
+  } else if (routerInput.resultShape === "TABLE" && rows.length >= 2 && rows.length <= Math.min(profile.maxRows, PRESENTATION_LIMITS.maxTableRows)) {
     selectedType = "TABLE";
     reasonCode = "SMALL_TABLE_MATCH";
   } else if (rows.length > PRESENTATION_LIMITS.maxTableRows || evidence.rowCount > profile.maxRows) {
-    return invalidFallback(request, now, "ROW_LIMIT_BLOCK", "The result is too large for a safe presentation.");
+    return invalidFallback(request, now, "ROW_LIMIT_BLOCK", "The result is too large for a safe presentation.", {
+      checks: [
+        { check: "EVIDENCE", outcome: "PASS", detail: "Evidence envelope is valid and governed." },
+        { check: "LIMIT", outcome: "BLOCK", detail: "Result exceeds the channel or template row limit." },
+      ],
+      events: makeEvents([
+        { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Request shape is valid." },
+        { name: "CHECKING_EVIDENCE", status: "COMPLETED", detail: "Evidence envelope is valid." },
+        { name: "SELECTING_PRESENTATION", status: "BLOCKED", detail: "Result exceeds the published presentation limit." },
+        { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+      ]),
+    });
   } else {
-    return invalidFallback(request, now, "NO_REGISTERED_TEMPLATE", "The evidence shape has no registered presentation.");
+    return invalidFallback(request, now, "NO_REGISTERED_TEMPLATE", "The evidence shape has no registered presentation.", {
+      checks: [
+        { check: "EVIDENCE", outcome: "PASS", detail: "Evidence envelope is valid and governed." },
+        { check: "SHAPE", outcome: "BLOCK", detail: "No registered template matches the evidence shape." },
+      ],
+      events: makeEvents([
+        { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Request shape is valid." },
+        { name: "CHECKING_EVIDENCE", status: "COMPLETED", detail: "Evidence envelope is valid." },
+        { name: "SELECTING_PRESENTATION", status: "BLOCKED", detail: "No registered template matches the evidence shape." },
+        { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+      ]),
+    });
   }
 
   const selected = chooseTemplate(selectedType, profile);
   if (selected.type === "TEXT_FALLBACK") {
-    return invalidFallback(request, now, "HOST_CAPABILITY_FALLBACK", "This channel cannot render the requested interaction.");
+    return invalidFallback(request, now, "HOST_CAPABILITY_FALLBACK", "This channel cannot render the requested interaction.", {
+      checks: [
+        { check: "EVIDENCE", outcome: "PASS", detail: "Evidence envelope is valid and governed." },
+        { check: "CAPABILITY", outcome: "FALLBACK", detail: "The preferred template is unsupported by this channel." },
+      ],
+      events: makeEvents([
+        { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Request shape is valid." },
+        { name: "CHECKING_EVIDENCE", status: "COMPLETED", detail: "Evidence envelope is valid." },
+        { name: "SELECTING_PRESENTATION", status: "BLOCKED", detail: "Preferred template is unsupported by this channel." },
+        { name: "FALLBACK", status: "COMPLETED", detail: "Returned the complete text fallback." },
+      ]),
+    });
   }
   const evidenceHash = await sha256Hex(evidence);
   const actions = makeActions(request.requestId, evidence.evidenceId, selected.templateId, selectedType !== "TREND");
@@ -611,6 +811,8 @@ export async function resolvePresentation(
     });
   }
   const fallback = numericFallback(bound, evidence.evidenceId);
+  const finalReasonCode = selected.hostFallback ? "HOST_CAPABILITY_FALLBACK" : reasonCode;
+  const capabilityOutcome = selected.hostFallback ? "FALLBACK" : "PASS";
   return {
     contractVersion: PRESENTATION_CONTRACT_VERSION,
     requestId: request.requestId,
@@ -636,6 +838,26 @@ export async function resolvePresentation(
     },
     fallback: { templateId: "forecast.text.v1", text: fallback },
     expiresAt: makeExpiresAt(now),
-    reasonCode: selected.hostFallback ? "HOST_CAPABILITY_FALLBACK" : reasonCode,
+    reasonCode: finalReasonCode,
+    decision: makeDecision(request.presentationHint, selected.type, selected.templateId, [
+      { check: "REQUEST", outcome: "PASS", detail: "Bounded analytics request accepted." },
+      { check: "EVIDENCE", outcome: "PASS", detail: "Evidence is bound to the request, governed model and version." },
+      { check: "SHAPE", outcome: "PASS", detail: `Matched the ${selectedType} evidence shape.` },
+      { check: "CAPABILITY", outcome: capabilityOutcome, detail: selected.hostFallback
+        ? "The channel cannot render a rich trend, so the ordered table fallback was selected."
+        : "The registered template is supported by the channel." },
+      { check: "LIMIT", outcome: "PASS", detail: "Published metric, row and series limits are satisfied." },
+      { check: "REGISTRY", outcome: "PASS", detail: `${selected.templateId} is registered for this channel.` },
+    ]),
+    events: makeEvents([
+      { name: "VALIDATING_REQUEST", status: "COMPLETED", detail: "Validated the bounded request and trusted channel context." },
+      { name: "CHECKING_EVIDENCE", status: "COMPLETED", detail: "Validated the governed evidence envelope." },
+      { name: "SELECTING_PRESENTATION", status: "COMPLETED", detail: selected.hostFallback
+        ? "Selected a channel-safe fallback template."
+        : `Selected ${selected.templateId}.` },
+      { name: "RENDERING", status: "COMPLETED", detail: "Bound only allowlisted evidence fields to the template." },
+      { name: "READY", status: "COMPLETED", detail: "Presentation envelope is ready with a complete text fallback." },
+    ]),
+    resourceReference: evidenceResourceReference(evidence),
   };
 }

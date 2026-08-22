@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { InteractionEnvelope } from "../contracts/types.js";
+import { toFlowResponse } from "../resolver/flow-response.js";
+import { deriveFlowRouterInput } from "../resolver/flow-router-input.js";
 import { InteractionLedger } from "../resolver/interaction-ledger.js";
 import { resolvePresentation } from "../resolver/presentation-resolver.js";
+import { toMcpResourceLink } from "../resolver/resource-links.js";
 import {
   FIXED_NOW,
   flashcards,
@@ -23,6 +26,15 @@ test("scalar evidence resolves to a KPI card", async () => {
   assert.equal(result.reasonCode, "SCALAR_MATCH");
   assert.equal(result.data.metrics[0]?.displayValue, "39.6%");
   assert.match(result.fallback.text, /39\.6%/);
+  assert.equal(result.decision.selectedType, "KPI_CARD");
+  assert.deepEqual(result.events.map((event) => event.name), [
+    "VALIDATING_REQUEST",
+    "CHECKING_EVIDENCE",
+    "SELECTING_PRESENTATION",
+    "RENDERING",
+    "READY",
+  ]);
+  assert.equal(result.resourceReference?.uri, "evidence://aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa");
 });
 
 test("a conflicting trend hint cannot override scalar evidence shape", async () => {
@@ -57,11 +69,59 @@ test("the same series falls back to a bounded table in Teams", async () => {
   assert.equal(result.data.rows.length, 6);
 });
 
+test("router input derives shape and channel from trusted runtime facts", () => {
+  const input = deriveFlowRouterInput(
+    request({ channelProfile: "TEAMS_AC15", presentationHint: "TREND" }),
+    trendEvidence(),
+    profiles.TEAMS_AC15,
+  );
+  assert.equal(input.resultShape, "SERIES");
+  assert.equal(input.seriesPointCount, 6);
+  assert.equal(input.channelProfile, "TEAMS_AC15");
+  assert.equal(input.supportsRichTrend, false);
+  assert.equal(input.presentationHint, "TREND");
+});
+
+test("router input removes numeric shape from failed evidence", () => {
+  const input = deriveFlowRouterInput(request(), noEvidence(), profiles.WEB_RICH_V1);
+  assert.equal(input.evidenceStatus, "NO_GOVERNED_EVIDENCE");
+  assert.equal(input.resultShape, "NONE");
+  assert.equal(input.metricCount, 0);
+  assert.equal(input.rowCount, 0);
+  assert.equal(input.seriesPointCount, 0);
+});
+
 test("small breakdown resolves to a table", async () => {
   const result = await resolvePresentation(request({ presentationHint: "TABLE" }), tableEvidence(), profiles.WEB_RICH_V1, resolverOptions);
   assert.equal(result.presentationType, "TABLE");
   assert.equal(result.reasonCode, "SMALL_TABLE_MATCH");
   assert.deepEqual(result.data.rows.map((row) => row.label), ["AFI", "ASH", "West"]);
+});
+
+test("duplicate table rows fail closed", async () => {
+  const result = await resolvePresentation(
+    request(),
+    { ...tableEvidence(), rows: [
+      { label: "AFI", value: 0.44, metricId: "forecast_accuracy" },
+      { label: "AFI", value: 0.39, metricId: "forecast_accuracy" },
+    ], rowCount: 2 },
+    profiles.WEB_RICH_V1,
+    resolverOptions,
+  );
+  assert.equal(result.presentationType, "TEXT_FALLBACK");
+  assert.equal(result.reasonCode, "INVALID_EVIDENCE");
+});
+
+test("out-of-order trend points fail closed instead of being silently sorted", async () => {
+  const evidence = trendEvidence();
+  const result = await resolvePresentation(
+    request(),
+    { ...evidence, series: [...evidence.series!].reverse() },
+    profiles.WEB_RICH_V1,
+    resolverOptions,
+  );
+  assert.equal(result.presentationType, "TEXT_FALLBACK");
+  assert.equal(result.reasonCode, "INVALID_EVIDENCE");
 });
 
 test("non-OK evidence fails closed without a number", async () => {
@@ -81,6 +141,19 @@ test("query hash mismatch fails closed", async () => {
   );
   assert.equal(result.presentationType, "TEXT_FALLBACK");
   assert.equal(result.reasonCode, "INVALID_EVIDENCE");
+  assert.equal(result.events.at(-1)?.name, "FALLBACK");
+});
+
+test("trusted channel context rejects a client-supplied profile mismatch", async () => {
+  const result = await resolvePresentation(
+    request({ channelProfile: "TEAMS_AC15" }),
+    scalarEvidence(),
+    profiles.TEAMS_AC15,
+    { ...resolverOptions, trustedChannelProfile: "WEB_RICH_V1" },
+  );
+  assert.equal(result.presentationType, "TEXT_FALLBACK");
+  assert.equal(result.decision.checks[0]?.outcome, "BLOCK");
+  assert.match(result.fallback.text, /trusted channel context/i);
 });
 
 test("series at 24 points is accepted and 25 points is rejected", async () => {
@@ -208,4 +281,17 @@ test("interaction ledger creates a draft but never an approval", () => {
   assert.equal(receipt.status, "ACCEPTED");
   assert.equal(receipt.draftStatus, "DRAFT_CREATED");
   assert.doesNotMatch(receipt.message, /approved|approval completed/i);
+});
+
+test("Flow wrapper keeps one response contract and MCP uses a resource pointer", async () => {
+  const presentation = await resolvePresentation(request(), scalarEvidence(), profiles.WEB_RICH_V1, resolverOptions);
+  const flow = toFlowResponse(presentation);
+  assert.equal(flow.status, "OK");
+  assert.equal(flow.trace.reasonCode, "SCALAR_MATCH");
+  assert.deepEqual(flow.events, presentation.events);
+
+  const link = toMcpResourceLink(presentation.resourceReference!);
+  assert.equal(link.type, "resource_link");
+  assert.equal(link.uri, "evidence://aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa");
+  assert.deepEqual(link.annotations.audience, ["assistant"]);
 });

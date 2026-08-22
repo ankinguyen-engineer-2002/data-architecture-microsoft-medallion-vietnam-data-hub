@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Copilot Studio Agent Flow response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "status", "presentationEnvelope", "trace", "events"],
+  "properties": {
+    "contractVersion": { "const": "1.0.0" },
+    "status": { "enum": ["OK", "NO_GOVERNED_EVIDENCE", "ERROR"] },
+    "presentationEnvelope": { "$ref": "presentation-envelope.schema.json" },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requestId", "evidenceId", "reasonCode"],
+      "properties": {
+        "requestId": { "type": "string", "format": "uuid" },
+        "evidenceId": { "anyOf": [{ "type": "null" }, { "type": "string", "format": "uuid" }] },
+        "reasonCode": { "enum": ["SCALAR_MATCH", "SERIES_MATCH", "SMALL_TABLE_MATCH", "LEARNING_INTENT", "GOVERNANCE_DRAFT_INTENT", "HOST_CAPABILITY_FALLBACK", "ROW_LIMIT_BLOCK", "INVALID_EVIDENCE", "NO_REGISTERED_TEMPLATE"] }
+      }
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": { "$ref": "presentation-trace.schema.json#/$defs/event" }
+    }
+  }
+}

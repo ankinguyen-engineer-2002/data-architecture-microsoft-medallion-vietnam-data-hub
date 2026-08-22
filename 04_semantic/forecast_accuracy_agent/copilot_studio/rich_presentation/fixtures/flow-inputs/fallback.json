@@ -1,0 +1,12 @@
+{
+  "contractVersion": "1.0.0",
+  "evidenceStatus": "NO_GOVERNED_EVIDENCE",
+  "interactionMode": "READ_ONLY",
+  "resultShape": "NONE",
+  "metricCount": 0,
+  "rowCount": 0,
+  "seriesPointCount": 0,
+  "channelProfile": "WEB_RICH_V1",
+  "supportsRichTrend": false,
+  "presentationHint": "AUTO"
+}

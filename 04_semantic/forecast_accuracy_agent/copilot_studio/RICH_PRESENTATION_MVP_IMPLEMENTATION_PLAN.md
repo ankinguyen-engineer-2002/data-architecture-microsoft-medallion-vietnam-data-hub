@@ -1,9 +1,16 @@
-# SupplyChainAgent Rich Presentation MVP - One-Release Implementation Plan
+# SupplyChainAgent Rich Presentation MVP - Testable MVP and Hardening Plan
 
-**Status:** implementation-ready plan, not deployed proof
+**Status:** implementation-ready staged plan, not deployed proof
 **As of:** 2026-08-21 ICT
-**Release model:** one integrated MVP release, one Definition of Done, no product waves
+**Release model:** testable MVP slice first; production hardening is a later gate
 **Primary domain:** governed Forecast Accuracy chat over `sc_forecast_accuracy_agent`
+
+The current execution target is the **Testable MVP slice**: local contracts,
+deterministic resolver, Adaptive Card registry, React demo, and one finite
+`Rich Presentation Router` Flow contract. Dataverse, authenticated BFF,
+end-user RLS proof, Teams/Microsoft 365 certification, observability, and the
+50-case suite remain hardening gates; their designs stay in this document but
+they are not blockers for the first local/draft test.
 
 ## 1. Executive decision
 
@@ -72,10 +79,12 @@ The safe and useful interpretation of "AI knows when to use a card" is:
 This retains intelligent conversation while removing visual and numeric
 hallucination from the executable path.
 
-## 2. Single MVP Definition of Done
+## 2. MVP Release Contract (Target)
 
-The MVP is complete only when all items below pass in the same release candidate.
-Partial completion of one card or one Golden query is not the MVP.
+The full target release is complete only when all items below pass in the same
+release candidate. Partial completion of one card or one Golden query is not
+production-ready evidence. The current executable slice is defined separately
+in Section 2.5.
 
 ### 2.1 User-visible completion
 
@@ -139,6 +148,25 @@ Partial completion of one card or one Golden query is not the MVP.
   stale click, and fallback decision.
 - A rollback procedure can disable rich rendering and return to text without
   changing the semantic model or metric logic.
+
+### 2.5 Current testable MVP slice
+
+The first useful test does not wait for the full target contract above. It is
+complete when all of the following are true:
+
+- The source-controlled contracts, resolver, registry and six Adaptive Card 1.5
+  templates validate locally.
+- The React demo renders KPI, table, trend fallback, flashcard, governance form
+  and text fallback states on desktop and mobile fixtures.
+- One finite `Rich Presentation Router` Flow has the nine ordered policy rules,
+  six presentation outputs, and one common response shape.
+- Each Flow branch maps validated Evidence Envelope fields; no branch returns a
+  static business number or accepts raw card JSON, DAX, SQL, identity or roles.
+- Local resolver/Flow-conformance tests pass before any publish or attachment.
+
+Explicitly deferred from this slice: Dataverse persistence, authenticated BFF,
+multi-user identity/RLS certification, Teams/Microsoft 365 runtime certification,
+production observability, and the 50-case release suite.
 
 ## 3. Exact MVP feature inventory
 
@@ -526,6 +554,17 @@ Examples:
   status.
 - Presentation selection is logged with a machine-readable reason code.
 
+The MVP now also emits a bounded `decision` policy trace and named status
+`events`. This is the safe implementation of the "ask itself how to present"
+idea: the runtime checks evidence shape, channel capability, limits and registry
+compatibility in order. It does not expose model chain-of-thought or allow the
+model to author a visual payload.
+
+Valid evidence may carry an opaque user-scoped `resourceReference` such as
+`evidence://<evidenceId>`. A future MCP/BFF adapter can return it as an MCP
+`resource_link` and fetch large detail on demand. This keeps the card bounded;
+it does not create an unauthenticated resource endpoint in the MVP.
+
 Suggested reason codes:
 
 ```text
@@ -558,6 +597,11 @@ The release suite compares Flow envelopes with the TypeScript expected fixtures.
 If the two implementations disagree, the release fails. A future hosted resolver
 API may remove the duplicate decision table, but introducing that API is not a
 prerequisite for this MVP.
+
+The Flow response is standardized as `status`, `presentationEnvelope`,
+`trace`, and bounded `events` after every Switch branch. The TypeScript
+`toFlowResponse` wrapper and the JSON schema are the conformance reference for
+the cloud `Respond to the agent` action.
 
 ## 9. Card registry and template strategy
 
@@ -943,14 +987,18 @@ multiple overlapping tools for the same request.
 
 ### 13.1 Flow inventory
 
-Create three focused Agent Flows in one Solution:
+Use one finite presentation router in the current testable slice:
 
-1. `Forecast Governed Evidence - MVP`
-2. `Forecast Flashcard Review - MVP`
-3. `Forecast Governance Draft - MVP`
+1. `Rich Presentation Router - MVP`
 
-The evidence Flow is read-only. The latter two perform bounded Dataverse writes
-that are explicitly initiated by the authenticated user.
+The upstream governed evidence route remains a separate numeric boundary. It
+produces the validated Evidence Envelope consumed by the router; it is not
+replaced by the presentation Flow. Flashcard review and governance draft write
+Flows remain later hardening work and are represented locally by the interaction
+ledger and draft-only fixtures for now.
+
+The presentation router is read-only: it selects a registered template and
+returns a common `FlowResponse`. It performs no Dataverse write.
 
 ### 13.2 Evidence Flow contract
 
@@ -965,7 +1013,7 @@ When an agent calls the flow
   -> Run query against fixed semantic model
   -> Validate columns, rows, cardinality, values, sort, blanks, and timeout
   -> Build Evidence Envelope
-  -> Resolve presentation type and template ID
+  -> Call the finite Rich Presentation Router
   -> Respond to the agent with one uniform schema
 ```
 
@@ -1228,10 +1276,11 @@ web/host activity
 - Custom web accessibility test suite has no serious or critical automated issue;
   manual keyboard and screen-reader checks also pass.
 
-## 18. Detailed build sequence for the single release
+## 18. Detailed build sequence for the testable slice and hardening
 
-The steps are sequential dependencies and parallel workstreams inside one MVP.
-They are not product waves and do not create separate release commitments.
+The first steps deliver the local/draft testable slice. Later steps are
+production hardening and do not block that first test unless their capability is
+explicitly enabled.
 
 ### Step 0 - Resolve release gates before implementation starts
 
@@ -1343,19 +1392,21 @@ Exit check:
 - Duplicate `interactionId` writes are rejected.
 - Curated cards cannot be modified through chat.
 
-### Step 6 - Build `Forecast Governed Evidence - MVP`
+### Step 6 - Build the governed evidence route and router boundary
 
 Actions:
 
-1. Use the correct agent-call trigger and one uniform response schema.
+1. Keep the governed evidence route on the correct agent-call trigger and one
+   uniform response schema.
 2. Implement strict request parsing and recipe mapping.
 3. Add fixed Power BI queries for the frozen recipe set.
 4. Validate real connector response shapes.
-5. Build the Evidence Envelope and implement the finite presentation decision table
-   available to the Flow. Do not call a local file or expose a generic compiler
-   endpoint from this Flow.
+5. Build the Evidence Envelope, then pass only its validated fields to the
+   `Rich Presentation Router`. Do not call a local file or expose a generic
+   compiler endpoint from either Flow.
 6. Add timeout, auth, blank, duplicate, overflow, and unexpected-schema branches.
-7. Publish only after direct Flow tests pass.
+7. Keep the router draft-only until local conformance and exact response mapping
+   pass; publish only after a separate explicit live-test decision.
 
 Exit check:
 
@@ -1387,7 +1438,8 @@ Exit check:
 Actions:
 
 1. Add the numeric instructions and rich-presentation policy.
-2. Add the three Flows as tools with distinct descriptions.
+2. Add the governed evidence route and, for the current slice, one
+   `Rich Presentation Router` tool with distinct descriptions.
 3. Configure required tool inputs, validation, and completion behavior.
 4. Add explicit topics for flashcard action handling and governance form
    submission.
@@ -1602,15 +1654,17 @@ Exit check:
 
 ## 21. Effort, dependencies, and realistic schedule
 
-This is one release, but it is not a one-day build. The custom authenticated shell,
-governed numeric route, interaction persistence, and multi-channel certification
-are separate engineering responsibilities on one critical path.
+The testable slice is intentionally small. The hardened target remains a larger
+release because the authenticated shell, governed numeric route, interaction
+persistence, and multi-channel certification have separate gates.
 
 ### 21.1 Engineering estimate
 
 | Work package | Senior-engineer effort | Can overlap with |
 | --- | --- | --- |
+| Testable MVP slice (local + router draft) | 1-2 days | none after contracts |
 | Contracts, resolver, fixtures | 2-3 days | access preflight |
+| Rich Presentation Router Flow | 1-2 days | local conformance tests |
 | Adaptive Card registry/templates | 2-3 days | resolver and Dataverse design |
 | Evidence Agent Flow | 3-5 days | web shell foundation |
 | Dataverse and interaction Flows | 2-4 days | web shell foundation |
@@ -1619,7 +1673,12 @@ are separate engineering responsibilities on one critical path.
 | Agent configuration and channel wiring | 2-3 days | late UI integration |
 | Full certification, fixes, ALM, rollback | 4-6 days | none on final critical path |
 
-Expected delivery range:
+Expected delivery range for the current testable slice:
+
+- one experienced engineer: about 2-4 working days once the local package and
+  Copilot authoring session are available;
+
+Expected delivery range for the later hardened target:
 
 - one experienced full-stack Power Platform engineer: about 3-5 working weeks;
 - two engineers with clear split between Power Platform and web/client: about
@@ -1742,8 +1801,9 @@ Repository contracts that remain authoritative for this MVP:
 
 ## 26. Final implementation stance
 
-Build the MVP once as one integrated release, but do not collapse the trust
-boundaries to make it look faster.
+Build the testable slice first, then add production hardening behind explicit
+identity, hosting, persistence and channel gates. Do not collapse the trust
+boundaries to make the first demo look faster.
 
 The highest-value architecture is:
 

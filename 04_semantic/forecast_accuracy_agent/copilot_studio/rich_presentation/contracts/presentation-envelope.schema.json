@@ -20,7 +20,9 @@
     "accessibility",
     "fallback",
     "expiresAt",
-    "reasonCode"
+    "reasonCode",
+    "decision",
+    "events"
   ],
   "properties": {
     "contractVersion": { "const": "1.0.0" },
@@ -209,6 +211,14 @@
         "INVALID_EVIDENCE",
         "NO_REGISTERED_TEMPLATE"
       ]
-    }
+    },
+    "decision": { "$ref": "presentation-trace.schema.json#/$defs/decision" },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": { "$ref": "presentation-trace.schema.json#/$defs/event" }
+    },
+    "resourceReference": { "$ref": "presentation-trace.schema.json#/$defs/resourceReference" }
   }
 }

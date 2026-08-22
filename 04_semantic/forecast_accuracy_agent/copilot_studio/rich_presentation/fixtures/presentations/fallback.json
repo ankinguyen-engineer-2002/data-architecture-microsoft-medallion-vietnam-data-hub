@@ -20,5 +20,17 @@
     "text": "No governed number is available for this request. Narrow the fiscal period or check access and try again."
   },
   "expiresAt": "2026-08-21T08:15:00Z",
-  "reasonCode": "INVALID_EVIDENCE"
+  "reasonCode": "INVALID_EVIDENCE",
+  "decision": {
+    "candidateHint": "AUTO",
+    "selectedType": "TEXT_FALLBACK",
+    "templateId": "forecast.text.v1",
+    "checks": [
+      { "check": "EVIDENCE", "outcome": "BLOCK", "detail": "No governed evidence was available." }
+    ]
+  },
+  "events": [
+    { "type": "presentation.status", "sequence": 1, "name": "CHECKING_EVIDENCE", "status": "BLOCKED", "detail": "No governed evidence was available." },
+    { "type": "presentation.status", "sequence": 2, "name": "FALLBACK", "status": "COMPLETED", "detail": "Returned the complete text fallback." }
+  ]
 }
