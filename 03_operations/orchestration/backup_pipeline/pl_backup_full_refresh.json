@@ -4,7 +4,7 @@
   "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
   "type": "DataPipeline",
   "api": "dataPipelineExecute",
-  "description": "Backup ad-hoc full refresh pipeline. Calls 10 wrapper SP job steps: shared prerequisites, Forecast Silver/Gold, then Inventory Silver/Gold wrappers. Manual only.",
+  "description": "Backup ad-hoc full refresh pipeline. Calls 11 fail-fast wrapper SP job steps: shared prerequisites, Forecast Silver/Gold, blocking Forecast DQ, then Inventory Silver/Gold. Manual only.",
   "wave_algorithm": "topological_kahn_catalog_floor",
   "activities": [
     {
@@ -80,11 +80,23 @@
       }
     },
     {
-      "name": "07_Inventory_Silver_W01",
+      "name": "07_Forecast_DQ_Gate",
+      "type": "SqlServerStoredProcedure",
+      "stored_procedure": "[DataQuality].[usp_RunAndGateForecastAccuracyPublish]",
+      "database": "SupplyChain_Processing_Warehouse",
+      "depends_on": ["06_Forecast_Gold"],
+      "description": "Persist and gate the exact Forecast DQ run. SQL error 50003 stops the pipeline.",
+      "linked_service": {
+        "name": "SupplyChain_Processing_Warehouse",
+        "artifact_id": "c0262cef-b8a7-495f-bccc-53b098c7948c"
+      }
+    },
+    {
+      "name": "08_Inventory_Silver_W01",
       "type": "SqlServerStoredProcedure",
       "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Silver_W01]",
       "database": "SupplyChain_Processing_Warehouse",
-      "depends_on": ["06_Forecast_Gold"],
+      "depends_on": ["07_Forecast_DQ_Gate"],
       "description": "Inventory Health Silver W01 inventory source transformations.",
       "linked_service": {
         "name": "SupplyChain_Processing_Warehouse",
@@ -92,11 +104,11 @@
       }
     },
     {
-      "name": "08_Inventory_Silver_W02",
+      "name": "09_Inventory_Silver_W02",
       "type": "SqlServerStoredProcedure",
       "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Silver_W02]",
       "database": "SupplyChain_Processing_Warehouse",
-      "depends_on": ["07_Inventory_Silver_W01"],
+      "depends_on": ["08_Inventory_Silver_W01"],
       "description": "Inventory Health Silver W02 derived tables.",
       "linked_service": {
         "name": "SupplyChain_Processing_Warehouse",
@@ -104,11 +116,11 @@
       }
     },
     {
-      "name": "09_Inventory_Silver_W03",
+      "name": "10_Inventory_Silver_W03",
       "type": "SqlServerStoredProcedure",
       "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Silver_W03]",
       "database": "SupplyChain_Processing_Warehouse",
-      "depends_on": ["08_Inventory_Silver_W02"],
+      "depends_on": ["09_Inventory_Silver_W02"],
       "description": "Inventory Health Silver W03 dependent helpers.",
       "linked_service": {
         "name": "SupplyChain_Processing_Warehouse",
@@ -116,11 +128,11 @@
       }
     },
     {
-      "name": "10_Inventory_Gold",
+      "name": "11_Inventory_Gold",
       "type": "SqlServerStoredProcedure",
       "stored_procedure": "[dbo].[Usp_Refresh_InventoryHealth_Gold]",
       "database": "SupplyChain_Gold_Warehouse",
-      "depends_on": ["09_Inventory_Silver_W03"],
+      "depends_on": ["10_Inventory_Silver_W03"],
       "description": "Inventory Health Gold monolithic wrapper: Shared_DW dims, vendor dim, helpers, facts.",
       "linked_service": {
         "name": "SupplyChain_Gold_Warehouse",
@@ -130,5 +142,5 @@
   ],
   "estimated_runtime": "~30 minutes (depends on data freshness)",
   "trigger": "Manual (ad-hoc) only — no schedule configured",
-  "notes": "All table loads use usp_RefreshCuratedTableFromView overwrite pattern for now; no incremental wave SP calls until keys are verified."
+  "notes": "Manual fallback only. FactForecastKpi and its metadata contract use overwrite; the exact-run DQ gate must pass before Inventory starts."
 }

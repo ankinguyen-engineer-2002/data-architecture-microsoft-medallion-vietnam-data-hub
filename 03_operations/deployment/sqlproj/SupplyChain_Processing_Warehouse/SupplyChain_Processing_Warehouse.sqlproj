@@ -34,6 +34,12 @@
   <ItemGroup>
     <Build Remove="_package\**\*" />
     <None Include="_package\**\*" />
+    <!-- The DQ runner intentionally reads Gold from Processing. Adding the Gold
+         project here would create a circular project reference, so suppress
+         only unresolved cross-database references in this live-verified file. -->
+    <Build Update="DataQuality\Stored Procedures\usp_RunForecastAccuracyDQ.sql">
+      <SuppressTSqlWarnings>71562</SuppressTSqlWarnings>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ETL_Framework\ETL_Framework.sqlproj">

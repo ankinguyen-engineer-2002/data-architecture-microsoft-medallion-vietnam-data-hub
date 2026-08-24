@@ -28,6 +28,8 @@ BEGIN
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Gold_Warehouse', 'ForecastAccuracy_DW', 'FactForecastActual';
 
+    -- QtyActual is mutable by target month. Rebuild every horizon from the
+    -- current view so old snapshots cannot retain frozen Actual/error vintages.
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Gold_Warehouse', 'ForecastAccuracy_DW', 'FactForecastKpi';
 END;

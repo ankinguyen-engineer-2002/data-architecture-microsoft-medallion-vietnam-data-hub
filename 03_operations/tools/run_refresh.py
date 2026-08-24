@@ -71,6 +71,11 @@ def execute_sp(database: str, procedure: str) -> tuple[bool, str, float]:
             timeout=120, autocommit=True)
         cur = conn.cursor()
         cur.execute(f"EXEC {procedure}")
+        # Wrapper procedures may return informational result sets. Drain them
+        # before closing the connection so the ODBC driver can release it
+        # cleanly for the next wrapper in the manifest.
+        while cur.nextset():
+            pass
         conn.close()
         elapsed = time.time() - start
         return True, f"OK ({elapsed:.1f}s)", elapsed
@@ -158,15 +163,18 @@ def main() -> int:
         ok, msg, elapsed = execute_sp(db, proc)
         results.append((w["step"], proc, ok, msg, elapsed))
         print(msg)
+        if not ok:
+            print("fail_fast=true — downstream wrapper steps were not executed")
+            break
 
     total = time.time() - total_start
     ok_count = sum(1 for _, _, ok, _, _ in results if ok)
-    print(f"\n=== {ok_count}/{len(results)} OK — {total:.1f}s total ===")
+    print(f"\n=== {ok_count}/{len(results)} executed OK; {len(results)}/{len(wrappers)} executed — {total:.1f}s total ===")
     for step, proc, ok, msg, elapsed in results:
         status = "OK" if ok else "FAIL"
         print(f"  [{step}] {proc}: {status} ({elapsed:.1f}s)" + (f" — {msg}" if not ok else ""))
 
-    return 0 if ok_count == len(results) else 1
+    return 0 if ok_count == len(wrappers) else 1
 
 
 if __name__ == "__main__":

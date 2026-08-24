@@ -4,10 +4,10 @@
   "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
   "type": "DataPipeline",
   "api": "dataPipelineExecute",
-  "description": "Backup pipeline: 45 tables, 15 waves, shared-first optimization. Phase 0: Shared tables (RefMaster + InvoiceDetail) run ONCE. Phase 1: Forecast unique. Phase 2: Inventory unique. Same wave = parallel, between waves = sequential.",
+  "description": "Backup pipeline: 45 table loads plus one blocking Forecast DQ gate, 16 waves, shared-first optimization. Phase 0: Shared tables run once. Phase 1: Forecast unique and gate. Phase 2: Inventory unique. Same wave = parallel, between waves = sequential.",
   "wave_algorithm": "topological_kahn_catalog_floor",
-  "activity_count": 45,
-  "wave_count": 15,
+  "activity_count": 46,
+  "wave_count": 16,
   "estimated_runtime": "~25 minutes",
   "trigger": "Manual only",
   "optimization": "Shared tables (ReferenceMaster_Enh 11t + InvoiceDetailLineLevel) run once in Phase 0. Each mart only refreshes unique tables. Eliminates ~12 redundant calls vs naive approach.",
@@ -22,7 +22,8 @@
       "Silver W03 ── NaiveForecastMonthly",
       "Gold W01 ∥∥ Shared_DW (DimCalendar, DimProduct, DimWarehouse)",
       "Gold W10 ∥∥ ForecastAccuracy_DW dims (DimCustomerGrouping, DimForecastHorizon)",
-      "Gold W30 ∥∥ ForecastAccuracy_DW facts (FactForecastActual, FactForecastKpi)"
+      "Gold W30 ∥∥ ForecastAccuracy_DW facts (FactForecastActual, FactForecastKpi overwrite)",
+      "DQ gate ── DataQuality.usp_RunAndGateForecastAccuracyPublish; error 50003 blocks Phase 2"
     ],
     "phase_2_inventory_health": [
       "Silver W01 ∥∥ InventorySnapshotWeekly, AtpWeekEnding",
@@ -34,5 +35,5 @@
       "Gold W30 ∥∥ FactIHFutureWeekEnding, FactIHSnapshot"
     ]
   },
-  "no_new_objects": "No new SPs, views, or tables created. Uses existing ETL_Framework.DW_Developer.usp_RefreshCuratedTableFromView and usp_IncrementalTableLoad."
+  "runtime_contract": "Uses existing ETL loaders plus DataQuality.usp_RunAndGateForecastAccuracyPublish. Manual fallback only; SQL Agent manifest is the production handoff."
 }

@@ -27,6 +27,11 @@ BEGIN
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Gold_Warehouse', 'ForecastAccuracy_DW', 'FactForecastActual';
 
+    -- FactForecastKpi derives QtyActual from mutable ActualDemandMonthly.  Its
+    -- target grain is not restated when a forecast Snapshot ages out, so a
+    -- Snapshot-based DateRange load freezes Actual/error vintages.  Rebuild
+    -- this fact from the current view; do not change the generic DateRange
+    -- loader because other snapshot facts have a valid immutable contract.
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Gold_Warehouse', 'ForecastAccuracy_DW', 'FactForecastKpi';
 END;

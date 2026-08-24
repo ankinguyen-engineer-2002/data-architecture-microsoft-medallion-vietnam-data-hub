@@ -1,8 +1,8 @@
 name: forecast_accuracy
-description: "Forecast Accuracy mart refresh — shared W01, Silver W01→W02→W03, Gold monolithic."
+description: "Forecast Accuracy mart refresh — shared prerequisites, Silver W01→W03, Gold overwrite, then exact-run blocking DQ gate."
 workspace_id: c8d9fc83-18b6-4e1d-8264-0b49eed36fe0
 pipeline:
-  name: 10-step wrapper SP chain
+  name: 7-step fail-fast wrapper SP chain
   api: wrapper_sp
 default_mode: dry_run
 wave_algorithm: topological_kahn_catalog_floor
@@ -37,6 +37,11 @@ wrapper_procedures:
     schema: dbo
     procedure: Usp_Refresh_ForecastAccuracy_Gold
     purpose: Forecast Accuracy Gold monolithic wrapper.
+  - step: 70
+    database: SupplyChain_Processing_Warehouse
+    schema: DataQuality
+    procedure: usp_RunAndGateForecastAccuracyPublish
+    purpose: Persist and gate the exact Forecast DQ run; THROW 50003 blocks publication/downstream work.
 sequence:
   - step: 80
     wave: 1
@@ -124,7 +129,12 @@ sequence:
     wave: gold_fact
     object: ForecastAccuracy_DW.FactForecastKpi
     load_type: overwrite
-    purpose: Forecast KPI fact (Gold W30).
+    purpose: Forecast KPI fact (Gold W30); full restatement is required because QtyActual is mutable by target month.
+  - step: 800
+    wave: dq_gate
+    object: DataQuality.usp_RunAndGateForecastAccuracyPublish
+    load_type: blocking_gate
+    purpose: Persist one exact DQ run and fail the orchestration unless every blocking check passes.
   - step: 900
     wave: smoke
     object: 04_semantic/row-count/freshness

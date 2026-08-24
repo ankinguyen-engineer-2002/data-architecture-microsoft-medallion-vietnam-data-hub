@@ -1,6 +1,6 @@
 {
   "name": "main",
-    "description": "Full SupplyChain all-mart refresh order — 10 wrapper SP job steps with shared prerequisites and wave-level Silver checkpoints.",
+  "description": "Full SupplyChain all-mart refresh order — 11 fail-fast wrapper SP job steps with a blocking Forecast DQ gate before Inventory.",
   "workspace_id": "c8d9fc83-18b6-4e1d-8264-0b49eed36fe0",
   "pipeline": {
     "api": "wrapper_sp",
@@ -54,26 +54,33 @@
     {
       "step": 70,
       "database": "SupplyChain_Processing_Warehouse",
+      "schema": "DataQuality",
+      "procedure": "usp_RunAndGateForecastAccuracyPublish",
+      "purpose": "Persist and gate the exact Forecast DQ run; THROW 50003 blocks downstream steps."
+    },
+    {
+      "step": 80,
+      "database": "SupplyChain_Processing_Warehouse",
       "schema": "dbo",
       "procedure": "Usp_Refresh_InventoryHealth_Silver_W01",
       "purpose": "Inventory Health Silver W01 inventory source transformations."
     },
     {
-      "step": 80,
+      "step": 90,
       "database": "SupplyChain_Processing_Warehouse",
       "schema": "dbo",
       "procedure": "Usp_Refresh_InventoryHealth_Silver_W02",
       "purpose": "Inventory Health Silver W02 derived tables."
     },
     {
-      "step": 90,
+      "step": 100,
       "database": "SupplyChain_Processing_Warehouse",
       "schema": "dbo",
       "procedure": "Usp_Refresh_InventoryHealth_Silver_W03",
       "purpose": "Inventory Health Silver W03 dependent helpers."
     },
     {
-      "step": 100,
+      "step": 110,
       "database": "SupplyChain_Gold_Warehouse",
       "schema": "dbo",
       "procedure": "Usp_Refresh_InventoryHealth_Gold",
@@ -82,9 +89,10 @@
   ],
   "post_run_checks": [
     "Enterprise ETL AuditLog has Process Complete for all physical table loads",
-    "TableDictionary Modified/RowCount updated for loaded targets",
+    "TableDictionary load contracts match the intended UpdateMethod; do not use its RowCount as overwrite-load proof",
+    "Forecast DQ exact run is persisted with PublishAllowed = 1",
     "No grain duplicates on critical snapshot grains",
-    "Gold row counts are non-zero and within expected tolerance",
+    "Direct Gold/current-view counts and parity checks are within expected tolerance",
     "Semantic smoke passes if report-facing objects changed"
   ]
 }
