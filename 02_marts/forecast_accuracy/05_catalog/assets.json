@@ -719,6 +719,26 @@
       "object": "relationships",
       "object_type": "semantic_artifact",
       "schema": null
+    },
+    {
+      "asset_key": "forecastaccuracy.dw.factforecastkpicustomer",
+      "display": "ForecastAccuracy_DW.FactForecastKpiCustomer",
+      "file_path": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW/FactForecastKpiCustomer.table.sql",
+      "layer": "gold",
+      "mart": "forecast_accuracy",
+      "object": "FactForecastKpiCustomer",
+      "object_type": "final_table_contract",
+      "schema": "ForecastAccuracy_DW"
+    },
+    {
+      "asset_key": "forecastaccuracy.dw.wrk.v.factforecastkpicustomer",
+      "display": "ForecastAccuracy_DW_Wrk.v_FactForecastKpiCustomer",
+      "file_path": "02_marts/forecast_accuracy/03_gold/ForecastAccuracy_DW_Wrk/v_FactForecastKpiCustomer.sql",
+      "layer": "gold",
+      "mart": "forecast_accuracy",
+      "object": "v_FactForecastKpiCustomer",
+      "object_type": "wrk_view",
+      "schema": "ForecastAccuracy_DW_Wrk"
     }
   ],
   "generated_at_utc": "2026-06-24T07:55:34Z",

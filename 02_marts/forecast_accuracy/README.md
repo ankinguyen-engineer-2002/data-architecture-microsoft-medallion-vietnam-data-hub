@@ -24,6 +24,7 @@ Forecast Accuracy compares forecast demand against actual demand at the planning
 |---|---|
 | `ForecastAccuracy_DW.FactForecastActual` | Actual demand aligned to forecast comparison grain. |
 | `ForecastAccuracy_DW.FactForecastKpi` | Forecast KPI fact. |
+| `ForecastAccuracy_DW.FactForecastKpiCustomer` | Forecast KPI fact at item + warehouse + customer group grain. |
 | `ForecastAccuracy_DW.DimCustomerGrouping` | Customer group dimension. |
 | `ForecastAccuracy_DW.DimForecastHorizon` | Forecast horizon dimension. |
 | `Shared_DW.DimCalendar` | Shared date dimension. |

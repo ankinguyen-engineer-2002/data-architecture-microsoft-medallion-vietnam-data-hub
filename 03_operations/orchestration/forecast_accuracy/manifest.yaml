@@ -130,6 +130,11 @@ sequence:
     object: ForecastAccuracy_DW.FactForecastKpi
     load_type: overwrite
     purpose: Forecast KPI fact (Gold W30); full restatement is required because QtyActual is mutable by target month.
+  - step: 720
+    wave: gold_fact
+    object: ForecastAccuracy_DW.FactForecastKpiCustomer
+    load_type: overwrite
+    purpose: Forecast KPI fact at customer-group grain (Gold W30); full overwrite restatement because QtyActual is mutable by target month.
   - step: 800
     wave: dq_gate
     object: DataQuality.usp_RunAndGateForecastAccuracyPublish

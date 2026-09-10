@@ -32,4 +32,9 @@ BEGIN
     -- current view so old snapshots cannot retain frozen Actual/error vintages.
     EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
         'SupplyChain_Gold_Warehouse', 'ForecastAccuracy_DW', 'FactForecastKpi';
+
+    -- Customer-group grain sibling. Full overwrite restatement because QtyActual
+    -- is mutable by target month; DateRange on Snapshot is invalid.
+    EXEC [ETL_Framework].[DW_Developer].[usp_RefreshCuratedTableFromView]
+        'SupplyChain_Gold_Warehouse', 'ForecastAccuracy_DW', 'FactForecastKpiCustomer';
 END;

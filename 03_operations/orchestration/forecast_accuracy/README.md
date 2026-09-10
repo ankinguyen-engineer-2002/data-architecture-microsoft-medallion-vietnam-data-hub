@@ -18,7 +18,7 @@ Wrapper stored procedures (SQL Agent / external scheduler):
   Gold and `DataQuality.usp_RunAndGateForecastAccuracyPublish`.
 - `Usp_Refresh_ForecastAccuracy_Silver_W01` is the first forecast source wave.
 - `Usp_Refresh_ForecastAccuracy_Gold` includes Shared_DW prerequisite Wave 00.
-- `FactForecastKpi` is overwrite/full restatement by design because its
+- `FactForecastKpi` and `FactForecastKpiCustomer` are overwrite/full restatement by design because their
   `QtyActual` and derived errors are mutable by target month across old lags.
 - SQL error `50003` from the gate is a hard orchestration failure; never continue
   to publication or another mart on that path.

@@ -26,6 +26,7 @@
     { "step": 610, "wave": "gold_dim", "object": "ForecastAccuracy_DW.DimForecastHorizon", "load_type": "overwrite", "purpose": "Forecast horizon dim (Gold W10)" },
     { "step": 700, "wave": "gold_fact", "object": "ForecastAccuracy_DW.FactForecastActual", "load_type": "overwrite", "purpose": "Forecast actual fact (Gold W30)" },
     { "step": 710, "wave": "gold_fact", "object": "ForecastAccuracy_DW.FactForecastKpi", "load_type": "overwrite", "purpose": "Forecast KPI fact (Gold W30)" },
+    { "step": 720, "wave": "gold_fact", "object": "ForecastAccuracy_DW.FactForecastKpiCustomer", "load_type": "overwrite", "purpose": "Forecast KPI fact at customer-group grain (Gold W30); full overwrite restatement because QtyActual is mutable by target month." },
     { "step": 900, "wave": "smoke", "object": "04_semantic/row-count/freshness", "load_type": "read_only", "purpose": "Post-run validation" }
   ]
 }
