@@ -2,30 +2,33 @@
 
 Configure this manually in `Prep data for AI`. It is guidance, not a security boundary.
 
+For certified numeric answers, pair this metadata with the fixed-template
+`Forecast Governed Metrics` Agent Flow. AI-prepared metadata and instructions
+improve retrieval/interpretation; they do not make NL2DAX deterministic.
+
 ## Include
 
-- All measures from `Forecast Measures`.
-- `Forecast Horizon[Forecast Horizon]`.
-- `Fiscal Calendar[Fiscal Month End]`, `Fiscal Month`, `Fiscal Quarter`, `Fiscal Year`, and `Fiscal Period` hierarchy.
-- Business fields from `Product`, `Warehouse`, and `Customer Group`.
-- `Forecast Actuals[Quantity Status]` and `Forecast Actuals[Version Name]` only for operational/version questions.
+- Named business measures from `_Measure_ForecastAccuracy`.
+- `DimForecastHorizon[HorizonCode]`.
+- `DimCalendar[FSCMonthYearName]`, `FSCQuarterYearName`, and `FSCYearName`.
+- Business fields from `DimProduct` and `DimWarehouse`.
+- `FactForecastActual[StatusCode]` and `FactForecastActual[VersionName]` only for operational/version questions.
 
 ## Exclude
 
 - All hidden fact keys and raw numeric columns.
 - Snapshot Date and sort/helper columns.
 - Any cost, price, load timestamp, source-selection, or technical lineage field.
-- MAPE and RMSE until governance confirms denominator and zero-handling logic.
+- All raw `FactForecastKpi` fields, including Snapshot, numeric inputs, and validity flags.
 
 ## Synonyms
 
 | Object | Synonyms |
 | --- | --- |
-| `Forecast Quantity` | forecast, consensus forecast, forecast units |
-| `Observation Actual Quantity` | KPI actual, accuracy denominator |
-| `Actual Demand Quantity` | actual demand, operational actual |
-| `Forecast Bias %` | bias, signed error percent, over forecast, under forecast |
-| `wMAPE` | weighted MAPE, weighted forecast error |
-| `Forecast Accuracy` | accuracy, forecast accuracy percent |
-| `Process Value Add` | PVA, process improvement versus naive |
-| `Forecast Horizon` | lag, horizon, forecast lag |
+| `Qty_Forecast` | forecast, consensus forecast, forecast units |
+| `Qty_Actual` | KPI actual, accuracy denominator |
+| `Pct_MPE` | bias, signed error percent, over forecast, under forecast |
+| `Pct_wMAPE` | weighted MAPE, weighted forecast error |
+| `Pct_ForecastAccuracy` | accuracy, forecast accuracy percent |
+| `ProcessValueAdd` | PVA, process improvement versus naive |
+| `DimForecastHorizon[HorizonCode]` | lag, horizon, forecast lag |

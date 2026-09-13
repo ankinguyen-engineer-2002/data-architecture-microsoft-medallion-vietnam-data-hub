@@ -1,12 +1,14 @@
 # DE Onboarding - Vận Hành Repo Và Fabric Runtime
 
-Tài liệu này dành cho DE / Platform Operator, tức người giữ repo khớp với live Fabric và biến business logic thành luồng vận hành được.
+Tài liệu này dành cho DE / Platform Operator: Azure đăng ký identity/resource,
+Azure Databricks nấu slice hai mart, Fabric phục vụ Gold. Repo phải khớp live
+Fabric; Spark jobs trong git là reconstructed (ADR-013).
 
 DE là cầu nối giữa hai nguồn sự thật:
 
 ```text
-Repo = nơi giải thích, lưu logic, manifest, DQ, SQLPROJ, runbook.
-Fabric live = nơi object thật đang chạy và dữ liệu thật đang được load.
+Repo = nơi giải thích, lưu logic, Spark slice, manifest, DQ, SQLPROJ, runbook.
+Azure / Databricks / Fabric live = nơi object thật đang chạy.
 ```
 
 ![Chu kỳ vận hành DE](de_operating_cycle.svg)
@@ -23,6 +25,7 @@ Mermaid source: [de_operating_cycle.mmd](de_operating_cycle.mmd)
 | Runtime contract | Bảo đảm `_Wrk.v_<TableName>` map đúng vào final table và wrapper procedure. |
 | SQLPROJ package | Build và validate `.sqlproj` / `.dacpac` trước khi handoff deployment. |
 | Orchestration handoff | Giữ manifest và wrapper order rõ ràng cho SQL Agent hoặc approved trigger. |
+| Upstream slice | Khi thêm Bronze shortcut, cập nhật `03_operations/databricks/registry/sources.yaml` và job Spark (ADR-013). |
 | DQ/catalog | Regenerate operating package và quản lý exception. |
 | Smoke checks | Kiểm tra compile, loader log, DQ evidence, semantic/report compatibility. |
 | Documentation | Giữ README, onboarding, architecture, runbook và context nhất quán. |
@@ -45,12 +48,15 @@ AuditLog và TableDictionary chứng minh runtime đã làm gì.
 Đọc theo thứ tự:
 
 ```text
+03_operations/CLAIMS.md
+03_operations/azure/README.md
+03_operations/databricks/README.md
+03_operations/orchestration/main/README.md
+02_marts/forecast_accuracy/README.md
+README.md
 AGENTS.md
 CONTEXT.md
-README.md
-01_docs/glossary.md
 01_docs/architecture/current/final_enterprise_etl_runtime_architecture.md
-03_operations/orchestration/main/manifest.yaml
 ```
 
 Không lấy file archive làm current truth nếu tài liệu hiện tại không link rõ.

@@ -1,0 +1,17 @@
+flowchart LR
+  A[Azure and enterprise sources] --> B[Databricks ingestion and curation]
+  B --> C[Fabric source and Bronze contracts]
+  C --> D[Processing Warehouse\nSilver and conformed data]
+  D --> E[Gold Warehouse\nSCM data products]
+  E --> F[DataOps\nETL DQ lineage audit]
+  E --> G[Semantic models and reports\nDA enablement]
+  G --> H[Copilot and governed agents]
+  H --> I[AIOS Workbench MVP]
+  F --> G
+  F --> H
+  classDef foundation fill:#e8f1fb,stroke:#2b6cb0,color:#102a43
+  classDef product fill:#e8f7ef,stroke:#2f855a,color:#163b2a
+  classDef ai fill:#fff4e5,stroke:#c05621,color:#5f370e
+  class A,B,C,D,F foundation
+  class E,G product
+  class H,I ai

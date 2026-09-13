@@ -1,0 +1,29 @@
+{
+  "name": "sc_inventory_onhand",
+  "description": "[Reconstructed] ItemBalance + ATPWeekEnding. Book inventory; do not apply ATP-now. Gold dropped forward ATP 2026-06-01.",
+  "schedule": { "quartz_cron_expression": "0 20 2 * * ?", "timezone_id": "UTC", "pause_status": "UNPAUSED" },
+  "max_concurrent_runs": 1,
+  "timeout_seconds": 7200,
+  "tasks": [
+    {
+      "task_key": "load_onhand",
+      "spark_python_task": {
+        "python_file": "notebooks/sc_inventory_onhand.py",
+        "parameters": ["--catalog", "edw_dev", "--date_range_days", "30"]
+      },
+      "job_cluster_key": "sc_jobs"
+    }
+  ],
+  "job_clusters": [
+    {
+      "job_cluster_key": "sc_jobs",
+      "new_cluster": {
+        "spark_version": "15.4.x-scala2.12",
+        "node_type_id": "Standard_D8ds_v5",
+        "autoscale": { "min_workers": 2, "max_workers": 10 },
+        "data_security_mode": "USER_ISOLATION",
+        "autotermination_minutes": 10
+      }
+    }
+  ]
+}

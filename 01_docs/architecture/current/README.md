@@ -1,5 +1,14 @@
 # Kiến Trúc Hiện Tại
 
+This is the current technical layer behind the sanitized portfolio narrative:
+[`../../../00_portfolio/03_platform_map.md`](../../../00_portfolio/03_platform_map.md).
+
+Upstream boundary: [`../three_platform_operating_model.md`](../three_platform_operating_model.md).
+Cadence split (Spark jobs vs AWS stream vs edge):
+[`../four_cadence_operating_model.md`](../four_cadence_operating_model.md).
+Fabric SQL lives here. Azure/Databricks daily ops live in
+`03_operations/azure/` and `03_operations/databricks/` (reconstructed slice).
+
 Folder này mô tả kiến trúc hiện tại sau Phase 1 Enterprise ETL Framework migration.
 
 Mục tiêu của folder này là giúp người đọc hiểu:

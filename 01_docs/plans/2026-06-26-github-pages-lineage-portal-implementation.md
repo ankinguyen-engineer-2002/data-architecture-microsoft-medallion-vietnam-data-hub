@@ -62,7 +62,7 @@ Steps:
 ## Task 4: Verification And Context
 
 **Files:**
-- Update `00_CONTEXT/current.md`
+- Update `CONTEXT.md`
 
 Steps:
 

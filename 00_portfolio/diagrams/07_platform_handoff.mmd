@@ -1,0 +1,25 @@
+flowchart LR
+  subgraph AZ[Azure · foundation + operations]
+    A1[Identity / access]
+    A2[Landing / ADLS / ADF]
+    A3[Monitoring]
+  end
+  subgraph DB[Databricks · Spark · jobs then EXIT]
+    D1[Batch + incremental CDC]
+    D2[Delta · grain / quality]
+  end
+  subgraph FB[Fabric SCM · this repo]
+    F1[Bronze shortcuts]
+    F2[Silver _Wrk]
+    F3[Gold marts + Agent]
+    F4[Semantic / reports]
+  end
+  A1 --> A2 --> D1 --> D2 --> F1 --> F2 --> F3 --> F4
+  A3 -.-> D1
+  A3 -.-> F3
+  classDef azure fill:#e8f1fb,stroke:#2563eb,color:#102a43
+  classDef db fill:#e9f7ef,stroke:#2f855a,color:#163b2a
+  classDef fab fill:#fff8e6,stroke:#b7791f,color:#5f370e
+  class A1,A2,A3 azure
+  class D1,D2,D3 db
+  class F1,F2,F3,F4 fab

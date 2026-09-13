@@ -1,0 +1,10 @@
+project_id: supplychain-platform
+display_name: Supply Chain Data Platform
+category: data-platform
+role: Data Engineer (SCM) / DataOps / platform engineering
+lifecycle_status: live-user
+primary_consumers: [data-analysts, planners, scm-operations, reports]
+technology: [Azure, Databricks, Microsoft Fabric, T-SQL, Power BI]
+runtime_authority: live-fabric-plus-enterprise-operating-contracts
+showcase_claim: built-and-operated-fabric-implementation-with-upstream-azure-databricks-handoff
+exact_evidence: CONTEXT.md-and-current-architecture

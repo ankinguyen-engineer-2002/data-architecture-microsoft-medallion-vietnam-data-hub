@@ -1,0 +1,10 @@
+project_id: aios-workspace
+display_name: AIOS Workbench
+category: ai-enabled-product-mvp
+role: product/runtime extension over governed data
+lifecycle_status: offline-verified-mvp-live-gates-open
+primary_consumers: development-team-and-high-level-testers
+technology: [FastAPI, Python, React, Vite, semantic compiler, JSON Schema, Playwright]
+runtime_authority: nested-local-repository
+showcase_claim: implemented-mvp-with-explicit-limits
+exact_evidence: 06_enterprise_control_tower/AIOS-Workspace/docs/review

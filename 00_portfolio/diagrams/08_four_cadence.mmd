@@ -1,0 +1,51 @@
+%%{init: {
+  "theme": "base",
+  "flowchart": { "curve": "linear", "nodeSpacing": 16, "rankSpacing": 26 },
+  "themeVariables": {
+    "fontFamily": "Inter, Segoe UI, Arial",
+    "fontSize": "13px",
+    "primaryTextColor": "#0b1220",
+    "lineColor": "#334155",
+    "background": "#ffffff"
+  }
+} }%%
+
+flowchart LR
+  classDef lake fill:#e8f1fb,stroke:#2563eb,color:#102a43
+  classDef fab fill:#f5f3ff,stroke:#6d28d9,color:#1e1b4b
+  classDef ops fill:#fff4e5,stroke:#c05621,color:#5f370e
+  classDef edge fill:#fce7f3,stroke:#be185d,color:#500724
+  classDef note fill:#ffffff,stroke:#94a3b8,color:#334155
+
+  subgraph P1["Plane 1 · this git · hours / incremental minutes"]
+    direction TB
+    AZ["Azure landing
+ADLS · ADF · SQL"]:::lake
+    SP["Databricks Spark
+A batch + B CDC/files
+jobs then EXIT"]:::lake
+    BR["Enterprise_Lakehouse
+Bronze shortcuts"]:::fab
+    SV["Processing Silver _Wrk"]:::fab
+    GD["Gold Forecast + Inventory
+SQL Agent wrappers"]:::fab
+    AZ --> SP --> BR --> SV --> GD
+  end
+
+  subgraph P2["Plane 2 · adjacent · seconds / sub-second · not this git"]
+    direction TB
+    MSK["C · AWS MSK + Flink
+yard · inbound · ATP+cube
+owner-confirmed pattern"]:::ops
+    ED["D · plant / CDC edge
+WCS · PLC · not a VPS"]:::edge
+    MSK --> ED
+  end
+
+  KEY["Shared keys only
+SKU · warehouse · transfer · cube
+PO / container · weekly ATP
+not a live Gold→Flink job"]:::note
+
+  GD -.-> KEY
+  KEY -.-> MSK

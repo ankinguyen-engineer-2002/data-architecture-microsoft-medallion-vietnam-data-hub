@@ -1,5 +1,9 @@
 # Docs
 
+Portfolio narrative: [`../00_portfolio/`](../00_portfolio/). This folder is the
+technical architecture, decision, onboarding, and runbook source of truth behind
+that narrative.
+
 Folder này là thư viện kiến thức chính của repo.
 
 Nếu root `README.md` là bản đồ tổng quan, thì `01_docs/` là nơi giải thích sâu hơn: kiến trúc, onboarding, tài liệu Enterprise ETL, quyết định kiến trúc, runbook và kế hoạch migration.
@@ -8,7 +12,9 @@ Nếu root `README.md` là bản đồ tổng quan, thì `01_docs/` là nơi gi�
 
 | Bạn cần gì? | Đọc ở đâu? |
 |---|---|
-| Mới vào repo, chưa hiểu bức tranh | [../README.md](../README.md) |
+| Mới vào repo, chưa hiểu bức tranh | [../03_operations/CLAIMS.md](../03_operations/CLAIMS.md) rồi [../README.md](../README.md) |
+| Azure / Databricks slice | [../03_operations/azure/](../03_operations/azure/) · [../03_operations/databricks/](../03_operations/databricks/) |
+| Databricks CI/CD + Dev→Prod | [../03_operations/databricks/cicd_and_promotion.md](../03_operations/databricks/cicd_and_promotion.md) |
 | Không hiểu thuật ngữ | [glossary.md](glossary.md) |
 | DA cần add/sửa mart | [onboarding/da_onboarding.md](onboarding/da_onboarding.md) |
 | DE cần vận hành repo/live Fabric | [onboarding/de_onboarding.md](onboarding/de_onboarding.md) |
@@ -42,5 +48,8 @@ Operations manifest và SQLPROJ nằm ở 03_operations.
 
 - [ADR-009: Enterprise `_Wrk` View Contract For Curated Warehouses](decisions/ADR-009-enterprise-wrk-view-contract.md)
 - [ADR-010: Enterprise ETL Wrapper Runtime Handoff For Phase 1](decisions/ADR-010-enterprise-etl-wrapper-runtime-handoff.md)
+- [ADR-011: DQ System Runtime And Gate Contract](decisions/ADR-011-dq-system-runtime-and-gate-contract.md)
+- [ADR-012: Processing Cadence And Stream Platform](decisions/ADR-012-processing-cadence-and-stream-platform.md)
+- [ADR-013: Upstream Azure / Databricks operating slice](decisions/ADR-013-upstream-operating-slice.md)
 - [SQLPROJ And CI/CD Research](runbook/guides/sqlproj_cicd_research.md)
 - [SQLPROJ CI/CD Operating Guide For DA/DE](runbook/guides/sqlproj_cicd_operating_guide_for_da.md)

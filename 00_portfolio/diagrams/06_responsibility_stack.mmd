@@ -1,0 +1,32 @@
+flowchart TB
+  T[Aric's operating thread: translate SCM decisions into governed, usable data products]
+  T --> P1
+  subgraph P1[Phase 1 · Foundation and migration]
+    P1a[Problem: fragmented SCM data] --> P1b[Owned: Azure platform boundaries, source mapping, Databricks compute/curation, Fabric migration decisions]
+    P1b --> P1c[Proof: architecture docs, migration plan, runtime contracts]
+  end
+  P1 --> P2
+  subgraph P2[Phase 2 · Data platform and DataOps]
+    P2a[Problem: repeatable, observable loads] --> P2b[Owned: ETL wrappers, SQL projects, manifests, DQ gates, audit and lineage]
+    P2b --> P2c[Proof: build checks, run evidence, TableDictionary/AuditLog contracts]
+  end
+  P2 --> P3
+  subgraph P3[Phase 3 · SCM data products]
+    P3a[Problem: forecast and inventory decisions] --> P3b[Owned: grain, joins, conformed Silver, Gold marts and publish semantics]
+    P3b --> P3c[Consumers: planners, operations, DAs]
+  end
+  P3 --> P4
+  subgraph P4[Phase 4 · Analytics enablement]
+    P4a[Problem: DAs need trusted self-service] --> P4b[Owned: semantic model contracts, measures, RLS/access hand-offs, report-ready surfaces]
+    P4b --> P4c[Consumers: analytics teams and SCM leadership]
+  end
+  P4 --> P5
+  subgraph P5[Phase 5 · Copilot and automation]
+    P5a[Problem: ask and act on governed metrics] --> P5b[Owned: semantic context, deterministic query paths, evidence envelopes, Agent Flows and approval gates]
+    P5b --> P5c[Status: bounded product in use; some features draft/reference]
+  end
+  P5 --> P6
+  subgraph P6[Phase 6 · AIOS MVP]
+    P6a[Problem: reusable AI-enabled workbench] --> P6b[Owned: product requirements, architecture, safety boundaries, evaluation and review]
+    P6b --> P6c[Status: dev-team MVP / high-level testing, not core production DE platform]
+  end

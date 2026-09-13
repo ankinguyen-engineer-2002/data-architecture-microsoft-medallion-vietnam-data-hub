@@ -1,0 +1,29 @@
+# Azure landing for the Forecast + Inventory slice.
+# Account / factory names: [Verified] enterprise scan.
+# Folder tree and Entra group names: [Reconstructed] convention. Not an ARM export.
+
+storage:
+  account: ashleydevlake          # [Verified]
+  filesystem_raw: raw             # [Reconstructed]
+  filesystem_curated: curated     # [Reconstructed] Delta lives in UC, not a second copy for serving
+  # Two landing layouts [Reconstructed]. Spark jobs must match the load method.
+  current_state: abfss://<storage-account>.dfs.core.windows.net/supplychain/{domain}/{table}/current
+  dated: abfss://<storage-account>.dfs.core.windows.net/supplychain/{domain}/{table}/dt=yyyy-mm-dd/
+  journal: abfss://<storage-account>.dfs.core.windows.net/supplychain/manufacturing_inventory_afi/tfr_journal/dt=yyyy-mm-dd/
+  prefix: supplychain/{domain}/{table}/dt=yyyy-mm-dd/
+
+adf:
+  factory: ashleyv2datafactory    # [Verified]
+  resource_group: IoT_Hub         # [Verified]
+  in_slice: false                 # UKG / Maximo / ServiceNow — marts do not read them
+
+sql_landing:
+  pattern: Source_Data schemas    # [Verified pattern]; not copied into this git
+
+identity:
+  engineers_group: data-sc-engineers   # [Reconstructed name]
+  analysts_group: data-sc-analysts     # [Reconstructed]; Gold only, no raw/
+  directory_roles: see control_plane.yaml and identity.md
+
+secrets: KeyVault                  # [Pattern]; no secrets in git
+network: private_endpoints_to_lake_and_sql

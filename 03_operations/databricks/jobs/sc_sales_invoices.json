@@ -1,0 +1,29 @@
+{
+  "name": "sc_sales_invoices",
+  "description": "[Reconstructed] InvoiceHeader/Detail. ADR-011 forbids full-history Bronze scans (Header ~63.2M, Detail ~296.7M).",
+  "schedule": { "quartz_cron_expression": "0 40 1 * * ?", "timezone_id": "UTC", "pause_status": "UNPAUSED" },
+  "max_concurrent_runs": 1,
+  "timeout_seconds": 7200,
+  "tasks": [
+    {
+      "task_key": "load_invoices",
+      "spark_python_task": {
+        "python_file": "notebooks/sc_sales_invoices.py",
+        "parameters": ["--months", "3", "--catalog", "edw_dev"]
+      },
+      "job_cluster_key": "sc_jobs"
+    }
+  ],
+  "job_clusters": [
+    {
+      "job_cluster_key": "sc_jobs",
+      "new_cluster": {
+        "spark_version": "15.4.x-scala2.12",
+        "node_type_id": "Standard_D8ds_v5",
+        "autoscale": { "min_workers": 2, "max_workers": 8 },
+        "data_security_mode": "USER_ISOLATION",
+        "autotermination_minutes": 10
+      }
+    }
+  ]
+}

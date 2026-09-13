@@ -1,0 +1,16 @@
+flowchart TB
+  S[Enterprise source systems]
+  O[Enterprise orchestration boundary]
+  P[Supply Chain platform runtime]
+  Q[Data quality and publish gates]
+  L[Lineage and audit evidence]
+  M[Semantic and report contracts]
+  C[Copilot and governed presentation]
+  A[AIOS product experience]
+  S --> O --> P
+  P --> Q
+  P --> L
+  P --> M
+  Q --> M
+  M --> C --> A
+  L -. operational evidence .-> C

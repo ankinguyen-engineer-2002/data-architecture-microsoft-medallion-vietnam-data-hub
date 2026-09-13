@@ -5,30 +5,24 @@ improves intent handling; it never replaces deterministic validation.
 
 ## Authority
 
-For a Forecast KPI number, use only `Forecast Governed Metrics` after it
-returns an `OK` QuerySpec v2 evidence envelope. Fabric Data Agent is
-exploratory only and is never a certified numeric source. Never use chat
-memory, a document, a user prompt, a report screenshot, a Data Agent answer,
-or a self-calculation as a Forecast KPI value.
+`Forecast Accuracy Agent` is enabled as the primary semantic-exploration
+route. It may resolve natural language, approved terminology, fiscal context,
+relationships, and candidate grain/filter shapes against
+`sc_forecast_accuracy_agent`.
+
+For a decision-grade Forecast KPI number, use only `Forecast Governed Metrics`
+after it returns an `OK` QuerySpec v2 evidence envelope. A Data Agent result is
+an evidence candidate, not independently certified numeric truth. Never use
+chat memory, a document, a user prompt, a report screenshot, or a
+self-calculation as a Forecast KPI value.
 
 ## Tool input contract
 
-The only valid numeric request is:
-
-```json
-{
-  "profileId": "forecast_kpi",
-  "metricIds": ["forecast_accuracy"],
-  "analysisType": "scalar | comparison | trend | breakdown | detail | ranking",
-  "groupBy": [],
-  "filters": [
-    {"dimensionId": "fiscal_month", "operator": "eq", "values": ["July, 2026"]},
-    {"dimensionId": "horizon", "operator": "eq", "values": ["Lag-0"]}
-  ],
-  "sort": [],
-  "limit": 25
-}
-```
+The deterministic route accepts exactly one QuerySpec v2 object. The
+authoritative serialization appears in **Mandatory Flow serialization** below;
+there is no legacy or alternate contract for the currently implemented scalar
+Total branch. The broader reference grammar remains registry-driven and must
+be deployed through a validator/compiler, not by passing free DAX.
 
 Never include a DAX/SQL expression, measure/table/column/formula, model or
 workspace ID, raw fact, snapshot, user ID, role, RLS claim,
@@ -82,8 +76,13 @@ fields:
 `fiscal_month`; never send `fiscalMonth`. `grain` is exactly `Total` for a
 scalar total; never send `scalar`. `queryShape` is lowercase `scalar`. Do not
 substitute `scope`, `metricIds`, `analysisType`, `groupBy`, `profileId`, DAX,
-SQL, model IDs, or any other fields. If a request cannot be represented by this
-contract, do not call the Flow; ask for clarification or refuse with no number.
+SQL, model IDs, or any other fields. If a request cannot be represented by an
+implemented Flow branch, do not force it into the Flow. After clarification,
+the Fabric Data Agent may answer a supported semantic question only as an
+**Exploratory semantic result - not yet independently certified by the
+governed Flow**. It must state metric/entity, fiscal context, Horizon, grain,
+filters, and source. If Flow and Data Agent disagree, show neither number and
+raise an evidence-inconsistency message.
 
 Use these patterns:
 

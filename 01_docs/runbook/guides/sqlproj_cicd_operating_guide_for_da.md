@@ -6,6 +6,11 @@
 
 Tài liệu này giải thích CI/CD theo ngôn ngữ dễ hiểu. Mục tiêu là để DA/DE/reviewer hiểu: SQL code đi từ repo lên Fabric như thế nào, và vì sao việc đó khác với refresh dữ liệu.
 
+Azure Databricks **không** đi đường này. Cùng tenant Azure, artifact khác
+(job JSON + notebook, không `.dacpac`). Version / Dev→Prod Spark:
+[`03_operations/databricks/cicd_and_promotion.md`](../../../03_operations/databricks/cicd_and_promotion.md).
+Không gộp một Azure Pipeline cho warehouse SQL và Spark jobs.
+
 ## Tóm Tắt 1 Phút
 
 Trong repo này có 2 luồng khác nhau:

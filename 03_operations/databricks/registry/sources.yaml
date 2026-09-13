@@ -1,0 +1,118 @@
+# Upstream source registry for the Forecast + Inventory slice.
+# [Verified] = named in this git (Bronze file, ADR, scan).
+# [Reconstructed] = job grouping / ADLS path / Spark posture inferred from that name.
+# Do not add hub tables that no mart SQL references.
+
+slice: forecast_accuracy_inventory_health
+catalog: edw_dev          # [Verified] Databricks UC mirrored to OneLake
+lake: ashleydevlake       # [Verified] ADLS Gen2 account name from enterprise scan
+adf: ashleyv2datafactory  # [Verified] mounted ADF; SaaS feeds are out of slice
+
+jobs:
+  - id: sc_master_dims
+    cadence: nightly_batch
+    spark: overwrite_current
+    why: Shared dimensions both marts join (item, date, vendor, warehouse, grouping).
+    sources:
+      - fabric: Enterprise_Lakehouse.MasterData_DW.DimDate
+      - fabric: Enterprise_Lakehouse.MasterData_DW.DimItemMaster
+      - fabric: Enterprise_Lakehouse.ItemMaster_AFI.ITBEXT
+      - fabric: Enterprise_Lakehouse.ItemMaster_AFI.ITMEXT
+      - fabric: Enterprise_Lakehouse.ItemMaster_AFI.AITMCLS
+      - fabric: Enterprise_Lakehouse.MasterData_ProductKnowledge.Item_ENV
+      - fabric: Enterprise_Lakehouse.Purchasing_AFI.VendorMaster
+      - fabric: Enterprise_Lakehouse.CustomerOrders_AFI.WarehouseMaster
+      - fabric: Enterprise_Lakehouse.Wholesale_Codis_AFI.AshleyWarehouseMaster
+      - fabric: Enterprise_Lakehouse.Customers.AccountMaster
+      - fabric: Enterprise_Lakehouse.Customers.ShippingLocations
+      - fabric: Enterprise_Lakehouse.Wholesale_ProductSourcing_AFI.CustomerGrouping
+      - fabric: Enterprise_Lakehouse.Wholesale_ProductSourcing.NonPkItems
+    notes:
+      - ITBEXT ~3.4M item-branch rows [Verified ADR-011]; full current-state scan allowed
+      - Cubes on item master is the volumetric key Inventory Health already uses
+
+  - id: sc_codis_orders
+    cadence: nightly_batch
+    spark: overwrite_current
+    why: Open orders + order type for Forecast actuals / open-order history.
+    sources:
+      - fabric: Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORD
+      - fabric: Enterprise_Lakehouse.Wholesale_Codis_AFI.EXTORIT
+      - fabric: Enterprise_Lakehouse.Wholesale_Codis_AFI.COMAST
+      - fabric: Enterprise_Lakehouse.Wholesale_Codis_AFI.AAORDTYP
+      - fabric: Enterprise_Lakehouse.Wholesale_Codis_AFI.codatan
+    notes:
+      - IBM i / CODIS file names [Verified Bronze filenames]
+      - Spark job is current-state overwrite from ADLS `current/` [Reconstructed]
+      - If DB2 journal is on, Fabric usp_IncrementalTableLoad SourcePlatform=DB2 is the CDC path — not this notebook [Verified proc]
+
+  - id: sc_sales_invoices
+    cadence: nightly_batch
+    spark: date_range_replacewhere
+    why: Actual demand. DQ forbids full-history Bronze scan.
+    sources:
+      - fabric: Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceHeader
+      - fabric: Enterprise_Lakehouse.SalesHistory_AFI_Enh.InvoiceDetail
+    notes:
+      - Live counts [Verified ADR-011]: Header ~63.2M, Detail ~296.7M
+      - Gate window: last three completed UTC months (~1.9M / ~5.7M in 2026-07 scan)
+      - Spark must replaceWhere InvoiceDate; filtered overwrite without it deletes older months
+
+  - id: sc_forecast_snapshot
+    cadence: nightly_batch
+    spark: date_range_30d
+    why: Planning snapshot; largest table on the slice.
+    sources:
+      - fabric: Enterprise_Lakehouse.SupplyChain_Enh.DemandForecastSnapshotDaily
+      - fabric: Enterprise_Lakehouse.SupplyChain_Enh.CurFcStSnapshotWeekly
+    notes:
+      - DemandForecastSnapshotDaily ~11.0B rows [Verified ADR-011]
+      - Staging DateRange 30 days, DateKey=dfcSnapshot [Verified runtime architecture]
+      - Spark must partition by snapshot date; never rewrite full history in one job
+
+  - id: sc_inventory_onhand
+    cadence: nightly_batch
+    spark: current_plus_date_range
+    why: Weekly book inventory + ATP week-ending (planning ATP, not ATP-now).
+    sources:
+      - fabric: Enterprise_Lakehouse.Inventory_Enh_History.ItemBalance
+      - fabric: Enterprise_Lakehouse.ItemMaster_AFI.ITEMBL
+      - fabric: Enterprise_Lakehouse.ItemMaster_AFI.ITMRVA
+      - fabric: Enterprise_Lakehouse.SupplyChain_Enh.DemandInventorySnapshotDaily
+      - fabric: Enterprise_Lakehouse.SupplyChain_Enh.ATPWeekEnding
+    notes:
+      - ItemBalance is book on-hand; negative qty is a known source fact, not a Spark bug
+      - Forward ATP was removed from Inventory Gold 2026-06-01 [Verified mart history]
+      - Silver v_AtpWeekEnding keeps Saturday Week2 / InsertedVersion=2 rules
+      - DemandInventorySnapshotDaily is daily history (Silver keys `dtea`); Spark replaceWhere 30 days, not full overwrite
+
+  - id: sc_supply_inbound
+    cadence: nightly_batch
+    spark: current_plus_date_range
+    why: PO, container, supply plan, manufacturing orders for inbound risk.
+    sources:
+      - fabric: Enterprise_Lakehouse.SupplyChain_Enh.PurchaseOrderSnapshot
+      - fabric: Enterprise_Lakehouse.SupplyChain_Enh.DemandFulfillmentCommonContainer_Logility
+      - fabric: Enterprise_Lakehouse.SupplyChain_Enh.SupplyPlanDetailSnapshotDaily
+      - fabric: Enterprise_Lakehouse.Manufacturing_ProductionPlanning_AFI.MOMAST
+    notes:
+      - Inventory run_order: ManufacturingOrderSnapshotDaily = incremental [Verified catalog]
+      - Spark stand-in: 14-day replaceWhere on OrderDate; not a DB2 journal MERGE
+      - Logility container is fulfillment status, not GPS
+
+  - id: sc_transfers_cdc
+    cadence: nightly_plus_journal
+    spark: cdc_merge
+    why: Holding / in-house transfers; same keys as TFRHDR/TFRDTL Silver.
+    sources:
+      - fabric: Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRHDR
+      - fabric: Enterprise_Lakehouse.Manufacturing_Inventory_AFI.TFRDTL
+    notes:
+      - Inventory run_order: HoldingTransferSnapshotDaily = incremental [Verified]
+      - TransferCube column is in v_HoldingTransferSnapshotDaily [Verified]
+      - CDC: JOENTT UP/PX/PT, drop JO* columns [Verified usp_IncrementalTableLoad]
+
+out_of_slice:
+  - UKG / Maximo / ServiceNow ADF pipelines (factory exists; marts do not read them)
+  - Retail POS / ecom schemas in Source_Data
+  - AWS MSK / Flink / plant edge (ADR-012 adjacent pattern)

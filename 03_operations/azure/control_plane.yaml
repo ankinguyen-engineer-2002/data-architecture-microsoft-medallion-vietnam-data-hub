@@ -1,0 +1,73 @@
+# Azure is the registration plane for this estate.
+# [Verified] = named in this git or a dated live check.
+# [Owner-confirmed] = operating claim; directory role still needs Entra export.
+# [Reconstructed] = how a senior DE would hang the slice on that plane.
+
+entra:
+  tenant_name: enterprise-tenant
+  tenant_id: redacted   # [Verified] 2026-06-21; exact value withheld from public repo
+  upn: owner-redacted   # [Verified] 2026-06-21; exact value withheld from public repo
+
+subscription:
+  name: DATAWAREHOUSE PROD                          # [Verified] 2026-06-21
+  id: unspecified                                   # not in git
+
+resource_groups:
+  IoT_Hub:
+    contains: [ashleyv2datafactory]                 # [Verified]
+    in_mart_slice: false
+  data_platform:                                    # [Reconstructed name]
+    contains:
+      - ashleydevlake                               # [Verified account]
+      - azure_databricks_workspace                  # [Reconstructed ARM resource]
+      - key_vault
+      - log_analytics
+
+storage:
+  ashleydevlake:                                    # [Verified]
+    kind: StorageV2 / ADLS Gen2
+    used_by: Databricks Spark jobs + Fabric shortcuts
+    layouts:                                        # [Reconstructed] see landing.yaml
+      current_state: supplychain/{domain}/{table}/current
+      dated: supplychain/{domain}/{table}/dt=yyyy-mm-dd/
+
+data_factory:
+  ashleyv2datafactory:                              # [Verified]
+    resource_group: IoT_Hub
+    feeds: [UKG, AFI, Maximo, ServiceNow, GoogleAnalytics]
+    blocks_forecast_inventory: false
+
+sql:
+  # Fabric warehouses are NOT this. This is the Azure SQL / EDW landing + Agent host.
+  landing_pattern: Source_Data / EDW copy           # [Verified pattern]
+  source_data_scan:                                 # hub DEV scan
+    schemas: 64
+    tables: 636
+  agent: SQL Server Agent                           # [Verified] mart handoff
+  sku: unspecified                                  # Azure SQL / MI / SQL on VM — [Need-verify]
+
+databricks:
+  product: Azure Databricks                         # ADLS + Fabric UC mirror ⇒ Azure, not AWS
+  catalog: edw_dev                                  # [Verified] mirrored to OneLake
+  workspace_name: unspecified                       # [Need-verify]
+  arm_type: Microsoft.Databricks/workspaces         # [Reconstructed]
+
+fabric:
+  tenant_bound_to_entra: true
+  workspaces_verified:
+    - { name: EnterpriseData-Dev, id: 5360a935-1984-4775-895f-f4c90bafa19d }
+    - { name: EnterpriseData, note: hub PROD }
+    - { name: Enterprise SupplyChain-Dev, id: c8d9fc83-18b6-4e1d-8264-0b49eed36fe0 }
+    - { name: Enterprise SupplyChain }
+    - { name: Supply Chain Analytics-Premium }
+    - { name: Enterprise_Retail_Dev }
+  scm_dev_rbac_snapshot_2026_08_12:
+    NAric: Contributor                              # [Verified] AGENTS.md — not Workspace Admin on that date
+
+roles:
+  # Separate admin planes. Do not collapse into “I am admin of everything.”
+  entra_global_administrator: owner-confirmed-pim   # [Owner-confirmed]; daily use is elevate-then-revert
+  fabric_administrator: owner-confirmed-pim         # tenant switches, capacity, mirroring
+  fabric_workspace: see scm_dev_rbac_snapshot
+  databricks_workspace_admin: reconstructed-slice
+  sql_agent_operator: reconstructed-slice

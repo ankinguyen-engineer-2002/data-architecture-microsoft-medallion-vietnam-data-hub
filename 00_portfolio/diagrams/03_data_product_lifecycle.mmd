@@ -1,0 +1,11 @@
+flowchart LR
+  R[Business requirement] --> C[Source and data contract]
+  C --> S[Silver conformance\nand grain checks]
+  S --> G[Gold data product]
+  G --> Q[DQ and freshness gate]
+  Q --> M[Semantic model\nand measures]
+  M --> D[DA reports and analysis]
+  D --> A[Copilot context\ntools and flows]
+  A --> U[SCM user workflow]
+  Q -. fail closed .-> X[Investigate / repair / rerun]
+  X --> S

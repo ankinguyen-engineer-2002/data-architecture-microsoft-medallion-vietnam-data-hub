@@ -1,0 +1,48 @@
+flowchart LR
+  subgraph P1[PLANE 1 · lakehouse data product · this repository]
+    direction TB
+    A[Enterprise sources]
+    B[Azure landing / access / ops]
+    C[Databricks Spark\nbatch + incremental CDC\njobs then EXIT]
+    D[Fabric source / Bronze]
+    E[Processing Warehouse / Silver\n_Wrk views + conformance]
+    F[Gold marts\nForecast + Inventory]
+    A --> B --> C --> D --> E --> F
+  end
+  subgraph OPS[DataOps controls across Plane 1]
+    G[SQL Agent / wrapper order]
+    H[TableDictionary + AuditLog]
+    I[DQ publish gates + lineage]
+    G -.-> D
+    G -.-> E
+    G -.-> F
+    H -. run evidence .-> G
+    I -. gate evidence .-> F
+  end
+  subgraph CONSUME[Analytics and governed AI]
+    J[Semantic model\nmetric authority + access]
+    K[DA reports / SCM analysis]
+    L[Copilot / Data Agent\nAgent Flows]
+    N[AIOS Workbench MVP]
+    F --> J --> K --> L
+    L -. later productization .-> N
+    I -. freshness / provenance .-> J
+  end
+  subgraph P2[PLANE 2 · adjacent operational control · not this repository]
+    M[AWS MSK + Flink\nseconds]
+    O[Plant / CDC edge\nsub-second WCS / PLC]
+    M --> O
+  end
+  F -. shared keys only\nno live Gold→Flink job .-> M
+  classDef upstream fill:#e8f1fb,stroke:#2563eb,color:#102a43
+  classDef platform fill:#e9f7ef,stroke:#2f855a,color:#163b2a
+  classDef control fill:#f3f0ff,stroke:#6b46c1,color:#322659
+  classDef consume fill:#fff8e6,stroke:#b7791f,color:#5f370e
+  classDef ai fill:#fff0f0,stroke:#c53030,color:#63171b
+  classDef stream fill:#fce7f3,stroke:#be185d,color:#500724
+  class A,B,C upstream
+  class D,E,F platform
+  class G,H,I control
+  class J,K consume
+  class L,N ai
+  class M,O stream

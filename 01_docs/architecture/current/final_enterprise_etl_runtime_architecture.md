@@ -23,15 +23,14 @@ Operationally controlled by:
     -> Enterprise ETL loader/wrapper stored procedures
 ```
 
-Final operational handoff:
+Final operational handoff (current):
 
-```text
-SQL Server Agent / external scheduler
-  -> SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Silver
-  -> SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_ForecastAccuracy_Gold
-  -> SupplyChain_Processing_Warehouse.dbo.Usp_Refresh_InventoryHealth_Silver
-  -> SupplyChain_Gold_Warehouse.dbo.Usp_Refresh_InventoryHealth_Gold
-```
+See `03_operations/orchestration/main/README.md` — **11 fail-fast SQL Agent
+steps** (shared ReferenceMaster + Staging, Forecast Silver W01–W03, Forecast
+Gold, DQ gate error `50003`, Inventory Silver W01–W03, Inventory Gold).
+
+Phase 1 closeout (2026-06-24) used four monolithic wrappers. That sequence is
+historical (`ADR-010`). Do not schedule both.
 
 ## Non-Negotiable Design Boundary
 
@@ -249,6 +248,6 @@ Final Phase 1 facts:
 - canonical object refs are clean
 - `Staging_Wrk_Wrk` deprecated path removed
 - `DemandForecastSnapshotDaily` latest snapshot grain duplicate groups = `0`
-- 2026-06-24 full wrapper run succeeded across all four wrapper procedures
+- 2026-06-24 full wrapper run succeeded across all four wrapper procedures (Phase 1 closeout; current Agent handoff is 11 steps)
 - 2026-06-24 final audit passed: `49/49` live/local modules matched, `92/92` compile checks passed, `56` start/complete audit pairs, `0` queryinsights non-success entries
 - 04_semantic/report layer was smoke-checked read-only; report/model definitions were not mutated in the final runtime validation

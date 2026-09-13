@@ -1,0 +1,46 @@
+# Night clock for the two-mart slice. [Reconstructed] cron; not a workspace export.
+# Fabric Agent 11 steps start after this wave. Do not dual-schedule.
+
+timezone: UTC
+catalog: edw_dev          # [Verified] name; jobs pin --catalog
+agent_starts_after: sc_transfers_cdc
+do_not_start_agent_if_failed:
+  - sc_forecast_snapshot
+  - sc_sales_invoices
+
+jobs:
+  - id: sc_master_dims
+    quartz: "0 10 1 * * ?"
+    landing: current
+    write: overwrite
+  - id: sc_codis_orders
+    quartz: "0 25 1 * * ?"
+    landing: current
+    write: overwrite
+  - id: sc_sales_invoices
+    quartz: "0 40 1 * * ?"
+    landing: dated
+    write: replaceWhere
+    date_key: InvoiceDate
+    window: three_completed_utc_months
+  - id: sc_forecast_snapshot
+    quartz: "0 0 2 * * ?"
+    landing: dated
+    write: replaceWhere
+    date_key: dfcSnapshot
+    window: 30_days
+  - id: sc_inventory_onhand
+    quartz: "0 20 2 * * ?"
+    landing: current_and_dated
+    write: overwrite_plus_replaceWhere
+    date_key: dtea
+  - id: sc_supply_inbound
+    quartz: "0 35 2 * * ?"
+    landing: current_and_dated
+    write: overwrite_plus_replaceWhere
+    date_key: OrderDate
+  - id: sc_transfers_cdc
+    quartz: "0 50 2 * * ?"
+    landing: journal_yesterday
+    write: merge
+    joentt: [UP, PX, PT]

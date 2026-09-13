@@ -34,7 +34,7 @@ See: `overall_architecture_ashley_legend.md`
 ## 0) TL;DR (1 phút)
 
 - **L0 Orchestrator (Enterprise)**: SQL Server Agent Jobs (theo Enterprise ETL) là “super orchestrator” bọc end-to-end: schedule, retries, alerting, job history, cross-system gating. [Likely]
-- **L1 Compute/Curate (Enterprise)**: Databricks xử lý ingestion + streaming + transform + curate (Delta). [Likely]
+- **L1 Compute/Curate (Enterprise)**: Databricks xử lý ingestion + **batch / micro-batch Spark** + transform + curate (Delta); cụm tắt sau job. True operational stream (dock/divert) không nằm lớp này — ADR-012. [Likely]
 - **L2 Fabric (EnterpriseData)**: workspace trung tâm publish “enterprise surfaces”; từ đó **tỏa ra domain workspaces** (SupplyChain, Finance, …) cho serving/BI. [Likely]
 - **VN Control Plane** không phải “thêm 1 orchestrator” cạnh tranh L0, mà là **domain runtime control** (waves/due gate/run logs/DQ/lineage hooks) có thể chạy *dưới* L0. [Likely]
 - “Cấm kỵ” là **dueling schedulers**: Fabric pipeline tự schedule/retry/alert song song với L0 cho cùng workload. [Likely]
@@ -79,14 +79,16 @@ See: `overall_architecture_ashley_legend.md`
 ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
 │ L1 — DATABRICKS LAYER (Core compute & curation)                                              │
 │                                                                                             │
-│  Ingestion (batch/stream) [Need-verify exact services]:                                      │
-│   - Event streaming: Event Hubs / IoT Hub / Kafka                                            │
+│  Ingestion (lakehouse cadence) [Need-verify exact Azure service SKUs]:                       │
 │   - Batch landing: ADLS Gen2                                                                  │
-│   - CDC/replication: (tooling varies)                                                        │
+│   - Incremental / CDC: DB2 journal via enterprise loader (see usp_IncrementalTableLoad)     │
+│   - Spark micro-batch: Auto Loader / Structured Streaming availableNow (job then EXIT)       │
+│   - True operational stream (dock/divert/ATP-now) is NOT this layer:                         │
+│     AWS MSK + Flink and plant/CDC edge — ADR-012 / four_cadence_operating_model.md           │
 │                                                                                             │
 │  Processing:                                                                                │
-│   - Streaming ETL (structured streaming)                                                     │
-│   - Batch ETL/ELT                                                                            │
+│   - Batch ETL/ELT on super-large SCM tables (Spark/Delta)                                    │
+│   - Micro-batch incremental (not 24/7 plant control)                                         │
 │   - Data quality checks (if implemented)                                                     │
 │   - Delta Lake tables (bronze/silver/gold style inside lakehouse)                            │
 │                                                                                             │
@@ -204,7 +206,8 @@ Các use case “OK”:
 
 Checklist cần hỏi Enterprise ETL/Saravan (để chuyển [Need-verify] → [Verified]):
 1) L0 orchestrator chính xác là gì ngoài SQL Agent? (ADF? Control-M? Airflow? custom?) [Need-verify]
-2) Ingestion streaming cụ thể: IoT Hub/Event Hubs/Kafka? [Need-verify]
+2) Lakehouse incremental: which Databricks jobs use `availableNow` vs DateRange SQL? [Need-verify]
+2b) Operational stream bus: AWS MSK cluster / Flink runtime / edge WCS host? [Need-verify — ADR-012]
 3) Databricks: Workflows/Jobs đang được trigger bằng gì? [Need-verify]
 4) Fabric EnterpriseData: publish mechanism là shortcuts? lakehouse? warehouse? [Need-verify]
 5) Domain workspaces: ai “owns serving” (04_semantic/report) và SLO refresh? [Need-verify]

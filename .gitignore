@@ -12,6 +12,9 @@ venv/
 
 # === Node / VS Code extensions ===
 node_modules/
+**/node_modules/
+06_enterprise_control_tower/**/node_modules/
+05_tools/06_lineage_portal/**/node_modules/
 *.vsix
 
 # === Editor / IDE ===
@@ -29,6 +32,9 @@ node_modules/
 # === Claude Code ===
 .claude/
 .claude.md
+
+# Nested product / confidential local (do not add; also in .git/info/exclude)
+06_enterprise_control_tower/
 
 # === Private / Personal ===
 _private/
@@ -101,6 +107,7 @@ Enterprise_SupplyChain_Dev_architect/.work-folder-info
 # Local scratch / temp (never commit)
 tmp/
 .tmp/
+04_semantic/forecast_accuracy_agent/copilot_studio/rich_presentation/test-results/
 
 # Run artifacts / exports (keep scripts/docs, ignore outputs)
 01_docs/runbook/artifacts/

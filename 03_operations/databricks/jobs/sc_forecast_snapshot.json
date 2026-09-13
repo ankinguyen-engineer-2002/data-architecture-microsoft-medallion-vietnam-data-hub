@@ -1,0 +1,30 @@
+{
+  "name": "sc_forecast_snapshot",
+  "description": "[Reconstructed] Nightly DateRange load for SupplyChain_Enh.DemandForecastSnapshotDaily. Live table ~11B rows; job must use 30-day lookback (Fabric staging contract DateKey=dfcSnapshot).",
+  "schedule": { "quartz_cron_expression": "0 0 2 * * ?", "timezone_id": "UTC", "pause_status": "UNPAUSED" },
+  "max_concurrent_runs": 1,
+  "timeout_seconds": 14400,
+  "tasks": [
+    {
+      "task_key": "load_snapshot",
+      "spark_python_task": {
+        "python_file": "notebooks/sc_forecast_snapshot.py",
+        "parameters": ["--date_range_days", "30", "--catalog", "edw_dev"]
+      },
+      "job_cluster_key": "sc_jobs"
+    }
+  ],
+  "job_clusters": [
+    {
+      "job_cluster_key": "sc_jobs",
+      "new_cluster": {
+        "spark_version": "15.4.x-scala2.12",
+        "node_type_id": "Standard_D8ds_v5",
+        "autoscale": { "min_workers": 4, "max_workers": 16 },
+        "data_security_mode": "USER_ISOLATION",
+        "runtime_engine": "PHOTON",
+        "autotermination_minutes": 10
+      }
+    }
+  ]
+}

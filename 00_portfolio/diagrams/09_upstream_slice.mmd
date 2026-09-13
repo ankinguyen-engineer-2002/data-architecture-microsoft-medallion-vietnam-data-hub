@@ -1,0 +1,24 @@
+flowchart TB
+  classDef az fill:#e8f1fb,stroke:#2563eb,color:#102a43
+  classDef db fill:#e9f7ef,stroke:#2f855a,color:#163b2a
+  classDef fab fill:#f5f3ff,stroke:#6d28d9,color:#1e1b4b
+
+  RAW["ADLS ashleydevlake
+date partitions"]:::az
+  J1["sc_master_dims"]:::db
+  J2["sc_codis_orders"]:::db
+  J3["sc_sales_invoices"]:::db
+  J4["sc_forecast_snapshot
+30-day replaceWhere"]:::db
+  J5["sc_inventory_onhand"]:::db
+  J6["sc_supply_inbound"]:::db
+  J7["sc_transfers_cdc
+JO* drop"]:::db
+  UC["UC edw_dev"]:::db
+  LH["Enterprise_Lakehouse
+33 Bronze shortcuts"]:::fab
+  AG["SQL Agent 11 steps
+Forecast then Inventory"]:::fab
+
+  RAW --> J1 & J2 & J3 & J4 & J5 & J6 & J7
+  J1 & J2 & J3 & J4 & J5 & J6 & J7 --> UC --> LH --> AG

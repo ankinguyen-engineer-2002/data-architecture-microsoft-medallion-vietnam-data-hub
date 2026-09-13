@@ -1,0 +1,10 @@
+project_id: copilot-enablement
+display_name: Governed Copilot analytics
+category: applied-ai-on-data-platform
+role: semantic context, tools, flows, presentation and governance
+lifecycle_status: live-user-scope-specific
+primary_consumers: scm-operations-and-planning-users
+technology: [Power BI semantic models, Fabric Data Agent, Copilot Studio, Agent Flows, Adaptive Cards]
+runtime_authority: semantic-model-and-data-quality-contracts
+showcase_claim: governed-conversational-analytics
+exact_evidence: 04_semantic-and-06_enterprise_control_tower

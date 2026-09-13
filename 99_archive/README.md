@@ -9,11 +9,13 @@ Hãy xem archive như thư viện bằng chứng, không phải runbook hiện h
 Khi cần current truth, đọc:
 
 ```text
-00_CONTEXT/current.md
+03_operations/CLAIMS.md
+03_operations/azure/
+03_operations/databricks/
+03_operations/orchestration/main/
 01_docs/architecture/current/
-01_docs/Enterprise_Framework_Migration_Master_Plan.md
 02_marts/
-03_operations/orchestration/
+CONTEXT.md
 ```
 
 ## Archive Gồm Gì?

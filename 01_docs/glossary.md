@@ -16,6 +16,10 @@ Tài liệu này dành cho người đọc không muốn bị ngợp bởi thu�
 | DQ | Data Quality, tức kiểm tra chất lượng dữ liệu: null, duplicate, freshness, accepted values. |
 | Freshness | Độ mới của dữ liệu, thường kiểm tra bằng snapshot date, load timestamp hoặc business date đáng tin. |
 | Lineage | Dòng chảy dữ liệu: object nào lấy từ source nào và tạo ra object nào. |
+| Batch | Job Spark/SQL chạy theo cửa sổ (đêm/giờ), cụm tắt khi xong. Xương sống mart SCM. |
+| Micro-batch | Spark Structured Streaming / Auto Loader / CDC incremental: xử lý phần mới, **vẫn tắt** (`availableNow` hoặc job 5–15 phút). Không phải điều PLC. |
+| True stream | Kafka (AWS MSK) → Flink / edge WCS: SLA mili giây–vài giây, lệnh tới dock, diverter, CNC, khóa cube. Không chạy 24/7 trên Databricks. |
+| Edge | Máy IPC/WCS trên VLAN nhà máy hoặc CDC/RDC, sát băng chuyền/cổng. Không phải VPS public. |
 
 ## Thuật Ngữ Enterprise ETL Runtime
 

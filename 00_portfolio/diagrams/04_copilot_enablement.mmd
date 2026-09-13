@@ -1,0 +1,10 @@
+flowchart TB
+  U[User question] --> I[Intent and scope]
+  I --> K[Approved semantic metric/catalog]
+  K --> E[Governed DAX/SQL execution]
+  E --> V[Evidence envelope\nsource, as_of, quality]
+  V --> N[Explanation / chart / artifact]
+  N --> H[Human decision or next action]
+  K -. unknown metric .-> F[Clarify or refuse]
+  E -. DQ / permission / provider failure .-> F
+  H -. consequential change .-> P[Separate approval and action gate]

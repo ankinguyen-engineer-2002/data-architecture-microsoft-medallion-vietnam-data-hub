@@ -1,0 +1,10 @@
+project_id: inventory-health
+display_name: Inventory Health data product
+category: scm-data-product
+role: data-product and operational analytics enablement
+lifecycle_status: live-user
+primary_consumers: [data-analysts, planners, scm-operations]
+technology: [Fabric Warehouse, T-SQL, Enterprise ETL, Power BI, TMDL, DAX]
+runtime_authority: SupplyChain_Gold_Warehouse-and-sc_control_tower
+showcase_claim: governed-inventory-risk-product
+exact_evidence: 02_marts/inventory_health-and-04_semantic

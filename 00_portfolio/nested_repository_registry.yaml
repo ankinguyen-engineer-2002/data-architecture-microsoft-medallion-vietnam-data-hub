@@ -1,0 +1,35 @@
+schemaVersion: 1
+updatedAt: "2026-09-13"
+repositories:
+  - path: "."
+    role: active-operating-source
+    portfolioName: Supply Chain Data Platform and DataOps
+    ownerIdentity: user-confirmed
+    primaryStatus: live-user-platform
+  - path: "06_enterprise_control_tower/AIOS-Workspace"
+    role: active-product-mvp
+    portfolioName: AIOS Workbench
+    repositoryBoundary: nested-independent-git
+    primaryStatus: offline-verified-mvp-live-gates-open
+  - path: "06_enterprise_control_tower/ChainOS"
+    role: product-predecessor
+    portfolioName: ChainOS Supply Chain assistant
+    primaryStatus: historical-salvage-reference
+  - path: "06_enterprise_control_tower/Control tower - Eagle eye/Eagle eye - Discovery/Control Tower repo/control-tower-discover-main"
+    role: confidential-discovery-evidence
+    portfolioName: Control Tower discovery and report intelligence
+    primaryStatus: historical-reference
+  - path: "06_enterprise_control_tower/90_archive/AIOS-Workspace-Plan-legacy"
+    role: legacy-planning-repository
+    portfolioName: AIOS legacy plan
+    primaryStatus: archived
+  - path: "99_archive/external_refs/_external_refs/enterprisedata-dev-docs"
+    role: external-reference-snapshot
+    portfolioName: EnterpriseData reference documentation
+    primaryStatus: reference-only
+portfolioProjects:
+  - 00_portfolio/projects/supplychain_platform.yaml
+  - 00_portfolio/projects/forecast_accuracy.yaml
+  - 00_portfolio/projects/inventory_health.yaml
+  - 00_portfolio/projects/copilot_enablement.yaml
+  - 00_portfolio/projects/aios_workspace.yaml

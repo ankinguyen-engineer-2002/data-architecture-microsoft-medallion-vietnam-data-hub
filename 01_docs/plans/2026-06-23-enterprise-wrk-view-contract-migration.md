@@ -84,7 +84,7 @@ ETL_Framework:
 - Create: `01_docs/decisions/ADR-009-enterprise-wrk-view-contract.md`
 - Modify: `01_docs/Enterprise_Framework_Migration_Master_Plan.md`
 - Modify: `AGENTS.md`
-- Modify: `00_CONTEXT/current.md`
+- Modify: `CONTEXT.md`
 
 - [ ] **Step 1: Create ADR from verified live evidence**
 
@@ -153,7 +153,7 @@ Replace the current broad `_Wrk` bullet with:
 
 - [ ] **Step 4: Context checkpoint**
 
-Append to `00_CONTEXT/current.md`:
+Append to `CONTEXT.md`:
 
 ```markdown
 ## <timestamp ICT> — Enterprise `_Wrk` contract plan accepted for implementation
@@ -762,7 +762,7 @@ Expected:
 ### Task 9: Final Documentation And Handoff
 
 **Files:**
-- Modify: `00_CONTEXT/current.md`
+- Modify: `CONTEXT.md`
 - Modify: `README.md`
 - Modify: `01_docs/architecture/README.md`
 - Modify: `01_docs/Enterprise_Framework_Migration_Master_Plan.md`
@@ -796,7 +796,7 @@ Run:
 
 ```bash
 git status --short
-git add AGENTS.md README.md 00_CONTEXT/current.md 01_docs docs 02_marts 03_operations
+git add AGENTS.md README.md CONTEXT.md 01_docs docs 02_marts 03_operations
 git commit -m "docs: align repo with Enterprise wrk view contract"
 ```
 
@@ -816,7 +816,7 @@ Expected:
 - [ ] `_Wrk.v_<TableName>` exists for every framework-loaded Silver/Gold table.
 - [ ] Base-schema duplicate `v_*` views are either removed after approval or listed as temporary compatibility exceptions.
 - [ ] No semantic/report breakage after cleanup.
-- [ ] `00_CONTEXT/current.md` records the result and evidence paths.
+- [ ] `CONTEXT.md` records the result and evidence paths.
 
 ## Risk Register
 

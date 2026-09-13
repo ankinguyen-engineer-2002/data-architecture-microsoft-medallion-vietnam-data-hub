@@ -7,4 +7,4 @@ Helpers for one-off repo structure and context maintenance.
 | Script | Purpose |
 |---|---|
 | `restructure_mart_layer_sql.py` | Split old aggregate mart SQL into layer/object files. |
-| `split_context.py` | Split long context history into `00_CONTEXT/` chunks. |
+| `prune_context.py` | Retain only the latest seven calendar days in root `CONTEXT.md`; mandatory under `AGENTS.md`. |

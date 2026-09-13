@@ -1,0 +1,29 @@
+{
+  "name": "sc_transfers_cdc",
+  "description": "[Reconstructed] TFRHDR/TFRDTL. CDC coded for DB2 journals only (JOENTT UP/PX/PT, drop JO* columns) per usp_IncrementalTableLoad.",
+  "schedule": { "quartz_cron_expression": "0 50 2 * * ?", "timezone_id": "UTC", "pause_status": "UNPAUSED" },
+  "max_concurrent_runs": 1,
+  "timeout_seconds": 3600,
+  "tasks": [
+    {
+      "task_key": "merge_transfers",
+      "spark_python_task": {
+        "python_file": "notebooks/sc_transfers_cdc.py",
+        "parameters": ["--catalog", "edw_dev"]
+      },
+      "job_cluster_key": "sc_jobs"
+    }
+  ],
+  "job_clusters": [
+    {
+      "job_cluster_key": "sc_jobs",
+      "new_cluster": {
+        "spark_version": "15.4.x-scala2.12",
+        "node_type_id": "Standard_D4ds_v5",
+        "autoscale": { "min_workers": 2, "max_workers": 6 },
+        "data_security_mode": "USER_ISOLATION",
+        "autotermination_minutes": 10
+      }
+    }
+  ]
+}
