@@ -104,11 +104,14 @@ FABRIC_USE_AZ_CLI=1 PYTHONPATH=. python3 -m scanner.cli \
 
 The graph keeps live and repository target edges separate. Exact matches are `aligned`; differing source routes are `drift`; repository edges with no live counterpart are `repository_only`. Live runtime remains authoritative.
 
-Production deployment fails closed when the snapshot is older than six hours,
-the fallback baseline is stale or incomplete, the repository manifest no longer
-matches PR #694, or the semantic definition does not yield exactly 14 verified
-Gold bindings. Public snapshots retain SHA-256 hashes for module comparison and
-never publish raw SQL definitions.
+Manual `scan_mode=live` deployment fails closed when the snapshot is older than
+six hours, the fallback baseline is stale or incomplete, the repository manifest
+no longer matches PR #694, or the semantic definition does not yield exactly 14
+verified Gold bindings. Scheduled and push deployments deliberately build from
+the committed sanitized snapshot, so a missing live credential cannot break the
+public site; the UI exposes the snapshot timestamp and this mode must not be
+described as current live Fabric evidence. Public snapshots retain SHA-256
+hashes for module comparison and never publish raw SQL definitions.
 
 ## Safety
 
