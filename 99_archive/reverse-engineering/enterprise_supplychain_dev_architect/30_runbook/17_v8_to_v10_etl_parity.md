@@ -322,7 +322,7 @@ v10 separates DQ data into Processing WH `Meta` schema. Gold WH doesn't have a D
 - v8 dbo column inventory: `Enterprise_SupplyChain_Dev_architect/artifacts/v8_to_v10_parity/v8_dbo_columns.csv` (204 rows)
 - v10 view DDLs Processing: `Enterprise_SupplyChain_Dev_architect/artifacts/v8_to_v10_parity/v10_views/` (28 SQL)
 - v10 view DDLs Gold: `Enterprise_SupplyChain_Dev_architect/artifacts/v8_to_v10_parity/v10_gold_views/` (7 SQL)
-- TMDL captured: `~/.claude/projects/.../5569546a-5a1b-49ee-9168-3c92e82dd4e9/tool-results/bgfm13c6j.txt` (104KB, 18 parts)
+- TMDL captured in a local tool-results session (104KB, 18 parts)
 - ADR-004 maturity: `01_docs/decisions/ADR-004-architecture-maturity-assessment.md`
 
 ---

@@ -94,4 +94,4 @@ Each step has a paired reversal. Worst case: restore from `backup/pre_state_*.js
 - [ADR-005 v2](../../../docs/decisions/ADR-005-enterprise-promote-pathway.md) — Enterprise Promote Pathway
 - [ADR-008](../../../docs/decisions/ADR-008-enterprise_etl-alignment-naming-and-integration.md) — Enterprise ETL Alignment (this work)
 - [Open questions](../../projects/forecast/_open_questions_for_enterprise_etl.md) — 4 questions pending Enterprise ETL
-- Workspace topology: `~/.claude/projects/.../memory/project_workspace_topology.md`
+- Workspace topology captured in a local tool session.

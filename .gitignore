@@ -29,10 +29,6 @@ node_modules/
 /.opencode/
 /.vite/
 
-# === Claude Code ===
-.claude/
-.claude.md
-
 # Nested product / confidential local (do not add; also in .git/info/exclude)
 06_enterprise_control_tower/
 
@@ -58,7 +54,6 @@ Enterprise_SupplyChain_Dev_architect/artifacts/detail_clone_v9_forecast/*
 
 # === Reference repos (cloned, not project code) ===
 enterprise_reference/
-_claude_extensions_backup/
 _external_refs/
 
 # === Archived v9 (local-only, hidden from GitHub) ===
@@ -66,7 +61,6 @@ _external_refs/
 
 # === Archive ===
 01_docs/99_archive/
-.claude.md
 _local_99_archive/
 
 # === Build run artifacts (keep scripts, ignore outputs) ===

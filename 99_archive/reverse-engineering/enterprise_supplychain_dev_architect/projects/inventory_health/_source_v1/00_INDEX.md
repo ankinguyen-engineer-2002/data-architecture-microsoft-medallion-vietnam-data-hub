@@ -85,7 +85,7 @@ Deliverable_InventoryHealth_v1_2026-05-18/
 
 | Item | Status | Owner |
 |---|---|---|
-| 14 code fixes in Track A | ✅ Applied + grep-verified | Claude (Aric proxy) |
+| 14 code fixes in Track A | ✅ Applied + grep-verified | Aric (review owner) |
 | 18 bugs in QC report | 14 fixed in Track A; 4 LOW defer Phase 2 | Aric |
 | 3 business-rule questions for Robert | ⏳ Email pending | Aric → Robert |
 | 4 Bronze data sources missing | ⏳ DE backfill request sent | DE team |

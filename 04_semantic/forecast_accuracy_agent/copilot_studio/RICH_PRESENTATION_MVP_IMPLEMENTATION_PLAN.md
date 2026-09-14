@@ -19,7 +19,7 @@ Agent Flows, a source-controlled presentation contract, portable Adaptive Cards,
 and a custom authenticated web client.
 
 The custom web client is required if the target experience is genuinely close to
-Claude or ChatGPT. Teams and Microsoft 365 Copilot remain supported channels, but
+a consumer conversational AI shell. Teams and Microsoft 365 Copilot remain supported channels, but
 their surrounding shell and card capabilities are host-owned and cannot be made
 equivalent to a custom application.
 
@@ -231,7 +231,7 @@ Actual Demand where the existing contract permits it.
   system write.
 - Free-form flashcard generation from conversation history.
 - Reinforcement learning or autonomous modification of review policy.
-- Exact Claude or ChatGPT shell control inside Teams or Microsoft 365 Copilot.
+- Exact consumer-AI shell control inside Teams or Microsoft 365 Copilot.
 - `Chart.*` as a portable Adaptive Cards dependency.
 - Unlimited rows, unlimited history, exports of raw restricted facts, or hidden
   pagination that implies a complete result.

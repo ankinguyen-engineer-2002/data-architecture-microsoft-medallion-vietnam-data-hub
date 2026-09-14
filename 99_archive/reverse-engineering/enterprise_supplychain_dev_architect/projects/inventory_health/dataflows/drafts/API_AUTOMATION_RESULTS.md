@@ -141,16 +141,16 @@ Both dataflows:
 
 **Action required from Aric**:
 - Mở Fabric portal → mỗi dataflow → click Save (if prompt for credential, pick `ashley-edw.database.windows.net;ASHLEY_EDW` connection id `67192c57-...`)
-- Optional manual Refresh để verify EDW schema; nếu fail → adjust SQL in `add_or_update_query_in_dataflow` after Claude restart loads DataFactory.MCP
+- Optional manual Refresh để verify EDW schema; nếu fail → adjust SQL in `add_or_update_query_in_dataflow` after the local connector is reloaded
 
 ## DataFactory.MCP setup (added 2026-05-18)
 
-Microsoft official MCP server đã configured: `~/.claude.json` → `mcpServers.datafactory`. Will load on next Claude Code session. Provides:
+Microsoft official MCP server đã configured in the local user profile. Provides:
 - `create_dataflow` + `save_dataflow_definition` (full automation, no UI Save)
 - `refresh_dataflow_background` (working refresh API — alternative to scheduled-only workaround)
 - `create_connection` (with inline credentials)
 
-Setup command was: `claude mcp add datafactory -s user -- /opt/homebrew/Cellar/dotnet/10.0.102/libexec/dnx Microsoft.DataFactory.MCP --yes`
+Setup was performed locally and is intentionally not recorded as a contributor-specific command.
 
 Future dataflow operations should prefer DataFactory.MCP tools over raw REST (cleaner, refresh works).
 
